@@ -28,6 +28,7 @@
             .container {
                 text-align: center;
                 display: table-cell;
+                margin-top: 40px;
             }
 
             .content {
