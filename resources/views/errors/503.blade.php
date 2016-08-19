@@ -20,7 +20,6 @@
                 padding: 0;
                 width: 100%;
                 color: whitesmoke;
-                Text-Shadow: #000000 1px 0px 0px, #000000 1px 1px 0px, #000000 1px -1px 0px, #000000 -1px 1px 0px, #000000 -1px 0px 0px, #000000 -1px -1px 0px, #000000 0px 1px 0px, #000000 0px -1px 0px;
                 display: table;
                 font-weight: 100;
                 font-family: 'Lato';
