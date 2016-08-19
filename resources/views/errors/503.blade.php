@@ -46,7 +46,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Série-All is coming.</div>
+                <div class="title">Série-All-dev is coming.</div>
                 <div class="title">Bitches.</div>
             </div>
         </div>
