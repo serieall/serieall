@@ -16,7 +16,7 @@
             }
 
             body {
-                margin-top: 40px;
+                margin: 0;
                 padding: 0;
                 width: 100%;
                 color: whitesmoke;
@@ -28,6 +28,7 @@
             .container {
                 text-align: center;
                 display: table-cell;
+                padding-top: 40px;
             }
 
             .content {
