@@ -8,13 +8,18 @@
         <style>
             html, body {
                 height: 100%;
+                background: url(images/breaking_bad_maintenance.jpg) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
             }
 
             body {
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                color: #B0BEC5;
+                color: white;
                 display: table;
                 font-weight: 100;
                 font-family: 'Lato';
