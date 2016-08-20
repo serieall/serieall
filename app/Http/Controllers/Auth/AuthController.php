@@ -41,6 +41,12 @@ class AuthController extends Controller
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
+    /**
+     * Get the login username to be used by the controller.
+     * Surcharge de la fonction de base de Laravel
+     *
+     * @return string
+     */
     public function loginUsername()
     {
         return property_exists($this, 'username') ? $this->username : 'username';
