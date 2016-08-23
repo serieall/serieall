@@ -105,7 +105,7 @@ class AuthController extends Controller
 
     public function authenticated(Request $request, $user)
     {
-        if ($user->desactive) {
+        if (! $user->activated) {
             $this->activationService->sendActivationMail($user);
             auth()->logout();
             return back()->with('warning', 'Vous devez valider votre adresse E-mail. Nous vous avons envoyé un code de validation.');
