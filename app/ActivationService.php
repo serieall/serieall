@@ -32,7 +32,7 @@ class ActivationService
 
         $link = route('user.activate', $token);
 
-        Mail::send('auth.emails.verify', function (Message $m) use ($user) {
+        $this->mailer->send('auth.emails.verify', function (Message $m) use ($user) {
             $m->to($user->email)->subject('Activation de votre compte');
         });
 
