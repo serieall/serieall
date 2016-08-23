@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App;
 
 
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
-use App\Repositories\ActivationRepository;
 
 class ActivationService
 {
@@ -32,10 +31,10 @@ class ActivationService
         $token = $this->activationRepo->createActivation($user);
 
         $link = route('user.activate', $token);
-        $message = sprintf('Activez votre compte : <a href="%s">%s</a>', $link, $link);
+        $message = sprintf('Activate account <a href="%s">%s</a>', $link, $link);
 
-        $this->mailer->send($message, function (Message $m) use ($user) {
-            $m->to($user->email)->subject('Confirmez votre adresse mail');
+        $this->mailer->raw($message, function (Message $m) use ($user) {
+            $m->to($user->email)->subject('Activation mail');
         });
 
 
