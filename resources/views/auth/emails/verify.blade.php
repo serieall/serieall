@@ -9,8 +9,10 @@
 <div>
     Merci de vous être inscrit sur Série-All.<br/>
     Merci de suivre le lien ci-dessous pour valider l'inscription :<br/>
-    {{ URL::to('login/activation/' . $confirmation_code) }}.<br/>
+    <a href="{{ $link = url('user/activation', $token).'?email='.urlencode($user->getActivation($user)) }}"> {{ $link }} </a><br/><br/>
 
+    A bientôt !
+    L'équipe Série-All
 </div>
 
 </body>
