@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->tinyInteger('role')->default(1);
-            $table->tinyInteger('suspendu')->default(0);
-            $table->tinyInteger('desactive')->default(0);
+            $table->boolean('suspendu')->default(false);
+            $table->boolean('desactive')->default(true);
             $table->text('edito');
             $table->tinyInteger('antispoiler');
             $table->string('website', 100);

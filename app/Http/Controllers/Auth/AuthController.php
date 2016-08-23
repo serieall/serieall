@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Services\ActivationService;
 
 
 class AuthController extends Controller
@@ -30,15 +31,17 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    protected $activationService;
 
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ActivationService $activationService)
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->activationService = $activationService;
     }
 
     /**
@@ -63,7 +66,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'username' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:8|confirmed',
         ]);
     }
 
@@ -80,5 +83,41 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $user = $this->create($request->all());
+
+        $this->activationService->sendActivationMail($user);
+
+        return redirect('/login')->with('status', 'Nous vous avons envoyé un e-mail de confirmation.');
+    }
+
+    public function authenticated(Request $request, $user)
+    {
+        if ($user->desactive) {
+            $this->activationService->sendActivationMail($user);
+            auth()->logout();
+            return back()->with('warning', 'Vous devez valider votre adresse E-mail. Nous vous avons envoyé un code de validation.');
+        }
+        return redirect()->intended($this->redirectPath());
+    }
+
+    public function activateUser($token)
+    {
+        if ($user = $this->activationService->activateUser($token)) {
+            auth()->login($user);
+            return redirect($this->redirectPath());
+        }
+        abort(404);
     }
 }
