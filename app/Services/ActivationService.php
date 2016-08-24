@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
+use App\Repositories\ActivationRepository;
 
 class ActivationService
 {
