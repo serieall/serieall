@@ -9,6 +9,7 @@ use App\Repositories\ActivationRepository;
 class ActivationService
 {
     protected $mailer;
+    protected $callback;
 
     protected $activationRepo;
 
@@ -20,14 +21,12 @@ class ActivationService
         $this->activationRepo = $activationRepo;
     }
 
-    public function sendActivationMail($user)
+    public function sendActivationMail($user, $callback)
     {
 
         if ($user->activated || !$this->shouldSend($user)) {
             return;
         }
-
-        $token = $this->activationRepo->createActivation($user);
 
         $this->mailer->send('auth.emails.verify', $callback, function (Message $m) use ($user) {
             $m->to($user->email)->subject('Activation de votre compte');
