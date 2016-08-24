@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 
 class ActivationService
 {
-
     protected $mailer;
 
     protected $activationRepo;
@@ -30,10 +29,7 @@ class ActivationService
 
         $token = $this->activationRepo->createActivation($user);
 
-        $link = route('user.activate', $token);
-        $message = sprintf('Veuillez activer votre compte en cliquant sur ce lien : %s', $link, $link);
-
-        $this->mailer->raw($message, function (Message $m) use ($user) {
+        $this->mailer->send('auth.emails.verify', $callback, function (Message $m) use ($user) {
             $m->to($user->email)->subject('Activation de votre compte');
         });
 
