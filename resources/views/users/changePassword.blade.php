@@ -71,9 +71,13 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-btn fa-key"></i> Enregistrer
-                        </button>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-btn fa-key"></i> S'inscrire
+                                </button>
+                            </div>
+                        </div>
                 </div>
                 <!-- Si je suis connecté mais que je ne suis pas l'utilisateur -->
                 @else
