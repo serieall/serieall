@@ -15,6 +15,6 @@ class UserRepository
     }
 
     public function getUserByUsername($username){
-        return $this->user->where('username' == $username)->firstOrFail();
+        return $this->user->where('username', $username)->firstOrFail();
     }
 }
