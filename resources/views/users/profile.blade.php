@@ -17,19 +17,6 @@
                         <div class="panel-body">
                             Pour changer de mot de passe, clique sur le bouton ci-dessous. Ton ancien mot de passe te sera demandé.
                             <form class="center form-horizontal" role="form" method="GET" action="{{ url('profil/' . Auth::user()->username . '/changepassword') }}">
-                                {{ csrf_field() }}
-
-                                @if (session('status'))
-                                    <div class="alert alert-success">
-                                        {{ session('status') }}
-                                    </div>
-                                @endif
-                                @if (session('warning'))
-                                    <div class="alert alert-warning">
-                                        {{ session('warning') }}
-                                    </div>
-                                @endif
-
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-key"></i> Changer mon mot de passe
                                 </button>
