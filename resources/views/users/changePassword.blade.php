@@ -78,7 +78,7 @@
                 <!-- Si je suis connecté mais que je ne suis pas l'utilisateur -->
                 @else
                 <div class="panel-body">
-                    Mais tu n'es pas {{ $user->username }} ! Mais au moins t'es connecté, c'est bien.
+                    Mais dis donc. Qu'est-ce que t'essaies de faire ?
                 </div>
                 @endif
 
