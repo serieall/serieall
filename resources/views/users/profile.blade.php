@@ -9,11 +9,15 @@
                 </div>
                 @if (Auth::guest())
                     <div class="panel-body">
-                        <p>Mais tu n'es pas {{ $user->username }} !</p>
+                        Mais tu n'es pas {{ $user->username }} !
                     </div>
                 @elseif(Auth::user()->id == $user->id)
                     <div class="panel-body">
-                        <p>C'est bien ton compte. T'es balèze.</p>
+                        C'est bien ton compte. T'es balèze.
+                    </div>
+                @else
+                    <div class="panel-body">
+                        Mais tu n'es pas {{ $user->username }} ! Mais au moins t'es connecté, c'est bien.
                     </div>
                 @endif
 
