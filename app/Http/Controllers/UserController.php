@@ -26,6 +26,7 @@ class UserController extends Controller
     public function getChangePassword($username){
         $user = $this->userRepository->getUserByUsername($username);
 
+        return view('users.changePassword', compact ('user'));
     }
 
     /**
