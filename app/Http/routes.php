@@ -21,4 +21,4 @@ Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name(
 Route::get('/home', 'HomeController@index');
 
 Route::resource('user', 'UserController');
-Route::get('user/{user}', 'UserController@getProfile');
+Route::get('profil/{user}', 'UserController@getProfile');
