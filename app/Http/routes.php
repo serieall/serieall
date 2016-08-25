@@ -22,4 +22,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('user', 'UserController');
 Route::get('profil/{user}', 'UserController@getProfile');
-Route::post('profil/{user}/changepassword', 'UserController@getChangePassword');
+
+Route::get('profil/{user}/changepassword', 'UserController@getChangePassword');
+Route::post('profil/{user}/changepassword', 'UserController@changePassword');
