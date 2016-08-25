@@ -15,6 +15,18 @@
                 <!-- Si je suis connecté et que je suis l'utilisateur en question -->
                 @elseif(Auth::user()->id == $user->id)
                 <div class="panel-body">
+                    {{ csrf_field() }}
+
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    @if (session('warning'))
+                        <div class="alert alert-warning">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('') }}">
                         <div class="form-group{{ $errors->has('password_old') ? ' has-error' : '' }}">
                             <label for="password_old" class="col-md-4 control-label">Ancien mot de passe</label>
