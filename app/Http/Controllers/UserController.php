@@ -23,6 +23,11 @@ class UserController extends Controller
         return view('users.profile', compact('user'));
     }
 
+    public function getChangePassword($username){
+        $user = $this->userRepository->getUserByUsername($username);
+
+    }
+
     /**
      * Display a listing of the resource.
      *

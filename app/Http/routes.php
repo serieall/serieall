@@ -22,4 +22,4 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('user', 'UserController');
 Route::get('profil/{user}', 'UserController@getProfile');
-Route::get('profil/{user}/changepassword', 'UserController@GetChangePassword');
+Route::get('profil/{user}/changepassword', ['IsAuthenticatedUser' => 'user:' . $user] ,'UserController@getChangePassword');
