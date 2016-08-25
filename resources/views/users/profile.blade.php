@@ -7,8 +7,14 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Profil de {{ $user->username }}</div>
                 </div>
-                @if(Auth::user()->id == $user->id)
-                    <p>prout</p>
+                @if (Auth::guest())
+                    <div class="panel-body">
+                        <p>Mais tu n'es pas {{ $user->username }} !</p>
+                    </div>
+                @elseif(Auth::user()->id == $user->id)
+                    <div class="panel-body">
+                        <p>C'est bien ton compte. T'es balèze.</p>
+                    </div>
                 @endif
 
             </div>
