@@ -16,9 +16,10 @@
                     @elseif(Auth::user()->id == $user->id)
                         <div class="panel-body">
                             Pour changer de mot de passe, clique sur le bouton ci-dessous. Ton ancien mot de passe te sera demandé.
-                            <a href="{{ url('/password/change') }}"></a><button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-sign-in"></i> Changer mon mot de passe
-                            </button></a>
+                            <form class="form-horizontal" role="form" method="POST" action="{{ url('profil/{user}/changepassword') }}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-btn fa-key"></i> Changer mon mot de passe
+                                </button>
                         </div>
                     <!-- Si je suis connecté mais que je ne suis pas l'utilisateur -->
                     @else
