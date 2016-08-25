@@ -14,7 +14,7 @@ class UserRepository
         $this->user = $user;
     }
 
-    public function getUserByID($id){
-        return $this->user->findOrFail($id);
+    public function getUserByUsername($username){
+        return $this->user->where('username' == $username)->firstOrFail();
     }
 }

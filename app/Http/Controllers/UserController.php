@@ -16,9 +16,9 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function getProfile($id){
+    public function getProfile($username){
 
-        $user = $this->userRepository->getUserByID($id);
+        $user = $this->userRepository->getUserByUsername($username);
 
         return view('users.profile', compact('user'));
     }
