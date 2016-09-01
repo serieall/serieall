@@ -31,16 +31,7 @@ class UserController extends Controller
         $password_old = $request->input('password_old');
         $password_new = $request->input('password');
         $password_confirmation = $request->input('password_confirmation');
-
-        $validator = $this->validator($request->all());
-
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-
-        echo $password_old;
+        
         /** Si l'ancien est bon */
 
     }
