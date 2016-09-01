@@ -28,12 +28,10 @@ class UserController extends Controller
     public function changePassword(Request $request){
         $password_user = Auth::User()->password;
         $password_old = $request->input('password_old');
+        echo $password_old;
         $password_new = $request->input('password');
         $password_confirmation = $request->input('password_confirmation');
 
-        if (Hash::check($password_old, $password_user)) {
-            return view('home');
-        }
         /** Si l'ancien est bon */
 
     }
