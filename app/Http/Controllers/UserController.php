@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Http\Requests;
 use App\Repositories\UserRepository;
 
@@ -28,10 +29,18 @@ class UserController extends Controller
     public function changePassword(Request $request){
         $password_user = Auth::User()->password;
         $password_old = $request->input('password_old');
-        echo $password_old;
         $password_new = $request->input('password');
         $password_confirmation = $request->input('password_confirmation');
 
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        echo $password_old;
         /** Si l'ancien est bon */
 
     }
