@@ -33,7 +33,7 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                <form id="formChangePwd" class="form-horizontal" role="form" method="POST" action="{{ url('/profil', Auth::user()->username) }}">
+                                                <form id="formChangePwd" class="form-horizontal" role="form" method="POST" action="{{ url('/profil/changepassword') }}">
                                                     {!! csrf_field() !!}
 
                                                     <div class="form-group">

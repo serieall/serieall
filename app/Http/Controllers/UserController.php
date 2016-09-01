@@ -13,6 +13,8 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
+        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('ajax', ['only' => 'changePassword']);
         $this->userRepository = $userRepository;
     }
 
@@ -23,10 +25,17 @@ class UserController extends Controller
         return view('users.profile', compact('user'));
     }
 
-    public function getChangePassword($username){
-        $user = $this->userRepository->getUserByUsername($username);
+    public function changePassword(Request $request){
+        $password_user = Auth::User()->password;
+        $password_old = $request->input('password_old');
+        $password_new = $request->input('password');
+        $password_confirmation = $request->input('password_confirmation');
 
-        return view('users.changePassword', compact ('user'));
+        if (Hash::check($password_old, $password_user)) {
+            return view('home');
+        }
+        /** Si l'ancien est bon */
+
     }
 
     /**
