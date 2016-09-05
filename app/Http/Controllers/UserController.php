@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Hash;
+use Request;
+use Validator;
+use App\Models\User;
 use App\Repositories\UserRepository;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Validator;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -29,22 +30,7 @@ class UserController extends Controller
     }
 
     public function changePassword(){
-        $user = Auth::user();
 
-        $validation = Validator::make(Request::all(), [
-            // Here's how our new validation rule is used.
-            'password' => 'hash:' . $user->password,
-            'new_password' => 'required|different:password|confirmed'
-        ]);
-
-        if ($validation->fails()) {
-            return redirect()->back()->withErrors($validation->errors());
-        }
-
-        $user->password = Hash::make(Request::input('new_password'));
-        $user->save();
-
-        return response()->json();
     }
 
     /**

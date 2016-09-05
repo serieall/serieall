@@ -20,56 +20,10 @@
                     <!-- Si je suis connecté et que je suis l'utilisateur en question -->
                     @elseif(Auth::user()->id == $user->id)
                         <div class="panel-body">
-                            Modifier votre mot de passe :<a class="btn btn-link" id="ChangePwd" href="#">Ici</a>
-                        </div>
+                            <a href="#demo" data-toggle="collapse">Modifier votre mot de passe</a>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Modification du mot de passe</h4>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <form id="formChangePwd" class="form-horizontal" role="form" method="POST" action="{{ url('/changepassword') }}">
-                                            {!! csrf_field() !!}
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label">Mot de passe actuel</label>
-                                                <div class="col-md-6">
-                                                    <input type="password" class="form-control" name="password">
-                                                    <small class="help-block"></small>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label">Ancien mot de passe</label>
-                                                <div class="col-md-6">
-                                                    <input type="password" class="form-control" name="new_password">
-                                                    <small class="help-block"></small>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label">Confirmer le nouveau mot de passe</label>
-                                                <div class="col-md-6">
-                                                    <input type="password" class="form-control" name="new_password_confirmation">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <div class="col-md-6 col-md-offset-4">
-                                                    <button type="submit" class="btn btn-primary">
-                                                        Confirmer
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
+                            <div id="demo" class="collapse">
+                                Lorem ipsum dolor text....
                             </div>
                         </div>
 
