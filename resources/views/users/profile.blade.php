@@ -15,9 +15,7 @@
                     <!-- Si je suis connecté et que je suis l'utilisateur en question -->
                     @elseif(Auth::user()->id == $user->id)
                         <div class="panel-body">
-                            <a href="#demo" class="btn btn-info" data-toggle="collapse">Modifier votre mot de passe</a>
-
-                            <div id="demo" class="collapse @if (session('success')) in @endif ">
+                            <h1>Modifier votre mot de passe</h1>
                                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/changepassword') }}">
                                 {{ csrf_field() }}
                                     <br />
@@ -85,7 +83,6 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
 
                     <!-- Si je suis connecté mais que je ne suis pas l'utilisateur -->
                     @else
