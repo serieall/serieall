@@ -31,7 +31,7 @@ class UserController extends Controller
         $password_confirmation = $request->input('password_confirmation');
 
         if ( $password_user == $password_old){
-            return view('home');
+            return response()->json();
         }
         else {
             return view('/profil', $user->username);
