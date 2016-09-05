@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Hash;
-use Request;
-use Validator;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Request;
 use App\Repositories\UserRepository;
 use App\Http\Requests\changePasswordRequest;
 
