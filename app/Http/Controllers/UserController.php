@@ -12,7 +12,6 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->middleware('guest', ['except' => 'logout']);
         $this->userRepository = $userRepository;
     }
 
