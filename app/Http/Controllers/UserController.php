@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Request;
 use App\Repositories\UserRepository;
 use App\Http\Requests\changePasswordRequest;
+use App\Models\User;
 
 
 class UserController extends Controller
@@ -32,7 +33,7 @@ class UserController extends Controller
 
         if (Hash::check($password, $user->password)) {
             $user->password = Hash::make($request->new_password);
-            $user->save;
+            $user->save();
 
             return redirect()->back()
                 ->with('status', 'Votre mot de passe a été modifié !');
