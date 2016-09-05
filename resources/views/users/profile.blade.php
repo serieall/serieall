@@ -23,7 +23,7 @@
                             <a href="#demo" class="btn btn-info" data-toggle="collapse">Modifier votre mot de passe</a>
 
                             <div id="demo" class="collapse">
-                                <form class="form-horizontal" role="form" method="POST" action="{{ url('/changePassword') }}">
+                                <form class="form-horizontal" role="form" method="POST" action="{{ url('/changepassword') }}">
                                 {{ csrf_field() }}
 
                                     @if (session('status'))
