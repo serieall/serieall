@@ -15,7 +15,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->admin > 1){
+        if ($request->user()->role > 1){
             return $next($request);
         }
 

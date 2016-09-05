@@ -23,3 +23,7 @@ Route::get('/home', 'HomeController@index');
 Route::resource('user', 'UserController');
 Route::get('profil/{user}', 'UserController@getProfile');
 Route::post('changepassword', 'UserController@changePassword');
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/admin', 'AdminController@index');
+});
