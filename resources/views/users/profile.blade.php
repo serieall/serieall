@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="modal-body">
 
-                                        <form id="formRegister" class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                                        <form id="formChangePwd" class="form-horizontal" role="form" method="POST" action="{{ url('/changepassword') }}">
                                             {!! csrf_field() !!}
 
                                             <div class="form-group">
@@ -105,7 +105,7 @@
                 $('#myModal').modal();
             });
 
-            $(document).on('submit', '#formRegister', function(e) {
+            $(document).on('submit', '#formChangePwd', function(e) {
                 e.preventDefault();
 
                 $('input+small').text('');
@@ -123,7 +123,7 @@
                         })
                         .fail(function(data) {
                             $.each(data.responseJSON, function (key, value) {
-                                var input = '#formRegister input[name=' + key + ']';
+                                var input = '#formChangePwd input[name=' + key + ']';
                                 $(input + '+small').text(value);
                                 $(input).parent().addClass('has-error');
                             });
