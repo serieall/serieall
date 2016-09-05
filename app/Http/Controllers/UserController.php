@@ -31,11 +31,11 @@ class UserController extends Controller
         $password = $request->password;
 
         if (Hash::check($password, $user->password)) {
-            return view('home');
+            return 'OK';
         }
         else
         {
-            return view('auth/login');
+            return 'Pas OK';
         }
 
     }
