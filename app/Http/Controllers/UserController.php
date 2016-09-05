@@ -39,7 +39,7 @@ class UserController extends Controller
         }
         else{
             return redirect()->back()
-                ->with('error-message', 'Votre mot de passe actuel ne correspond pas au mot de passe saisi.');
+                ->with('warning-message', 'Votre mot de passe actuel ne correspond pas au mot de passe saisi.');
         }
     }
 
