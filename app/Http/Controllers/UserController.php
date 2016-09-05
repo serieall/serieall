@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Request;
+
 
 class UserController extends Controller
 {
@@ -14,6 +15,7 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
+        $this->middleware('ajax', ['only' => 'changePassword']);
         $this->userRepository = $userRepository;
     }
 
@@ -24,11 +26,10 @@ class UserController extends Controller
         return view('users.profile', compact('user'));
     }
 
-    public function changePassword(Request $request, $username){
+    public function changePassword(){
         $user = Auth::user();
 
         $validation = Validator::make(Request::all(), [
-
             // Here's how our new validation rule is used.
             'password' => 'hash:' . $user->password,
             'new_password' => 'required|different:password|confirmed'
