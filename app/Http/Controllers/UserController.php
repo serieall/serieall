@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
-use App\Http\Requests;
 use App\Repositories\UserRepository;
 
 class UserController extends Controller
@@ -31,9 +29,10 @@ class UserController extends Controller
         $password_old = $request->input('password_old');
         $password_new = $request->input('password');
         $password_confirmation = $request->input('password_confirmation');
-        
+
         /** Si l'ancien est bon */
 
+        return response()->json();
     }
 
     /**
