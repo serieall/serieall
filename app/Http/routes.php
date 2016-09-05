@@ -15,15 +15,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
+    Partie Authentification
+*/
 Route::auth();
 Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
 
 Route::get('/home', 'HomeController@index');
 
+/*
+    Partie Utilisateurs
+*/
 Route::resource('user', 'UserController');
 Route::get('profil/{user}', 'UserController@getProfile');
 Route::post('changepassword', 'UserController@changePassword');
 
+
+/*
+    Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
+*/
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', 'AdminController@index');
 });

@@ -19,6 +19,6 @@ class Admin
             return $next($request);
         }
 
-        return response('Vous n\'avez pas le droit d\'accéder à cette partie.', 401);
+        return redirect()->back();
     }
 }
