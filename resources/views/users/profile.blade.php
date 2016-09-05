@@ -101,7 +101,7 @@
 
         $(function(){
 
-            $('#register').click(function() {
+            $('#ChangePwd').click(function() {
                 $('#myModal').modal();
             });
 
