@@ -25,7 +25,7 @@ class changePasswordRequest extends Request
     {
         return [
             'password' => 'required',
-            'new_password' => 'required|min:8|confirmed'
+            'new_password' => 'required|min:8|confirmed|different:password'
         ];
     }
 }
