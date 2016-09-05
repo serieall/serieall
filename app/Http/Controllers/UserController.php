@@ -16,7 +16,6 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->middleware('ajax', ['only' => 'changePassword']);
         $this->middleware('guest', ['only' => 'login', 'getProfile', 'register']);
         $this->userRepository = $userRepository;
     }
