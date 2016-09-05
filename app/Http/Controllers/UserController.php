@@ -6,6 +6,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Validator;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -16,6 +17,7 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
     {
         $this->middleware('ajax', ['only' => 'changePassword']);
+        $this->middleware('guest', ['only' => 'login', 'getProfile', 'register']);
         $this->userRepository = $userRepository;
     }
 
