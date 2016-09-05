@@ -20,7 +20,7 @@
                     <!-- Si je suis connecté et que je suis l'utilisateur en question -->
                     @elseif(Auth::user()->id == $user->id)
                         <div class="panel-body">
-                            Modifier votre mot de passe : <a class="btn btn-link" id="ChangePwd" href="#">Ici</a>
+                            Modifier votre mot de passe :<a class="btn btn-link" id="ChangePwd" href="#">Ici</a>
                         </div>
 
                         <!-- Modal -->

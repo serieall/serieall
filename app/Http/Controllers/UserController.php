@@ -22,6 +22,16 @@ class UserController extends Controller
         return view('users.profile', compact('user'));
     }
 
+    public function changePassword(Request $request, $username){
+
+        $user = Auth::user()->username;
+        $password = $request->input('password');
+
+        return $password;
+
+
+    }
+
     /**
      * Display a listing of the resource.
      *
