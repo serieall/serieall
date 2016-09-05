@@ -47,7 +47,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Ancien mot de passe</label>
                                                 <div class="col-md-6">
-                                                    <input type="password" class="form-control" name="password_new">
+                                                    <input type="password" class="form-control" name="new_password">
                                                     <small class="help-block"></small>
                                                 </div>
                                             </div>
@@ -55,7 +55,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Confirmer le nouveau mot de passe</label>
                                                 <div class="col-md-6">
-                                                    <input type="password" class="form-control" name="password_new_confirmation">
+                                                    <input type="password" class="form-control" name="new_password_confirmation">
                                                 </div>
                                             </div>
 

@@ -14,9 +14,6 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->middleware('ajax', ['only' => 'changePassword']);
-        $this->middleware('guest', ['except' => 'logout']);
-        $this->middleware('auth', ['except' => 'register, login']);
         $this->userRepository = $userRepository;
     }
 
@@ -38,29 +35,23 @@ class UserController extends Controller
     }
 
     public function changePassword(Request $request, $username){
+        $user = Auth::user();
 
-        $user = Auth::user()->username;
-        $password_user = Auth::user()->password;
-        $password_old = $request->input('password_old');
-        $password_new = $request->input('password_new');
-        $password_confirmation = $request->input('password_confirmation');
+        $validation = Validator::make(Request::all(), [
 
-        if (Hash::check($password_old, $password_user)) {
-            $validator = $this->validator($request->all());
+            // Here's how our new validation rule is used.
+            'password' => 'hash:' . $user->password,
+            'new_password' => 'required|different:password|confirmed'
+        ]);
 
-            if ($validator->fails()) {
-                $this->throwValidationException(
-                    $request, $validator
-                );
-            }
-
-            return response()->json();
-        }
-        else {
-            return view('/profil', $user->username);
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation->errors());
         }
 
+        $user->password = Hash::make(Request::input('new_password'));
+        $user->save();
 
+        return response()->json();
     }
 
     /**
