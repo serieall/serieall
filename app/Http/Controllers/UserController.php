@@ -25,14 +25,7 @@ class UserController extends Controller
     }
 
     public function changePassword(Request $request){
-        $password_user = Auth::User()->password;
-        $password_old = $request->input('password_old');
-        $password_new = $request->input('password');
-        $password_confirmation = $request->input('password_confirmation');
-
-        /** Si l'ancien est bon */
-
-        return response()->json();
+        
     }
 
     /**
