@@ -13,7 +13,6 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
     {
         $this->middleware('guest', ['except' => 'logout']);
-        $this->middleware('ajax', ['only' => 'changePassword']);
         $this->userRepository = $userRepository;
     }
 
@@ -22,10 +21,6 @@ class UserController extends Controller
         $user = $this->userRepository->getUserByUsername($username);
 
         return view('users.profile', compact('user'));
-    }
-
-    public function changePassword(Request $request){
-
     }
 
     /**
