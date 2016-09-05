@@ -25,9 +25,17 @@ class UserController extends Controller
     public function changePassword(Request $request, $username){
 
         $user = Auth::user()->username;
-        $password = $request->input('password');
+        $password_user = Auth::user()->password;
+        $password_old = Hash::make($request->input('password_old'));
+        $password_new = $request->input('password_new');
+        $password_confirmation = $request->input('password_confirmation');
 
-        return $password;
+        if ( $password_user == $password_old){
+            return view('home');
+        }
+        else {
+            return view('/profil', $user->username);
+        }
 
 
     }
