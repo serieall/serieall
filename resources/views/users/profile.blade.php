@@ -55,7 +55,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Confirmer le nouveau mot de passe</label>
                                                 <div class="col-md-6">
-                                                    <input type="password" class="form-control" name="password_confirmation">
+                                                    <input type="password" class="form-control" name="password_new_confirmation">
                                                 </div>
                                             </div>
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Validator;
 
 class UserController extends Controller
 {
@@ -12,8 +14,20 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
+        $this->middleware('ajax', ['only' => 'changePassword']);
+        $this->middleware('guest', ['except' => 'logout']);
         $this->userRepository = $userRepository;
     }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'password' => 'required|min:8',
+            'password_new' => 'required|confirmed|min:8',
+        ]);
+
+    }
+
 
     public function getProfile($username){
 
@@ -26,11 +40,19 @@ class UserController extends Controller
 
         $user = Auth::user()->username;
         $password_user = Auth::user()->password;
-        $password_old = Hash::make($request->input('password_old'));
+        $password_old = $request->input('password_old');
         $password_new = $request->input('password_new');
         $password_confirmation = $request->input('password_confirmation');
 
-        if ( $password_user == $password_old){
+        if (Hash::check($password_old, $password_user)) {
+            $validator = $this->validator($request->all());
+
+            if ($validator->fails()) {
+                $this->throwValidationException(
+                    $request, $validator
+                );
+            }
+
             return response()->json();
         }
         else {
