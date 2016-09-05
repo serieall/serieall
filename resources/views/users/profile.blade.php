@@ -23,7 +23,7 @@
                             Pour changer de mot de passe, clique sur le bouton ci-dessous. Ton ancien mot de passe te sera demandé.
                             <a class="btn btn-link" id="ChangePwd" href="#">Changer mon mot de passe</a>
                         </div>
-                    
+
                     <!-- Si je suis connecté mais que je ne suis pas l'utilisateur -->
                     @else
                         <div class="panel-body">
