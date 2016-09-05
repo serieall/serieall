@@ -16,7 +16,6 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->middleware('guest', ['only' => 'login', 'getProfile', 'register']);
         $this->userRepository = $userRepository;
     }
 
@@ -32,11 +31,11 @@ class UserController extends Controller
         $password = $request->password;
 
         if (Hash::check($password, $user->password)) {
-            return "OK";
+            return 'OK';
         }
         else
         {
-            return "Pas OK";
+            return 'Pas OK';
         }
 
     }
