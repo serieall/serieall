@@ -35,10 +35,10 @@ class UserController extends Controller
             $user->save;
 
             return redirect()->back()
-                ->with('success-message', 'Votre mot de passe a été modifié !');
+                ->with('status', 'Votre mot de passe a été modifié !');
         }
         else{
-            return 'pas OK';
+            return redirect()->back()->with('warning', 'Votre mot de passe actuel ne correspond pas à celui saisi.');
         }
     }
 
