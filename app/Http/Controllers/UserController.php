@@ -16,6 +16,7 @@ class UserController extends Controller
     {
         $this->middleware('ajax', ['only' => 'changePassword']);
         $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('auth', ['except' => 'register, login']);
         $this->userRepository = $userRepository;
     }
 
