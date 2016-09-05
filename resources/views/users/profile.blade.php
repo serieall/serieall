@@ -20,8 +20,9 @@
                             <div id="demo" class="collapse in">
                                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/changepassword') }}">
                                 {{ csrf_field() }}
+                                    <br />
                                     <div id="message">
-                                        @if (session('status'))
+                                        @if (session('success'))
                                             <div class="alert alert-success">
                                                 {{ session('status') }}
                                             </div>
