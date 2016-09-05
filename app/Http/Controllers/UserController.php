@@ -31,13 +31,16 @@ class UserController extends Controller
         $password = $request->password;
 
         if (Hash::check($password, $user->password)) {
-            return 'OK';
-        }
-        else
-        {
-            return 'Pas OK';
-        }
+            $user->password = Hash::make($request->new_password);
+            $user->save;
 
+            return redirect()->back()
+                ->with('success-message', 'Votre mot de passe a été modifié !');
+        }
+        else{
+            return redirect()->back()
+                ->with('error-message', 'Votre mot de passe actuel ne correspond pas au mot de passe saisi.');
+        }
     }
 
     /**
