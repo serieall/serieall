@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     Bienvenue sur l'interface d'administration de Série-All. <br />
