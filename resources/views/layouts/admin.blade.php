@@ -20,7 +20,7 @@
     </nav>
     <section>
         <article>
-            @yield('content')
+            @yield('content') 
         </article>
     </section>
 </body>
