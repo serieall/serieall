@@ -30,7 +30,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Register</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Changer mon mot de passe</h4>
                                     </div>
                                     <div class="modal-body">
 
@@ -38,23 +38,7 @@
                                             {!! csrf_field() !!}
 
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label">Name</label>
-                                                <div class="col-md-6">
-                                                    <input type="text" class="form-control" name="name">
-                                                    <small class="help-block"></small>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label">E-Mail Address</label>
-                                                <div class="col-md-6">
-                                                    <input type="email" class="form-control" name="email">
-                                                    <small class="help-block"></small>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label">Password</label>
+                                                <label class="col-md-4 control-label">Mot de passe actuel</label>
                                                 <div class="col-md-6">
                                                     <input type="password" class="form-control" name="password">
                                                     <small class="help-block"></small>
@@ -62,7 +46,15 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label">Confirm Password</label>
+                                                <label class="col-md-4 control-label">Ancien mot de passe</label>
+                                                <div class="col-md-6">
+                                                    <input type="password" class="form-control" name="password_new">
+                                                    <small class="help-block"></small>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Confirmer le nouveau mot de passe</label>
                                                 <div class="col-md-6">
                                                     <input type="password" class="form-control" name="password_confirmation">
                                                 </div>
@@ -71,7 +63,7 @@
                                             <div class="form-group">
                                                 <div class="col-md-6 col-md-offset-4">
                                                     <button type="submit" class="btn btn-primary">
-                                                        Register
+                                                        Confirmer
                                                     </button>
                                                 </div>
                                             </div>
