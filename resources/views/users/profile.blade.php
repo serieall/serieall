@@ -18,11 +18,13 @@
                             <h1>Modifier votre mot de passe</h1>
                                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/changepassword') }}">
                                 {{ csrf_field() }}
+
                                     <br />
+
                                     <div id="message">
                                         @if (session('success'))
                                             <div class="alert alert-success">
-                                                {{ session('status') }}
+                                                {{ session('success') }}
                                             </div>
                                         @endif
                                         @if (session('warning'))
