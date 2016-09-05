@@ -20,17 +20,18 @@
                             <div id="demo" class="collapse in">
                                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/changepassword') }}">
                                 {{ csrf_field() }}
-
-                                    @if (session('status'))
-                                        <div class="alert alert-success">
-                                            {{ session('status') }}
-                                        </div>
-                                    @endif
-                                    @if (session('warning'))
-                                        <div class="alert alert-warning">
-                                            {{ session('warning') }}
-                                        </div>
-                                    @endif
+                                    <div id="message">
+                                        @if (session('status'))
+                                            <div class="alert alert-success">
+                                                {{ session('status') }}
+                                            </div>
+                                        @endif
+                                        @if (session('warning'))
+                                            <div class="alert alert-warning">
+                                                {{ session('warning') }}
+                                            </div>
+                                        @endif
+                                    </div>
 
                                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                         <label for="password" class="col-md-4 control-label">Mot de passe actuel</label>
