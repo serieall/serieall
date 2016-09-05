@@ -17,16 +17,6 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'password' => 'required|min:8',
-            'password_new' => 'required|confirmed|min:8',
-        ]);
-
-    }
-
-
     public function getProfile($username){
 
         $user = $this->userRepository->getUserByUsername($username);
