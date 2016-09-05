@@ -8,6 +8,7 @@ use Request;
 use Validator;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Http\Requests\changePasswordRequest;
 
 
 class UserController extends Controller
@@ -29,7 +30,17 @@ class UserController extends Controller
         return view('users.profile', compact('user'));
     }
 
-    public function changePassword(){
+    public function changePassword(changePasswordRequest $request){
+        $user = Auth::user();
+        $password = $request->password;
+
+        if (Hash::check($password, $user->password)) {
+            return "OK";
+        }
+        else
+        {
+            return "Pas OK";
+        }
 
     }
 

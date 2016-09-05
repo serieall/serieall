@@ -41,7 +41,7 @@
                                         <label for="password" class="col-md-4 control-label">Mot de passe actuel</label>
 
                                         <div class="col-md-6">
-                                            <input id="password_old" type="text" class="form-control" name="password" value="{{ old('password') }}">
+                                            <input id="password_old" type="password" class="form-control" name="password" value="{{ old('password') }}">
 
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
@@ -55,7 +55,7 @@
                                         <label for="new_password" class="col-md-4 control-label">Nouveau mot de passe</label>
 
                                         <div class="col-md-6">
-                                            <input id="new_password" type="text" class="form-control" name="new_password" value="{{ old('new_password') }}">
+                                            <input id="new_password" type="password" class="form-control" name="new_password" value="{{ old('new_password') }}">
 
                                             @if ($errors->has('new_password'))
                                                 <span class="help-block">
@@ -69,13 +69,21 @@
                                         <label for="new_password_confirmation" class="col-md-4 control-label">Confirmation du nouveau mot de passe</label>
 
                                         <div class="col-md-6">
-                                            <input id="new_password_confirmation" type="text" class="form-control" name="new_password_confirmation" value="{{ old('new_password_confirmation') }}">
+                                            <input id="new_password_confirmation" type="password" class="form-control" name="new_password_confirmation" value="{{ old('new_password_confirmation') }}">
 
                                             @if ($errors->has('new_password_confirmation'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('new_password_confirmation') }}</strong>
                                                 </span>
                                             @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-btn fa-user"></i> Confirmer
+                                            </button>
                                         </div>
                                     </div>
 
