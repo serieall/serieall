@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="grid-1-4">
-        <nav id="nav-admin" class="w20">
+        <nav id="nav-admin">
             <ul>
                 <li>Séries</li>
                 <li>Articles</li>
@@ -21,15 +21,15 @@
                 <li>Système</li>
             </ul>
         </nav>
-        <header id="header-admin" class="w80">
+        <header id="header-admin">
             Administration Série-All
         </header>
-    </div>
 
-    <section class="fr w80">
-        <article>
-            @yield('content') 
-        </article>
-    </section>
+        <section>
+            <article>
+                @yield('content')
+            </article>
+        </section>
+    </div>
 </body>
 </html>
