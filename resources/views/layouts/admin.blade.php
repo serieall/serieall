@@ -12,17 +12,19 @@
     <link rel="stylesheet" href="css/knacss_perso.css" />
 </head>
 <body>
-    <header id="header-admin" class="fr w80">
-        Administration Série-All
-    </header>
-    <nav id="nav-admin" class="fl w20">
-        <ul>
-            <li>Séries</li>
-            <li>Articles</li>
-            <li>Utilisateurs</li>
-            <li>Système</li>
-        </ul>
-    </nav>
+    <div class="grid-1-2">
+        <header id="header-admin" class="w80">
+            Administration Série-All
+        </header>
+        <nav id="nav-admin" class="w20">
+            <ul>
+                <li>Séries</li>
+                <li>Articles</li>
+                <li>Utilisateurs</li>
+                <li>Système</li>
+            </ul>
+        </nav>
+    </div>
 
     <section class="fr w80">
         <article>
