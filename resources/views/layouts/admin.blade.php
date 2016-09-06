@@ -23,7 +23,8 @@
             <li>Système</li>
         </ul>
     </nav>
-    <section>
+
+    <section class="fr w80">
         <article>
             @yield('content') 
         </article>
