@@ -7,8 +7,7 @@
 }
 
 #header-admin{
-    border : 1px blue;
-    border-style: solid;
+    border-bottom : 1px grey solid;
     height: 5%;
 }
 
