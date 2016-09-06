@@ -9,8 +9,6 @@
 #header-admin{
     border-bottom : 1px grey solid;
     height: 10%;
-    display: table-cell; /* comportement visuel de cellule */
-    vertical-align: middle;
 }
 
 #nav-admin {
