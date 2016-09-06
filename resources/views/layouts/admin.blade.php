@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/knacss_perso.css" />
 </head>
 <body>
-    <div class="grid-1-2">
+    <div class="grid-1-4">
         <nav id="nav-admin" class="w20">
             <ul>
                 <li>Séries</li>
