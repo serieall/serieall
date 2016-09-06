@@ -12,24 +12,22 @@
     <link rel="stylesheet" href="css/knacss_perso.css" />
 </head>
 <body>
-    <div class="grid-1-4">
-        <nav id="nav-admin">
-            <ul>
-                <li>Séries</li>
-                <li>Articles</li>
-                <li>Utilisateurs</li>
-                <li>Système</li>
-            </ul>
-        </nav>
-        <header id="header-admin">
-            Administration Série-All
-        </header>
+    <header id="header-admin" class="fr w80">
+        Administration Série-All
+    </header>
+    <nav id="nav-admin" class="fl w20">
+        <ul>
+            <li>Séries</li>
+            <li>Articles</li>
+            <li>Utilisateurs</li>
+            <li>Système</li>
+        </ul>
+    </nav>
 
-        <section>
-            <article>
-                @yield('content')
-            </article>
-        </section>
-    </div>
+    <section class="fr w80">
+        <article>
+            @yield('content')
+        </article>
+    </section>
 </body>
 </html>
