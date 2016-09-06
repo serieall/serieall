@@ -29,7 +29,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
-                    Articles
+                    <span class="big">Articles</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
@@ -37,7 +37,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
-                    Utilisateurs
+                    <span class="big">Utilisateurs</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
@@ -45,7 +45,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
-                    Système
+                    <span class="big">Système</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
