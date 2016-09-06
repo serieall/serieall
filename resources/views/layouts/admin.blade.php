@@ -15,8 +15,13 @@
     <header>
         Administration Série-All
     </header>
-    <nav>
-
+    <nav id="nav-admin">
+        <ul>
+            <li>Séries</li>
+            <li>Articles</li>
+            <li>Utilisateurs</li>
+            <li>Système</li>
+        </ul>
     </nav>
     <section>
         <article>
