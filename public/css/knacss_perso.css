@@ -30,6 +30,7 @@ article{
     border-style: solid;
 }
 
-img{
-    display: inline-block
+#logo-admin{
+    display: block;
+    margin : 0 auto;
 }
