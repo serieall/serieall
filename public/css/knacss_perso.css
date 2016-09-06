@@ -27,7 +27,6 @@
 #nav-a-admin{
     text-decoration: none;
     display: block ;
-    line-height: 1em ;
 }
 
 #nav-a-admin:hover, #nav-a-admin:focus, #nav-a-admin:active {
