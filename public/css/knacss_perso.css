@@ -11,6 +11,11 @@
     height: 10%;
 }
 
+#header-breadcrumb-admin{
+    display: table-cell;
+    vertical-align: middle;
+}
+
 #nav-admin {
     border-right : 1px grey solid;
     height: 100%;
