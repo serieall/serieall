@@ -22,7 +22,7 @@
             <li id="nav-li-admin" class="pam w100">
                 <a href="#" id="nav-a-admin">
                     Séries
-                    <div class="right">
+                    <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
                 </a>
