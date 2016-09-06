@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/font-awesome.css" />
 </head>
 <body id="body-admin">
-    <header id="header-admin" class="fr w90 pas flex-container-v">
+    <header id="header-admin" class="fr w90 pas">
         Administration
     </header>
     <nav id="nav-admin" class="fl w10">
