@@ -16,6 +16,7 @@
         Administration Série-All
     </header>
     <nav id="nav-admin" class="fl w10">
+        <img src="images/logo_v2.png" alt="Logo Série-All" />
         <ul>
             <li>Séries</li>
             <li>Articles</li>
