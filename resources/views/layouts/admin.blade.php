@@ -14,7 +14,7 @@
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w90 pas">
-            <div class="grid-2-1">
+            <div id="header-grid-admin" class="grid-2-1">
                 <div id="header-beadcrumbs-admin">
                     Administration
                 </div>
