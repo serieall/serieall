@@ -9,6 +9,7 @@
 #header-admin{
     border : 1px blue;
     border-style: solid;
+    height: 10%
 }
 
 #nav-admin {
@@ -20,7 +21,7 @@
 section{
     border : 1px red;
     border-style: solid;
-    height: 100%;
+    height: 90%;
 }
 
 article{
