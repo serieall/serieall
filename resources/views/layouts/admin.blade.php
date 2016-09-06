@@ -27,9 +27,30 @@
                     </div>
                 </a>
             </li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Articles<span id="nav-icon-admin" class="fa fa-chevron-right fr"></span></a></li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Utilisateurs<span id="nav-icon-admin" class="fa fa-chevron-right fr"></span></a></li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système <span id="nav-icon-admin" class="fa fa-chevron-right fr"></span></a></li>
+            <li id="nav-li-admin" class="pam w100">
+                <a href="#" id="nav-a-admin">
+                    Articles
+                    <div class="fr">
+                        <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
+                    </div>
+                </a>
+            </li>
+            <li id="nav-li-admin" class="pam w100">
+                <a href="#" id="nav-a-admin">
+                    Utilisateurs
+                    <div class="fr">
+                        <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
+                    </div>
+                </a>
+            </li>
+            <li id="nav-li-admin" class="pam w100">
+                <a href="#" id="nav-a-admin">
+                    Système
+                    <div class="fr">
+                        <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
+                    </div>
+                </a>
+            </li>
         </ul>
     </nav>
 
