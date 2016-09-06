@@ -9,7 +9,7 @@
 #header-admin{
     border-bottom : 1px grey solid;
     height: 10%;
-    position: relative;
+    position: fixed;
 }
 
 #header-grid-admin{
@@ -52,6 +52,7 @@ section{
     border : 1px red;
     border-style: solid;
     height: 90%;
+    position: relative;
 }
 
 article{
