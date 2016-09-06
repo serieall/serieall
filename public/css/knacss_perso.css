@@ -16,6 +16,7 @@
     border : 1px yellow;
     border-style: solid;
     height: 100%;
+    position: fixed;
 }
 
 section{
