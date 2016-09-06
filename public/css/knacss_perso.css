@@ -9,6 +9,7 @@
 #header-admin{
     border-bottom : 1px grey solid;
     height: 5%;
+    vertical-align: middle;
 }
 
 #nav-admin {
