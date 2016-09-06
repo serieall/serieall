@@ -9,13 +9,13 @@
 #header-admin{
     border : 1px blue;
     border-style: solid;
-    height: 10%
+    height: 5%
 }
 
 #nav-admin {
     border : 1px yellow;
     border-style: solid;
-    height: 5%;
+    height: 100%;
 }
 
 section{
