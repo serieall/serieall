@@ -1,15 +1,19 @@
 header{
     border : 1px blue;
+    border-style: solid;
 }
 
 #nav-admin {
     border : 1px yellow;
+    border-style: solid;
 }
 
 section{
     border : 1px red;
+    border-style: solid;
 }
 
 article{
-    border : 1px orange
+    border : 1px orange;
+    border-style: solid;
 }
