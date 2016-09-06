@@ -29,3 +29,7 @@ article{
     border : 1px orange;
     border-style: solid;
 }
+
+img{
+    display: inline-block
+}
