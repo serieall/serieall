@@ -10,6 +10,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/knacss.css" />
     <link rel="stylesheet" href="css/knacss_perso.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w90 pas">
@@ -21,7 +22,7 @@
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Séries</a></li>
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Articles</a></li>
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Utilisateurs</a></li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système</a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système <img src="fa fa-chevron-right" alt="Chevron droite"/></a></li>
         </ul>
     </nav>
 
