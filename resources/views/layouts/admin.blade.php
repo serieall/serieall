@@ -22,7 +22,8 @@
             <li id="nav-li-admin" class="pam w100">
                 <a href="#" id="nav-a-admin">
                     Séries
-                    <img src="" id="nav-icon-admin" class="fa fa-chevron-right fr" />
+                    <span id="nav-icon-admin" class="fa-li fa-chevron-right fr">
+                    </span>
                 </a>
             </li>
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Articles<span id="nav-icon-admin" class="fa fa-chevron-right fr"></span></a></li>
