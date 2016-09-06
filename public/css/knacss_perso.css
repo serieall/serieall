@@ -13,14 +13,14 @@
 }
 
 #nav-admin {
-    border : 1px yellow;
-    border-style: solid;
+    border : 1px yellow solid;
     height: 100%;
     position: fixed;
 }
 
 #nav-ul-admin{
     list-style: none;
+    padding-left: 0em;
 }
 
 #nav-a-admin{
