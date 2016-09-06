@@ -24,7 +24,7 @@
         </ul>
     </nav>
 
-    <section class="fr w80">
+    <section class="fr w90">
         <article>
             @yield('content')
         </article>
