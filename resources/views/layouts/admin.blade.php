@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/knacss_perso.css" />
 </head>
 <body>
-    <header id="header-admin" class="right w20">
+    <header id="header-admin" class="right w15">
         Administration Série-All
     </header>
     <nav id="nav-admin" class="left w80">
