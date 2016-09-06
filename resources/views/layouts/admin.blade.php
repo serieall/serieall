@@ -18,7 +18,7 @@
                 <div id="header-beadcrumbs-admin" class="fl">
                     Administration
                 </div>
-                <div id="header-user-admin" class="fr">
+                <div id="header-user-admin" class="txtright fr">
                     {{ Auth::user()->username }}
                 </div>
             </div>
