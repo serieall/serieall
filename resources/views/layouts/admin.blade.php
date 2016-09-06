@@ -14,7 +14,9 @@
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w90 pas">
-        Administration
+        <div id="header-breadcrumb-admin">
+            Administration
+        </div>
     </header>
     <nav id="nav-admin" class="fl w10">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
