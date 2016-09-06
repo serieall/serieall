@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="css/knacss_perso.css" />
 </head>
 <body id="body-admin">
-    <header id="header-admin" class="fr w90">
+    <header id="header-admin" class="fr w90 pas">
         Administration Série-All
     </header>
-    <nav id="nav-admin" class="fl w10">
+    <nav id="nav-admin" class="fl w10 pam">
         <img id="logo-admin" class="txtcenter" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul>
             <li>Séries</li>
@@ -25,7 +25,7 @@
         </ul>
     </nav>
 
-    <section class="fr w90">
+    <section class="fr w90 pal">
         <article>
             @yield('content')
         </article>
