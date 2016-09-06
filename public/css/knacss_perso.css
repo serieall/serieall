@@ -27,7 +27,7 @@
     text-decoration: none;
 }
 
-#nav-li-admin:first-child{
+#nav-a-admin:first-child{
     border-right: 1px yellow solid;
 }
 #nav-li-admin{
