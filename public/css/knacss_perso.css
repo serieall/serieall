@@ -28,6 +28,12 @@
     text-decoration: none;
 }
 
+#nav-icon-admin{
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+}
+
 #nav-li-admin:first-child {
     border-top : 1px grey solid;
 }
