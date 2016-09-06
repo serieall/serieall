@@ -12,6 +12,7 @@
 }
 
 #header-breadcrumb-admin{
+    display: table-cell;
     vertical-align: middle;
 }
 
