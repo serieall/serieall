@@ -13,9 +13,6 @@
 </head>
 <body>
     <div class="grid-1-2">
-        <header id="header-admin" class="w80">
-            Administration Série-All
-        </header>
         <nav id="nav-admin" class="w20">
             <ul>
                 <li>Séries</li>
@@ -24,6 +21,9 @@
                 <li>Système</li>
             </ul>
         </nav>
+        <header id="header-admin" class="w80">
+            Administration Série-All
+        </header>
     </div>
 
     <section class="fr w80">
