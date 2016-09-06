@@ -15,13 +15,13 @@
     <header id="header-admin" class="fr w90 pas">
         Administration Série-All
     </header>
-    <nav id="nav-admin" class="fl w10 pam">
+    <nav id="nav-admin" class="fl w10">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100">
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Séries</a></li>
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Articles</a></li>
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Utilisateurs</a></li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système</a>/li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système</a></li>
         </ul>
     </nav>
 
