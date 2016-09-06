@@ -1,15 +1,15 @@
 header{
-    border-color : blue;
+    border : 1px blue;
 }
 
-.nav-admin{
-    border-color : yellow;
+#nav-admin {
+    border : 1px yellow;
 }
 
 section{
-    border-color : red;
+    border : 1px red;
 }
 
 article{
-    border-color : orange
+    border : 1px orange
 }
