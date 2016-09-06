@@ -14,9 +14,14 @@
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w90 pas">
-        <span id="enfant">
-            Administration
-        </span>
+            <div class="grid-2-1">
+                <div id="header-beadcrumbs-admin">
+                    Administration
+                </div>
+                <div id="header-user-admin">
+                    {{ Auth::user()->username }}
+                </div>
+            </div>
     </header>
     <nav id="nav-admin" class="fl w10">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
