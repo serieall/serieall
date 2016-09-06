@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/knacss.css" />
     <link rel="stylesheet" href="css/knacss_perso.css" />
 </head>
-<body>
+<body id="body-admin">
     <header id="header-admin" class="fr w80">
         Administration Série-All
     </header>
