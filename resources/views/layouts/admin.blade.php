@@ -16,12 +16,12 @@
         Administration Série-All
     </header>
     <nav id="nav-admin" class="fl w10 pam">
-        <img id="logo-admin" class="txtcenter" src="images/logo_v2.png" alt="Logo Série-All" />
+        <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul>
-            <a href="#"><li>Séries</li></a>
-            <a href="#"><li>Articles</li></a>
-            <a href="#"><li>Utilisateurs</li></a>
-            <a href="#"><li>Système</li></a>
+            <a href="#"><li id="nav-li-admin" class="pam">Séries</li></a>
+            <a href="#"><li id="nav-li-admin" class="pam">Articles</li></a>
+            <a href="#"><li id="nav-li-admin" class="pam">Utilisateurs</li></a>
+            <a href="#"><li id="nav-li-admin" class="pam">Système</li></a>
         </ul>
     </nav>
 

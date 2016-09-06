@@ -19,6 +19,13 @@
     position: fixed;
 }
 
+#nav-ul-admin{
+    list-style: none;
+}
+
+#nav-li-admin{
+}
+
 section{
     border : 1px red;
     border-style: solid;
