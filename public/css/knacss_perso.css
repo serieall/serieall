@@ -51,16 +51,12 @@
 }
 
 section{
-    border : 1px red;
-    border-style: solid;
     height: 90%;
     position: relative;
     top : 10%;
 }
 
 article{
-    border : 1px orange;
-    border-style: solid;
 }
 
 #logo-admin{
