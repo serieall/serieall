@@ -27,9 +27,10 @@
     text-decoration: none;
 }
 
-#nav-a-admin:first-child{
-    border-right: 1px yellow solid;
+#nav-li-admin:first-child {
+    border-top : 1px grey solid;
 }
+
 #nav-li-admin{
     border-bottom : 1px grey solid;
 }

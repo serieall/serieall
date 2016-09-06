@@ -18,10 +18,10 @@
     <nav id="nav-admin" class="fl w10 pam">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100">
-            <a href="#" id="nav-a-admin"><li id="nav-li-admin" class="pam w100">Séries</li></a>
-            <a href="#" id="nav-a-admin"><li id="nav-li-admin" class="pam w100">Articles</li></a>
-            <a href="#" id="nav-a-admin"><li id="nav-li-admin" class="pam w100">Utilisateurs</li></a>
-            <a href="#" id="nav-a-admin"><li id="nav-li-admin" class="pam w100">Système</li></a>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Séries</a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Articles</a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Utilisateurs</a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système</a>/li>
         </ul>
     </nav>
 
