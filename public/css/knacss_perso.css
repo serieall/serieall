@@ -20,6 +20,7 @@
 section{
     border : 1px red;
     border-style: solid;
+    height: 100%;
 }
 
 article{
