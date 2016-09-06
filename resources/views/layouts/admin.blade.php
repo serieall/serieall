@@ -62,7 +62,7 @@
     </nav>
 
     <section class="fr w90">
-        <article class="pam">
+        <article class="pam flex-container">
             @yield('content')
         </article>
     </section>
