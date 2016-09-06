@@ -26,10 +26,12 @@
 
 #nav-a-admin{
     text-decoration: none;
+    display: block ;
 }
 
 #nav-a-admin:hover, #nav-a-admin:focus, #nav-a-admin:active {
     background-color: #0676b6;
+    color: white;
 }
 
 #nav-icon-admin{
