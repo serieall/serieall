@@ -8,7 +8,7 @@
 
 #header-admin{
     border-bottom : 1px grey solid;
-    height: 10%;
+    height: 5%;
     position: fixed;
     left : 10%;
     background-color: white;
@@ -53,9 +53,9 @@
 }
 
 section{
-    height: 90%;
+    height: 95%;
     position: relative;
-    top : 10%;
+    top : 5%;
 }
 
 article{
