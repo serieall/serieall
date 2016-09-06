@@ -19,10 +19,10 @@
     <nav id="nav-admin" class="fl w10">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100">
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Séries</a></li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Articles</a></li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Utilisateurs</a></li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système <span class="fa fa-chevron-right"></span></a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Séries<span class="fa fa-chevron-right fr"></span></a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Articles<span class="fa fa-chevron-right fr"></span></a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Utilisateurs<span class="fa fa-chevron-right fr"></span></a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système <span class="fa fa-chevron-right fr"></span></a></li>
         </ul>
     </nav>
 
