@@ -15,7 +15,7 @@
     <header id="header-admin" class="fr w80">
         Administration Série-All
     </header>
-    <nav id="nav-admin" class="fl w10">
+    <nav id="nav-admin" class="fl w20">
         <ul>
             <li>Séries</li>
             <li>Articles</li>
