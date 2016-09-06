@@ -18,15 +18,15 @@
     <nav id="nav-admin" class="fl w10 pam">
         <img id="logo-admin" class="txtcenter" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul>
-            <li>Séries</li>
-            <li>Articles</li>
-            <li>Utilisateurs</li>
-            <li>Système</li>
+            <a href="#"><li>Séries</li></a>
+            <a href="#"><li>Articles</li></a>
+            <a href="#"><li>Utilisateurs</li></a>
+            <a href="#"><li>Système</li></a>
         </ul>
     </nav>
 
-    <section class="fr w90 pal">
-        <article>
+    <section class="fr w90">
+        <article class="pam">
             @yield('content')
         </article>
     </section>
