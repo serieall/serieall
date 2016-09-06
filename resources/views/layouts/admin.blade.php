@@ -15,10 +15,10 @@
 <body id="body-admin">
     <header id="header-admin" class="fr w90 pas">
             <div id="header-grid-admin" class="grid-2-1">
-                <div id="header-beadcrumbs-admin">
+                <div id="header-beadcrumbs-admin" class="fl">
                     Administration
                 </div>
-                <div id="header-user-admin">
+                <div id="header-user-admin" class="fr">
                     {{ Auth::user()->username }}
                 </div>
             </div>
