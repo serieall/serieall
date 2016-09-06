@@ -1,0 +1,15 @@
+header{
+    border : 1px blue;
+}
+
+nav{
+    border : 1px yellow;
+}
+
+section{
+    border : 1px red;
+}
+
+article{
+    border : 1px orange
+}
