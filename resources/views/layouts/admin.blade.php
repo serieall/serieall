@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="css/knacss_perso.css" />
 </head>
 <body>
-    <header id="header-admin" class="right w15">
+    <header id="header-admin" class="right w80">
         Administration Série-All
     </header>
-    <nav id="nav-admin" class="left w80">
+    <nav id="nav-admin" class="left w10">
         <ul>
             <li>Séries</li>
             <li>Articles</li>
