@@ -28,6 +28,10 @@
     text-decoration: none;
 }
 
+#nav-i-admin{
+    vertical-align: middle;
+}
+
 #nav-li-admin:first-child {
     border-top : 1px grey solid;
 }
