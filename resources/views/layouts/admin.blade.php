@@ -22,7 +22,7 @@
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Séries</a></li>
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Articles</a></li>
             <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Utilisateurs</a></li>
-            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système <img src="fa fa-chevron-right" alt="Chevron droite"/></a></li>
+            <li id="nav-li-admin" class="pam w100"><a href="#" id="nav-a-admin">Système <span class="fa fa-chevron-right"></span></a></li>
         </ul>
     </nav>
 
