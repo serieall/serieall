@@ -8,7 +8,7 @@
 
 #header-admin{
     border-bottom : 1px grey solid;
-    height: 5%;
+    height: 10%;
 }
 
 #header-breadcrumb-admin{
@@ -48,7 +48,7 @@
 section{
     border : 1px red;
     border-style: solid;
-    height: 95%;
+    height: 90%;
 }
 
 article{
