@@ -160,6 +160,7 @@ return [
          * Allow authenticate with md5 password
          */
         App\Packages\Hashing\YourHashingServiceProvider::class,
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 
     ],
 
@@ -206,6 +207,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
 
     ],
 
