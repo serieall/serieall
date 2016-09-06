@@ -43,7 +43,7 @@
                     </div>
                 </a>
             </li>
-            <li id="nav-li-admin" class="pam w100">
+            <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
                     Système
                     <div class="fr">
