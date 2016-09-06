@@ -9,7 +9,8 @@
 #header-admin{
     border-bottom : 1px grey solid;
     height: 10%;
-    line-height: 10%;
+    display: table-cell; 
+    vertical-align: middle;
 }
 
 #nav-admin {
