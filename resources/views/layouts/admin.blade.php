@@ -18,7 +18,7 @@
     </header>
     <nav id="nav-admin" class="fl w10">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
-        <ul id="nav-ul-admin" class="w100">
+        <ul id="nav-ul-admin" class="w100 fa-ul">
             <li id="nav-li-admin" class="pam w100">
                 <a href="#" id="nav-a-admin">
                     Séries
