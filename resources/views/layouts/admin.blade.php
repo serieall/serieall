@@ -21,7 +21,7 @@
         <ul id="nav-ul-admin" class="w100">
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
-                    Séries
+                    <span class="big">Séries</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
