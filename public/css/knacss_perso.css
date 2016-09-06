@@ -9,11 +9,13 @@
 #header-admin{
     border-bottom : 1px grey solid;
     height: 10%;
+    position: relative;
 }
 
 #header-grid-admin{
-    display: table-cell;
-    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #nav-admin {
