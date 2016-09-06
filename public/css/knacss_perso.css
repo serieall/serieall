@@ -11,7 +11,8 @@
     height: 10%;
     position: fixed;
     left : 10%;
-    background-color: blue;
+    background-color: white;
+    z-index: 10;
 }
 
 #header-grid-admin{
