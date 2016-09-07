@@ -35,7 +35,7 @@
 /* --------------------------------- */
 #header-admin{
     border-bottom : 1px grey solid;
-    min-height: 10%;
+    min-height: 7%;
     position: fixed;
     left : 15%;
     background-color: #f1f1f1;
@@ -136,9 +136,9 @@
 /* Article                           */
 /* --------------------------------- */
 #article-admin{
-    min-height: 95%;
+    min-height: 93%;
     position: relative;
-    top : 10%;
+    top : 7%;
 }
 
 #content-h1-admin{
