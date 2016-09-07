@@ -77,13 +77,16 @@
     height: 95%;
     position: relative;
     top : 5%;
+    background-color: #f1f1f1;
 }
 
 /* --------------------------------- */
 /* Article                           */
 /* --------------------------------- */
 #article-admin{
+    background-color: white;
     height: 100%;
+    border: 1px grey solid;
 }
 
 #content-h1-admin{
