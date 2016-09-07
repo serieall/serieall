@@ -65,10 +65,6 @@
     list-style: none;
 }
 
-#header-user-admin li {
-    display: inline-block;
-}
-
 #header-user-admin li + li:before{
     padding: 0 0 0 5px;
 }
