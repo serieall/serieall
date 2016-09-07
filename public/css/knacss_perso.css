@@ -39,6 +39,7 @@
     border-right : 1px grey solid;
     height: 100%;
     position: fixed;
+    background-color: #f1f1f1;
 }
 
 #logo-admin{
