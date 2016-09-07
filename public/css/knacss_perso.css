@@ -59,6 +59,22 @@
     display: block ;
 }
 
+#header-beadcrumbs-admin {
+    list-style: none;
+    background-color: #f5f5f5;
+}
+.header-beadcrumbs-admin > li {
+    display: inline-block;
+}
+.header-beadcrumbs-admin > li + li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}
+.header-beadcrumbs-admin > .active {
+    color: #777;
+}
+
 #nav-a-admin:hover, #nav-a-admin:focus, #nav-a-admin:active {
     background-color: #0676b6;
     color: white;
