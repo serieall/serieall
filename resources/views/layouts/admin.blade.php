@@ -54,7 +54,7 @@
     </nav>
 
     <section id="section-admin" class="fr w90 pam">
-        <article id="article-admin" class="fr w90 mam pas">
+        <article id="article-admin" class="pas">
             @yield('content')
         </article>
     </section>
