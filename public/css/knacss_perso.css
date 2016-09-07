@@ -38,7 +38,6 @@
     border-right : 1px grey solid;
     height: 100%;
     position: fixed;
-    background-color: #f1f1f1;
 }
 
 #logo-admin{
@@ -74,7 +73,7 @@
 /* --------------------------------- */
 /* Section                           */
 /* --------------------------------- */
-section{
+#section-admin{
     height: 95%;
     position: relative;
     top : 5%;
@@ -84,6 +83,10 @@ section{
 /* --------------------------------- */
 /* Article                           */
 /* --------------------------------- */
+#article-admin{
+    background-color: white;
+}
+
 #content-h1-admin{
     color: #0676b6;
 }
