@@ -45,6 +45,7 @@
 #header-beadcrumbs-admin {
     list-style: none;
     height: 100%;
+    position: absolute;
 }
 
 #header-beadcrumbs-admin li {
