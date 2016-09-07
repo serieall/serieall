@@ -74,7 +74,7 @@
 /* Section                           */
 /* --------------------------------- */
 #section-admin{
-    min-height: 95%;
+    height: 95%;
     position: relative;
     top : 5%;
     background-color: #f1f1f1;
