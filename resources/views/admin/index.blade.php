@@ -5,7 +5,7 @@
             <div>
             <ul id="header-beadcrumbs-admin" class="fl">
                 <li>
-                    <a href="#" class="pam">
+                    <a href="#">
                         Test, Bitches.
                     </a>
                 </li>
