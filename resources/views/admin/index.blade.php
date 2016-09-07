@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('header')
-    <header id="header-admin" class="fr w90 pas">
+    <header id="header-admin" class="fr w85 pas">
         <div id="header-grid-admin" class="grid-2-1">
             <div>
             <ul id="header-beadcrumbs-admin" class="fl">

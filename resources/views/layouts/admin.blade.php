@@ -15,7 +15,7 @@
 <body id="body-admin">
     @yield('header')
 
-    <nav id="nav-admin" class="fl w10">
+    <nav id="nav-admin" class="fl w15">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100">
             <li id="nav-li-admin" class="w100">
@@ -53,7 +53,7 @@
         </ul>
     </nav>
 
-    <article id="article-admin" class="fr w90 pas">
+    <article id="article-admin" class="fr w85 pas">
         @yield('content')
     </article>
 </body>
