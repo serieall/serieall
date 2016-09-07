@@ -13,22 +13,14 @@
     <link rel="stylesheet" href="css/font-awesome.css" />
 </head>
 <body id="body-admin">
-    <header id="header-admin" class="fr w90 pas">
-            <div id="header-grid-admin" class="grid-2-1">
-                <div id="header-beadcrumbs-admin" class="fl">
-                    Administration
-                </div>
-                <div id="header-user-admin" class="txtright fr">
-                    {{ Auth::user()->username }}
-                </div>
-            </div>
-    </header>
+    @yield('header')
+
     <nav id="nav-admin" class="fl w10">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100">
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
-                    <span>Séries</span>
+                    <span class="big">Séries</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
@@ -36,7 +28,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
-                    <span>Articles</span>
+                    <span class="big">Articles</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
@@ -44,7 +36,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
-                    <span>Utilisateurs</span>
+                    <span class="big">Utilisateurs</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
@@ -52,7 +44,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam">
-                    <span>Système</span>
+                    <span class="big">Système</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
