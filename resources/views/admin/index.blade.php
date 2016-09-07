@@ -4,7 +4,7 @@
         <div id="header-grid-admin" class="grid-2-1">
             <ul id="header-beadcrumbs-admin" class="fl">
                 <li>
-                    <a href="#">
+                    <a href="#" class="pas">
                         Administration
                     </a>
                 </li>
