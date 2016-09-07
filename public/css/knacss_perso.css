@@ -32,6 +32,21 @@
     transform: translateY(-50%);
 }
 
+#header-beadcrumbs-admin {
+    list-style: none;
+}
+#header-beadcrumbs-admin li {
+    display: inline-block;
+}
+#header-beadcrumbs-admin li + li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}
+#header-beadcrumbs-admin .active {
+    color: #777;
+}
+
 /* --------------------------------- */
 /* NavBar - Barre sur le côté gauche */
 /* --------------------------------- */
@@ -57,21 +72,6 @@
 #nav-a-admin{
     text-decoration: none;
     display: block ;
-}
-
-#header-beadcrumbs-admin {
-    list-style: none;
-}
-#header-beadcrumbs-admin > li {
-    display: inline-block;
-}
-#header-beadcrumbs-admin > li + li:before {
-    padding: 0 5px;
-    color: #ccc;
-    content: "/\00a0";
-}
-#header-beadcrumbs-admin > .active {
-    color: #777;
 }
 
 #nav-a-admin:hover, #nav-a-admin:focus, #nav-a-admin:active {
