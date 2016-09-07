@@ -37,14 +37,9 @@
     z-index: 10;
 }
 
-#header-grid-admin{
-
-}
-
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
     list-style: none;
-    height: 100%;
     position: absolute;
 }
 
@@ -64,7 +59,6 @@
 #header-beadcrumbs-admin li + li:before {
     color: #ccc;
     content: "/\00a0";
-    padding: 7%
 }
 
 #header-beadcrumbs-admin .active {
