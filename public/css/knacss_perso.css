@@ -87,6 +87,7 @@
 #article-admin{
     background-color: white;
     border: 1px grey solid;
+    height: 100%;
 }
 
 #content-h1-admin{
