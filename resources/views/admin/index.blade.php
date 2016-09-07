@@ -3,13 +3,8 @@
     <header id="header-admin" class="fr w90 pas">
         <div id="header-grid-admin" class="grid-2-1">
             <ul id="header-beadcrumbs-admin" class="fl">
-                <li>
-                    <a href="#" class="pas">
-                        Administration
-                    </a>
-                </li>
                 <li class="active">
-                    Séries
+                    Administration
                 </li>
             </ul>
             <div id="header-user-admin" class="txtright fr">
