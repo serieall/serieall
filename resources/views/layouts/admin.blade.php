@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin">
+                <a href="#" id="nav-a-admin" class="pam">
                     <span class="big">Système</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
