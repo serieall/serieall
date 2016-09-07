@@ -1,25 +1,19 @@
 @extends('layouts.admin')
-@section('header')
-    <header id="header-admin" class="fr w85 pas">
-        <div id="header-grid-admin">
-            <ul id="header-beadcrumbs-admin" class="fl">
-                <li>
-                    <a href="#">
-                        Test, Bitches.
-                    </a>
-                </li>
-                <li class="active">
-                    Administration
-                </li>
-            </ul>
+@section('header_left')
+    <li>
+        <a href="#">
+            Test, Bitches.
+        </a>
+    </li>
+    <li class="active">
+        Administration
+    </li>
+@endsection
 
-            <ul id="header-user-admin" class="txtright fr">
-                <li>
-                    {{ Auth::user()->username }}
-                </li>
-            </ul>
-        </div>
-    </header>
+@section('header_right')
+    <li>
+        {{ Auth::user()->username }}
+    </li>
 @endsection
 
 @section('content')

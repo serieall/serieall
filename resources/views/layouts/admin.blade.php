@@ -13,7 +13,17 @@
     <link rel="stylesheet" href="css/font-awesome.css" />
 </head>
 <body id="body-admin">
-    @yield('header')
+    <header id="header-admin" class="fr w85 pas">
+        <div id="header-grid-admin">
+            <ul id="header-beadcrumbs-admin" class="fl">
+                @yield('header_left')
+            </ul>
+            <ul id="header-user-admin" class="fr">
+                @yield('header_right')
+            </ul>
+        </div>
+    </header>
+
 
     <nav id="nav-admin" class="fl w15">
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
