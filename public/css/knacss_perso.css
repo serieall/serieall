@@ -1,11 +1,20 @@
+/* --------------------------------- */
+/* HTML                              */
+/* --------------------------------- */
 #html-admin{
     height: 100%;
 }
 
+/* --------------------------------- */
+/* Body                              */
+/* --------------------------------- */
 #body-admin{
     height: 100%;
 }
 
+/* --------------------------------- */
+/* Header - Barre du haut            */
+/* --------------------------------- */
 #header-admin{
     border-bottom : 1px grey solid;
     height: 5%;
@@ -22,10 +31,19 @@
     transform: translateY(-50%);
 }
 
+/* --------------------------------- */
+/* NavBar - Barre sur le côté gauche */
+/* --------------------------------- */
 #nav-admin {
     border-right : 1px grey solid;
     height: 100%;
     position: fixed;
+}
+
+#logo-admin{
+    display: block;
+    margin : 0 auto;
+    margin-top : 2em;
 }
 
 #nav-ul-admin{
@@ -52,18 +70,19 @@
     border-bottom : 1px grey solid;
 }
 
+/* --------------------------------- */
+/* Section                           */
+/* --------------------------------- */
 section{
     height: 95%;
     position: relative;
     top : 5%;
 }
 
+/* --------------------------------- */
+/* Article                           */
+/* --------------------------------- */
 article{
 
 }
 
-#logo-admin{
-    display: block;
-    margin : 0 auto;
-    margin-top : 2em;
-}
