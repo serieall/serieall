@@ -7,7 +7,7 @@
                     Administration
                 </li>
             </ul>
-            <ul id="header-user-admin" class="txtright fr">
+            <ul id="header-user-admin" class="fr">
                 <li>
                     {{ Auth::user()->username }}
                 </li>
