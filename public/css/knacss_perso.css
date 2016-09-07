@@ -32,6 +32,7 @@
     transform: translateY(-50%);
 }
 
+/* Breadcrumbs */
 #header-beadcrumbs-admin {
     list-style: none;
 }
@@ -57,6 +58,11 @@
 
 #header-beadcrumbs-admin .active {
     color: #777;
+}
+
+/* User Header */
+#header-user-admin{
+    padding: 0 5px;
 }
 
 /* --------------------------------- */
