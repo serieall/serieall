@@ -14,14 +14,12 @@
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85">
-        <div id="header-grid-admin">
-            <ul id="header-beadcrumbs-admin" class="fl">
-                @yield('header_left')
-            </ul>
-            <ul id="header-user-admin" class="fr">
-                @yield('header_right')
-            </ul>
-        </div>
+        <ul id="header-beadcrumbs-admin" class="fl">
+            @yield('header_left')
+        </ul>
+        <ul id="header-user-admin" class="fr">
+            @yield('header_right')
+        </ul>
     </header>
 
 
