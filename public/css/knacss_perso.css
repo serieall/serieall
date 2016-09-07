@@ -17,11 +17,11 @@
 /* Header - Barre du haut            */
 /* --------------------------------- */
 #header-admin{
-    border-bottom : 1px grey solid;
+    border-bottom : 1px #f1f1f1 solid;
     min-height: 5%;
     position: fixed;
     left : 10%;
-    background-color: white;
+    background-color: #f1f1f1;
     z-index: 10;
 }
 
