@@ -2,11 +2,11 @@
 @section('header_left')
     <li>
         <a href="#">
-            Test, Bitches.
+            Administration
         </a>
     </li>
     <li class="active">
-        Administration
+        Séries
     </li>
 @endsection
 
