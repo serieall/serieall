@@ -53,7 +53,7 @@
         </ul>
     </nav>
 
-    <article id="article-admin" class="fr w90 pas">
+    <article id="article-admin" class="fr w90 pas ptl">
         @yield('content')
     </article>
 </body>
