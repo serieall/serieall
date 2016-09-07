@@ -44,7 +44,7 @@
     text-decoration: none;
 }
 
-#header-beadcrumbs-admin:hover, #header-beadcrumbs-admin:focus, #header-beadcrumbs-admin:active {
+#header-beadcrumbs-admin a:hover, #header-beadcrumbs-admin a:focus, #header-beadcrumbs-admin a:active {
     background-color: #0676b6;
     color: white;
 }
