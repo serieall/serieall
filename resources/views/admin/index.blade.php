@@ -4,7 +4,9 @@
         <div id="header-grid-admin" class="grid-2-1">
             <ul id="header-beadcrumbs-admin" class="fl">
                 <li>
-                    Administration
+                    <a href="#">
+                        Administration
+                    </a>
                 </li>
                 <li class="active">
                     Séries
