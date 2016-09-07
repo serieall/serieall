@@ -7,9 +7,11 @@
                     Administration
                 </li>
             </ul>
-            <div id="header-user-admin" class="txtright fr">
-                {{ Auth::user()->username }}
-            </div>
+            <ul id="header-user-admin" class="txtright fr">
+                <li>
+                    {{ Auth::user()->username }}
+                </li>
+            </ul>
         </div>
     </header>
 @endsection
