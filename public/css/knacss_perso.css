@@ -50,6 +50,7 @@
 
 #header-beadcrumbs-admin li {
     display: inline-block;
+    height: 100%;
 }
 
 #header-beadcrumbs-admin a {
