@@ -53,10 +53,8 @@
         </ul>
     </nav>
 
-    <section id="section-admin" class="fr w90 pal">
-        <article id="article-admin" class="pas">
-            @yield('content')
-        </article>
-    </section>
+    <article id="article-admin" class="pas">
+        @yield('content')
+    </article>
 </body>
 </html>
