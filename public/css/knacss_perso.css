@@ -35,14 +35,26 @@
 #header-beadcrumbs-admin {
     list-style: none;
 }
+
 #header-beadcrumbs-admin li {
     display: inline-block;
 }
+
+#header-beadcrumbs-admin a {
+    text-decoration: none;
+}
+
+#header-beadcrumbs-admin:hover, #header-beadcrumbs-admin:focus, #header-beadcrumbs-admin:active {
+    background-color: #0676b6;
+    color: white;
+}
+
 #header-beadcrumbs-admin li + li:before {
     padding: 0 5px;
     color: #ccc;
     content: "/\00a0";
 }
+
 #header-beadcrumbs-admin .active {
     color: #777;
 }
