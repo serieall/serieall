@@ -44,8 +44,7 @@
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
     list-style: none;
-    padding-left: 0em;
-    padding-right: 2em;
+    height: 100%;
 }
 
 #header-beadcrumbs-admin li {
