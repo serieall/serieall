@@ -2,14 +2,14 @@
 /* HTML                              */
 /* --------------------------------- */
 #html-admin{
-    min-height: 100%;
+    height: 100%;
 }
 
 /* --------------------------------- */
 /* Body                              */
 /* --------------------------------- */
 #body-admin{
-    min-height: 100%;
+    height: 100%;
 }
 
 /* --------------------------------- */
@@ -76,7 +76,7 @@
 #section-admin{
     min-height: 95%;
     position: relative;
-    top : 10%;
+    top : 5%;
     background-color: #f1f1f1;
 }
 
