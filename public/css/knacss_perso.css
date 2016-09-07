@@ -51,11 +51,11 @@
 
 #header-beadcrumbs-admin li {
     display: inline-block;
+    padding: 1rem;
 }
 
 #header-beadcrumbs-admin a {
     text-decoration: none;
-    padding: 2rem;
 }
 
 #header-beadcrumbs-admin a:hover, #header-beadcrumbs-admin a:focus, #header-beadcrumbs-admin a:active {
