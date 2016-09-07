@@ -51,7 +51,6 @@
 
 #header-beadcrumbs-admin li {
     display: inline-block;
-    padding: 1rem;
 }
 
 #header-beadcrumbs-admin a {
@@ -64,9 +63,9 @@
 }
 
 #header-beadcrumbs-admin li + li:before {
-    padding: 0 5px;
     color: #ccc;
     content: "/\00a0";
+    padding: 7%
 }
 
 #header-beadcrumbs-admin .active {
