@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin" class="pam">
+                <a href="#" id="nav-a-admin">
                     <span class="big">Système</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
@@ -53,7 +53,7 @@
         </ul>
     </nav>
 
-    <article id="article-admin" class="fr w90 pas ptl">
+    <article id="article-admin" class="fr w90 pas">
         @yield('content')
     </article>
 </body>
