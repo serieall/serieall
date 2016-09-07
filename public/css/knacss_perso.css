@@ -38,6 +38,7 @@
     border-right : 1px grey solid;
     height: 100%;
     position: fixed;
+    background-color: #f1f1f1;
 }
 
 #logo-admin{
@@ -77,6 +78,7 @@ section{
     height: 95%;
     position: relative;
     top : 5%;
+    background-color: #f1f1f1;
 }
 
 /* --------------------------------- */
