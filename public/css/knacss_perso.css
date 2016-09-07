@@ -65,6 +65,14 @@
     list-style: none;
 }
 
+#header-beadcrumbs-admin li {
+    display: inline-block;
+}
+
+#header-beadcrumbs-admin li + li:before {
+    padding: 0 0 0 5px;
+}
+
 /* --------------------------------- */
 /* NavBar - Barre sur le côté gauche */
 /* --------------------------------- */
