@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('header_left')
     <li>
-        <a href="#">
+        <a href="#" class="pam">
             Administration
         </a>
     </li>
