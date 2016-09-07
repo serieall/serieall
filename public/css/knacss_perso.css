@@ -10,7 +10,7 @@
 /* --------------------------------- */
 #body-admin{
     height: 100%;
-    background-color: #f1f1f1;
+
 }
 
 /* --------------------------------- */
@@ -72,14 +72,21 @@
 }
 
 /* --------------------------------- */
+/* Section                           */
+/* --------------------------------- */
+#section-admin{
+    min-height: 95%;
+    position: relative;
+    top : 5%;
+    background-color: #f1f1f1;
+}
+
+/* --------------------------------- */
 /* Article                           */
 /* --------------------------------- */
 #article-admin{
-    min-height: 95%;
     background-color: white;
-    position: relative;
     border: 1px grey solid;
-    top: 5%;
 }
 
 #content-h1-admin{
