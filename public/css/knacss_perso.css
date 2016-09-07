@@ -17,7 +17,7 @@
 /* --------------------------------- */
 #header-admin{
     border-bottom : 1px grey solid;
-    height: 5%;
+    min-height: 5%;
     position: fixed;
     left : 10%;
     background-color: white;
@@ -74,7 +74,7 @@
 /* Section                           */
 /* --------------------------------- */
 #section-admin{
-    height: 95%;
+    min-height: 95%;
     position: relative;
     top : 5%;
     background-color: #f1f1f1;
@@ -85,7 +85,7 @@
 /* --------------------------------- */
 #article-admin{
     background-color: white;
-    height: 100%;
+    min-height: 100%;
     border: 1px grey solid;
 }
 
