@@ -44,6 +44,7 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
 #header-beadcrumbs-admin a {
     display: block;
     text-decoration: none;
@@ -65,16 +66,8 @@
 /* User Header */
 #header-user-admin{
     list-style: none;
-    padding-left: 0em;
+    padding-left: 0;
     padding-right: 2em;
-}
-
-#header-beadcrumbs-admin li {
-    display: inline-block;
-}
-
-#header-beadcrumbs-admin li + li:before {
-    padding: 0 0 0 5px;
 }
 
 /* --------------------------------- */
@@ -89,13 +82,12 @@
 
 #logo-admin{
     display: block;
-    margin : 0 auto;
-    margin-top : 2em;
+    margin: 2em auto 0;
 }
 
 #nav-ul-admin{
     list-style: none;
-    padding-left: 0em;
+    padding-left: 0;
     margin-top: 2em;
 }
 
