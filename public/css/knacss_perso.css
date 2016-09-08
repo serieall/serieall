@@ -40,10 +40,10 @@
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
     list-style: none;
-    margin-top: 50vh;
+    position: absolute;
+    top: 50%;
     transform: translateY(-50%);
 }
-
 #header-beadcrumbs-admin a {
     display: block;
     text-decoration: none;
