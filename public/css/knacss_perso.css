@@ -39,8 +39,7 @@
 
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
-    display: flex; /* contexte sur le parent */
-    justify-content: center; /* alignement vertical */
+    display: flex;
 }
 
 #header-beadcrumbs-admin a {
