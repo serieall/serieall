@@ -43,10 +43,6 @@
     position: absolute;
 }
 
-#header-beadcrumbs-admin li {
-    display: inline-block;
-}
-
 #header-beadcrumbs-admin a {
     display: block;
     text-decoration: none;
