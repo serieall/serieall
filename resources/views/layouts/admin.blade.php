@@ -19,7 +19,9 @@
                 @yield('header_left')
             </ul>
             <ul id="header-user-admin" class="fr">
-                @yield('header_right')
+                <li>
+                    {{ Auth::user()->username }}
+                </li>
             </ul>
         </div>
     </header>

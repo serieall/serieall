@@ -10,14 +10,8 @@
             Séries
         </a>
     </li>
-    <li class="active">
-        Ajouter une série
-    </li>
-@endsection
-
-@section('header_right')
     <li>
-        {{ Auth::user()->username }}
+        Ajouter une série
     </li>
 @endsection
 

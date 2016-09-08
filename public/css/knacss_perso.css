@@ -59,7 +59,7 @@
     content: "/\00a0";
 }
 
-#header-beadcrumbs-admin .active {
+#header-beadcrumbs-admin li:last-child {
     color: #777;
 }
 
