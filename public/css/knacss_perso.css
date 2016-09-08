@@ -7,6 +7,10 @@
 .w85 {
     width: 85%; }
 
+.h50p {
+    height: 50px;
+}
+
 /* --------------------------------- */
 /* Personnalisations                 */
 /* --------------------------------- */
@@ -30,7 +34,6 @@
 /* --------------------------------- */
 #header-admin{
     border-bottom : 1px grey solid;
-    min-height: 50px;
     position: fixed;
     left : 15%;
     background-color: #f1f1f1;

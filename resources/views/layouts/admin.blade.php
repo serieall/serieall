@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="css/font-awesome.css" />
 </head>
 <body id="body-admin">
-    <header id="header-admin" class="fr w85">
-        <div class="grid-2-1">
+    <header id="header-admin" class="fr w85 h50p">
+        <div class="grid-2-1" class="h50p">
             <ul id="header-beadcrumbs-admin" class="fl">
                 @yield('header_left')
             </ul>
