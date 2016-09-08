@@ -47,7 +47,9 @@
 #header-beadcrumbs-admin a {
     display: block;
     text-decoration: none;
-    padding: 50px;
+    line-height: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 #header-beadcrumbs-admin a:hover, #header-beadcrumbs-admin a:focus, #header-beadcrumbs-admin a:active {
