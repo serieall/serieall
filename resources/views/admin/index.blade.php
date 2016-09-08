@@ -5,8 +5,13 @@
             Administration
         </a>
     </li>
+    <li>
+        <a href="#">
+            Séries
+        </a>
+    </li>
     <li class="active">
-        Séries
+        Ajouter une série
     </li>
 @endsection
 
