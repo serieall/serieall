@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header_left')
+@section('breadcrumbs')
     <li>
         <a href="#">
             Administration
