@@ -57,6 +57,10 @@
     color: #0676b6;
 }
 
+#header-beadcrumbs-admin li:before{
+    margin-right: 2rem;
+}
+
 #header-beadcrumbs-admin li + li:before {
     color: #ccc;
     content: "/\00a0";
