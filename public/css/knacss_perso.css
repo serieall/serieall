@@ -31,7 +31,6 @@
 #header-admin{
     border-bottom : 1px grey solid;
     min-height: 50px;
-    height: 7%;
     position: fixed;
     left : 15%;
     background-color: #f1f1f1;
@@ -126,7 +125,7 @@
 #article-admin{
     min-height: 93%;
     position: relative;
-    top : 7%;
+    top : 50px;
 }
 
 #content-h1-admin{
