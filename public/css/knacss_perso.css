@@ -75,10 +75,7 @@
 /* User Header */
 #header-user-admin{
     list-style: none;
-    padding-left: 0;
-    padding-right: 2em;
-    display: table-cell;
-    vertical-align: middle;
+    margin: auto;
 }
 
 /* --------------------------------- */

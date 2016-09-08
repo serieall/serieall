@@ -18,7 +18,7 @@
             <ul id="header-beadcrumbs-admin" class="grid-item-double">
                 @yield('breadcrumbs')
             </ul>
-            <ul id="header-user-admin">
+            <ul id="header-user-admin" class="txtright">
                 <li>
                     {{ Auth::user()->username }}
                 </li>
