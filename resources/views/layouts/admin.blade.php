@@ -22,8 +22,15 @@
                 <li>
                     Wiki
                 </li>
-                <li class="header-dropdown-button">
-                    {{ Auth::user()->username }}
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">{{ Auth::user()->username }}</button>
+                        <div class="dropdown-content">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
