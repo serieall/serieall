@@ -39,7 +39,7 @@
 
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
-    display: flex;
+    margin: auto;
 }
 
 #header-beadcrumbs-admin a {
