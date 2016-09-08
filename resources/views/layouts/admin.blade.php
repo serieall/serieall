@@ -24,7 +24,7 @@
                 </li>
                 <li>
                     <div class="dropdown">
-                        <button class="dropbtn">{{ Auth::user()->username }}</button>
+                        <button class="dropbtn h50p">{{ Auth::user()->username }}</button>
                         <div class="dropdown-content">
                             <a href="#">Link 1</a>
                             <a href="#">Link 2</a>
