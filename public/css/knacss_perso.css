@@ -40,9 +40,8 @@
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
     list-style: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #header-beadcrumbs-admin a {
