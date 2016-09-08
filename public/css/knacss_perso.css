@@ -40,7 +40,6 @@
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
     display: flex; /* contexte sur le parent */
-    flex-direction: column; /* direction d'affichage verticale */
     justify-content: center; /* alignement vertical */
 }
 
