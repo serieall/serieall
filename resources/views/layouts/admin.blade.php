@@ -20,8 +20,17 @@
             </ul>
             <ul id="header-user-admin" class="txtright">
                 <li>
+                    Wiki
+                </li>
+                <div class="header-dropdown-admin">
+                <li class="header-dropdown-button">
                     {{ Auth::user()->username }}
                 </li>
+                    <div class="header-dropdown-content">
+                        <a href="{{ url('/')}}">Revenir sur le site</a>
+                        <a href="{{ url('/logout')}}">Déconnexion</a>
+                    </div>
+                </div>
             </ul>
         </div>
     </header>
