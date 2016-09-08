@@ -83,6 +83,7 @@
 /* NavBar - Barre sur le côté gauche */
 /* --------------------------------- */
 #nav-admin {
+    min-width: 140px;
     border-right : 1px grey solid;
     height: 100%;
     position: fixed;
