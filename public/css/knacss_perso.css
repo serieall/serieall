@@ -51,6 +51,8 @@
 
 #header-beadcrumbs-admin li {
     display: inline-block;
+    margin-left: 1rem;
+    width: auto;
 }
 
 #header-beadcrumbs-admin a:hover, #header-beadcrumbs-admin a:focus, #header-beadcrumbs-admin a:active {
@@ -58,7 +60,7 @@
 }
 
 #header-beadcrumbs-admin li:before{
-    margin-right: 2rem;
+    margin-right: 1rem;
 }
 
 #header-beadcrumbs-admin li + li:before {
