@@ -54,7 +54,7 @@
     color: #0676b6;
 }
 
-#header-beadcrumbs-admin li:before {
+#header-beadcrumbs-admin li + li:before {
     color: #ccc;
     content: "/\00a0";
 }
