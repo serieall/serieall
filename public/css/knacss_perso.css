@@ -40,8 +40,8 @@
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
     list-style: none;
-    position: absolute;
-    top : 50%;
+    margin-top: 50vh;
+    transform: translateY(-50%);
 }
 
 #header-beadcrumbs-admin a {
