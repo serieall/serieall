@@ -39,9 +39,9 @@
 
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
-    list-style: none;
-    display: table-cell;
-    vertical-align: middle;
+    display: flex; /* contexte sur le parent */
+    flex-direction: column; /* direction d'affichage verticale */
+    justify-content: center; /* alignement vertical */
 }
 
 #header-beadcrumbs-admin a {
