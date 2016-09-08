@@ -14,8 +14,8 @@
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85 h50p">
-        <div class="grid-2-1" class="h50p">
-            <ul id="header-beadcrumbs-admin" class="fl">
+        <div class="grid-2-tiny-1" class="h50p">
+            <ul id="header-beadcrumbs-admin" class="fl grid-item-double">
                 @yield('header_left')
             </ul>
             <ul id="header-user-admin" class="fr">
