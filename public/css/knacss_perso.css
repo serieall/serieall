@@ -30,7 +30,8 @@
 /* --------------------------------- */
 #header-admin{
     border-bottom : 1px grey solid;
-    min-height: 7%;
+    min-height: 50px;
+    height: 7%;
     position: fixed;
     left : 15%;
     background-color: #f1f1f1;
