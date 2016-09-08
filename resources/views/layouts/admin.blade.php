@@ -14,7 +14,7 @@
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85 h50p">
-        <div class="grid-2-tiny-1" class="h50p">
+        <div class="grid-2-tiny-1 h50p">
             <ul id="header-beadcrumbs-admin" class="grid-item-double">
                 @yield('breadcrumbs')
             </ul>
