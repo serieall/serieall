@@ -42,6 +42,7 @@
 
 /* Breadcrumbs */
 #header-beadcrumbs-admin {
+    display: inline-block;
     margin: auto;
 }
 
