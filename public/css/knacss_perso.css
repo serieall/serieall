@@ -48,10 +48,6 @@
     display: block;
     text-decoration: none;
     line-height: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-right : 10px;
-    padding-left : 10px;
 }
 
 #header-beadcrumbs-admin a:hover, #header-beadcrumbs-admin a:focus, #header-beadcrumbs-admin a:active {
@@ -77,6 +73,10 @@
 
 #header-beadcrumbs-admin li {
     display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right : 10px;
+    padding-left : 10px;
 }
 
 #header-beadcrumbs-admin li + li:before {
