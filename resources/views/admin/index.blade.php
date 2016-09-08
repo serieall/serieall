@@ -1,17 +1,7 @@
 @extends('layouts.admin')
 @section('breadcrumbs')
     <li>
-        <a href="#">
-            Administration
-        </a>
-    </li>
-    <li>
-        <a href="#">
-            Séries
-        </a>
-    </li>
-    <li>
-        Ajouter une série
+        Administration
     </li>
 @endsection
 
