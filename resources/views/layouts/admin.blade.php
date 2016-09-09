@@ -23,8 +23,8 @@
                     Wiki
                 </li>
                 <li>
-                    <div id="header-dropdown-admin">
-                        {{ Auth::user()->username }} <span class="caret"></span>
+                    <div id="header-dropdown-admin" class="fr">
+                        <span id="header-user-button" class="h50p">{{ Auth::user()->username }}</span> <span class="caret"></span>
                         <div id="header-dropdown-content">
                             <a href="{{ url('/')}}">Retour sur le site</a>
                             <a href="{{ url('/logout')}}">Déconnexion</a>
