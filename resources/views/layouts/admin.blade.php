@@ -23,9 +23,9 @@
                     Wiki
                 </li>
                 <li>
-                    <div class="header-dropdown-admin">
+                    <div id="header-dropdown-admin">
                         {{ Auth::user()->username }} <span class="caret"></span>
-                        <div class="header-dropdown-content">
+                        <div id="header-dropdown-content">
                             <a href="{{ url('/')}}">Retour sur le site</a>
                             <a href="{{ url('/logout')}}">Déconnexion</a>
                         </div>
