@@ -85,7 +85,15 @@
     width: auto;
 }
 
+#header-dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
 
+#header-dropdown-admin:hover #header-dropdown-content {
+    display: block;
+}
 
 /* --------------------------------- */
 /* NavBar - Barre sur le côté gauche */
