@@ -85,6 +85,11 @@
     width: auto;
 }
 
+#header-dropdown-admin{
+    position: relative;
+    display: inline-block;
+}
+
 #header-dropdown-content {
     display: none;
     position: absolute;
