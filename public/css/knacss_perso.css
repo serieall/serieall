@@ -96,16 +96,13 @@
 #header-dropdown-admin {
     position: relative;
     display: inline-block;
-    float: right;
 }
 
 /* Dropdown Content (Hidden by Default) */
 #header-dropdown-content {
     display: none;
-    position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-
 }
 
 /* Show the dropdown menu on hover */
