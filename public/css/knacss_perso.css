@@ -105,6 +105,7 @@
     background-color: #f9f9f9;
     right: 0;
     min-width: 160px;
+    line-height: normal;
 }
 
 /* Show the dropdown menu on hover */
