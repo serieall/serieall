@@ -24,7 +24,7 @@
                 </li>
                 <li>
                     <div id="header-dropdown-admin" class="fr">
-                        <span id="header-dropdown-button">{{ Auth::user()->username }}</span> <span class="caret"></span>
+                        <span id="header-dropdown-button" class="h50p">{{ Auth::user()->username }}</span> <span class="caret"></span>
                         <div id="header-dropdown-content">
                             <a href="{{ url('/')}}">Retour sur le site</a>
                             <a href="{{ url('/logout')}}">Déconnexion</a>
