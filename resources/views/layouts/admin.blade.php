@@ -53,7 +53,7 @@
         <img id="logo-admin" src="images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100">
             <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin" class="pam">
+                <a href="{{ url('/admin/series') }}" id="nav-a-admin" class="pam">
                     <span class="big">Séries</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
