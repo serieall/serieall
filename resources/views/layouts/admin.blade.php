@@ -20,7 +20,7 @@
             </ul>
             <ul id="header-user-admin" class="txtright h50p">
                 <li>
-                    Wiki
+                    Wiki <span class="mls fa fa-question-circle"></span>
                 </li>
                 <li>
                     <div id="header-dropdown-admin">
