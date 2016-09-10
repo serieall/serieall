@@ -86,8 +86,7 @@
 }
 
 #header-dropdown-button {
-    background-color: #4CAF50;
-    color: white;
+    height: 50px;
     border: none;
     cursor: pointer;
 }
