@@ -23,7 +23,7 @@
                     Wiki
                 </li>
                 <li>
-                    <div id="header-dropdown-admin" class="fr">
+                    <div id="header-dropdown-admin" class="fr h50p">
                         <span id="header-user-button" class="h50p">{{ Auth::user()->username }}</span> <span class="caret"></span>
                         <div id="header-dropdown-content">
                             <a href="{{ url('/')}}">Retour sur le site</a>
