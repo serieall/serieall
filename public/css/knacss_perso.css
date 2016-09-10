@@ -84,12 +84,8 @@
     margin-left: 2rem;
     width: auto;
     line-height: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px 10px;
 }
-
-
-
 
 #header-dropdown-button {
     height: 50px;
