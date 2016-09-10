@@ -91,7 +91,7 @@
     display: block ;
 }
 
-.wiki a:hover, .wiki a:focus, .wiki a:active {
+.wiki:hover, .wiki:focus, .wiki:active {
     background-color: #0676b6;
     color: white;
 }
