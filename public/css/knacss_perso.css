@@ -79,15 +79,17 @@
     padding-right: 2em;
 }
 
-#header-user-admin ul {
-    height: 50px;
-}
-
 #header-user-admin li {
     display: inline-block;
     margin-left: 2rem;
     width: auto;
+    line-height: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
+
+
+
 
 #header-dropdown-button {
     height: 50px;

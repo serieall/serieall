@@ -18,7 +18,7 @@
             <ul id="header-beadcrumbs-admin" class="grid-item-double">
                 @yield('breadcrumbs')
             </ul>
-            <ul id="header-user-admin" class="txtright">
+            <ul id="header-user-admin" class="txtright h50p">
                 <li>
                     Wiki
                 </li>
