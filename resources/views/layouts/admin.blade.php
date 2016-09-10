@@ -21,8 +21,8 @@
             <ul id="header-user-admin" class="txtright h50p">
                 <li>
                     <a href="http://wiki.journeytotheit.ovh">
-                    Wiki <span class="mls fa fa-question-circle"></span>
-                </a>
+                        Wiki <span class="mls fa fa-question-circle"></span>
+                    </a>
                 </li>
 
                 <li>
