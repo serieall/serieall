@@ -86,7 +86,12 @@
     line-height: 50px;
 }
 
-#header-user-admin a:hover, #header-user-admin a:focus, #header-user-admin a:active {
+.wiki{
+    text-decoration: none;
+    display: block ;
+}
+
+.wiki a:hover, .wiki a:focus, .wiki a:active {
     background-color: #0676b6;
     color: white;
 }
