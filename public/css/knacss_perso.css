@@ -114,6 +114,7 @@
     margin-bottom: 10px;
     display: block;
     text-decoration: none;
+    line-height: normal;
 }
 
 #header-dropdown-content a:hover {
