@@ -106,6 +106,7 @@
     right: 0;
     min-width: 160px;
     line-height: normal;
+    padding: 1rem;
 }
 
 /* Show the dropdown menu on hover */
