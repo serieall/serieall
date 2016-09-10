@@ -128,6 +128,10 @@
     background-color: #f1f1f1
 }
 
+#header-dropdown-admin:hover{
+    background-color: grey;
+}
+
     /* Show the dropdown menu on hover */
 #header-dropdown-admin:hover #header-dropdown-content {
     display: block;
