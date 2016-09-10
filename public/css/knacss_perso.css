@@ -109,12 +109,14 @@
     padding: 1rem;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
+#header-dropdown-content li {
+    line-height: 20px;
+}
 
 #header-dropdown-content a{
     margin-bottom: 10px;
     display: block;
     text-decoration: none;
-    line-height: normal;
 }
 
 #header-dropdown-content a:hover {
