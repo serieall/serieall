@@ -8,9 +8,9 @@
     <title>SérieAll BETA</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/knacss.css" />
-    <link rel="stylesheet" href="css/knacss_perso.css" />
-    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="{{ HTML::style('css/knacss.css'); }}" />
+    <link rel="stylesheet" href="{{ HTML::style('css/knacss_perso.css'); }}" />
+    <link rel="stylesheet" href="{{ HTML::style('css/font-awesome.css'); }}" />
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85 h50p">
