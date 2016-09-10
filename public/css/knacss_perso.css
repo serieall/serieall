@@ -89,6 +89,8 @@
 .wiki{
     text-decoration: none;
     display: block ;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .wiki:hover, .wiki:focus, .wiki:active {
