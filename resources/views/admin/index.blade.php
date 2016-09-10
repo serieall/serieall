@@ -1,12 +1,7 @@
 @extends('layouts.admin')
 @section('breadcrumbs')
     <li>
-        <a href="{{ url('/admin') }}">
-            Administration
-        </a>
-    </li>
-    <li>
-        Séries
+        Administration
     </li>
 @endsection
 
