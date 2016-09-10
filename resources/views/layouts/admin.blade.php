@@ -24,7 +24,7 @@
                 </li>
                 <li>
                     <div id="header-dropdown-admin">
-                        <span id="header-dropdown-button">{{ Auth::user()->username }}<span class="fa fa-caret-down"></span></span>
+                        <span id="header-dropdown-button">{{ Auth::user()->username }}<span class="mls fa fa-caret-down"></span></span>
                         <ul id="header-dropdown-content" class="txtleft">
                             <a href="{{ url('/')}}">
                                 <li>
