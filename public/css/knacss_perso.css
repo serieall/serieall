@@ -109,8 +109,8 @@
     padding: 1rem;
 }
 
-#header-dropdown-content a{
-    padding: 3px 20px;
+#header-dropdown-content{
+    margin-bottom: 10px;
 }
 
     /* Show the dropdown menu on hover */
