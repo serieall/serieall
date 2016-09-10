@@ -109,7 +109,11 @@
     padding: 1rem;
 }
 
-/* Show the dropdown menu on hover */
+#header-dropdown-content a{
+    padding: 0.5rem;
+}
+
+    /* Show the dropdown menu on hover */
 #header-dropdown-admin:hover #header-dropdown-content {
     display: block;
 }
