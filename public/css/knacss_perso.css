@@ -105,14 +105,21 @@
     position: absolute;
     background-color: #f9f9f9;
     right: 0;
-    min-width: 160px;
+    min-width: 200px;
     line-height: normal;
     padding: 1rem;
     margin-top: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-#header-dropdown-content{
+#header-dropdown-content a{
     margin-bottom: 10px;
+    display: block;
+    text-decoration: none;
+}
+
+#header-dropdown-content a:hover {
+    background-color: #f1f1f1
 }
 
     /* Show the dropdown menu on hover */
