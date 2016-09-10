@@ -26,14 +26,18 @@
                     <div id="header-dropdown-admin">
                         <span id="header-dropdown-button">{{ Auth::user()->username }}</span> <span class="caret"></span>
                         <ul id="header-dropdown-content" class="txtleft">
-                            <li>
-                                <i class= "fa fa-caret-square-o-left"></i>
-                                <a href="{{ url('/')}}">Retour sur le site</a>
-                            </li>
-                            <li>
-                                <i class= "fa fa-sign-out"></i>
-                                <a href="{{ url('/logout')}}">Déconnexion</a>
-                            </li>
+                            <a href="{{ url('/')}}">
+                                <li>
+                                    <i class= "fa fa-caret-square-o-left"></i>
+                                    Retour sur le site
+                                </li>
+                            </a>
+                            <a href="{{ url('/logout')}}">
+                                <li>
+                                    <i class= "fa fa-sign-out"></i>
+                                    Déconnexion
+                                </li>
+                            </a>
                         </ul>
                     </div>
                 </li>
