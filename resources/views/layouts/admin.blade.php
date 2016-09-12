@@ -48,15 +48,6 @@
         </div>
     </header>
 
-
-    <div class="menu-btn" id="menu-btn">
-        <div></div>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-
     <nav id="nav-admin" class="fl w15 responsive-menu">
         <img id="logo-admin" src="/images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100">
@@ -100,11 +91,3 @@
     </article>
 </body>
 </html>
-
-<script type="text/javascript">
-    jQuery(function($){
-        $( '.menu-btn' ).click(function(){
-            $('.responsive-menu').toggleClass('expand')
-        })
-    })
-</script>
