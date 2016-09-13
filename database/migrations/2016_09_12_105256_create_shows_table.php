@@ -19,8 +19,8 @@ class CreateShowsTable extends Migration
             $table->string('name');
             $table->string('name_fr');
             $table->text('synopsis');
-            $table->integer('format',4)->unsigned();
-            $table->integer('annee', 4)->unsigned();
+            $table->integer('format');
+            $table->integer('annee');
             $table->tinyInteger('encours');
             $table->text('createurs');
             $table->date('diffusion_us');
