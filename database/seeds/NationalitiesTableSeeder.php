@@ -11,8 +11,6 @@ class NationalitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('nationalities')->delete();
-
         for($i = 0; $i < 20; ++$i)
         {
             $date = $this->randDate();
