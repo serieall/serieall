@@ -24,7 +24,7 @@ class ShowsTableSeeder extends Seeder
         {
             $date = $this->randDate();
             DB::table('shows')->insert([
-                'thetvdbid' => rand(1, 10),
+                'thetvdb_id' => rand(1, 10),
                 'show_url' => 'titre' . $i,
                 'name' => 'Titre' . $i,
                 'name_fr' => 'TitreFR' . $i,

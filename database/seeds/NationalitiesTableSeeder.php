@@ -9,7 +9,7 @@ class NationalitiesTableSeeder extends Seeder
     {
         return Carbon::createFromDate(null, rand(1, 12), rand(1, 28));
     }
-    
+
     /**
      * Run the database seeds.
      *
