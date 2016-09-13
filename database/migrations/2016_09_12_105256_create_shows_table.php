@@ -14,23 +14,21 @@ class CreateShowsTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('thetvdb_id');
+            $table->integer('thetvdb_id');
             $table->string('name');
+            $table->string('name_fr');
             $table->text('synopsis');
-            $table->integer('format');
-            $table->boolean('annee')->default(false);
-            $table->boolean('encours')->default(false);
+            $table->integer('format',4);
+            $table->integer('annee', 4);
+            $table->tinyInteger('encours');
             $table->text('createurs');
-            $table->tinyInteger('titre_fr');
-            $table->string('diffusion_us', 100);
-            $table->string('diffusion_fr', 100);
-            $table->string('img', 100);
-            $table->string('moyenne', 30);
-            $table->string('moyenne_redac', 30);
-            $table->string('nbnotes', 30);
-            $table->string('taux_erectile', 30);
-            $table->string('avis_rentree', 30);
-            $table->rememberToken();
+            $table->date('diffusion_us');
+            $table->date('diffusion_fr');
+            $table->float('moyenne');
+            $table->float('moyenne_redac');
+            $table->integer('nbnotes');
+            $table->integer('taux_erectile', 2);
+            $table->text('avis_rentree');
             $table->timestamps();
         });
     }
