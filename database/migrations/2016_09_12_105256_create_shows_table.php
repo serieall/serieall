@@ -12,9 +12,10 @@ class CreateShowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('shows', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('thetvdb_id');
+            $table->string('show_url')->unique();
             $table->string('name');
             $table->string('name_fr');
             $table->text('synopsis');
