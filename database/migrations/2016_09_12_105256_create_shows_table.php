@@ -16,7 +16,7 @@ class CreateShowsTable extends Migration
             $table->increments('id');
             $table->string('thetvdb_id');
             $table->string('name');
-            $table->string('synopsis');
+            $table->text('synopsis');
             $table->integer('format');
             $table->boolean('annee')->default(false);
             $table->boolean('encours')->default(false);
