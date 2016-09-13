@@ -28,7 +28,7 @@ class CreateShowsTable extends Migration
             $table->float('moyenne');
             $table->float('moyenne_redac');
             $table->integer('nbnotes');
-            $table->integer('taux_erectile', 2);
+            $table->integer('taux_erectile');
             $table->text('avis_rentree');
             $table->timestamps();
         });
