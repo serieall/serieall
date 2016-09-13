@@ -11,7 +11,7 @@ class ShowsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('posts')->delete();
+        DB::table('shows')->delete();
 
         for($i = 0; $i < 100; ++$i)
         {
