@@ -16,7 +16,7 @@ class ShowsTableSeeder extends Seeder
         for($i = 0; $i < 100; ++$i)
         {
             $date = $this->randDate();
-            DB::table('posts')->insert([
+            DB::table('shows')->insert([
                 'thetvdbid' => rand(1, 10),
                 'show_url' => 'titre' . $i,
                 'name' => 'Titre' . $i,
