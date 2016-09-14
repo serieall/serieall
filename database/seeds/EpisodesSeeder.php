@@ -21,7 +21,7 @@ class EpisodesSeeder extends Seeder
         for($i = 0; $i < 2000; ++$i)
         {
             $date = $this->randDate();
-            DB::table('seasons')->insert([
+            DB::table('episodes')->insert([
                 'thetvdb_id' => rand(1, 10),
                 'numero' => rand(1, 10),
                 'name' => 'Episode' . $i,

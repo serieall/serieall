@@ -16,7 +16,7 @@ class SeasonsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('shows')->delete();
+        DB::table('seasons')->delete();
 
         for($i = 0; $i < 500; ++$i)
         {
