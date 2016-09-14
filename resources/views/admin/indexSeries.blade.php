@@ -46,11 +46,6 @@
                         {{ $season->name }}
                     @endforeach
                 </td>
-                <td>
-                    @foreach($show->episodes as $episode)
-                        {{ $episode->name }}
-                    @endforeach
-                </td>
 
             </tr>
         @endforeach
