@@ -15,7 +15,7 @@ class AdminRepository
     }
 
     public function getShowByName($n){
-        return $this->show->with('channel', 'nationalities')
+        return $this->show->with('channels', 'nationalities')
             ->orderBy('shows.name')
             ->paginate(3);
     }
