@@ -16,8 +16,6 @@ class SeasonsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('seasons')->delete();
-
         for($i = 0; $i < 500; ++$i)
         {
             $date = $this->randDate();

@@ -18,8 +18,6 @@ class ShowsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('shows')->delete();
-
         for($i = 0; $i < 100; ++$i)
         {
             $date = $this->randDate();

@@ -17,8 +17,6 @@ class ChannelsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('channels')->delete();
-
         for($i = 0; $i < 20; ++$i)
         {
             $date = $this->randDate();

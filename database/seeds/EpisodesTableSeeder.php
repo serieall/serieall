@@ -16,8 +16,6 @@ class EpisodesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('episodes')->delete();
-
         for($i = 0; $i < 2000; ++$i)
         {
             $date = $this->randDate();
