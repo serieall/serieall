@@ -33,4 +33,9 @@ class Show extends Model
     {
         return $this->belongsToMany('App\Models\Nationality');
     }
+
+    public function seasons()
+    {
+        return $this->hasMany('App\Models\Season');
+    }
 }

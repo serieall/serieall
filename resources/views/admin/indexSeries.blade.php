@@ -41,6 +41,16 @@
                         {{ $nationality->name }}
                     @endforeach
                 </td>
+                <td>
+                    @foreach($show->seasons as $season)
+                        {{ $season->name }}
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($show->episodes as $episode)
+                        {{ $episode->name }}
+                    @endforeach
+                </td>
 
             </tr>
         @endforeach
