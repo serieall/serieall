@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class EpisodesSeeder extends Seeder
+class EpisodesTableSeeder extends Seeder
 {
     private function randDate()
     {
