@@ -22,6 +22,8 @@
                     <th>Nom</th>
                     <th>Chaines</th>
                     <th>Nationalités</th>
+                    <th>Nombre de saisons</th>
+                    <th>Nombre d'épisodes</th>
                 </tr>
             </thead>
         @foreach($shows as $show)
