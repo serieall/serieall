@@ -23,6 +23,6 @@ class AdminController extends Controller
 
     public function indexSeries(){
         $shows = $this->adminRepository->getShowByName($this->nbPerPage);
-        return view('admin/indexSeries', compact('shows'));
+        return view('admin/indexSeries', compact('shows', 'links'));
     }
 }
