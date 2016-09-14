@@ -86,7 +86,7 @@
         </ul>
     </nav>
 
-    <article id="article-admin" class="fr w85 pas">
+    <article id="article-admin" class="fr w85 pam">
         @yield('content')
     </article>
 </body>

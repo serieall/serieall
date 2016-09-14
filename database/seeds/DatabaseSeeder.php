@@ -11,6 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(ShowsTableSeeder::class);
+        $this->call(NationalitiesTableSeeder::class);
+        $this->call(ChannelsTableSeeder::class);
+        $this->call(ChannelShowTableSeeder::class);
+        $this->call(NationalityShowTableSeeder::class);
+        $this->call(SeasonsSeeder::class);
+        $this->call(EpisodesSeeder::class);
     }
 }
