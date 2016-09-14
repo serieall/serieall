@@ -14,6 +14,8 @@
 @section('content')
     <div>
         <h1 id="content-h1-admin" class="txtcenter">Séries</h1>
-        <p class="txtcenter">Index des séries</p>
+        @foreach($shows as $show)
+            {{ $show->name }}
+        @endforeach
     </div>
 @endsection
