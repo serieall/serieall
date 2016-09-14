@@ -17,9 +17,13 @@
 
         {!! $links !!}
         <table>
-            <thead>Nom</thead>
-            <thead>Chaines</thead>
-            <thead>Nationalités</thead>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Chaines</th>
+                    <th>Nationalités</th>
+                </tr>
+            </thead>
         @foreach($shows as $show)
             <tr>
                 <td>
@@ -35,7 +39,7 @@
                         {{ $nationality->name }}
                     @endforeach
                 </td>
-                
+
             </tr>
         @endforeach
         </table>
