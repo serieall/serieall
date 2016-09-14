@@ -16,8 +16,28 @@
         <h1 id="content-h1-admin" class="txtcenter">Séries</h1>
 
         {!! $links !!}
+        <table>
+            <thead>Nom</thead>
+            <thead>Chaines</thead>
+            <thead>Nationalités</thead>
         @foreach($shows as $show)
-            {{ $show->name }}
+            <tr>
+                <td>
+                    {{ $show->name }}
+                </td>
+                <td>
+                    @foreach($show->channels as $channel)
+                        {{ $channel->name }}
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($show->nationalities as $nationality)
+                        {{ $nationality->name }}
+                    @endforeach
+                </td>
+                
+            </tr>
         @endforeach
+        </table>
     </div>
 @endsection
