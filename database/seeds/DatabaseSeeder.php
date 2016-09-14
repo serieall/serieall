@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ChannelsTableSeeder::class);
         $this->call(ChannelShowTableSeeder::class);
         $this->call(NationalityShowTableSeeder::class);
+        $this->call(SeasonsSeeder::class);
+        $this->call(EpisodesSeeder::class);
     }
 }

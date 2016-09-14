@@ -26,8 +26,8 @@ class ShowsTableSeeder extends Seeder
             DB::table('shows')->insert([
                 'thetvdb_id' => rand(1, 10),
                 'show_url' => 'titre' . $i,
-                'name' => 'Titre' . $i,
-                'name_fr' => 'TitreFR' . $i,
+                'name' => 'Série' . $i,
+                'name_fr' => 'SérieFR' . $i,
                 'synopsis' => 'Contenu' . $i . ' Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                 'format' => 45,
                 'annee' => rand(2010, 2016),
