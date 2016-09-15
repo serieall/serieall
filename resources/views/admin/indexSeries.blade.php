@@ -42,7 +42,7 @@
                     @endforeach
                 </td>
                 <td>
-                    {{ $show->season_count }}
+                    {{ $show->seasons_count }}
                 </td>
 
             </tr>
