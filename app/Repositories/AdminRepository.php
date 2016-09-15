@@ -20,7 +20,7 @@ class AdminRepository
         $shows=DB::table('shows', 'seasons')
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
             ->join('episodes', 'seasons.id', '=', 'episodes.season_id')
-            ->orderBy('shows.name');
+            ->orderBy('shows.name')
             ->paginate($n);
 
         return compact('shows', 'episodes');
