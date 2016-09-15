@@ -18,7 +18,7 @@ class AdminRepository
     public function getShowByName($n){
 
         $shows=DB::table('shows')
-            ->select('shows.name, count(req.season), sum(req.episodes)')
+            ->select('shows.name', 'count(req.season)', 'sum(req.episodes)')
             ->join(DB::raw('(SELECT seasons.id season, 
                         seasons.show_id, 
                         COUNT(episodes.id) episodes
