@@ -19,7 +19,6 @@ class AdminRepository
 
         $shows=DB::table('shows')
             ->select('shows.name, channels.name, nationalities.name, count(req.season), sum(req.episodes)')
-            ->with('channels', 'nationalities')
             ->join(DB::raw('(SELECT seasons.id season, 
                         seasons.show_id, 
                         COUNT(episodes.id) episodes
