@@ -33,7 +33,7 @@
 /* Header - Barre du haut            */
 /* --------------------------------- */
 #header-admin{
-    border-bottom : 1px grey solid;
+    border-bottom : 1px #e7e7e7 solid;
     position: fixed;
     left : 15%;
     background-color: #f1f1f1;
@@ -156,7 +156,7 @@
 /* NavBar - Barre sur le côté gauche */
 /* --------------------------------- */
 #nav-admin {
-    border-right : 1px grey solid;
+    border-right : 1px #e7e7e7 solid;
     height: 100%;
     min-width: 140px;
     position: fixed;
@@ -185,11 +185,11 @@
 }
 
 #nav-li-admin:first-child {
-    border-top : 1px grey solid;
+    border-top : 1px #e7e7e7 solid;
 }
 
 #nav-li-admin{
-    border-bottom : 1px grey solid;
+    border-bottom : 1px #e7e7e7 solid;
 }
 
 /* --------------------------------- */
