@@ -31,6 +31,7 @@ class AdminRepository
             ->groupBy('shows.id')
             ->get();
 
+        $shows = collect($shows);
         return compact('shows');
     }
 
