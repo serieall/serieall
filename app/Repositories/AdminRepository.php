@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Show;
+use Illuminate\Support\Facades\DB;
 
 class AdminRepository
 {
@@ -15,9 +16,14 @@ class AdminRepository
     }
 
     public function getShowByName($n){
-        return $this->show->with('channels', 'nationalities')
-            ->withCount('seasons')
-            ->orderBy('shows.name')
+
+        $shows=DB::table('shows', 'seasons')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->join('episodes', 'seasons.id', '=', 'episodes.season_id')
+            ->orderBy('shows.name');
             ->paginate($n);
+
+        return compact('shows', 'episodes');
     }
+
 }
