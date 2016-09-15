@@ -29,7 +29,8 @@ class AdminRepository
             )
             ->orderBy('shows.name')
             ->groupBy('shows.id')
-            ->get();
+            ->get()
+            ->paginate($n);
 
         $shows = collect($shows);
         return compact('shows');
