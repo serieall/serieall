@@ -18,8 +18,16 @@ class AdminRepository
     public function getShowByName($n){
 
         $shows=DB::table('shows')
-            ->join('seasons', 'seasons.show_id', '=', 'shows.id')
-            ->join('episodes', 'seasons.id', '=', 'episodes.season_id')
+            ->select('shows.name, channels.name, nationalities.name, count(req.season), sum(req.episodes)')
+            ->with('channels', 'nationalities')
+            ->join(DB::raw('(SELECT seasons.id season, 
+                        seasons.show_id, 
+                        COUNT(episodes.id) episodes
+                    FROM seasons 
+                    INNER JOIN episodes 
+                      ON episodes.season_id = seasons.id
+                    GROUP BY seasons.id) as req'), 'req.show_id', '=', 'shows.id'
+            )
             ->orderBy('shows.name')
             ->groupBy('shows.id')
             ->get()
