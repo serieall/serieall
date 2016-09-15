@@ -30,7 +30,7 @@ class EpisodesTableSeeder extends Seeder
                 'diffusion_us' => $date,
                 'diffusion_fr' => $date,
                 'moyenne' => rand(0,20),
-                'nbnotes' => rand(0,50),
+                'nbnotes' => rand(1,200),
                 'created_at' => $date,
                 'updated_at' => $date,
                 'season_id' => rand(1, 500)

@@ -17,14 +17,15 @@ class AdminRepository
 
     public function getShowByName($n){
 
-        $shows=DB::table('shows', 'seasons')
-            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+        $shows=DB::table('shows')
+            ->join('seasons', 'seasons.show_id', '=', 'shows.id')
             ->join('episodes', 'seasons.id', '=', 'episodes.season_id')
             ->orderBy('shows.name')
+            ->groupBy('shows.id')
             ->get()
             ->paginate($n);
 
-        return compact('shows', 'episodes');
+        return compact('shows');
     }
 
 }

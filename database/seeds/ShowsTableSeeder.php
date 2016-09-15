@@ -35,7 +35,7 @@ class ShowsTableSeeder extends Seeder
                 'diffusion_fr' => $date,
                 'moyenne' => rand(0,20),
                 'moyenne_redac' => rand(0,20),
-                'nbnotes' => rand(0,50),
+                'nbnotes' => rand(1,50),
                 'taux_erectile' => rand(0,100),
                 'avis_rentree' => 'Avis' . $i,
                 'created_at' => $date,
