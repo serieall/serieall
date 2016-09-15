@@ -38,10 +38,10 @@
                     prout
                 </td>
                 <td>
-                    {{ $show->nb_saisons }}
+                    {{ $show->NB_SAISONS }}
                 </td>
                 <td>
-                    {{ $show->nb_episodes }}
+                    {{ $show->NB_EPISODES }}
                 </td>
 
             </tr>
