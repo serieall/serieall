@@ -21,6 +21,7 @@ class AdminRepository
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
             ->join('episodes', 'seasons.id', '=', 'episodes.season_id')
             ->orderBy('shows.name')
+            ->get()
             ->paginate($n);
 
         return compact('shows', 'episodes');
