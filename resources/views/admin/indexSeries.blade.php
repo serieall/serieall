@@ -61,8 +61,16 @@
 
 @section('scripts')
     <script>
-        $(document).ready(function(){
-            $('#table-show-admin').DataTable();
-        });
+        $('#table-show-admin').DataTable( {
+            "order": [[ 0, "asc" ]],
+            "language": {
+                "lengthMenu": "Afficher _MENU_ enregistrements par page",
+                "zeroRecords": "Aucun enregistrement trouvé",
+                "info": "Page _PAGE_ sur _PAGES_",
+                "infoEmpty": "Aucun enregistrement trouvé",
+                "infoFiltered": "(filtré sur _MAX_ enregistrements)",
+                "sSearch" : "Recherche"
+            }
+        } );
     </script>
 @endsection
