@@ -25,6 +25,6 @@ class AdminShowController extends Controller
         $navActive = 'show';
         $shows = $this->adminShowRepository->getShowByName();
 
-        return view('admin/indexSeries', compact('shows', 'links', 'navActive'));
+        return view('admin/indexSeries', compact('shows', 'navActive'));
     }
 }
