@@ -36,5 +36,5 @@ Route::post('changepassword', 'UserController@changePassword');
 */
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', 'AdminController@index');
-    Route::get('/admin/series', 'AdminController@indexSeries');
+    Route::get('/admin/series', 'AdminShowController@indexSeries');
 });

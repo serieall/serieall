@@ -18,15 +18,12 @@ class AdminController extends Controller
     }
 
     public function index(){
-        return view('admin/index');
+        #Variable qui détecte dans quelle partie de l'admin on se trouve
+        $nav_active = '';
+
+        return view('admin/index', compact('nav_active'));
     }
 
-    public function indexSeries(){
-        $nav_active = 'show';
 
-        $shows = $this->adminRepository->getShowByName($this->nbPerPage);
-        $links = $shows->render();
 
-        return view('admin/indexSeries', compact('shows', 'links', 'nav_active'));
-    }
 }
