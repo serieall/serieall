@@ -17,7 +17,7 @@
 
         {!! $links !!}
 
-        <table class="tableSearch">
+        <table class="search-table">
             <thead>
                 <tr>
                     <th>Nom</th>
