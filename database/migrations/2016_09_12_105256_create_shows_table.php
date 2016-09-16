@@ -31,6 +31,7 @@ class CreateShowsTable extends Migration
             $table->integer('taux_erectile');
             $table->text('avis_rentree');
             $table->timestamps();
+            $table->index('name');
         });
     }
 
