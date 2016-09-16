@@ -211,68 +211,34 @@
 /* Table */
 table {
     width: 100%;
-    background: #FFFFFF;
+    background: #0676b6;
     margin: 1em 0em;
-    border: 1px solid blue;
+    border: 1px solid #0676b6;
     text-align: left;
     color: black;
     border-spacing: 0px;
 }
 
-table:first-child {
-    margin-top: 0em;
-}
-
-table:last-child {
-    margin-bottom: 0em;
-}
-
 table thead {
-    background: #043363;
+    background: #0676b6;
     color: white;
     vertical-align: inherit;
     font-weight: bold;
     text-transform: none;
     border-collapse: collapse;
-    padding : 2em;
 }
 
-table thead tr > th:first-child {
-    border-left: none;
+table thead th{
+    padding : 1em;
 }
-
-table th,
-table td {
-    -webkit-transition: background 0.1s ease, color 0.1s ease;
-    transition: background 0.1s ease, color 0.1s ease;
-}
-
-/* Table Row */
 
 table tr td {
     border-top: 1px solid rgba(34, 36, 38, 0.1);
 }
 
-table tr:first-child td {
-    border-top: none;
-}
-
-/* Table Cells */
-
 table td {
     padding: 0.8em 0.8em;
     text-align: inherit;
-}
-
-table tr th,
-table tr td {
-    padding : 1em;
-    border-left: 1px solid rgba(34, 36, 38, 0.1);
-}
-
-table tr th:first-child,
-table tr td:first-child {
-    border-left: none;
 }
 
 table tbody tr:hover{
