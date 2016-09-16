@@ -17,7 +17,7 @@
 
         {!! $links !!}
         <input id="search" name="search" placeholder="Start typing here" type="text" data-list=".list">
-        <table class="list">
+        <table class="tableSearch">
             <thead>
                 <tr>
                     <th>Nom</th>
@@ -53,3 +53,12 @@
         </table>
     </div>
 @endsection
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('table.search-table').tableSearch({
+            searchText:'Search Table',
+            searchPlaceHolder:'Input Value'
+        });
+    });
+</script>
