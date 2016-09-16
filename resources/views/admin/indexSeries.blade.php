@@ -42,14 +42,10 @@
                     @endforeach
                 </td>
                 <td>
-                    @foreach($show->seasons as $season)
-                        {{ $season->name }}
-                    @endforeach
+                    {{ $show->seasons_count }}
                 </td>
                 <td>
-                    @foreach($show->episodes as $episode)
-                        {{ $episode->name }}
-                    @endforeach
+                    {{ $show->episodes_count }}
                 </td>
 
             </tr>
