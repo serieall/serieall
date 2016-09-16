@@ -23,8 +23,7 @@ class AdminShowController extends Controller
     public function indexSeries(){
         // Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
-        $shows = $this->adminShowRepository->getShowByName($this->nbPerPage);
-        $links = $shows->render();
+        $shows = $this->adminShowRepository->getShowByName();
 
         return view('admin/indexSeries', compact('shows', 'links', 'navActive'));
     }
