@@ -15,7 +15,7 @@
     <div>
         <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
-        <table class="search-table">
+        <table class="search-table table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Nom</th>
