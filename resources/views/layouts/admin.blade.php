@@ -13,18 +13,6 @@
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
-    {{ Html::script('/js/datatables.js') }}
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.search-table').DataTable({
-                "order": [[1, "asc"]]
-            });
-
-        } );
-    </script>
-
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85 h50p">
