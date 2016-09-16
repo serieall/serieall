@@ -261,3 +261,44 @@ table td {
     -webkit-transition: background 0.1s ease, color 0.1s ease;
     transition: background 0.1s ease, color 0.1s ease;
 }
+
+/* Table Row */
+
+table tr td {
+    border-top: 1px solid rgba(34, 36, 38, 0.1);
+}
+
+table tr:first-child td {
+    border-top: none;
+}
+
+/* Table Cells */
+
+table td {
+    padding: 0.78571429em 0.78571429em;
+    text-align: inherit;
+}
+
+/* Icons */
+
+table > .icon {
+    vertical-align: baseline;
+}
+
+table > .icon:only-child {
+    margin: 0em;
+}
+
+/* Table Segment */
+
+table.segment {
+    padding: 0em;
+}
+
+table.segment:after {
+    display: none;
+}
+
+table.segment.stacked:after {
+    display: block;
+}
