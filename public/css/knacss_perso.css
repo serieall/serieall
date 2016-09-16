@@ -207,3 +207,18 @@
 #content-h1-admin{
     color: #0676b6;
 }
+
+/* Table */
+table thead {
+    cursor: auto;
+    background: #F9FAFB;
+    text-align: inherit;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 0.92857143em 0.78571429em;
+    vertical-align: inherit;
+    font-style: none;
+    font-weight: bold;
+    text-transform: none;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.1);
+    border-left: none;
+}
