@@ -49,7 +49,7 @@
                 </td>
                 <td>
                     <i class="fa fa-pencil"></i>
-                    <i class="fa fa-trash-o"></i>
+                    <i class="fa-3x fa-trash-o"></i>
                 </td>
             </tr>
         @endforeach
