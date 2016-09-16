@@ -15,14 +15,6 @@
 
     {{ Html::script('/js/jQuery.js') }}
     {{ Html::script('/js/dataTable.js') }}
-    {{ Html::script('/js/dataTable-Buttons.js') }}
-    {{ Html::script('/js/buttons.bootstrap.js') }}
-    {{ Html::script('/js/buttons.colVis.js') }}
-    {{ Html::script('/js/buttons.flash.js') }}
-    {{ Html::script('/js/buttons.html5.js') }}
-    {{ Html::script('/js/buttons.jqueryui.js') }}
-    {{ Html::script('/js/buttons.print.js') }}
-
 
     <script type="text/javascript">
         $(document).ready(function() {
