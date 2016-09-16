@@ -23,6 +23,7 @@
                     <th>Nationalités</th>
                     <th>Nombre de saisons</th>
                     <th>Nombre d'épisodes</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
         @foreach($shows as $show)
@@ -45,6 +46,10 @@
                 </td>
                 <td>
                     {{ $show->episodes_count }}
+                </td>
+                <td>
+                    <span class="fa fa-pencil"></span>
+                    <span class="fa fa-trash-o"></span>
                 </td>
             </tr>
         @endforeach
