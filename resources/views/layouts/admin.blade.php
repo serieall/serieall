@@ -13,6 +13,10 @@
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
+    <!-- Javascript -->
+    {{ Html::script('/js/jquery.js') }}
+    {{ Html::script('/js/datatables.js') }}
+
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85 h50p">
@@ -107,5 +111,7 @@
     <article id="article-admin" class="fr w85 pam">
         @yield('content')
     </article>
+
+    @yield('scripts')
 </body>
 </html>

@@ -15,7 +15,7 @@
     <div>
         <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
-        <table>
+        <table id="table-show-admin">
             <thead>
                 <tr>
                     <th>Nom</th>
@@ -57,4 +57,12 @@
         @endforeach
         </table>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+            $('#table-show-admin').DataTable();
+        });
+    </script>
 @endsection
