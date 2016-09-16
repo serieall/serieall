@@ -247,6 +247,10 @@ table tbody tr:hover{
     color: rgba(0, 0, 0, 0.95) !important;
 }
 
+table tr td.actions{
+    vertical-align: middle;
+}
+
 table tr td.actions i{
-    margin: auto;
+    margin: 1rem;
 }
