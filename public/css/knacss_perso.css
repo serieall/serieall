@@ -247,7 +247,7 @@
     z-index: 2;
     color: white;
     background-color: #0676b6;
-    border-color: #ddd;
+    border-color: #0676b6;
 }
 .pagination > .active > a,
 .pagination > .active > span,
@@ -256,10 +256,10 @@
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
     z-index: 3;
-    color: #fff;
+    color: black;
     cursor: default;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #f1f1f1;
+    border-color: #f1f1f1;
 }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
