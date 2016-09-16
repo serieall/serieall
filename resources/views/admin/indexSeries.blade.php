@@ -49,7 +49,7 @@
                 <td>
                     {{ $show->episodes_count }}
                 </td>
-                <td class="actions center">
+                <td class="actions txtcenter">
                     <i class="fa fa-pencil fa-2x"></i>
                     <i class="fa fa-trash fa-2x"></i>
                 </td>
