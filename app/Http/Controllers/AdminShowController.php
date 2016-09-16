@@ -13,14 +13,14 @@ class AdminShowController extends Controller
     protected $adminShowRepository;
 
     // Variable qui détecte dans quelle partie de l'admin on se trouve
-    public $nav_active = 'show';
+    protected $nav_active = 'show';
 
     public function __construct(AdminShowRepository $adminShowRepository)
     {
         $this->adminShowRepository = $adminShowRepository;
     }
 
-    public function indexSeries(){
+    public function indexSeries($nav_active){
         $shows = $this->adminShowRepository->getShowByName($this->nbPerPage);
         $links = $shows->render();
 
