@@ -13,11 +13,11 @@
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
-    <link rel="stylesheet" type="text/css" href="/js/DataTables-1.10.12/css/dataTables.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/DataTables-1.10.12/css/dataTables.bootstrap.css"/>
 
-    <script type="text/javascript" src="/js/jQuery-2.2.3/jquery-2.2.3.js"></script>
-    <script type="text/javascript" src="/js/DataTables-1.10.12/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="/js/DataTables-1.10.12/js/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="/jQuery-2.2.3/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="/DataTables-1.10.12/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/DataTables-1.10.12/js/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
