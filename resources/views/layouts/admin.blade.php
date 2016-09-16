@@ -19,9 +19,6 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.search-table').DataTable();
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ]
         } );
     </script>
 </head>
