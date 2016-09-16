@@ -16,7 +16,7 @@
         <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
         {!! $links !!}
-        <div>Just another div above table</div>
+
         <table class="tableSearch">
             <thead>
                 <tr>
@@ -53,12 +53,3 @@
         </table>
     </div>
 @endsection
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('table.search-table').tableSearch({
-            searchText:'Search Table',
-            searchPlaceHolder:'Input Value'
-        });
-    });
-</script>

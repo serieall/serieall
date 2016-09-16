@@ -15,6 +15,14 @@
 
     {{ Html::script('/js/jQuery.js') }}
     {{ Html::script('/js/HideSeek.js') }}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('table.search-table').tableSearch({
+                searchText:'Search Table',
+                searchPlaceHolder:'Input Value'
+            });
+        });
+    </script>
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85 h50p">
