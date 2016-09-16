@@ -214,10 +214,8 @@ table {
     background: #FFFFFF;
     margin: 1em 0em;
     border: 1px solid rgba(34, 36, 38, 0.15);
-    box-shadow: none;
-    border-radius: 0.28571429rem;
     text-align: left;
-    color: rgba(0, 0, 0, 0.87);
+    color: black;
     border-spacing: 0px;
 }
 
@@ -241,18 +239,6 @@ table thead {
 
 table thead tr > th:first-child {
     border-left: none;
-}
-
-table thead tr:first-child > th:first-child {
-    border-radius: 0.3rem 0em 0em 0em;
-}
-
-table thead tr:first-child > th:last-child {
-    border-radius: 0em 0.3rem 0em 0em;
-}
-
-table thead tr:first-child > th:only-child {
-    border-radius: 0.3rem 0.3rem 0em 0em;
 }
 
 table th,
@@ -280,6 +266,7 @@ table td {
 
 table tr th,
 table tr td {
+    padding : 1em;
     border-left: 1px solid rgba(34, 36, 38, 0.1);
 }
 
@@ -288,8 +275,7 @@ table tr td:first-child {
     border-left: none;
 }
 
-table tbody tr:hover,
-tbody tr td:hover {
+table tbody tr:hover{
     background: rgba(0, 0, 0, 0.05) !important;
     color: rgba(0, 0, 0, 0.95) !important;
 }
