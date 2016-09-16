@@ -14,7 +14,7 @@
     {{ Html::style('/css/font-awesome.css') }}
 
     {{ Html::script('/js/jQuery.js') }}
-    {{ Html::script('/js/HideSeek.js') }}
+    {{ Html::script('/js/dataTable.js') }}
     <script type="text/javascript">
         $(document).ready(function() {
             $('.search-table').DataTable();
