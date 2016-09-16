@@ -34,11 +34,13 @@
                 <td>
                     @foreach($show->channels as $channel)
                         {{ $channel->name }}
+                        <br />
                     @endforeach
                 </td>
                 <td>
                     @foreach($show->nationalities as $nationality)
                         {{ $nationality->name }}
+                        <br />
                     @endforeach
                 </td>
                 <td>
