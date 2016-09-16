@@ -13,6 +13,7 @@
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
     {{ Html::style('/css/datatables.css') }}
+    {{ Html::style('//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css') }}
     {{ Html::style('https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css') }}
 
     {{ Html::script('/js/datatables.js') }}
