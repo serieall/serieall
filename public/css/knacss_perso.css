@@ -231,6 +231,7 @@ table thead {
 table thead th{
     padding : 1em;
     border: none;
+    text-align: center;
 }
 
 table tr td {
