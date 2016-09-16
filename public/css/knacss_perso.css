@@ -178,7 +178,7 @@
     display: block ;
 }
 
-#nav-a-admin .active{
+#nav-a-admin.active {
     background-color : #ddd;
 }
 
