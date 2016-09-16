@@ -16,12 +16,9 @@
     {{ Html::script('/js/jQuery.js') }}
     {{ Html::script('/js/HideSeek.js') }}
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('table.search-table').tableSearch({
-                searchText:'Search Table',
-                searchPlaceHolder:'Input Value'
-            });
-        });
+        $(document).ready(function() {
+            $('.search-table').DataTable();
+        } );
     </script>
 </head>
 <body id="body-admin">
