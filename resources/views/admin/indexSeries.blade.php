@@ -48,8 +48,8 @@
                     {{ $show->episodes_count }}
                 </td>
                 <td>
-                    <span class="fa fa-pencil"></span>
-                    <span class="fa fa-trash-o"></span>
+                    <i class="fa fa-pencil"></i>
+                    <i class="fa fa-trash-o"></i>
                 </td>
             </tr>
         @endforeach
