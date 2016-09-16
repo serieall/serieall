@@ -16,7 +16,7 @@
         <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
         {!! $links !!}
-        <input id="search" name="search" placeholder="Start typing here" type="text" data-list=".list">
+        <div>Just another div above table</div>
         <table class="tableSearch">
             <thead>
                 <tr>
