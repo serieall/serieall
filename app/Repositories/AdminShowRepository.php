@@ -16,7 +16,6 @@ class AdminShowRepository
     }
 
     public function getShowByName($n){
-
         return $this->show->with('nationalities', 'channels')
             ->withCount('seasons', 'episodes')
             ->orderBy('shows.name')
