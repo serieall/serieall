@@ -230,6 +230,7 @@ table thead {
 
 table thead th{
     padding : 1em;
+    border: none;
 }
 
 table tr td {
