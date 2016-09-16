@@ -13,7 +13,7 @@ class AdminShowController extends Controller
     protected $adminShowRepository;
 
     // Variable qui détecte dans quelle partie de l'admin on se trouve
-    protected $nav_active = 'show';
+    public $nav_active = 'show';
 
     public function __construct(AdminShowRepository $adminShowRepository)
     {
