@@ -231,13 +231,13 @@ table:last-child {
 }
 
 table thead {
-    background: #0676b6;
+    background: #043363;
     color: white;
     vertical-align: inherit;
     font-weight: bold;
     text-transform: none;
-    border-bottom: 1px solid rgba(34, 36, 38, 0.1);
-    border-left: none;
+    border-collapse: collapse;
+    padding : 2em;
 }
 
 table thead tr > th:first-child {
