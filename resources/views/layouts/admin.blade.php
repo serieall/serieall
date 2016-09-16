@@ -12,18 +12,17 @@
     {{ Html::style('/css/knacss.css') }}
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
+    {{ Html::style('/css/datatables.css') }}
 
-    <link rel="stylesheet" type="text/css" href="/DataTables-1.10.12/css/dataTables.bootstrap.css"/>
+    {{ Html::script('/js/datatables.js') }}
 
-    <script type="text/javascript" src="/jQuery-2.2.3/jquery-2.2.3.js"></script>
-    <script type="text/javascript" src="/DataTables-1.10.12/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="/DataTables-1.10.12/js/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('.search-table').DataTable();
         } );
     </script>
+
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85 h50p">
