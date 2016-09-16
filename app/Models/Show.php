@@ -38,4 +38,9 @@ class Show extends Model
     {
         return $this->hasMany('App\Models\Season');
     }
+
+    public function episodes()
+    {
+        return $this->hasManyThrough('App\Models\Episode', 'App\Models\Season');
+    }
 }
