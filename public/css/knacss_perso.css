@@ -256,6 +256,6 @@ table tr td.actions i{
     margin: 1rem;
 }
 
-table tr td.actions a:hover {
+table tr td.actions a:hover i {
     color: #0676b6;
 }
