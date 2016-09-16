@@ -76,6 +76,6 @@
                     "sNext":     	"Suivant",
                     "sLast":     	"Fin"
             }
-        } );
+        }} );
     </script>
 @endsection
