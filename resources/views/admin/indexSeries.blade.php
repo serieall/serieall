@@ -32,22 +32,22 @@
                     {{ $show->name }}
                 </td>
                 <td>
-                    @foreach($channels as $channel)
+                    @foreach($show->channels as $channel)
                         {{ $channel->name }}
                     @endforeach
                 </td>
                 <td>
-                    @foreach($nationalities as $nationality)
+                    @foreach($show->nationalities as $nationality)
                         {{ $nationality->name }}
                     @endforeach
                 </td>
                 <td>
-                    @foreach($seasons as $season)
+                    @foreach($show->seasons as $season)
                         {{ $season->name }}
                     @endforeach
                 </td>
                 <td>
-                    @foreach($episodes as $episode)
+                    @foreach($show->episodes as $episode)
                         {{ $episode->name }}
                     @endforeach
                 </td>
