@@ -54,7 +54,7 @@
         <ul id="nav-ul-admin" class="w100">
             <li id="nav-li-admin" class="w100">
                 <a href="{{ url('/admin/series') }}" id="nav-a-admin" class="pam
-                    @if($this->nav_active == 'show')
+                    @if($this->navActive == 'show')
                        active
                      @endif
                  ">
@@ -66,7 +66,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam
-                    @if($this->nav_active == 'articles')
+                    @if($this->navActive == 'articles')
                         active
                     @endif
                 ">
@@ -78,7 +78,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam
-                    @if($this->nav_active == 'user')
+                    @if($this->navActive == 'user')
                         active
                     @endif
                 ">
@@ -90,7 +90,7 @@
             </li>
             <li id="nav-li-admin" class="w100">
                 <a href="#" id="nav-a-admin" class="pam
-                    @if($this->nav_active == 'system')
+                    @if($this->navActive == 'system')
                         active
                     @endif
                 ">
