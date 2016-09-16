@@ -248,6 +248,5 @@ table tbody tr:hover{
 }
 
 table tr td.actions i{
-    margin: 1rem;
-    vertical-align: center;
+    margin: auto;
 }
