@@ -32,16 +32,24 @@
                     {{ $show->name }}
                 </td>
                 <td>
-                    prout
+                    @foreach($channels as $channel)
+                        {{ $channel->name }}
+                    @endforeach
                 </td>
                 <td>
-                    prout
+                    @foreach($nationalities as $nationality)
+                        {{ $nationality->name }}
+                    @endforeach
                 </td>
                 <td>
-                    {{ $show->NB_SAISONS }}
+                    @foreach($seasons as $season)
+                        {{ $season->name }}
+                    @endforeach
                 </td>
                 <td>
-                    {{ $show->NB_EPISODES }}
+                    @foreach($episodes as $episode)
+                        {{ $episode->name }}
+                    @endforeach
                 </td>
 
             </tr>
