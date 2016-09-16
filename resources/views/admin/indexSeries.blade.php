@@ -15,8 +15,6 @@
     <div>
         <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
-        {!! $links !!}
-
         <table class="search-table">
             <thead>
                 <tr>
