@@ -13,10 +13,11 @@
 
 @section('content')
     <div>
-        <h1 id="content-h1-admin" class="txtcenter">Séries</h1>
+        <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
         {!! $links !!}
-        <table>
+        <input id="search" name="search" placeholder="Start typing here" type="text" data-list=".list">
+        <table class="list">
             <thead>
                 <tr>
                     <th>Nom</th>

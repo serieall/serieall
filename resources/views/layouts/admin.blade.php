@@ -12,6 +12,9 @@
     {{ Html::style('/css/knacss.css') }}
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
+
+    {{ Html::script('/js/jQuery.js') }}
+    {{ Html::script('/js/HideSeek.js') }}
 </head>
 <body id="body-admin">
     <header id="header-admin" class="fr w85 h50p">
