@@ -47,7 +47,6 @@
                 <td>
                     {{ $show->episodes_count }}
                 </td>
-
             </tr>
         @endforeach
         </table>
