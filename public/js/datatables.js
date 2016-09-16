@@ -20980,7 +20980,7 @@ return jQuery;
 		 *      } );
 		 *    } )
 		 */
-		"iDisplayLength": 10,
+		"iDisplayLength": 25,
 	
 	
 		/**

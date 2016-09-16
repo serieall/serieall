@@ -19,7 +19,10 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.search-table').DataTable();
+            $('.search-table').DataTable({
+                "order": [[1, "asc"]]
+            });
+
         } );
     </script>
 
