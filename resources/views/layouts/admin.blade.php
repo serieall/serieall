@@ -53,7 +53,11 @@
         <img id="logo-admin" src="/images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100">
             <li id="nav-li-admin" class="w100">
-                <a href="{{ url('/admin/series') }}" id="nav-a-admin" class="pam">
+                <a href="{{ url('/admin/series') }}" id="nav-a-admin" class="pam
+                    @if($nav_active = 'show')
+                       active
+                     @endif
+                 ">
                     <span class="big">Séries</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
@@ -61,7 +65,11 @@
                 </a>
             </li>
             <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin" class="pam">
+                <a href="#" id="nav-a-admin" class="pam
+                    @if($nav_active = 'articles')
+                        active
+                    @endif
+                ">
                     <span class="big">Articles</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
@@ -69,7 +77,11 @@
                 </a>
             </li>
             <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin" class="pam">
+                <a href="#" id="nav-a-admin" class="pam
+                    @if($nav_active = 'user')
+                        active
+                    @endif
+                ">
                     <span class="big">Utilisateurs</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
@@ -77,7 +89,11 @@
                 </a>
             </li>
             <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin" class="pam">
+                <a href="#" id="nav-a-admin" class="pam
+                    @if($nav_active = 'system')
+                        active
+                    @endif
+                ">
                     <span class="big">Système</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
