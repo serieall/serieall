@@ -43,10 +43,10 @@
                         <br />
                     @endforeach
                 </td>
-                <td>
+                <td class="txtcenter">
                     {{ $show->seasons_count }}
                 </td>
-                <td>
+                <td class="txtcenter">
                     {{ $show->episodes_count }}
                 </td>
                 <td class="actions txtcenter">
