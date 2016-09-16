@@ -15,9 +15,15 @@
 
     {{ Html::script('/js/jQuery.js') }}
     {{ Html::script('/js/dataTable.js') }}
+    {{ Html::script('/js/dataTable-Buttons.js') }}
+
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('.search-table').DataTable();
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ]
         } );
     </script>
 </head>
