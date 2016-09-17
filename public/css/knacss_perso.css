@@ -260,3 +260,7 @@ table tr td.actions i{
 table tr td.actions a:hover i {
     color: #0676b6;
 }
+
+#table-show-admin_filter{
+    float : right;
+}
