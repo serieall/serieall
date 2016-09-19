@@ -261,6 +261,13 @@ table tr td.actions a:hover i {
     color: #0676b6;
 }
 
+#table-show-admin_length{
+    position : relative;
+    width : 66%;
+}
+
 #table-show-admin_filter{
-    float : right;
+    position : relative;
+    width: 33%;
+
 }
