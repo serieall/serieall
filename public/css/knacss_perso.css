@@ -263,6 +263,7 @@ table tr td.actions a:hover i {
 
 #table-show-admin_length{
     float: right;
+    text-align: right;
     width : 66%;
 }
 
