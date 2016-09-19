@@ -207,8 +207,6 @@
 
 #content-h1-admin{
     color: #0676b6;
-    text-shadow: -1px -2px 0rgba(0,0,0,0.4),
-        1px 2px 0 rgba(255,255,255,1);
 }
 
 /* Table */
@@ -261,4 +259,13 @@ table tr td.actions i{
 
 table tr td.actions a:hover i {
     color: #0676b6;
+}
+
+
+#table-show-admin_wrapper{
+    position : relative;
+}
+
+#table-show-admin_filter{
+    position : relative;
 }
