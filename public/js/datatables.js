@@ -4160,7 +4160,7 @@
         var language = settings.oLanguage;
         var previousSearch = settings.oPreviousSearch;
         var features = settings.aanFeatures;
-        var input = '<input type="search" class="'+classes.sFilterInput+'"/></div>';
+        var input = '<input type="search" class="'+classes.sFilterInput+'"/>';
 
         var str = language.sSearch;
         str = str.match(/_INPUT_/) ?
@@ -4789,7 +4789,7 @@
             lengths  = d2 ? menu[0] : menu,
             language = d2 ? menu[1] : menu;
 
-        var select = $('<div class="grid-2"><select/>', {
+        var select = $('<select/>', {
             'name':          tableId+'_length',
             'aria-controls': tableId,
             'class':         classes.sLengthSelect
