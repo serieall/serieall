@@ -267,6 +267,17 @@ table tr td.actions a:hover i {
     width : 66%;
 }
 
+select {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    text-align: left;
+    -webkit-transition: box-shadow 0.1s ease, width 0.1s ease;
+    transition: box-shadow 0.1s ease, width 0.1s ease;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 #table-show-admin_filter{
     float : left;
     width: 33%;
