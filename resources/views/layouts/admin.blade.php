@@ -9,9 +9,9 @@
     <link rel="icon" href="images/logo_v2.ico">
 
     <!-- CSS -->
-    {{ Html::style('/css/knacss.css') }}
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
+    <script src="/semantic/semantic.min.js"></script>
 
     <!-- Javascript -->
     {{ Html::script('/js/jquery.js') }}
