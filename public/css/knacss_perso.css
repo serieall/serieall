@@ -157,7 +157,7 @@
 #nav-admin {
     border-right : 1px #e7e7e7 solid;
     height: 100%;
-    min-width: 140px;
+    min-width: 185px;
     position: fixed;
     background-color: #f1f1f1;
 }
@@ -263,4 +263,31 @@ table tr td.actions i{
 
 table tr td.actions a:hover i {
     color: #0676b6;
+}
+
+
+@media screen and (max-width:680px) {
+    #nav-ul-admin li:not(:first-child) {display: none;}
+    #nav-ul-admin li.icon {
+        float: right;
+        display: inline-block;
+    }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
+@media screen and (max-width:680px) {
+    #nav-ul-admin.responsive {position: relative;}
+    #nav-ul-admin.responsive li.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    #nav-ul-admin.responsive li {
+        float: none;
+        display: inline;
+    }
+    #nav-ul-admin.responsive li a {
+        display: block;
+        text-align: left;
+    }
 }

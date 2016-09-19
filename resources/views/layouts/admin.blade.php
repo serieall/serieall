@@ -56,7 +56,7 @@
 
     <nav id="nav-admin" class="fl w15 responsive-menu">
         <img id="logo-admin" src="/images/logo_v2.png" alt="Logo Série-All" />
-        <ul id="nav-ul-admin" class="w100">
+        <ul id="nav-ul-admin" class="w100 topnav">
             <li id="nav-li-admin" class="w100">
                 <a href="{{ url('/admin/series') }}" id="nav-a-admin" class="pam
                     @if($navActive == 'show')
@@ -108,6 +108,9 @@
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
                 </a>
+            </li>
+            <li class="icon">
+                <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
             </li>
         </ul>
     </nav>
