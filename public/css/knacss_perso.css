@@ -262,12 +262,12 @@ table tr td.actions a:hover i {
 }
 
 #table-show-admin_length{
-    position : relative;
+    float: right;
     width : 66%;
 }
 
 #table-show-admin_filter{
-    position : relative;
+    float : left;
     width: 33%;
 
 }
