@@ -264,8 +264,11 @@ table tr td.actions a:hover i {
 
 #table-show-admin_wrapper{
     position : relative;
+    width : 66%;
 }
 
 #table-show-admin_filter{
     position : relative;
+    width: 33%;
+
 }
