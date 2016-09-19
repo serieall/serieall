@@ -63,7 +63,7 @@
                        active
                      @endif
                  ">
-                    <i class="fa fa-television txtleft"></i>
+                    <i class="fa fa-television txtleft mrm"></i>
                     <span class="big">Séries</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
@@ -76,6 +76,7 @@
                         active
                     @endif
                 ">
+                    <i class="fa fa-file-text-o txtleft mrm"></i>
                     <span class="big">Articles</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
@@ -88,6 +89,7 @@
                         active
                     @endif
                 ">
+                    <i class="fa fa-users txtleft mrm"></i>
                     <span class="big">Utilisateurs</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
@@ -100,6 +102,7 @@
                         active
                     @endif
                 ">
+                    <i class="fa fa-cogs txtleft mrm"></i>
                     <span class="big">Système</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
