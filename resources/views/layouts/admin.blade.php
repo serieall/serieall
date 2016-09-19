@@ -63,6 +63,7 @@
                        active
                      @endif
                  ">
+                    <i class="fa fa-television txtleft"></i>
                     <span class="big">Séries</span>
                     <div class="fr">
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
