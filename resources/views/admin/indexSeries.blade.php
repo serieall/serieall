@@ -16,18 +16,17 @@
         <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
         <div class="grid-2">
-            <div class="grid-item-double">
-                <table id="table-show-admin">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Chaines</th>
-                            <th>Nationalités</th>
-                            <th>Nombre de saisons</th>
-                            <th>Nombre d'épisodes</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+            <table id="table-show-admin">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Chaines</th>
+                        <th>Nationalités</th>
+                        <th>Nombre de saisons</th>
+                        <th>Nombre d'épisodes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
                 @foreach($shows as $show)
                     <tr>
                         <td>
@@ -57,8 +56,7 @@
                         </td>
                     </tr>
                 @endforeach
-                </table>
-            </div>
+            </table>
         </div>
     </div>
 @endsection
