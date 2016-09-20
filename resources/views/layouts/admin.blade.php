@@ -33,14 +33,10 @@
                 {{ Auth::user()->username }} <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item">
-                        <i class="reply icon">
-                            Revenir sur le site
-                        </i>
+                        Revenir sur le site
                     </a>
                     <a class="item">
-                        <i class="sign out icon">
-                            Se déconnecter
-                        </i>
+                        Se déconnecter
                     </a>
                 </div>
             </div>
