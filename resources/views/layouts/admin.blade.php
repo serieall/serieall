@@ -10,6 +10,7 @@
 
     <!-- CSS -->
     {{ Html::style('/semantic/semantic.css') }}
+    {{ Html::style('/semantic/semantic_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
     <!-- Javascript -->
@@ -19,7 +20,7 @@
 
 </head>
 <body>
-    <div class="ui fixed stackable menu">
+    <div class="ui stackable menu">
         <a class="item click-sidebar">
             <i class="fa fa-bars"></i>
             <img src="/images/logo_v2.png">
@@ -63,7 +64,6 @@
                 .dropdown()
         ;
 
-        // using context
         $('.ui.sidebar')
                 .sidebar({
                     context: $('.bottom.segment'),
