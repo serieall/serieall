@@ -56,8 +56,8 @@
         </div>
     </header>
 
-    <nav id="nav-admin" class="fl w15 responsive-menu">
-        <img id="logo-admin" src="/images/logo_v2.png" alt="Logo Série-All" />
+    <nav id="nav-admin" class="ui mini image">
+        <img id="logo-admin" class="ui mini image" src="/images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100 topnav">
             <li id="nav-li-admin" class="w100">
                 <a href="{{ url('/admin/series') }}" id="nav-a-admin" class="pam
