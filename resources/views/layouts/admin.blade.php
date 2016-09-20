@@ -23,7 +23,6 @@
     <div class="ui stackable menu">
         <a class="item click-sidebar">
             <i class="fa fa-bars"></i>
-            <img src="/images/logo_v2.png">
         </a>
         <div class="ui breadcrumb item">
             <a class="section">Administration</a>
@@ -33,6 +32,9 @@
     </div>
     <div class="ui bottom attached segment pushable">
         <div class="ui visible inverted left vertical sidebar menu">
+            <a class="item">
+                <img src="/images/logo_v2.png">
+            </a>
             <a class="item">
                 <i class="fa fa-television"></i>
                 Séries
