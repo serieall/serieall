@@ -125,7 +125,7 @@
             }
         }} );
 
-        $('.ui.modal')
+        $('#add-serie')
             .modal()
         ;
 @endsection
