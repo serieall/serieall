@@ -25,7 +25,7 @@
         <table id="table-show-admin" class="ui sortable selectable celled table">
             <thead>
                 <tr>
-                    <th class="ascending">Nom</th>
+                    <th>Nom</th>
                     <th>Chaines</th>
                     <th>Nationalités</th>
                     <th>Nombre de saisons</th>
