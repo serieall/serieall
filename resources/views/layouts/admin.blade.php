@@ -80,17 +80,11 @@
         </div>
         <div class="pusher dimmed">
             <div class="ui basic segment">
-                <h3 class="ui header">Application Content</h3>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
+                <article id="article-admin" class="fr w85 pam">
+                    @yield('content')
+                </article>
             </div>
         </div>
-
-        <article id="article-admin" class="fr w85 pam">
-            @yield('content')
-        </article>
     </div>
 
     <script>
