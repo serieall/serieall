@@ -66,10 +66,10 @@
         // using context
         $('.ui.sidebar')
                 .sidebar({
-                    context: $('.bottom.segment')
+                    context: $('.bottom.segment'),
+                    dimPage: false
                 })
                 .sidebar('attach events', '.menu .click-sidebar')
-                .sidebar('setting', 'dimPage', 'false')
         ;
     </script>
 
