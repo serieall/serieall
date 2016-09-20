@@ -19,10 +19,20 @@
 
 </head>
 <body>
-    <div class="ui top attached menu">
+    <div class="ui stackable menu">
         <a class="item">
             <i class="fa fa-bars"></i>
         </a>
+        <div class="item">
+            <img src="/images/logo_v2.png">
+        </div>
+        <div class="ui breadcrumb item">
+            <a class="section">Home</a>
+            <i class="right angle icon divider"></i>
+            <a class="section">Store</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">T-Shirt</div>
+        </div>
     </div>
     <div class="ui bottom attached segment pushable">
         <div style="" class="ui visible inverted labeled icon left inline vertical sidebar menu">
