@@ -19,6 +19,9 @@
             </div>
         </h1>
 
+        <i class="big green plus icon"></i>
+        Ajouter une nouvelle série
+
         <table id="table-show-admin" class="ui selectable celled table">
             <thead>
                 <tr>
