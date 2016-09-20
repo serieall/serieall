@@ -26,31 +26,35 @@
     </div>
 
 
+
+    <div class="ui top attached demo menu">
+        <a class="item">
+            <i class="fa fa-bars"></i>
+
+        </a>
+    </div>
     <div class="ui bottom attached segment pushable">
-        <div class="ui visible inverted left vertical sidebar menu">
+        <div style="" class="ui inverted labeled icon left inline vertical sidebar menu">
             <a class="item">
-                <i class="home icon"></i>
-                Home
+                <i class="fa fa-television"></i>
+                Séries
             </a>
             <a class="item">
-                <i class="block layout icon"></i>
-                Topics
+                <i class="fa fa-file-o"></i>
+                Articles
             </a>
             <a class="item">
-                <i class="smile icon"></i>
-                Friends
+                <i class="fa fa-users"></i>
+                Utilisateurs
             </a>
             <a class="item">
-                <i class="calendar icon"></i>
-                History
+                <i class="fa fa-cogs"></i>
+                Système
             </a>
         </div>
-
         <div class="pusher">
             <div class="ui basic segment">
-                <article id="article-admin" class="fr w85 pam">
-                    @yield('content')
-                </article>
+                @yield('content')
             </div>
         </div>
     </div>
