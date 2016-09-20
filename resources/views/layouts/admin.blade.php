@@ -67,7 +67,8 @@
         $('.ui.sidebar')
                 .sidebar({
                     context: $('.bottom.segment'),
-                    dimPage: false
+                    dimPage: false,
+                    closable: false
                 })
                 .sidebar('attach events', '.menu .click-sidebar')
         ;
