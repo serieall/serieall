@@ -54,7 +54,7 @@
         </div>
     </header>
 
-    <nav id="nav-admin" class="ui left fixed vertical menu sidebar">
+    <nav id="nav-admin" class="ui left vertical menu sidebar">
         <img id="logo-admin" class="ui mini image" src="/images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100 topnav">
             <li id="nav-li-admin" class="w100">
@@ -121,6 +121,10 @@
 
         $('.dropdown')
                 .dropdown()
+        ;
+
+        $('.sidebar')
+                .sidebar('settings', 'transition', 'push')
         ;
     </script>
 
