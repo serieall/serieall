@@ -7,7 +7,11 @@
 
 @section('content')
     <div>
-        <h1 class="ui huge header">Bienvenue sur l'interface d'administration de Série-All.</h1>
-        <p class="ui center aligned">Veuillez choisir une section dans la partie de gauche.</p>
+        <h1 class="ui header">
+            Bienvenue sur l'administration de Série-All
+            <div class="sub header">
+                Veuillez choisir une section dans la partie gauche.
+            </div>
+        </h1>
     </div>
 @endsection
