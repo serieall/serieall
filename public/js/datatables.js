@@ -14843,9 +14843,7 @@
                 $('<div/>')
                     .addClass( classes.sSortJUIWrapper )
                     .append( cell.contents() )
-                    .append( $('<span/>')
-                        .addClass( classes.sSortIcon+' '+column.sSortingClassJUI )
-                    )
+                    
                     .appendTo( cell );
 
                 // Attach a sort listener to update on sort
