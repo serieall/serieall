@@ -32,15 +32,15 @@
             <div class="ui dropdown item">
                 {{ Auth::user()->username }} <i class="dropdown icon"></i>
                 <div class="menu">
-                    <a class="item">
+                    <a class="item" href="{{ url('/') }}">
                         Revenir sur le site
                     </a>
-                    <a class="item">
+                    <a class="item" href="{{ url('/logout') }}">
                         Se déconnecter
                     </a>
                 </div>
             </div>
-            <a class="item">Wiki
+            <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
                 <i id="icon-wiki" class="help circle icon"></i>
             </a>
         </div>
@@ -93,7 +93,8 @@
 
         $('.ui.sidebar')
                 .sidebar({
-                    overlay: true
+                    overlay: true,
+                    blurring: true,
                 })
                 .sidebar('attach events', '.menu .click-sidebar')
         ;
