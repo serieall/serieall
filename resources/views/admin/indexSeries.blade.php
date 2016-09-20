@@ -19,10 +19,10 @@
             </div>
         </h1>
 
-        <div class="ui animated fade button" tabindex="0">
-            <div class="visible content"><i class="plus icon"></i></div>
+        <div class="ui big green animated fade button" tabindex="0">
+            <div class="visible content">Ajouter une nouvelle série</div>
             <div class="hidden content">
-                Ajouter une nouvelle série
+                <i class="plus icon"></i>
             </div>
         </div>
 
