@@ -27,6 +27,9 @@
         <div class="ui breadcrumb item">
             @yield('breadcrumbs')
         </div>
+        <div class="ui item right menu">
+            {{ Auth::user()->username }}
+        </div>
     </div>
     <div class="ui bottom attached segment pushable" id="div-bottom">
         <div class="ui visible left vertical sidebar menu">
