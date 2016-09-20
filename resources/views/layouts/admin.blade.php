@@ -29,9 +29,6 @@
             @yield('breadcrumbs')
         </div>
         <div class="right menu">
-            <a class="item">Wiki
-                <i id="icon-wiki" class="help circle icon"></i>
-            </a>
             <div class="ui dropdown item">
                 {{ Auth::user()->username }} <i class="dropdown icon"></i>
                 <div class="menu">
@@ -39,6 +36,9 @@
                     <a class="item">Se déconnecter</a>
                 </div>
             </div>
+            <a class="item">Wiki
+                <i id="icon-wiki" class="help circle icon"></i>
+            </a>
         </div>
     </div>
     <div class="ui bottom attached segment pushable" id="div-bottom">
