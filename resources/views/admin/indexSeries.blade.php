@@ -12,7 +12,12 @@
 
 @section('content')
     <div>
-        <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
+        <h1 class="ui header">
+            Séries
+            <div class="sub header">
+                Liste de toutes les séries présentes sur Série-All
+            </div>
+        </h1>
 
         <table id="table-show-admin" class="ui selectable celled table">
             <thead>
