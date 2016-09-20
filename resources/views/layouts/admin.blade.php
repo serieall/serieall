@@ -53,13 +53,6 @@
             </ul>
         </div>
     </header>
-
-    <div class="ui top demo menu">
-        <a class="item">
-            <i class="sidebar icon"></i>
-        </a>
-    </div>
-
     <div class="ui top attached demo menu">
         <a class="item">
             <i class="sidebar icon"></i>
