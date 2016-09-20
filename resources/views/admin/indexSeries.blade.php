@@ -54,14 +54,18 @@
                         {{ $show->episodes_count }}
                     </td>
                     <td class="center aligned">
-                        <i class="big icons">
-                            <i class="big thin circle icon"></i>
-                            <i class="edit icon"></i>
-                        </i>
-                        <i class="big icons">
-                            <i class="big thin circle icon"></i>
-                            <i class="trash icon"></i>
-                        </i>
+                        <a href="#" id="action">
+                            <i class="big icons">
+                                <i class="big thin circle icon"></i>
+                                <i class="edit icon"></i>
+                            </i>
+                        </a>
+                        <a href="#" id="action">
+                            <i class="big icons">
+                                <i class="big thin circle icon"></i>
+                                <i class="trash icon"></i>
+                            </i>
+                        </a>
                     </td>
                 </tr>
             @endforeach
