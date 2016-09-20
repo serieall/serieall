@@ -11,7 +11,6 @@
     <!-- CSS -->
     {{ Html::style('/css/knacss.css') }}
     {{ Html::style('/semantic/semantic.css') }}
-    {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
     <!-- Javascript -->
@@ -110,9 +109,6 @@
                         <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
                     </div>
                 </a>
-            </li>
-            <li class="icon">
-                <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
             </li>
         </ul>
     </nav>
