@@ -19,14 +19,6 @@
 
 </head>
 <body>
-    <div class="ui top attached menu">
-        <a class="item">
-            <i class="fa fa-bars"></i>
-        </a>
-    </div>
-
-
-
     <div class="ui top attached demo menu">
         <a class="item">
             <i class="fa fa-bars"></i>
