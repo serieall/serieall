@@ -28,7 +28,9 @@
             @yield('breadcrumbs')
         </div>
         <div class="ui item right menu">
-            {{ Auth::user()->username }}
+            <a>Wiki</a>
+            <div>{{ Auth::user()->username }}</div>
+
         </div>
     </div>
     <div class="ui bottom attached segment pushable" id="div-bottom">
