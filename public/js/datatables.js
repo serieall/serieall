@@ -14470,7 +14470,7 @@
             numbers.splice( 0, 0, 0 );
         }
 
-        numbers.DT_el = '';
+        numbers.DT_el = 'span';
         return numbers;
     }
 
