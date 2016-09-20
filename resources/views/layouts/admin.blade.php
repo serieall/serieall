@@ -58,11 +58,12 @@
                 .dropdown()
         ;
 
-        $('.fa-bars')
+        // using context
+        $('.ui.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
                 })
-                .sidebar('hide')
+                .sidebar('attach events', '.menu .item')
         ;
     </script>
 
