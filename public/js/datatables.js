@@ -4167,7 +4167,7 @@
             str.replace('_INPUT_', input) :
         str+input;
 
-        var filter = $('<div/>', {
+        var filter = $('<div/></div>', {
             'id': ! features.f ? tableId+'_filter' : null,
             'class': classes.sFilter
         } )
@@ -4799,7 +4799,7 @@
             select[0][ i ] = new Option( language[i], lengths[i] );
         }
 
-        var div = $('<div><label/></div>').addClass( classes.sLength );
+        var div = $('<div class="grid-2"><div><label/></div>').addClass( classes.sLength );
         if ( ! settings.aanFeatures.l ) {
             div[0].id = tableId+'_length';
         }
@@ -14339,7 +14339,7 @@
         "sRowEmpty": "dataTables_empty",
 
         /* Features */
-        "sWrapper": "dataTables_wrapper grid-2",
+        "sWrapper": "dataTables_wrapper",
         "sFilter": "dataTables_filter",
         "sInfo": "dataTables_info",
         "sPaging": "dataTables_paginate paging_", /* Note that the type is postfixed */

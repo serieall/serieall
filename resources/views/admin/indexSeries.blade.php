@@ -15,7 +15,7 @@
     <div>
         <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
-        <table id="table-show-admin" class="grid-item-double">
+        <table id="table-show-admin">
             <thead>
                 <tr>
                     <th>Nom</th>
