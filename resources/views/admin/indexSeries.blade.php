@@ -18,7 +18,7 @@
         </div>
     </div>
     <div>
-        <h1 class="ui header segment">
+        <h1 class="ui header">
             Séries
             <div class="sub header">
                 Liste de toutes les séries présentes sur Série-All
