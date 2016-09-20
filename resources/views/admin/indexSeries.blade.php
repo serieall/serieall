@@ -19,8 +19,12 @@
             </div>
         </h1>
 
-        <i class="big green plus icon" id="admin-add"></i>
-        Ajouter une nouvelle série
+        <div class="ui animated button" tabindex="0">
+            <div class="visible content">Ajouter une nouvelle série</div>
+            <div class="hidden content">
+                <i class="plus icon"></i>
+            </div>
+        </div>
 
         <table id="table-show-admin" class="ui sortable selectable celled table">
             <thead>
