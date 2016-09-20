@@ -20,14 +20,14 @@
 </head>
 <body>
     <div class="ui stackable menu">
-        <a class="item">
+        <a class="item-sidebar">
             <i class="fa fa-bars"></i>
             <img src="/images/logo_v2.png">
         </a>
         <div class="ui breadcrumb item">
             <a class="section">Administration</a>
             <i class="fa fa-chevron-right icon divider"></i>
-            <a class="section">Séries</a>
+            <a class="active section">Séries</a>
         </div>
     </div>
     <div class="ui bottom attached segment pushable">
@@ -68,8 +68,7 @@
                 .sidebar({
                     context: $('.bottom.segment')
                 })
-                .sidebar('attach events', '.menu .item')
-                .sidebar('settings', '')
+                .sidebar('attach events', '.menu .item-sidebar')
         ;
     </script>
 
