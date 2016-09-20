@@ -76,7 +76,7 @@
                 .sidebar({
                     dimPage: false,
                     closable: false,
-                    transition: 'uncover',
+                    overlay: true
                 })
                 .sidebar('attach events', '.menu .click-sidebar')
         ;
