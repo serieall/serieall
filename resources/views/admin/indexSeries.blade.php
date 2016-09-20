@@ -49,8 +49,8 @@
                         {{ $show->episodes_count }}
                     </td>
                     <td class="actions txtcenter">
-                        <a href="#"><i class="fa fa-pencil fa-2x"></i></a>
-                        <a href="#"><i class="fa fa-trash fa-2x"></i></a>
+                        <a href="#"><i class="edit icon"></i></a>
+                        <a href="#"><i class="trash icon"></i></a>
                     </td>
                 </tr>
             @endforeach
