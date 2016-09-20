@@ -42,15 +42,15 @@
                             <br />
                         @endforeach
                     </td>
-                    <td class="txtcenter">
+                    <td>
                         {{ $show->seasons_count }}
                     </td>
-                    <td class="txtcenter">
+                    <td>
                         {{ $show->episodes_count }}
                     </td>
-                    <td class="actions txtcenter">
-                        <a href="#"><i class="edit icon"></i></a>
-                        <a href="#"><i class="trash icon"></i></a>
+                    <td class="a">
+                        <a href="#"><i class="big circular edit icon"></i></a>
+                        <a href="#"><i class="big circular trash icon"></i></a>
                     </td>
                 </tr>
             @endforeach
