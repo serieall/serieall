@@ -18,28 +18,35 @@
     {{ Html::script('/semantic/semantic.js') }}
 
 </head>
-<body id="body-admin">
-    <div class="ui top attached demo menu">
+<body>
+    <div class="ui top attached menu">
         <a class="item">
             <i class="fa fa-bars"></i>
         </a>
     </div>
+
+
     <div class="ui bottom attached segment pushable">
-        <div style="" class="ui inverted labeled icon left inline vertical sidebar menu uncover visible">
+        <div class="ui visible inverted left vertical sidebar menu">
             <a class="item">
+                <i class="home icon"></i>
                 Home
             </a>
             <a class="item">
+                <i class="block layout icon"></i>
                 Topics
             </a>
             <a class="item">
+                <i class="smile icon"></i>
                 Friends
             </a>
             <a class="item">
+                <i class="calendar icon"></i>
                 History
             </a>
         </div>
-        <div class="pusher dimmed">
+
+        <div class="pusher">
             <div class="ui basic segment">
                 <article id="article-admin" class="fr w85 pam">
                     @yield('content')
@@ -55,11 +62,11 @@
                 .dropdown()
         ;
 
-        $('.ui.sidebar')
+        $('.fa-bars')
                 .sidebar({
                     context: $('.bottom.segment')
                 })
-                .sidebar('attach events', '.menu .item')
+                .sidebar('hide')
         ;
     </script>
 
