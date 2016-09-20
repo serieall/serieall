@@ -50,3 +50,7 @@
 .ui.pagination.menu .item:last-child:before {
     display: inline-block;
 }
+
+#admin-add{
+    margin-bottom: 2em;
+}
