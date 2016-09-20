@@ -4160,7 +4160,7 @@
         var language = settings.oLanguage;
         var previousSearch = settings.oPreviousSearch;
         var features = settings.aanFeatures;
-        var input = '<input placeholder="Recherche..." type="search" class="'+classes.sFilterInput+'"/>' +
+        var input = '<input placeholder="Recherche..." type="search" class="'+classes.sFilterInput+'">' +
             '<button class="ui button">Go !</button>';
 
         var str = language.sSearch;
@@ -4172,7 +4172,7 @@
             'id': ! features.f ? tableId+'_filter' : null,
             'class': classes.sFilter
         } )
-            .append( $('<label/>' ).append( str ) );
+            ;
 
         var searchFn = function() {
             /* Update all other filter input elements for the new display */
@@ -14341,7 +14341,7 @@
 
         /* Features */
         "sWrapper": "dataTables_wrapper",
-        "sFilter": "dataTables_filter",
+        "sFilter": "dataTables_filter ui action input",
         "sInfo": "dataTables_info",
         "sPaging": "dataTables_paginate paging_", /* Note that the type is postfixed */
         "sLength": "dataTables_length",
@@ -14357,7 +14357,7 @@
         "sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
 
         /* Filtering */
-        "sFilterInput": "ui action input",
+        "sFilterInput": "",
 
         /* Page length */
         "sLengthSelect": "ui dropdown selection compact",
