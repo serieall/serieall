@@ -13,5 +13,10 @@
                 Veuillez choisir une section dans la partie gauche.
             </div>
         </h1>
+
+        <div class="ui action input">
+            <input placeholder="Search..." type="text">
+            <button class="ui button">Search</button>
+        </div>
     </div>
 @endsection
