@@ -4789,7 +4789,7 @@
             lengths  = d2 ? menu[0] : menu,
             language = d2 ? menu[1] : menu;
 
-        var select = $('<select/>', {
+        var select = $('<select class="ui compact dropdown selection"/>', {
             'name':          tableId+'_length',
             'aria-controls': tableId,
             'class':         classes.sLengthSelect
@@ -14359,7 +14359,7 @@
         "sFilterInput": "",
 
         /* Page length */
-        "sLengthSelect": "ui compact selection dropdown",
+        "sLengthSelect": "",
 
         /* Scrolling */
         "sScrollWrapper": "dataTables_scroll",
