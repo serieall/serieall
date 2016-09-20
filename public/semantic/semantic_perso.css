@@ -33,3 +33,15 @@
 #action:hover{
     color: #1074b2;
 }
+
+#table-show-admin_paginate{
+    float: right;
+}
+
+#table-show-admin_info{
+    float: left;
+}
+
+#table-show-admin_paginate span{
+    display: inherit;
+}

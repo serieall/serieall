@@ -14532,7 +14532,7 @@
 
                             switch ( button ) {
                                 case 'ellipsis':
-                                    container.append('<span class="ellipsis">&#x2026;</span>');
+                                    container.append('<span class="ellipsis item">&#x2026;</span>');
                                     break;
 
                                 case 'first':
