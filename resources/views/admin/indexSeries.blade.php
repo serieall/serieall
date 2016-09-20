@@ -97,4 +97,9 @@
                     "sLast":     	"Fin"
             }
         }} );
+
+        $('#add-serie').click(function(){
+        $('.ui.modal').modal('show');
+        });
+
 @endsection
