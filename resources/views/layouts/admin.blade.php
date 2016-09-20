@@ -20,13 +20,13 @@
 
 </head>
 <body>
-    <div class="ui stackable menu">
+    <div class="ui stackable menu" id="menu-admin">
         <a class="item click-sidebar">
             <i class="fa fa-bars"></i>
         </a>
         <div class="ui breadcrumb item">
             <a class="section">Administration</a>
-            <i class="fa fa-chevron-right"></i>
+            <i class="right angle icon divider"></i>
             <a class="active section">Séries</a>
         </div>
     </div>
