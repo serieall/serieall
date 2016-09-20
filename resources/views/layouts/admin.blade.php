@@ -25,9 +25,7 @@
             <i class="fa fa-bars"></i>
         </a>
         <div class="ui breadcrumb item">
-            <a class="section">Administration</a>
-            <i class="right angle icon divider"></i>
-            <a class="active section">Séries</a>
+            <div class="section">Administration</div>
         </div>
     </div>
     <div class="ui bottom attached segment pushable" id="div-bottom">
