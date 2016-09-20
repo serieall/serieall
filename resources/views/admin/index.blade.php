@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('breadcrumbs')
-    <li>
+    <div class="active section">
         Administration
-    </li>
+    </div>
 @endsection
 
 @section('content')

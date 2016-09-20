@@ -2,13 +2,13 @@
 
 @section('breadcrumbs')
     <li>
-        <a href="{{ url('/admin') }}">
+        <a href="{{ url('/admin') }}" class="section">
             Administration
         </a>
     </li>
-    <li>
+    <div class="active section">
         Séries
-    </li>
+    </div>
 @endsection
 
 @section('content')

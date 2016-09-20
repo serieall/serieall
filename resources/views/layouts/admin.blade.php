@@ -25,7 +25,7 @@
             <i class="fa fa-bars"></i>
         </a>
         <div class="ui breadcrumb item">
-            <div class="section">Administration</div>
+            @yield('breadcrumbs')
         </div>
     </div>
     <div class="ui bottom attached segment pushable" id="div-bottom">
@@ -33,7 +33,7 @@
             <div class="item">
                 <img class="ui centered image" src="/images/logo_v2.png">
             </div>
-            <a class="item">
+            <a class="item" href="{{ url('/admin/series') }}">
                 <i class="tv icon"></i>
                 Séries
             </a>
