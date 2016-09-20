@@ -32,8 +32,13 @@
             <a class="item">Wiki
                 <i id="icon-wiki" class="help circle icon"></i>
             </a>
-            <div class="item">{{ Auth::user()->username }}</div>
-
+            <div class="ui dropdown item">
+                {{ Auth::user()->username }} <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item">Revenir sur le site</a>
+                    <a class="item">Se déconnecter</a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="ui bottom attached segment pushable" id="div-bottom">
