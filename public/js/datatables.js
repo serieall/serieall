@@ -4161,7 +4161,7 @@
         var previousSearch = settings.oPreviousSearch;
         var features = settings.aanFeatures;
         var input = '<input placeholder="Recherche..." type="text" class="'+classes.sFilterInput+'">' +
-            '<button class="ui button">Go !</button>';
+            '<i class="search icon"></i>';
 
         var str = language.sSearch;
         str = str.match(/_INPUT_/) ?
@@ -14341,7 +14341,7 @@
 
         /* Features */
         "sWrapper": "dataTables_wrapper",
-        "sFilter": "dataTables_filter ui action input",
+        "sFilter": "dataTables_filter ui icon input",
         "sInfo": "dataTables_info",
         "sPaging": "dataTables_paginate paging_", /* Note that the type is postfixed */
         "sLength": "dataTables_length",
