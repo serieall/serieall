@@ -33,7 +33,10 @@
             <div class="item">
                 <img class="ui centered image" src="/images/logo_v2.png">
             </div>
-            <a class="item" href="{{ url('/admin/series') }}">
+            <a class="item
+                @if($navActive == 'show')
+                    inverted
+                @endif" href="{{ url('/admin/series') }}">
                 <i class="tv icon"></i>
                 Séries
             </a>
