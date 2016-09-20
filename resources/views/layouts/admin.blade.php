@@ -54,63 +54,33 @@
         </div>
     </header>
 
-    <nav id="nav-admin" class="ui visible left vertical menu sidebar">
-        <img id="logo-admin" class="ui mini image" src="/images/logo_v2.png" alt="Logo Série-All" />
-        <ul id="nav-ul-admin" class="w100 topnav">
-            <li id="nav-li-admin" class="w100">
-                <a href="{{ url('/admin/series') }}" id="nav-a-admin" class="pam
-                    @if($navActive == 'show')
-                       active
-                     @endif
-                 ">
-                    <i class="fa fa-television txtleft mrm"></i>
-                    <span class="big">Séries</span>
-                    <div class="fr">
-                        <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
-                    </div>
-                </a>
-            </li>
-            <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin" class="pam
-                    @if($navActive == 'articles')
-                        active
-                    @endif
-                ">
-                    <i class="fa fa-file-text-o txtleft mrm"></i>
-                    <span class="big">Articles</span>
-                    <div class="fr">
-                        <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
-                    </div>
-                </a>
-            </li>
-            <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin" class="pam
-                    @if($navActive == 'user')
-                        active
-                    @endif
-                ">
-                    <i class="fa fa-users txtleft mrm"></i>
-                    <span class="big">Utilisateurs</span>
-                    <div class="fr">
-                        <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
-                    </div>
-                </a>
-            </li>
-            <li id="nav-li-admin" class="w100">
-                <a href="#" id="nav-a-admin" class="pam
-                    @if($navActive == 'system')
-                        active
-                    @endif
-                ">
-                    <i class="fa fa-cogs txtleft mrm"></i>
-                    <span class="big">Système</span>
-                    <div class="fr">
-                        <i id="nav-i-admin" class="fa fa-chevron-right txtright"></i>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <div class="ui top attached demo menu">
+        <a class="item">
+            <i class="sidebar icon"></i>
+        </a>
+    </div>
+
+    <div class="ui bottom attached segment pushable">
+        <div class="ui inverted labeled icon left inline vertical sidebar menu">
+            <a class="item">
+                <i class="home icon"></i>
+                Séries
+            </a>
+            <a class="item">
+                <i class="block layout icon"></i>
+                Articles
+            </a>
+            <a class="item">
+                <i class="smile icon"></i>
+                Utilisateurs
+            </a>
+            <a class="item">
+                <i class="calendar icon"></i>
+                Système
+            </a>
+        </div>
+    </div>
+
 
     <article id="article-admin" class="fr w85 pam">
         @yield('content')
