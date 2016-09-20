@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="ui bottom attached segment pushable">
-        <div class="ui visible inverted left vertical sidebar menu">
+        <div class="ui visible left vertical sidebar menu">
             <a class="item">
                 <img src="/images/logo_v2.png">
             </a>
