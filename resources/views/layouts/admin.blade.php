@@ -123,8 +123,8 @@
                 .dropdown()
         ;
 
-        $('.sidebar')
-                .sidebar('settings', 'transition', 'push')
+        $('#nav-admin')
+                .sidebar('toggle')
         ;
     </script>
 
