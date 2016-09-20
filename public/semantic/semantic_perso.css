@@ -45,3 +45,7 @@
 #table-show-admin_paginate span{
     display: inherit;
 }
+
+.ui.pagination.menu .item:last-child:before {
+    display: inline-block;
+}
