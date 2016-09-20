@@ -23,7 +23,6 @@
     <div class="ui stackable menu" id="menu-admin">
         <a class="item click-sidebar">
             <i class="fa fa-bars"></i>
-            Série-All
         </a>
         <div class="ui breadcrumb item">
             <div class="section">Administration</div>
@@ -31,9 +30,9 @@
     </div>
     <div class="ui bottom attached segment pushable" id="div-bottom">
         <div class="ui visible left vertical sidebar menu">
-            <a class="item">
+            <div class="item">
                 <img class="ui centered image" src="/images/logo_v2.png">
-            </a>
+            </div>
             <a class="item">
                 <i class="tv icon"></i>
                 Séries
