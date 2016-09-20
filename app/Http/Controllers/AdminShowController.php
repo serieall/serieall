@@ -20,11 +20,11 @@ class AdminShowController extends Controller
         $this->adminShowRepository = $adminShowRepository;
     }
 
-    public function indexSeries(){
+    public function indexShows(){
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
         $shows = $this->adminShowRepository->getShowByName();
 
-        return view('admin/indexSeries', compact('shows', 'navActive'));
+        return view('admin/shows/indexShows', compact('shows', 'navActive'));
     }
 }
