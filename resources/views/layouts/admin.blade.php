@@ -60,31 +60,45 @@
         </a>
     </div>
 
-    <div class="ui bottom pushable">
-        <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    <div class="ui top attached demo menu">
+        <a class="item">
+            <i class="sidebar icon"></i>
+            Menu
+        </a>
+    </div>
+    <div class="ui bottom attached segment pushable">
+        <div style="" class="ui inverted labeled icon left inline vertical sidebar menu uncover visible">
             <a class="item">
                 <i class="home icon"></i>
-                Séries
+                Home
             </a>
             <a class="item">
                 <i class="block layout icon"></i>
-                Articles
+                Topics
             </a>
             <a class="item">
                 <i class="smile icon"></i>
-                Utilisateurs
+                Friends
             </a>
             <a class="item">
                 <i class="calendar icon"></i>
-                Système
+                History
             </a>
         </div>
+        <div class="pusher dimmed">
+            <div class="ui basic segment">
+                <h3 class="ui header">Application Content</h3>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+
+        <article id="article-admin" class="fr w85 pam">
+            @yield('content')
+        </article>
     </div>
-
-
-    <article id="article-admin" class="fr w85 pam">
-        @yield('content')
-    </article>
 
     <script>
         @yield('scripts')
