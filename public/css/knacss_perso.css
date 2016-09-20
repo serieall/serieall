@@ -264,17 +264,3 @@ table tr td.actions i{
 table tr td.actions a:hover i {
     color: #0676b6;
 }
-
-select {
-    position: relative;
-    display: inline-block;
-    outline: none;
-    text-align: left;
-    -webkit-transition: box-shadow 0.1s ease, width 0.1s ease;
-    transition: box-shadow 0.1s ease, width 0.1s ease;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    height: 38px;
-    padding: 0.5em;
-    border: 1px solid rgba(34, 36, 38, 0.15);
-    visibility: visible;
-}
