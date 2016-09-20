@@ -22,7 +22,8 @@
 <body>
     <div class="ui stackable menu" id="menu-admin">
         <a class="item click-sidebar">
-            <i class="fa fa-bars"></i>
+            <i class="content icon"></i>
+            Choisir une catégorie
         </a>
         <div class="ui breadcrumb item">
             @yield('breadcrumbs')
@@ -74,8 +75,6 @@
 
         $('.ui.sidebar')
                 .sidebar({
-                    dimPage: false,
-                    closable: false,
                     overlay: true
                 })
                 .sidebar('attach events', '.menu .click-sidebar')

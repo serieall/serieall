@@ -10,7 +10,7 @@
         <h1 class="ui header">
             Bienvenue sur l'administration de Série-All
             <div class="sub header">
-                Veuillez choisir une section dans la partie gauche.
+                Veuillez choisir une catégorie en cliquant sur "Choisir une catégorie".
             </div>
         </h1>
     </div>
