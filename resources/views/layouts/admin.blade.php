@@ -19,7 +19,7 @@
 
 </head>
 <body>
-    <div class="ui top attached demo menu">
+    <div class="ui top attached menu">
         <a class="item">
             <i class="fa fa-bars"></i>
         </a>
@@ -63,6 +63,7 @@
                     context: $('.bottom.segment')
                 })
                 .sidebar('attach events', '.menu .item')
+                .sidebar('settings', '')
         ;
     </script>
 
