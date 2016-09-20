@@ -19,7 +19,7 @@ class AdminController extends Controller
 
     public function index(){
         #Variable qui détecte dans quelle partie de l'admin on se trouve
-        $navActive = '';
+        $navActive = 'home';
 
         return view('admin/index', compact('navActive'));
     }

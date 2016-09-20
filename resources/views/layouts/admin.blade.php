@@ -47,6 +47,13 @@
                 <img class="ui centered image" src="/images/logo_v2.png">
             </div>
             <a class="ui header item
+                @if($navActive == 'home')
+                    blue
+                @endif" href="{{ url('/admin') }}">
+                <i class="home icon"></i>
+                Séries
+            </a>
+            <a class="ui header item
                 @if($navActive == 'show')
                     blue
                 @endif" href="{{ url('/admin/series') }}">
