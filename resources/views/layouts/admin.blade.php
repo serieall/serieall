@@ -51,7 +51,7 @@
                     blue
                 @endif" href="{{ url('/admin') }}">
                 <i class="home icon"></i>
-                Séries
+                Accueil
             </a>
             <a class="ui header item
                 @if($navActive == 'show')
