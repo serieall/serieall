@@ -56,11 +56,11 @@
                     <td class="center aligned">
                         <i class="huge icons">
                             <i class="big thin circle icon"></i>
-                            <i class="big circular edit icon"></i>
+                            <i class="edit icon"></i>
                         </i>
                         <i class="huge icons">
                             <i class="big thin circle icon"></i>
-                            <i class="big circular trash icon"></i>
+                            <i class="trash icon"></i>
                         </i>
                     </td>
                 </tr>
