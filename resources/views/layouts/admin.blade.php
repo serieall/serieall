@@ -19,43 +19,9 @@
 
 </head>
 <body id="body-admin">
-    <header id="header-admin" class="fr w85 h50p">
-        <div class="grid-3-small-1 h50p">
-            <ul id="header-beadcrumbs-admin" class="grid-item-double">
-                @yield('breadcrumbs')
-            </ul>
-            <ul id="header-user-admin" class="txtright h50p">
-                <li>
-                    <a class="wiki" href="http://wiki.journeytotheit.ovh">
-                        Wiki <span class="mls fa fa-question-circle"></span>
-                    </a>
-                </li>
-
-                <li>
-                    <div id="header-dropdown-admin">
-                        <span id="header-dropdown-button">{{ Auth::user()->username }}<span class="mls fa fa-caret-down"></span></span>
-                        <ul id="header-dropdown-content" class="txtleft">
-                            <a href="{{ url('/')}}">
-                                <li>
-                                    <i class= "fa fa-caret-square-o-left"></i>
-                                    Retour sur le site
-                                </li>
-                            </a>
-                            <a href="{{ url('/logout')}}">
-                                <li>
-                                    <i class= "fa fa-sign-out"></i>
-                                    Déconnexion
-                                </li>
-                            </a>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </header>
     <div class="ui top attached demo menu">
         <a class="item">
-            Menu
+            <i class="fa fa-bars"></i>
         </a>
     </div>
     <div class="ui bottom attached segment pushable">
