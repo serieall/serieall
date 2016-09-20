@@ -89,11 +89,11 @@
                 .dropdown()
         ;
 
-        $('.context.example .ui.sidebar')
+        $('.ui.sidebar')
                 .sidebar({
-                    context: $('.context.example .bottom.segment')
+                    context: $('.bottom.segment')
                 })
-                .sidebar('attach events', '.context.example .menu .item')
+                .sidebar('attach events', '.menu .item')
         ;
     </script>
 
