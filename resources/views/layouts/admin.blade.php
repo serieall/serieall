@@ -9,7 +9,6 @@
     <link rel="icon" href="images/logo_v2.ico">
 
     <!-- CSS -->
-    {{ Html::style('/css/knacss.css') }}
     {{ Html::style('/semantic/semantic.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
