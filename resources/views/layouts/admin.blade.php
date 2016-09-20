@@ -29,11 +29,19 @@
             @yield('breadcrumbs')
         </div>
         <div class="right menu">
-            <div class="ui dropdown item">
+            <div class="ui selection dropdown item">
                 {{ Auth::user()->username }} <i class="dropdown icon"></i>
                 <div class="menu">
-                    <a class="item"><i class="reply icon">Revenir sur le site</i></a>
-                    <a class="item"><i class="sign out icon">Se déconnecter</i></a>
+                    <a class="item">
+                        <i class="reply icon">
+                            Revenir sur le site
+                        </i>
+                    </a>
+                    <a class="item">
+                        <i class="sign out icon">
+                            Se déconnecter
+                        </i>
+                    </a>
                 </div>
             </div>
             <a class="item">Wiki
