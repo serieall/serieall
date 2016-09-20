@@ -1,11 +1,10 @@
 @extends('layouts.admin')
 
 @section('breadcrumbs')
-    <li>
-        <a href="{{ url('/admin') }}" class="section">
-            Administration
-        </a>
-    </li>
+    <a href="{{ url('/admin') }}" class="section">
+        Administration
+    </a>
+    <i class="right angle icon divider"></i>
     <div class="active section">
         Séries
     </div>
