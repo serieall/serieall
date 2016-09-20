@@ -36,19 +36,19 @@
                 <img src="/images/logo_v2.png">
             </a>
             <a class="item">
-                <i class="fa fa-television"></i>
+                <i class="fa fa-television icon"></i>
                 Séries
             </a>
             <a class="item">
-                <i class="fa fa-file-o"></i>
+                <i class="fa fa-file-o icon"></i>
                 Articles
             </a>
             <a class="item">
-                <i class="fa fa-users"></i>
+                <i class="fa fa-users icon"></i>
                 Utilisateurs
             </a>
             <a class="item">
-                <i class="fa fa-cogs"></i>
+                <i class="fa fa-cogs icon"></i>
                 Système
             </a>
         </div>
