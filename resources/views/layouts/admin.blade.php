@@ -10,14 +10,14 @@
 
     <!-- CSS -->
     {{ Html::style('/css/knacss.css') }}
-    {{ Html::style('/css/dropdown-semantic-ui.css') }}
+    {{ Html::style('/semantic/semantic.css') }}
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
     <!-- Javascript -->
     {{ Html::script('/js/jquery.js') }}
     {{ Html::script('/js/datatables.js') }}
-    {{ Html::script('/js/dropdown-semantic-ui.js') }}
+    {{ Html::script('/semantic/semantic.js') }}
 
 </head>
 <body id="body-admin">
@@ -121,6 +121,13 @@
         @yield('content')
     </article>
 
-    @yield('scripts')
+    <script>
+        @yield('scripts')
+
+        $('.dropdown')
+                .dropdown()
+        ;
+    </script>
+
 </body>
 </html>

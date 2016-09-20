@@ -60,7 +60,6 @@
 @endsection
 
 @section('scripts')
-    <script>
         $('#table-show-admin').DataTable( {
             "order": [[ 0, "asc" ]],
             "language": {
@@ -77,18 +76,4 @@
                     "sLast":     	"Fin"
             }
         }} );
-
-        function myFunction() {
-            var x = document.getElementById("nav-ul-admin");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
-        }
-
-        $('.dropdown')
-                .dropdown()
-        ;
-    </script>
 @endsection
