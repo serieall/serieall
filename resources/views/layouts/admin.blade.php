@@ -35,7 +35,7 @@
             </div>
             <a class="item
                 @if($navActive == 'show')
-                    inverted
+                    ui blue
                 @endif" href="{{ url('/admin/series') }}">
                 <i class="tv icon"></i>
                 Séries
