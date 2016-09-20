@@ -14328,8 +14328,8 @@
         "sNoFooter": "no-footer",
 
         /* Paging buttons */
-        "sPageButton": "paginate_button",
-        "sPageButtonActive": "current",
+        "sPageButton": "paginate_button item",
+        "sPageButtonActive": "active",
         "sPageButtonDisabled": "disabled",
 
         /* Striping classes */
