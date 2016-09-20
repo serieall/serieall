@@ -67,7 +67,7 @@
                 "info": "Page _PAGE_ sur _PAGES_",
                 "infoEmpty": "Aucun enregistrement trouvé",
                 "infoFiltered": "(filtré sur _MAX_ enregistrements)",
-                "sSearch" : "Recherche",
+                "sSearch" : "",
                 "oPaginate": {
                     "sFirst":    	"Début",
                     "sPrevious": 	"Précédent",
