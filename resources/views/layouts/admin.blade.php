@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="ui stackable menu">
-        <a class="item-sidebar">
+        <a class="item click-sidebar">
             <i class="fa fa-bars"></i>
             <img src="/images/logo_v2.png">
         </a>
@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="ui bottom attached segment pushable">
-        <div style="" class="ui visible inverted labeled icon left inline vertical sidebar menu">
+        <div class="ui visible inverted labeled icon left inline vertical sidebar menu">
             <a class="item">
                 <i class="fa fa-television"></i>
                 Séries
@@ -68,7 +68,7 @@
                 .sidebar({
                     context: $('.bottom.segment')
                 })
-                .sidebar('attach events', '.menu .item-sidebar')
+                .sidebar('attach events', '.menu .click-sidebar')
         ;
     </script>
 
