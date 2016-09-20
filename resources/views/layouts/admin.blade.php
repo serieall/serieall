@@ -19,14 +19,14 @@
 
 </head>
 <body>
-    <div class="ui stackable menu">
+    <div class="ui fixed stackable menu">
         <a class="item click-sidebar">
             <i class="fa fa-bars"></i>
             <img src="/images/logo_v2.png">
         </a>
         <div class="ui breadcrumb item">
             <a class="section">Administration</a>
-            <i class="fa fa-chevron-right icon divider"></i>
+            <i class="fa fa-chevron-right icon"></i>
             <a class="active section">Séries</a>
         </div>
     </div>
