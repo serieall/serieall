@@ -10,12 +10,14 @@
 
     <!-- CSS -->
     {{ Html::style('/css/knacss.css') }}
+    {{ Html::style('/css/dropdown-semantic-ui.css') }}
     {{ Html::style('/css/knacss_perso.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
     <!-- Javascript -->
     {{ Html::script('/js/jquery.js') }}
     {{ Html::script('/js/datatables.js') }}
+    {{ Html::script('/js/dropdown-semantic-ui.js') }}
 
 </head>
 <body id="body-admin">

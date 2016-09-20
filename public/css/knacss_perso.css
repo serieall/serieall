@@ -266,7 +266,6 @@ table tr td.actions a:hover i {
 }
 
 select {
-    cursor: pointer;
     position: relative;
     display: inline-block;
     outline: none;

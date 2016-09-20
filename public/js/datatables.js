@@ -14359,7 +14359,7 @@
         "sFilterInput": "",
 
         /* Page length */
-        "sLengthSelect": "",
+        "sLengthSelect": "ui dropdown",
 
         /* Scrolling */
         "sScrollWrapper": "dataTables_scroll",
