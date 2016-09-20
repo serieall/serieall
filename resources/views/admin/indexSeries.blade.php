@@ -11,20 +11,19 @@
 @endsection
 
 @section('content')
+    <div class="ui right floated green animated fade button" tabindex="0">
+        <div class="visible content">Ajouter une nouvelle série</div>
+        <div class="hidden content">
+            <i class="plus icon"></i>
+        </div>
+    </div>
     <div>
-        <h1 class="ui header">
+        <h1 class="ui header segment">
             Séries
             <div class="sub header">
                 Liste de toutes les séries présentes sur Série-All
             </div>
         </h1>
-
-        <div class="ui right floated green animated fade button" tabindex="0">
-            <div class="visible content">Ajouter une nouvelle série</div>
-            <div class="hidden content">
-                <i class="plus icon"></i>
-            </div>
-        </div>
 
         <table id="table-show-admin" class="ui sortable selectable celled table">
             <thead>
