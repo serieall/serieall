@@ -36,10 +36,12 @@
 
 #table-show-admin_paginate{
     float: right;
+    margin-bottom: 1em;
 }
 
 #table-show-admin_info{
     float: left;
+    margin-bottom: 1em;
 }
 
 #table-show-admin_paginate span{
