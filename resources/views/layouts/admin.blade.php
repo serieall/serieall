@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="ui bottom attached segment pushable">
-        <div class="ui visible inverted labeled icon left inline vertical sidebar menu">
+        <div class="ui visible inverted left vertical sidebar menu">
             <a class="item">
                 <i class="fa fa-television"></i>
                 Séries
