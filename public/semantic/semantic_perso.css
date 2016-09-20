@@ -10,3 +10,13 @@
     background: #1074b2;
     color: white;
 }
+
+#table-show-admin_length {
+    float: left;
+    margin-bottom: 0.5em;
+}
+
+#table-show-admin_filter {
+    float: right;
+    margin-bottom: 0.5em;
+}
