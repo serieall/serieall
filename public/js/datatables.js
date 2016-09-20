@@ -14348,8 +14348,8 @@
         "sProcessing": "dataTables_processing",
 
         /* Sorting */
-        "sSortAsc": "sorting_asc",
-        "sSortDesc": "sorting_desc",
+        "sSortAsc": "ascending",
+        "sSortDesc": "descending",
         "sSortable": "sorting", /* Sortable in both directions */
         "sSortableAsc": "sorting_asc_disabled",
         "sSortableDesc": "sorting_desc_disabled",
