@@ -69,6 +69,7 @@
                     context: $('.bottom.segment')
                 })
                 .sidebar('attach events', '.menu .click-sidebar')
+                .sidebar('settings', 'dimPage', 'false')
         ;
     </script>
 
