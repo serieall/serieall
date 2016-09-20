@@ -54,11 +54,11 @@
                         {{ $show->episodes_count }}
                     </td>
                     <td class="center aligned">
-                        <i class="huge icons">
+                        <i class="big icons">
                             <i class="big thin circle icon"></i>
                             <i class="edit icon"></i>
                         </i>
-                        <i class="huge icons">
+                        <i class="big icons">
                             <i class="big thin circle icon"></i>
                             <i class="trash icon"></i>
                         </i>
