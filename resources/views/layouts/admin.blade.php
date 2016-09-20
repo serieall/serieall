@@ -22,11 +22,10 @@
     <div class="ui top attached demo menu">
         <a class="item">
             <i class="fa fa-bars"></i>
-
         </a>
     </div>
     <div class="ui bottom attached segment pushable">
-        <div style="" class="ui inverted labeled icon left inline vertical sidebar menu">
+        <div style="" class="ui visible inverted labeled icon left inline vertical sidebar menu">
             <a class="item">
                 <i class="fa fa-television"></i>
                 Séries
