@@ -125,6 +125,6 @@
         }} );
 
         $('#add-serie')
-        .modal('show')
+        .modal()
         ;
 @endsection
