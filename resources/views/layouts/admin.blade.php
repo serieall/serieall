@@ -56,7 +56,7 @@
         </div>
     </header>
 
-    <nav id="nav-admin" class="ui mini image">
+    <nav id="nav-admin" class="ui left fixed vertical stackable menu">
         <img id="logo-admin" class="ui mini image" src="/images/logo_v2.png" alt="Logo Série-All" />
         <ul id="nav-ul-admin" class="w100 topnav">
             <li id="nav-li-admin" class="w100">
