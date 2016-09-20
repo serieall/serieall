@@ -22,7 +22,7 @@
         <i class="big green plus icon" id="admin-add"></i>
         Ajouter une nouvelle série
 
-        <table id="table-show-admin" class="ui selectable celled table">
+        <table id="table-show-admin" class="ui sortable celled table">
             <thead>
                 <tr>
                     <th>Nom</th>
