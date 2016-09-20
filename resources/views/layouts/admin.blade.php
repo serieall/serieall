@@ -54,13 +54,13 @@
         </div>
     </header>
 
-    <div class="ui top attached demo menu">
+    <div class="ui top demo menu">
         <a class="item">
             <i class="sidebar icon"></i>
         </a>
     </div>
 
-    <div class="ui bottom attached segment pushable">
+    <div class="ui bottom pushable">
         <div class="ui inverted labeled icon left inline vertical sidebar menu">
             <a class="item">
                 <i class="home icon"></i>
