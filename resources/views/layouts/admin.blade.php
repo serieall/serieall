@@ -33,22 +33,22 @@
             <div class="item">
                 <img class="ui centered image" src="/images/logo_v2.png">
             </div>
-            <a class="item
+            <a class="ui header item
                 @if($navActive == 'show')
-                    ui blue
+                    blue
                 @endif" href="{{ url('/admin/series') }}">
                 <i class="tv icon"></i>
                 Séries
             </a>
-            <a class="item">
+            <a class="ui header item">
                 <i class="file text outline icon"></i>
                 Articles
             </a>
-            <a class="item">
+            <a class="ui header item">
                 <i class="users icon"></i>
                 Utilisateurs
             </a>
-            <a class="item">
+            <a class="ui header item">
                 <i class="trash icon"></i>
                 Système
             </a>
