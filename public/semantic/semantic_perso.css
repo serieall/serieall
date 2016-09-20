@@ -5,3 +5,8 @@
 #div-bottom{
     border: none;
 }
+
+#table-show-admin thead th{
+    background: #1074b2;
+    color: white;
+}
