@@ -14356,7 +14356,7 @@
         "sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
 
         /* Filtering */
-        "sFilterInput": "",
+        "sFilterInput": "ui action input",
 
         /* Page length */
         "sLengthSelect": "ui dropdown selection compact",
