@@ -17,6 +17,9 @@
             <i class="plus icon"></i>
         </div>
     </div>
+
+    @extends('serie_add')
+
     <div>
         <h1 class="ui header" id="admin-titre">
             Séries
@@ -96,4 +99,8 @@
                     "sLast":     	"Fin"
             }
         }} );
+
+        $('.ui.modal')
+        .modal('show')
+        ;
 @endsection

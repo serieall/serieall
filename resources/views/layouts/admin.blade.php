@@ -93,8 +93,7 @@
 
         $('.ui.sidebar')
                 .sidebar({
-                    overlay: true,
-                    blurring: true,
+                    overlay: true
                 })
                 .sidebar('attach events', '.menu .click-sidebar')
         ;
