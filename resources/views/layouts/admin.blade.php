@@ -75,7 +75,8 @@
         $('.ui.sidebar')
                 .sidebar({
                     dimPage: false,
-                    closable: false
+                    closable: false,
+                    transition: 'uncover',
                 })
                 .sidebar('attach events', '.menu .click-sidebar')
         ;
