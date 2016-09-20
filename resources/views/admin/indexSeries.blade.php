@@ -14,7 +14,7 @@
     <div>
         <h1 id="content-h1-admin" class="txtcenter">Liste des séries</h1>
 
-        <table id="table-show-admin" class="ui striped table">
+        <table id="table-show-admin" class="ui selectable celled table">
             <thead>
                 <tr>
                     <th>Nom</th>
@@ -42,13 +42,13 @@
                             <br />
                         @endforeach
                     </td>
-                    <td>
+                    <td class="center aligned">
                         {{ $show->seasons_count }}
                     </td>
-                    <td>
+                    <td class="center aligned">
                         {{ $show->episodes_count }}
                     </td>
-                    <td class="a">
+                    <td class="center aligned">
                         <a href="#"><i class="big circular edit icon"></i></a>
                         <a href="#"><i class="big circular trash icon"></i></a>
                     </td>
