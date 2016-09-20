@@ -14470,7 +14470,7 @@
             numbers.splice( 0, 0, 0 );
         }
 
-        numbers.DT_el = 'span';
+        numbers.DT_el = '';
         return numbers;
     }
 
@@ -14843,7 +14843,9 @@
                 $('<div/>')
                     .addClass( classes.sSortJUIWrapper )
                     .append( cell.contents() )
-                    
+                    .append( $('<span/>')
+                        .addClass( classes.sSortIcon+' '+column.sSortingClassJUI )
+                    )
                     .appendTo( cell );
 
                 // Attach a sort listener to update on sort
