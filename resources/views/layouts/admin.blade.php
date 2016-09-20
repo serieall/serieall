@@ -29,7 +29,9 @@
             @yield('breadcrumbs')
         </div>
         <div class="right menu">
-            <a class="item">Wiki</a>
+            <a class="item">Wiki
+                <i class="help circle icon"></i>
+            </a>
             <div class="item">{{ Auth::user()->username }}</div>
 
         </div>
