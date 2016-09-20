@@ -86,5 +86,9 @@
                 x.className = "topnav";
             }
         }
+
+        $('.dropdown')
+                .dropdown()
+        ;
     </script>
 @endsection
