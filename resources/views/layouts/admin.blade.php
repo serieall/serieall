@@ -27,9 +27,9 @@
         <div class="ui breadcrumb item">
             @yield('breadcrumbs')
         </div>
-        <div class="ui item right menu">
-            <a>Wiki</a>
-            <div>{{ Auth::user()->username }}</div>
+        <div class="right menu">
+            <a class="item">Wiki</a>
+            <div class="item">{{ Auth::user()->username }}</div>
 
         </div>
     </div>
