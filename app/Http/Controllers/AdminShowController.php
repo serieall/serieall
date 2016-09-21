@@ -53,7 +53,7 @@ class AdminShowController extends Controller
      */
     public function store(Request $request)
     {
-        $this->dispatch(new SendWelcomeEmail());
+        $this->dispatch(new SendWelcomeEmail(Auth::user()->email));
     }
 
     /**

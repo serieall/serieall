@@ -12,14 +12,16 @@ class SendWelcomeEmail extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
+    protected $user;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -30,7 +32,7 @@ class SendWelcomeEmail extends Job implements ShouldQueue
     public function handle(Mailer $mailer)
     {
         $mailer->send('admin.shows.emailtest', ['data'=>'data'], function ($message) {
-            $message->to('bmayelle@hotmail.fr');
+            $message->to($this->user);
 
         });
     }
