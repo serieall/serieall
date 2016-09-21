@@ -23,11 +23,8 @@
     </h1>
 
 
-    <div class="ui grid">
-        <div class="four wide column">
-
-        </div>
-        <div class="eight wide column">
+    <div class="ui eight column centered grid">
+        <div class="column">
             <form class="ui form">
                 <div class="field">
                     <label>First Name</label>
@@ -45,9 +42,6 @@
                 </div>
                 <button class="ui button" type="submit">Submit</button>
             </form>
-        </div>
-        <div class="four wide column">
-
         </div>
     </div>
 
