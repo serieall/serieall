@@ -84,7 +84,7 @@
         $('#table-show-admin').DataTable( {
             "order": [[ 0, "asc" ]],
             "language": {
-                "url": "http://dev.journeytotheit.ovh/language-datatable.json"
+                "url": "//dev.journeytotheit.ovh/language-datatable.json"
             }
         }} );
 @endsection
