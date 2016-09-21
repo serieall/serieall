@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\AdminShowRepository;
 
 use App\Http\Requests;
+use Auth;
 use App\Jobs\SendWelcomeEmail;
 
 class AdminShowController extends Controller
