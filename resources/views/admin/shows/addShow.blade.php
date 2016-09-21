@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-
+                <button class="positive ui button" type="submit">Submit</button>
             </form>
         </div>
     </div>
