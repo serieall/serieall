@@ -24,7 +24,7 @@
 
 
     <div class="ui grid">
-        <div class="four wide column">
+        <div class="computer only four wide column">
 
         </div>
         <div class="eight wide column">
@@ -46,7 +46,7 @@
                 <button class="ui button" type="submit">Submit</button>
             </form>
         </div>
-        <div class="four wide column">
+        <div class="computer only four wide column">
 
         </div>
     </div>
