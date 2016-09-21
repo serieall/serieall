@@ -15,7 +15,30 @@
 @endsection
 
 @section('content')
+    <h1 class="ui header" id="admin-titre">
+        Ajouter une série
+        <div class="sub header">
+            Remplir le formulaire ci-dessous pour ajouter une nouvelle série
+        </div>
+    </h1>
 
+    <form class="ui form">
+        <div class="field">
+            <label>First Name</label>
+            <input name="first-name" placeholder="First Name" type="text">
+        </div>
+        <div class="field">
+            <label>Last Name</label>
+            <input name="last-name" placeholder="Last Name" type="text">
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input class="hidden" tabindex="0" type="checkbox">
+                <label>I agree to the Terms and Conditions</label>
+            </div>
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+    </form>
 
 @endsection
 
