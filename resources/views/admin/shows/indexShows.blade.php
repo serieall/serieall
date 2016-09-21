@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <a href="{{ route('adminShow.index') }}">
+    <a href="{{ route('adminShow.create') }}">
         <div class="ui right floated green animated fade button" tabindex="0" id="add-serie">
             <div class="visible content">Ajouter une nouvelle série</div>
             <div class="hidden content">
