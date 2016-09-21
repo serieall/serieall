@@ -27,4 +27,11 @@ class AdminShowController extends Controller
 
         return view('admin/shows/indexShows', compact('shows', 'navActive'));
     }
+
+    public function addShow(){
+        #Variable qui détecte dans quelle partie de l'admin on se trouve
+        $navActive = 'show';
+
+        return view('admin/shows/addShow', compact('navActive'));
+    }
 }
