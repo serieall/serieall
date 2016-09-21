@@ -5,7 +5,7 @@
         Administration
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ url('adminShow.index') }}" class="section">
+    <a href="{{ route('adminShow.index') }}" class="section">
         Séries
     </a>
     <i class="right angle icon divider"></i>
