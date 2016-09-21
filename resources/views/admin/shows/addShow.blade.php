@@ -21,35 +21,25 @@
             Remplir le formulaire ci-dessous pour ajouter une nouvelle série
         </div>
     </h1>
+    <div class="ui centered grid">
+        <div class="eight wide column segment">
+            <form method="POST" action="{{ route('admin.addShow') }}">
+                {{ csrf_field() }}
 
-
-    <div class="ui grid">
-        <div class="computer only four wide column">
-
-        </div>
-        <div class="eight wide column">
-            <form class="ui form">
-                <div class="field">
-                    <label>First Name</label>
-                    <input name="first-name" placeholder="First Name" type="text">
-                </div>
-                <div class="field">
-                    <label>Last Name</label>
-                    <input name="last-name" placeholder="Last Name" type="text">
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input class="hidden" tabindex="0" type="checkbox">
-                        <label>I agree to the Terms and Conditions</label>
+                <div class="two fields">
+                    <div class="field">
+                        <label>ID de la série sur TheTVDV</label>
+                        <input name="thetvdb_id" placeholder="TheTVDV ID" type="text">
+                    </div>
+                    <div class="disabled field">
+                        <label>Nom de la série</label>
+                        <input placeholder="Le nom de la série apparait ici" disabled="" tabindex="-1" type="text">
                     </div>
                 </div>
-                <button class="ui button" type="submit">Submit</button>
-            </form>
-        </div>
-        <div class="computer only four wide column">
 
+
+            </form>
         </div>
     </div>
 
 @endsection
-
