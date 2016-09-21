@@ -23,8 +23,8 @@
     </h1>
 
 
-    <div class="ui eight column centered grid">
-        <div class="column">
+    <div class="ui centered grid">
+        <div class="eight wide column">
             <form class="ui form">
                 <div class="field">
                     <label>First Name</label>
