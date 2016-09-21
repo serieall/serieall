@@ -84,7 +84,7 @@
         $('#table-show-admin').DataTable( {
             "order": [[ 0, "asc" ]],
             "language": {
-                "url": "/public/language-datatable.json",
+                "url": "/public/language-datatable.json"
             }
         }} );
 @endsection
