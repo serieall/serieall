@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('breadcrumbs')
-    <a href="{{ url('/admin') }}" class="section">
+    <a href="{{ route('adminIndex') }}" class="section">
         Administration
     </a>
     <i class="right angle icon divider"></i>
@@ -11,12 +11,14 @@
 @endsection
 
 @section('content')
-    <div class="ui right floated green animated fade button" tabindex="0" id="add-serie">
-        <div class="visible content">Ajouter une nouvelle série</div>
-        <div class="hidden content">
-            <i class="plus icon"></i>
+    <a href="{{ route('adminShow.index') }}">
+        <div class="ui right floated green animated fade button" tabindex="0" id="add-serie">
+            <div class="visible content">Ajouter une nouvelle série</div>
+            <div class="hidden content">
+                <i class="plus icon"></i>
+            </div>
         </div>
-    </div>
+    </a>
 
     <div>
         <h1 class="ui header" id="admin-titre">

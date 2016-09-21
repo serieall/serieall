@@ -53,14 +53,14 @@
             <a class="ui header item
                 @if($navActive == 'home')
                     blue
-                @endif" href="{{ url('/admin') }}">
+                @endif" href="{{ route('adminIndex') }}">
                 <i class="home icon"></i>
                 Accueil
             </a>
             <a class="ui header item
                 @if($navActive == 'show')
                     blue
-                @endif" href="{{ url('/admin/series') }}">
+                @endif" href="{{ url('adminShow.index') }}">
                 <i class="tv icon"></i>
                 Séries
             </a>
