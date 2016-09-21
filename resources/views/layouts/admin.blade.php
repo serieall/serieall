@@ -60,7 +60,7 @@
             <a class="ui header item
                 @if($navActive == 'show')
                     blue
-                @endif" href="{{ url('adminShow.index') }}">
+                @endif" href="{{ route('adminShow.index') }}">
                 <i class="tv icon"></i>
                 Séries
             </a>
