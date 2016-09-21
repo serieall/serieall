@@ -34,9 +34,7 @@ Route::post('changepassword', 'UserController@changePassword');
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
 */
-Route::group(['middleware' => 'admin'], function () {
+Route::group(['middleware' => 'admin', "prefix" => "admin"], function () {
     Route::get('/admin', 'AdminController@index')->name('index');
-    Route::get('/admin/series', 'AdminShowController@indexShows')->name('indexShows');
-    Route::get('/admin/series/add', 'AdminShowController@addShow')->name('addShow');
-    Route::post('/admin/series/create', 'AdminShowController@createShow')->name('createShow');
-})->name('admin');
+    Route::resource('show', 'AdminShowController');
+});
