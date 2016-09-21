@@ -23,7 +23,10 @@
     </h1>
 
 
-    <div class="ui centered grid">
+    <div class="ui grid">
+        <div class="four large screen only wide column">
+
+        </div>
         <div class="eight wide column">
             <form class="ui form">
                 <div class="field">
@@ -42,6 +45,9 @@
                 </div>
                 <button class="ui button" type="submit">Submit</button>
             </form>
+        </div>
+        <div class="four large screen only wide column">
+
         </div>
     </div>
 
