@@ -69,10 +69,10 @@ class AdminShowController extends Controller
                 'userkey' => '6EE6A1F4BF0DDA46'
             ]
         ]);
+        $token->getResponse()->getBody();
 
-        $reason = $token->getBody();
+        dd($token);
 
-        dd($reason);
 
         $show = $client->request('GET', '/series/176941/actors', [
             'headers' => [
