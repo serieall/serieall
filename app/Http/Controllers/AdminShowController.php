@@ -70,7 +70,7 @@ class AdminShowController extends Controller
             ]
         ]);
 
-        $reason = $token->getReasonPhrase();
+        $reason = $token->getBody();
 
         dd($reason);
 
