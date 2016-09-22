@@ -70,7 +70,9 @@ class AdminShowController extends Controller
             ]
         ]);
 
-        dd($token);
+        $reason = $token->getReasonPhrase();
+
+        dd($reason);
 
         $show = $client->request('GET', '/series/176941/actors', [
             'headers' => [
