@@ -58,7 +58,7 @@ class AdminShowController extends Controller
     {
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
-        $token = $client->request('POST', '/login', [
+        $token = $client->request('GET', '/login', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json'
