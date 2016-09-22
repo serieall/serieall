@@ -70,9 +70,8 @@ class AdminShowController extends Controller
             ]
         ]);
 
-        echo \GuzzleHttp\json_encode($token);
-
         dd($token);
+        
         $show = $client->request('GET', '/series/176941/actors', [
             'headers' => [
                 'Accept' => 'application/json',
