@@ -70,7 +70,13 @@ class AdminShowController extends Controller
             ]
         ]);
 
-        dd($token);
+        $show = $client->request('GET', '/series/176941/actors', [
+            'headers' => [
+                'Accept' => 'application/json',
+            ]
+        ]);
+
+        dd($show);
     }
 
     /**
