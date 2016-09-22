@@ -68,8 +68,8 @@ class AdminShowController extends Controller
                 'username' => 'Youkoulayley',
                 'userkey' => '6EE6A1F4BF0DDA46'
             ]
-        ]);
-        $token->getReasonPhrase();
+        ])->send();
+
 
         dd($token);
 
