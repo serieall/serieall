@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\AddShowFromTVDB;
 use Illuminate\Http\Request;
 use App\Repositories\AdminShowRepository;
 
 use App\Http\Requests;
 use Auth;
-use App\Jobs\SendWelcomeEmail;
+use App\Jobs\AddShowFromTVDB;
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
 
 class AdminShowController extends Controller
 {
@@ -54,7 +57,21 @@ class AdminShowController extends Controller
      */
     public function store(Request $request)
     {
-        $this->dispatch(new SendWelcomeEmail(Auth::user()->email));
+        $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
+
+        $token = $client->request('POST', '/login', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ],
+            'json' => [
+                'apikey' => '64931690DCC5FC6B',
+                'username' => 'Youkoulayley',
+                'userkey' => '6EE6A1F4BF0DDA46'
+            ]
+        ]);
+
+        dd($token);
     }
 
     /**

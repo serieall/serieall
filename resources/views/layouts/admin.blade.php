@@ -73,7 +73,7 @@
                 Utilisateurs
             </a>
             <a class="ui header item">
-                <i class="trash icon"></i>
+                <i class="settings icon"></i>
                 Système
             </a>
         </div>
