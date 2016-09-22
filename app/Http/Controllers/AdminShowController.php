@@ -8,7 +8,6 @@ use App\Repositories\AdminShowRepository;
 
 use App\Http\Requests;
 use Auth;
-use App\Jobs\AddShowFromTVDB;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 
