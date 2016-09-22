@@ -69,14 +69,15 @@ class AdminShowController extends Controller
                 'userkey' => '6EE6A1F4BF0DDA46'
             ]
         ]);
-
+        dd($token);
         $show = $client->request('GET', '/series/176941/actors', [
             'headers' => [
                 'Accept' => 'application/json',
+                'Authorization' => 'Bearer ' . $token,
             ]
         ]);
 
-        dd($show);
+
     }
 
     /**
