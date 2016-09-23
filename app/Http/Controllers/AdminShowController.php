@@ -66,7 +66,7 @@ class AdminShowController extends Controller
 
         $getToken = $client->request('POST', '/login', [
             'header' => [
-                'Accept' => 'application/vnd.thetvdb.v2.1.0',
+                'Accept' => 'application/vnd.thetvdb.v2.1.1',
             ],
             'json' => [
                 'apikey' => '64931690DCC5FC6B',
@@ -74,7 +74,6 @@ class AdminShowController extends Controller
                 'userkey' => '6EE6A1F4BF0DDA46',
             ]
         ]);
-        dd($getToken);
 
         $getToken = json_decode($getToken);
 
@@ -89,6 +88,7 @@ class AdminShowController extends Controller
         ])->getBody();
 
         $show = json_decode($getShow);
+        dd($show);
 
         $show_new = new $this->show;
 
