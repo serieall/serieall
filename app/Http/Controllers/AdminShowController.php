@@ -91,7 +91,7 @@ class AdminShowController extends Controller
         $show_new->name = $show->data->seriesName;
 
         $show_new->save;
-        return $show_new;
+        return redirect()->back();
     }
 
     /**
