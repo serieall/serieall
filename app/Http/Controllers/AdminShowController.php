@@ -66,14 +66,15 @@ class AdminShowController extends Controller
 
         $getToken = $client->request('POST', '/login', [
             'header' => [
-                'Accept' => 'application/vnd.thetvdb.v2.1.1',
+                'Accept' => 'application/vnd.thetvdb.v2.1.0',
             ],
             'json' => [
                 'apikey' => '64931690DCC5FC6B',
                 'username' => 'Youkoulayley',
                 'userkey' => '6EE6A1F4BF0DDA46',
             ]
-        ])->getBody();
+        ]);
+        dd($getToken);
 
         $getToken = json_decode($getToken);
 
@@ -81,11 +82,11 @@ class AdminShowController extends Controller
 
         $getShow = $client->request('GET', '/series/'. $theTVDBID, [
             'headers' => [
-                'Accept' => 'application/vnd.thetvdb.v2.1.0',
+                'Accept' => 'application/json',
+                'Accept' => 'application/vnd.thetvdb.v2.1.1',
                 'Authorization' => 'Bearer ' . $token,
             ]
-        ]);
-        dd($getShow);
+        ])->getBody();
 
         $show = json_decode($getShow);
 
