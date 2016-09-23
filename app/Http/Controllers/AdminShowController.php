@@ -59,6 +59,8 @@ class AdminShowController extends Controller
      */
     public function store(Array $inputs)
     {
+        $theTVDBID = $inputs['thetvdb_id'];
+
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
         $getToken = $client->request('POST', '/login', [
