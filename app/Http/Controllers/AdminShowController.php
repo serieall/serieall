@@ -87,6 +87,7 @@ class AdminShowController extends Controller
 dd($getShow);
 
         foreach ($getShow->data as $show){
+            dd($show->seriesName);
             $show_new = new $this->show;
 
             $show_new->thetvdb_id = $theTVDBID;
