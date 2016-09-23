@@ -78,9 +78,8 @@ class AdminShowController extends Controller
         ])->getBody();
 
         $getActors = json_decode($getActors);
-        dd($getActors);
-
-        foreach ($getActors as $actor){
+        
+        foreach ($getActors->data as $actor){
             echo $actor->name;
         }
 
