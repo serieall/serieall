@@ -56,11 +56,11 @@ class AdminShowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ShowCreateRequest $request)
+    public function store(ShowCreateRequest $request, Show $show)
     {
         $theTVDBID = $request->thetvdb_id;
 
-        dispatch(new AddShowFromTVDB($theTVDBID));
+        dispatch(new AddShowFromTVDB($theTVDBID, $show));
 
         return view('home');
     }
