@@ -15,16 +15,10 @@ class AdminShowController extends Controller
 {
 
     protected $adminShowRepository;
-    protected $apiKey = '64931690DCC5FC6B';
-    protected $username = 'Youkoulayley';
-    protected $accountIdentifier = '6EE6A1F4BF0DDA46';
 
-    public function __construct(AdminShowRepository $adminShowRepository, $apiKey, $username, $accountIdentifier)
+    public function __construct(AdminShowRepository $adminShowRepository)
     {
         $this->adminShowRepository = $adminShowRepository;
-        $this->apiKey = $apiKey;
-        $this->username = $username;
-        $this->accountIdentifier = $accountIdentifier;
     }
 
     /**
