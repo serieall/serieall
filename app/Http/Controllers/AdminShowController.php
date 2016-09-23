@@ -62,40 +62,6 @@ class AdminShowController extends Controller
     {
         $theTVDBID = $request->thetvdb_id;
 
-        $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
-
-        $getToken = $client->request('POST', '/login', [
-            'header' => [
-                'Accept' => 'application/vnd.thetvdb.v2.1.1',
-            ],
-            'json' => [
-                'apikey' => '64931690DCC5FC6B',
-                'username' => 'Youkoulayley',
-                'userkey' => '6EE6A1F4BF0DDA46',
-            ]
-        ])->getBody();
-
-        $getToken = json_decode($getToken);
-
-        $token = $getToken->token;
-
-        $getShow = $client->request('GET', '/series/'. $theTVDBID, [
-            'headers' => [
-                'Accept' => 'application/json,application/vnd.thetvdb.v2.1.1',
-                'Authorization' => 'Bearer ' . $token,
-            ]
-        ])->getBody();
-
-        $show = json_decode($getShow);
-        dd($show);
-
-        $show_new = new $this->show;
-
-        $show_new->thetvdb_id = $theTVDBID;
-        $show_new->name = $show->data->seriesName;
-        $show_new->show_url = $show->data->seriesName;
-
-        $show_new->save();
         return view('home');
     }
 
