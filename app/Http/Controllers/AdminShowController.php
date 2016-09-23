@@ -15,6 +15,9 @@ class AdminShowController extends Controller
 {
 
     protected $adminShowRepository;
+    protected $apiKey = '64931690DCC5FC6B';
+    protected $username = 'Youkoulayley';
+    protected $accountIdentifier = '6EE6A1F4BF0DDA46';
 
     public function __construct(AdminShowRepository $adminShowRepository)
     {
@@ -54,16 +57,17 @@ class AdminShowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($apiKey, $username, $accountIdentifier)
     {
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
         $token = $client->request('POST', '/login', [
-            'json' => [
-                'apikey' => '64931690DCC5FC6B',
-                'username' => 'Youkoulayley',
-                'userkey' => '6EE6A1F4BF0DDA46'
-            ]
+            'body' => json_encode([
+                'apikey' => $apiKey,
+                'username' => $username,
+                'userkey' => $accountIdentifier,
+            ]),
+            'http_errors' => true
         ]);
 
         dd($token);
