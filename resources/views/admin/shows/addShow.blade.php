@@ -23,7 +23,7 @@
     </h1>
     <div class="ui centered grid">
         <div class="ten wide column segment">
-            <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
+            <form class="ui form" method="POST" action="{{ route('adminShow.store', $thetvdb_id) }}">
                 {{ csrf_field() }}
 
                 <div class="two fields">

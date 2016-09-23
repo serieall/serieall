@@ -90,9 +90,6 @@ class AdminShowController extends Controller
             $this->save($show_new, $show);
             return $show_new;
         }
-
-
-
     }
 
     /**
