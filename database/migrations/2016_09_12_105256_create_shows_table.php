@@ -14,7 +14,7 @@ class CreateShowsTable extends Migration
     {
         Schema::create('shows', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('thetvdb_id');
+            $table->integer('thetvdb_id')->unique();
             $table->string('show_url')->unique();
             $table->string('name');
             $table->string('name_fr');

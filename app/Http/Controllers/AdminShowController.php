@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\AdminShowRepository;
 
 use App\Http\Requests;
+use App\Http\Requests\ShowCreateRequest;
 use Auth;
 use App\Models\Show;
 use GuzzleHttp\Client;
@@ -57,9 +58,9 @@ class AdminShowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Array $inputs)
+    public function store(ShowCreateRequest $request)
     {
-        $theTVDBID = $inputs['thetvdb_id'];
+        $theTVDBID = $request->thetvdb_id;
 
         dd($theTVDBID);
 
