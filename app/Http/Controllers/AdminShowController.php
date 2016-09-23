@@ -64,10 +64,9 @@ class AdminShowController extends Controller
                 'username' => 'Youkoulayley',
                 'userkey' => '6EE6A1F4BF0DDA46',
             ]
-        ]);
-        dd(\GuzzleHttp\json_decode($token));
+        ])->getBody();
 
-        $token = json_decode($token->getBody());
+        $token = json_decode($token);
 
         dd($token);
 
