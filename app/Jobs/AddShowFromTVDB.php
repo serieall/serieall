@@ -114,7 +114,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | On définit les valeurs des différents champs voulus
         | On crée l'objet en base.
         */
-        $show_new = new $show;
+        $show_new = new $this->show;
 
         $show_new->thetvdb_id = $theTVDBID;
         $show_new->name = $show->data->seriesName;
