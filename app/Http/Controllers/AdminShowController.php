@@ -19,9 +19,12 @@ class AdminShowController extends Controller
     protected $username = 'Youkoulayley';
     protected $accountIdentifier = '6EE6A1F4BF0DDA46';
 
-    public function __construct(AdminShowRepository $adminShowRepository)
+    public function __construct(AdminShowRepository $adminShowRepository, $apiKey, $username, $accountIdentifier)
     {
         $this->adminShowRepository = $adminShowRepository;
+        $this->apiKey = $apiKey;
+        $this->username = $username;
+        $this->accountIdentifier = $accountIdentifier;
     }
 
     /**
@@ -63,9 +66,9 @@ class AdminShowController extends Controller
 
         $token = $client->request('POST', '/login', [
             'body' => json_encode([
-                'apikey' => $apiKey,
-                'username' => $username,
-                'userkey' => $accountIdentifier,
+                'apikey' => $this->apiKey,
+                'username' => $this->username,
+                'userkey' => $this->accountIdentifier,
             ]),
             'http_errors' => true
         ]);
