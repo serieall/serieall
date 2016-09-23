@@ -67,8 +67,8 @@ class AdminShowController extends Controller
         ])->getBody();
 
         $getToken = json_decode($getToken);
-        echo $getToken['token'];
-        
+        dd($getToken['token']);
+
 
 
         $show = $client->request('GET', '/series/176941/actors', [
