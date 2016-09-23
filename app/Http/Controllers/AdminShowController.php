@@ -82,10 +82,11 @@ class AdminShowController extends Controller
         $getShow = $client->request('GET', '/series/'. $theTVDBID, [
             'headers' => [
                 'Accept' => 'application/json',
-                'Accept' => 'application/vnd.thetvd.v2.1.1',
+                'Accept' => 'application/vnd.thetvdb.v2.1.1',
                 'Authorization' => 'Bearer ' . $token,
             ]
-        ])->getBody();
+        ]);
+        dd($getShow);
 
         $show = json_decode($getShow);
 
