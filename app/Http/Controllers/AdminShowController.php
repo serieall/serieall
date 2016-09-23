@@ -64,6 +64,9 @@ class AdminShowController extends Controller
     {
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
+
+        $token = $this->apiKey;
+        dd($token);
         $token = $client->request('POST', '/login', [
             'body' => json_encode([
                 'apikey' => $this->apiKey,
@@ -72,7 +75,7 @@ class AdminShowController extends Controller
             ]),
             'http_errors' => true
         ]);
-
+        $token = $this->apiKey;
         dd($token);
 
         $show = $client->request('GET', '/series/176941/actors', [
