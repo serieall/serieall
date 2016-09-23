@@ -83,17 +83,15 @@ class AdminShowController extends Controller
             ]
         ])->getBody();
 
-        $getShow = json_decode($getShow);
+        $show = json_decode($getShow);
 
-        foreach ($getShow as $show){
-            $show_new = new $this->show;
+        $show_new = new $this->show;
 
-            $show_new->thetvdb_id = $theTVDBID;
-            $show_new->name = $show->seriesName;
+        $show_new->thetvdb_id = $theTVDBID;
+        $show_new->name = $show->seriesName;
 
-            $this->show->save($show_new, $request->all());
-            return $show_new;
-        }
+        $show_new->save;
+        return $show_new;
 
 
     }
