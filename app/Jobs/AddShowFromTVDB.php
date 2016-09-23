@@ -7,21 +7,24 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client;
+use App\Models\Show;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
     protected $show_tvdbid;
+    protected $show;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($show_tvdbid)
+    public function __construct($show_tvdbid , Show $show)
     {
         $this->show_tvdbid = $show_tvdbid;
+        $this->show = $show;
     }
 
     /**

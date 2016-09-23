@@ -10,8 +10,6 @@ use App\Http\Requests;
 use App\Http\Requests\ShowCreateRequest;
 use Auth;
 use App\Models\Show;
-use GuzzleHttp\Client;
-use GuzzleHttp\Promise;
 
 class AdminShowController extends Controller
 {
