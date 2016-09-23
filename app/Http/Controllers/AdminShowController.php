@@ -62,7 +62,7 @@ class AdminShowController extends Controller
 
         dispatch(new AddShowFromTVDB($theTVDBID, $show));
 
-        return view('admin.shows.addShow');
+        return view('admin.shows.indexShows');
     }
 
     /**
