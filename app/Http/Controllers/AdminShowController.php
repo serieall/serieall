@@ -58,7 +58,7 @@ class AdminShowController extends Controller
     {
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
-        $token = $client->request('POST', '/login', [
+        $getToken = $client->request('POST', '/login', [
             'json' => [
                 'apikey' => '64931690DCC5FC6B',
                 'username' => 'Youkoulayley',
@@ -66,9 +66,12 @@ class AdminShowController extends Controller
             ]
         ])->getBody();
 
-        $token = json_decode($token);
+        $token = json_decode($getToken);
+        foreach ($getToken as $token){
+            echo $token;
+            dd($token);
+        }
 
-        dd($token);
 
         $show = $client->request('GET', '/series/176941/actors', [
             'headers' => [
