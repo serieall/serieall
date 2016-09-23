@@ -62,7 +62,11 @@ class AdminShowController extends Controller
 
         dispatch(new AddShowFromTVDB($theTVDBID, $show));
 
-        return view('admin.index');
+        #Variable qui détecte dans quelle partie de l'admin on se trouve
+        $navActive = 'show';
+        $shows = $this->adminShowRepository->getShowByName();
+
+        return view('admin/shows/indexShows', compact('shows', 'navActive'));
     }
 
     /**
