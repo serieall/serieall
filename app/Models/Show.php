@@ -10,19 +10,7 @@ class Show extends Model
         'thetvdb_id',
         'show_url',
         'name',
-        'name_fr',
-        'synopsis',
-        'format',
-        'annee',
-        'encours',
-        'createurs',
-        'diffusion_us',
-        'diffusion_fr',
-        'moyenne',
-        'moyenne_redac',
-        'nbnotes',
-        'taux_erectile',
-        'avis_rentree'];
+        ];
 
     public function channels()
     {
