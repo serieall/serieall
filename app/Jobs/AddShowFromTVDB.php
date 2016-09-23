@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Illuminate\Contracts\Logging\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,10 +21,9 @@ class AddShowFromTVDB extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($show_tvdbid, Show $show)
+    public function __construct($show_tvdbid)
     {
         $this->show_tvdbid = $show_tvdbid;
-        $this->show = $show;
     }
 
     /**
@@ -74,6 +74,8 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             ]
         ])->getBody();
 
+
+
         /*
         |--------------------------------------------------------------------------
         | Décodage du JSON et récupération du token dans une variable
@@ -114,7 +116,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | On définit les valeurs des différents champs voulus
         | On crée l'objet en base.
         */
-        $show_new = new $this->show;
+        $show_new = new Show;
 
         $show_new->thetvdb_id = $theTVDBID;
         $show_new->name = $show->data->seriesName;
