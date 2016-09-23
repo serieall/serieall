@@ -57,7 +57,7 @@ class AdminShowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($theTVDBID)
+    public function store(Array $inputs)
     {
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
@@ -73,7 +73,7 @@ class AdminShowController extends Controller
 
         $token = $getToken->token;
 
-        $getShow = $client->request('GET', '/series/'. $theTVDBID, [
+        $getShow = $client->request('GET', '/series/'. $inputs['thetvdb_id'], [
             'headers' => [
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $token,
