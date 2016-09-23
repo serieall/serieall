@@ -92,7 +92,7 @@ class AdminShowController extends Controller
         $show_new->show_url = $show->data->seriesName;
 
         $show_new->save;
-        return redirect()->back();
+        return view('index');
     }
 
     /**
