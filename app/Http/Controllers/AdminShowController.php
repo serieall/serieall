@@ -8,6 +8,7 @@ use App\Repositories\AdminShowRepository;
 
 use App\Http\Requests;
 use Auth;
+use App\Models\Show;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 
@@ -15,10 +16,12 @@ class AdminShowController extends Controller
 {
 
     protected $adminShowRepository;
+    protected $show;
 
-    public function __construct(AdminShowRepository $adminShowRepository)
+    public function __construct(AdminShowRepository $adminShowRepository, Show $show)
     {
         $this->adminShowRepository = $adminShowRepository;
+        $this->show = $show;
     }
 
     /**
@@ -54,7 +57,7 @@ class AdminShowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store($theTVDBID)
     {
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
@@ -70,18 +73,22 @@ class AdminShowController extends Controller
 
         $token = $getToken->token;
 
-        $getActors = $client->request('GET', '/series/176941/actors', [
+        $getShow = $client->request('GET', '/series/'. $theTVDBID, [
             'headers' => [
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $token,
             ]
         ])->getBody();
 
-        $getActors = json_decode($getActors);
+        $getShow = json_decode($getShow);
 
-        foreach ($getActors->data as $actor){
-            echo $actor->name;
-            echo '<br />';
+        foreach ($getShow->data as $show){
+            $show->thetvdbid = $theTVDBID;
+            $show->name = $show->seriesName;
+
+            $show_new = new $this->show;
+            $this->save($show_new, $show);
+            return $show_new;
         }
 
 
