@@ -70,13 +70,19 @@ class AdminShowController extends Controller
 
         $token = $getToken->token;
 
-        $show = $client->request('GET', '/series/176941/actors', [
+        $getActors = $client->request('GET', '/series/176941/actors', [
             'headers' => [
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $token,
             ]
         ])->getBody();
-        dd(json_decode($show));
+
+        $getActors = json_decode($getActors);
+
+        foreach ($getActors as $actor){
+            echo $actor->name;
+        }
+
 
 
     }
