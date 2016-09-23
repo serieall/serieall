@@ -60,7 +60,7 @@ class AdminShowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($apiKey, $username, $accountIdentifier)
+    public function store()
     {
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
