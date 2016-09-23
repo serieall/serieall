@@ -20,7 +20,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($show_tvdbid,Show $show)
+    public function __construct($show_tvdbid, Show $show)
     {
         $this->show_tvdbid = $show_tvdbid;
         $this->show = $show;
@@ -104,7 +104,6 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $show = json_decode($getShow);
-        dd($show);
 
         /*
         |--------------------------------------------------------------------------
