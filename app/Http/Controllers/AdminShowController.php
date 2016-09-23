@@ -67,9 +67,8 @@ class AdminShowController extends Controller
         ])->getBody();
 
         $getToken = json_decode($getToken);
-        dd($getToken->token);
 
-
+        $token = $getToken->token;
 
         $show = $client->request('GET', '/series/176941/actors', [
             'headers' => [
@@ -77,6 +76,7 @@ class AdminShowController extends Controller
                 'Authorization' => 'Bearer ' . $token,
             ]
         ]);
+        dd($show);
 
 
     }
