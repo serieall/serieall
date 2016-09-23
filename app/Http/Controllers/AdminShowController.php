@@ -84,7 +84,7 @@ class AdminShowController extends Controller
         ])->getBody();
 
         $show = json_decode($getShow);
-        dd($show);
+        dd($show->data->seriesName);
     }
 
     /**
