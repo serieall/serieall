@@ -61,6 +61,8 @@ class AdminShowController extends Controller
     {
         $theTVDBID = $inputs['thetvdb_id'];
 
+        dd($theTVDBID);
+
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
         $getToken = $client->request('POST', '/login', [

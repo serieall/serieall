@@ -26,12 +26,9 @@
             <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
                 {{ csrf_field() }}
 
-                <div class="two fields">
-                    <div class="field">
-                        <label>ID de la série sur TheTVDV</label>
-                        <input name="thetvdb_id" placeholder="TheTVDV ID" type="text">
-                    </div>
-                    <button class="positive ui button">Vérifier</button>
+                <div class="field">
+                    <label>ID de la série sur TheTVDB</label>
+                    <input name="thetvdb_id" placeholder="TheTVDB ID" type="text">
                 </div>
                 <button class="positive ui button" type="submit">Créer la série</button>
             </form>
