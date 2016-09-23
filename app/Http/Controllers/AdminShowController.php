@@ -66,7 +66,7 @@ class AdminShowController extends Controller
             ]
         ]);
 
-        $token = json_decode($token->getBody()->getContents());
+        $token = json_decode($token->getBody()->getMetadata('token'));
 
         dd($token);
 
