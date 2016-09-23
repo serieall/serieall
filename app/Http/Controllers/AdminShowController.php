@@ -91,7 +91,7 @@ class AdminShowController extends Controller
         $show_new->name = $show->data->seriesName;
         $show_new->show_url = $show->data->seriesName;
 
-        $show_new->save;
+        $show_new->save();
         return view('index');
     }
 
