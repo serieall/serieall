@@ -22,7 +22,7 @@
         </div>
     </h1>
     <div class="ui centered grid">
-        <div class="eight wide column segment">
+        <div class="ten wide column segment">
             <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
                 {{ csrf_field() }}
 
@@ -31,13 +31,9 @@
                         <label>ID de la série sur TheTVDV</label>
                         <input name="thetvdb_id" placeholder="TheTVDV ID" type="text">
                     </div>
-                    <div class="disabled field">
-                        <label>Nom de la série</label>
-                        <input placeholder="Le nom de la série apparait ici" disabled="" tabindex="-1" type="text">
-                    </div>
+                    <button class="positive ui button">Vérifier</button>
                 </div>
-
-                <button class="positive ui button" type="submit">Submit</button>
+                <button class="positive ui button" type="submit">Créer la série</button>
             </form>
         </div>
     </div>
