@@ -73,7 +73,7 @@ class AdminShowController extends Controller
                 'username' => 'Youkoulayley',
                 'userkey' => '6EE6A1F4BF0DDA46',
             ]
-        ]);
+        ])->getBody();
 
         $getToken = json_decode($getToken);
 
