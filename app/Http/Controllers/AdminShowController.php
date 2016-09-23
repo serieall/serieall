@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Requests\ShowCreateRequest;
 use Auth;
 use App\Models\Show;
+use Illuminate\View\View;
 
 class AdminShowController extends Controller
 {
@@ -62,7 +63,7 @@ class AdminShowController extends Controller
 
         dispatch(new AddShowFromTVDB($theTVDBID, $show));
 
-        return view('admin.shows.indexShows');
+        return View::make('admin.shows.indexShows');
     }
 
     /**
