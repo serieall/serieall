@@ -85,16 +85,6 @@ class AdminShowController extends Controller
 
         $show = json_decode($getShow);
         dd($show->seriesName);
-
-        $show_new = new $this->show;
-
-        $show_new->thetvdb_id = $theTVDBID;
-        $show_new->name = $show->seriesName;
-
-        $show_new->save;
-        return $show_new;
-
-
     }
 
     /**
