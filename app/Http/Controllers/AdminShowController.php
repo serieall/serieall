@@ -91,7 +91,7 @@ class AdminShowController extends Controller
             $show_new->thetvdb_id = $theTVDBID;
             $show_new->name = $show->seriesName;
 
-            $this->save($show_new, $show);
+            $this->show->save($show_new);
             return $show_new;
         }
 
