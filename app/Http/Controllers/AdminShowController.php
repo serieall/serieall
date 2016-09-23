@@ -65,6 +65,9 @@ class AdminShowController extends Controller
         $client = new Client(['base_uri' => 'https://api.thetvdb.com/']);
 
         $getToken = $client->request('POST', '/login', [
+            'header' => [
+                'Accept' => 'application/vnd.thetvdb.v2.1.1',
+            ],
             'json' => [
                 'apikey' => '64931690DCC5FC6B',
                 'username' => 'Youkoulayley',
@@ -79,6 +82,7 @@ class AdminShowController extends Controller
         $getShow = $client->request('GET', '/series/'. $theTVDBID, [
             'headers' => [
                 'Accept' => 'application/json',
+                'Accept' => 'application/vnd.thetvdb.v2.1.1',
                 'Authorization' => 'Bearer ' . $token,
             ]
         ])->getBody();
