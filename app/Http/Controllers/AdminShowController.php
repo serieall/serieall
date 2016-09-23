@@ -75,8 +75,8 @@ class AdminShowController extends Controller
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $token,
             ]
-        ]);
-        dd($show);
+        ])->getBody();
+        dd(json_decode($show));
 
 
     }
