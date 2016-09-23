@@ -62,6 +62,8 @@ class AdminShowController extends Controller
     {
         $theTVDBID = $request->thetvdb_id;
 
+        dispatch(new AddShowFromTVDB($theTVDBID));
+
         return view('home');
     }
 
