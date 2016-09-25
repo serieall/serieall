@@ -7,13 +7,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client;
 use App\Models\Show;
-use App\Http\Controllers\Components\ReplaceSpecialChars;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
     protected $show_tvdbid;
+    
     /**
      * Create a new job instance.
      *
@@ -119,7 +119,6 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->thetvdb_id = $theTVDBID; # L'ID de TheTVDB
         $show_new->name = $show->data->seriesName; # Le nom de la série
 
-        $show_new->show_url = strtolower($show_new->name);
         $show_new->save();
     }
 }
