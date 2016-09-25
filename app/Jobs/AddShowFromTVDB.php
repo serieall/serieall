@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Http\Controllers\Components\ReplaceSpecialsChars;
 use GuzzleHttp\Client;
 use App\Models\Show;
+use Illuminate\Support\Facades\Log;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
 {
@@ -122,6 +123,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->name = $show->data->seriesName; # Le nom de la série
 
         $show_new->show_url = $replaceSpecialsChars->ReplaceSpecialsChars($show_new->name);
+        Log::info('variable : ' . $show_new);
         $show_new->save();
     }
 }
