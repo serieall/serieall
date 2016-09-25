@@ -119,14 +119,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->thetvdb_id = $theTVDBID; # L'ID de TheTVDB
         $show_new->name = $show->data->seriesName; # Le nom de la série
 
-        $chaine= trim($show_new->name);
-        $chaine= strtr($chaine,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
-
-        //  Remplacement des autres caratères spéciaux
-        $chaine = preg_replace('/([^.a-z0-9]+)/i', '-', $chaine);
-        $chaine = strtolower($chaine);
-
-        $show_new->show_url = $chaine;
+        $show_new->show_url = strtolower($show_new->name);
         $show_new->save();
     }
 }
