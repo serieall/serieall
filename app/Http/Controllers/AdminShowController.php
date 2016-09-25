@@ -10,6 +10,8 @@ use App\Http\Requests;
 use App\Http\Requests\ShowCreateRequest;
 use Auth;
 use App\Models\Show;
+use App\Http\Controllers\Components\ReplaceSpecialChars;
+
 
 class AdminShowController extends Controller
 {
@@ -46,6 +48,10 @@ class AdminShowController extends Controller
     {
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
+
+        $test = ReplaceSpecialChars::ReplaceSpecialChars('LOOOLL LLLLL');
+
+        dd($test);
 
         return view('admin/shows/addShow', compact('navActive'));
     }
