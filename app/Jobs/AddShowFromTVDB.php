@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,17 +14,14 @@ class AddShowFromTVDB extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels;
 
     protected $show_tvdbid;
-    protected $replaceSpecialChars;
-
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($show_tvdbid, ReplaceSpecialChars $replaceSpecialChars)
+    public function __construct($show_tvdbid)
     {
         $this->show_tvdbid = $show_tvdbid;
-        $this->replaceSpecialChars = $replaceSpecialChars;
     }
 
     /**
@@ -123,7 +119,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->thetvdb_id = $theTVDBID; # L'ID de TheTVDB
         $show_new->name = $show->data->seriesName; # Le nom de la série
 
-        $show_new->show_url = $this->replaceSpecialChars->ReplaceSpecialchars($show->data->seriesName);
+        $show_new->show_url = new ReplaceSpecialChars($show->data->seriesName);
 
         $show_new->save();
     }
