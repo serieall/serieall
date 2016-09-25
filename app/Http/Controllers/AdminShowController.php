@@ -18,9 +18,10 @@ class AdminShowController extends Controller
     protected $adminShowRepository;
     protected $replaceSpecialsChars;
 
-    public function __construct(AdminShowRepository $adminShowRepository)
+    public function __construct(AdminShowRepository $adminShowRepository, ReplaceSpecialsChars $replaceSpecialsChars)
     {
         $this->adminShowRepository = $adminShowRepository;
+        $this->replaceSpecialsChars = $replaceSpecialsChars;
     }
 
     /**
@@ -64,7 +65,7 @@ class AdminShowController extends Controller
 
         $strChaine = 'Salut, ça va ?';
 
-        $strChaine = ReplaceSpecialsChars::ReplaceSpecialChars($strChaine);
+        $strChaine = $this->replaceSpecialsChars->ReplaceSpecialsChars($strChaine);
 
         dd($strChaine);
 
