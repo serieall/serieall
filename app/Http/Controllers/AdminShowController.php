@@ -63,7 +63,7 @@ class AdminShowController extends Controller
 
         dispatch(new AddShowFromTVDB($theTVDBID));
 
-        $strChaine = 'Doctor Who (2005)';
+        $strChaine = 'Marvel\'s Daredevil';
 
         $strChaine = $this->replaceSpecialsChars->ReplaceSpecialsChars($strChaine);
 
