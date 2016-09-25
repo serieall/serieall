@@ -6,8 +6,6 @@ use App\Jobs\AddShowFromTVDB;
 use Illuminate\Http\Request;
 use App\Repositories\AdminShowRepository;
 
-use App\Http\Controllers\Components\ReplaceSpecialsChars;
-
 use App\Http\Requests\ShowCreateRequest;
 use Auth;
 use App\Models\Show;
@@ -16,12 +14,10 @@ class AdminShowController extends Controller
 {
 
     protected $adminShowRepository;
-    protected $replaceSpecialsChars;
 
-    public function __construct(AdminShowRepository $adminShowRepository, ReplaceSpecialsChars $replaceSpecialsChars)
+    public function __construct(AdminShowRepository $adminShowRepository)
     {
         $this->adminShowRepository = $adminShowRepository;
-        $this->replaceSpecialsChars = $replaceSpecialsChars;
     }
 
     /**
@@ -62,12 +58,6 @@ class AdminShowController extends Controller
         $theTVDBID = $request->thetvdb_id;
 
         dispatch(new AddShowFromTVDB($theTVDBID));
-
-        $strChaine = 'Marvel\'s Daredevil';
-
-        $strChaine = $this->replaceSpecialsChars->ReplaceSpecialsChars($strChaine);
-
-        dd($strChaine);
 
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
