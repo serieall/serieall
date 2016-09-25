@@ -8,7 +8,6 @@ class ReplaceSpecialsChars extends Controller
 {
     public function ReplaceSpecialsChars($chaine){
         //  les accents
-        $chaine=trim($chaine);
         $chaine= strtr($chaine,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
 
         //  les caracètres spéciaux (aures que lettres et chiffres en fait)
