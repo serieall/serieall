@@ -13,7 +13,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels;
 
     protected $show_tvdbid;
-    
+
     /**
      * Create a new job instance.
      *
