@@ -5,7 +5,6 @@ namespace App\Jobs;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Http\Controllers\Components\ReplaceSpecialsChars;
 use GuzzleHttp\Client;
 use App\Models\Show;
 use Illuminate\Support\Facades\Log;
@@ -24,6 +23,18 @@ class AddShowFromTVDB extends Job implements ShouldQueue
     public function __construct($show_tvdbid)
     {
         $this->show_tvdbid = $show_tvdbid;
+    }
+
+    public function ReplaceSpecialsChars($chaine){
+        //  les accents
+        $chaine=trim($chaine);
+        $chaine= strtr($chaine,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
+
+        //  les caracètres spéciaux (aures que lettres et chiffres en fait)
+        $chaine = preg_replace('/([^.a-z0-9]+)/i', '-', $chaine);
+        $chaine = strtolower($chaine);
+
+        return $chaine;
     }
 
     /**
@@ -121,7 +132,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->thetvdb_id = $theTVDBID; # L'ID de TheTVDB
         $show_new->name = $show->data->seriesName; # Le nom de la série
 
-        $show_new->show_url = (new ReplaceSpecialsChars)->ReplaceSpecialsChars($show_new->name);
+        $show_new->show_url = $this->ReplaceSpecialsChars($show_new->name);
 
         $show_new->save();
     }
