@@ -115,13 +115,18 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | On crée l'objet en base.
         */
         $show_new = new Show();
-        $strReplace = new ReplaceSpecialChars();
 
         $show_new->thetvdb_id = $theTVDBID; # L'ID de TheTVDB
         $show_new->name = $show->data->seriesName; # Le nom de la série
 
-        $show_new->show_url = $strReplace->ReplaceSpecialchars($show->data->seriesName);
+        $chaine= trim($show->data->seriesName);
+        $chaine= strtr($chaine,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
 
+        //  Remplacement des autres caratères spéciaux
+        $chaine = preg_replace('/([^.a-z0-9]+)/i', '-', $chaine);
+        $chaine = strtolower($chaine);
+
+        $show_new->show_url = $chaine;
         $show_new->save();
     }
 }
