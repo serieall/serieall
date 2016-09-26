@@ -52,7 +52,9 @@
         </a>
     </div>
 
-    @yield('content');
+    <div class="pushed">
+        @yield('content');
+    </div>
 
     <script>
         @yield('scripts')
