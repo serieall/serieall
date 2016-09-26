@@ -78,7 +78,7 @@
                 </a>
             </div>
         </div>
-        <div class="ui stacked segment">
+        <div class="ui padding-article">
             @yield('content')
         </div>
     </div>
