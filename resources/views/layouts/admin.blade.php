@@ -22,7 +22,7 @@
 <body>
 <div class="pushed">
     <div class="ui stackable menu" id="menu-admin">
-        <a class="item mobile only click-sidebar">
+        <a class="item grid mobile only click-sidebar">
             <i class="content icon"></i>
             Choisir une catégorie
         </a>
