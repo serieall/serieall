@@ -29,7 +29,6 @@
             @yield('breadcrumbs')
         </div>
 
-
             <a class="right menu item" href="http://wiki.journeytotheit.ovh">Wiki
                 <i id="icon-wiki" class="help circle icon"></i>
             </a>
@@ -45,7 +44,7 @@
                 </div>
             </div>
     </div>
-        <div class="ui left vertical menu">
+        <div class="ui vertical sticky menu fixed top">
             <div class="item">
                 <img class="ui centered image" src="/images/logo_v2.png">
             </div>
