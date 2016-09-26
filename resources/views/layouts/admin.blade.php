@@ -32,7 +32,6 @@
                     <i id="icon-wiki" class="help circle icon"></i>
                 </a>
 
-            <div class="item">
                 <div class="ui dropdown item">
                     {{ Auth::user()->username }} <i class="dropdown icon"></i>
                     <div class="menu">
@@ -43,7 +42,6 @@
                             Se déconnecter
                         </a>
                     </div>
-                </div>
             </div>
             </div>
         </div>
