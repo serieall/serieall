@@ -45,9 +45,9 @@
                     </div>
                 @endif
 
-                <div class="field">
+                <div class="field {{ $errors->has('username') ? ' error' : '' }}">
                     <label>ID de la série sur TheTVDB</label>
-                    <input name="thetvdb_id" placeholder="TheTVDB ID" type="text">
+                    <input name="thetvdb_id" placeholder="TheTVDB ID" type="text" value="{{ old('thetvdb_id') }}>
 
                     @if ($errors->has('thetvdb_id'))
                         <span class="help-block">
