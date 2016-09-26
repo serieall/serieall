@@ -58,8 +58,8 @@
                 @yield('breadcrumbs')
             </div>
             <div class="right menu">
-                <a href="http://wiki.journeytotheit.ovh">
-                    <div class="item">
+                <a  class="item" href="http://wiki.journeytotheit.ovh">
+                    <div>
                     Wiki
                         <i id="icon-wiki" class="help circle icon"></i>
                     </div>
