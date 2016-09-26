@@ -45,14 +45,14 @@
                     </div>
                 @endif
 
-                <div class="field {{ $errors->has('username') ? ' error' : '' }}">
+                <div class="field {{ $errors->has('thetvdb_id') ? ' error' : '' }}">
                     <label>ID de la série sur TheTVDB</label>
                     <input name="thetvdb_id" placeholder="TheTVDB ID" type="text" value="{{ old('thetvdb_id') }}">
 
                     @if ($errors->has('thetvdb_id'))
-                        <span class="ui red message">
+                        <div class="ui red message">
                             <strong>{{ $errors->first('thetvdb_id') }}</strong>
-                        </span>
+                        </div>
                     @endif
                 </div>
                 <button class="positive ui button" type="submit">Créer la série</button>
