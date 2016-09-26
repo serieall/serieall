@@ -47,10 +47,10 @@
 
                 <div class="field {{ $errors->has('username') ? ' error' : '' }}">
                     <label>ID de la série sur TheTVDB</label>
-                    <input name="thetvdb_id" placeholder="TheTVDB ID" type="text" value="{{ old('thetvdb_id') }}>
+                    <input name="thetvdb_id" placeholder="TheTVDB ID" type="text" value="{{ old('thetvdb_id') }}">
 
                     @if ($errors->has('thetvdb_id'))
-                        <span class="help-block">
+                        <span class="ui red message">
                             <strong>{{ $errors->first('thetvdb_id') }}</strong>
                         </span>
                     @endif
