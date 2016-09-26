@@ -20,48 +20,41 @@
 
 </head>
 <body>
-    <div class="pusher">
-        <div class="full height">
-            <div id="toc">
-                <div class="ui vertical fixed left menu">
-                    <div class="item">
-                        <img class="ui centered image" src="/images/logo_v2.png">
-                    </div>
-                    <a class="ui header item
-                        @if($navActive == 'home')
-                            blue
-                        @endif" href="{{ route('adminIndex') }}">
-                        <i class="home icon"></i>
-                        Accueil
-                    </a>
-                    <a class="ui header item
-                        @if($navActive == 'show')
-                            blue
-                        @endif" href="{{ route('adminShow.index') }}">
-                        <i class="tv icon"></i>
-                        Séries
-                    </a>
-                    <a class="ui header item">
-                        <i class="file text outline icon"></i>
-                        Articles
-                    </a>
-                    <a class="ui header item">
-                        <i class="users icon"></i>
-                        Utilisateurs
-                    </a>
-                    <a class="ui header item">
-                        <i class="settings icon"></i>
-                        Système
-                    </a>
-                </div>
-            </div>
-            <div class="article">
-                <div  class="main ui container">
-                @yield('content');
-                    </div>
-            </div>
+    <div class="ui vertical fixed left menu">
+        <div class="item">
+            <img class="ui centered image" src="/images/logo_v2.png">
         </div>
+        <a class="ui header item
+                            @if($navActive == 'home')
+                blue
+            @endif" href="{{ route('adminIndex') }}">
+            <i class="home icon"></i>
+            Accueil
+        </a>
+        <a class="ui header item
+                            @if($navActive == 'show')
+                blue
+            @endif" href="{{ route('adminShow.index') }}">
+            <i class="tv icon"></i>
+            Séries
+        </a>
+        <a class="ui header item">
+            <i class="file text outline icon"></i>
+            Articles
+        </a>
+        <a class="ui header item">
+            <i class="users icon"></i>
+            Utilisateurs
+        </a>
+        <a class="ui header item">
+            <i class="settings icon"></i>
+            Système
+        </a>
     </div>
+
+    @yield('content');
+
+
 
     <script>
         @yield('scripts')
