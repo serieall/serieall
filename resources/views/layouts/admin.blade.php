@@ -53,7 +53,32 @@
     </div>
 
     <div class="pushed">
-        @yield('content');
+        <div class="ui stackable menu" id="menu-admin">
+            <a class="item click-sidebar">
+                <i class="content icon"></i>
+                Choisir une catégorie
+            </a>
+            <div class="ui breadcrumb item">
+                @yield('breadcrumbs')
+            </div>
+            <div class="right menu">
+                <div class="ui dropdown item">
+                    {{ Auth::user()->username }} <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="{{ url('/') }}">
+                            Revenir sur le site
+                        </a>
+                        <a class="item" href="{{ url('/logout') }}">
+                            Se déconnecter
+                        </a>
+                    </div>
+                </div>
+                <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
+                    <i id="icon-wiki" class="help circle icon"></i>
+                </a>
+            </div>
+        </div>
+        @yield('content')
     </div>
 
     <script>
