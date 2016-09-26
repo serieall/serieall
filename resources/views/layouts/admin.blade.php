@@ -45,8 +45,7 @@
                 </div>
             </div>
     </div>
-    <div class="ui bottom attached segment pushable" id="div-bottom">
-        <div class="ui left vertical sidebar menu">
+        <div class="ui left vertical menu">
             <div class="item">
                 <img class="ui centered image" src="/images/logo_v2.png">
             </div>
@@ -77,12 +76,9 @@
                 Système
             </a>
         </div>
-        <div class="pusher">
             <div class="ui basic segment">
                 @yield('content')
             </div>
-        </div>
-    </div>
 
     <script>
         @yield('scripts')
