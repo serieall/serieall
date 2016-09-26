@@ -11,7 +11,6 @@
     <!-- CSS -->
     {{ Html::style('/semantic/semantic.css') }}
     {{ Html::style('/semantic/semantic_perso.css') }}
-    {{ Html::style('/css/font-awesome.css') }}
 
     <!-- Javascript -->
     {{ Html::script('/js/jquery.js') }}
