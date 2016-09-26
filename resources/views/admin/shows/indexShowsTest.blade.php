@@ -1,15 +1,5 @@
 @extends('layouts.admin_test')
 
-@section('breadcrumbs')
-    <a href="{{ route('adminIndex') }}" class="section">
-        Administration
-    </a>
-    <i class="right angle icon divider"></i>
-    <div class="active section">
-        Séries
-    </div>
-@endsection
-
 @section('content')
     <a href="{{ route('adminShow.create') }}">
         <div class="ui right floated green animated fade button" tabindex="0" id="add-serie">
