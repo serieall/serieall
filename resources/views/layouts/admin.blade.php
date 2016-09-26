@@ -11,7 +11,6 @@
     <!-- CSS -->
     {{ Html::style('/semantic/semantic.css') }}
     {{ Html::style('/semantic/semantic_perso.css') }}
-    {{ Html::style('/semantic/semantic-docs.css') }}
     {{ Html::style('/css/font-awesome.css') }}
 
     <!-- Javascript -->
@@ -23,8 +22,8 @@
 <body>
     <div class="pusher">
         <div class="full height">
-            <div class="toc"">
-                <div class="ui vertical sticky menu">
+            <div id="toc">
+                <div class="ui vertical fixed left menu">
                     <div class="item">
                         <img class="ui centered image" src="/images/logo_v2.png">
                     </div>
