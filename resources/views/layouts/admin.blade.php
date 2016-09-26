@@ -30,11 +30,10 @@
         </div>
 
 
-        <div class="right menu item">
-            <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
+            <a class="right menu item" href="http://wiki.journeytotheit.ovh">Wiki
                 <i id="icon-wiki" class="help circle icon"></i>
             </a>
-            <div class="ui dropdown item">
+            <div class="right menu ui dropdown item">
                 {{ Auth::user()->username }} <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="{{ url('/') }}">
@@ -45,7 +44,6 @@
                     </a>
                 </div>
             </div>
-        </div>
     </div>
     <div class="ui bottom attached segment pushable" id="div-bottom">
         <div class="ui left vertical sidebar menu">
