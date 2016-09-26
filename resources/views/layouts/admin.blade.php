@@ -77,9 +77,7 @@
         </a>
     </div>
 
-    <div class="article">
         @yield('content')
-    </div>
 
     <script>
         @yield('scripts')
