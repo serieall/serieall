@@ -20,6 +20,38 @@
 
 </head>
 <body>
+    <div class="ui left fixed vertical menu">
+        <div class="item">
+            <img class="ui centered image" src="/images/logo_v2.png">
+        </div>
+        <a class="ui header item
+            @if($navActive == 'home')
+                blue
+            @endif" href="{{ route('adminIndex') }}">
+            <i class="home icon"></i>
+                Accueil
+        </a>
+        <a class="ui header item
+            @if($navActive == 'show')
+                blue
+            @endif" href="{{ route('adminShow.index') }}">
+            <i class="tv icon"></i>
+                Séries
+        </a>
+        <a class="ui header item">
+            <i class="file text outline icon"></i>
+                Articles
+        </a>
+        <a class="ui header item">
+            <i class="users icon"></i>
+                Utilisateurs
+        </a>
+        <a class="ui header item">
+            <i class="settings icon"></i>
+                Système
+        </a>
+    </div>
+
     <div class="ui stackable menu" id="menu-admin">
         <a class="item click-sidebar">
             <i class="content icon"></i>
@@ -31,22 +63,22 @@
 
         <div class="right menu">
             <div class="item">
-                <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
-                    <i id="icon-wiki" class="help circle icon"></i>
-                </a>
+        <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
+            <i id="icon-wiki" class="help circle icon"></i>
+        </a>
             </div>
             <div class="item">
-                <div class="ui dropdown item">
-                    {{ Auth::user()->username }} <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item" href="{{ url('/') }}">
-                            Revenir sur le site
-                        </a>
-                        <a class="item" href="{{ url('/logout') }}">
-                            Se déconnecter
-                        </a>
-                    </div>
-                </div>
+        <div class="ui dropdown item">
+            {{ Auth::user()->username }} <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="{{ url('/') }}">
+                    Revenir sur le site
+                </a>
+                <a class="item" href="{{ url('/logout') }}">
+                    Se déconnecter
+                </a>
+            </div>
+        </div>
             </div>
         </div>
     </div>
