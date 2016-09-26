@@ -44,6 +44,7 @@
                 </div>
             </div>
     </div>
+    <div class="full height">
         <div class="ui vertical sticky menu fixed top">
             <div class="item">
                 <img class="ui centered image" src="/images/logo_v2.png">
@@ -78,6 +79,7 @@
             <div class="ui basic segment">
                 @yield('content')
             </div>
+        </div>
 
     <script>
         @yield('scripts')
