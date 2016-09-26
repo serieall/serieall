@@ -44,6 +44,7 @@
                 </div>
             </div>
     </div>
+
     <div class="full height">
         <div class="ui vertical sticky menu fixed top">
             <div class="item">
@@ -76,9 +77,12 @@
                 Système
             </a>
         </div>
-            <div class="article">
+
+        <div class="article">
+            <div class="ui masthead vertical segment">
                 @yield('content')
             </div>
+        </div>
     </div>
 
     <script>
