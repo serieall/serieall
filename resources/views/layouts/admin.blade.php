@@ -20,12 +20,8 @@
 
 </head>
 <body>
-    <div class="ui stackable menu" id="menu-admin">
-        <a class="item click-sidebar">
-            <i class="content icon"></i>
-            Choisir une catégorie
-        </a>
-        <div class="ui breadcrumb item">
+    <div class="ui stackable menu pushed" id="menu-admin">
+                <div class="ui breadcrumb item">
             @yield('breadcrumbs')
         </div>
 
@@ -77,7 +73,9 @@
         </a>
     </div>
 
-    @yield('content')
+    <div class="pushed">
+        @yield('content')
+    </div>
 
     <script>
         @yield('scripts')
