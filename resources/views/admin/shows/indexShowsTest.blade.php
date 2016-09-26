@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin_test')
 
 @section('breadcrumbs')
     <a href="{{ route('adminIndex') }}" class="section">
