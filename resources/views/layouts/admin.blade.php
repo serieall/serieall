@@ -20,21 +20,21 @@
 
 </head>
 <body>
-    <div class="ui vertical fixed left menu">
+    <div class="ui left fixed vertical menu">
         <div class="item">
             <img class="ui centered image" src="/images/logo_v2.png">
         </div>
         <a class="ui header item
-                            @if($navActive == 'home')
+            @if($navActive == 'home')
                 blue
             @endif" href="{{ route('adminIndex') }}">
             <i class="home icon"></i>
             Accueil
         </a>
         <a class="ui header item
-                            @if($navActive == 'show')
+             @if($navActive == 'show')
                 blue
-            @endif" href="{{ route('adminShow.index') }}">
+             @endif" href="{{ route('adminShow.index') }}">
             <i class="tv icon"></i>
             Séries
         </a>
@@ -53,8 +53,6 @@
     </div>
 
     @yield('content');
-
-
 
     <script>
         @yield('scripts')
