@@ -58,6 +58,11 @@
                 @yield('breadcrumbs')
             </div>
             <div class="right menu">
+                <div class="item">
+                    <a href="http://wiki.journeytotheit.ovh">Wiki
+                        <i id="icon-wiki" class="help circle icon"></i>
+                    </a>
+                </div>
                 <div class="ui dropdown item">
                     {{ Auth::user()->username }} <i class="dropdown icon"></i>
                     <div class="menu">
@@ -69,9 +74,6 @@
                         </a>
                     </div>
                 </div>
-                <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
-                    <i id="icon-wiki" class="help circle icon"></i>
-                </a>
             </div>
         </div>
         <div class="ui padding-article">
