@@ -26,13 +26,50 @@
             <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
                 {{ csrf_field() }}
 
+                @if (session('status'))
+                    <div class="ui success message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ session('status_header') }}
+                        </div>
+                        <p>{{ session('status_message') }}</p>
+                    </div>
+                @endif
+                @if (session('warning'))
+                    <div class="ui warning message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ session('warning_header') }}
+                        </div>
+                        <p>{{ session('warning_message') }}</p>
+                    </div>
+                @endif
+
                 <div class="field">
                     <label>ID de la série sur TheTVDB</label>
                     <input name="thetvdb_id" placeholder="TheTVDB ID" type="text">
+
+                    @if ($errors->has('thetvdb_id'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('thetvdb_id') }}</strong>
+                        </span>
+                    @endif
                 </div>
                 <button class="positive ui button" type="submit">Créer la série</button>
             </form>
         </div>
     </div>
+
+    @section('scripts')
+        $('.message .close')
+        .on('click', function() {
+            $(this)
+            .closest('.message')
+            .transition('fade')
+            ;
+        })
+        ;
+    @endsection
+
 
 @endsection

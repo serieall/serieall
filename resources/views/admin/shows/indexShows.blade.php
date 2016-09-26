@@ -28,6 +28,25 @@
             </div>
         </h1>
 
+        @if (session('status'))
+            <div class="ui success message">
+                <i class="close icon"></i>
+                <div class="header">
+                    {{ session('status_header') }}
+                </div>
+                <p>{{ session('status_message') }}</p>
+            </div>
+        @endif
+        @if (session('warning'))
+            <div class="ui warning message">
+                <i class="close icon"></i>
+                <div class="header">
+                    {{ session('warning_header') }}
+                </div>
+                <p>{{ session('warning_message') }}</p>
+            </div>
+        @endif
+
         <table id="table-show-admin" class="ui sortable selectable celled table">
             <thead>
                 <tr>
