@@ -20,7 +20,8 @@
 
 </head>
 <body>
-    <div class="ui stackable menu pushed" id="menu-admin">
+<div class="pushed">
+    <div class="ui stackable menu" id="menu-admin">
                 <div class="ui breadcrumb item">
             @yield('breadcrumbs')
         </div>
@@ -40,6 +41,7 @@
                 </div>
             </div>
     </div>
+</div>
 
     <div class="ui left fixed vertical menu">
         <div class="item">
