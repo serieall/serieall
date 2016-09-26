@@ -54,10 +54,13 @@
 
     <div class="pushed">
         <div class="ui stackable menu" id="menu-admin">
+            <div class="ui grid">
+                <div class="ui column mobile only">
             <a class="item click-sidebar">
                 <i class="content icon"></i>
-                Choisir une catégorie
             </a>
+                </div>
+            </div>
             <div class="ui breadcrumb item">
                 @yield('breadcrumbs')
             </div>
