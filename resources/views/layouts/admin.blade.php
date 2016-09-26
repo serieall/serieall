@@ -33,7 +33,7 @@
             <a class="right menu item" href="http://wiki.journeytotheit.ovh">Wiki
                 <i id="icon-wiki" class="help circle icon"></i>
             </a>
-            <div class="right menu ui dropdown item">
+            <div class="ui dropdown item">
                 {{ Auth::user()->username }} <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="{{ url('/') }}">
