@@ -20,9 +20,8 @@
 
 </head>
 <body>
-<div class="pushed">
     <div class="ui stackable menu" id="menu-admin">
-        <a class="item grid mobile only click-sidebar">
+        <a class="item click-sidebar">
             <i class="content icon"></i>
             Choisir une catégorie
         </a>
@@ -45,9 +44,8 @@
                 </div>
             </div>
     </div>
-</div>
 
-    <div class="ui left fixed vertical menu computer only">
+    <div class="ui left sticky fixed vertical menu">
         <div class="item">
             <img class="ui centered image" src="/images/logo_v2.png">
         </div>
@@ -79,9 +77,7 @@
         </a>
     </div>
 
-    <div class="ui pushed">
-        @yield('content')
-    </div>
+    @yield('content')
 
     <script>
         @yield('scripts')
