@@ -61,9 +61,13 @@
             @yield('breadcrumbs')
         </div>
 
-        <a class="right menu item" href="http://wiki.journeytotheit.ovh">Wiki
+        <div class="right menu">
+            <div class="item">
+        <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
             <i id="icon-wiki" class="help circle icon"></i>
         </a>
+            </div>
+            <div class="item">
         <div class="ui dropdown item">
             {{ Auth::user()->username }} <i class="dropdown icon"></i>
             <div class="menu">
@@ -73,6 +77,8 @@
                 <a class="item" href="{{ url('/logout') }}">
                     Se déconnecter
                 </a>
+            </div>
+        </div>
             </div>
         </div>
     </div>
