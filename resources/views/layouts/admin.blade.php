@@ -76,10 +76,10 @@
                 Système
             </a>
         </div>
-            <div class="ui basic segment">
+            <div class="article">
                 @yield('content')
             </div>
-        </div>
+    </div>
 
     <script>
         @yield('scripts')
