@@ -22,7 +22,11 @@
 <body>
 <div class="pushed">
     <div class="ui stackable menu" id="menu-admin">
-                <div class="ui breadcrumb item">
+        <a class="item click-sidebar">
+            <i class="content icon"></i>
+            Choisir une catégorie
+        </a>
+        <div class="ui breadcrumb item">
             @yield('breadcrumbs')
         </div>
 
@@ -75,7 +79,7 @@
         </a>
     </div>
 
-    <div class="pushed">
+    <div class="ui pushed">
         @yield('content')
     </div>
 
