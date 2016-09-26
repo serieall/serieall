@@ -54,9 +54,6 @@
 
     <div class="pushed">
         <div class="ui stackable menu" id="menu-admin">
-            <a class="item click-sidebar">
-                <i class="content icon"></i>
-            </a>
             <div class="ui breadcrumb item">
                 @yield('breadcrumbs')
             </div>
