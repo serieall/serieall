@@ -21,7 +21,7 @@
 </head>
 <body>
     <div class="ui tiered menu">
-    <div class="menu">
+        <div class="menu">
         <div class="ui breadcrumb item">
             @yield('breadcrumbs')
         </div>
@@ -31,9 +31,9 @@
                 <a class="" href="http://wiki.journeytotheit.ovh">Wiki
                     <i id="icon-wiki" class="help circle icon"></i>
                 </a>
-            </div>
+
             <div class="item">
-                <div class="ui dropdown">
+                <div class="ui dropdown item">
                     {{ Auth::user()->username }} <i class="dropdown icon"></i>
                     <div class="menu">
                         <a class="item" href="{{ url('/') }}">
@@ -45,8 +45,9 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
+        </div>
     </div>
 
     @yield('content')
