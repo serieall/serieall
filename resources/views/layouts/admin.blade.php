@@ -20,7 +20,7 @@
 
 </head>
 <body>
-    <div class="ui left sticky fixed vertical menu">
+    <div class="ui left fixed vertical menu">
         <div class="item">
             <img class="ui centered image" src="/images/logo_v2.png">
         </div>
