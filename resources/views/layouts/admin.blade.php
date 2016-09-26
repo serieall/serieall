@@ -20,7 +20,32 @@
 
 </head>
 <body>
-    <div class="ui left fixed vertical menu">
+    <div class="ui stackable menu" id="menu-admin">
+        <a class="item click-sidebar">
+            <i class="content icon"></i>
+            Choisir une catégorie
+        </a>
+        <div class="ui breadcrumb item">
+            @yield('breadcrumbs')
+        </div>
+
+            <a class="right menu item" href="http://wiki.journeytotheit.ovh">Wiki
+                <i id="icon-wiki" class="help circle icon"></i>
+            </a>
+            <div class="ui dropdown item">
+                {{ Auth::user()->username }} <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="{{ url('/') }}">
+                        Revenir sur le site
+                    </a>
+                    <a class="item" href="{{ url('/logout') }}">
+                        Se déconnecter
+                    </a>
+                </div>
+            </div>
+    </div>
+
+    <div class="ui left sticky fixed vertical menu">
         <div class="item">
             <img class="ui centered image" src="/images/logo_v2.png">
         </div>
@@ -50,37 +75,6 @@
             <i class="settings icon"></i>
                 Système
         </a>
-    </div>
-
-    <div class="ui stackable menu" id="menu-admin">
-        <a class="item click-sidebar">
-            <i class="content icon"></i>
-            Choisir une catégorie
-        </a>
-        <div class="ui breadcrumb item">
-            @yield('breadcrumbs')
-        </div>
-
-        <div class="right menu">
-            <div class="item">
-        <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
-            <i id="icon-wiki" class="help circle icon"></i>
-        </a>
-            </div>
-            <div class="item">
-        <div class="ui dropdown item">
-            {{ Auth::user()->username }} <i class="dropdown icon"></i>
-            <div class="menu">
-                <a class="item" href="{{ url('/') }}">
-                    Revenir sur le site
-                </a>
-                <a class="item" href="{{ url('/logout') }}">
-                    Se déconnecter
-                </a>
-            </div>
-        </div>
-            </div>
-        </div>
     </div>
 
     @yield('content')
