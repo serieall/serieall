@@ -78,7 +78,7 @@
                 </a>
             </div>
         </div>
-        <div class="ui segment">
+        <div class="ui vertical segment">
             @yield('content')
         </div>
     </div>
