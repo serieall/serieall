@@ -57,7 +57,9 @@
                 </div>
             </div>
             <div class="article">
+                <div  class="main ui container">
                 @yield('content');
+                    </div>
             </div>
         </div>
     </div>
