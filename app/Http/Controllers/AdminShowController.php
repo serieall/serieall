@@ -57,6 +57,10 @@ class AdminShowController extends Controller
     {
         $theTVDBID = $request->thetvdb_id;
 
+        $chaine = 'Bonjour, ça roule ?';
+        $chaine_modifiee = ReplaceSpecialsChars($chaine);
+        dd($chaine_modifiee);
+
         dispatch(new AddShowFromTVDB($theTVDBID));
 
         #Variable qui détecte dans quelle partie de l'admin on se trouve

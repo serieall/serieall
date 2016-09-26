@@ -5,10 +5,8 @@ namespace App\Jobs;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Http\Controllers\Components\ReplaceSpecialsChars;
 use GuzzleHttp\Client;
 use App\Models\Show;
-use Illuminate\Support\Facades\Log;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
 {
