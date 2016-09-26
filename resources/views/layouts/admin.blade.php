@@ -28,10 +28,7 @@
         <div class="ui breadcrumb item">
             @yield('breadcrumbs')
         </div>
-
-            <a class="right menu item" href="http://wiki.journeytotheit.ovh">Wiki
-                <i id="icon-wiki" class="help circle icon"></i>
-            </a>
+        <div class="right menu">
             <div class="ui dropdown item">
                 {{ Auth::user()->username }} <i class="dropdown icon"></i>
                 <div class="menu">
@@ -43,41 +40,49 @@
                     </a>
                 </div>
             </div>
-    </div>
-
-    <div class="ui left sticky fixed vertical menu">
-        <div class="item">
-            <img class="ui centered image" src="/images/logo_v2.png">
+            <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
+                <i id="icon-wiki" class="help circle icon"></i>
+            </a>
         </div>
-        <a class="ui header item
-            @if($navActive == 'home')
-                blue
-            @endif" href="{{ route('adminIndex') }}">
-            <i class="home icon"></i>
-                Accueil
-        </a>
-        <a class="ui header item
-            @if($navActive == 'show')
-                blue
-            @endif" href="{{ route('adminShow.index') }}">
-            <i class="tv icon"></i>
-                Séries
-        </a>
-        <a class="ui header item">
-            <i class="file text outline icon"></i>
-                Articles
-        </a>
-        <a class="ui header item">
-            <i class="users icon"></i>
-                Utilisateurs
-        </a>
-        <a class="ui header item">
-            <i class="settings icon"></i>
-                Système
-        </a>
     </div>
-
-    @yield('content')
+    <div class="ui bottom attached segment pushable" id="div-bottom">
+        <div class="ui left vertical sidebar menu">
+            <div class="item">
+                <img class="ui centered image" src="/images/logo_v2.png">
+            </div>
+            <a class="ui header item
+                @if($navActive == 'home')
+                    blue
+                @endif" href="{{ route('adminIndex') }}">
+                <i class="home icon"></i>
+                Accueil
+            </a>
+            <a class="ui header item
+                @if($navActive == 'show')
+                    blue
+                @endif" href="{{ route('adminShow.index') }}">
+                <i class="tv icon"></i>
+                Séries
+            </a>
+            <a class="ui header item">
+                <i class="file text outline icon"></i>
+                Articles
+            </a>
+            <a class="ui header item">
+                <i class="users icon"></i>
+                Utilisateurs
+            </a>
+            <a class="ui header item">
+                <i class="settings icon"></i>
+                Système
+            </a>
+        </div>
+        <div class="pusher">
+            <div class="ui basic segment">
+                @yield('content')
+            </div>
+        </div>
+    </div>
 
     <script>
         @yield('scripts')
