@@ -20,18 +20,22 @@
 
 </head>
 <body>
-    <div class="ui tiered menu">
-        <div class="menu">
+    <div class="ui stackable menu" id="menu-admin">
+        <a class="item click-sidebar">
+            <i class="content icon"></i>
+            Choisir une catégorie
+        </a>
         <div class="ui breadcrumb item">
             @yield('breadcrumbs')
         </div>
 
         <div class="right menu">
             <div class="item">
-                <a class="" href="http://wiki.journeytotheit.ovh">Wiki
+                <a class="item" href="http://wiki.journeytotheit.ovh">Wiki
                     <i id="icon-wiki" class="help circle icon"></i>
                 </a>
-
+            </div>
+            <div class="item">
                 <div class="ui dropdown item">
                     {{ Auth::user()->username }} <i class="dropdown icon"></i>
                     <div class="menu">
@@ -42,9 +46,8 @@
                             Se déconnecter
                         </a>
                     </div>
+                </div>
             </div>
-            </div>
-        </div>
         </div>
     </div>
 
