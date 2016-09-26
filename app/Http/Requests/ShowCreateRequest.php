@@ -24,7 +24,7 @@ class ShowCreateRequest extends Request
     public function rules()
     {
         return [
-            'thetvdb_id' => 'required',
+            'thetvdb_id' => 'required|numeric',
         ];
     }
 }
