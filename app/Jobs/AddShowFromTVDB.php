@@ -117,8 +117,10 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         */
         $show_new = new Show();
 
-        $show_new->thetvdb_id = $theTVDBID; # L'ID de TheTVDB
-        $show_new->name = $show->seriesName; # Le nom de la série
+        $show_new->thetvdb_id = $theTVDBID;             # L'ID de TheTVDB
+        $show_new->name = $show->seriesName;            # Le nom de la série
+        $show_new->format = $show->runtime;             # Le format de la série
+        $show_new->diffusion_us = $show->firstAired;    # Date de diffusion US
 
         $show_new->show_url = ReplaceSpecialsChars($show_new->name);
 
