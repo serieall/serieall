@@ -58,8 +58,8 @@ class AdminShowController extends Controller
     {
         $theTVDBID = $request->thetvdb_id;
 
-        $testdate = "2016-05-12";
-        $test = date_create($testdate, 'YY');
+        $testdate = date_create("2016-05-12");
+        $test = date_format($testdate, "YY");
 
         dd($test);
 
