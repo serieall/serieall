@@ -7,6 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client;
 use App\Models\Show;
+use Carbon;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
 {
@@ -85,13 +86,21 @@ class AddShowFromTVDB extends Job implements ShouldQueue
 
         /*
         |--------------------------------------------------------------------------
-        | Recupération de la série
+        | Recupération de la série en français et avec la langue par défaut
         |--------------------------------------------------------------------------
         | Le paramètre passé est l'ID de TheTVDB passé dans le formulaire
         | On précise la version de l'API a utiliser, que l'on veut recevoir du JSON.
         | On passe également en paramètre le token.
         */
-        $getShow = $client->request('GET', '/series/'. $theTVDBID, [
+        $getShow_fr = $client->request('GET', '/series/'. $theTVDBID, [
+            'headers' => [
+                'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                'Authorization' => 'Bearer ' . $token,
+                'Accept-Language' => 'fr',
+            ]
+        ])->getBody();
+
+        $getShow_default = $client->request('GET', '/series/'. $theTVDBID, [
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                 'Authorization' => 'Bearer ' . $token,
@@ -100,11 +109,22 @@ class AddShowFromTVDB extends Job implements ShouldQueue
 
         /*
         |--------------------------------------------------------------------------
-        | Décodage du JSON
+        | Décodage du JSON et vérification que la langue française existe sur The TVDB
+        | Si la langue fr n'est pas renseignée, on met la variable languageFR à 'no'
         |--------------------------------------------------------------------------
         */
-        $getShow = json_decode($getShow);
-        $show = $getShow->data;
+        $getShow_fr = json_decode($getShow_fr);
+        $getShow_default = json_decode($getShow_default);
+
+        if (isset($getShow_fr->errors->invalidLanguage)){
+            $languageFR = false;
+        }
+        else{
+            $languageFR = true;
+        }
+
+        $show_default = $getShow_default->data;
+
 
         /*
         |--------------------------------------------------------------------------
@@ -117,10 +137,36 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         */
         $show_new = new Show();
 
-        $show_new->thetvdb_id = $theTVDBID;             # L'ID de TheTVDB
-        $show_new->name = $show->seriesName;            # Le nom de la série
-        $show_new->format = $show->runtime;             # Le format de la série
-        $show_new->diffusion_us = $show->firstAired;    # Date de diffusion US
+        # Si la langue française est renseignée
+        if ($languageFR) {
+            # On remplit les champs name_fr et synopsis en français
+            $show_fr = $getShow_fr->data;
+
+            $show_new->name_fr = $show_fr->seriesName;
+            $show_new->synopsis = $show_fr->overview;
+        }
+        else
+        {
+            # Sinon on remplit uniquement le champ synopsis avec la langue par défaut
+            $show_new->synopsis = $show_default->overview;
+        }
+
+        $show_new->thetvdb_id = $theTVDBID;                     # L'ID de TheTVDB
+        $show_new->name = $show_default->seriesName;            # Le nom de la série
+        $show_new->format = $show_default->runtime;             # Le format de la série
+        $show_new->diffusion_us = $show_default->firstAired;    # Date de diffusion US
+
+        # Le champ en cours doit être à 1 si la série est en cours et à 0 dans le cas contraire
+        if ($show_default->status = 'Continuing'){
+            $show_new->encours = 1;
+        }
+        else
+        {
+            $show_new->encours = 0;
+        }
+
+        # Pour l'année, on va parser le champ firstAired et récupérer uniquement l'année
+        $show_new->annee = date_format($show_default->firstAired, 'Y');
 
         $show_new->show_url = ReplaceSpecialsChars($show_new->name);
 
