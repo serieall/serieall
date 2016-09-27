@@ -107,6 +107,7 @@ class AdminShowController extends Controller
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                 'Authorization' => 'Bearer ' . $token,
+                'Accept-Language' => 'fr',
             ]
         ])->getBody();
 
@@ -117,7 +118,7 @@ class AdminShowController extends Controller
         */
         $getShow = json_decode($getShow);
         dd($getShow);
-        
+
 
 
 
