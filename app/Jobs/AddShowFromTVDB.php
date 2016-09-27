@@ -166,7 +166,9 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         }
 
         # Pour l'année, on va parser le champ firstAired et récupérer uniquement l'année
-        $show_new->annee = date_create($show_default->firstAired, 'YY');
+
+        $dateTemp = date_create($show_default->firstAired);
+        $show_new->annee = date_format($dateTemp, "Y");
 
         $show_new->show_url = ReplaceSpecialsChars($show_new->name);
 
