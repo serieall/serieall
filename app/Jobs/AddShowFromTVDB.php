@@ -157,7 +157,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->diffusion_us = $show_default->firstAired;    # Date de diffusion US
 
         # Le champ en cours doit être à 1 si la série est en cours et à 0 dans le cas contraire
-        if ($show_default->status = 'Continuing'){
+        if ($show_default->status == 'Continuing'){
             $show_new->encours = 1;
         }
         else
