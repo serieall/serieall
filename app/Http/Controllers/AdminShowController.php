@@ -117,7 +117,14 @@ class AdminShowController extends Controller
         |--------------------------------------------------------------------------
         */
         $getShow = json_decode($getShow);
-        dd($getShow);
+        if (isset($getShow->errors->invalidLanguage)){
+            $error_language = 'no';
+        }
+        else{
+            $error_language = 'yes';
+        }
+
+        dd($error_language);
 
 
 
