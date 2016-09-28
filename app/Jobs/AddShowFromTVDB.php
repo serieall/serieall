@@ -162,8 +162,9 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->name = $show_default->seriesName;                # Le nom de la série
         $show_new->format = $show_default->runtime;                 # Le format de la série
         $show_new->diffusion_us = $show_default->firstAired;        # Date de diffusion US
+        $show_new->diffusion_fr = $this->inputs['diffusion_fr'];    # Date de diffusion FR
         $show_new->taux_erectile = $this->inputs['taux_erectile'];  # Le taux érectile
-        $show_new->avis_rentree = $this->inputs['avis_rentree'];  # Le taux érectile
+        $show_new->avis_rentree = $this->inputs['avis_rentree'];    # Le taux érectile
 
 
         # Le champ en cours doit être à 1 si la série est en cours et à 0 dans le cas contraire
