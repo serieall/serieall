@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use App\Jobs\AddShowFromTVDB;
 use Illuminate\Http\Request;
 use App\Repositories\Admin\AdminShowRepository;
 
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Controllers\Controller;
-use Auth;
+
 use App\Models\Show;
 use GuzzleHttp\Client;
 
@@ -46,7 +47,9 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        return view('admin/shows/addShow', compact('navActive'));
+        $artists = $this->adminShowRepository->getArtists();
+
+        return view('admin/shows/addShow', compact('navActive', 'artists'));
     }
 
     /**
