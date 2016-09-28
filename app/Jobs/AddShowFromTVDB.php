@@ -38,7 +38,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Définition des variables
         |--------------------------------------------------------------------------
         */
-        $theTVDBID = $this->inputs->thetvdb_id;
+        $theTVDBID = $this->inputs['thetvdb_id'];
         $api_key = config('thetvdb.apikey');
         $api_username = config('thetvdb.username');
         $api_userkey = config('thetvdb.userkey');
