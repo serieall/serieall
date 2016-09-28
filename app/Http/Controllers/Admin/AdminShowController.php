@@ -63,8 +63,7 @@ class AdminShowController extends Controller
 
         dispatch(new AddShowFromTVDB($inputs));
 
-        return redirect(route('adminShow.index'))->with('success_header', 'Série ajoutée')
-            ->with('success_message', 'La création de série a été demandée, elle sera traitée le plus tôt possible.');
+        return redirect(route('adminShow.index'))->with('success_header', 'Série ajoutée');
     }
 
     /**
