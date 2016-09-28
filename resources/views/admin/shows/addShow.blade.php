@@ -77,26 +77,6 @@
                     @endif
                 </div>
 
-                <div class="field {{ $errors->has('genres') ? ' error' : '' }}">
-                    <label>Genre(s)</label>
-                    <div id="dropdown-genres" class="ui fluid multiple search selection dropdown">
-                        <input name="genres" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir</div>
-                        <div class="menu">
-                            @foreach($genres as $genre)
-                                <div class="item" data-value="{{ $genre->name }}">{{ $genre->name }}</div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    @if ($errors->has('genres'))
-                        <div class="ui red message">
-                            <strong>{{ $errors->first('genres') }}</strong>
-                        </div>
-                    @endif
-                </div>
-
                 <button class="positive ui button" type="submit">Créer la série</button>
             </form>
         </div>

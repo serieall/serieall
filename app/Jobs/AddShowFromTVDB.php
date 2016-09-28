@@ -175,51 +175,25 @@ class AddShowFromTVDB extends Job implements ShouldQueue
 
         $show_new->save();
 
+        $genres = $show_default->genre;
+        foreach ($genres as $genre) {
+            $genre = trim($genre);
+            $genre_url = Str::slug($genre);
+            $genre_ref = Genre::where('genre_url', $genre_url)->first();
 
+            if(is_null($genre_ref))
+            {
+                $genre_ref = new Genre([
+                    'name' => $genre,
+                    'genre_url' => $genre_url
+                ]);
 
+                $show_new->genres()->save($genre_ref);
 
+            } else {
 
-
-
-
-
-
-
-        if(isset($this->inputs->genres)){
-            $genres = $this->inputs->genres;
-            $genres = explode(',', $genres);
-
-            foreach ($genres as $genre) {
-                $genre_new = new Genre();
-                $genre = trim($genre);
-                $genre_url = Str::slug($genre);
-                $genre_ref = Genre::where('genre_url', $genre_url)->first();
-
-                if(is_null($genre_ref))
-                {
-                    $genre_ref = new Genre([
-                        'name' => $genre,
-                        'genre_url' => $genre_url
-                    ]);
-
-                    $show_new->genres()->save($genre_ref);
-
-                } else {
-
-                    $show_new->genres()->attach($genre_ref->id);
-
-                }
-
+                $show_new->genres()->attach($genre_ref->id);
             }
-
         }
-
-
-
-
-
-
-
-
     }
 }
