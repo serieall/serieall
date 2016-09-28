@@ -7,22 +7,23 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client;
 use App\Models\Show;
+use App\Models\Genre;
 use \Illuminate\Support\Str;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    protected $show_tvdbid;
+    protected $inputs;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($show_tvdbid)
+    public function __construct($inputs)
     {
-        $this->show_tvdbid = $show_tvdbid;
+        $this->inputs = $inputs;
     }
 
     /**
@@ -37,7 +38,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Définition des variables
         |--------------------------------------------------------------------------
         */
-        $theTVDBID = $this->show_tvdbid;
+        $theTVDBID = $this->inputs->thetvdb_id;
         $api_key = config('thetvdb.apikey');
         $api_username = config('thetvdb.username');
         $api_userkey = config('thetvdb.userkey');
@@ -173,5 +174,52 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->show_url = Str::slug($show_new->name);
 
         $show_new->save();
+
+
+
+
+
+
+
+
+
+
+
+        if(isset($this->inputs->genres)){
+            $genres = $this->inputs->genres;
+            $genres = explode(',', $genres);
+
+            foreach ($genres as $genre) {
+                $genre_new = new Genre();
+                $genre = trim($genre);
+                $genre_url = Str::slug($genre);
+                $genre_ref = Genre::where('genre_url', $genre_url)->first();
+
+                if(is_null($genre_ref))
+                {
+                    $genre_ref = new Genre([
+                        'name' => $genre,
+                        'genre_url' => $genre_url
+                    ]);
+
+                    $show_new->genres()->save($genre_ref);
+
+                } else {
+
+                    $show_new->genres()->attach($genre_ref->id);
+
+                }
+
+            }
+
+        }
+
+
+
+
+
+
+
+
     }
 }

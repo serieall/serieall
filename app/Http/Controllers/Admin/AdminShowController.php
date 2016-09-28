@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
-use App\Jobs\AddShowFromTVDB;
-use Illuminate\Http\Request;
-use App\Repositories\Admin\AdminShowRepository;
-
-use App\Http\Requests\ShowCreateRequest;
 use App\Http\Controllers\Controller;
 
-use App\Models\Show;
-use GuzzleHttp\Client;
+use App\Jobs\AddShowFromTVDB;
+use Illuminate\Http\Request;
+use App\Http\Requests\ShowCreateRequest;
+
+use App\Repositories\Admin\AdminShowRepository;
 
 class AdminShowController extends Controller
 {
@@ -61,11 +59,9 @@ class AdminShowController extends Controller
      */
     public function store(ShowCreateRequest $request)
     {
-        $theTVDBID = $request->thetvdb_id;
-        $creators = $request->creators;
-        $genres = $request->genres;
+        $inputs = $request->all();
 
-        dispatch(new AddShowFromTVDB($theTVDBID, $creators, $genres));
+        dispatch(new AddShowFromTVDB($inputs));
 
         return redirect(route('adminShow.index'));
     }
