@@ -101,6 +101,12 @@
                 <div class="two fields">
                     <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
                         <label>Chaine française</label>
+                        <div class="ui info tiny compact message">
+                            <p>La chaîne principale sera ajoutée automatiquement (par exemple pour Better Call Saul : <strong>AMC</strong>).<br />
+                                En revanche, la chaine française et/ou secondaire (par exemple, <strong>Netflix</strong> pour Better Call Saul) ne sera pas ajoutée.<br />
+                                Il faut donc ajouter les autres chaines manuellement.
+                            </p>
+                        </div>
                         <div id="dropdown-chainefr" class="ui fluid multiple search selection dropdown">
                             <input name="chaine_fr" type="hidden">
                             <i class="dropdown icon"></i>
@@ -110,11 +116,6 @@
                                     <div class="item" data-value="{{ $channel->name }}">{{ $channel->name }}</div>
                                 @endforeach
                             </div>
-                        </div>
-                        <div class="ui info tiny compact message">
-                            <p>La chaîne principale sera ajoutée automatiquement (par exemple pour Better Call Saul : <strong>AMC</strong>).<br />
-                               En revanche, la chaine française et/ou secondaire (par exemple, <strong>Netflix</strong> pour Better Call Saul) ne sera pas ajoutée. Il faut donc l'ajouter manuellement.
-                            </p>
                         </div>
 
                         @if ($errors->has('chaine_fr'))
