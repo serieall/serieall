@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Artist;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -233,15 +234,15 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 # On met en force l'URL
                 $creator_url = Str::slug($creator);
                 # On vérifie si le genre existe déjà en base
-                $creator_ref = Genre::where('creator_url', $genre_url)->first();
+                $creator_ref = Artist::where('creator_url', $genre_url)->first();
 
                 # Si il n'existe pas
                 if(is_null($creator_ref))
                 {
                     # On prépare le nouveau genre
-                    $creator_ref = new Genre([
+                    $creator_ref = new Artist([
                         'name' => $creator,
-                        'genre_url' => $creator_url
+                        'artist_url' => $creator_url
                     ]);
 
                     # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
