@@ -5,17 +5,16 @@ namespace App\Repositories\Admin;
 
 use App\Models\Show;
 use App\Models\Artist;
+use App\Models\Genre;
 use Illuminate\Support\Facades\DB;
 
 class AdminShowRepository
 {
     protected $show;
-    protected $artist;
 
-    public function __construct(Show $show, Artist $artist)
+    public function __construct(Show $show)
     {
         $this->show = $show;
-        $this->artist = $artist;
     }
 
     public function getShowByName(){
@@ -27,4 +26,8 @@ class AdminShowRepository
     public function getArtists(){
         return Artist::all();
     }
+
+    public function getGenres(){
+    return Genre::all();
+}
 }

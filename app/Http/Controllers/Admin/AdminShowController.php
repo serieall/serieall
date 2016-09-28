@@ -48,8 +48,9 @@ class AdminShowController extends Controller
         $navActive = 'show';
 
         $artists = $this->adminShowRepository->getArtists();
+        $genres = $this->adminShowRepository->getGenres();
 
-        return view('admin/shows/addShow', compact('navActive', 'artists'));
+        return view('admin/shows/addShow', compact('navActive', 'artists', 'genres'));
     }
 
     /**
@@ -62,10 +63,9 @@ class AdminShowController extends Controller
     {
         $theTVDBID = $request->thetvdb_id;
         $creators = $request->creators;
-        dd($creators);
+        $genres = $request->genres;
 
-
-        dispatch(new AddShowFromTVDB($theTVDBID));
+        dispatch(new AddShowFromTVDB($theTVDBID, $creators, $genres));
 
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
