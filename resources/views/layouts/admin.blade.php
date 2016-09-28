@@ -88,14 +88,12 @@
                 .dropdown()
         ;
 
-        $('.ui.sidebar')
-                .sidebar({
-                    overlay: true
-                })
-                .sidebar('attach events', '.menu .click-sidebar')
-        ;
-
         $('#dropdown-creators')
+                .dropdown({
+                    allowAdditions: true
+                })
+        ;
+        $('#dropdown-genres')
                 .dropdown({
                     allowAdditions: true
                 })
