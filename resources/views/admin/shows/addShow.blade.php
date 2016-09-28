@@ -111,7 +111,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="ui compact message">
+                        <div class="ui info tiny compact message">
                             <p>La chaîne principale sera ajoutée automatiquement (par exemple pour Better Call Saul : <strong>AMC</strong>).<br />
                                En revanche, la chaine française et/ou secondaire (par exemple, <strong>Netflix</strong> pour Better Call Saul) ne sera pas ajoutée. Il faut donc l'ajouter manuellement.
                             </p>
