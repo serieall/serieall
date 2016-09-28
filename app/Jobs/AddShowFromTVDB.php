@@ -2,13 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Models\Artist;
+
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client;
 use App\Models\Show;
 use App\Models\Genre;
+use App\Models\Artist;
 use \Illuminate\Support\Str;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
@@ -192,7 +193,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         foreach ($genres as $genre) {
             # On supprime les espaces
             $genre = trim($genre);
-            # On met en force l'URL
+            # On met en forme l'URL
             $genre_url = Str::slug($genre);
             # On vérifie si le genre existe déjà en base
             $genre_ref = Genre::where('genre_url', $genre_url)->first();
@@ -230,10 +231,10 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         foreach ($creators as $creator) {
             # On supprime les espaces
             $creator = trim($creator);
-            # On met en force l'URL
+            # On met en forme l'URL
             $creator_url = Str::slug($creator);
             # On vérifie si le genre existe déjà en base
-            $creator_ref = Artist::where('creator_url', $creator_url)->first();
+            $creator_ref = Artist::where('artist_url', $creator_url)->first();
 
             # Si il n'existe pas
             if(is_null($creator_ref))
@@ -244,14 +245,12 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                     'artist_url' => $creator_url
                 ]);
 
-                # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                 $show_new->artists()->save($creator_ref);
-
             } else {
                 # Si il existe, on crée juste le lien
                 $show_new->artists()->attach($creator_ref->id);
             }
         }
-
     }
 }
