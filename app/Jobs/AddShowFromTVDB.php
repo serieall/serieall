@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client;
 use App\Models\Show;
-use Carbon;
+use \Illuminate\Support\Str;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
 {
@@ -166,11 +166,11 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         }
 
         # Pour l'année, on va parser le champ firstAired et récupérer uniquement l'année
+        $dateTemp = date_create($show_default->firstAired);     # On transforme d'abord le texte récupéré par la requête en date
+        $show_new->annee = date_format($dateTemp, "Y");         # Ensuite on récupère l'année
 
-        $dateTemp = date_create($show_default->firstAired);
-        $show_new->annee = date_format($dateTemp, "Y");
-
-        $show_new->show_url = ReplaceSpecialsChars($show_new->name);
+        # Utilisation de la méthode Slug pour l'URL
+        $show_new->show_url = Str::slug($show_new->name);
 
         $show_new->save();
     }
