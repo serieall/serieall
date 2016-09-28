@@ -126,9 +126,12 @@
                 })
         ;
 
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
+        $( "#datepicker" ).datepicker({
+            showAnim: "blind",
+            altFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true
+        });
     </script>
 
 </body>
