@@ -70,6 +70,12 @@
                             <div class="item">Choice 3</div>
                         </div>
                     </div>
+
+                    @if ($errors->has('creators'))
+                        <div class="ui red message">
+                            <strong>{{ $errors->first('creators') }}</strong>
+                        </div>
+                    @endif
                 </div>
 
                 <button class="positive ui button" type="submit">Créer la série</button>
@@ -84,6 +90,12 @@
             .closest('.message')
             .transition('fade')
             ;
+        })
+        ;
+
+        $('.ui.normal.dropdown')
+        .dropdown({
+            allowAdditions: true
         })
         ;
     @endsection
