@@ -305,6 +305,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | On commence par récupérer les chaines du formulaire et on les concatène avec la chaine de base
         | Et on formate le tout et on applique le même traitement que pour les genres
         */
+        # Si le formulaire n'a pas été rempli pour la partie chaine fr
         if(empty($this->inputs['chaine_fr'])){
             $channels = $show_default->network;
         }
