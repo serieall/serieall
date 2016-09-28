@@ -107,7 +107,7 @@
         })
         ;
 
-        $('.ui.normal.dropdown')
+        $('.ui.dropdown')
         .dropdown({
             allowAdditions: true
         })
