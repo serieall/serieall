@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ArtistShow extends Migration
+class CreateArtistShowTable extends Migration
 {
     /**
      * Run the migrations.

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class GenreShow extends Migration
+class CreateGenreShowTable extends Migration
 {
     /**
      * Run the migrations.
