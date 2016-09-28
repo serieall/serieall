@@ -64,6 +64,12 @@ class AdminShowController extends Controller
         $inputs = $request->all();
 
         $chaine_fr = $request['chaine_fr'];
+        if(is_null($chaine_fr)){
+            $chaine_fr = 'je zappe';
+        }
+        else{
+            $chaine_fr = 'je traitre';
+        }
         dd($chaine_fr);
 
         dispatch(new AddShowFromTVDB($inputs));
