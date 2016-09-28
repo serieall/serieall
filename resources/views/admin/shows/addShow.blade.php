@@ -59,7 +59,7 @@
 
                 <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
                     <label>Créateur(s) de la série</label>
-                    <div class="ui fluid multiple search selection dropdown">
+                    <div id="dropdown-creators" class="ui fluid multiple search selection dropdown">
                         <input name="creators" type="hidden">
                         <i class="dropdown icon"></i>
                         <div class="default text">Choisir</div>
@@ -112,7 +112,7 @@
         })
         ;
 
-        $('.ui.dropdown')
+        $('#dropdown-creators')
         .dropdown({
             allowAdditions: true
         })

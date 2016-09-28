@@ -59,7 +59,7 @@ class AdminShowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ShowCreateRequest $request, Show $show)
+    public function store(ShowCreateRequest $request)
     {
         $theTVDBID = $request->thetvdb_id;
         $creators = $request->creators;
@@ -67,10 +67,7 @@ class AdminShowController extends Controller
 
         dispatch(new AddShowFromTVDB($theTVDBID, $creators, $genres));
 
-        #Variable qui détecte dans quelle partie de l'admin on se trouve
-        $navActive = 'show';
-        $shows = $this->adminShowRepository->getShowByName();
-        return view('admin/shows/indexShows', compact('shows', 'navActive'));
+        return redirect(route('adminShow.index'));
     }
 
     /**
