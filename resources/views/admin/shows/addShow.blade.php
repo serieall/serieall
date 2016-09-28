@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="field {{ $errors->has('genres') ? ' error' : '' }}">
-                    <label>Genres</label>
+                    <label>Genre(s)</label>
                     <div id="dropdown-genres" class="ui fluid multiple search selection dropdown">
                         <input name="genres" type="hidden">
                         <i class="dropdown icon"></i>

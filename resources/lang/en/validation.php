@@ -93,8 +93,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'creators' => [
+            'regexp' => 'Les créateurs doivent être séparés par des \',\' et contiennent chacun maximum 255 caractères.',
+        ],
+        'genres' => [
+            'regexp' => 'Les genres doivent être séparés par des \',\' et contiennent chacun maximum 255 caractères.',
         ],
     ],
 

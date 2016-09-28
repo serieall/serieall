@@ -25,6 +25,8 @@ class ShowCreateRequest extends Request
     {
         return [
             'thetvdb_id' => 'required|numeric',
+            'creators' => ['Regex:/^[A-Za-z0-9-éèàù]{1,255}?(,[A-Za-z0-9-éèàù]{1,255})*$/'],
+            'genres' => ['Regex:/^[A-Za-z0-9-éèàù]{1,255}?(,[A-Za-z0-9-éèàù]{1,255})*$/']
         ];
     }
 }
