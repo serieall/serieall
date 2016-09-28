@@ -63,8 +63,6 @@ class AdminShowController extends Controller
     {
         $inputs = $request->all();
 
-        dd($inputs);
-
         dispatch(new AddShowFromTVDB($inputs));
 
         return redirect(route('adminShow.index'))->with('success_header', 'Série ajoutée');
