@@ -21,7 +21,7 @@ class GenresTableSeeder extends Seeder
             $date = $this->randDate();
             DB::table('genres')->insert(array(
                 'name' => 'Genre' . $i,
-                'artist_url' => 'genre' . $i,
+                'genre_url' => 'genre' . $i,
                 'created_at' => $date,
                 'updated_at' => $date
             ));
