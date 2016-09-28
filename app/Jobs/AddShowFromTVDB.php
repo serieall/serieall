@@ -3,13 +3,17 @@
 namespace App\Jobs;
 
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use GuzzleHttp\Client;
+use App\Models\Channel;
+use App\Models\Nationality;
 use App\Models\Show;
 use App\Models\Genre;
 use App\Models\Artist;
+
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+use GuzzleHttp\Client;
 use \Illuminate\Support\Str;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
@@ -154,10 +158,13 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             $show_new->synopsis = $show_default->overview;
         }
 
-        $show_new->thetvdb_id = $theTVDBID;                     # L'ID de TheTVDB
-        $show_new->name = $show_default->seriesName;            # Le nom de la série
-        $show_new->format = $show_default->runtime;             # Le format de la série
-        $show_new->diffusion_us = $show_default->firstAired;    # Date de diffusion US
+        $show_new->thetvdb_id = $theTVDBID;                         # L'ID de TheTVDB
+        $show_new->name = $show_default->seriesName;                # Le nom de la série
+        $show_new->format = $show_default->runtime;                 # Le format de la série
+        $show_new->diffusion_us = $show_default->firstAired;        # Date de diffusion US
+        $show_new->taux_erectile = $this->inputs['taux_erectile'];  # Le taux érectile
+        $show_new->avis_rentree = $this->inputs['avis_rentree'];  # Le taux érectile
+
 
         # Le champ en cours doit être à 1 si la série est en cours et à 0 dans le cas contraire
         if ($show_default->status == 'Continuing'){
@@ -239,7 +246,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             # Si il n'existe pas
             if(is_null($creator_ref))
             {
-                # On prépare le nouveau genre
+                # On prépare le nouveau créateur
                 $creator_ref = new Artist([
                     'name' => $creator,
                     'artist_url' => $creator_url
@@ -250,6 +257,80 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             } else {
                 # Si il existe, on crée juste le lien
                 $show_new->artists()->attach($creator_ref->id);
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gestion des nationalités
+        |--------------------------------------------------------------------------
+        | On commence par récupérer les nationalités du formulaire
+        | Et on formate le tout et on applique le même traitement que pour les genres
+        */
+        $nationalities = $this->inputs['nationalities'];
+
+        $nationalities = explode(',', $nationalities);
+
+        # Pour chaque nationalité
+        foreach ($nationalities as $nationality) {
+            # On supprime les espaces
+            $nationality = trim($nationality);
+            # On met en forme l'URL
+            $nationality_url = Str::slug($nationality);
+            # On vérifie si la nationalité existe déjà en base
+            $nationality_ref = Nationality::where('nationality_url', $nationality_url)->first();
+
+            # Si elle n'existe pas
+            if(is_null($nationality_ref))
+            {
+                # On prépare la nouvelle nationalité
+                $nationality_ref = new Nationality([
+                    'name' => $nationality,
+                    'artist_url' => $nationality_url
+                ]);
+
+                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                $show_new->nationalities()->save($nationality_ref);
+            } else {
+                # Si elle existe, on crée juste le lien
+                $show_new->nationalities()->attach($nationality_ref->id);
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gestion des chaines
+        |--------------------------------------------------------------------------
+        | On commence par récupérer les chaines du formulaire et on les concatène avec la chaine de base
+        | Et on formate le tout et on applique le même traitement que pour les genres
+        */
+        $channels = $show_default->network . ',' . $this->inputs['chaine_fr'];
+
+        $channels = explode(',', $channels);
+
+        # Pour chaque chaines
+        foreach ($channels as $channel) {
+            # On supprime les espaces
+            $channel = trim($channel);
+            # On met en forme l'URL
+            $channel_url = Str::slug($channel);
+            # On vérifie si la nationalité existe déjà en base
+            $channel_ref = Channel::where('channel_url', $channel_url)->first();
+
+            # Si elle n'existe pas
+            if(is_null($channel_ref))
+            {
+                # On prépare la nouvelle nationalité
+                $channel_ref = new Channel([
+                    'name' => $channel,
+                    'artist_url' => $channel_url
+                ]);
+
+                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                $show_new->channels()->save($channel_ref);
+            } else {
+                # Si elle existe, on crée juste le lien
+                $show_new->channels()->attach($channel_ref->id);
             }
         }
     }

@@ -122,6 +122,10 @@
                     forceSelection : false
                 })
         ;
+
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
     </script>
 
 </body>
