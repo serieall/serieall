@@ -77,19 +77,41 @@
                     @endif
                 </div>
 
-                <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
-                    <label>Date de la diffusion française</label>
-                    <div class="ui calendar" id="date-picker">
-                        <div class="ui input left icon">
-                            <i class="calendar icon"></i>
-                            <input type="text" placeholder="Date">
+                <div class="two fields">
+                    <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
+                        <label>Chaine française</label>
+                        <div id="dropdown-chainefr" class="ui fluid multiple search selection dropdown">
+                            <input name="chaine_fr" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choisir</div>
+                            <div class="menu">
+                                @foreach($channels as $channel)
+                                    <div class="item" data-value="{{ $channel->name }}">{{ $channel->name }}</div>
+                                @endforeach
+                            </div>
                         </div>
+
+                        @if ($errors->has('chaine_fr'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('chaine_fr') }}</strong>
+                            </div>
+                        @endif
                     </div>
-                    @if ($errors->has('diffusion_fr'))
-                        <div class="ui red message">
-                            <strong>{{ $errors->first('diffusion_fr') }}</strong>
+
+                    <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
+                        <label>Date de la diffusion française</label>
+                        <div class="ui calendar" id="date-picker">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="text" placeholder="Date">
+                            </div>
                         </div>
-                    @endif
+                        @if ($errors->has('diffusion_fr'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('diffusion_fr') }}</strong>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
                 <button class="positive ui button" type="submit">Créer la série</button>

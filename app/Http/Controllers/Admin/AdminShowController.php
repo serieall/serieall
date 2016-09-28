@@ -47,8 +47,9 @@ class AdminShowController extends Controller
 
         $artists = $this->adminShowRepository->getArtists();
         $genres = $this->adminShowRepository->getGenres();
+        $channels = $this->adminShowRepository->getChannels();
 
-        return view('admin/shows/addShow', compact('navActive', 'artists', 'genres'));
+        return view('admin/shows/addShow', compact('navActive', 'artists', 'genres', 'channels'));
     }
 
     /**
