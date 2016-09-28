@@ -59,7 +59,7 @@ class AdminShowController extends Controller
         $theTVDBID = $request->thetvdb_id;
         $creators = $request->creators;
         dd($creators);
-        
+
 
         dispatch(new AddShowFromTVDB($theTVDBID));
 

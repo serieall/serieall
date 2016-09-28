@@ -60,7 +60,7 @@
                 <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
                     <label>Créateur(s) de la série</label>
                     <div class="ui fluid multiple search selection dropdown">
-                        <input name="tags" type="hidden">
+                        <input name="creators" type="hidden">
                         <i class="dropdown icon"></i>
                         <div class="default text">Skills</div>
                         <div class="menu">
