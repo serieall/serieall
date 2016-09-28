@@ -45,6 +45,7 @@
                     </div>
                 @endif
 
+                <h4 class="ui dividing header">Informations sur la série</h4>
                 <div class="field {{ $errors->has('thetvdb_id') ? ' error' : '' }}">
                     <label>ID de la série sur TheTVDB</label>
                     <input name="thetvdb_id" placeholder="TheTVDB ID" type="text" value="{{ old('thetvdb_id') }}">
@@ -59,7 +60,7 @@
                 <div class="two fields">
                     <div class="field {{ $errors->has('nationalities') ? ' error' : '' }}">
                         <label>Nationalité(s)</label>
-                        <div id="dropdown-nationalites" class="ui fluid multiple search selection dropdown">
+                        <div id="dropdown-nationalities" class="ui fluid multiple search selection dropdown">
                             <input name="nationalities" type="hidden">
                             <i class="dropdown icon"></i>
                             <div class="default text">Choisir</div>
@@ -98,15 +99,10 @@
                     </div>
                 </div>
 
+                <h4 class="ui dividing header">Informations sur la diffusion française</h4>
                 <div class="two fields">
                     <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
                         <label>Chaine française</label>
-                        <div class="ui info tiny compact message">
-                            <p>La chaîne principale sera ajoutée automatiquement (par exemple pour Better Call Saul : <strong>AMC</strong>).<br />
-                                En revanche, la chaine française et/ou secondaire (par exemple, <strong>Netflix</strong> pour Better Call Saul) ne sera pas ajoutée.<br />
-                                Il faut donc ajouter les autres chaines manuellement.
-                            </p>
-                        </div>
                         <div id="dropdown-chainefr" class="ui fluid multiple search selection dropdown">
                             <input name="chaine_fr" type="hidden">
                             <i class="dropdown icon"></i>
@@ -121,6 +117,44 @@
                         @if ($errors->has('chaine_fr'))
                             <div class="ui red message">
                                 <strong>{{ $errors->first('chaine_fr') }}</strong>
+                            </div>
+                        @endif
+                        <div class="ui info tiny compact message">
+                            <p>La chaîne principale sera ajoutée automatiquement (par exemple pour Better Call Saul : <strong>AMC</strong>).<br />
+                                En revanche, la chaine française et/ou secondaire (par exemple, <strong>Netflix</strong> pour Better Call Saul) ne sera pas ajoutée.<br />
+                                Il faut donc ajouter les autres chaines manuellement.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
+                        <label>Date de la diffusion française</label>
+                        <div class="ui calendar" id="date-picker">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="text" placeholder="Date">
+                            </div>
+                        </div>
+                        @if ($errors->has('diffusion_fr'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('diffusion_fr') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <h4 class="ui dividing header">Informations pour la rentrée</h4>
+                <div class="two fields">
+                    <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
+                        <label>Taux érectile</label>
+                        <div class="ui right labeled input">
+                            <div class="ui label"><i class="ui percent icon"></i></div>
+                            <input name="taux_erectile" placeholder="Pourcentage" type="number">
+                        </div>
+
+                        @if ($errors->has('taux_erectile'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('taux_erectile') }}</strong>
                             </div>
                         @endif
                     </div>

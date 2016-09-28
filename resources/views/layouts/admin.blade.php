@@ -109,10 +109,19 @@
                     forceSelection : false
                 })
         ;
+        $('#dropdown-chainefr')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false
+                })
+        ;
 
-        $('#date-picker').calendar({
-            type: 'date'
-        });
+        $('#dropdown-nationalities')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false
+                })
+        ;
     </script>
 
 </body>
