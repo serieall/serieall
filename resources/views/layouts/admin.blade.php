@@ -88,6 +88,15 @@
                 .dropdown()
         ;
 
+        $('.message .close')
+                .on('click', function() {
+                    $(this)
+                            .closest('.message')
+                            .transition('fade')
+                    ;
+                })
+        ;
+
         $('#dropdown-creators')
                 .dropdown({
                     allowAdditions: true,
@@ -100,6 +109,10 @@
                     forceSelection : false
                 })
         ;
+
+        $('#date-picker').calendar({
+            type: 'date'
+        });
     </script>
 
 </body>

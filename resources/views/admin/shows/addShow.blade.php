@@ -77,26 +77,28 @@
                     @endif
                 </div>
 
+                <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
+                    <label>Date de la diffusion française</label>
+                    <div class="ui calendar" id="date-picker">
+                        <div class="ui input left icon">
+                            <i class="calendar icon"></i>
+                            <input type="text" placeholder="Date">
+                        </div>
+                    </div>
+                    @if ($errors->has('diffusion_fr'))
+                        <div class="ui red message">
+                            <strong>{{ $errors->first('diffusion_fr') }}</strong>
+                        </div>
+                    @endif
+                </div>
+
                 <button class="positive ui button" type="submit">Créer la série</button>
             </form>
         </div>
     </div>
 
     @section('scripts')
-        $('.message .close')
-        .on('click', function() {
-            $(this)
-            .closest('.message')
-            .transition('fade')
-            ;
-        })
-        ;
 
-        $('#dropdown-creators')
-        .dropdown({
-            allowAdditions: true
-        })
-        ;
     @endsection
 
 
