@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Jobs\AddShowFromTVDB;
 use Illuminate\Http\Request;
-use App\Repositories\AdminShowRepository;
+use App\Repositories\Admin\AdminShowRepository;
 
 use App\Http\Requests\ShowCreateRequest;
+use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Show;
 use GuzzleHttp\Client;
