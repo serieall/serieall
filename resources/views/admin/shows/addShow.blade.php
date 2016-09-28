@@ -56,28 +56,57 @@
                     @endif
                 </div>
 
-
-                <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
-                    <label>Créateur(s) de la série</label>
-                    <div id="dropdown-creators" class="ui fluid multiple search selection dropdown">
-                        <input name="creators" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir</div>
-                        <div class="menu">
-                            @foreach($artists as $artist)
-                                <div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>
-                            @endforeach
+                <div class="two fields">
+                    <div class="field {{ $errors->has('nationalities') ? ' error' : '' }}">
+                        <label>Nationalité(s)</label>
+                        <div id="dropdown-nationalites" class="ui fluid multiple search selection dropdown">
+                            <input name="nationalities" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choisir</div>
+                            <div class="menu">
+                                @foreach($nationalities as $nationality)
+                                    <div class="item" data-value="{{ $nationality->name }}">{{ $nationality->name }}</div>
+                                @endforeach
+                            </div>
                         </div>
+
+                        @if ($errors->has('nationalities'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('nationalities') }}</strong>
+                            </div>
+                        @endif
                     </div>
 
-                    @if ($errors->has('creators'))
-                        <div class="ui red message">
-                            <strong>{{ $errors->first('creators') }}</strong>
+                    <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
+                        <label>Créateur(s) de la série</label>
+                        <div id="dropdown-creators" class="ui fluid multiple search selection dropdown">
+                            <input name="creators" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choisir</div>
+                            <div class="menu">
+                                @foreach($artists as $artist)
+                                    <div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>
+                                @endforeach
+                            </div>
                         </div>
-                    @endif
+
+                        @if ($errors->has('creators'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('creators') }}</strong>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="two fields">
+                    <div class="ui message">
+                        <div class="header">Chaines</div>
+                        <p>
+                            La chaîne principale sera ajoutée automatiquement (par exemple pour Better Call Saul : AMC).
+                            En revanche, la chaine française et/ou secondaire (par exemple, Netflix pour Better Call Saul) ne sera pas ajoutée. Il faut donc l'ajouter manuellement.
+                        </p>
+                    </div>
+                </div>
                     <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
                         <label>Chaine française</label>
                         <div id="dropdown-chainefr" class="ui fluid multiple search selection dropdown">

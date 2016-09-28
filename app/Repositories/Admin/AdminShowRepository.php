@@ -4,6 +4,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Channel;
+use App\Models\Nationality;
 use App\Models\Show;
 use App\Models\Artist;
 use App\Models\Genre;
@@ -34,6 +35,10 @@ class AdminShowRepository
 
     public function getChannels(){
         return Channel::all();
+    }
+
+    public function getNationalities(){
+        return Nationality::all();
     }
 
 
