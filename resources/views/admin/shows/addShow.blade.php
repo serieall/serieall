@@ -148,7 +148,7 @@
                     <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
                         <label>Taux érectile</label>
                         <div class="ui right labeled input">
-                            <div class="ui label"><i class="ui percent icon"></i></div>
+                            <i class="ui label percent icon"></i>
                             <input name="taux_erectile" placeholder="Pourcentage" type="number">
                         </div>
 
