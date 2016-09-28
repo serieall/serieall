@@ -147,9 +147,9 @@
                 <div class="two fields">
                     <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
                         <label>Taux érectile</label>
-                        <div class="ui right labeled input">
-                            <i class="ui label percent icon"></i>
-                            <input name="taux_erectile" placeholder="Pourcentage" type="number">
+                        <div class="ui left icon input">
+                            <input name="taux_erectile" placeholder="Pourcentage..." type="number">
+                            <i class="percent icon"></i>
                         </div>
 
                         @if ($errors->has('taux_erectile'))
@@ -159,17 +159,13 @@
                         @endif
                     </div>
 
-                    <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
-                        <label>Date de la diffusion française</label>
-                        <div class="ui calendar" id="date-picker">
-                            <div class="ui input left icon">
-                                <i class="calendar icon"></i>
-                                <input type="text" placeholder="Date">
-                            </div>
-                        </div>
-                        @if ($errors->has('diffusion_fr'))
+                    <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
+                        <label>Avis de la rédaction</label>
+                        <textarea name="avis_rentree"></textarea>
+
+                        @if ($errors->has('avis_rentree'))
                             <div class="ui red message">
-                                <strong>{{ $errors->first('diffusion_fr') }}</strong>
+                                <strong>{{ $errors->first('avis_rentree') }}</strong>
                             </div>
                         @endif
                     </div>
