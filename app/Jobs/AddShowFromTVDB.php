@@ -175,24 +175,82 @@ class AddShowFromTVDB extends Job implements ShouldQueue
 
         $show_new->save();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gestion des genres
+        |--------------------------------------------------------------------------
+        | On commence par récupérer les genres de The TVDB
+        | Puis on les ajoute si ils n'existe pas dans la base
+        | S'il existe on crée juste le lien avec la série
+        */
+
         $genres = $show_default->genre;
+
+        # Pour chaque genre
         foreach ($genres as $genre) {
+            # On supprime les espaces
             $genre = trim($genre);
+            # On met en force l'URL
             $genre_url = Str::slug($genre);
+            # On vérifie si le genre existe déjà en base
             $genre_ref = Genre::where('genre_url', $genre_url)->first();
 
+            # Si il n'existe pas
             if(is_null($genre_ref))
             {
+                # On prépare le nouveau genre
                 $genre_ref = new Genre([
                     'name' => $genre,
                     'genre_url' => $genre_url
                 ]);
 
+                # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
                 $show_new->genres()->save($genre_ref);
 
             } else {
-
+                # Si il existe, on crée juste le lien
                 $show_new->genres()->attach($genre_ref->id);
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gestion des créateurs
+        |--------------------------------------------------------------------------
+        | On commence par récupérer les créateurs du formulaire
+        | Et on formate le tout et on applique le même traitement que pour les genres
+        */
+        if(isset($inputs['creators'])){
+            $creators = $inputs['creators'];
+
+            $creators = explode(',', $creators);
+
+            # Pour chaque créateur
+            foreach ($creators as $creator) {
+                # On supprime les espaces
+                $creator = trim($creator);
+                # On met en force l'URL
+                $creator_url = Str::slug($creator);
+                # On vérifie si le genre existe déjà en base
+                $creator_ref = Genre::where('creator_url', $genre_url)->first();
+
+                # Si il n'existe pas
+                if(is_null($creator_ref))
+                {
+                    # On prépare le nouveau genre
+                    $creator_ref = new Genre([
+                        'name' => $creator,
+                        'genre_url' => $creator_url
+                    ]);
+
+                    # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                    $show_new->artists()->save($creator_ref);
+
+                } else {
+                    # Si il existe, on crée juste le lien
+                    $show_new->artists()->attach($creator_ref->id);
+                }
             }
         }
     }
