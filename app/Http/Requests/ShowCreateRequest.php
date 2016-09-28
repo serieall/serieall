@@ -25,8 +25,12 @@ class ShowCreateRequest extends Request
     {
         return [
             'thetvdb_id' => 'required|numeric',
-            'creators' => ['regex:/^[A-Za-z0-9-éèàù ]{1,255}?(,[A-Za-z0-9-éèàù ]{1,255})*$/'],
-            'genres' => ['regex:/^[A-Za-z0-9-éèàù ]{1,255}?(,[A-Za-z0-9-éèàù ]{1,255})*$/'],
+            'creators' => ['required|regex:/^[A-Za-z0-9-éèàù ]{1,255}?(,[A-Za-z0-9-éèàù ]{1,255})*$/'],
+            'nationalities' => ['required|regex:/^[A-Za-z0-9-éèàù ]{1,255}?(,[A-Za-z0-9-éèàù ]{1,255})*$/'],
+            'chaine_fr' => ['regex:/^[A-Za-z0-9-éèàù ]{1,255}?(,[A-Za-z0-9-éèàù ]{1,255})*$/'],
+            'diffusion_fr' => 'date',
+            'taux_erectile' => 'numeric',
+            'avis_rentree' => 'text'
         ];
     }
 }

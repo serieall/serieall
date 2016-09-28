@@ -340,5 +340,15 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 $show_new->channels()->attach($channel_ref->id);
             }
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Lancement du job de création de la ou des saisons
+        |--------------------------------------------------------------------------
+        */
+        dispatch(new AddSeasonFromTVDB($show_new->id));
+
+
     }
 }
