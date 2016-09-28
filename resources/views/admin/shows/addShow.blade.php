@@ -135,7 +135,7 @@
                             <div class="ui calendar" id="date-picker">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input name="diffusion_fr" id="datepicker" type="text" placeholder="Date" >
+                                    <input name="diffusion_fr" id="datepicker" type="date" placeholder="Date" >
                                 </div>
                             </div>
                             @if ($errors->has('diffusion_fr'))
