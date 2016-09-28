@@ -90,12 +90,14 @@
 
         $('#dropdown-creators')
                 .dropdown({
-                    allowAdditions: true
+                    allowAdditions: true,
+                    forceSelection : false
                 })
         ;
         $('#dropdown-genres')
                 .dropdown({
-                    allowAdditions: true
+                    allowAdditions: true,
+                    forceSelection : false
                 })
         ;
     </script>
