@@ -64,7 +64,7 @@ class AdminShowController extends Controller
         $inputs = $request->all();
 
         $chaine_fr = $request['chaine_fr'];
-        if(is_null($chaine_fr)){
+        if(empty($chaine_fr)){
             $chaine_fr = 'je zappe';
         }
         else{
