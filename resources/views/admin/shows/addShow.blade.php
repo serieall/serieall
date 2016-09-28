@@ -65,7 +65,7 @@
                         <div class="default text">Choisir</div>
                         <div class="menu">
                             @foreach($artists as $artist)
-                                <div class="item" data-value={{ $artist->name }}>{{ $artist->name }}n</div>
+                                <div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>
                             @endforeach
                         </div>
                     </div>
