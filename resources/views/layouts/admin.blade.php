@@ -94,6 +94,12 @@
                 })
                 .sidebar('attach events', '.menu .click-sidebar')
         ;
+
+        $('#dropdown-creators')
+                .dropdown({
+                    allowAdditions: true
+                })
+        ;
     </script>
 
 </body>
