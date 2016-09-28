@@ -98,15 +98,14 @@
                     </div>
                 </div>
 
-                <div class="two fields">
-                    <div class="ui message">
-                        <div class="header">Chaines</div>
-                        <p>
-                            La chaîne principale sera ajoutée automatiquement (par exemple pour Better Call Saul : AMC).
-                            En revanche, la chaine française et/ou secondaire (par exemple, Netflix pour Better Call Saul) ne sera pas ajoutée. Il faut donc l'ajouter manuellement.
-                        </p>
-                    </div>
+                <div class="ui message">
+                    <div class="header">Chaines</div>
+                    <p>
+                        La chaîne principale sera ajoutée automatiquement (par exemple pour Better Call Saul : AMC).
+                        En revanche, la chaine française et/ou secondaire (par exemple, Netflix pour Better Call Saul) ne sera pas ajoutée. Il faut donc l'ajouter manuellement.
+                    </p>
                 </div>
+                <div class="two fields">
                     <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
                         <label>Chaine française</label>
                         <div id="dropdown-chainefr" class="ui fluid multiple search selection dropdown">
