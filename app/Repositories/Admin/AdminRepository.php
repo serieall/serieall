@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\Repositories\Admin;
 
 use App\Models\Show;
 use Illuminate\Support\Facades\DB;
