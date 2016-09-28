@@ -59,15 +59,16 @@
 
                 <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
                     <label>Créateur(s) de la série</label>
-                <div class="ui fluid multiple search normal selection dropdownn">
-                    <input name="creators" type="hidden">
-                    <i class="dropdown icon"></i>
-                    <input class="search">
-                    <div class="default text">Sélectionner les créateurs</div>
-                    <div class="menu">
-                        <div class="item">Choice 1</div>
-                        <div class="item">Choice 2</div>
-                        <div class="item">Choice 3</div>
+                    <div class="ui fluid multiple search normal selection dropdownn">
+                        <input name="creators" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <input class="search">
+                        <div class="default text">Sélectionner les créateurs</div>
+                        <div class="menu">
+                            <div class="item">Choice 1</div>
+                            <div class="item">Choice 2</div>
+                            <div class="item">Choice 3</div>
+                        </div>
                     </div>
                 </div>
 
