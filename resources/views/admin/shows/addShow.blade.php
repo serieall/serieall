@@ -62,7 +62,7 @@
                     <div class="ui fluid multiple search selection dropdown">
                         <input name="creators" type="hidden">
                         <i class="dropdown icon"></i>
-                        <div class="default text">Skills</div>
+                        <div class="default text">Choisir</div>
                         <div class="menu">
                             <div class="item" data-value="angular">Angular</div>
                             <div class="item" data-value="css">CSS</div>
