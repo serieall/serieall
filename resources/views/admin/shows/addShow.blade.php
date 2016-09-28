@@ -64,8 +64,8 @@
                         <i class="dropdown icon"></i>
                         <div class="default text">Choisir</div>
                         <div class="menu">
-                            <div class="item" data-value="angular">Angular</div>
-                            <div class="item" data-value="css">CSS</div>
+                            <div class="item" data-value="Vince Gilligan">Vince Gilligan</div>
+                            <div class="item" data-value="Georges Méri">Georges Méri</div>
                             <div class="item" data-value="design">Graphic Design</div>
                             <div class="item" data-value="ember">Ember</div>
                             <div class="item" data-value="html">HTML</div>
