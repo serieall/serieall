@@ -14,13 +14,17 @@ class Season extends Model
         'nbnotes',
         'show_id'];
 
+    # Une saison peut avoir plusieurs épisodes
+    public function episodes()
+    {
+        return $this->hasMany('App\Models\Episode');
+    }
+
+    # Une saison appartient à une seule série
     public function show()
     {
         return $this->belongsTo('App\Models\Show');
     }
 
-    public function episodes()
-    {
-        return $this->hasMany('App\Models\Episode');
-    }
+
 }

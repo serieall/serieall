@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Channel extends Model
+class Genre extends Model
 {
     protected $fillable = [
         'name',
-        'pays',
-        'channel_url'];
+        'genre_url'];
 
-    # Une chaine peut diffuser plusieurs séries
+    # Un genre peut appartenir à plusieurs séries
     public function shows()
     {
         return $this->belongsToMany('App\Models\Show');

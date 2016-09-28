@@ -21,8 +21,9 @@ class Episode extends Model
         'nbnotes',
         'season_id'];
 
+    # Un épisode n'appartient qu'à une seule saison
     public function show()
     {
-        return $this->belongsTo('App\Models\Show');
+        return $this->belongsTo('App\Models\Season');
     }
 }

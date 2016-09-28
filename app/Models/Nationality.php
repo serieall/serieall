@@ -10,6 +10,7 @@ class Nationality extends Model
         'name',
         'nationality_url'];
 
+    # Une nationalité peut créer plusieurs séries
     public function shows()
     {
         return $this->belongsToMany('App\Models\Show');

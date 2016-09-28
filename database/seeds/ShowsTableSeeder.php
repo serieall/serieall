@@ -30,7 +30,6 @@ class ShowsTableSeeder extends Seeder
                 'format' => 45,
                 'annee' => rand(2010, 2016),
                 'encours' => rand (0,1),
-                'createurs' => 'Createurs' . $i,
                 'diffusion_us' => $date,
                 'diffusion_fr' => $date,
                 'moyenne' => rand(0,20),

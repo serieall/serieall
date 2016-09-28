@@ -22,7 +22,6 @@ class CreateShowsTable extends Migration
             $table->integer('format');
             $table->integer('annee');
             $table->tinyInteger('encours');
-            $table->text('createurs');
             $table->date('diffusion_us');
             $table->date('diffusion_fr');
             $table->float('moyenne');

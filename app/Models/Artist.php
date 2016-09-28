@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Channel extends Model
+class Artist extends Model
 {
     protected $fillable = [
         'name',
-        'pays',
-        'channel_url'];
+        'artist_url'];
 
-    # Une chaine peut diffuser plusieurs séries
+    # Un artiste peut avoir créé plusieurs séries
     public function shows()
     {
         return $this->belongsToMany('App\Models\Show');

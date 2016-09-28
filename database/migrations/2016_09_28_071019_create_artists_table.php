@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ArtistSeason extends Migration
+class Artists extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,12 @@ class ArtistSeason extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('artists', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('artist_url')->unique();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +27,6 @@ class ArtistSeason extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('artists');
     }
 }
