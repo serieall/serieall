@@ -57,6 +57,9 @@ class AdminShowController extends Controller
     public function store(ShowCreateRequest $request, Show $show)
     {
         $theTVDBID = $request->thetvdb_id;
+        $creators = $request->creators;
+        dd($creators);
+        
 
         dispatch(new AddShowFromTVDB($theTVDBID));
 
