@@ -222,8 +222,8 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | On commence par récupérer les créateurs du formulaire
         | Et on formate le tout et on applique le même traitement que pour les genres
         */
-        if(isset($inputs['creators'])){
-            $creators = $inputs['creators'];
+        if(isset($this->inputs['creators'])){
+            $creators = $this->inputs['creators'];
 
             $creators = explode(',', $creators);
 
