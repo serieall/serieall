@@ -222,37 +222,36 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | On commence par récupérer les créateurs du formulaire
         | Et on formate le tout et on applique le même traitement que pour les genres
         */
-        if(isset($this->inputs['creators'])){
-            $creators = $this->inputs['creators'];
+        $creators = $this->inputs['creators'];
 
-            $creators = explode(',', $creators);
+        $creators = explode(',', $creators);
 
-            # Pour chaque créateur
-            foreach ($creators as $creator) {
-                # On supprime les espaces
-                $creator = trim($creator);
-                # On met en force l'URL
-                $creator_url = Str::slug($creator);
-                # On vérifie si le genre existe déjà en base
-                $creator_ref = Artist::where('creator_url', $genre_url)->first();
+        # Pour chaque créateur
+        foreach ($creators as $creator) {
+            # On supprime les espaces
+            $creator = trim($creator);
+            # On met en force l'URL
+            $creator_url = Str::slug($creator);
+            # On vérifie si le genre existe déjà en base
+            $creator_ref = Artist::where('creator_url', $creator_url)->first();
 
-                # Si il n'existe pas
-                if(is_null($creator_ref))
-                {
-                    # On prépare le nouveau genre
-                    $creator_ref = new Artist([
-                        'name' => $creator,
-                        'artist_url' => $creator_url
-                    ]);
+            # Si il n'existe pas
+            if(is_null($creator_ref))
+            {
+                # On prépare le nouveau genre
+                $creator_ref = new Artist([
+                    'name' => $creator,
+                    'artist_url' => $creator_url
+                ]);
 
-                    # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
-                    $show_new->artists()->save($creator_ref);
+                # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                $show_new->artists()->save($creator_ref);
 
-                } else {
-                    # Si il existe, on crée juste le lien
-                    $show_new->artists()->attach($creator_ref->id);
-                }
+            } else {
+                # Si il existe, on crée juste le lien
+                $show_new->artists()->attach($creator_ref->id);
             }
         }
+
     }
 }
