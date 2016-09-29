@@ -30,13 +30,14 @@
 
         @if (session('status'))
             <div class="ui container center aligned">
-            <div class="ui success compact message">
-                <i class="close icon"></i>
-                <div class="header">
-                    {{ session('status_header') }}
+                <div class="ui success icon compact message left aligned">
+                    <i class="checkmark icon"></i>
+                    <i class="close icon"></i>
+                    <div class="header">
+                        {{ session('status_header') }}
+                    </div>
+                    <p>{{ session('status') }}</p>
                 </div>
-                <p>{{ session('status') }}</p>
-            </div>
             </div>
         @endif
         @if (session('warning'))
