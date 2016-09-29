@@ -12,7 +12,7 @@ class CreateTempTable extends Migration
      */
     public function up()
     {
-        Schema::create('temp', function (Blueprint $table) {
+        Schema::create('temps', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key');
             $table->integer('value');
@@ -27,6 +27,6 @@ class CreateTempTable extends Migration
      */
     public function down()
     {
-        Schema::Drop('genre_show');
+        Schema::Drop('temps');
     }
 }

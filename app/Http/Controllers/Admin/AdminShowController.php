@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use App\Http\Controllers\Controller;
 
+use Carbon\Carbon;
+Use App\Models\Temp;
 use App\Jobs\AddShowFromTVDB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
@@ -61,6 +63,14 @@ class AdminShowController extends Controller
      */
     public function store(ShowCreateRequest $request)
     {
+        $keyToken = Temp::where('key', "token")->get();
+        $dateNow = Carbon::now();
+        $dateKeyToken = $keyToken->updated_at;
+
+        $resetToken = $dateNow->diffInHours($dateKeyToken);
+
+        dd($resetToken);
+
         $inputs = $request->all();
 
         dispatch(new AddShowFromTVDB($inputs));

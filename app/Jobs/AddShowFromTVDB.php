@@ -10,6 +10,7 @@ use App\Models\Genre;
 use App\Models\Artist;
 use App\Models\Temp;
 
+use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -46,11 +47,13 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $theTVDBID = $this->inputs['thetvdb_id'];
+        $key_token = "token";
         $api_key = config('thetvdb.apikey');
         $api_username = config('thetvdb.username');
         $api_userkey = config('thetvdb.userkey');
         $api_url = config('thetvdb.url');
         $api_version = config('thetvdb.version');
+        $hours_duration_token = config('thetvdb.hoursduration');
 
         /*
         |--------------------------------------------------------------------------
@@ -71,27 +74,42 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Et on précise la version de l'API a utiliser.
         */
 
+        $keyToken = Temp::where('key', $key_token)->get();
+        $dateNow = Carbon::now();
+        $dateKeyToken = $keyToken->updated_at;
+
+        $resetToken = $dateNow->diffInHours($dateKeyToken);
+
+        if($resetToken > $hours_duration_token){
+            $getToken = $client->request('POST', '/login', [
+                'header' => [
+                    'Accept' => 'application/vnd.thetvdb.v' . $api_version,
+                ],
+                'json' => [
+                    'apikey' => $api_key,
+                    'username' => $api_username,
+                    'userkey' => $api_userkey,
+                ]
+            ])->getBody();
+
+            /*
+            |--------------------------------------------------------------------------
+            | Décodage du JSON et récupération du token dans une variable
+            |--------------------------------------------------------------------------
+            */
+            $getToken = json_decode($getToken);
+
+            $token = $getToken->token;
+        }
+        else{
+            $token = $keyToken->value;
+        }
 
 
-        $getToken = $client->request('POST', '/login', [
-            'header' => [
-                'Accept' => 'application/vnd.thetvdb.v' . $api_version,
-            ],
-            'json' => [
-                'apikey' => $api_key,
-                'username' => $api_username,
-                'userkey' => $api_userkey,
-            ]
-        ])->getBody();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Décodage du JSON et récupération du token dans une variable
-        |--------------------------------------------------------------------------
-        */
-        $getToken = json_decode($getToken);
 
-        $token = $getToken->token;
+
+
 
         /*
         |--------------------------------------------------------------------------
