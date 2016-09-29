@@ -30,7 +30,7 @@
 
         @if (session('status'))
             <div class="ui container center aligned">
-                <div class="ui success icon compact message left aligned">
+                <div class="ui success icon compact message">
                     <i class="checkmark icon"></i>
                     <i class="close icon"></i>
                     <div class="header">
