@@ -11,33 +11,6 @@
 @endsection
 
 @section('content')
-    @if (session('status'))
-        <div class="ui container centered grid">
-            <div class="ui success compact message">
-                <i class="close icon"></i>
-                <div class="content">
-                    <div class="header">
-                        {{ session('status_header') }}
-                    </div>
-                    <p>{{ session('status') }}</p>
-                </div>
-            </div>
-        </div>
-    @endif
-    @if (session('warning'))
-        <div class="ui container centered grid">
-            <div class="ui warning compact message">
-                <i class="close icon"></i>
-                <div class="content">
-                    <div class="header">
-                        {{ session('warning_header') }}
-                    </div>
-                    <p>{{ session('warning') }}</p>
-                </div>
-            </div>
-        </div>
-    @endif
-
     <a href="{{ route('adminShow.create') }}">
         <div class="ui right floated green animated fade button" tabindex="0" id="add-serie">
             <div class="visible content">Ajouter une nouvelle série</div>

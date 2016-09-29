@@ -81,7 +81,7 @@
         </div>
         <div class="ui padding-article">
             @if (session('status'))
-                <div class="ui container centered grid">
+                <div id="message-top" class="ui container centered grid">
                     <div class="ui success compact message">
                         <i class="close icon"></i>
                         <div class="content">
@@ -94,7 +94,7 @@
                 </div>
             @endif
             @if (session('warning'))
-                <div class="ui container centered grid">
+                <div id="message-top" class="ui container centered grid">
                     <div class="ui warning compact message">
                         <i class="close icon"></i>
                         <div class="content">
