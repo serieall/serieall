@@ -13,8 +13,7 @@
 @section('content')
     @if (session('status'))
         <div class="ui container centered grid">
-            <div class="ui success icon compact message">
-                <i class="checkmark icon"></i>
+            <div class="ui success compact message">
                 <i class="close icon"></i>
                 <div class="content">
                     <div class="header">
@@ -26,12 +25,16 @@
         </div>
     @endif
     @if (session('warning'))
-        <div class="ui warning center aligned compact message">
-            <i class="close icon"></i>
-            <div class="header">
-                {{ session('warning_header') }}
+        <div class="ui container centered grid">
+            <div class="ui warning compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    <div class="header">
+                        {{ session('warning_header') }}
+                    </div>
+                    <p>{{ session('warning') }}</p>
+                </div>
             </div>
-            <p>{{ session('warning') }}</p>
         </div>
     @endif
 

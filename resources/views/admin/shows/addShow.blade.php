@@ -15,6 +15,33 @@
 @endsection
 
 @section('content')
+    @if (session('status'))
+        <div class="ui container centered grid">
+            <div class="ui success compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    <div class="header">
+                        {{ session('status_header') }}
+                    </div>
+                    <p>{{ session('status') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (session('warning'))
+        <div class="ui container centered grid">
+            <div class="ui warning compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    <div class="header">
+                        {{ session('warning_header') }}
+                    </div>
+                    <p>{{ session('warning') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <h1 class="ui header" id="admin-titre">
         Ajouter une série
         <div class="sub header">
@@ -25,25 +52,6 @@
         <div class="ten wide column segment">
             <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
                 {{ csrf_field() }}
-
-                @if (session('status'))
-                    <div class="ui container success centered compact message">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            {{ session('status_header') }}
-                        </div>
-                        <p>{{ session('status_message') }}</p>
-                    </div>
-                @endif
-                @if (session('warning'))
-                    <div class="ui warning centered compact message">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            {{ session('warning_header') }}
-                        </div>
-                        <p>{{ session('warning_message') }}</p>
-                    </div>
-                @endif
 
                 <div class="ui teal segment">
                     <h4 class="ui dividing header">Informations sur la série</h4>
