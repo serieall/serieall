@@ -74,7 +74,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Et on précise la version de l'API a utiliser.
         */
 
-        $keyToken = Temp::where('key', $key_token)->get();
+        $keyToken = Temp::where('key', $key_token)->first();
         $dateNow = Carbon::now();
         $dateKeyToken = $keyToken->updated_at;
 
@@ -367,7 +367,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Lancement du job de création de la ou des saisons
         |--------------------------------------------------------------------------
         */
-        dispatch(new AddSeasonFromTVDB($show_new->id));
+        #dispatch(new AddSeasonFromTVDB($show_new->id));
 
 
     }

@@ -63,15 +63,6 @@ class AdminShowController extends Controller
      */
     public function store(ShowCreateRequest $request)
     {
-        $keyToken = Temp::where('key', 'token')->first();
-        $dateNow = Carbon::now();
-        dd($dateNow);
-        $dateKeyToken = $keyToken->updated_at;
-
-        $resetToken = $dateNow->diffInHours($dateKeyToken);
-
-        dd($resetToken);
-
         $inputs = $request->all();
 
         dispatch(new AddShowFromTVDB($inputs));
