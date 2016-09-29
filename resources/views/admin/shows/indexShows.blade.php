@@ -32,8 +32,8 @@
             <div class="ui container centered grid">
                 <div class="ui success icon compact message">
                     <i class="checkmark icon"></i>
+                    <i class="close icon"></i>
                     <div class="content">
-                        <i class="close icon"></i>
                         <div class="header">
                             {{ session('status_header') }}
                         </div>
