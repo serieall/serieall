@@ -30,12 +30,12 @@ class AdminShowRepository
         $verifIDTheTVDB = $this->show->where('thetvdb_id', $inputs['thetvdb_id'])->first();
         if(is_null($verifIDTheTVDB)){
             dispatch(new AddShowFromTVDB($inputs));
+
+            return $dispatchOK = true;
         }
         else
         {
-            return redirect()->back()
-                ->with('warning_header', 'Série déjà ajoutée')
-                ->with('warning', 'La série que vous voulez créer existe déjà chez Série-All.');
+            return $dispatchOK = false;
         }
     }
 

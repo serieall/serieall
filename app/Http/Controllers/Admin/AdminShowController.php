@@ -66,9 +66,16 @@ class AdminShowController extends Controller
 
         $this->adminShowRepository->dispacthJob($inputs);
 
-        return redirect(route('adminShow.index'))
-            ->with('status_header', 'Série en cours d\'ajout')
-            ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.');
+        if($dispatchOK) {
+            return redirect(route('adminShow.index'))
+                ->with('status_header', 'Série en cours d\'ajout')
+                ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.');
+        }
+        else {
+            return redirect()->back()
+                ->with('warning_header', 'Série déjà ajoutée')
+                ->with('warning', 'La série que vous voulez créer existe déjà chez Série-All.');
+        }
     }
 
     /**
