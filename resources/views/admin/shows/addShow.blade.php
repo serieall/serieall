@@ -43,7 +43,7 @@
                         <div class="field {{ $errors->has('nationalities') ? ' error' : '' }}">
                             <label>Nationalité(s)</label>
                             <div id="dropdown-nationalities" class="ui fluid multiple search selection dropdown">
-                                <input name="nationalities" type="hidden">
+                                <input name="nationalities" type="hidden" value="{{ old('nationalities') }}>
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
@@ -63,7 +63,7 @@
                         <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
                             <label>Créateur(s) de la série</label>
                             <div id="dropdown-creators" class="ui fluid multiple search selection dropdown">
-                                <input name="creators" type="hidden">
+                                <input name="creators" type="hidden" value="{{ old('creators') }}>
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
@@ -88,7 +88,7 @@
                         <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
                             <label>Chaine française</label>
                             <div id="dropdown-chainefr" class="ui fluid multiple search selection dropdown">
-                                <input name="chaine_fr" type="hidden">
+                                <input name="chaine_fr" type="hidden" value="{{ old('chaine_fr') }}>
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
@@ -116,7 +116,7 @@
                             <div class="ui calendar" id="date-picker">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input name="diffusion_fr" id="datepicker" type="date" placeholder="Date" >
+                                    <input name="diffusion_fr" id="datepicker" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}>
                                 </div>
                             </div>
                             @if ($errors->has('diffusion_fr'))
@@ -134,7 +134,7 @@
                         <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
                             <label>Taux érectile</label>
                             <div class="ui left icon input">
-                                <input name="taux_erectile" placeholder="Pourcentage..." type="number">
+                                <input name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ old('taux_erectile') }}>
                                 <i class="percent icon"></i>
                             </div>
 
@@ -147,7 +147,7 @@
 
                         <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
                             <label>Avis de la rédaction</label>
-                            <textarea name="avis_rentree"></textarea>
+                            <textarea name="avis_rentree" value="{{ old('avis_rentree') }}></textarea>
 
                             @if ($errors->has('avis_rentree'))
                                 <div class="ui red message">
