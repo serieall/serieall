@@ -66,10 +66,9 @@ class AdminShowController extends Controller
         $keyToken = Temp::where('key', 'token')->first();
         $dateNow = Carbon::now();
         $dateKeyToken = $keyToken->updated_at;
-        dd($dateKeyToken);
 
         $resetToken = $dateNow->diffInHours($dateKeyToken);
-
+        
         dd($resetToken);
 
         $inputs = $request->all();
