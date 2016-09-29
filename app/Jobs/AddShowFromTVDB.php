@@ -8,6 +8,7 @@ use App\Models\Nationality;
 use App\Models\Show;
 use App\Models\Genre;
 use App\Models\Artist;
+use App\Models\Temp;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -62,13 +63,16 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         | Requête d'authentification
         |--------------------------------------------------------------------------
-        | L'objectif est de récupérer un token d'identification.
+        | L'objectif est de récupérer un token d'identification si le dernier qu'on a récupéré a moins de 24h
         | On passe en paramètre :
         |   - l'API Key,
         |   - le compte utilisateur,
         |   - La clé utilisateur.
         | Et on précise la version de l'API a utiliser.
         */
+
+        
+
         $getToken = $client->request('POST', '/login', [
             'header' => [
                 'Accept' => 'application/vnd.thetvdb.v' . $api_version,
@@ -79,8 +83,6 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 'userkey' => $api_userkey,
             ]
         ])->getBody();
-
-
 
         /*
         |--------------------------------------------------------------------------
