@@ -100,7 +100,8 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             $getToken = json_decode($getToken);
 
             $token = $getToken->token;
-            $keyToken->update(array("value" => $token));
+            $keyToken->value = $token;
+            $keyToken->save();
         }
         else{
             $token = $keyToken->value;
