@@ -27,7 +27,7 @@
                 {{ csrf_field() }}
 
                 @if (session('status'))
-                    <div class="ui success message">
+                    <div class="ui success compact message">
                         <i class="close icon"></i>
                         <div class="header">
                             {{ session('status_header') }}
@@ -36,7 +36,7 @@
                     </div>
                 @endif
                 @if (session('warning'))
-                    <div class="ui warning message">
+                    <div class="ui warning compact message">
                         <i class="close icon"></i>
                         <div class="header">
                             {{ session('warning_header') }}
@@ -181,10 +181,11 @@
             </form>
         </div>
     </div>
+@endsection
 
-    @section('scripts')
+@section('scripts')
 
-    @endsection
+@endsection
 
 
 @endsection
