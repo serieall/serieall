@@ -74,13 +74,19 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Et on précise la version de l'API a utiliser.
         */
 
+        # Vérification de la présence de la clé token
         $keyToken = Temp::where('key', $key_token)->first();
+        # Date actuelle en UTC
         $dateNow = Carbon::now();
+        # Date de la dernière modification du token
         $dateKeyToken = $keyToken->updated_at;
 
+        # Comparaison entre les deux dates
         $resetToken = $dateNow->diffInHours($dateKeyToken);
 
+        # Si la dernière modification date de plus de 23h
         if($resetToken > $hours_duration_token){
+            #On récupère un nouveau token et on l'enregistre en base
             $getToken = $client->request('POST', '/login', [
                 'header' => [
                     'Accept' => 'application/vnd.thetvdb.v' . $api_version,
@@ -104,6 +110,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             $keyToken->save();
         }
         else{
+            # Sinon, on utilise celui en base
             $token = $keyToken->value;
         }
 
