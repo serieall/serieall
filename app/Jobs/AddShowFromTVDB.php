@@ -114,12 +114,6 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             $token = $keyToken->value;
         }
 
-
-
-
-
-
-
         /*
         |--------------------------------------------------------------------------
         | Recupération de la série en français et avec la langue par défaut

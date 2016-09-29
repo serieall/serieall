@@ -6,7 +6,6 @@ use Auth;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
-Use App\Models\Temp;
 use App\Jobs\AddShowFromTVDB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
@@ -65,7 +64,7 @@ class AdminShowController extends Controller
     {
         $inputs = $request->all();
 
-        dispatch(new AddShowFromTVDB($inputs));
+        $this->adminShowRepository->dispacthJob($inputs);
 
         return redirect(route('adminShow.index'))
             ->with('status_header', 'Série en cours d\'ajout')
