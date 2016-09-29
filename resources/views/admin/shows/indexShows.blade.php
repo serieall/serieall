@@ -29,7 +29,7 @@
         </h1>
 
         @if (session('status'))
-            <div class="ui success center aligned compact message">
+            <div class="ui container success compact message center aligned">
                 <i class="close icon"></i>
                 <div class="header">
                     {{ session('status_header') }}

@@ -27,7 +27,7 @@
                 {{ csrf_field() }}
 
                 @if (session('status'))
-                    <div class="ui success centered compact message">
+                    <div class="ui container success centered compact message">
                         <i class="close icon"></i>
                         <div class="header">
                             {{ session('status_header') }}
