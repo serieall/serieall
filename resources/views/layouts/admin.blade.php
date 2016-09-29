@@ -80,6 +80,33 @@
             </div>
         </div>
         <div class="ui padding-article">
+            @if (session('status'))
+                <div class="ui container centered grid">
+                    <div class="ui success compact message">
+                        <i class="close icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                {{ session('status_header') }}
+                            </div>
+                            <p>{{ session('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            @if (session('warning'))
+                <div class="ui container centered grid">
+                    <div class="ui warning compact message">
+                        <i class="close icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                {{ session('warning_header') }}
+                            </div>
+                            <p>{{ session('warning') }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             @yield('content')
         </div>
     </div>
