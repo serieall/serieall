@@ -67,7 +67,7 @@ class AdminShowController extends Controller
 
         return redirect(route('adminShow.index'))
             ->with('status_header', 'Série en cours d\'ajout')
-            ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera quand il aura le temps (ouais, maintenant, il snobe).');
+            ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.');
     }
 
     /**
