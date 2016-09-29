@@ -63,7 +63,7 @@ class AdminShowController extends Controller
      */
     public function store(ShowCreateRequest $request)
     {
-        $keyToken = Temp::where('key', "token")->get();
+        $keyToken = Temp::where('key', 'token')->get();
         $dateNow = Carbon::now();
         $dateKeyToken = $keyToken->updated_at;
 
