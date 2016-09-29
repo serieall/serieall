@@ -27,7 +27,7 @@
                 Liste de toutes les séries présentes sur Série-All
             </div>
         </h1>
-        {{ csrf_field() }}
+
         @if (session('status'))
             <div class="ui success message">
                 <i class="close icon"></i>
