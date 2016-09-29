@@ -71,7 +71,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Et on précise la version de l'API a utiliser.
         */
 
-        
+
 
         $getToken = $client->request('POST', '/login', [
             'header' => [

@@ -15,7 +15,7 @@ class CreateTempTable extends Migration
         Schema::create('temp', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key');
-            $table->string('value');
+            $table->integer('value');
             $table->timestamps();
         });
     }
