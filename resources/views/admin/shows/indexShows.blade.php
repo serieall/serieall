@@ -30,8 +30,7 @@
 
         @if (session('status'))
             <div class="ui container center aligned">
-                <div class="ui success icon compact message">
-                    <i class="checkmark icon"></i>
+                <div class="ui success compact message left aligned">
                     <i class="close icon"></i>
                     <div class="header">
                         {{ session('status_header') }}
