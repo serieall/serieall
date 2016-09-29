@@ -29,7 +29,7 @@
         </h1>
 
         @if (session('status'))
-            <div class="ui success centered compact message">
+            <div class="ui success center aligned compact message">
                 <i class="close icon"></i>
                 <div class="header">
                     {{ session('status_header') }}
@@ -38,7 +38,7 @@
             </div>
         @endif
         @if (session('warning'))
-            <div class="ui warning centered compact message">
+            <div class="ui warning center aligned compact message">
                 <i class="close icon"></i>
                 <div class="header">
                     {{ session('warning_header') }}
