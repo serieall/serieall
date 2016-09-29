@@ -256,31 +256,32 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         */
         $creators = $this->inputs['creators'];
 
-        $creators = explode(',', $creators);
+        if(!empty($creators)) {
+            $creators = explode(',', $creators);
 
-        # Pour chaque créateur
-        foreach ($creators as $creator) {
-            # On supprime les espaces
-            $creator = trim($creator);
-            # On met en forme l'URL
-            $creator_url = Str::slug($creator);
-            # On vérifie si le genre existe déjà en base
-            $creator_ref = Artist::where('artist_url', $creator_url)->first();
+            # Pour chaque créateur
+            foreach ($creators as $creator) {
+                # On supprime les espaces
+                $creator = trim($creator);
+                # On met en forme l'URL
+                $creator_url = Str::slug($creator);
+                # On vérifie si le genre existe déjà en base
+                $creator_ref = Artist::where('artist_url', $creator_url)->first();
 
-            # Si il n'existe pas
-            if(is_null($creator_ref))
-            {
-                # On prépare le nouveau créateur
-                $creator_ref = new Artist([
-                    'name' => $creator,
-                    'artist_url' => $creator_url
-                ]);
+                # Si il n'existe pas
+                if (is_null($creator_ref)) {
+                    # On prépare le nouveau créateur
+                    $creator_ref = new Artist([
+                        'name' => $creator,
+                        'artist_url' => $creator_url
+                    ]);
 
-                # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                $show_new->artists()->save($creator_ref);
-            } else {
-                # Si il existe, on crée juste le lien
-                $show_new->artists()->attach($creator_ref->id);
+                    # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                    $show_new->artists()->save($creator_ref);
+                } else {
+                    # Si il existe, on crée juste le lien
+                    $show_new->artists()->attach($creator_ref->id);
+                }
             }
         }
 
@@ -293,31 +294,32 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         */
         $nationalities = $this->inputs['nationalities'];
 
-        $nationalities = explode(',', $nationalities);
+        if(!empty($nationalities)) {
+            $nationalities = explode(',', $nationalities);
 
-        # Pour chaque nationalité
-        foreach ($nationalities as $nationality) {
-            # On supprime les espaces
-            $nationality = trim($nationality);
-            # On met en forme l'URL
-            $nationality_url = Str::slug($nationality);
-            # On vérifie si la nationalité existe déjà en base
-            $nationality_ref = Nationality::where('nationality_url', $nationality_url)->first();
+            # Pour chaque nationalité
+            foreach ($nationalities as $nationality) {
+                # On supprime les espaces
+                $nationality = trim($nationality);
+                # On met en forme l'URL
+                $nationality_url = Str::slug($nationality);
+                # On vérifie si la nationalité existe déjà en base
+                $nationality_ref = Nationality::where('nationality_url', $nationality_url)->first();
 
-            # Si elle n'existe pas
-            if(is_null($nationality_ref))
-            {
-                # On prépare la nouvelle nationalité
-                $nationality_ref = new Nationality([
-                    'name' => $nationality,
-                    'nationality_url' => $nationality_url
-                ]);
+                # Si elle n'existe pas
+                if (is_null($nationality_ref)) {
+                    # On prépare la nouvelle nationalité
+                    $nationality_ref = new Nationality([
+                        'name' => $nationality,
+                        'nationality_url' => $nationality_url
+                    ]);
 
-                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                $show_new->nationalities()->save($nationality_ref);
-            } else {
-                # Si elle existe, on crée juste le lien
-                $show_new->nationalities()->attach($nationality_ref->id);
+                    # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                    $show_new->nationalities()->save($nationality_ref);
+                } else {
+                    # Si elle existe, on crée juste le lien
+                    $show_new->nationalities()->attach($nationality_ref->id);
+                }
             }
         }
 
