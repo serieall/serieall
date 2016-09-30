@@ -64,7 +64,7 @@ class AdminShowController extends Controller
     {
         $inputs = $request->all();
 
-        $dispatchOK = $this->adminShowRepository->dispacthJob($inputs);
+        $dispatchOK = $this->adminShowRepository->createShowJob($inputs);
 
         if($dispatchOK) {
             return redirect(route('adminShow.index'))

@@ -26,7 +26,7 @@ class AdminShowRepository
             ->get();
     }
 
-    public function dispacthJob($inputs){
+    public function createShowJob($inputs){
         $verifIDTheTVDB = $this->show->where('thetvdb_id', $inputs['thetvdb_id'])->first();
         if(is_null($verifIDTheTVDB)){
             dispatch(new AddShowFromTVDB($inputs));
