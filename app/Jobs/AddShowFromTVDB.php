@@ -130,10 +130,11 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             ]
         ])->getBody();
 
-        $getShow_default = $client->request('GET', '/series/'. $theTVDBID, [
+        $getShow_en = $client->request('GET', '/series/'. $theTVDBID, [
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                 'Authorization' => 'Bearer ' . $token,
+                'Accept-Language' => 'fr',
             ]
         ])->getBody();
 
@@ -144,7 +145,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $getShow_fr = json_decode($getShow_fr);
-        $getShow_default = json_decode($getShow_default);
+        $getShow_en = json_decode($getShow_en);
 
         if (isset($getShow_fr->errors->invalidLanguage)){
             $languageFR = false;
@@ -153,7 +154,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             $languageFR = true;
         }
 
-        $show_default = $getShow_default->data;
+        $show_en = $getShow_en->data;
 
 
         /*
@@ -178,20 +179,20 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         else
         {
             # Sinon on remplit uniquement le champ synopsis avec la langue par défaut
-            $show_new->synopsis = $show_default->overview;
+            $show_new->synopsis = $show_en->overview;
         }
 
         $show_new->thetvdb_id = $theTVDBID;                         # L'ID de TheTVDB
-        $show_new->name = $show_default->seriesName;                # Le nom de la série
-        $show_new->format = $show_default->runtime;                 # Le format de la série
-        $show_new->diffusion_us = $show_default->firstAired;        # Date de diffusion US
+        $show_new->name = $show_en->seriesName;                # Le nom de la série
+        $show_new->format = $show_en->runtime;                 # Le format de la série
+        $show_new->diffusion_us = $show_en->firstAired;        # Date de diffusion US
         $show_new->diffusion_fr = $this->inputs['diffusion_fr'];    # Date de diffusion FR
         $show_new->taux_erectile = $this->inputs['taux_erectile'];  # Le taux érectile
         $show_new->avis_rentree = $this->inputs['avis_rentree'];    # Le taux érectile
 
 
         # Le champ en cours doit être à 1 si la série est en cours et à 0 dans le cas contraire
-        if ($show_default->status == 'Continuing'){
+        if ($show_en->status == 'Continuing'){
             $show_new->encours = 1;
         }
         else
@@ -200,7 +201,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         }
 
         # Pour l'année, on va parser le champ firstAired et récupérer uniquement l'année
-        $dateTemp = date_create($show_default->firstAired);     # On transforme d'abord le texte récupéré par la requête en date
+        $dateTemp = date_create($show_en->firstAired);     # On transforme d'abord le texte récupéré par la requête en date
         $show_new->annee = date_format($dateTemp, "Y");         # Ensuite on récupère l'année
 
         # Utilisation de la méthode Slug pour l'URL
@@ -218,7 +219,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | S'il existe on crée juste le lien avec la série
         */
 
-        $genres = $show_default->genre;
+        $genres = $show_en->genre;
 
         # Pour chaque genre
         foreach ($genres as $genre) {
@@ -332,10 +333,10 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         */
         # Si le formulaire n'a pas été rempli pour la partie chaine fr
         if(empty($this->inputs['chaine_fr'])){
-            $channels = $show_default->network;
+            $channels = $show_en->network;
         }
         else {
-            $channels = $show_default->network . ',' . $this->inputs['chaine_fr'];
+            $channels = $show_en->network . ',' . $this->inputs['chaine_fr'];
         }
 
         $channels = explode(',', $channels);
@@ -372,7 +373,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Lancement du job de création de la ou des saisons
         |--------------------------------------------------------------------------
         */
-        #dispatch(new AddSeasonFromTVDB($show_new->id));
+        #dispatch(new AddEpisodesFromTVDB($show_new->id));
 
 
     }
