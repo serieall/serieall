@@ -19,22 +19,37 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels;
 
     protected $thetvdb_id_show;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
+
     public function __construct($thetvdb_id_show)
     {
         $this->thetvdb_id_show = $thetvdb_id_show;
     }
 
+    /**
+     * Add new seasons and episodes
+     *
+     * @return void
+     */
     private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token){
+        # Pour chaque épisode dans le paramètre getEpisodes
         foreach($getEpisodes as $episode){
+            # On récupère l'ID de l'épisode
             $episodeID = $episode->id;
-            $seasonID = $episode->airedSeasonID;
 
-
+            /*
+            |--------------------------------------------------------------------------
+            | Récupération des informations de l'épisode en question
+            |--------------------------------------------------------------------------
+            | Dans un premier temps, en français.
+            | Puis en anglais et on vérifie que le français est bien rempli, sinon on
+            | choisit la version anglaise.
+            */
             $getEpisode_fr = $client->request('GET', '/episodes/' . $episodeID, [
                 'headers' => [
                     'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
@@ -43,22 +58,59 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
                 ]
             ])->getBody();
 
-            $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
-                'headers' => [
-                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                    'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'en',
-                ]
-            ])->getBody();
-
+            # On décode le JSON
             $getEpisode_fr = json_decode($getEpisode_fr);
-            $getEpisode_en = json_decode($getEpisode_en);
 
+            # Si le champ InvalidLanguage est détecté dans le JSON récupéré
             if (isset($getEpisode_fr->errors->invalidLanguage)){
+                # On récupère la version anglaise
+                $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'en',
+                    ]
+                ])->getBody();
+
+                # On décode le JSON
+                $getEpisode_en = json_decode($getEpisode_en);
+
+                # On définit la variable GetEpisode
                 $getEpisode = $getEpisode_en->data;
             }
             else{
+                # Sinon, on définit uniquement la variable GetEpisode
                 $getEpisode = $getEpisode_fr->data;
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | On va chercher toutes les infos sur l'épisode en question
+            |--------------------------------------------------------------------------
+            | Dans un premier temps, en français.
+            | Puis en anglais et on vérifie que le français est bien rempli, sinon on
+            | choisit la version anglaise.
+            */
+            # Variables de la saison
+            $season_id = $getEpisode->airedSeasonID;
+            $season_name = $getEpisode->airedSeason;
+
+            # Vérification de la présence de la saison dans la BDD
+            $season_ref = Season::where('thetvdb_id', $season_id)->first();
+
+            # Si elle n'existe pas
+            if (is_null($season_ref)) {
+                # On prépare le nouveau créateur
+                $season_ref = new Artist([
+                    'name' => $creator,
+                    'artist_url' => $creator_url
+                ]);
+
+                # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                $show_new->artists()->save($season_ref);
+            } else {
+                # Si il existe, on crée juste le lien
+                $show_new->artists()->attach($season_ref->id);
             }
         }
     }
@@ -171,7 +223,7 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
         /*
         |--------------------------------------------------------------------------
         | Décodage du JSON et vérification que la langue française existe sur The TVDB
-        | Si la langue fr n'est pas renseignée, on met la variable languageFR à 'no'
+        | Si la langue fr n'est pas renseignée, on prends la langue anglaise
         |--------------------------------------------------------------------------
         */
         $getEpisodes_fr = json_decode($getEpisodes_fr);
@@ -230,9 +282,5 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
                 $getEpisodeNextPage++;
             }
         }
-
-
-
-
     }
 }
