@@ -29,6 +29,41 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
         $this->thetvdb_id_show = $thetvdb_id_show;
     }
 
+    private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token){
+        foreach($getEpisodes as $episode){
+            $episodeID = $episode->id;
+            $seasonID = $episode->airedSeasonID;
+
+
+            $getEpisode_fr = $client->request('GET', '/episodes/' . $episodeID, [
+                'headers' => [
+                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept-Language' => 'fr',
+                ]
+            ])->getBody();
+
+            $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
+                'headers' => [
+                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept-Language' => 'en',
+                ]
+            ])->getBody();
+
+            $getEpisode_fr = json_decode($getEpisode_fr);
+            $getEpisode_en = json_decode($getEpisode_en);
+
+            if (isset($getEpisode_fr->errors->invalidLanguage)){
+                $getEpisode = $getEpisode_en->data;
+            }
+            else{
+                $getEpisode = $getEpisode_fr->data;
+            }
+        }
+    }
+
+
     /**
      * Execute the job.
      *
@@ -143,44 +178,61 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
         $getEpisodes_en = json_decode($getEpisodes_en);
 
         if (isset($getEpisodes_fr->errors->invalidLanguage)){
+            $getEpisodeNextPage = $getEpisodes_en->links->next;
+            $getEpisodeLastPage = $getEpisodes_en->links->last;
             $getEpisodes = $getEpisodes_en->data;
         }
         else{
+            $getEpisodeNextPage = $getEpisodes_fr->links->next;
+            $getEpisodeLastPage = $getEpisodes_fr->links->last;
             $getEpisodes = $getEpisodes_fr->data;
         }
 
-        foreach($getEpisodes as $episode){
-            $episodeID = $episode->id;
-            $seasonID = $episode->airedSeasonID;
-
-            $getEpisode_fr = $client->request('GET', '/episodes/' . $episodeID, [
-                'headers' => [
-                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                    'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'fr',
-                ]
-            ])->getBody();
-
-            $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
-                'headers' => [
-                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                    'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'en',
-                ]
-            ])->getBody();
-
-            $getEpisode_fr = json_decode($getEpisodes_fr);
-            $getEpisode_en = json_decode($getEpisodes_en);
-
-            if (isset($getEpisode_fr->errors->invalidLanguage)){
-                $getEpisode = $getEpisode_en->data;
-            }
-            else{
-                $getEpisode = $getEpisode_fr->data;
-            }
-
-
+        if(!isNull($getEpisodeNextPage)){
+            $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token);
         }
+        else{
+            $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token);
+
+            while($getEpisodeNextPage < $getEpisodeLastPage) {
+                $getEpisodes_fr = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage , [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'fr',
+                    ]
+                ])->getBody();
+
+                $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage, [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'en',
+                    ]
+                ])->getBody();
+
+                $getEpisodes_fr = json_decode($getEpisodes_fr);
+                $getEpisodes_en = json_decode($getEpisodes_en);
+
+                if (isset($getEpisodes_fr->errors->invalidLanguage)){
+                    $getEpisodeNextPage = $getEpisodes_en->links->next;
+                    $getEpisodeLastPage = $getEpisodes_en->links->last;
+                    $getEpisodes = $getEpisodes_en->data;
+                }
+                else{
+                    $getEpisodeNextPage = $getEpisodes_fr->links->next;
+                    $getEpisodeLastPage = $getEpisodes_fr->links->last;
+                    $getEpisodes = $getEpisodes_fr->data;
+                }
+
+                $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token);
+
+                $getEpisodeNextPage++;
+            }
+        }
+
+
+
 
     }
 }
