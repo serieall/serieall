@@ -156,11 +156,13 @@
                         </div>
                     </div>
                 </div>
+
+                <button class="positive ui button" type="submit">Créer la série</button>
             </div>
 
 
 
-                <button class="positive ui button" type="submit">Créer la série</button>
+
             </form>
         </div>
     </div>
