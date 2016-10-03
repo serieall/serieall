@@ -16,6 +16,7 @@ class CreateArtistShowTable extends Migration
             $table->increments('id');
             $table->integer('artist_id')->unsigned();
             $table->integer('show_id')->unsigned();
+            $table->enum('profession', ['creator', 'writer', 'director', 'actor']);
             $table->foreign('artist_id')->references('id')->on('artists')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');

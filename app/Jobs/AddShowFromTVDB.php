@@ -54,6 +54,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $api_url = config('thetvdb.url');
         $api_version = config('thetvdb.version');
         $hours_duration_token = config('thetvdb.hoursduration');
+        $keyCreator = config('profession.creator');
 
         /*
         |--------------------------------------------------------------------------
@@ -269,10 +270,10 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                     ]);
 
                     # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                    $show_new->artists()->save($creator_ref);
+                    $show_new->artists()->save($creator_ref, ['profession', $keyCreator]);
                 } else {
                     # Si il existe, on crée juste le lien
-                    $show_new->artists()->attach($creator_ref->id);
+                    $show_new->artists()->attach($creator_ref->id, ['profession', $keyCreator]);
                 }
             }
         }
