@@ -43,7 +43,7 @@
                         <div class="field {{ $errors->has('nationalities') ? ' error' : '' }}">
                             <label>Nationalité(s)</label>
                             <div id="dropdown-nationalities" class="ui fluid multiple search selection dropdown">
-                                <input name="nationalities" type="hidden" value="{{ old('nationalities') }}>
+                                <input name="nationalities" type="hidden" value="{{ old('nationalities') }}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
@@ -63,7 +63,7 @@
                         <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
                             <label>Créateur(s) de la série</label>
                             <div id="dropdown-creators" class="ui fluid multiple search selection dropdown">
-                                <input name="creators" type="hidden" value="{{ old('creators') }}>
+                                <input name="creators" type="hidden" value="{{ old('creators') }}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
@@ -88,7 +88,7 @@
                         <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
                             <label>Chaine française</label>
                             <div id="dropdown-chainefr" class="ui fluid multiple search selection dropdown">
-                                <input name="chaine_fr" type="hidden" value="{{ old('chaine_fr') }}>
+                                <input name="chaine_fr" type="hidden" value="{{ old('chaine_fr') }}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
@@ -148,7 +148,7 @@
 
                     <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
                         <label>Avis de la rédaction</label>
-                        <textarea name="avis_rentree" value="{{ old('avis_rentree') }}></textarea>
+                        <textarea name="avis_rentree" value="{{ old('avis_rentree') }}"></textarea>
 
                             @if ($errors->has('avis_rentree'))
                                 <div class="ui red message">
