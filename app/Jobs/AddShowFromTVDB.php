@@ -270,10 +270,10 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                     ]);
 
                     # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                    $show_new->artists()->save($creator_ref, ['profession', $keyCreator]);
+                    $show_new->artists()->save($creator_ref, ['profession' => $keyCreator]);
                 } else {
                     # Si il existe, on crée juste le lien
-                    $show_new->artists()->attach($creator_ref->id, ['profession', $keyCreator]);
+                    $show_new->artists()->attach($creator_ref->id, ['profession' => $keyCreator]);
                 }
             }
         }
