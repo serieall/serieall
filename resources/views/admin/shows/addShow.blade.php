@@ -127,6 +127,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
                 <div class="ui violet segment">
                     <h4 class="ui dividing header">Informations pour la rentrée</h4>
@@ -156,7 +157,7 @@
                             @endif
                         </div>
                     </div>
-                </div>
+
 
                 <button class="positive ui button" type="submit">Créer la série</button>
             </form>
