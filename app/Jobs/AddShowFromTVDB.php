@@ -134,7 +134,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                 'Authorization' => 'Bearer ' . $token,
-                'Accept-Language' => 'fr',
+                'Accept-Language' => 'en',
             ]
         ])->getBody();
 

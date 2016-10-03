@@ -159,10 +159,6 @@
 
                 <button class="positive ui button" type="submit">Créer la série</button>
             </div>
-
-
-
-
             </form>
         </div>
     </div>
