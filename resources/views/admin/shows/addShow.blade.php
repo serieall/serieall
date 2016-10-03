@@ -116,7 +116,7 @@
                             <div class="ui calendar" id="date-picker">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input name="diffusion_fr" id="datepicker" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}>
+                                    <input name="diffusion_fr" id="datepicker" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">
                                 </div>
                             </div>
                             @if ($errors->has('diffusion_fr'))
