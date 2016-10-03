@@ -14,11 +14,12 @@ use GuzzleHttp\Client;
 use Carbon\Carbon;
 use \Illuminate\Support\Str;
 
-class AddSeasonFromTVDB extends Job implements ShouldQueue
+class AddEpisodesFromTVDB extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
     protected $thetvdb_id_show;
+    protected $show_new;
 
     /**
      * Create a new job instance.
@@ -26,9 +27,10 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
      * @return void
      */
 
-    public function __construct($thetvdb_id_show)
+    public function __construct($thetvdb_id_show, $show_new)
     {
         $this->thetvdb_id_show = $thetvdb_id_show;
+        $this->show_new = $show_new;
     }
 
     /**
@@ -36,7 +38,7 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
      *
      * @return void
      */
-    private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token){
+    private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new){
         # Pour chaque épisode dans le paramètre getEpisodes
         foreach($getEpisodes as $episode){
             # On récupère l'ID de l'épisode
@@ -100,17 +102,17 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
 
             # Si elle n'existe pas
             if (is_null($season_ref)) {
-                # On prépare le nouveau créateur
-                $season_ref = new Artist([
-                    'name' => $creator,
-                    'artist_url' => $creator_url
+                # On prépare la nouvelle saison
+                $season_ref = new Season([
+                    'name' => $season_name,
+                    'thetvdb_id' => $season_id
                 ]);
 
                 # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                $show_new->artists()->save($season_ref);
+                $show_new->seasons()->save($season_ref);
             } else {
                 # Si il existe, on crée juste le lien
-                $show_new->artists()->attach($season_ref->id);
+                $show_new->seasons()->attach($season_ref->id);
             }
         }
     }
@@ -241,10 +243,10 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
         }
 
         if(!isNull($getEpisodeNextPage)){
-            $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token);
+            $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
         }
         else{
-            $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token);
+            $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
 
             while($getEpisodeNextPage < $getEpisodeLastPage) {
                 $getEpisodes_fr = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage , [
@@ -277,7 +279,7 @@ class AddSeasonFromTVDB extends Job implements ShouldQueue
                     $getEpisodes = $getEpisodes_fr->data;
                 }
 
-                $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token);
+                $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
 
                 $getEpisodeNextPage++;
             }
