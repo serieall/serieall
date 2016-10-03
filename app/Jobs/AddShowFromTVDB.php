@@ -147,14 +147,8 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $getShow_fr = json_decode($getShow_fr);
         $getShow_en = json_decode($getShow_en);
 
-        if (isset($getShow_fr->errors->invalidLanguage)){
-            $languageFR = false;
-        }
-        else{
-            $languageFR = true;
-        }
-
         $show_en = $getShow_en->data;
+        $show_fr = $getShow_fr->data;
 
 
         /*
@@ -168,17 +162,14 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         */
         $show_new = new Show();
 
-        # Si la langue française est renseignée
-        if ($languageFR) {
-            # On remplit les champs name_fr et synopsis en français
-            $show_fr = $getShow_fr->data;
-
+        # Si la série et le synopsis ne sont pas rensignés en français, on met la version anglaise uniquement
+        if(!is_null($show_fr->seriesName)) {
             $show_new->name_fr = $show_fr->seriesName;
+        }
+        if(!is_null($show_fr->overview)) {
             $show_new->synopsis = $show_fr->overview;
         }
-        else
-        {
-            # Sinon on remplit uniquement le champ synopsis avec la langue par défaut
+        else {
             $show_new->synopsis = $show_en->overview;
         }
 
