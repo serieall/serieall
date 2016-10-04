@@ -138,12 +138,12 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 ]);
 
                 # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                $season_ref->episodes()->save($episode_ref);
+                $show_new->seasons()->episodes()->save($episode_ref);
             } else {
                 # Si il existe, on crée juste le lien
-                $season_ref->episodes()->attach($episode_ref->id);
+                $show_new->seasons()->episodes()->attach($episode_ref->id);
             }
-            
+
             $directors = $getEpisode_en->directors;
             $writers = $getEpisode_en->writers;
             $guests = $getEpisode_en->guests;
