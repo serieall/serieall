@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Artistable extends Model {
 
 	protected $table = 'artistables';
-	public $timestamps = true;
+	public $timestamps = false;
 
 }

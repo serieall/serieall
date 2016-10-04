@@ -8,6 +8,7 @@ class Show extends Model {
 
 	protected $table = 'shows';
 	public $timestamps = true;
+	protected $fillable = array('thetvdb_id', 'show_url', 'name', 'name_fr', 'synopsis', 'format', 'annee', 'encours', 'diffusion_us', 'diffusion_fr', 'moyenne', 'moyenne_redac', 'nbnotes', 'taux_erectile', 'avis_rentree');
 
 	public function seasons()
 	{
