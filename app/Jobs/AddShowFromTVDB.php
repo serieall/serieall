@@ -366,7 +366,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         | Lancement du job de création de la ou des saisons
         |--------------------------------------------------------------------------
         */
-        #dispatch(new AddEpisodesFromTVDB($theTVDBID, $show_new));
+        dispatch(new AddEpisodesFromTVDB($theTVDBID, $show_new));
 
 
     }

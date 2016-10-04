@@ -41,10 +41,6 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
      * @return void
      */
     private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new){
-        $keyDirector = config('profession.director');
-        $keyGuest = config('profession.guest');
-        $keyWriter = config('profession.writer');
-
         # Pour chaque épisode dans le paramètre getEpisodes
         foreach($getEpisodes as $episode){
             # On récupère l'ID de l'épisode
