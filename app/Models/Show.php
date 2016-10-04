@@ -16,7 +16,7 @@ class Show extends Model {
 
 	public function episodes()
 	{
-		return $this->hasManyThrough('App\Models\Episode', 'App\Models\Season');
+		return $this->hasManyThrough('App\Models\Episode', '\App\Models\Season');
 	}
 
 	public function artists()

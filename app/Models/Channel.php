@@ -8,6 +8,7 @@ class Channel extends Model {
 
 	protected $table = 'channels';
 	public $timestamps = true;
+	protected $fillable = array('name', 'channel_url');
 
 	public function shows()
 	{

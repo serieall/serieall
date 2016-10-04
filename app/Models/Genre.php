@@ -8,6 +8,7 @@ class Genre extends Model {
 
 	protected $table = 'genres';
 	public $timestamps = true;
+	protected $fillable = array('name', 'genre_url');
 
 	public function shows()
 	{
