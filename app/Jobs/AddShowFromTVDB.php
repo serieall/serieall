@@ -213,30 +213,31 @@ class AddShowFromTVDB extends Job implements ShouldQueue
 
         $genres = $show_en->genre;
 
-        # Pour chaque genre
-        foreach ($genres as $genre) {
-            # On supprime les espaces
-            $genre = trim($genre);
-            # On met en forme l'URL
-            $genre_url = Str::slug($genre);
-            # On vérifie si le genre existe déjà en base
-            $genre_ref = Genre::where('genre_url', $genre_url)->first();
+        if(!empty($genres)) {
+            # Pour chaque genre
+            foreach ($genres as $genre) {
+                # On supprime les espaces
+                $genre = trim($genre);
+                # On met en forme l'URL
+                $genre_url = Str::slug($genre);
+                # On vérifie si le genre existe déjà en base
+                $genre_ref = Genre::where('genre_url', $genre_url)->first();
 
-            # Si il n'existe pas
-            if(is_null($genre_ref))
-            {
-                # On prépare le nouveau genre
-                $genre_ref = new Genre([
-                    'name' => $genre,
-                    'genre_url' => $genre_url
-                ]);
+                # Si il n'existe pas
+                if (is_null($genre_ref)) {
+                    # On prépare le nouveau genre
+                    $genre_ref = new Genre([
+                        'name' => $genre,
+                        'genre_url' => $genre_url
+                    ]);
 
-                # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
-                $show_new->genres()->save($genre_ref);
+                    # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                    $show_new->genres()->save($genre_ref);
 
-            } else {
-                # Si il existe, on crée juste le lien
-                $show_new->genres()->attach($genre_ref->id);
+                } else {
+                    # Si il existe, on crée juste le lien
+                    $show_new->genres()->attach($genre_ref->id);
+                }
             }
         }
 
@@ -331,31 +332,32 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             $channels = $show_en->network . ',' . $this->inputs['chaine_fr'];
         }
 
-        $channels = explode(',', $channels);
+        if(!empty($channels)) {
+            $channels = explode(',', $channels);
 
-        # Pour chaque chaines
-        foreach ($channels as $channel) {
-            # On supprime les espaces
-            $channel = trim($channel);
-            # On met en forme l'URL
-            $channel_url = Str::slug($channel);
-            # On vérifie si la nationalité existe déjà en base
-            $channel_ref = Channel::where('channel_url', $channel_url)->first();
+            # Pour chaque chaines
+            foreach ($channels as $channel) {
+                # On supprime les espaces
+                $channel = trim($channel);
+                # On met en forme l'URL
+                $channel_url = Str::slug($channel);
+                # On vérifie si la nationalité existe déjà en base
+                $channel_ref = Channel::where('channel_url', $channel_url)->first();
 
-            # Si elle n'existe pas
-            if(is_null($channel_ref))
-            {
-                # On prépare la nouvelle nationalité
-                $channel_ref = new Channel([
-                    'name' => $channel,
-                    'channel_url' => $channel_url
-                ]);
+                # Si elle n'existe pas
+                if (is_null($channel_ref)) {
+                    # On prépare la nouvelle nationalité
+                    $channel_ref = new Channel([
+                        'name' => $channel,
+                        'channel_url' => $channel_url
+                    ]);
 
-                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                $show_new->channels()->save($channel_ref);
-            } else {
-                # Si elle existe, on crée juste le lien
-                $show_new->channels()->attach($channel_ref->id);
+                    # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                    $show_new->channels()->save($channel_ref);
+                } else {
+                    # Si elle existe, on crée juste le lien
+                    $show_new->channels()->attach($channel_ref->id);
+                }
             }
         }
 

@@ -22,8 +22,14 @@ class Episode extends Model
         'season_id'];
 
     # Un épisode n'appartient qu'à une seule saison
-    public function show()
+    public function season()
     {
         return $this->belongsTo('App\Models\Season');
+    }
+
+
+    public function artists()
+    {
+        return $this->belongsToMany('App\Models\Artist');
     }
 }

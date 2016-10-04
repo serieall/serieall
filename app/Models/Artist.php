@@ -15,4 +15,9 @@ class Artist extends Model
     {
         return $this->belongsToMany('App\Models\Show');
     }
+
+    public function episodes()
+    {
+        return $this->belongsToMany('App\Models\Episode');
+    }
 }

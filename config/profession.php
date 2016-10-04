@@ -11,6 +11,7 @@ return [
     'creator' => "creator",
     'writer' => "writer",
     'director' => "director",
-    'actor' => "actor"
+    'actor' => "actor",
+    'guest' => "guest"
 
 ];

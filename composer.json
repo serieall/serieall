@@ -26,7 +26,6 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/ModifyString.php"
         ]
     },
     "autoload-dev": {
