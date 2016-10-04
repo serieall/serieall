@@ -16,7 +16,7 @@ class Show extends Model {
 
 	public function episodes()
 	{
-		return $this->hasManyThrough('App\Models\Episode', 'App\Models\Season');
+		return $this->hasManyThrough('App\Models\Episode', 'Season');
 	}
 
 	public function artists()
@@ -31,7 +31,7 @@ class Show extends Model {
 
 	public function nationalities()
 	{
-		return $this->belongsToMany('App\Models\Nationlity');
+		return $this->belongsToMany('App\Models\Nationality');
 	}
 
 	public function genres()

@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable {
+class User extends Model {
 
 	protected $table = 'users';
 	public $timestamps = true;
