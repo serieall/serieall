@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Show extends Model {
 
+	protected $table = 'shows';
 	public $timestamps = true;
 
 	public function seasons()
