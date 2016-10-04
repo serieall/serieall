@@ -140,11 +140,8 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 $seasonEpisode->episodes()->save($episode_ref);
             } else {
                 # Si il existe, on crée juste le lien
-                $seasonEpisode->episodes()->attach($episode_ref->id);
+                $seasonEpisode->episodes()->associate($episode_ref->id);
             }
-
-
-
         }
     }
 
