@@ -4,27 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Season extends Model
-{
-    protected $fillable = [
-        'thetvdb_id',
-        'name',
-        'ba',
-        'moyenne',
-        'nbnotes',
-        'show_id'];
+class Season extends Model {
 
-    # Une saison peut avoir plusieurs épisodes
-    public function episodes()
-    {
-        return $this->hasMany('App\Models\Episode');
-    }
+	protected $table = 'seasons';
+	public $timestamps = true;
 
-    # Une saison appartient à une seule série
-    public function show()
-    {
-        return $this->belongsTo('App\Models\Show');
-    }
+	public function show()
+	{
+		return $this->belongsTo('App\Models\Show');
+	}
 
+	public function episodes()
+	{
+		return $this->hasMany('App\Models\Episode');
+	}
 
 }

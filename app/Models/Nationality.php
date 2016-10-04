@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Nationality extends Model
-{
-    protected $fillable = [
-        'name',
-        'nationality_url'];
+class Nationality extends Model {
 
-    # Une nationalité peut créer plusieurs séries
-    public function shows()
-    {
-        return $this->belongsToMany('App\Models\Show');
-    }
+	protected $table = 'nationalities';
+	public $timestamps = true;
+
+	public function shows()
+	{
+		return $this->belongsToMany('App\Models\Show');
+	}
+
 }

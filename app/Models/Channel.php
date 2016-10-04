@@ -4,16 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Channel extends Model
-{
-    protected $fillable = [
-        'name',
-        'pays',
-        'channel_url'];
+class Channel extends Model {
 
-    # Une chaine peut diffuser plusieurs séries
-    public function shows()
-    {
-        return $this->belongsToMany('App\Models\Show');
-    }
+	protected $table = 'channels';
+	public $timestamps = true;
+
+	public function shows()
+	{
+		return $this->belongsToMany('App\Models\Show');
+	}
+
 }

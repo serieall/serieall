@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Artist extends Model
-{
-    protected $fillable = [
-        'name',
-        'artist_url'];
+class Artist extends Model {
 
-    # Un artiste peut avoir créé plusieurs séries
-    public function shows()
-    {
-        return $this->belongsToMany('App\Models\Show');
-    }
+	protected $table = 'artists';
+	public $timestamps = true;
 
-    public function episodes()
-    {
-        return $this->belongsToMany('App\Models\Episode');
-    }
+	public function episodes()
+	{
+		return $this->morphedByMany('App\Models\Episode', 'artistable');
+	}
+
+	public function shows()
+	{
+		return $this->morphedByMany('App\Models\Show', 'artistable');
+	}
+
 }

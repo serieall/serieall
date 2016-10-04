@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Temp extends Model {
+class Artistable extends Model {
 
-	protected $table = 'temps';
+	protected $table = 'artistables';
 	public $timestamps = true;
 
 }

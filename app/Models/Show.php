@@ -4,47 +4,39 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Show extends Model
-{
-    protected $fillable = [
-        'thetvdb_id',
-        'show_url',
-        'name',
-        ];
+class Show extends Model {
 
-    # Une série peut avoir plusieurs artistes : Ce sont les créateurs
-    public function artists()
-    {
-        return $this->belongsToMany('App\Models\Artist');
-    }
+	protected $table = 'shows';
+	public $timestamps = true;
 
-    # Une série peut avoir plusieurs chaines
-    public function channels()
-    {
-        return $this->belongsToMany('App\Models\Channel');
-    }
+	public function seasons()
+	{
+		return $this->hasMany('App\Models\Season');
+	}
 
-    # Une série peut avoir plusieurs épisodes
-    public function episodes()
-    {
-        return $this->hasManyThrough('App\Models\Episode', 'App\Models\Season');
-    }
+	public function episodes()
+	{
+		return $this->hasManyThrough('App\Models\Episode', 'Season');
+	}
 
-    # Une série peut avoir plusieurs genres
-    public function genres()
-    {
-        return $this->belongsToMany('App\Models\Genre');
-    }
+	public function artists()
+	{
+		return $this->morphToMany('App\Models\Artist', 'artistable');
+	}
 
-    # Une série peut avoir plusieurs nationalités
-    public function nationalities()
-    {
-        return $this->belongsToMany('App\Models\Nationality');
-    }
+	public function channels()
+	{
+		return $this->belongsToMany('App\Models\Channel');
+	}
 
-    # Une série peut avoir plusieurs saisons
-    public function seasons()
-    {
-        return $this->hasMany('App\Models\Season');
-    }
+	public function nationalities()
+	{
+		return $this->belongsToMany('App\Models\Nationlity');
+	}
+
+	public function genres()
+	{
+		return $this->belongsToMany('App\Models\Genre');
+	}
+
 }
