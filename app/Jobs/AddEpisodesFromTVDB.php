@@ -108,7 +108,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
             if (is_null($episode_ref)) {
                 $episodeName = $getEpisode_en->episodeName;
                 # On prépare la nouvelle saison
-                $episode_ref = new Season([
+                $episode_ref = new Episode([
                     'name' => $episodeName,
                     'thetvdb_id' => $episodeID
                 ]);
