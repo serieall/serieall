@@ -98,6 +98,29 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 # Si il existe, on crée juste le lien
                 $show_new->seasons()->attach($season_ref->id);
             }
+
+
+            # Vérification de la présence de la saison dans la BDD
+            $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
+
+            # Si elle n'existe pas
+            if (is_null($episode_ref)) {
+                $episodeName = $getEpisode_en->episodeName;
+                # On prépare la nouvelle saison
+                $episode_ref = new Season([
+                    'name' => $episodeName,
+                    'thetvdb_id' => $episodeID
+                ]);
+
+                # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                $show_new->seasons()->episodes()->save($episode_ref);
+            } else {
+                # Si il existe, on crée juste le lien
+                $show_new->seasons()->episodes()->attach($episode_ref->id);
+            }
+
+            
+
         }
     }
 
