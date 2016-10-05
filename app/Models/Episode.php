@@ -10,7 +10,7 @@ class Episode extends Model {
 	public $timestamps = true;
 	protected $fillable = array('thetvdb_id', 'numero', 'name', 'name_fr', 'resume', 'particularite', 'diffusion_us', 'diffusion_fr', 'ba', 'moyenne', 'nbnotes');
 
-	public function seasons()
+	public function season()
 	{
 		return $this->belongsTo('App\Models\Season');
 	}
