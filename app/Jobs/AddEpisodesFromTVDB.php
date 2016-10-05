@@ -156,7 +156,6 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                 $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
 
-
                 if(!empty($episode->guestStars)) {
                     $guestStars = $episode->guestStars;
                     # Pour chaque genre
@@ -186,9 +185,8 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     }
                 }
 
-                $directors = $episode->directors;
-
-                if(!empty($directors)) {
+                if(!empty($episode->directors)) {
+                    $directors = $episode->directors;
                     # Pour chaque genre
                     foreach ($directors as $director) {
                         # On supprime les espaces
@@ -216,9 +214,10 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     }
                 }
 
-                $writers = $episode->writers;
 
-                if(!empty($writers)) {
+
+                if(!empty($episode->writers)) {
+                    $writers = $episode->writers;
                     # Pour chaque genre
                     foreach ($writers as $writer) {
                         # On supprime les espaces
