@@ -100,7 +100,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                     $show_new->seasons()->save($season_ref);
                 } else {
-                    $show_new->seasons()->associate($season_ref);
+                    $show_new->seasons()->sync($season_ref);
                 }
 
                 # Récupération de l'objet saison pour l'épisode en cours
@@ -151,7 +151,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                     $seasonEpisode->episodes()->save($episode_ref);
                 } else {
-                    $seasonEpisode->episodes()->associate($episode_ref);
+                    $seasonEpisode->episodes()->sync($episode_ref);
                 }
 
                 $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
@@ -180,7 +180,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                         } else {
                             # Si il existe, on crée juste le lien
-                            $episode_ref->artists()->attach($guestStar_ref->id, ['profession' => 'guest']);
+                            $episode_ref->artists()->sync($guestStar_ref->id, ['profession' => 'guest']);
                         }
                     }
                 }
@@ -210,7 +210,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                         } else {
                             # Si il existe, on crée juste le lien
-                            $episode_ref->artists()->attach($director_ref->id, ['profession' => 'director']);
+                            $episode_ref->artists()->sync($director_ref->id, ['profession' => 'director']);
                         }
                     }
                 }
@@ -240,7 +240,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                         } else {
                             # Si il existe, on crée juste le lien
-                            $episode_ref->artists()->attach($writer_ref->id, ['profession' => 'director']);
+                            $episode_ref->artists()->sync($writer_ref->id, ['profession' => 'director']);
                         }
                     }
                 }
