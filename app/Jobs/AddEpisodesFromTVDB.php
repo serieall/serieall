@@ -189,7 +189,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     }
                 }
 
-                $directors = $episode->directors;
+                $directors = $episode['directors'];
                 if(!is_null($directors)) {
                     # Pour chaque genre
                     foreach ($directors as $director) {
