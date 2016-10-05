@@ -388,8 +388,11 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 $actorRole = 'TBA';
             }
 
+            # Récupération du nom de l'acteur
+            $actorName = $actor->name;
+
             # On supprime les espaces
-            $actor = trim($actor);
+            $actor = trim($actorName);
             # On met en forme l'URL
             $actor_url = Str::slug($actor);
             # Vérification de la présence de l'acteur
