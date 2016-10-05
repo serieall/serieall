@@ -124,16 +124,27 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                         $episodeResume = $getEpisode_en->overview;
                     }
 
-                    # On prépare le nouvel épisode
-                    $episode_ref = new Episode([
-                        'numero' => $episodeNumero,
-                        'name' => $episodeName,
-                        'name_fr' => $episodeNameFR,
-                        'thetvdb_id' => $episodeID,
-                        'resume' => $episodeResume,
-                        'diffusion_us' => $episodeDiffusionUS,
+                    if(is_null($episodeNameFR)) {
+                        # On prépare le nouvel épisode
+                        $episode_ref = new Episode([
+                            'numero' => $episodeNumero,
+                            'name' => $episodeName,
+                            'thetvdb_id' => $episodeID,
+                            'resume' => $episodeResume,
+                            'diffusion_us' => $episodeDiffusionUS,
+                        ]);
+                    } else {
+                        # On prépare le nouvel épisode
+                        $episode_ref = new Episode([
+                            'numero' => $episodeNumero,
+                            'name' => $episodeName,
+                            'name_fr' => $episodeNameFR,
+                            'thetvdb_id' => $episodeID,
+                            'resume' => $episodeResume,
+                            'diffusion_us' => $episodeDiffusionUS,
 
-                    ]);
+                        ]);
+                    }
 
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                     $seasonEpisode->episodes()->save($episode_ref);
