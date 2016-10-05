@@ -110,15 +110,27 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($episode_ref)) {
                     # Variables de l'épisode
-                    $episodeName = $getEpisode_en->episodeName;
                     $episodeNumero = $getEpisode_en->airedEpisodeNumber;
-                    $episodeDiffusionUS = $getEpisode_en->firstAired;
 
-                    if (!is_null($getEpisode_fr->episodeName)) {
-                        $episodeNameFR = $getEpisode_fr->episodeName;
-                    } else {
-                        $episodeNameFR = null;
+                    # Nom de l'épisode (s'il n'existe pas on met le nom par défaut
+                    $episodeName = $getEpisode_en->episodeName;
+                    if(is_null($episodeName)){
+                        $episodeName = 'TBA';
                     }
+
+                    # Date de diffusion US. Si elle n'existe pas, on met la date par défaut
+                    $episodeDiffusionUS = $getEpisode_en->firstAired;
+                    if(is_null($episodeDiffusionUS)){
+                        $episodeDiffusionUS = '1970-01-01';
+                    }
+
+                    # Nom FR, sil n'existe pas, on en met pas
+                    $episodeNameFR = $getEpisode_fr->episodeName;
+                    if (!is_null($episodeNameFR)) {
+                        $episodeNameFR = 'TBA';
+                    }
+
+                    # Résumé, si pas de version française, on met la version anglaise, et sinon on met le résumé par défaut
                     if (!is_null($getEpisode_fr->overview)) {
                         $episodeResume = $getEpisode_fr->overview;
                     } else {
@@ -133,20 +145,10 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                         $episode_ref = new Episode([
                             'numero' => $episodeNumero,
                             'name' => $episodeName,
-                            'thetvdb_id' => $episodeID,
-                            'resume' => $episodeResume,
-                            'diffusion_us' => $episodeDiffusionUS,
-                        ]);
-                    } else {
-                        # On prépare le nouvel épisode
-                        $episode_ref = new Episode([
-                            'numero' => $episodeNumero,
-                            'name' => $episodeName,
                             'name_fr' => $episodeNameFR,
                             'thetvdb_id' => $episodeID,
                             'resume' => $episodeResume,
                             'diffusion_us' => $episodeDiffusionUS,
-
                         ]);
                     }
 
@@ -155,6 +157,96 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     $episode_ref->save();
                 } else {
                     $episode_ref->season()->associate($season_ref);
+                }
+
+
+                if(!empty($episode->guestStars)) {
+                    $guestStars = $episode->guestStars;
+                    # Pour chaque genre
+                    foreach ($guestStars as $guestStar) {
+                        # On supprime les espaces
+                        $guestStar = trim($guestStar);
+                        # On met en forme l'URL
+                        $guestStar_url = Str::slug($guestStar);
+                        # On vérifie si le genre existe déjà en base
+                        $guestStar_ref = Artist::where('artist_url', $guestStar_url)->first();
+
+                        # Si il n'existe pas
+                        if (is_null($guestStar_ref)) {
+                            # On prépare le nouveau genre
+                            $guestStar_ref = new Artist([
+                                'name' => $guestStar,
+                                'artist_url' => $guestStar_url
+                            ]);
+
+                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            $episode_ref->artists()->save($guestStar_ref, ['profession' => 'guest']);
+
+                        } else {
+                            # Si il existe, on crée juste le lien
+                            $episode_ref->artists()->attach($guestStar_ref->id, ['profession' => 'guest']);
+                        }
+                    }
+                }
+
+                if(!empty($episode->directors)) {
+                    $directors = $episode->directors;
+                    # Pour chaque genre
+                    foreach ($directors as $director) {
+                        # On supprime les espaces
+                        $director = trim($director);
+                        # On met en forme l'URL
+                        $director_url = Str::slug($director);
+                        # On vérifie si le genre existe déjà en base
+                        $director_ref = Artist::where('artist_url', $director_url)->first();
+
+                        # Si il n'existe pas
+                        if (is_null($director_ref)) {
+                            # On prépare le nouveau genre
+                            $director_ref = new Artist([
+                                'name' => $director,
+                                'artist_url' => $director_url
+                            ]);
+
+                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            $episode_ref->artists()->save($director_ref, ['profession' => 'director']);
+
+                        } else {
+                            # Si il existe, on crée juste le lien
+                            $episode_ref->artists()->attach($director_ref->id, ['profession' => 'director']);
+                        }
+                    }
+                }
+
+
+
+                if(!empty($episode->writers)) {
+                    $writers = $episode->writers;
+                    # Pour chaque genre
+                    foreach ($writers as $writer) {
+                        # On supprime les espaces
+                        $writer = trim($writer);
+                        # On met en forme l'URL
+                        $writer_url = Str::slug($writer);
+                        # On vérifie si le genre existe déjà en base
+                        $writer_ref = Artist::where('artist_url', $writer_url)->first();
+
+                        # Si il n'existe pas
+                        if (is_null($writer_ref)) {
+                            # On prépare le nouveau genre
+                            $writer_ref = new Artist([
+                                'name' => $writer,
+                                'artist_url' => $writer_url
+                            ]);
+
+                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            $episode_ref->artists()->save($writer_ref, ['profession' => 'director']);
+
+                        } else {
+                            # Si il existe, on crée juste le lien
+                            $episode_ref->artists()->attach($writer_ref->id, ['profession' => 'director']);
+                        }
+                    }
                 }
 
 
