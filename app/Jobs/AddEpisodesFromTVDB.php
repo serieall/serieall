@@ -277,14 +277,6 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
             $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
 
             while($getEpisodeNextPage < $getEpisodeLastPage) {
-                $getEpisodes_fr = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage , [
-                    'headers' => [
-                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                        'Authorization' => 'Bearer ' . $token,
-                        'Accept-Language' => 'fr',
-                    ]
-                ])->getBody();
-
                 $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage, [
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
@@ -293,19 +285,11 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     ]
                 ])->getBody();
 
-                $getEpisodes_fr = json_decode($getEpisodes_fr);
                 $getEpisodes_en = json_decode($getEpisodes_en);
 
-                if (isset($getEpisodes_fr->errors->invalidLanguage)){
-                    $getEpisodeNextPage = $getEpisodes_en->links->next;
-                    $getEpisodeLastPage = $getEpisodes_en->links->last;
-                    $getEpisodes = $getEpisodes_en->data;
-                }
-                else{
-                    $getEpisodeNextPage = $getEpisodes_fr->links->next;
-                    $getEpisodeLastPage = $getEpisodes_fr->links->last;
-                    $getEpisodes = $getEpisodes_fr->data;
-                }
+                $getEpisodeNextPage = $getEpisodes_en->links->next;
+                $getEpisodeLastPage = $getEpisodes_en->links->last;
+                $getEpisodes = $getEpisodes_en->data;
 
                 $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
 
