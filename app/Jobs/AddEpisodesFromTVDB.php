@@ -406,7 +406,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
         else{
             $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
 
-            while($getEpisodeNextPage < $getEpisodeLastPage) {
+            while($getEpisodeNextPage <= $getEpisodeLastPage) {
                 $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage, [
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
