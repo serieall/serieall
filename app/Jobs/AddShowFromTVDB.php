@@ -360,6 +360,55 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             }
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Gestion des acteurs
+        |--------------------------------------------------------------------------
+        | On commence par récupérer les chaines du formulaire
+        */
+        $getActors = $client->request('GET', '/series/'. $theTVDBID . '/actors', [
+            'headers' => [
+                'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                'Authorization' => 'Bearer ' . $token,
+            ]
+        ])->getBody();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Décodage du JSON
+        |--------------------------------------------------------------------------
+        */
+        $actors = json_decode($getActors);
+
+        foreach($actors as $actor){
+            # Récupération du rôle
+            $actorRole = $actor->role;
+            if(is_null($actorRole)){
+                $actorRole = 'TBA';
+            }
+
+            # On supprime les espaces
+            $actor = trim($actor);
+            # On met en forme l'URL
+            $actor_url = Str::slug($actor);
+            # Vérification de la présence de l'acteur
+            $actor_ref = Artist::where('artist_url', $actor_url)->first();
+
+            # Si elle n'existe pas
+            if (is_null($actor_ref)) {
+                # On prépare la nouvelle saison
+                $actor_ref = new Artist([
+                    'name' => $actor,
+                    'thetvdb_id' => $actor_url
+                ]);
+
+                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                $show_new->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+            } else {
+                # Si il existe, on crée juste le lien
+                $show_new->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
+            }
+        }
 
         /*
         |--------------------------------------------------------------------------

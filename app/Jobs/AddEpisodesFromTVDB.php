@@ -83,6 +83,13 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 $getEpisode_en = $getEpisode_en->data;
                 $getEpisode_fr = $getEpisode_fr->data;
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Récupération des informations de la saison
+                |--------------------------------------------------------------------------
+                | On crée la saison si elle n'existe pas
+                */
                 # Variables de la saison
                 $seasonID = $getEpisode_en->airedSeasonID;
                 $seasonName = $getEpisode_en->airedSeason;
@@ -104,6 +111,13 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 } else {
                     $season_ref->show()->associate($show_new);
                 }
+
+                /*
+                |--------------------------------------------------------------------------
+                | Récupération des informations de l'épisode
+                |--------------------------------------------------------------------------
+                | On crée l'épisode si elle n'existe pas
+                */
 
                 # Vérification de la présence de l'épisode dans la BDD
                 $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
@@ -156,26 +170,32 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     $episode_ref->season()->associate($season_ref);
                 }
 
+                /*
+                |--------------------------------------------------------------------------
+                | Récupération des informations sur les guests de l'épisode
+                |--------------------------------------------------------------------------
+                | On crée les guests s'ils n'existent pas et on les lie à l'épisode
+                */
                 $guestStars = $getEpisode_en->guestStars;
                 if (!empty($guestStars)) {
-                    # Pour chaque genre
+                    # Pour chaque guest
                     foreach ($guestStars as $guestStar) {
                         # On supprime les espaces
                         $guestStar = trim($guestStar);
                         # On met en forme l'URL
                         $guestStar_url = Str::slug($guestStar);
-                        # On vérifie si le genre existe déjà en base
+                        # On vérifie si le guest existe déjà en base
                         $guestStar_ref = Artist::where('artist_url', $guestStar_url)->first();
 
                         # Si il n'existe pas
                         if (is_null($guestStar_ref)) {
-                            # On prépare le nouveau genre
+                            # On prépare le nouveau guest
                             $guestStar_ref = new Artist([
                                 'name' => $guestStar,
                                 'artist_url' => $guestStar_url
                             ]);
 
-                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            # Et on le sauvegarde ne passant par l'objet Episode pour créer le lien entre les deux
                             $episode_ref->artists()->save($guestStar_ref, ['profession' => 'guest']);
 
                         } else {
@@ -185,26 +205,32 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     }
                 }
 
+                /*
+                |--------------------------------------------------------------------------
+                | Récupération des informations sur les réalisateurs de l'épisode
+                |--------------------------------------------------------------------------
+                | On crée les réals s'ils n'existent pas et on les lie à l'épisode
+                */
                 $directors = $getEpisode_en->directors;
                 if (!empty($directors)) {
-                    # Pour chaque genre
+                    # Pour chaque réal
                     foreach ($directors as $director) {
                         # On supprime les espaces
                         $director = trim($director);
                         # On met en forme l'URL
                         $director_url = Str::slug($director);
-                        # On vérifie si le genre existe déjà en base
+                        # On vérifie si le réal existe déjà en base
                         $director_ref = Artist::where('artist_url', $director_url)->first();
 
                         # Si il n'existe pas
                         if (is_null($director_ref)) {
-                            # On prépare le nouveau genre
+                            # On prépare le nouveau réal
                             $director_ref = new Artist([
                                 'name' => $director,
                                 'artist_url' => $director_url
                             ]);
 
-                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            # Et on le sauvegarde ne passant par l'objet Episode pour créer le lien entre les deux
                             $episode_ref->artists()->save($director_ref, ['profession' => 'director']);
 
                         } else {
@@ -214,27 +240,32 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     }
                 }
 
-
+                /*
+                |--------------------------------------------------------------------------
+                | Récupération des informations sur les scénaristes de l'épisode
+                |--------------------------------------------------------------------------
+                | On crée les scénaristes s'ils n'existent pas et on les lie à l'épisode
+                */
                 $writers = $getEpisode_en->writers;
                 if (!empty($writers)) {
-                    # Pour chaque genre
+                    # Pour chaque scénariste
                     foreach ($writers as $writer) {
                         # On supprime les espaces
                         $writer = trim($writer);
                         # On met en forme l'URL
                         $writer_url = Str::slug($writer);
-                        # On vérifie si le genre existe déjà en base
+                        # On vérifie si le scénariste existe déjà en base
                         $writer_ref = Artist::where('artist_url', $writer_url)->first();
 
                         # Si il n'existe pas
                         if (is_null($writer_ref)) {
-                            # On prépare le nouveau genre
+                            # On prépare le nouveau scénariste
                             $writer_ref = new Artist([
                                 'name' => $writer,
                                 'artist_url' => $writer_url
                             ]);
 
-                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            # Et on le sauvegarde ne passant par l'objet Episode pour créer le lien entre les deux
                             $episode_ref->artists()->save($writer_ref, ['profession' => 'writer']);
 
                         } else {
@@ -336,14 +367,6 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
         | On précise la version de l'API a utiliser, que l'on veut recevoir du JSON.
         | On passe également en paramètre le token.
         */
-        $getEpisodes_fr = $client->request('GET', '/series/' . $theTVDBID .'/episodes', [
-            'headers' => [
-                'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                'Authorization' => 'Bearer ' . $token,
-                'Accept-Language' => 'fr',
-            ]
-        ])->getBody();
-
         $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes', [
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
@@ -354,24 +377,29 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
         /*
         |--------------------------------------------------------------------------
-        | Décodage du JSON et vérification que la langue française existe sur The TVDB
-        | Si la langue fr n'est pas renseignée, on prends la langue anglaise
+        | Décodage du JSON
         |--------------------------------------------------------------------------
         */
-        $getEpisodes_fr = json_decode($getEpisodes_fr);
         $getEpisodes_en = json_decode($getEpisodes_en);
 
-        if (isset($getEpisodes_fr->errors->invalidLanguage)){
-            $getEpisodeNextPage = $getEpisodes_en->links->next;
-            $getEpisodeLastPage = $getEpisodes_en->links->last;
-            $getEpisodes = $getEpisodes_en->data;
-        }
-        else{
-            $getEpisodeNextPage = $getEpisodes_fr->links->next;
-            $getEpisodeLastPage = $getEpisodes_fr->links->last;
-            $getEpisodes = $getEpisodes_fr->data;
-        }
+        /*
+        |--------------------------------------------------------------------------
+        | Récupération des variables sur le nombre de pages du JSON de la liste des épisodes
+        |--------------------------------------------------------------------------
+        */
+        $getEpisodeNextPage = $getEpisodes_en->links->next;
+        $getEpisodeLastPage = $getEpisodes_en->links->last;
+        $getEpisodes = $getEpisodes_en->data;
 
+        /*
+        |--------------------------------------------------------------------------
+        | Exécution de la récupération des informations de l'épisode
+        |--------------------------------------------------------------------------
+        | S'il n'y a pas de Page 'Next', on se cantonne à une seule, et on execute la fonction de récupération des
+        | informations.
+        | S'il y a plusieurs pages, pour chaque page, on lance une nouvelle récupération des informations pour chaque
+        | page et on exécute la fonction de récupération des informations.
+        */
         if(is_null($getEpisodeNextPage)){
             $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
         }
