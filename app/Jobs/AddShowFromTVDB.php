@@ -403,7 +403,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 # On prépare la nouvelle saison
                 $actor_ref = new Artist([
                     'name' => $actor,
-                    'thetvdb_id' => $actor_url
+                    'artist_url' => $actor_url
                 ]);
 
                 # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
