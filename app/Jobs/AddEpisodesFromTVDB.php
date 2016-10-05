@@ -123,6 +123,9 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                         $episodeResume = $getEpisode_fr->overview;
                     } else {
                         $episodeResume = $getEpisode_en->overview;
+                        if(is_null($episodeResume)){
+                            $episodeResume = 'Pas de résumé pour l\'instant.';
+                        }
                     }
 
                     if(is_null($episodeNameFR)) {
