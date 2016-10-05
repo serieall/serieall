@@ -153,6 +153,96 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 } else {
                     $seasonEpisode->episodes()->associate($episode_ref);
                 }
+
+                $guestStars = $episode->guestStars;
+
+                if(!empty($guestStars)) {
+                    # Pour chaque genre
+                    foreach ($guestStars as $guestStar) {
+                        # On supprime les espaces
+                        $guestStar = trim($guestStar);
+                        # On met en forme l'URL
+                        $guestStar_url = Str::slug($guestStar);
+                        # On vérifie si le genre existe déjà en base
+                        $guestStar_ref = Artist::where('artist_url', $guestStar_url)->first();
+
+                        # Si il n'existe pas
+                        if (is_null($guestStar_ref)) {
+                            # On prépare le nouveau genre
+                            $guestStar_ref = new Artist([
+                                'name' => $guestStar,
+                                'artist_url' => $guestStar_url
+                            ]);
+
+                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            $episode_ref->artists()->save($guestStar_ref, ['profession' => 'guest']);
+
+                        } else {
+                            # Si il existe, on crée juste le lien
+                            $episode_ref->artists()->attach($guestStar_ref->id, ['profession' => 'guest']);
+                        }
+                    }
+                }
+
+                $directors = $episode->directors;
+
+                if(!empty($directors)) {
+                    # Pour chaque genre
+                    foreach ($directors as $director) {
+                        # On supprime les espaces
+                        $director = trim($director);
+                        # On met en forme l'URL
+                        $director_url = Str::slug($director);
+                        # On vérifie si le genre existe déjà en base
+                        $director_ref = Artist::where('artist_url', $director_url)->first();
+
+                        # Si il n'existe pas
+                        if (is_null($director_ref)) {
+                            # On prépare le nouveau genre
+                            $director_ref = new Artist([
+                                'name' => $director,
+                                'artist_url' => $director_url
+                            ]);
+
+                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            $episode_ref->artists()->save($director_ref, ['profession' => 'director']);
+
+                        } else {
+                            # Si il existe, on crée juste le lien
+                            $episode_ref->artists()->attach($director_ref->id, ['profession' => 'director']);
+                        }
+                    }
+                }
+
+                $writers = $episode->writers;
+
+                if(!empty($writers)) {
+                    # Pour chaque genre
+                    foreach ($writers as $writer) {
+                        # On supprime les espaces
+                        $writer = trim($writer);
+                        # On met en forme l'URL
+                        $writer_url = Str::slug($writer);
+                        # On vérifie si le genre existe déjà en base
+                        $writer_ref = Artist::where('artist_url', $writer_url)->first();
+
+                        # Si il n'existe pas
+                        if (is_null($writer_ref)) {
+                            # On prépare le nouveau genre
+                            $writer_ref = new Artist([
+                                'name' => $writer,
+                                'artist_url' => $writer_url
+                            ]);
+
+                            # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
+                            $episode_ref->artists()->save($writer_ref, ['profession' => 'director']);
+
+                        } else {
+                            # Si il existe, on crée juste le lien
+                            $episode_ref->artists()->attach($writer_ref->id, ['profession' => 'director']);
+                        }
+                    }
+                }
             }
         }
     }
