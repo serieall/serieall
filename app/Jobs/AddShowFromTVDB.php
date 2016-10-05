@@ -379,6 +379,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $actors = json_decode($getActors);
+        $actors = $actors->data;
 
         foreach($actors as $actor){
             # Récupération du rôle
