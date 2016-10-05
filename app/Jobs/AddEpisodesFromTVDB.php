@@ -154,6 +154,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     $seasonEpisode->episodes()->associate($episode_ref);
                 }
 
+                $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
                 $guestStars = $episode->guestStars;
 
                 if(!empty($guestStars)) {
