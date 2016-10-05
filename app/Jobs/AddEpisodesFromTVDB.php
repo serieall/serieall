@@ -278,7 +278,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
             $getEpisodes = $getEpisodes_fr->data;
         }
 
-        if(!is_null($getEpisodeNextPage)){
+        if(is_null($getEpisodeNextPage)){
             $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
         }
         else{
