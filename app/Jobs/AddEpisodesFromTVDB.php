@@ -40,13 +40,14 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
      *
      * @return void
      */
-    private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new){
+    private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new)
+    {
         # Pour chaque épisode dans le paramètre getEpisodes
-        foreach($getEpisodes as $episode){
+        foreach ($getEpisodes as $episode) {
             # On vérifie d'abord que la saison n'est pas à 0
             $seasonNumber = $episode->airedSeason;
 
-            if($seasonNumber != 0) {
+            if ($seasonNumber != 0) {
 
                 # On récupère l'ID de l'épisode
                 $episodeID = $episode->id;
@@ -114,13 +115,13 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                     # Nom de l'épisode (s'il n'existe pas on met le nom par défaut
                     $episodeName = $getEpisode_en->episodeName;
-                    if(is_null($episodeName)){
+                    if (is_null($episodeName)) {
                         $episodeName = 'TBA';
                     }
 
                     # Date de diffusion US. Si elle n'existe pas, on met la date par défaut
                     $episodeDiffusionUS = $getEpisode_en->firstAired;
-                    if(is_null($episodeDiffusionUS)){
+                    if (is_null($episodeDiffusionUS)) {
                         $episodeDiffusionUS = '1970-01-01';
                     }
 
@@ -132,9 +133,9 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                     # Résumé, si pas de version française, on met la version anglaise, et sinon on met le résumé par défaut
                     $episodeResume = $getEpisode_fr->overview;
-                    if (is_null($episodeResume)){
+                    if (is_null($episodeResume)) {
                         $episodeResume = $getEpisode_en->overview;
-                        if(is_null($episodeResume)){
+                        if (is_null($episodeResume)) {
                             $episodeResume = 'Pas de résumé pour l\'instant.';
                         }
                     }
@@ -151,13 +152,12 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                     $episode_ref->season()->associate($season_ref);
                     $episode_ref->save();
-                }
-                else {
+                } else {
                     $episode_ref->season()->associate($season_ref);
                 }
 
                 $guestStars = $getEpisode_en->guestStars;
-                if(!empty($guestStars)) {
+                if (!empty($guestStars)) {
                     # Pour chaque genre
                     foreach ($guestStars as $guestStar) {
                         # On supprime les espaces
@@ -186,7 +186,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 }
 
                 $directors = $getEpisode_en->directors;
-                if(!empty($directors)) {
+                if (!empty($directors)) {
                     # Pour chaque genre
                     foreach ($directors as $director) {
                         # On supprime les espaces
@@ -216,7 +216,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
 
                 $writers = $getEpisode_en->writers;
-                if(!empty($writers)) {
+                if (!empty($writers)) {
                     # Pour chaque genre
                     foreach ($writers as $writer) {
                         # On supprime les espaces
@@ -245,6 +245,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 }
             }
         }
+    }
 
 
     /**
