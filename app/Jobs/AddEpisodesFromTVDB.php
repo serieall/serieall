@@ -126,29 +126,29 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                     # Nom FR, sil n'existe pas, on en met pas
                     $episodeNameFR = $getEpisode_fr->episodeName;
-                    if (is_null($episodeNameFR)){
+                    if (is_null($episodeNameFR)) {
                         $episodeNameFR = 'TBA';
                     }
 
                     # Résumé, si pas de version française, on met la version anglaise, et sinon on met le résumé par défaut
                     $episodeResume = $getEpisode_fr->overview;
-                    if (is_null($episodeResume)) {
+                    if (is_null($episodeResume)){
                         $episodeResume = $getEpisode_en->overview;
                         if(is_null($episodeResume)){
                             $episodeResume = 'Pas de résumé pour l\'instant.';
                         }
                     }
 
-                    if(is_null($episodeNameFR)) {
-                        # On prépare le nouvel épisode
-                        $episode_ref = new Episode([
-                            'numero' => $episodeNumero,
-                            'name' => $episodeName,
-                            'name_fr' => $episodeNameFR,
-                            'thetvdb_id' => $episodeID,
-                            'resume' => $episodeResume,
-                            'diffusion_us' => $episodeDiffusionUS,
-                        ]);
+                    # On prépare le nouvel épisode
+                    $episode_ref = new Episode([
+                        'numero' => $episodeNumero,
+                        'name' => $episodeName,
+                        'name_fr' => $episodeNameFR,
+                        'thetvdb_id' => $episodeID,
+                        'resume' => $episodeResume,
+                        'diffusion_us' => $episodeDiffusionUS,
+                    ]);
+
                     }
 
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
@@ -157,6 +157,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 } else {
                     $episode_ref->season()->associate($season_ref);
                 }
+
 
 
                 if(!empty($episode->guestStars)) {
