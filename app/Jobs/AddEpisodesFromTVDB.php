@@ -126,7 +126,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                     # Nom FR, sil n'existe pas, on en met pas
                     $episodeNameFR = $getEpisode_fr->episodeName;
-                    if (is_null($episodeNameFR)) {
+                    if (is_null($episodeNameFR)){
                         $episodeNameFR = 'TBA';
                     }
 
