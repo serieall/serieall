@@ -99,6 +99,8 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                     # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                     $show_new->seasons()->save($season_ref);
+                } else {
+                    $show_new->seasons()->attach($season_ref);
                 }
 
                 # Récupération de l'objet saison pour l'épisode en cours
@@ -148,6 +150,8 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
 
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                     $seasonEpisode->episodes()->save($episode_ref);
+                } else {
+                    $seasonEpisode->episodes()->attach($episode_ref);
                 }
             }
         }
