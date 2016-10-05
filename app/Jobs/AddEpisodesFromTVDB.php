@@ -148,20 +148,16 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                         'resume' => $episodeResume,
                         'diffusion_us' => $episodeDiffusionUS,
                     ]);
-
-                    }
-
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                     $episode_ref->season()->associate($season_ref);
                     $episode_ref->save();
-                } else {
+                }
+                else {
                     $episode_ref->season()->associate($season_ref);
                 }
 
-
-
-                if(!empty($episode->guestStars)) {
-                    $guestStars = $episode->guestStars;
+                $guestStars = $getEpisode_en->guestStars;
+                if(!empty($guestStars)) {
                     # Pour chaque genre
                     foreach ($guestStars as $guestStar) {
                         # On supprime les espaces
@@ -189,8 +185,8 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     }
                 }
 
-                $directors = $episode['directors'];
-                if(!is_null($directors)) {
+                $directors = $getEpisode_en->directors;
+                if(!empty($directors)) {
                     # Pour chaque genre
                     foreach ($directors as $director) {
                         # On supprime les espaces
@@ -219,9 +215,8 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 }
 
 
-
-                if(!empty($episode->writers)) {
-                    $writers = $episode->writers;
+                $writers = $getEpisode_en->writers;
+                if(!empty($writers)) {
                     # Pour chaque genre
                     foreach ($writers as $writer) {
                         # On supprime les espaces
