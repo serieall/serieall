@@ -235,11 +235,11 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                             ]);
 
                             # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
-                            $episode_ref->artists()->save($writer_ref, ['profession' => 'director']);
+                            $episode_ref->artists()->save($writer_ref, ['profession' => 'writer']);
 
                         } else {
                             # Si il existe, on crée juste le lien
-                            $episode_ref->artists()->attach($writer_ref->id, ['profession' => 'director']);
+                            $episode_ref->artists()->attach($writer_ref->id, ['profession' => 'writer']);
                         }
                     }
                 }
