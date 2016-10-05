@@ -248,11 +248,8 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                         }
                     }
                 }
-
-
             }
         }
-    }
 
 
     /**
