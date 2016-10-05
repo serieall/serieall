@@ -43,104 +43,108 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
     private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new){
         # Pour chaque épisode dans le paramètre getEpisodes
         foreach($getEpisodes as $episode){
-            # On récupère l'ID de l'épisode
-            $episodeID = $episode->id;
+            # On vérifie d'abord que la saison n'est pas à 0
+            $seasonNumber = $episode->airedSeason;
 
-            /*
-            |--------------------------------------------------------------------------
-            | Récupération des informations de l'épisode en question
-            |--------------------------------------------------------------------------
-            | Dans un premier temps, en français.
-            | Puis en anglais et on vérifie que le français est bien rempli, sinon on
-            | choisit la version anglaise.
-            */
-            $getEpisode_fr = $client->request('GET', '/episodes/' . $episodeID, [
-                'headers' => [
-                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                    'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'fr',
-                ]
-            ])->getBody();
+            if($seasonNumber != 0) {
 
-            $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
-                'headers' => [
-                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                    'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'en',
-                ]
-            ])->getBody();
+                # On récupère l'ID de l'épisode
+                $episodeID = $episode->id;
 
-            # On décode le JSON
-            $getEpisode_fr = json_decode($getEpisode_fr);
-            $getEpisode_en = json_decode($getEpisode_en);
+                /*
+                |--------------------------------------------------------------------------
+                | Récupération des informations de l'épisode en question
+                |--------------------------------------------------------------------------
+                | Dans un premier temps, en français.
+                | Puis en anglais et on vérifie que le français est bien rempli, sinon on
+                | choisit la version anglaise.
+                */
+                $getEpisode_fr = $client->request('GET', '/episodes/' . $episodeID, [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'fr',
+                    ]
+                ])->getBody();
 
-            $getEpisode_en = $getEpisode_en->data;
-            $getEpisode_fr = $getEpisode_fr->data;
+                $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'en',
+                    ]
+                ])->getBody();
 
-            # Variables de la saison
-            $seasonID = $getEpisode_en->airedSeasonID;
-            $seasonName = $getEpisode_en->airedSeason;
+                # On décode le JSON
+                $getEpisode_fr = json_decode($getEpisode_fr);
+                $getEpisode_en = json_decode($getEpisode_en);
 
-            # Vérification de la présence de la saison dans la BDD
-            $season_ref = Season::where('thetvdb_id', $seasonID)->first();
+                $getEpisode_en = $getEpisode_en->data;
+                $getEpisode_fr = $getEpisode_fr->data;
 
-            # Si elle n'existe pas
-            if (is_null($season_ref)) {
-                # On prépare la nouvelle saison
-                $season_ref = new Season([
-                    'name' => $seasonName,
-                    'thetvdb_id' => $seasonID
-                ]);
+                # Variables de la saison
+                $seasonID = $getEpisode_en->airedSeasonID;
+                $seasonName = $getEpisode_en->airedSeason;
 
-                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                $show_new->seasons()->save($season_ref);
-            } else {
-                # Si elle existe, on crée juste le lien
-                $show_new->seasons()->attach($season_ref->id);
-            }
+                # Vérification de la présence de la saison dans la BDD
+                $season_ref = Season::where('thetvdb_id', $seasonID)->first();
 
+                # Si elle n'existe pas
+                if (is_null($season_ref)) {
+                    # On prépare la nouvelle saison
+                    $season_ref = new Season([
+                        'name' => $seasonName,
+                        'thetvdb_id' => $seasonID
+                    ]);
 
-            # Récupération de l'objet saison pour l'épisode en cours
-            $seasonEpisode = Season::where('thetvdb_id', $seasonID)->first();
-            # Vérification de la présence de l'épisode dans la BDD
-            $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
-
-            # Si il n'existe pas
-            if (is_null($episode_ref)) {
-                # Variables de l'épisode
-                $episodeName = $getEpisode_en->episodeName;
-                $episodeNumero = $getEpisode_en->airedEpisodeNumber;
-                $episodeDiffusionUS = $getEpisode_en->firstAired;
-
-                if(!is_null($getEpisode_fr->episodeName)) {
-                    $episodeNameFR = $getEpisode_fr->episodeName;
-                }
-                else{
-                    $episodeNameFR = null;
-                }
-                if(!is_null($getEpisode_fr->overview)) {
-                    $episodeResume = $getEpisode_fr->overview;
-                }
-                else {
-                    $episodeResume = $getEpisode_en->overview;
+                    # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                    $show_new->seasons()->save($season_ref);
+                } else {
+                    # Si elle existe, on crée juste le lien
+                    $show_new->seasons()->attach($season_ref->id);
                 }
 
-                # On prépare le nouvel épisode
-                $episode_ref = new Episode([
-                    'numero' => $episodeNumero,
-                    'name' => $episodeName,
-                    'name_fr' => $episodeNameFR,
-                    'thetvdb_id' => $episodeID,
-                    'resume' => $episodeResume,
-                    'diffusion_us' => $episodeDiffusionUS,
 
-                ]);
+                # Récupération de l'objet saison pour l'épisode en cours
+                $seasonEpisode = Season::where('thetvdb_id', $seasonID)->first();
+                # Vérification de la présence de l'épisode dans la BDD
+                $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
 
-                # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
-                $seasonEpisode->episodes()->save($episode_ref);
-            } else {
-                # Si il existe, on crée juste le lien
-                $seasonEpisode->episodes()->associate($episode_ref->id);
+                # Si il n'existe pas
+                if (is_null($episode_ref)) {
+                    # Variables de l'épisode
+                    $episodeName = $getEpisode_en->episodeName;
+                    $episodeNumero = $getEpisode_en->airedEpisodeNumber;
+                    $episodeDiffusionUS = $getEpisode_en->firstAired;
+
+                    if (!is_null($getEpisode_fr->episodeName)) {
+                        $episodeNameFR = $getEpisode_fr->episodeName;
+                    } else {
+                        $episodeNameFR = null;
+                    }
+                    if (!is_null($getEpisode_fr->overview)) {
+                        $episodeResume = $getEpisode_fr->overview;
+                    } else {
+                        $episodeResume = $getEpisode_en->overview;
+                    }
+
+                    # On prépare le nouvel épisode
+                    $episode_ref = new Episode([
+                        'numero' => $episodeNumero,
+                        'name' => $episodeName,
+                        'name_fr' => $episodeNameFR,
+                        'thetvdb_id' => $episodeID,
+                        'resume' => $episodeResume,
+                        'diffusion_us' => $episodeDiffusionUS,
+
+                    ]);
+
+                    # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
+                    $seasonEpisode->episodes()->save($episode_ref);
+                } else {
+                    # Si il existe, on crée juste le lien
+                    $seasonEpisode->episodes()->associate($episode_ref->id);
+                }
             }
         }
     }
