@@ -8,6 +8,7 @@ use App\Models\Episode;
 use App\Models\Temp;
 use App\Models\Season;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -404,9 +405,11 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
             $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
         }
         else{
+            Log::info('En cours, page n° '.$getEpisodeNextPage);
             $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
 
             while($getEpisodeNextPage <= $getEpisodeLastPage) {
+                Log::info('En cours, page n° '.$getEpisodeNextPage);
                 $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage, [
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
@@ -422,7 +425,6 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 $getEpisodes = $getEpisodes_en->data;
 
                 $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
-
                 $getEpisodeNextPage++;
             }
         }
