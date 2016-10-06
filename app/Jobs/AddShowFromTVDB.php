@@ -421,6 +421,5 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         */
         dispatch(new AddEpisodesFromTVDB($theTVDBID, $show_new));
 
-
     }
 }
