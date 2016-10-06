@@ -368,7 +368,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
         | On précise la version de l'API a utiliser, que l'on veut recevoir du JSON.
         | On passe également en paramètre le token.
         */
-        $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes', [
+        $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page=1', [
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                 'Authorization' => 'Bearer ' . $token,
@@ -405,7 +405,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
             $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
         }
         else{
-            Log::info('En cours, page n° '.$getEpisodeNextPage);
+            Log::info('En cours, page n°1 ');
             $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
 
             while($getEpisodeNextPage <= $getEpisodeLastPage) {
@@ -419,9 +419,6 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 ])->getBody();
 
                 $getEpisodes_en = json_decode($getEpisodes_en);
-
-                $getEpisodeNextPage = $getEpisodes_en->links->next;
-                $getEpisodeLastPage = $getEpisodes_en->links->last;
                 $getEpisodes = $getEpisodes_en->data;
 
                 $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
