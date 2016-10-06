@@ -50,8 +50,8 @@ class AuthController extends Controller
     {
         $this->validateLogin($request);
 
-        dd(Hash::needsRehash($request->getPassword()));
-        if(Hash::needsRehash($request->getPassword())){
+        dd(Hash::needsRehash($request->password));
+        if(Hash::needsRehash($request->password())){
             Hash::make($request->password);
         }
 
