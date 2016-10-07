@@ -59,7 +59,7 @@ class AuthController extends Controller
      */
     protected function handleUserWasAuthenticated(Request $request, $throttles)
     {
-        $this->needsRehash($request->getPassword());
+        $this->hashingProvider->needsRehash($request->getPassword());
         if ($throttles) {
             $this->clearLoginAttempts($request);
         }
