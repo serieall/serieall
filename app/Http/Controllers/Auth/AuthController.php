@@ -60,8 +60,11 @@ class AuthController extends Controller
      */
     protected function handleUserWasAuthenticated(Request $request, $throttles)
     {
+        # Si le mot de passe n'st pas hashé avec Bcrypt
         if($this->hashingProvider->needsRehash(Auth::user()->password)){
+            # On regénre un mot de passe avevc Bcrypt
             Auth::user()->password = $this->hashingProvider->make($request->password);
+            # On sauvegarde l'utilisateur
             Auth::user()->save();
         }
 
