@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use App\Services\ActivationService;
 use App\Packages\Hashing\YourHasher;
+use Hash;
 
 
 class AuthController extends Controller
@@ -58,8 +59,7 @@ class AuthController extends Controller
      */
     protected function handleUserWasAuthenticated(Request $request, $throttles)
     {
-        dd($request->password);
-        dd($this->hashingProvider->needsRehash($request->password));
+        $this->needsRehash($request->getPassword());
         if ($throttles) {
             $this->clearLoginAttempts($request);
         }
