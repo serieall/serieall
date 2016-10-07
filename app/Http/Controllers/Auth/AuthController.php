@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Services\ActivationService;
 use App\Packages\Hashing\YourHasher;
 use Hash;
+use Auth;
 
 
 class AuthController extends Controller
