@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use App\Services\ActivationService;
-use Hash;
+use App\Packages\Hashing\YourHasher;
 
 
 class AuthController extends Controller
@@ -34,6 +34,7 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
     protected $activationService;
+    protected $hashingProvider;
 
 
     /**
@@ -41,10 +42,11 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct(ActivationService $activationService)
+    public function __construct(ActivationService $activationService, YourHasher $hashingProvider )
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
         $this->activationService = $activationService;
+        $this->hashingProvider = $hashingProvider;
     }
 
     /**
@@ -56,7 +58,7 @@ class AuthController extends Controller
      */
     protected function handleUserWasAuthenticated(Request $request, $throttles)
     {
-        dd(Hash::needsRehash($request->password));
+        dd($this->hashingProvider->needsRehash($request->password));
         if ($throttles) {
             $this->clearLoginAttempts($request);
         }
