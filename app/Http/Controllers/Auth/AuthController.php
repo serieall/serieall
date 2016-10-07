@@ -35,6 +35,7 @@ class AuthController extends Controller
     protected $redirectTo = '/';
     protected $activationService;
 
+
     /**
      * Create a new authentication controller instance.
      *
@@ -47,18 +48,24 @@ class AuthController extends Controller
     }
 
     /**
-     * Validate the user login request.
+     * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return void
+     * @param  bool  $throttles
+     * @return \Illuminate\Http\Response
      */
-    protected function validateLogin(Request $request)
+    protected function handleUserWasAuthenticated(Request $request, $throttles)
     {
-        $this->validate($request, [
-            $this->loginUsername() => 'required', 'password' => 'required',
-        ]);
-
         dd(Hash::needsRehash($request->password));
+        if ($throttles) {
+            $this->clearLoginAttempts($request);
+        }
+
+        if (method_exists($this, 'authenticated')) {
+            return $this->authenticated($request, Auth::guard($this->getGuard())->user());
+        }
+
+        return redirect()->intended($this->redirectPath());
     }
 
     /**
