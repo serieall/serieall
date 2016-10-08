@@ -14,8 +14,7 @@ class SendVerifyEmail extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    protected $userEmail;
-    protected $userUsername;
+    protected $user;
     protected $token;
 
     /**
@@ -24,11 +23,10 @@ class SendVerifyEmail extends Job implements ShouldQueue
      * @return void
      */
 
-    public function __construct($userEmail, $userUsername, $token)
+    public function __construct($user, $token)
     {
-        $this->userEmail = $userEmail;
+        $this->user = $user;
         $this->token = $token;
-        $this->userUsername = $userUsername;
     }
 
     /**
@@ -39,13 +37,13 @@ class SendVerifyEmail extends Job implements ShouldQueue
     public function handle()
     {
         $token = $this->token;
-        $userEmail = $this->userEmail;
-        $userUsername = $this->userUsername;
+        $userEmail = $this->user->email;
+        $userUsername = $this->user->username;
 
         Mail::send('auth.emails.verify', compact('userEmail', 'userUsername', 'token'), ['data'=>'data'], function ($message) {
             $message->subject('Vérification de votre adresse E-Mail');
             $message->from('journeytotheit@gmail.com', 'Série-All');
-            $message->to($this->userEmail);
+            $message->to($userEmail);
         });
     }
 }
