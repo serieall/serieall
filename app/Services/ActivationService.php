@@ -29,7 +29,7 @@ class ActivationService
         if ($user->activated || !$this->shouldSend($user)) {
             return;
         }
-        
+
         $token = $this->activationRepo->createActivation($user);
 
         dispatch(new SendVerifyEmail($user, $token));
