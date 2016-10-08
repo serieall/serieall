@@ -30,6 +30,7 @@ class ActivationService
             return;
         }
 
+        $getActivation = $this->getActivation($user);
         $token = $this->activationRepo->createActivation($user);
 
         dispatch(new SendVerifyEmail($user, $token));
