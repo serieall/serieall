@@ -38,6 +38,7 @@ class SendVerifyEmail extends Job implements ShouldQueue
     public function handle()
     {
         Mail::send('auth.emails.verify', ['data'=>'data'], function ($message) {
+            $message->subject('Test');
             $message->from('journeytotheit@gmail.com', 'Série-All');
             $message->to($this->userEmail);
         });
