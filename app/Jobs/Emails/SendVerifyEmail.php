@@ -3,6 +3,7 @@
 namespace App\Jobs\Emails;
 
 
+use App\Repositories\ActivationRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
