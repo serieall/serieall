@@ -32,7 +32,7 @@ class ActivationService
 
         $token = $this->activationRepo->createActivation($user);
 
-        dispatch(new SendVerifyEmail($user->email, $token));
+        dispatch(new SendVerifyEmail($user->email, $user->username, $token));
 
     }
 
