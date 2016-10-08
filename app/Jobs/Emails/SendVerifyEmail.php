@@ -16,6 +16,7 @@ class SendVerifyEmail extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels;
 
     protected $userEmail;
+    protected $token;
 
     /**
      * Create a new job instance.
@@ -23,9 +24,10 @@ class SendVerifyEmail extends Job implements ShouldQueue
      * @return void
      */
 
-    public function __construct($userEmail)
+    public function __construct($userEmail, $token)
     {
         $this->userEmail = $userEmail;
+        $this->token = $token;
     }
 
     /**
