@@ -9,7 +9,9 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use App\Services\ActivationService;
+use App\Packages\Hashing\YourHasher;
 use Hash;
+use Auth;
 
 
 class AuthController extends Controller
@@ -34,47 +36,47 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
     protected $activationService;
+    protected $hashingProvider;
+
 
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct(ActivationService $activationService)
+    public function __construct(ActivationService $activationService, YourHasher $hashingProvider )
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
         $this->activationService = $activationService;
+        $this->hashingProvider = $hashingProvider;
     }
 
-    public function login(Request $request)
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  bool  $throttles
+     * @return \Illuminate\Http\Response
+     */
+    protected function handleUserWasAuthenticated(Request $request, $throttles)
     {
-        $this->validateLogin($request);
-
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        $throttles = $this->isUsingThrottlesLoginsTrait();
-
-        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
+        # Si le mot de passe n'st pas hashé avec Bcrypt
+        if($this->hashingProvider->needsRehash(Auth::user()->password)){
+            # On regénre un mot de passe avevc Bcrypt
+            Auth::user()->password = $this->hashingProvider->make($request->password);
+            # On sauvegarde l'utilisateur
+            Auth::user()->save();
         }
 
-        $credentials = $this->getCredentials($request);
-
-        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
-            return $this->handleUserWasAuthenticated($request, $throttles);
+        if ($throttles) {
+            $this->clearLoginAttempts($request);
         }
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-        if ($throttles && ! $lockedOut) {
-            $this->incrementLoginAttempts($request);
+        if (method_exists($this, 'authenticated')) {
+            return $this->authenticated($request, Auth::guard($this->getGuard())->user());
         }
 
-        return $this->sendFailedLoginResponse($request);
+        return redirect()->intended($this->redirectPath());
     }
 
     /**

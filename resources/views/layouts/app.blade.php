@@ -64,7 +64,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin')}}"><i class = "fa fa-btn fa-lock"></i>Administration</a></li>
+                                @if(Auth::user()->role > 1)
+                                    <li><a href="{{ url('/admin')}}"><i class = "fa fa-btn fa-lock"></i>Administration</a></li>
+                                @endif
                                 <li><a href="{{ url('/profil', Auth::user()->username)}}"><i class = "fa fa-btn fa-user"></i>Profil</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Se déconnecter</a></li>
                             </ul>
