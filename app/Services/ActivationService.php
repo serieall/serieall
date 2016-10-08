@@ -7,6 +7,7 @@ use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 use App\Repositories\ActivationRepository;
 use App\Models\User;
+use Mail;
 
 class ActivationService
 {
@@ -32,7 +33,13 @@ class ActivationService
 
         $token = $this->activationRepo->createActivation($user);
 
-        dispatch(new SendVerifyEmail($user, $token));
+        Mail::queue('auth.emails.verify', compact('token'), ['data'=>'data'], function ($message) {
+            $message->subject('Vérification de votre adresse E-Mail');
+            $message->from('journeytotheit@gmail.com', 'Série-All');
+            $message->to($this->user->email);
+        });
+
+        #dispatch(new SendVerifyEmail($user, $token));
 
     }
 
