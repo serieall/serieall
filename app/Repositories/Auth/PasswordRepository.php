@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
 use Illuminate\Contracts\Auth\PasswordBroker as PasswordBrokerContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use \Illuminate\Auth\Passwords\TokenRepositoryInterface;
 
 class PasswordRepository implements PasswordBrokerContract
 {
