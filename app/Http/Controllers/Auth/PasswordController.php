@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Closure;
+use Illuminate\Support\Facades\Log;
 
 class PasswordController extends Controller
 {
@@ -52,6 +53,8 @@ class PasswordController extends Controller
         // password reminder e-mail. We'll pass a "token" variable into the views
         // so that it may be displayed for an user to click for password reset.
         $view = $this->emailView;
+
+        Log::info('test');
 
         return $this->mailer->queue($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
             $m->to($user->getEmailForPasswordReset());
