@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Auth\Passwords;
+namespace App\Repositories\Auth;
 
 use Closure;
 use Illuminate\Support\Arr;
