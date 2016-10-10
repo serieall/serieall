@@ -31,7 +31,7 @@ class ActivationService
         }
 
         $token = $this->activationRepo->createActivation($user);
-        Mail::Send('auth.emails.verify', compact('token'), unserialize($token), function ($message) use ($user) {
+        Mail::Send('auth.emails.verify',['token' => $token], function ($message) use ($user) {
             $message->subject('Vérification de votre adresse E-Mail');
             $message->from('journeytotheit@gmail.com', 'Série-All');
             $message->to($user->email);
