@@ -26,17 +26,15 @@ class ActivationService
 
     public function sendActivationMail($user)
     {
-
         if ($user->activated || !$this->shouldSend($user)) {
             return;
         }
 
         $token = $this->activationRepo->createActivation($user);
-
-        Mail::queue('auth.emails.verify', compact('token'), ['data'=>'data'], function ($message) {
+        Mail::Send('auth.emails.verify', compact('token'), ['data'=>'data'], function ($message) use ($user) {
             $message->subject('Vérification de votre adresse E-Mail');
             $message->from('journeytotheit@gmail.com', 'Série-All');
-            $message->to($this->user->email);
+            $message->to($user->email);
         });
 
         #dispatch(new SendVerifyEmail($user, $token));
