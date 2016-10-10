@@ -14,7 +14,7 @@ class PasswordRepository extends IlluminatePasswordBroker
         // password reminder e-mail. We'll pass a "token" variable into the views
         // so that it may be displayed for an user to click for password reset.
         $view = $this->emailView;
-        Log::info('test');
+
         return $this->mailer->queue($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
             $m->to($user->getEmailForPasswordReset());
             if (! is_null($callback)) {
