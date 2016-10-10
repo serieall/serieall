@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Closure;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use App\Repositories\PasswordRepository;
+
 
 class PasswordController extends Controller
 {
@@ -22,15 +23,17 @@ class PasswordController extends Controller
     */
 
     use ResetsPasswords;
+    protected $passwordRepository;
 
     /**
      * Create a new password controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(PasswordRepository $passwordRepository)
     {
         $this->middleware('guest');
+        $this->passwordRepository = $passwordRepository;
     }
 
     protected function getEmailSubject()
@@ -40,28 +43,28 @@ class PasswordController extends Controller
 
 
     /**
-     * Send the password reset link via e-mail.
+     * Send a reset link to the given user.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $token
-     * @param  \Closure|null  $callback
-     * @return int
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function emailResetLink(CanResetPasswordContract $user, $token, Closure $callback = null)
+    public function sendResetLinkEmail(Request $request)
     {
-        // We will use the reminder view that was given to the broker to display the
-        // password reminder e-mail. We'll pass a "token" variable into the views
-        // so that it may be displayed for an user to click for password reset.
-        $view = $this->emailView;
+        $this->validateSendResetLinkEmail($request);
 
-        Log::info('test');
+        $broker = $this->getBroker();
 
-        return $this->mailer->queue($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
-            $m->to($user->getEmailForPasswordReset());
+        $response = $this->passwordRepository->sendResetLink(
+            $this->getSendResetLinkEmailCredentials($request),
+            $this->resetEmailBuilder()
+        );
 
-            if (! is_null($callback)) {
-                call_user_func($callback, $m, $user, $token);
-            }
-        });
+        switch ($response) {
+            case Password::RESET_LINK_SENT:
+                return $this->getSendResetLinkEmailSuccessResponse($response);
+            case Password::INVALID_USER:
+            default:
+                return $this->getSendResetLinkEmailFailureResponse($response);
+        }
     }
 }
