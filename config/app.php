@@ -142,7 +142,7 @@ return [
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,
-        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        #Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
@@ -163,6 +163,7 @@ return [
          * Allow authenticate with md5 password
          */
         App\Packages\Hashing\YourHashingServiceProvider::class,
+        App\Providers\PasswordResetServiceProvider::class,
 
     ],
 
