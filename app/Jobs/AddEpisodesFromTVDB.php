@@ -41,7 +41,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
      *
      * @return void
      */
-    private function getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new)
+    private function AddEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new)
     {
         # Pour chaque épisode dans le paramètre getEpisodes
         foreach ($getEpisodes as $episode) {
@@ -402,11 +402,11 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
         | page et on exécute la fonction de récupération des informations.
         */
         if(is_null($getEpisodeNextPage)){
-            $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
+            $this->AddEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
         }
         else{
             Log::info('En cours, page n°1 ');
-            $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
+            $this->AddEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
 
             while($getEpisodeNextPage <= $getEpisodeLastPage) {
                 Log::info('En cours, page n° '.$getEpisodeNextPage);
@@ -421,7 +421,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                 $getEpisodes_en = json_decode($getEpisodes_en);
                 $getEpisodes = $getEpisodes_en->data;
 
-                $this->getEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
+                $this->AddEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $this->show_new);
                 $getEpisodeNextPage++;
             }
         }
