@@ -137,7 +137,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     # Date de diffusion US. Si elle n'existe pas, on met la date par défaut
                     $episodeDiffusionUS = $getEpisode_en->firstAired;
                     if (is_null($episodeDiffusionUS)) {
-                        $episodeDiffusionUS = '1970-01-01';
+                        $episodeDiffusionUS = '1800-01-01';
                     }
 
                     # Nom FR, sil n'existe pas, on en met pas

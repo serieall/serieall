@@ -170,7 +170,12 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             $show_new->synopsis = $show_fr->overview;
         }
         else {
-            $show_new->synopsis = $show_en->overview;
+            if(!is_null($show_en->overview)) {
+                $show_new->synopsis = $show_en->overview;
+            }
+            else{
+                $show_new->synopsis = 'TBA';
+            }
         }
 
         $show_new->thetvdb_id = $theTVDBID;                         # L'ID de TheTVDB
