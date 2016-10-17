@@ -133,7 +133,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         $getUpdate = $getUpdate->data;
 
         foreach ($getUpdate as $update) {
-            $idSerie = $getUpdate['id'];
+            $idSerie = $update->id;
 
             # Vérification de la présence de la série dans notre BDD
             $serieInBDD = Show::where('thetvdb_id', $idSerie)->first();
