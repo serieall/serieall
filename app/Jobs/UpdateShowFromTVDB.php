@@ -141,6 +141,44 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
             # Si la série existe
             if (!is_null($serieInBDD)) {
                 Log::info('Modification de la série ' . $idSerie);
+
+                /*
+                |--------------------------------------------------------------------------
+                | Recupération de la série en français et avec la langue par défaut
+                |--------------------------------------------------------------------------
+                | Le paramètre passé est l'ID de TheTVDB passé dans le formulaire
+                | On précise la version de l'API a utiliser, que l'on veut recevoir du JSON.
+                | On passe également en paramètre le token.
+                */
+                $getShow_fr = $client->request('GET', '/series/'. $idSerie, [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'fr',
+                    ]
+                ])->getBody();
+
+                $getShow_en = $client->request('GET', '/series/'. $idSerie, [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'en',
+                    ]
+                ])->getBody();
+
+                /*
+                |--------------------------------------------------------------------------
+                | Décodage du JSON et vérification que la langue française existe sur The TVDB
+                | Si la langue fr n'est pas renseignée, on met la variable languageFR à 'no'
+                        |--------------------------------------------------------------------------
+                */
+                $getShow_fr = json_decode($getShow_fr);
+                $getShow_en = json_decode($getShow_en);
+
+                $show_en = $getShow_en->data;
+                $show_fr = $getShow_fr->data;
+
+
             } else {
                 Log::info('On passe la série '. $idSerie);
             }

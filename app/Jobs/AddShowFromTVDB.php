@@ -166,6 +166,9 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         if(!is_null($show_fr->seriesName)) {
             $show_new->name_fr = $show_fr->seriesName;
         }
+        else{
+            $show_new->name_fr = 'TBA';
+        }
         if(!is_null($show_fr->overview)) {
             $show_new->synopsis = $show_fr->overview;
         }
