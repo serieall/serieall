@@ -117,7 +117,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         # D'abord on récupère la date de dernière mise à jour
-        $lastUpdate = Temp::where('key', $key_lastupdate)->first();
+        $lastUpdate = (int) Temp::where('key', $key_lastupdate)->first();
 
         # On fait chercher la liste des dernières modifications sur TheTVDB
         $getUpdate = $client->request('GET', 'updated/query?fromTime=' . $lastUpdate, [
