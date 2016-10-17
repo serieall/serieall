@@ -10,6 +10,7 @@ use App\Models\Artist;
 use App\Models\Genre;
 use App\Jobs\AddShowFromTVDB;
 use Illuminate\Support\Facades\DB;
+use App\Jobs\UpdateShowFromTVDB;
 
 class AdminShowRepository
 {
@@ -29,8 +30,8 @@ class AdminShowRepository
     public function createShowJob($inputs){
         $verifIDTheTVDB = $this->show->where('thetvdb_id', $inputs['thetvdb_id'])->first();
         if(is_null($verifIDTheTVDB)){
-            dispatch(new AddShowFromTVDB($inputs));
-
+            #dispatch(new AddShowFromTVDB($inputs));
+            dispatch(new UpdateShowFromTvDB());
             return $dispatchOK = true;
         }
         else
