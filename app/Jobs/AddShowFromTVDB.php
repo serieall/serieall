@@ -386,36 +386,38 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $actors = json_decode($getActors);
         $actors = $actors->data;
 
-        foreach($actors as $actor){
-            # Récupération du rôle
-            $actorRole = $actor->role;
-            if(is_null($actorRole)){
-                $actorRole = 'TBA';
-            }
+        if(!is_null($actors)) {
+            foreach ($actors as $actor) {
+                # Récupération du rôle
+                $actorRole = $actor->role;
+                if (is_null($actorRole)) {
+                    $actorRole = 'TBA';
+                }
 
-            # Récupération du nom de l'acteur
-            $actorName = $actor->name;
+                # Récupération du nom de l'acteur
+                $actorName = $actor->name;
 
-            # On supprime les espaces
-            $actor = trim($actorName);
-            # On met en forme l'URL
-            $actor_url = Str::slug($actor);
-            # Vérification de la présence de l'acteur
-            $actor_ref = Artist::where('artist_url', $actor_url)->first();
+                # On supprime les espaces
+                $actor = trim($actorName);
+                # On met en forme l'URL
+                $actor_url = Str::slug($actor);
+                # Vérification de la présence de l'acteur
+                $actor_ref = Artist::where('artist_url', $actor_url)->first();
 
-            # Si elle n'existe pas
-            if (is_null($actor_ref)) {
-                # On prépare la nouvelle saison
-                $actor_ref = new Artist([
-                    'name' => $actor,
-                    'artist_url' => $actor_url
-                ]);
+                # Si elle n'existe pas
+                if (is_null($actor_ref)) {
+                    # On prépare la nouvelle saison
+                    $actor_ref = new Artist([
+                        'name' => $actor,
+                        'artist_url' => $actor_url
+                    ]);
 
-                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                $show_new->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
-            } else {
-                # Si il existe, on crée juste le lien
-                $show_new->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
+                    # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                    $show_new->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+                } else {
+                    # Si il existe, on crée juste le lien
+                    $show_new->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
+                }
             }
         }
 
