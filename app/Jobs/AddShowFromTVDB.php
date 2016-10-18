@@ -210,7 +210,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $show_new->annee = date_format($dateTemp, "Y");         # Ensuite on récupère l'année
 
         # Utilisation de la méthode Slug pour l'URL
-        $show_new->show_url = Str::slug($show_new->name);
+        $show_new->show_url = Str::slug($show_new->name . $show_new->thetvdb_id);
 
         $show_new->save();
 
