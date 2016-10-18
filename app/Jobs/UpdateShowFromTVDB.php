@@ -170,13 +170,52 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 |--------------------------------------------------------------------------
                 | Décodage du JSON et vérification que la langue française existe sur The TVDB
                 | Si la langue fr n'est pas renseignée, on met la variable languageFR à 'no'
-                        |--------------------------------------------------------------------------
+                |--------------------------------------------------------------------------
                 */
                 $getShow_fr = json_decode($getShow_fr);
                 $getShow_en = json_decode($getShow_en);
 
                 $show_en = $getShow_en->data;
                 $show_fr = $getShow_fr->data;
+
+                $resumeSerie = $serieInBDD->resume;
+                # Si le résumé est à TBA dans notre base
+                if($resumeSerie == 'TBA'){
+                    # On vérifie si le résumé est rempli en FR
+                    if(!is_null($show_fr->overview)){
+                        # On sauvegarde le résumé en français
+                        $serieInBDD->resume = $show_fr->overview;
+                    }
+                    else{
+                        # On vérifie que le résumé est rempli en EN
+                        if(!is_null($show_en->overview)){
+                            # On sauvegarde le résumé en EN
+                            $serieInBDD->resume = $show_en->overview;
+                        }
+                    }
+                }
+
+                $nomFRSerie = $serieInBDD->name_fr;
+                # Si le nom FR est à TBA dans notre base
+                if($nomFRSerie == 'TBA'){
+                    # On vérifie si le nom est rempli en FR
+                    if(!is_null($show_fr->name)){
+                        # On sauvegarde le nom en français
+                        $serieInBDD->name_fr = $show_fr->name;
+                    }
+                }
+
+                $statutSerie = $serieInBDD->encours;
+                # Si le statut est à 1 dans notre base
+                if($statutSerie == '1'){
+                    # On vérifie le statut sur TheTVDB
+                    if($show_en->continuing == 'Ended'){
+                        # On enregistre le nouveau statut
+                        $serieInBDD->encours = 0;
+                    }
+                }
+
+                $serieInBDD->save();
 
 
             } else {
