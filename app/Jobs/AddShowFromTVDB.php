@@ -181,10 +181,16 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             }
         }
 
+        if(!is_null($show_en->firstAired)) {
+            $show_new->diffusion_us = $show_en->firstAired;        # Date de diffusion US
+        }
+        else{
+            $show_new->diffusion_us = '1800-01-01';
+        }
+
         $show_new->thetvdb_id = $theTVDBID;                         # L'ID de TheTVDB
         $show_new->name = $show_en->seriesName;                # Le nom de la série
         $show_new->format = $show_en->runtime;                 # Le format de la série
-        $show_new->diffusion_us = $show_en->firstAired;        # Date de diffusion US
         $show_new->diffusion_fr = $this->inputs['diffusion_fr'];    # Date de diffusion FR
         $show_new->taux_erectile = $this->inputs['taux_erectile'];  # Le taux érectile
         $show_new->avis_rentree = $this->inputs['avis_rentree'];    # Le taux érectile

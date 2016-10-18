@@ -150,7 +150,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 | On précise la version de l'API a utiliser, que l'on veut recevoir du JSON.
                 | On passe également en paramètre le token.
                 */
-                $getShow_fr = $client->request('GET', '/series/'. $idSerie, [
+                $getShow_fr = $client->request('GET', '/series/' . $idSerie, [
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                         'Authorization' => 'Bearer ' . $token,
@@ -158,7 +158,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     ]
                 ])->getBody();
 
-                $getShow_en = $client->request('GET', '/series/'. $idSerie, [
+                $getShow_en = $client->request('GET', '/series/' . $idSerie, [
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                         'Authorization' => 'Bearer ' . $token,
@@ -180,15 +180,14 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                 $resumeSerie = $serieInBDD->resume;
                 # Si le résumé est à TBA dans notre base
-                if($resumeSerie == 'TBA'){
+                if ($resumeSerie == 'TBA') {
                     # On vérifie si le résumé est rempli en FR
-                    if(!is_null($show_fr->overview)){
+                    if (!is_null($show_fr->overview)) {
                         # On sauvegarde le résumé en français
                         $serieInBDD->resume = $show_fr->overview;
-                    }
-                    else{
+                    } else {
                         # On vérifie que le résumé est rempli en EN
-                        if(!is_null($show_en->overview)){
+                        if (!is_null($show_en->overview)) {
                             # On sauvegarde le résumé en EN
                             $serieInBDD->resume = $show_en->overview;
                         }
@@ -197,9 +196,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                 $nomFRSerie = $serieInBDD->name_fr;
                 # Si le nom FR est à TBA dans notre base
-                if($nomFRSerie == 'TBA'){
+                if ($nomFRSerie == 'TBA') {
                     # On vérifie si le nom est rempli en FR
-                    if(!is_null($show_fr->name)){
+                    if (!is_null($show_fr->name)) {
                         # On sauvegarde le nom en français
                         $serieInBDD->name_fr = $show_fr->name;
                     }
@@ -207,13 +206,24 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                 $statutSerie = $serieInBDD->encours;
                 # Si le statut est à 1 dans notre base
-                if($statutSerie == '1'){
+                if ($statutSerie == '1') {
                     # On vérifie le statut sur TheTVDB
-                    if($show_en->status == 'Ended'){
+                    if ($show_en->status == 'Ended') {
                         # On enregistre le nouveau statut
                         $serieInBDD->encours = 0;
                     }
                 }
+
+                $diffusionSerie = $serieInBDD->diffusion_us;
+                # Si la diffusion est renseignée sur theTVDB
+                if (!is_null($show_en->firstAired)) {
+                    # Si la diffusion dans notre BDD est égale à celle dans TheTVDB
+                    if ($diffusionSerie == $show_en->firstAired) {
+                        # On enregistre la nouvelle diffusion
+                        $serieInBDD->diffusion_us = $show_en->firstAired;
+                    }
+                }
+
 
                 $serieInBDD->save();
 
