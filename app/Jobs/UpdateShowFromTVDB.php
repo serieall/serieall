@@ -218,16 +218,79 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 # Si la diffusion est renseignée sur theTVDB
                 if (!is_null($show_en->firstAired)) {
                     # Si la diffusion dans notre BDD est égale à celle dans TheTVDB
-                    if ($diffusionSerie == $show_en->firstAired) {
+                    if ($diffusionSerie != $show_en->firstAired) {
                         # On enregistre la nouvelle diffusion
                         $serieInBDD->diffusion_us = $show_en->firstAired;
+                        $dateTemp = date_create($show_en->firstAired);              # On transforme d'abord le texte récupéré par la requête en date
+                        $serieInBDD->annee = date_format($dateTemp, "Y");           # Ensuite on récupère l'année
                     }
                 }
-
 
                 $serieInBDD->save();
 
 
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Gestion des acteurs
+                |--------------------------------------------------------------------------
+                | On commence par récupérer les chaines du formulaire
+                */
+                $getActors = $client->request('GET', '/series/'. $idSerie . '/actors', [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                    ]
+                ])->getBody();
+
+                /*
+                |--------------------------------------------------------------------------
+                | Décodage du JSON
+                |--------------------------------------------------------------------------
+                */
+                $actors = json_decode($getActors);
+                $actors = $actors->data;
+
+                if(!is_null($actors)) {
+                    foreach ($actors as $actor) {
+                        # Récupération du nom de l'acteur
+                        $actorName = $actor->name;
+
+                        # Récupération du rôle
+                        $actorRole = $actor->role;
+                        if (is_null($actorRole)) {
+                            $actorRole = 'TBA';
+                        }
+
+                        # On supprime les espaces
+                        $actor = trim($actorName);
+                        # On met en forme l'URL
+                        $actor_url = Str::slug($actor);
+                        # Vérification de la présence de l'acteur
+                        $actor_ref = Artist::where('artist_url', $actor_url)->first();
+
+                        if(!is_null($actor_ref)) {
+                            # On vérifie s'il est déjà lié à la série
+                            $actor_liaison = Artist::has('shows', '==', $idSerie)->get();
+                            if(is_null($actor_liaison)){
+                                # On lie l'acteur à la série
+                                $serieInBDD->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
+                            }
+                        }
+                        else{
+                            # On prépare le nouvel acteur
+                            $actor_ref = new Artist([
+                                'name' => $actor,
+                                'artist_url' => $actor_url
+                            ]);
+
+                            # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                            $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+                        }
+
+                    }
+                }
             } else {
                 Log::info('On passe la série '. $idSerie);
             }
