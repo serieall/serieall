@@ -209,7 +209,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 # Si le statut est à 1 dans notre base
                 if($statutSerie == '1'){
                     # On vérifie le statut sur TheTVDB
-                    if($show_en->continuing == 'Ended'){
+                    if($show_en->status == 'Ended'){
                         # On enregistre le nouveau statut
                         $serieInBDD->encours = 0;
                     }
