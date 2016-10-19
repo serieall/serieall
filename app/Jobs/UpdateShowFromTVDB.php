@@ -286,6 +286,23 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                 Log::info('L\'acteur ' . $actor . ' existe déjà mais n\'est pas lié à la série. On le lie.');
                                 $serieInBDD->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
                             }
+                            else{
+                                # On vérifie que le rôle de l'acteur est à TBA
+                                $actor_role = Show::wherehas('artists', function ($query) use($actor, $idSerie){
+                                    $query->whereName($actor);
+                                    $query->where('shows.thetvdb_id', '=', $idSerie);
+                                    $query->whereProfession('TBA');
+                                })->get()->toArray();
+
+                                if(!empty($actor_role)){
+                                    # On vérifie que le rôle est rempli sur TheTVDB
+                                    if($actorRole != 'TBA'){
+                                        Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle n\'était pas rempli.');
+                                        $serieInBDD->artists()->updateExistingPivot('role', $actorRole);
+                                    }
+                                }
+
+                            }
                         }
                         else{
                             # On prépare le nouvel acteur
