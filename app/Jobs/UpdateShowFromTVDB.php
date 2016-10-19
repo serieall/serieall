@@ -235,6 +235,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                 $serieInBDD->save();
 
+                $idInBDDSerie = $serieInBDD->id;
+
                 /*
                 |--------------------------------------------------------------------------
                 | Gestion des acteurs
@@ -277,8 +279,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         if(!is_null($actor_ref)) {
                             # On vérifie s'il est déjà lié à la série
                             $actor_liaison = Show::wherehas('artists', function ($query) use($actor, $idSerie){
-                                $query->whereName($actor);
-                                $query->where('shows.thetvdb_id', '=', $idSerie);
+                                $query->where('actor_name', $actor);
+                                $query->where('shows.thetvdb_id', $idSerie);
                             })->get()->toArray();
 
                             if(empty($actor_liaison)){
@@ -299,8 +301,12 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                 if(!empty($actor_role)){
                                     # On vérifie que le rôle est rempli sur TheTVDB
                                     if($actorRole != 'TBA'){
+                                        # Il faut récupérer l'ID de la ligne que l'on veut mettre à jour dans la table pivot
+                                        $idPivot = Artist::where('artist_id', $actor_ref->id)->where('artistable_id', $idInBDDSerie)->select('artistable.id');
+                                        Log::info($idPivot);
+
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle n\'était pas rempli.');
-                                        $serieInBDD->artists()->updateExistingPivot($actor_role['artist_show.id'], ['role' => $actorRole]);
+                                        $serieInBDD->artists()->updateExistingPivot($idPivot['artistable.id'], ['role' => $actorRole]);
                                     }
                                 }
                             }
