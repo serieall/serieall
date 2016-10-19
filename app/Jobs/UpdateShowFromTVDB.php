@@ -735,9 +735,5 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 }
             }
         }
-        $lastUpdate = Temp::where('key', 'last_update')->first();
-        $lastUpdate->value = $nextUpdate;
-
-        $lastUpdate->save();
     }
 }
