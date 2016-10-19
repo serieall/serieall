@@ -140,7 +140,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
             # Si la série existe
             if (!is_null($serieInBDD)) {
-                Log::info('Modification de la série ' . $idSerie);
+                Log::info('----- Modification de la série ' . $idSerie . ' -----');
 
                 /*
                 |--------------------------------------------------------------------------
@@ -186,11 +186,13 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     # On vérifie si le résumé est rempli en FR
                     if (!is_null($show_fr->overview)) {
                         # On sauvegarde le résumé en français
+                        Log::info('Mise à jour du résumé en français.');
                         $serieInBDD->resume = $show_fr->overview;
                     } else {
                         # On vérifie que le résumé est rempli en EN
                         if (!is_null($show_en->overview)) {
                             # On sauvegarde le résumé en EN
+                            Log::info('Mise à jour du résumé en anglais.');
                             $serieInBDD->resume = $show_en->overview;
                         }
                     }
@@ -202,6 +204,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     # On vérifie si le nom est rempli en FR
                     if (!is_null($show_fr->seriesName)) {
                         # On sauvegarde le nom en français
+                        Log::info('Mise à jour du nom en français.');
                         $serieInBDD->name_fr = $show_fr->seriesName;
                     }
                 }
@@ -212,6 +215,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     # On vérifie le statut sur TheTVDB
                     if ($show_en->status == 'Ended') {
                         # On enregistre le nouveau statut
+                        Log::info('Mise à jour du statut.');
                         $serieInBDD->encours = 0;
                     }
                 }
@@ -222,6 +226,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     # Si la diffusion dans notre BDD est égale à celle dans TheTVDB
                     if ($diffusionSerie != $show_en->firstAired) {
                         # On enregistre la nouvelle diffusion
+                        Log::info('Mise à jour de la diffusion US.');
                         $serieInBDD->diffusion_us = $show_en->firstAired;
                         $dateTemp = date_create($show_en->firstAired);              # On transforme d'abord le texte récupéré par la requête en date
                         $serieInBDD->annee = date_format($dateTemp, "Y");           # Ensuite on récupère l'année
@@ -229,9 +234,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 }
 
                 $serieInBDD->save();
-
-
-
 
                 /*
                 |--------------------------------------------------------------------------
@@ -277,6 +279,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             $actor_liaison = Artist::has('shows', '==', $idSerie)->get();
                             if(is_null($actor_liaison)){
                                 # On lie l'acteur à la série
+                                Log::info('L\'acteur ' . $actor . ' existe déjà mais n\'est pas lié à la série. On le lie.');
                                 $serieInBDD->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
                             }
                         }
@@ -288,13 +291,14 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             ]);
 
                             # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                            Log::info('L\'acteur ' . $actor . ' a été créé.');
                             $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
                         }
 
                     }
                 }
             } else {
-                Log::info('On passe la série '. $idSerie);
+
             }
 
         }
