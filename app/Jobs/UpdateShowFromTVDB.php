@@ -304,6 +304,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                         # On met à jour le rôle
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle ' . $actorRole . ' n\'était pas rempli.');
                                         $actor_ref->shows()->updateExistingPivot($actor_role[0], ['role' => $actorRole]);
+                                        $actor_ref->shows()->save();
                                     }
                                 }
                             }
