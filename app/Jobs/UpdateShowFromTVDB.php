@@ -295,7 +295,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     ->where('shows.thetvdb_id', $idSerie)
                                     ->where('artistables.profession', 'actor')
                                     ->where('artistables.role', 'TBA')
-                                    ->get();
+                                    ->get('artistables.id');
                                 Log::info($actor_role);
 
                                 if(!empty($actor_role)){
@@ -303,7 +303,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     if($actorRole != 'TBA'){
                                         # On met à jour le rôle
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle n\'était pas rempli.');
-                                        $serieInBDD->artists()->updateExistingPivot($actor_role['artistables.artist_id'], ['role' => $actorRole]);
+                                        $serieInBDD->artists()->updateExistingPivot($actor_role['artistables.id'], ['role' => $actorRole]);
                                     }
                                 }
                             }
