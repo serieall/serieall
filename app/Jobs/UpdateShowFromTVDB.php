@@ -463,7 +463,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         # D'abord on récupère la date de dernière mise à jour
         $lastUpdate = Temp::where('key', 'last_update')->first();
         $lastUpdate = $lastUpdate->value;
-        $nextUpdate = strtotime("now");
+        $nextUpdate = $lastUpdate;
 
         # On fait chercher la liste des dernières modifications sur TheTVDB
         $getUpdate = $client->request('GET', 'updated/query?fromTime=' . $lastUpdate, [
@@ -479,6 +479,11 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
         foreach ($getUpdate as $update) {
             $idSerie = $update->id;
+            $updateSerie = $update->lastUpdated;
+
+            if($updateSerie >= $nextUpdate) {
+                $nextUpdate = $updateSerie;
+            }
 
             # Vérification de la présence de la série dans notre BDD
             $serieInBDD = Show::where('thetvdb_id', $idSerie)->first();
@@ -735,5 +740,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 }
             }
         }
+        $newUpdate = Temp::where('key', 'last_update')->first();
+        $newUpdate->value = $nextUpdate;
+
+        $newUpdate->save();
     }
 }
