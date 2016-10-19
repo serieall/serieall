@@ -278,10 +278,11 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                         if(!is_null($actor_ref)) {
                             # On vérifie s'il est déjà lié à la série
-                            $actor_liaison = Show::wherehas('artists', function ($query) use($actor, $idSerie){
-                                $query->where('artists.name', $actor);
-                                $query->where('shows.thetvdb_id', $idSerie);
-                            })->get()->toArray();
+
+                            $actor_liaison = $actor_ref->shows()
+                                ->where('shows.thetvdb_id', $idSerie)
+                                ->where('artistable.profession', 'actor')
+                                ->get();
 
                             if(empty($actor_liaison)){
                                 # On lie l'acteur à la série
@@ -290,12 +291,12 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             }
                             else{
                                 # On vérifie que le rôle de l'acteur est à TBA
-                                $actor_role = Show::wherehas('artists', function ($query) use($actor, $idSerie){
-                                    $query->whereName($actor);
-                                    $query->where('shows.thetvdb_id', '=', $idSerie);
-                                    $query->whereProfession('actor');
-                                    $query->whereRole('TBA');
-                                })->get()->toArray();
+                                $actor_role = $actor_ref->shows()
+                                    ->where('shows.thetvdb_id', $idSerie)
+                                    ->where('artistable.profession', 'actor')
+                                    ->where('artistable.role', 'TBA')
+                                    ->get();
+                                Log::info($actor_role);
 
                                 if(!empty($actor_role)){
                                     # On vérifie que le rôle est rempli sur TheTVDB
