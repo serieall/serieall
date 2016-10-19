@@ -151,7 +151,7 @@ class AddEpisodesFromTVDB extends Job implements ShouldQueue
                     if (is_null($episodeResume)) {
                         $episodeResume = $getEpisode_en->overview;
                         if (is_null($episodeResume)) {
-                            $episodeResume = 'Pas de résumé pour l\'instant.';
+                            $episodeResume = 'TBA';
                         }
                     }
 
