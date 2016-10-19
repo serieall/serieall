@@ -299,7 +299,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     Log::info('On vérifie que le rôle est rempli sur TheTVDB');
                                     if($actorRole != 'TBA'){
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle n\'était pas rempli.');
-                                        $serieInBDD->artists()->updateExistingPivot('role', [$actorRole]);
+                                        $serieInBDD->artists()->updateExistingPivot($actor_role['id'], ['role' => $actorRole]);
                                     }
                                 }
 
