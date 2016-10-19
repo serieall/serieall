@@ -298,7 +298,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     ->pluck('artistables.id')
                                     ->toArray();
 
-                                Log::info($actor_role);
+                                Log::info($actor_role['0']);
 
                                 if(!empty($actor_role)){
                                     # On vérifie que le rôle est rempli sur TheTVDB
