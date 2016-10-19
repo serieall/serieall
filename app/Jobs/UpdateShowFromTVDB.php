@@ -10,6 +10,7 @@ use App\Models\Genre;
 use App\Models\Artist;
 use App\Models\Temp;
 use App\Models\Season;
+use App\Models\Episode;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -95,7 +96,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                     # Vérification de la présence de la saison dans la BDD
                     $season_ref = Season::where('thetvdb_id', $seasonID)->first();
-                    Log::info('Saison n°' . $seasonName);
 
                     # Si elle n'existe pas
                     if (is_null($season_ref)) {
