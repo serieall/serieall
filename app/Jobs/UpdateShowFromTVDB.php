@@ -293,16 +293,16 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                 $actor_role = Show::wherehas('artists', function ($query) use($actor, $idSerie){
                                     $query->whereName($actor);
                                     $query->where('shows.thetvdb_id', '=', $idSerie);
+                                    $query->whereProfession('actor');
                                     $query->whereRole('TBA');
                                 })->get()->toArray();
-
-                                Log::info($actor_role);
 
                                 if(!empty($actor_role)){
                                     # On vérifie que le rôle est rempli sur TheTVDB
                                     if($actorRole != 'TBA'){
                                         # Il faut récupérer l'ID de la ligne que l'on veut mettre à jour dans la table pivot
-                                        $idPivot = $actor_ref->shows()->select('artistable.id');
+                                        Log::info('On récupère l\'ID de la ligne voulue');
+                                        $idPivot = $actor_ref->shows()->where('shows.thetvdb_id', $idSerie)->where('artistable.profession', 'actor')->select('artistable.id');
                                         Log::info($idPivot);
 
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle n\'était pas rempli.');
