@@ -279,6 +279,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             Log::info('Vérification de la liaison de l\'acteur  ' . $actor . ' avec la série.');
                             $actor_liaison = Artist::has('shows', '==', $idSerie)->get();
                             Log::info($actor_liaison);
+                            dd($actor_liaison);
 
                             if(is_null($actor_liaison)){
                                 # On lie l'acteur à la série
