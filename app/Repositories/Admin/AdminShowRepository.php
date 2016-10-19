@@ -36,10 +36,7 @@ class AdminShowRepository
 
             $artist = 'Emily Browning';
 
-            $artist_liaison = Artist::wherehas('shows', function($query) use($artist, $idSerie){
-                $query->where('artists.name', '==', $artist);
-                $query->where('shows.thetvdb_id', '==', $idSerie);
-            })->get();
+            $artist_liaison = Artist::has('shows', '==', $idSerie);
 
             dd($artist_liaison);
 
