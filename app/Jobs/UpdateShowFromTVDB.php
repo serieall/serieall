@@ -80,7 +80,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 $lastUpdate = Temp::where('key', 'last_update')->first();
                 $lastUpdate = $lastUpdate->value;
 
-                if($lastUpdate <= $getEpisode_en->lastUpdated) {
+                if ($lastUpdate <= $getEpisode_en->lastUpdated) {
                     $episodeNumero = $getEpisode_en->airedEpisodeNumber;
                     Log::info('** Modification de l\'épisode n°' . $seasonNumber . 'x' . $episodeNumero . ' **');
 
@@ -168,6 +168,13 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         $episode_ref->season()->associate($season_ref);
                         $episode_ref->save();
                     } else {
+                        /*
+                        |--------------------------------------------------------------------------
+                        | On va chercher les modifications qui pourraient avoir eu lieu
+                        | et qui nous intéresse.
+                        |--------------------------------------------------------------------------
+                        */
+
                         $nomENEpisode = $episode_ref->name;
                         # Si le nom FR est à TBA dans notre base
                         if ($nomENEpisode == 'TBA') {
@@ -219,7 +226,144 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             }
                         }
 
+                        # On sauvegarde les modifs
                         $episode_ref->save();
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Récupération des informations sur les scénaristes de l'épisode
+                        |--------------------------------------------------------------------------
+                        | On crée les scénaristes s'ils n'existent pas et on les lie à l'épisode
+                        */
+                        $writers = $getEpisode_en->writers;
+                        if (!empty($writers)) {
+                            # Pour chaque scénariste
+                            foreach ($writers as $writer) {
+                                # On supprime les espaces
+                                $writer = trim($writer);
+                                # On met en forme l'URL
+                                $writer_url = Str::slug($writer);
+                                # On vérifie si le scénariste existe déjà en base
+                                $writer_ref = Artist::where('artist_url', $writer_url)->first();
+
+                                # Si il n'existe pas
+                                if (is_null($writer_ref)) {
+                                    Log::info('Création du scénariste ' . $writer);
+                                    # On prépare le nouveau scénariste
+                                    $writer_ref = new Artist([
+                                        'name' => $writer,
+                                        'artist_url' => $writer_url
+                                    ]);
+
+                                    # Et on le sauvegarde ne passant par l'objet Episode pour créer le lien entre les deux
+                                    $episode_ref->artists()->save($writer_ref, ['profession' => 'writer']);
+
+                                } else {
+                                    # On vérifie que le scénariste n'est pas déjà lié à la série
+                                    $writer_liaison = $writer_ref->episodes()
+                                        ->where('episodes.thetvdb_id', $episodeID)
+                                        ->where('artistables.profession', 'writer')
+                                        ->get();
+
+                                    if (empty($writer_liaison)) {
+                                        # On lie l'acteur à la série
+                                        Log::info('Le scénariste ' . $writer . ' existe déjà mais n\'est pas lié à la série. On le lie.');
+                                        $episode_ref->artists()->attach($writer_ref->id, ['profession' => 'writer']);
+                                    }
+                                }
+                            }
+                        }
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Récupération des informations sur les réalisateurs de l'épisode
+                        |--------------------------------------------------------------------------
+                        | On crée les réals s'ils n'existent pas et on les lie à l'épisode
+                        */
+                        $directors = $getEpisode_en->directors;
+                        if (!empty($directors)) {
+                            # Pour chaque réal
+                            foreach ($directors as $director) {
+                                # On supprime les espaces
+                                $director = trim($director);
+                                # On met en forme l'URL
+                                $director_url = Str::slug($director);
+                                # On vérifie si le réal existe déjà en base
+                                $director_ref = Artist::where('artist_url', $director_url)->first();
+
+                                # Si il n'existe pas
+                                if (is_null($director_ref)) {
+                                    Log::info('Création du réalisateur ' . $director);
+                                    # On prépare le nouveau réal
+                                    $director_ref = new Artist([
+                                        'name' => $director,
+                                        'artist_url' => $director_url
+                                    ]);
+
+                                    # Et on le sauvegarde ne passant par l'objet Episode pour créer le lien entre les deux
+                                    $episode_ref->artists()->save($director_ref, ['profession' => 'director']);
+
+                                } else {
+                                    # On vérifie que le scénariste n'est pas déjà lié à la série
+                                    $writer_liaison = $director_ref->episodes()
+                                        ->where('episodes.thetvdb_id', $episodeID)
+                                        ->where('artistables.profession', 'director')
+                                        ->get();
+
+                                    if (empty($writer_liaison)) {
+                                        # On lie l'acteur à la série
+                                        Log::info('Le scénariste ' . $director . ' existe déjà mais n\'est pas lié à la série. On le lie.');
+                                        $episode_ref->artists()->attach($director_ref->id, ['profession' => 'director']);
+                                    }
+                                }
+                            }
+
+                        }
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Récupération des informations sur les guests de l'épisode
+                        |--------------------------------------------------------------------------
+                        | On crée les guests s'ils n'existent pas et on les lie à l'épisode
+                        */
+                        $guestStars = $getEpisode_en->guestStars;
+                        if (!empty($guestStars)) {
+                            # Pour chaque guest
+                            foreach ($guestStars as $guestStar) {
+                                # On supprime les espaces
+                                $guestStar = trim($guestStar);
+                                # On met en forme l'URL
+                                $guestStar_url = Str::slug($guestStar);
+                                # On vérifie si le guest existe déjà en base
+                                $guestStar_ref = Artist::where('artist_url', $guestStar_url)->first();
+
+                                # Si il n'existe pas
+                                if (is_null($guestStar_ref)) {
+                                    Log::info('Création du guest ' . $guest);
+                                    # On prépare le nouveau guest
+                                    $guestStar_ref = new Artist([
+                                        'name' => $guestStar,
+                                        'artist_url' => $guestStar_url
+                                    ]);
+
+                                    # Et on le sauvegarde ne passant par l'objet Episode pour créer le lien entre les deux
+                                    $episode_ref->artists()->save($guestStar_ref, ['profession' => 'guest']);
+
+                                } else {
+                                    # On vérifie que le scénariste n'est pas déjà lié à la série
+                                    $guest_liaison = $guestStar_ref->episodes()
+                                        ->where('episodes.thetvdb_id', $episodeID)
+                                        ->where('artistables.profession', 'guest')
+                                        ->get();
+
+                                    if (empty($guest_liaison)) {
+                                        # On lie l'acteur à la série
+                                        Log::info('Le scénariste ' . $director . ' existe déjà mais n\'est pas lié à la série. On le lie.');
+                                        $episode_ref->artists()->attach($guestStar_ref->id, ['profession' => 'guest']);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 else
