@@ -32,6 +32,14 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
     {
     }
 
+
+    private function UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD)
+    {
+        Log::info('Episode en cours');
+    }
+
+
+
     /**
      * Execute the job.
      *
@@ -320,13 +328,74 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             Log::info('L\'acteur ' . $actor . ' a été créé.');
                             $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
                         }
-
                     }
                 }
-            } else {
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | On va chercher tous les épisodes
+                |--------------------------------------------------------------------------
+                */
+
+                $getEpisodes_en = $client->request('GET', '/series/' . $idSerie .'/episodes?page=1', [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'en',
+                    ]
+                ])->getBody();
+
+                /*
+                |--------------------------------------------------------------------------
+                | Décodage du JSON
+                |--------------------------------------------------------------------------
+                */
+                $getEpisodes_en = json_decode($getEpisodes_en);
+
+                /*
+                |--------------------------------------------------------------------------
+                | Récupération des variables sur le nombre de pages du JSON de la liste des épisodes
+                |--------------------------------------------------------------------------
+                */
+                $getEpisodeNextPage = $getEpisodes_en->links->next;
+                $getEpisodeLastPage = $getEpisodes_en->links->last;
+                $getEpisodes = $getEpisodes_en->data;
+
+                /*
+                |--------------------------------------------------------------------------
+                | Exécution de la récupération des informations de l'épisode
+                |--------------------------------------------------------------------------
+                | S'il n'y a pas de Page 'Next', on se cantonne à une seule, et on execute la fonction de récupération des
+                | informations.
+                | S'il y a plusieurs pages, pour chaque page, on lance une nouvelle récupération des informations pour chaque
+                | page et on exécute la fonction de récupération des informations.
+                */
+                if(is_null($getEpisodeNextPage)){
+                    $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD);
+                }
+                else{
+                    Log::info('En cours, page n°1 ');
+                    $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD);
+
+                    while($getEpisodeNextPage <= $getEpisodeLastPage) {
+                        Log::info('En cours, page n° '.$getEpisodeNextPage);
+                        $getEpisodes_en = $client->request('GET', '/series/' . $idSerie .'/episodes?page='. $getEpisodeNextPage, [
+                            'headers' => [
+                                'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                                'Authorization' => 'Bearer ' . $token,
+                                'Accept-Language' => 'en',
+                            ]
+                        ])->getBody();
+
+                        $getEpisodes_en = json_decode($getEpisodes_en);
+                        $getEpisodes = $getEpisodes_en->data;
+
+                        $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD);
+                        $getEpisodeNextPage++;
+                    }
+                }
             }
-
         }
     }
 }
