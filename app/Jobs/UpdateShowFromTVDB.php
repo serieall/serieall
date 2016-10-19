@@ -281,7 +281,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                             $actor_liaison = $actor_ref->shows()
                                 ->where('shows.thetvdb_id', $idSerie)
-                                ->where('artistable.profession', 'actor')
+                                ->where('artistables.profession', 'actor')
                                 ->get();
 
                             if(empty($actor_liaison)){
@@ -293,8 +293,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                 # On vérifie que le rôle de l'acteur est à TBA
                                 $actor_role = $actor_ref->shows()
                                     ->where('shows.thetvdb_id', $idSerie)
-                                    ->where('artistable.profession', 'actor')
-                                    ->where('artistable.role', 'TBA')
+                                    ->where('artistables.profession', 'actor')
+                                    ->where('artistables.role', 'TBA')
                                     ->get();
                                 Log::info($actor_role);
 
@@ -303,11 +303,11 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     if($actorRole != 'TBA'){
                                         # Il faut récupérer l'ID de la ligne que l'on veut mettre à jour dans la table pivot
                                         Log::info('On récupère l\'ID de la ligne voulue');
-                                        $idPivot = $actor_ref->shows()->where('shows.thetvdb_id', $idSerie)->where('artistable.profession', 'actor')->select('artistable.id');
+                                        $idPivot = $actor_ref->shows()->where('shows.thetvdb_id', $idSerie)->where('artistables.profession', 'actor')->select('artistables.id');
                                         Log::info($idPivot);
 
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle n\'était pas rempli.');
-                                        $serieInBDD->artists()->updateExistingPivot($idPivot['artistable.id'], ['role' => $actorRole]);
+                                        $serieInBDD->artists()->updateExistingPivot($idPivot['artistables.id'], ['role' => $actorRole]);
                                     }
                                 }
                             }
