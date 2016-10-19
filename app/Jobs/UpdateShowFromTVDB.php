@@ -648,7 +648,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     if($actorRole != 'TBA'){
                                         # On met à jour le rôle
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle ' . $actorRole . ' n\'était pas rempli. On va donc modifier la ligne ' . $actor_role[0]);
-                                        $test = $actor_ref->shows()->updateExistingPivot(['artistables.role' => $actorRole]);
+                                        $test = $actor_ref->shows()->updateExistingPivot($actor_role[0], ['role' => $actorRole]);
                                         Log::info($actor_ref);
                                         Log::info($test);
                                     }
