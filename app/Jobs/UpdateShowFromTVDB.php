@@ -288,13 +288,13 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             }
                             else{
                                 # On vérifie que le rôle de l'acteur est à TBA
-                                Log::info('Vérification du rôle.');
                                 $actor_role = Show::wherehas('artists', function ($query) use($actor, $idSerie){
                                     $query->whereName($actor);
                                     $query->where('shows.thetvdb_id', '=', $idSerie);
                                     $query->whereProfession('TBA');
                                 })->get()->toArray();
 
+                                Log::info($actor_role);
                                 if(!empty($actor_role)){
                                     # On vérifie que le rôle est rempli sur TheTVDB
                                     Log::info('On vérifie que le rôle est rempli sur TheTVDB');
