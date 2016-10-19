@@ -9,6 +9,7 @@ use App\Models\Show;
 use App\Models\Genre;
 use App\Models\Artist;
 use App\Models\Temp;
+use App\Models\Season;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -79,7 +80,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 $lastUpdate = $lastUpdate->value;
 
                 if($lastUpdate <= $getEpisode_en->lastUpdated) {
-                    Log::info('** Modification de l\'épisode ' . $episodeID . ' **');
+                    $episodeNumero = $getEpisode_en->airedEpisodeNumber;
+                    Log::info('** Modification de l\'épisode n°' . $seasonNumber . 'x' . $episodeNumero . ' **');
 
                     /*
                     |--------------------------------------------------------------------------
@@ -119,7 +121,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                     # Vérification de la présence de l'épisode dans la BDD
                     $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
-                    $episodeNumero = $getEpisode_en->airedEpisodeNumber;
+
 
                     # Si il n'existe pas
                     if (is_null($episode_ref)) {
@@ -166,13 +168,13 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         $episode_ref->season()->associate($season_ref);
                         $episode_ref->save();
                     } else {
-                        Log::info('Modification de l\'épisode n°' . $episodeNumero);
+
                     }
                 }
                 else
                 {
                     $episodeNumero = $getEpisode_en->airedEpisodeNumber;
-                    Log::info('L\'épisode n°' . $episodeNumero . ' n\'a pas été modifié sur TheTVDB depuis la dernière fois');
+                    Log::info('L\'épisode n°' . $seasonNumber . 'x' . $episodeNumero . ' n\'a pas été modifié sur TheTVDB depuis la dernière fois');
                 }
             }
         }
