@@ -339,7 +339,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                                 # Si il n'existe pas
                                 if (is_null($guestStar_ref)) {
-                                    Log::info('Création du guest ' . $guest);
+                                    Log::info('Création du guest ' . $guestStar);
                                     # On prépare le nouveau guest
                                     $guestStar_ref = new Artist([
                                         'name' => $guestStar,
@@ -463,6 +463,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         # D'abord on récupère la date de dernière mise à jour
         $lastUpdate = Temp::where('key', 'last_update')->first();
         $lastUpdate = $lastUpdate->value;
+        $nextUpdate = strtotime("now");
 
         # On fait chercher la liste des dernières modifications sur TheTVDB
         $getUpdate = $client->request('GET', 'updated/query?fromTime=' . $lastUpdate, [
@@ -647,7 +648,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     if($actorRole != 'TBA'){
                                         # On met à jour le rôle
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle ' . $actorRole . ' n\'était pas rempli. On va donc modifier la ligne ' . $actor_role[0]);
-                                        $test = $actor_ref->shows()->updateExistingPivot($actor_role[0], ['artistables.role' => $actorRole]);
+                                        $test = $actor_ref->shows()->updateExistingPivot(['artistables.role' => $actorRole]);
                                         Log::info($actor_ref);
                                         Log::info($test);
                                     }
@@ -734,5 +735,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 }
             }
         }
+        $lastUpdate = Temp::where('key', 'last_update')->first();
+        $lastUpdate->value = $nextUpdate;
+
+        $lastUpdate->save();
     }
 }
