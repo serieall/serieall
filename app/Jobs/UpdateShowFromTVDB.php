@@ -281,6 +281,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                 $query->where('shows.show_url', '==', $idSerie);
                             })->get();
 
+                            Log::info($actor_liaison);
+
                             if(empty($actor_liaison)){
                                 # On lie l'acteur à la série
                                 Log::info('L\'acteur ' . $actor . ' existe déjà mais n\'est pas lié à la série. On le lie.');
