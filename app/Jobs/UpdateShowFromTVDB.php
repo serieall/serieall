@@ -294,6 +294,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     $query->whereRole('TBA');
                                 })->get()->toArray();
 
+                                Log::info($actor_role);
+
                                 if(!empty($actor_role)){
                                     # On vérifie que le rôle est rempli sur TheTVDB
                                     Log::info('On vérifie que le rôle est rempli sur TheTVDB');
