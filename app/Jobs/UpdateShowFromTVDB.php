@@ -168,7 +168,56 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         $episode_ref->season()->associate($season_ref);
                         $episode_ref->save();
                     } else {
+                        $nomENEpisode = $episode_ref->name;
+                        # Si le nom FR est à TBA dans notre base
+                        if ($nomENEpisode == 'TBA') {
+                            # On vérifie si le nom est rempli en FR
+                            if (!is_null($getEpisode_en->episodeName)) {
+                                # On sauvegarde le nom en français
+                                Log::info('Mise à jour du nom en version originale.');
+                                $episode_ref->name = $getEpisode_en->episodeName;
+                            }
+                        }
 
+                        $nomFREpisode = $episode_ref->name_fr;
+                        # Si le nom FR est à TBA dans notre base
+                        if ($nomFREpisode == 'TBA') {
+                            # On vérifie si le nom est rempli en FR
+                            if (!is_null($getEpisode_fr->episodeName)) {
+                                # On sauvegarde le nom en français
+                                Log::info('Mise à jour du nom en français.');
+                                $episode_ref->name_fr = $getEpisode_fr->episodeName;
+                            }
+                        }
+
+                        $diffusionEpisode = $episode_ref->diffusion_us;
+                        # Si la diffusion est renseignée sur theTVDB
+                        if (!empty($getEpisode_en->firstAired)) {
+                            # Si la diffusion dans notre BDD est égale à celle dans TheTVDB
+                            if ($diffusionEpisode != $getEpisode_en->firstAired) {
+                                # On enregistre la nouvelle diffusion
+                                Log::info('Mise à jour de la diffusion US.');
+                                $episode_ref->diffusion_us = $getEpisode_en->firstAired;
+                            }
+                        }
+
+                        $resumeEpisode = $episode_ref->resume;
+                        # Si le résumé est à TBA dans notre base
+                        if ($resumeEpisode == 'TBA') {
+                            # On vérifie si le résumé est rempli en FR
+                            if (!is_null($getEpisode_fr->overview)) {
+                                # On sauvegarde le résumé en français
+                                Log::info('Mise à jour du résumé en français.');
+                                $episode_ref->resume = $getEpisode_fr->overview;
+                            } else {
+                                # On vérifie que le résumé est rempli en EN
+                                if (!is_null($getEpisode_en->overview)) {
+                                    # On sauvegarde le résumé en EN
+                                    Log::info('Mise à jour du résumé en anglais.');
+                                    $episode_ref->resume = $getEpisode_en->overview;
+                                }
+                            }
+                        }
                     }
                 }
                 else
@@ -453,6 +502,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                         # On met à jour le rôle
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle ' . $actorRole . ' n\'était pas rempli. On va donc modifier la ligne ' . $actor_role[0]);
                                         $test = $actor_ref->shows()->updateExistingPivot($actor_role[0], ['artistables.role' => $actorRole]);
+                                        Log::info($actor_ref);
                                         Log::info($test);
                                     }
                                 }
