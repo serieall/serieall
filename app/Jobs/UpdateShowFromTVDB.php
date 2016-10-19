@@ -279,11 +279,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             $actor_liaison = Show::wherehas('artists', function ($query) use($actor, $idSerie){
                                 $query->whereName($actor);
                                 $query->where('shows.thetvdb_id', '=', $idSerie);
-                            })->get();
+                            })->get()->toArray();
 
                             Log::info($actor_liaison);
-
-                            $actor_liaison = array_filter($actor_liaison);
 
                             if(empty($actor_liaison)){
                                 # On lie l'acteur à la série
