@@ -276,8 +276,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                         if(!is_null($actor_ref)) {
                             # On vérifie s'il est déjà lié à la série
-                            $actor_liaison = Artist::whereHas('shows', function($query) use($actor_url, $idSerie){
-                                $query->where('artists.artist_url', '==', $actor_url);
+                            $actor_liaison = Artist::whereHas('shows', function($query) use($idSerie){
                                 $query->where('shows.thetvdb_id', '==', $idSerie);
                             })->get();
 
