@@ -178,6 +178,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 $show_en = $getShow_en->data;
                 $show_fr = $getShow_fr->data;
 
+                Log::info('Nom de la série : ' . $show_en->name);
+
                 $resumeSerie = $serieInBDD->resume;
                 # Si le résumé est à TBA dans notre base
                 if ($resumeSerie == 'TBA') {
