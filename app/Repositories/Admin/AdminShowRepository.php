@@ -31,6 +31,19 @@ class AdminShowRepository
         $verifIDTheTVDB = $this->show->where('thetvdb_id', $inputs['thetvdb_id'])->first();
         if(is_null($verifIDTheTVDB)){
             #dispatch(new AddShowFromTVDB($inputs));
+
+            $idSerie = '253573';
+
+            $artist = 'Emily Browning';
+
+            $artist_liaison = Artist::wherehas('shows', function($query) use($artist, $idSerie){
+                $query->where('artists.name', '==', $artist);
+                $query->where('shows.thetvdb_id', '==', $idSerie);
+            })->get();
+
+            dd($artist_liaison);
+
+
             dispatch(new UpdateShowFromTvDB());
             return $dispatchOK = true;
         }
