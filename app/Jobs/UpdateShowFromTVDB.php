@@ -178,7 +178,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 $show_en = $getShow_en->data;
                 $show_fr = $getShow_fr->data;
 
-                Log::info('Nom de la série : ' . $show_en->name);
+                Log::info('Nom de la série : ' . $show_en->seriesName);
 
                 $resumeSerie = $serieInBDD->resume;
                 # Si le résumé est à TBA dans notre base
@@ -200,9 +200,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 # Si le nom FR est à TBA dans notre base
                 if ($nomFRSerie == 'TBA') {
                     # On vérifie si le nom est rempli en FR
-                    if (!is_null($show_fr->name)) {
+                    if (!is_null($show_fr->seriesName)) {
                         # On sauvegarde le nom en français
-                        $serieInBDD->name_fr = $show_fr->name;
+                        $serieInBDD->name_fr = $show_fr->seriesName;
                     }
                 }
 
