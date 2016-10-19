@@ -35,10 +35,11 @@ class AdminShowRepository
             $idSerie = '253573';
 
             $artist = 'Emily Browning';
-            #$artist = 'Ian McShane';
+            $artist = 'Ian McShane';
 
-            $artist_liaison = Show::wherehas('artists', function ($query) use($artist){
+            $artist_liaison = Show::wherehas('artists', function ($query) use($artist, $idSerie){
                 $query->whereName($artist);
+                $query->where('shows.thetvdb_id', '=', $idSerie);
             })->get();
 
             dd($artist_liaison);
