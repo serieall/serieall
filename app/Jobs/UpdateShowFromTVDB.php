@@ -35,7 +35,147 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
     private function UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD)
     {
-        Log::info('Episode en cours');
+        foreach ($getEpisodes as $episode) {
+            # On vérifie d'abord que la saison n'est pas à 0
+            $seasonNumber = $episode->airedSeason;
+
+            if ($seasonNumber != 0) {
+                # On récupère l'ID de l'épisode
+                $episodeID = $episode->id;
+
+                /*
+                |--------------------------------------------------------------------------
+                | Récupération des informations de l'épisode en question
+                |--------------------------------------------------------------------------
+                | Dans un premier temps, en français.
+                | Puis en anglais et on vérifie que le français est bien rempli, sinon on
+                | choisit la version anglaise.
+                */
+                $getEpisode_fr = $client->request('GET', '/episodes/' . $episodeID, [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'fr',
+                    ]
+                ])->getBody();
+
+                $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
+                    'headers' => [
+                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                        'Authorization' => 'Bearer ' . $token,
+                        'Accept-Language' => 'en',
+                    ]
+                ])->getBody();
+
+                # On décode le JSON
+                $getEpisode_fr = json_decode($getEpisode_fr);
+                $getEpisode_en = json_decode($getEpisode_en);
+
+                $getEpisode_en = $getEpisode_en->data;
+                $getEpisode_fr = $getEpisode_fr->data;
+
+                # Si l'épisode a été mis à jour depuis la dernière fois
+                $lastUpdate = Temp::where('key', 'last_update')->first();
+                $lastUpdate = $lastUpdate->value;
+
+                if($lastUpdate <= $getEpisode_en->lastUpdated) {
+                    Log::info('** Modification de l\'épisode ' . $episodeID . ' **');
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Récupération des informations de la saison
+                    |--------------------------------------------------------------------------
+                    | On crée la saison si elle n'existe pas
+                    */
+                    # Variables de la saison
+                    $seasonID = $getEpisode_en->airedSeasonID;
+                    $seasonName = $getEpisode_en->airedSeason;
+
+                    # Vérification de la présence de la saison dans la BDD
+                    $season_ref = Season::where('thetvdb_id', $seasonID)->first();
+                    Log::info('Saison n°' . $seasonName);
+
+                    # Si elle n'existe pas
+                    if (is_null($season_ref)) {
+                        Log::info('Création de la saison');
+
+                        # On prépare la nouvelle saison
+                        $season_ref = new Season([
+                            'name' => $seasonName,
+                            'thetvdb_id' => $seasonID
+                        ]);
+
+                        # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                        $season_ref->show()->associate($serieInBDD);
+                        $season_ref->save();
+                    }
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Récupération des informations de l'épisode
+                    |--------------------------------------------------------------------------
+                    | On crée l'épisode si elle n'existe pas
+                    */
+
+                    # Vérification de la présence de l'épisode dans la BDD
+                    $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
+                    $episodeNumero = $getEpisode_en->airedEpisodeNumber;
+
+                    # Si il n'existe pas
+                    if (is_null($episode_ref)) {
+                        # Variables de l'épisode
+                        # Nom de l'épisode (s'il n'existe pas on met le nom par défaut
+                        $episodeName = $getEpisode_en->episodeName;
+                        if (is_null($episodeName)) {
+                            $episodeName = 'TBA';
+                        }
+
+                        # Date de diffusion US. Si elle n'existe pas, on met la date par défaut
+                        $episodeDiffusionUS = $getEpisode_en->firstAired;
+                        if (is_null($episodeDiffusionUS)) {
+                            $episodeDiffusionUS = '1800-01-01';
+                        }
+
+                        # Nom FR, sil n'existe pas, on en met pas
+                        $episodeNameFR = $getEpisode_fr->episodeName;
+                        if (is_null($episodeNameFR)) {
+                            $episodeNameFR = 'TBA';
+                        }
+
+                        # Résumé, si pas de version française, on met la version anglaise, et sinon on met le résumé par défaut
+                        $episodeResume = $getEpisode_fr->overview;
+                        if (is_null($episodeResume)) {
+                            $episodeResume = $getEpisode_en->overview;
+                            if (is_null($episodeResume)) {
+                                $episodeResume = 'Pas de résumé pour l\'instant.';
+                            }
+                        }
+
+                        Log::info('Création de l\'épisode n°' . $episodeNumero);
+
+                        # On prépare le nouvel épisode
+                        $episode_ref = new Episode([
+                            'numero' => $episodeNumero,
+                            'name' => $episodeName,
+                            'name_fr' => $episodeNameFR,
+                            'thetvdb_id' => $episodeID,
+                            'resume' => $episodeResume,
+                            'diffusion_us' => $episodeDiffusionUS,
+                        ]);
+                        # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
+                        $episode_ref->season()->associate($season_ref);
+                        $episode_ref->save();
+                    } else {
+                        Log::info('Modification de l\'épisode n°' . $episodeNumero);
+                    }
+                }
+                else
+                {
+                    $episodeNumero = $getEpisode_en->airedEpisodeNumber;
+                    Log::info('L\'épisode n°' . $episodeNumero . ' n\'a pas été modifié sur TheTVDB depuis la dernière fois');
+                }
+            }
+        }
     }
 
 
@@ -53,7 +193,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $key_token = "token";
-        $key_lastupdate = "last_update";
         $api_key = config('thetvdb.apikey');
         $api_username = config('thetvdb.username');
         $api_userkey = config('thetvdb.userkey');
@@ -125,7 +264,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         # D'abord on récupère la date de dernière mise à jour
-        $lastUpdate = Temp::where('key', $key_lastupdate)->first();
+        $lastUpdate = Temp::where('key', 'last_update')->first();
         $lastUpdate = $lastUpdate->value;
 
         # On fait chercher la liste des dernières modifications sur TheTVDB
