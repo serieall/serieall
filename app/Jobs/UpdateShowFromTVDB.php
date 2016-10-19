@@ -302,7 +302,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     # On vérifie que le rôle est rempli sur TheTVDB
                                     if($actorRole != 'TBA'){
                                         # Il faut récupérer l'ID de la ligne que l'on veut mettre à jour dans la table pivot
-                                        $idPivot = Artist::where('artist_id', $actor_ref->id)->where('artistable_id', $idInBDDSerie)->select('artistable.id');
+                                        $idPivot = $actor_ref->shows()->select('artistable.id');
                                         Log::info($idPivot);
 
                                         Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle n\'était pas rempli.');
