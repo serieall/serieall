@@ -36,7 +36,7 @@ class AdminShowRepository
 
             $artist = 'Emily Browning';
 
-            $artist_liaison = Artist::has('shows', '==', $idSerie);
+            $artist_liaison = Artist::has('shows', '=', $idSerie);
 
             dd($artist_liaison);
 
