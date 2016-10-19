@@ -35,7 +35,7 @@ class AdminShowRepository
             $idSerie = '253573';
 
             $artist = 'Emily Browning';
-            $artist = 'Ian McShane';
+            #$artist = 'Ian McShane';
 
             $artist_liaison = Show::wherehas('artists', function ($query) use($artist){
                 $query->whereName($artist);
