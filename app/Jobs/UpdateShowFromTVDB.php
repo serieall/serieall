@@ -230,7 +230,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                 $diffusionSerie = $serieInBDD->diffusion_us;
                 # Si la diffusion est renseignée sur theTVDB
-                if (!is_null($show_en->firstAired)) {
+                if (!empty($show_en->firstAired)) {
                     # Si la diffusion dans notre BDD est égale à celle dans TheTVDB
                     if ($diffusionSerie != $show_en->firstAired) {
                         # On enregistre la nouvelle diffusion
