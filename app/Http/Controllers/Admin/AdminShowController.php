@@ -30,10 +30,6 @@ class AdminShowController extends Controller
      */
     public function index()
     {
-        $actor_ref = Artist::where('artist_url', 'emily-browning')->first();
-        #debug
-        $test = $actor_ref->shows()->updateExistingPivot(105, ['role' => 'Laura Moon']);
-
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
         $shows = $this->adminShowRepository->getShowByName();
