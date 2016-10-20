@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
 
 use Carbon\Carbon;
 use App\Jobs\AddShowFromTVDB;
