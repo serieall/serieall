@@ -390,7 +390,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         $logMessage->message = '>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<';
         $logMessage->save();
 
-        Log::info('>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<');
+        Logging::info('>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<');
         /*
         |--------------------------------------------------------------------------
         | Définition des variables
