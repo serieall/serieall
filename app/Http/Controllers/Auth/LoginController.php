@@ -6,6 +6,7 @@ use Dotenv\Validator;
 use Illuminate\Http\Request;
 use App\Services\ActivationService;
 use App\Packages\Hashing\YourHasher;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
