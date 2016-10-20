@@ -796,11 +796,15 @@ class AddShowFromTVDB extends Job implements ShouldQueue
             $this->AddEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new, $jobName);
         }
         else{
-            Log::info('En cours, page n°1');
+            $logMessage = 'En cours, page n°1';
+            saveLogMessage($jobName, $logMessage);
+
             $this->AddEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new, $jobName);
 
             while($getEpisodeNextPage <= $getEpisodeLastPage) {
-                Log::info('En cours, page n°'.$getEpisodeNextPage);
+                $logMessage = 'En cours, page n°'.$getEpisodeNextPage;
+                saveLogMessage($jobName, $logMessage);
+
                 $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage, [
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
@@ -816,8 +820,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 $getEpisodeNextPage++;
             }
         }
-
-
-
+        $logMessage = '>>>>>>>>>> Lancement du job d\'ajout <<<<<<<<<<';
+        saveLogMessage($jobName, $logMessage);
     }
 }
