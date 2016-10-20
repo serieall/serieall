@@ -719,7 +719,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD);
 
                     while($getEpisodeNextPage <= $getEpisodeLastPage) {
-                        Log::info('En cours, page n° '.$getEpisodeNextPage);
+                        Log::info('En cours, page n°'.$getEpisodeNextPage);
                         $getEpisodes_en = $client->request('GET', '/series/' . $idSerie .'/episodes?page='. $getEpisodeNextPage, [
                             'headers' => [
                                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
