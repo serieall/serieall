@@ -9,6 +9,8 @@ use App\Models\Show;
 use App\Models\Genre;
 use App\Models\Artist;
 use App\Models\Temp;
+use App\Models\Season;
+use App\Models\Episode;
 
 use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
