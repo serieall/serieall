@@ -389,6 +389,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         | Définition des variables
         |--------------------------------------------------------------------------
         */
+        $secondsWeek = 604800;
         $key_token = "token";
         $api_key = config('thetvdb.apikey');
         $api_username = config('thetvdb.username');
@@ -741,8 +742,12 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
             }
         }
         $newUpdate = Temp::where('key', 'last_update')->first();
-        $newUpdate->value = $nextUpdate;
+        $deltaLastNext = $nextUpdate - $lastUpdate;
+        if($deltaLastNext >= $secondsWeek){
+            $nextUpdate = $lastUpdate + $secondsWeek;
+        }
 
+        $newUpdate->value = $nextUpdate;
         $newUpdate->save();
     }
 }
