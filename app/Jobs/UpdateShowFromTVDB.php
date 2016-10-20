@@ -384,6 +384,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
      */
     public function handle()
     {
+        Log::info('>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<');
         /*
         |--------------------------------------------------------------------------
         | Définition des variables
@@ -747,7 +748,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
             $nextUpdate = $lastUpdate + $secondsWeek;
         }
 
+        Log::info('----- Mise à jour du timestamp -----');
         $newUpdate->value = $nextUpdate;
         $newUpdate->save();
+        Log::info('>>>>>>>>>> Fin du job d\'update <<<<<<<<<<');
     }
 }
