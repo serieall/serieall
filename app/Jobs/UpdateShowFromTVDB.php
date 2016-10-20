@@ -740,9 +740,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     }
                 }
             }
-            else{
-                Log::info('On passe la série');
-            }
         }
         $newUpdate = Temp::where('key', 'last_update')->first();
         $deltaLastNext = $nextUpdate - $lastUpdate;
