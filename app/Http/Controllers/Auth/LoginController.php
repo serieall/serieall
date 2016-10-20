@@ -44,10 +44,9 @@ class LoginController extends Controller
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  bool  $throttles
      * @return \Illuminate\Http\Response
      */
-    protected function handleUserWasAuthenticated(Request $request, $throttles)
+    protected function sendLoginResponse(Request $request)
     {
         # Si le mot de passe n'st pas hashé avec Bcrypt
         if($this->hashingProvider->needsRehash(Auth::user()->password)){
@@ -57,15 +56,12 @@ class LoginController extends Controller
             Auth::user()->save();
         }
 
-        if ($throttles) {
-            $this->clearLoginAttempts($request);
-        }
+        $request->session()->regenerate();
 
-        if (method_exists($this, 'authenticated')) {
-            return $this->authenticated($request, Auth::guard($this->getGuard())->user());
-        }
+        $this->clearLoginAttempts($request);
 
-        return redirect()->intended($this->redirectPath());
+        return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended($this->redirectPath());
     }
 
     /**
