@@ -11,6 +11,7 @@ use App\Models\Artist;
 use App\Models\Temp;
 use App\Models\Season;
 use App\Models\Episode;
+use App\Models\Log;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -381,6 +382,13 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
      */
     public function handle()
     {
+        # Définition du nom du job
+        $jobNumber = mt_rand();
+        $jobName = 'UpdateShow-' . $jobNumber;
+        $logMessage = new Log();
+        $logMessage->name = 'UpdateShow-' . $jobNumber;
+        $logMessage->message = '>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<';
+        $logMessage->save();
         Log::info('>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<');
         /*
         |--------------------------------------------------------------------------
