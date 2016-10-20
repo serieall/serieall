@@ -385,10 +385,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         # Définition du nom du job
         $jobNumber = mt_rand();
         $jobName = 'UpdateShow-' . $jobNumber;
-        $logMessage = new Log();
-        $logMessage->name = $jobName;
-        $logMessage->message = '>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<';
-        $logMessage->save();
+        $logMessage = '>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<';
+        saveLogMessage($jobName, $logMessage);
 
         Logging::info('>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<');
         /*
