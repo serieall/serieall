@@ -46,7 +46,7 @@ class AuthController extends Controller
      */
     public function __construct(ActivationService $activationService, YourHasher $hashingProvider )
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        #$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
         $this->activationService = $activationService;
         $this->hashingProvider = $hashingProvider;
     }
