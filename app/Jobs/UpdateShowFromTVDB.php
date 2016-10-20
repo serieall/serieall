@@ -739,6 +739,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         $getEpisodeNextPage++;
                     }
                 }
+            }
+            else{
                 Log::info('On passe la série');
             }
         }
