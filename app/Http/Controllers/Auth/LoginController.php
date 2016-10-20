@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Dotenv\Validator;
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 use App\Services\ActivationService;
 use App\Packages\Hashing\YourHasher;
 

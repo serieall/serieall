@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Jobs\Emails\SendVerifyEmail;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 use App\Repositories\ActivationRepository;
