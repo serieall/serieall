@@ -642,7 +642,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     ->where('shows.thetvdb_id', $idSerie)
                                     ->where('artistables.profession', 'actor')
                                     ->where('artistables.role', 'TBA')
-                                    ->pluck('artistables.id')
+                                    ->pluck('shows.id')
                                     ->toArray();
 
                                 if(!empty($actor_role)){
