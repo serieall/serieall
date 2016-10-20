@@ -631,7 +631,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             $actor_liaison = $actor_ref->shows()
                                 ->where('shows.thetvdb_id', $idSerie)
                                 ->where('artistables.profession', 'actor')
-                                ->get();
+                                ->get()
+                                ->toArray();
 
                             if(empty($actor_liaison)){
                                 # On lie l'acteur à la série
