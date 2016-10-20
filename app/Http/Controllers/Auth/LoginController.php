@@ -70,70 +70,12 @@ class LoginController extends Controller
 
     /**
      * Get the login username to be used by the controller.
-     * Surcharge de la fonction de base de Laravel
-     *
-     * @return string
-     */
-    public function loginUsername()
-    {
-        return property_exists($this, 'username') ? $this->username : 'username';
-    }
-
-    /**
-     * Get the login username to be used by the controller.
      *
      * @return string
      */
     public function username()
     {
         return 'username';
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'username' => 'required|max:255|unique:users',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:8|confirmed',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
-
-    public function register(Request $request)
-    {
-        $validator = $this->validator($request->all());
-
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-
-        $user = $this->create($request->all());
-
-        $this->activationService->sendActivationMail($user);
-
-        return redirect('/login')->with('status', 'Nous vous avons envoyé un e-mail de confirmation.');
     }
 
     public function authenticated(Request $request, $user)
