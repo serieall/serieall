@@ -366,11 +366,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         }
                     }
                 }
-                else
-                {
-                    $episodeNumero = $getEpisode_en->airedEpisodeNumber;
-                    Log::info('L\'épisode n°' . $seasonNumber . 'x' . $episodeNumero . ' n\'a pas été modifié sur TheTVDB depuis la dernière fois');
-                }
             }
         }
     }
