@@ -149,6 +149,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        \App\Providers\BroadcastServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
 
 
         /*
@@ -212,6 +214,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Notif' => Illuminate\Support\Facades\Notification::class,
 
     ],
 
