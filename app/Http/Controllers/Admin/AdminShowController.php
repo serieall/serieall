@@ -63,7 +63,7 @@ class AdminShowController extends Controller
      */
     public function store(ShowCreateRequest $request)
     {
-        $inputs = $request->all();
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         $dispatchOK = $this->adminShowRepository->createShowJob($inputs);
 

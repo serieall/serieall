@@ -2,19 +2,13 @@
 
 namespace App\Jobs;
 
-
-use App\Models\Channel;
-use App\Models\Nationality;
 use App\Models\Show;
-use App\Models\Genre;
 use App\Models\Artist;
 use App\Models\Temp;
 use App\Models\Season;
 use App\Models\Episode;
-use App\Models\Log;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log as Logging;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
