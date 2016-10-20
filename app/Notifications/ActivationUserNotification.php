@@ -44,6 +44,7 @@ class ActivationUserNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Activation de votre compte')
                     ->line('Pour activer votre compte, veuillez cliquer sur le lien ci-dessous :')
                     ->action('Activer mon compte', url('password/reset', $this->token));
     }
