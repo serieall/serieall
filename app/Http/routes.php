@@ -20,7 +20,7 @@ Route::get('/', function () {
 */
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
-Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
+Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');
 
 Route::get('/home', 'HomeController@index');
 
