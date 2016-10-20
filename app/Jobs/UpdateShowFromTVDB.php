@@ -111,6 +111,10 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         $season_ref->show()->associate($serieInBDD);
                         $season_ref->save();
                     }
+                    else
+                    {
+                        Log::info('La saison existe');
+                    }
 
                     /*
                     |--------------------------------------------------------------------------
