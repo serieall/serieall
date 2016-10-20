@@ -739,6 +739,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         $getEpisodeNextPage++;
                     }
                 }
+                Log::info('On passe la série');
             }
         }
         $newUpdate = Temp::where('key', 'last_update')->first();
