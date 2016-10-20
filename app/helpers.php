@@ -8,8 +8,10 @@
 use App\Models\Log;
 
 function saveLogMessage($logName, $logMessage){
-    $logMessage = new Log();
-    $logMessage->name = $logName;
-    $logMessage->message = $logMessage;
-    $logMessage->save();
+    $log = new Log();
+    $log->name = $logName;
+    $log->message = $logMessage;
+    $log->save();
+
+    return true;
 }

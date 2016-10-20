@@ -35,8 +35,12 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
     {
     }
 
-
-    private function UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD)
+    /**
+     * Mettre à jour les épisodes un par un
+     *
+     * @return void
+     */
+    private function UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD, $jobName)
     {
         foreach ($getEpisodes as $episode) {
             # On vérifie d'abord que la saison n'est pas à 0
@@ -85,7 +89,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                 if ($lastUpdate <= $getEpisode_en->lastUpdated || is_null($episode_ref)) {
                     $episodeNumero = $getEpisode_en->airedEpisodeNumber;
-                    Logging::info('** Modification de l\'épisode n°' . $seasonNumber . 'x' . $episodeNumero . ' **');
+
+                    $logMessage = '** Modification de l\'épisode n°' . $seasonNumber . 'x' . $episodeNumero . ' **';
+                    saveLogMessage($jobName, $logMessage);
 
                     /*
                     |--------------------------------------------------------------------------
@@ -102,7 +108,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                     # Si elle n'existe pas
                     if (is_null($season_ref)) {
-                        Logging::info('Création de la saison');
+                        $logMessage = 'Création de la saison';
+                        saveLogMessage($jobName, $logMessage);
 
                         # On prépare la nouvelle saison
                         $season_ref = new Season([
@@ -156,7 +163,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             }
                         }
 
-                        Logging::info('Création de l\'épisode n°' . $episodeNumero);
+                        $logMessage = 'Création de l\'épisode n°' . $episodeNumero;
+                        saveLogMessage($jobName, $logMessage);
 
                         # On prépare le nouvel épisode
                         $episode_ref = new Episode([
@@ -184,7 +192,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             # On vérifie si le nom est rempli en FR
                             if (!is_null($getEpisode_en->episodeName)) {
                                 # On sauvegarde le nom en français
-                                Logging::info('Mise à jour du nom en version originale.');
+                                $logMessage = 'Mise à jour du nom en version originale.';
+                                saveLogMessage($jobName, $logMessage);
+
                                 $episode_ref->name = $getEpisode_en->episodeName;
                             }
                         }
@@ -195,7 +205,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             # On vérifie si le nom est rempli en FR
                             if (!is_null($getEpisode_fr->episodeName)) {
                                 # On sauvegarde le nom en français
-                                Logging::info('Mise à jour du nom en français.');
+                                $logMessage = 'Mise à jour du nom en français.';
+                                saveLogMessage($jobName, $logMessage);
+
                                 $episode_ref->name_fr = $getEpisode_fr->episodeName;
                             }
                         }
@@ -206,7 +218,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             # Si la diffusion dans notre BDD est égale à celle dans TheTVDB
                             if ($diffusionEpisode != $getEpisode_en->firstAired) {
                                 # On enregistre la nouvelle diffusion
-                                Logging::info('Mise à jour de la diffusion US.');
+                                $logMessage = 'Mise à jour de la diffusion US.';
+                                saveLogMessage($jobName, $logMessage);
+
                                 $episode_ref->diffusion_us = $getEpisode_en->firstAired;
                             }
                         }
@@ -217,13 +231,17 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             # On vérifie si le résumé est rempli en FR
                             if (!is_null($getEpisode_fr->overview)) {
                                 # On sauvegarde le résumé en français
-                                Logging::info('Mise à jour du résumé en français.');
+                                $logMessage = 'Mise à jour du résumé en français.';
+                                saveLogMessage($jobName, $logMessage);
+
                                 $episode_ref->resume = $getEpisode_fr->overview;
                             } else {
                                 # On vérifie que le résumé est rempli en EN
                                 if (!is_null($getEpisode_en->overview)) {
                                     # On sauvegarde le résumé en EN
-                                    Logging::info('Mise à jour du résumé en anglais.');
+                                    $logMessage = 'Mise à jour du résumé en anglais.';
+                                    saveLogMessage($jobName, $logMessage);
+
                                     $episode_ref->resume = $getEpisode_en->overview;
                                 }
                             }
@@ -251,7 +269,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                                 # Si il n'existe pas
                                 if (is_null($writer_ref)) {
-                                    Logging::info('Création du scénariste ' . $writer);
+                                    $logMessage = 'Création du scénariste ' . $writer;
+                                    saveLogMessage($jobName, $logMessage);
+
                                     # On prépare le nouveau scénariste
                                     $writer_ref = new Artist([
                                         'name' => $writer,
@@ -270,7 +290,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                                     if (empty($writer_liaison)) {
                                         # On lie l'acteur à la série
-                                        Logging::info('Le scénariste ' . $writer . ' existe déjà mais n\'est pas lié à la série. On le lie.');
+                                        $logMessage = 'Le scénariste ' . $writer . ' existe déjà mais n\'est pas lié à la série. On le lie.';
+                                        saveLogMessage($jobName, $logMessage);
+
                                         $episode_ref->artists()->attach($writer_ref->id, ['profession' => 'writer']);
                                     }
                                 }
@@ -296,7 +318,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                                 # Si il n'existe pas
                                 if (is_null($director_ref)) {
-                                    Logging::info('Création du réalisateur ' . $director);
+                                    $logMessage = 'Création du réalisateur ' . $director;
+                                    saveLogMessage($jobName, $logMessage);
+
                                     # On prépare le nouveau réal
                                     $director_ref = new Artist([
                                         'name' => $director,
@@ -315,7 +339,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                                     if (empty($writer_liaison)) {
                                         # On lie l'acteur à la série
-                                        Logging::info('Le scénariste ' . $director . ' existe déjà mais n\'est pas lié à la série. On le lie.');
+                                        $logMessage = 'Le réalisateur ' . $director . ' existe déjà mais n\'est pas lié à la série. On le lie.';
+                                        saveLogMessage($jobName, $logMessage);
+
                                         $episode_ref->artists()->attach($director_ref->id, ['profession' => 'director']);
                                     }
                                 }
@@ -342,7 +368,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                                 # Si il n'existe pas
                                 if (is_null($guestStar_ref)) {
-                                    Logging::info('Création du guest ' . $guestStar);
+                                    $logMessage = 'Création du guest ' . $guestStar;
+                                    saveLogMessage($jobName, $logMessage);
+
                                     # On prépare le nouveau guest
                                     $guestStar_ref = new Artist([
                                         'name' => $guestStar,
@@ -361,7 +389,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                                     if (empty($guest_liaison)) {
                                         # On lie l'acteur à la série
-                                        Logging::info('Le scénariste ' . $director . ' existe déjà mais n\'est pas lié à la série. On le lie.');
+                                        $logMessage = 'Le guest ' . $director . ' existe déjà mais n\'est pas lié à la série. On le lie.';
+                                        saveLogMessage($jobName, $logMessage);
+
                                         $episode_ref->artists()->attach($guestStar_ref->id, ['profession' => 'guest']);
                                     }
                                 }
@@ -388,7 +418,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         $logMessage = '>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<';
         saveLogMessage($jobName, $logMessage);
 
-        Logging::info('>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<');
         /*
         |--------------------------------------------------------------------------
         | Définition des variables
@@ -496,7 +525,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
             # Si la série existe
             if (!is_null($serieInBDD)) {
-                Log::info('----- Modification de la série ' . $idSerie . ' -----');
+                $logMessage = '----- Modification de la série ' . $idSerie . ' -----';
+                saveLogMessage($jobName, $logMessage);
 
                 /*
                 |--------------------------------------------------------------------------
@@ -534,7 +564,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 $show_en = $getShow_en->data;
                 $show_fr = $getShow_fr->data;
 
-                Log::info('Nom de la série : ' . $show_en->seriesName);
+                $logMessage = 'Nom de la série : ' . $show_en->seriesName;
+                saveLogMessage($jobName, $logMessage);
 
                 $resumeSerie = $serieInBDD->resume;
                 # Si le résumé est à TBA dans notre base
@@ -542,13 +573,17 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     # On vérifie si le résumé est rempli en FR
                     if (!is_null($show_fr->overview)) {
                         # On sauvegarde le résumé en français
-                        Log::info('Mise à jour du résumé en français.');
+                        $logMessage = 'Mise à jour du résumé en français.';
+                        saveLogMessage($jobName, $logMessage);
+
                         $serieInBDD->resume = $show_fr->overview;
                     } else {
                         # On vérifie que le résumé est rempli en EN
                         if (!is_null($show_en->overview)) {
                             # On sauvegarde le résumé en EN
-                            Log::info('Mise à jour du résumé en anglais.');
+                            $logMessage = 'Mise à jour du résumé en anglais.';
+                            saveLogMessage($jobName, $logMessage);
+
                             $serieInBDD->resume = $show_en->overview;
                         }
                     }
@@ -560,7 +595,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     # On vérifie si le nom est rempli en FR
                     if (!is_null($show_fr->seriesName)) {
                         # On sauvegarde le nom en français
-                        Log::info('Mise à jour du nom en français.');
+                        $logMessage = 'Mise à jour du nom en français.';
+                        saveLogMessage($jobName, $logMessage);
+
                         $serieInBDD->name_fr = $show_fr->seriesName;
                     }
                 }
@@ -571,7 +608,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     # On vérifie le statut sur TheTVDB
                     if ($show_en->status == 'Ended') {
                         # On enregistre le nouveau statut
-                        Log::info('Mise à jour du statut.');
+                        $logMessage = 'Mise à jour du statut.';
+                        saveLogMessage($jobName, $logMessage);
+
                         $serieInBDD->encours = 0;
                     }
                 }
@@ -582,7 +621,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     # Si la diffusion dans notre BDD est égale à celle dans TheTVDB
                     if ($diffusionSerie != $show_en->firstAired) {
                         # On enregistre la nouvelle diffusion
-                        Log::info('Mise à jour de la diffusion US.');
+                        $logMessage = 'Mise à jour de la diffusion US.';
+                        saveLogMessage($jobName, $logMessage);
+
                         $serieInBDD->diffusion_us = $show_en->firstAired;
                         $dateTemp = date_create($show_en->firstAired);              # On transforme d'abord le texte récupéré par la requête en date
                         $serieInBDD->annee = date_format($dateTemp, "Y");           # Ensuite on récupère l'année
@@ -590,8 +631,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 }
 
                 $serieInBDD->save();
-
-                $idInBDDSerie = $serieInBDD->id;
 
                 /*
                 |--------------------------------------------------------------------------
@@ -643,7 +682,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                             if(empty($actor_liaison)){
                                 # On lie l'acteur à la série
-                                Log::info('L\'acteur ' . $actor . ' existe déjà mais n\'est pas lié à la série. On le lie.');
+                                $logMessage = 'L\'acteur ' . $actor . ' existe déjà mais n\'est pas lié à la série. On le lie.';
+                                saveLogMessage($jobName, $logMessage);
+
                                 $serieInBDD->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
                             }
                             else{
@@ -659,10 +700,10 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                     # On vérifie que le rôle est rempli sur TheTVDB
                                     if($actorRole != 'TBA'){
                                         # On met à jour le rôle
-                                        Log::info('L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle ' . $actorRole . ' n\'était pas rempli. On va donc modifier la ligne ' . $actor_role[0]);
-                                        $test = $actor_ref->shows()->updateExistingPivot($actor_role[0], ['role' => $actorRole]);
-                                        Log::info($actor_ref);
-                                        Log::info($test);
+                                        $logMessage = 'L\'acteur ' . $actor . ' est déjà lié à la série mais son rôle ' . $actorRole . ' n\'était pas rempli.';
+                                        saveLogMessage($jobName, $logMessage);
+
+                                        $actor_ref->shows()->updateExistingPivot($actor_role[0], ['role' => $actorRole]);
                                     }
                                 }
                             }
@@ -675,7 +716,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             ]);
 
                             # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                            Log::info('L\'acteur ' . $actor . ' a été créé.');
+                            $logMessage = 'L\'acteur ' . $actor . ' a été créé.';
+                            saveLogMessage($jobName, $logMessage);
+
                             $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
                         }
                     }
@@ -722,14 +765,18 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 | page et on exécute la fonction de récupération des informations.
                 */
                 if(is_null($getEpisodeNextPage)){
-                    $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD);
+                    $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD, $jobName);
                 }
                 else{
-                    Log::info('En cours, page n°1 ');
-                    $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD);
+                    $logMessage = 'En cours, page n°1';
+                    saveLogMessage($jobName, $logMessage);
+
+                    $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD, $jobName);
 
                     while($getEpisodeNextPage <= $getEpisodeLastPage) {
-                        Log::info('En cours, page n°'.$getEpisodeNextPage);
+                        $logMessage = 'En cours, page n°'.$getEpisodeNextPage;
+                        saveLogMessage($jobName, $logMessage);
+
                         $getEpisodes_en = $client->request('GET', '/series/' . $idSerie .'/episodes?page='. $getEpisodeNextPage, [
                             'headers' => [
                                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
@@ -741,7 +788,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         $getEpisodes_en = json_decode($getEpisodes_en);
                         $getEpisodes = $getEpisodes_en->data;
 
-                        $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD);
+                        $this->UpdateEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $serieInBDD, $jobName);
                         $getEpisodeNextPage++;
                     }
                 }
@@ -753,9 +800,13 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
             $nextUpdate = $lastUpdate + $secondsWeek;
         }
 
-        Log::info('----- Mise à jour du timestamp -----');
+        $logMessage = '----- Mise à jour du timestamp -----';
+        saveLogMessage($jobName, $logMessage);
+
         $newUpdate->value = $nextUpdate;
         $newUpdate->save();
-        Log::info('>>>>>>>>>> Fin du job d\'update <<<<<<<<<<');
+
+        $logMessage = '>>>>>>>>>> Fin du job d\'update <<<<<<<<<<';
+        saveLogMessage($jobName, $logMessage);
     }
 }
