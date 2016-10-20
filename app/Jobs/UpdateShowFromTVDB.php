@@ -80,7 +80,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 $lastUpdate = Temp::where('key', 'last_update')->first();
                 $lastUpdate = $lastUpdate->value;
 
-                if ($lastUpdate <= $getEpisode_en->lastUpdated) {
+                $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
+
+                if ($lastUpdate <= $getEpisode_en->lastUpdated || is_null($episode_ref)) {
                     $episodeNumero = $getEpisode_en->airedEpisodeNumber;
                     Log::info('** Modification de l\'épisode n°' . $seasonNumber . 'x' . $episodeNumero . ' **');
 
@@ -110,10 +112,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                         $season_ref->show()->associate($serieInBDD);
                         $season_ref->save();
-                    }
-                    else
-                    {
-                        Log::info('La saison existe');
                     }
 
                     /*
