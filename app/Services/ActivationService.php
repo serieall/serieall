@@ -7,6 +7,8 @@ use Illuminate\Mail\Message;
 use App\Repositories\ActivationRepository;
 use App\Models\User;
 use Mail;
+use App\Notifications\ActivationUserNotification;
+use Illuminate\Notifications\Notification;
 
 class ActivationService
 {
@@ -31,12 +33,7 @@ class ActivationService
 
         $token = $this->activationRepo->createActivation($user);
 
-        Mail::Queue('auth.emails.verify',['token' => $token], function ($message) use ($user) {
-            $message->subject('Vérification de votre adresse E-Mail');
-            $message->from('journeytotheit@gmail.com', 'Série-All');
-            $message->to($user->email);
-        });
-
+        $user->notify(new ActivationUserNotification($token));
     }
 
     public function activateUser($token)
