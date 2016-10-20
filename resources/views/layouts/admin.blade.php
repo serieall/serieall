@@ -72,7 +72,7 @@
                         <a class="item" href="{{ url('/') }}">
                             Revenir sur le site
                         </a>
-                        <a class="item" href="{{ url('/logout') }}">
+                        <a class="item" href="{{ route('logout') }}">
                             Se déconnecter
                         </a>
                     </div>
