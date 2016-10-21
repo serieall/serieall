@@ -36,7 +36,7 @@ Route::post('changepassword', 'UserController@changePassword');
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
 */
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('admin', 'Admin\AdminController@index')->name('adminIndex');
+    Route::get('admin', 'Admin\AdminController@index');
     Route::resource('adminShow', 'Admin\AdminShowController');
-    Route::get('adminShow/createManually', 'Admin\AdminShowController@createManually')->name('adminShow.createManually');
+    Route::get('adminShow/createManually', 'Admin\AdminShowController@createManually');
 });
