@@ -29,8 +29,13 @@
                 <a class="item" data-tab="second">Acteurs</a>
                 <a class="item" data-tab="third">Saisons & épisodes</a>
             </div>
-            <div class="ui tab teal segment active" data-tab="first">
-                <h4 class="ui dividing header">Informations générales sur la série</h4>
+            <div data-tab="first">
+                <div class="ui tab teal segment active">
+                    <h4 class="ui dividing header">Informations générales sur la série</h4>
+                </div>
+                <div class="ui tab purple segment active">
+                    <h4 class="ui dividing header">Informations sur la rentrée</h4>
+                </div>
             </div>
             <div class="ui tab blue segment" data-tab="second">
                 <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
