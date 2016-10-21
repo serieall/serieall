@@ -61,7 +61,7 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        return view('admin/shows/addShowM', compact('navActive'));
+        return view('admin/shows/manual', compact('navActive'));
     }
 
 
