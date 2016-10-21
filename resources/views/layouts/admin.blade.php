@@ -130,26 +130,30 @@
         $('#dropdown-creators')
                 .dropdown({
                     allowAdditions: true,
-                    forceSelection : false
+                    forceSelection : false,
+                    minCharacters : 5
                 })
         ;
         $('#dropdown-genres')
                 .dropdown({
                     allowAdditions: true,
-                    forceSelection : false
+                    forceSelection : false,
+                    minCharacters : 5
                 })
         ;
         $('#dropdown-chainefr')
                 .dropdown({
                     allowAdditions: true,
-                    forceSelection : false
+                    forceSelection : false,
+                    minCharacters : 5
                 })
         ;
 
         $('#dropdown-nationalities')
                 .dropdown({
                     allowAdditions: true,
-                    forceSelection : false
+                    forceSelection : false,
+                    minCharacters : 5
                 })
         ;
 
@@ -159,6 +163,8 @@
             changeMonth: true,
             changeYear: true
         });
+
+        $('.tabular.menu .item').tab();
     </script>
 
 </body>
