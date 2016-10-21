@@ -15,5 +15,17 @@
 @endsection
 
 @section('content')
+    <div class="ui button">Activate Tab</div>
+    <div class="ui tab" data-tab="tab-name">
+        <!-- Tab Content !-->
+    </div>
 
+    <script>
+        $('.ui.button')
+                .on('click', function() {
+                    // programmatically activating tab
+                    $.tab('change tab', 'tab-name');
+                })
+        ;
+    </script>
 @endsection
