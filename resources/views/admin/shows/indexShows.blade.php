@@ -80,10 +80,22 @@
     </div>
 
     <div class="ui basic modal">
-        <div class="ui massive buttons">
-            <button class="ui button">Création via TheTVDB</button>
-            <div class="or"></div>
-            <button class="ui button">Création manuelle</button>
+        <div class="ui two column middle aligned very relaxed stackable grid">
+            <div class="center aligned column">
+                <div class="ui big teal basic labeled icon button">
+                    <i class="cloud download icon"></i>
+                    Création via TheTVDB
+                </div>
+            </div>
+            <div class="ui vertical inverted divider">
+                Ou
+            </div>
+            <div class="center aligned column">
+                <div class="ui big green basic labeled icon button">
+                    <i class="signup icon"></i>
+                    Création manuelle
+                </div>
+            </div>
         </div>
     </div>
 
