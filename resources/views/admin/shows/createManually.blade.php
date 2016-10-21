@@ -23,9 +23,9 @@
     </h1>
 
     <div class="ui pointing secondary menu">
-        <a class="item active" data-tab="first">First</a>
-        <a class="item" data-tab="second">Second</a>
-        <a class="item" data-tab="third">Third</a>
+        <a class="item active" data-tab="first">Série</a>
+        <a class="item" data-tab="second">Acteurs</a>
+        <a class="item" data-tab="third">Saisons & épisodes</a>
     </div>
     <div class="ui bottom attached tab segment active" data-tab="first">
         First
