@@ -125,7 +125,7 @@
             }
         }} );
 
-        $('ui.fade.button')
+        $('#add-serie')
             .modal('show')
         ;
 @endsection
