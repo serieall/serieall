@@ -21,4 +21,8 @@
             Remplir le formulaire ci-dessous pour ajouter une nouvelle série
         </div>
     </h1>
+
+    <script>
+        $('.tabular.menu .item').tab();
+    </script>
 @endsection
