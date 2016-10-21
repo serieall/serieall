@@ -175,14 +175,14 @@
                 .dropdown({
                     allowAdditions: true,
                     forceSelection : false,
-                    minCharacters : 5
+                    minCharacters : 2
                 })
         ;
         $('#dropdown-chainefr')
                 .dropdown({
                     allowAdditions: true,
                     forceSelection : false,
-                    minCharacters : 5
+                    minCharacters : 1
                 })
         ;
 
@@ -190,7 +190,7 @@
                 .dropdown({
                     allowAdditions: true,
                     forceSelection : false,
-                    minCharacters : 5
+                    minCharacters : 1
                 })
         ;
 
