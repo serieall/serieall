@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Artist;
 
-use Carbon\Carbon;
-use App\Jobs\AddShowFromTVDB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
 
@@ -65,7 +61,7 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        return view('admin/shows/addShowManually', compact('navActive'));
+        return view('admin/shows/prout', compact('navActive'));
     }
 
 
