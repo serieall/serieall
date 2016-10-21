@@ -16,7 +16,7 @@
 
 @section('content')
     <h1 class="ui header" id="admin-titre">
-        Ajouter une série mnauellement
+        Ajouter une série manuellement
         <div class="sub header">
             Remplir le formulaire ci-dessous pour ajouter une nouvelle série
         </div>

@@ -65,12 +65,7 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        $artists = $this->adminShowRepository->getArtists();
-        $genres = $this->adminShowRepository->getGenres();
-        $channels = $this->adminShowRepository->getChannels();
-        $nationalities = $this->adminShowRepository->getNationalities();
-
-        return view('admin/shows/addShowManually', compact('navActive', 'artists', 'genres', 'channels', 'nationalities'));
+        return view('admin/shows/addShowManually', compact('navActive'));
     }
 
 
