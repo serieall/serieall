@@ -93,7 +93,7 @@
                 Ou
             </div>
             <div class="center aligned column">
-                <a href={{ route('adminShow.createManually') }}>k
+                <a href={{ route('adminShow.createManually') }}>
                     <div class="ui big green labeled icon button">
                         <i class="signup icon"></i>
                         Création manuelle
