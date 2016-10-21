@@ -80,6 +80,33 @@
             @endforeach
         </table>
     </div>
+
+    <div class="ui basic modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Créer une série de quel type ?
+        </div>
+        <div class="image content">
+            <div class="image">
+                <i class="archive icon"></i>
+            </div>
+            <div class="description">
+                <p>Vous demandez la création d'une nouvelle série. Vous voulez créer une série via The TVDB ou manuellement ?</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="two fluid ui inverted buttons">
+                <div class="ui cancel red basic inverted button">
+                    <i class="remove icon"></i>
+                    The TVDB
+                </div>
+                <div class="ui ok green basic inverted button">
+                    <i class="checkmark icon"></i>
+                    Manuellement
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -99,4 +126,8 @@
                     "sLast":     	"Fin"
             }
         }} );
+
+        $('ui.fade.button')
+            .modal('show')
+        ;
 @endsection
