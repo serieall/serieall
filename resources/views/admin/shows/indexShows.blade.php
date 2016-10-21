@@ -83,18 +83,18 @@
         <div class="ui two column middle aligned very relaxed stackable grid">
             <div class="center aligned column">
                 <a href={{ route('adminShow.create') }}>
-                    <div class="ui big teal basic labeled icon button">
+                    <div class="ui big teal labeled icon button">
                         <i class="cloud download icon"></i>
                         Création via TheTVDB
                     </div>
                 </a>
             </div>
-            <div class="ui vertical inverted divider">
+            <div class="ui vertical divider">
                 Ou
             </div>
             <div class="center aligned column">
                 <a href={{ route('adminShow.createManually') }}>
-                    <div class="ui big green basic labeled icon button">
+                    <div class="ui big green labeled icon button">
                         <i class="signup icon"></i>
                         Création manuelle
                     </div>
