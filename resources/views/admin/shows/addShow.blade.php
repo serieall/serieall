@@ -162,4 +162,43 @@
             </form>
         </div>
     </div>
+
+    <script>
+        $('#dropdown-creators')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 5
+                })
+        ;
+        $('#dropdown-genres')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 5
+                })
+        ;
+        $('#dropdown-chainefr')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 5
+                })
+        ;
+
+        $('#dropdown-nationalities')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 5
+                })
+        ;
+
+        $( "#datepicker" ).datepicker({
+            showAnim: "blind",
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true
+        });
+    </script>
 @endsection
