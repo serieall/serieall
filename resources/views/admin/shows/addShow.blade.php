@@ -194,7 +194,7 @@
                 })
         ;
 
-        $( "#datepicker" ).datepicker({
+        $( '#datepicker' ).datepicker({
             showAnim: "blind",
             dateFormat: "yy-mm-dd",
             changeMonth: true,
