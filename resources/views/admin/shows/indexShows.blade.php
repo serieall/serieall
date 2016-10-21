@@ -124,6 +124,10 @@
             $('#add-serie')
                     .on('click', function() {
                         $('.ui.modal')
+                                .modal({
+                                    inverted: true,
+                                    blurring: true
+                                })
                                 .modal('show')
                         ;
                     })
