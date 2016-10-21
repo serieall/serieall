@@ -110,5 +110,57 @@
             @yield('content')
         </div>
     </div>
+
+    <script>
+        $('.dropdown')
+                .dropdown()
+        ;
+
+        $('.message .close')
+                .on('click', function() {
+                    $(this)
+                            .closest('.message')
+                            .transition('fade')
+                    ;
+                })
+        ;
+
+        $('#dropdown-creators')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 5
+                })
+        ;
+        $('#dropdown-genres')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 5
+                })
+        ;
+        $('#dropdown-chainefr')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 5
+                })
+        ;
+
+        $('#dropdown-nationalities')
+                .dropdown({
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 5
+                })
+        ;
+
+        $( "#datepicker" ).datepicker({
+            showAnim: "blind",
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true
+        });
+    </script>
 </body>
 </html>
