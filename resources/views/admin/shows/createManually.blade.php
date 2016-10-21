@@ -22,19 +22,23 @@
         </div>
     </h1>
 
-    <div class="ui pointing secondary menu">
-        <a class="item active" data-tab="first">Série</a>
-        <a class="item" data-tab="second">Acteurs</a>
-        <a class="item" data-tab="third">Saisons & épisodes</a>
-    </div>
-    <div class="ui bottom attached tab segment active" data-tab="first">
-        First
-    </div>
-    <div class="ui bottom attached tab segment" data-tab="second">
-        Second
-    </div>
-    <div class="ui bottom attached tab segment" data-tab="third">
-        Third
+    <div class="ui centered grid">
+        <div class="ten wide column segment">
+            <div class="ui pointing secondary menu">
+                <a class="item active" data-tab="first">Série</a>
+                <a class="item" data-tab="second">Acteurs</a>
+                <a class="item" data-tab="third">Saisons & épisodes</a>
+            </div>
+            <div class="ui tab segment active" data-tab="first">
+                First
+            </div>
+            <div class="ui tab segment" data-tab="second">
+                Second
+            </div>
+            <div class="ui tab segment" data-tab="third">
+                Third
+            </div>
+        </div>
     </div>
 
     <script>
