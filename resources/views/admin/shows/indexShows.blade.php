@@ -87,7 +87,7 @@
                     Création via TheTVDB
                 </div>
             </div>
-            <div class="ui vertical divider">
+            <div class="ui vertical inverted divider">
                 Ou
             </div>
             <div class="center aligned column">
