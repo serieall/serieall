@@ -56,7 +56,7 @@ class AdminShowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createManually()
+    public function manual()
     {
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
