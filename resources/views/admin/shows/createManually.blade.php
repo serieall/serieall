@@ -32,8 +32,31 @@
             <div data-tab="first">
                 <div class="ui tab teal segment active">
                     <h4 class="ui dividing header">Informations générales sur la série</h4>
+                    <div class="two fields">
+                        <div class="field {{ $errors->has('name') ? ' error' : '' }}">
+                            <label>Nom original de la série</label>
+                            <input name="name" placeholder="TheTVDB ID" type="text" value="{{ old('name') }}">
+
+                            @if ($errors->has('name'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">
+                            <label>Nom français de la série</label>
+                            <input name="name_fr" placeholder="Nom français" type="text" value="{{ old('name_fr') }}">
+
+                            @if ($errors->has('name_fr'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('name_fr') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
-                <div class="ui tab purple segment active">
+                <div class="ui tab violet segment active">
                     <h4 class="ui dividing header">Informations sur la rentrée</h4>
                 </div>
             </div>
