@@ -164,7 +164,6 @@
             changeYear: true
         });
 
-        $('.tabular.menu .item').tab();
     </script>
 
 </body>
