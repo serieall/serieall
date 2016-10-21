@@ -80,27 +80,20 @@
     </div>
 
     <div class="ui basic modal">
-        <i class="close icon"></i>
-        <div class="header">
-            Créer une série de quel type ?
-        </div>
-        <div class="image content">
-            <div class="image">
-                <i class="archive icon"></i>
-            </div>
-            <div class="description">
-                <p>Vous demandez la création d'une nouvelle série. Vous voulez créer une série via The TVDB ou manuellement ?</p>
-            </div>
-        </div>
-        <div class="actions">
-            <div class="two fluid ui inverted buttons">
-                <div class="ui cancel red basic inverted button">
-                    <i class="remove icon"></i>
-                    The TVDB
+        <div class="ui two column middle aligned very relaxed stackable grid">
+            <div class="center aligned column">
+                <div class="ui big green labeled icon button">
+                    <i class="cloud download icon"></i>
+                    Création via TheTVDB
                 </div>
-                <div class="ui ok green basic inverted button">
-                    <i class="checkmark icon"></i>
-                    Manuellement
+            </div>
+            <div class="ui vertical divider">
+                Ou
+            </div>
+            <div class="center aligned column">
+                <div class="ui big green labeled icon button">
+                    <i class="signup icon"></i>
+                    Création manuelle
                 </div>
             </div>
         </div>
