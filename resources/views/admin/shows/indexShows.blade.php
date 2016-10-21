@@ -125,7 +125,11 @@
                 }} );
 
             $('#add-serie')
-                    .modal()
+                    .on('click', function() {
+                        $('.ui.modal')
+                                .modal('show')
+                        ;
+                    })
             ;
         </script>
 @endsection
