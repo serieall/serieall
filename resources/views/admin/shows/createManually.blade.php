@@ -35,7 +35,7 @@
                     <div class="two fields">
                         <div class="field {{ $errors->has('name') ? ' error' : '' }}">
                             <label>Nom original de la série</label>
-                            <input name="name" placeholder="TheTVDB ID" type="text" value="{{ old('name') }}">
+                            <input name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
 
                             @if ($errors->has('name'))
                                 <div class="ui red message">
@@ -56,6 +56,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="ui tab violet segment active">
                     <h4 class="ui dividing header">Informations sur la rentrée</h4>
                 </div>
