@@ -22,7 +22,4 @@
         </div>
     </h1>
 
-    <script>
-        $('.tabular.menu .item').tab();
-    </script>
 @endsection

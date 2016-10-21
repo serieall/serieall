@@ -164,8 +164,6 @@
     </div>
 
     <script>
-        @yield('scripts')
-
         $('.dropdown')
                 .dropdown()
         ;
