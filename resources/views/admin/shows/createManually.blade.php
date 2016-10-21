@@ -25,53 +25,53 @@
     <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
         {{ csrf_field() }}
 
-    <div class="ui centered grid">
-        <div class="ten wide column segment">
-            <div class="ui pointing secondary menu">
-                <a class="item active" data-tab="first">Série</a>
-                <a class="item" data-tab="second">Acteurs</a>
-                <a class="item" data-tab="third">Saisons & épisodes</a>
-            </div>
-            <div data-tab="first">
-                <div class="ui tab teal segment active">
-                    <h4 class="ui dividing header">Informations générales sur la série</h4>
-                    <div class="two fields">
-                        <div class="field {{ $errors->has('name') ? ' error' : '' }}">
-                            <label>Nom original de la série</label>
-                            <input name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
+        <div class="ui centered grid">
+            <div class="ten wide column segment">
+                <div class="ui pointing secondary menu">
+                    <a class="item active" data-tab="first">Série</a>
+                    <a class="item" data-tab="second">Acteurs</a>
+                    <a class="item" data-tab="third">Saisons & épisodes</a>
+                </div>
+                <div data-tab="first">
+                    <div class="ui tab teal segment active">
+                        <h4 class="ui dividing header">Informations générales sur la série</h4>
+                        <div class="two fields">
+                            <div class="field {{ $errors->has('name') ? ' error' : '' }}">
+                                <label>Nom original de la série</label>
+                                <input name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
 
-                            @if ($errors->has('name'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('name') }}</strong>
-                                </div>
-                            @endif
-                        </div>
+                                @if ($errors->has('name'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
 
-                        <div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">
-                            <label>Nom français de la série</label>
-                            <input name="name_fr" placeholder="Nom français" type="text" value="{{ old('name_fr') }}">
+                            <div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">
+                                <label>Nom français de la série</label>
+                                <input name="name_fr" placeholder="Nom français" type="text" value="{{ old('name_fr') }}">
 
-                            @if ($errors->has('name_fr'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('name_fr') }}</strong>
-                                </div>
-                            @endif
+                                @if ($errors->has('name_fr'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('name_fr') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="ui tab violet segment active">
-                    <h4 class="ui dividing header">Informations sur la rentrée</h4>
+                    <div class="ui tab violet segment active">
+                        <h4 class="ui dividing header">Informations sur la rentrée</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="ui tab blue segment" data-tab="second">
-                <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
-            </div>
-            <div class="ui tab red segment" data-tab="third">
-                <h4 class="ui dividing header">Ajouter les saisons et les épisodes</h4>
+                <div class="ui tab blue segment" data-tab="second">
+                    <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
+                </div>
+                <div class="ui tab red segment" data-tab="third">
+                    <h4 class="ui dividing header">Ajouter les saisons et les épisodes</h4>
+                </div>
             </div>
         </div>
-    </div>
     </form>
 
     <script>
