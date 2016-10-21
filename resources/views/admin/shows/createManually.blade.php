@@ -22,6 +22,9 @@
         </div>
     </h1>
 
+    <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
+        {{ csrf_field() }}
+
     <div class="ui centered grid">
         <div class="ten wide column segment">
             <div class="ui pointing secondary menu">
@@ -69,6 +72,7 @@
             </div>
         </div>
     </div>
+    </form>
 
     <script>
         $('.menu .item')
