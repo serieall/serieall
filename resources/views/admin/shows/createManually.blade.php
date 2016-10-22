@@ -87,7 +87,7 @@
 
                             <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
                                 <label>Série en cours</label>
-                                <div id="dropdown-encours" class="ui floating labeled icon dropdown button">
+                                <div id="dropdown-encours" class="ui labeled icon dropdown button">
                                     <i class="play icon"></i>
                                     <span class="text">Choisir</span>
                                     <div class="menu">
@@ -96,7 +96,7 @@
                                             Oui
                                         </div>
                                         <div class="item">
-                                            <i class="Remove icon"></i>
+                                            <i class="remove icon"></i>
                                             Non
                                         </div>
                                     </div>
