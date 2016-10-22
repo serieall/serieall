@@ -62,6 +62,32 @@
 
                     <div class="ui tab violet segment active">
                         <h4 class="ui dividing header">Informations sur la rentrée</h4>
+                        <div class="two fields">
+                            <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
+                                <label>Taux érectile</label>
+                                <div class="ui left icon input">
+                                    <input name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ old('taux_erectile') }}">
+                                    <i class="percent icon"></i>
+                                </div>
+
+                                @if ($errors->has('taux_erectile'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('taux_erectile') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
+                                <label>Avis de la rédaction</label>
+                                <textarea name="avis_rentree" value="{{ old('avis_rentree') }}"></textarea>
+
+                                @if ($errors->has('avis_rentree'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('avis_rentree') }}</strong>
+                                        @endif
+                                    </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="ui tab blue segment" data-tab="second">
@@ -69,32 +95,7 @@
                 </div>
                 <div class="ui tab red segment" data-tab="third">
                     <h4 class="ui dividing header">Ajouter les saisons et les épisodes</h4>
-                    <div class="two fields">
-                        <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
-                            <label>Taux érectile</label>
-                            <div class="ui left icon input">
-                                <input name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ old('taux_erectile') }}">
-                                <i class="percent icon"></i>
-                            </div>
 
-                            @if ($errors->has('taux_erectile'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('taux_erectile') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
-                            <label>Avis de la rédaction</label>
-                            <textarea name="avis_rentree" value="{{ old('avis_rentree') }}"></textarea>
-
-                            @if ($errors->has('avis_rentree'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('avis_rentree') }}</strong>
-                                    @endif
-                                </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
