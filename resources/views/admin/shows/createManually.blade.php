@@ -58,6 +58,57 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="two fields">
+                            <div class="field {{ $errors->has('resume') ? ' error' : '' }}">
+                                <label>Résumé</label>
+                                <textarea name="resume" value="{{ old('resume') }}"></textarea>
+
+                                @if ($errors->has('resume'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('resume') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="field {{ $errors->has('format') ? ' error' : '' }}">
+                                <label>Format</label>
+                                <div class="ui left icon input">
+                                    <input name="taux_erectile" placeholder="Format de la série..." type="number" value="{{ old('format') }}">
+                                    <i class="tv icon"></i>
+                                </div>
+
+                                @if ($errors->has('format'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('format') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
+                                <label>Série en cours</label>
+                                <div class="ui floating labeled icon dropdown button">
+                                    <i class="play icon"></i>
+                                    <span class="text">Choisir</span>
+                                    <div class="menu">
+                                        <div class="header">
+                                            <i class="checkmark icon"></i>
+                                            Oui
+                                        </div>
+                                        <div class="header">
+                                            <i class="Remove icon"></i>
+                                            Non
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if ($errors->has('encours'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('encours') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
 
                     <div class="ui tab violet segment active">
