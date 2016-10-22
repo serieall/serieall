@@ -125,8 +125,7 @@
                     .on('click', function() {
                         $('.ui.modal')
                                 .modal({
-                                    inverted: true,
-                                    blurring: true
+                                    inverted: true
                                 })
                                 .modal('show')
                         ;

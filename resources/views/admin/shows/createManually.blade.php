@@ -76,19 +76,6 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
-                                <label>Taux érectile</label>
-                                <div class="ui left icon input">
-                                    <input name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ old('taux_erectile') }}">
-                                    <i class="percent icon"></i>
-                                </div>
-
-                                @if ($errors->has('taux_erectile'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('taux_erectile') }}</strong>
-                                    </div>
-                                @endif
-                            </div>
 
                             <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
                                 <label>Avis de la rédaction</label>
