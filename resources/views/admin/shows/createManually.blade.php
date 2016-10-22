@@ -91,11 +91,11 @@
                                     <i class="play icon"></i>
                                     <span class="text">Choisir</span>
                                     <div class="menu">
-                                        <div class="header">
+                                        <div class="item">
                                             <i class="checkmark icon"></i>
                                             Oui
                                         </div>
-                                        <div class="header">
+                                        <div class="item">
                                             <i class="Remove icon"></i>
                                             Non
                                         </div>
