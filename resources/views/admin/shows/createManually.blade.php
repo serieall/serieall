@@ -87,7 +87,7 @@
 
                             <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
                                 <label>Série en cours</label>
-                                <div class="ui floating labeled icon dropdown button">
+                                <div id="dropdown-encours" class="ui floating labeled icon dropdown button">
                                     <i class="play icon"></i>
                                     <span class="text">Choisir</span>
                                     <div class="menu">
@@ -153,6 +153,11 @@
     </form>
 
     <script>
+        $('#dropdown-encours')
+                .dropdown({
+                })
+        ;
+
         $('.menu .item')
                 .tab()
         ;
