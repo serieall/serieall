@@ -71,7 +71,7 @@
                                 @endif
                             </div>
 
-                            <div class="two fields">
+                            <div class="two fields field">
                                 <div class="field {{ $errors->has('format') ? ' error' : '' }}">
                                     <label>Format</label>
                                     <div class="ui left icon input">
