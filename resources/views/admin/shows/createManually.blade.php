@@ -32,8 +32,8 @@
                     <a class="item" data-tab="second">Acteurs</a>
                     <a class="item" data-tab="third">Saisons & épisodes</a>
                 </div>
-                <div class="ui active" data-tab="first">
-                    <div class="ui tab teal segment">
+                <div class="ui tab active" data-tab="first">
+                    <div class="ui teal segment">
                         <h4 class="ui dividing header">Informations générales sur la série</h4>
                         <div class="two fields">
                             <div class="field {{ $errors->has('name') ? ' error' : '' }}">
