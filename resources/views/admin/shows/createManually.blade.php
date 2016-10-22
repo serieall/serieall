@@ -110,6 +110,45 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="two fields field">
+                                <div class="field {{ $errors->has('format') ? ' error' : '' }}">
+                                    <label>Format</label>
+                                    <div class="ui left icon input">
+                                        <input name="taux_erectile" placeholder="Format de la série..." type="number" value="{{ old('format') }}">
+                                        <i class="tv icon"></i>
+                                    </div>
+
+                                    @if ($errors->has('format'))
+                                        <div class="ui red message">
+                                            <strong>{{ $errors->first('format') }}</strong>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
+                                    <label>Série en cours</label>
+                                    <div id="dropdown-encours" class="ui fluid search selection dropdown">
+                                        <i class="dropdown icon"></i>
+                                        <span class="text">Choisir</span>
+                                        <div class="menu">
+                                            <div class="item">
+                                                <i class="checkmark icon"></i>
+                                                Oui
+                                            </div>
+                                            <div class="item">
+                                                <i class="remove icon"></i>
+                                                Non
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if ($errors->has('encours'))
+                                        <div class="ui red message">
+                                            <strong>{{ $errors->first('encours') }}</strong>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
 
