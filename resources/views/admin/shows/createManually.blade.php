@@ -88,6 +88,7 @@
                             <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
                                 <label>Série en cours</label>
                                 <div id="dropdown-encours" class="ui fluid search selection dropdown">
+                                    <i class="dropdown icon"></i>
                                     <span class="text">Choisir</span>
                                     <div class="menu">
                                         <div class="item">
