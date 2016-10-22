@@ -59,7 +59,7 @@
                             </div>
                         </div>
 
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="field {{ $errors->has('resume') ? ' error' : '' }}">
                                 <label>Résumé</label>
                                 <textarea name="resume" value="{{ old('resume') }}"></textarea>
