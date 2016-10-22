@@ -87,7 +87,7 @@
 
                             <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
                                 <label>Série en cours</label>
-                                <div id="dropdown-encours" class="ui fluid labeled icon dropdown button">
+                                <div id="dropdown-encours" class="ui fluid dropdown button">
                                     <i class="play icon"></i>
                                     <span class="text">Choisir</span>
                                     <div class="menu">
