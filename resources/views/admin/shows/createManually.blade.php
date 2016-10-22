@@ -110,6 +110,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <br />
                             <div class="two fields field">
                                 <div class="field {{ $errors->has('format') ? ' error' : '' }}">
                                     <label>Format</label>
