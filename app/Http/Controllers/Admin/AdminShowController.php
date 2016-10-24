@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
+use App\Http\Requests\ShowCreateManuallyRequest;
 
 use App\Repositories\Admin\AdminShowRepository;
 
@@ -43,12 +44,12 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        $artists = $this->adminShowRepository->getArtists();
+        $creators = $this->adminShowRepository->getCreators();
         $genres = $this->adminShowRepository->getGenres();
         $channels = $this->adminShowRepository->getChannels();
         $nationalities = $this->adminShowRepository->getNationalities();
 
-        return view('admin/shows/addShow', compact('navActive', 'artists', 'genres', 'channels', 'nationalities'));
+        return view('admin/shows/addShow', compact('navActive', 'creators', 'genres', 'channels', 'nationalities'));
     }
 
     /**
@@ -61,7 +62,12 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        return view('admin/shows/createManually', compact('navActive'));
+        $creators = $this->adminShowRepository->getCreators();
+        $genres = $this->adminShowRepository->getGenres();
+        $channels = $this->adminShowRepository->getChannels();
+        $nationalities = $this->adminShowRepository->getNationalities();
+
+        return view('admin/shows/createManually', compact('navActive', 'creators', 'genres', 'channels', 'nationalities'));
     }
 
 
@@ -87,6 +93,19 @@ class AdminShowController extends Controller
                 ->with('warning_header', 'Série déjà ajoutée')
                 ->with('warning', 'La série que vous voulez créer existe déjà chez Série-All.');
         }
+    }
+
+    /**
+     * Store a newly manually created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeManually(ShowCreateManuallyRequest $request)
+    {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        dd($inputs);
     }
 
     /**

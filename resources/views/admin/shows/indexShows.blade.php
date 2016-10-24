@@ -11,20 +11,27 @@
 @endsection
 
 @section('content')
-        <div class="ui right floated green animated fade button" tabindex="0" id="add-serie">
-            <div class="visible content">Ajouter une nouvelle série</div>
-            <div class="hidden content">
-                <i class="plus icon"></i>
+    <div>
+        <div class="ui grid">
+            <div class="ui height wide column">
+                <h1 class="ui header" id="admin-titre">
+                    Séries
+                    <div class="sub header">
+                        Liste de toutes les séries présentes sur Série-All
+                    </div>
+                </h1>
+            </div>
+            <div class="ui height wide column">
+                <div class="ui right floated green fade dropdown button">
+                    <span class="text">Ajouter une nouvelle série</span>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href={{ route('adminShow.create') }}><i class="cloud download icon"></i> Création via The TVDB</a>
+                        <a class="item" href={{ route('adminShow.createManually') }}><i class="signup icon"></i> Création manuelle</a>
+                    </div>
+                </div>
             </div>
         </div>
-
-    <div>
-        <h1 class="ui header" id="admin-titre">
-            Séries
-            <div class="sub header">
-                Liste de toutes les séries présentes sur Série-All
-            </div>
-        </h1>
 
         <table id="table-show-admin" class="ui sortable selectable celled table">
             <thead>

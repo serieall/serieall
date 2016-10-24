@@ -67,8 +67,8 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
-                                    @foreach($artists as $artist)
-                                        <div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>
+                                    @foreach($creators as $creator)
+                                        <div class="item" data-value="{{ $creator->name }}">{{ $creator->name }}</div>
                                     @endforeach
                                 </div>
                             </div>
@@ -163,42 +163,44 @@
         </div>
     </div>
 
-    <script>
-        $('#dropdown-creators')
-                .dropdown({
-                    allowAdditions: true,
-                    forceSelection : false,
-                    minCharacters : 5
-                })
-        ;
-        $('#dropdown-genres')
-                .dropdown({
-                    allowAdditions: true,
-                    forceSelection : false,
-                    minCharacters : 2
-                })
-        ;
-        $('#dropdown-chainefr')
-                .dropdown({
-                    allowAdditions: true,
-                    forceSelection : false,
-                    minCharacters : 1
-                })
-        ;
+    @section('scripts')
+        <script>
+            $('#dropdown-creators')
+                    .dropdown({
+                        allowAdditions: true,
+                        forceSelection : false,
+                        minCharacters: 5
+                    })
+            ;
+            $('#dropdown-genres')
+                    .dropdown({
+                        allowAdditions: true,
+                        forceSelection : false,
+                        minCharacters : 2
+                    })
+            ;
+            $('#dropdown-chainefr')
+                    .dropdown({
+                        allowAdditions: true,
+                        forceSelection : false,
+                        minCharacters : 1
+                    })
+            ;
 
-        $('#dropdown-nationalities')
-                .dropdown({
-                    allowAdditions: true,
-                    forceSelection : false,
-                    minCharacters : 1
-                })
-        ;
+            $('#dropdown-nationalities')
+                    .dropdown({
+                        allowAdditions: true,
+                        forceSelection : false,
+                        minCharacters : 1
+                    })
+            ;
 
-        $( '#datepicker' ).datepicker({
-            showAnim: "blind",
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true
-        });
-    </script>
+            $( '#datepicker' ).datepicker({
+                showAnim: "blind",
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true
+            });
+        </script>
+    @endsection
 @endsection

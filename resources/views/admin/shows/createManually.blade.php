@@ -22,7 +22,7 @@
         </div>
     </h1>
 
-    <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
+    <form class="ui form" method="POST" action="{{ route('adminShow.storeManually') }}">
         {{ csrf_field() }}
 
         <div class="ui centered grid">
@@ -31,6 +31,7 @@
                     <a class="item active" data-tab="first">Série</a>
                     <a class="item" data-tab="second">Acteurs</a>
                     <a class="item" data-tab="third">Saisons & épisodes</a>
+                    <a class="item" data-tab="fourth">Rentrée</a>
                 </div>
                 <div class="ui tab active" data-tab="first">
                     <div class="ui teal segment">
@@ -110,98 +111,293 @@
                                     @endif
                                 </div>
                             </div>
-                            <br />
-                            <div class="two fields field">
-                                <div class="field {{ $errors->has('format') ? ' error' : '' }}">
-                                    <label>Format</label>
-                                    <div class="ui left icon input">
-                                        <input name="taux_erectile" placeholder="Format de la série..." type="number" value="{{ old('format') }}">
-                                        <i class="tv icon"></i>
-                                    </div>
-
-                                    @if ($errors->has('format'))
-                                        <div class="ui red message">
-                                            <strong>{{ $errors->first('format') }}</strong>
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
-                                    <label>Série en cours</label>
-                                    <div id="dropdown-encours" class="ui fluid search selection dropdown">
-                                        <i class="dropdown icon"></i>
-                                        <span class="text">Choisir</span>
-                                        <div class="menu">
-                                            <div class="item">
-                                                <i class="checkmark icon"></i>
-                                                Oui
-                                            </div>
-                                            <div class="item">
-                                                <i class="remove icon"></i>
-                                                Non
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    @if ($errors->has('encours'))
-                                        <div class="ui red message">
-                                            <strong>{{ $errors->first('encours') }}</strong>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
                         </div>
-                    </div>
 
-                    <div class="ui tab violet segment active">
-                        <h4 class="ui dividing header">Informations sur la rentrée</h4>
                         <div class="two fields">
-                            <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
-                                <label>Taux érectile</label>
-                                <div class="ui left icon input">
-                                    <input name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ old('taux_erectile') }}">
-                                    <i class="percent icon"></i>
+                            <div class="field {{ $errors->has('diffusion_us') ? ' error' : '' }}">
+                                <label>Date de la diffusion originale</label>
+                                <div class="ui calendar" id="datepicker">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input name="diffusion_us" id="date-picker-us" type="date" placeholder="Date" value="{{ old('diffusion_us') }}">
+                                    </div>
                                 </div>
-
-                                @if ($errors->has('taux_erectile'))
+                                @if ($errors->has('diffusion_us'))
                                     <div class="ui red message">
-                                        <strong>{{ $errors->first('taux_erectile') }}</strong>
+                                        <strong>{{ $errors->first('diffusion_us') }}</strong>
                                     </div>
                                 @endif
                             </div>
 
-                            <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
-                                <label>Avis de la rédaction</label>
-                                <textarea name="avis_rentree" value="{{ old('avis_rentree') }}"></textarea>
-
-                                @if ($errors->has('avis_rentree'))
+                            <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
+                                <label>Date de la diffusion française</label>
+                                <div class="ui calendar" id="datepicker">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input name="diffusion_fr" id="date-picker-fr" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">
+                                    </div>
+                                </div>
+                                @if ($errors->has('diffusion_fr'))
                                     <div class="ui red message">
-                                        <strong>{{ $errors->first('avis_rentree') }}</strong>
+                                        <strong>{{ $errors->first('diffusion_fr') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="two fields">
+                            <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
+                                <label>Chaine(s)</label>
+                                <div id="dropdown-chaines" class="ui fluid multiple search selection dropdown">
+                                    <input name="chaine_fr" type="hidden" value="{{ old('chaine_fr') }}">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Choisir</div>
+                                    <div class="menu">
+                                        @foreach($channels as $channel)
+                                            <div class="item" data-value="{{ $channel->name }}">{{ $channel->name }}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                @if ($errors->has('chaine_fr'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('chaine_fr') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="field {{ $errors->has('nationalities') ? ' error' : '' }}">
+                                <label>Nationalité(s)</label>
+                                <div id="dropdown-nationalities" class="ui fluid multiple search selection dropdown">
+                                    <input name="nationalities" type="hidden" value="{{ old('nationalities') }}">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Choisir</div>
+                                    <div class="menu">
+                                        @foreach($nationalities as $nationality)
+                                            <div class="item" data-value="{{ $nationality->name }}">{{ $nationality->name }}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                @if ($errors->has('nationalities'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('nationalities') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="two fields">
+                            <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
+                                <label>Créateur(s) de la série</label>
+                                <div id="dropdown-creators" class="ui fluid multiple search selection dropdown">
+                                    <input name="creators" type="hidden" value="{{ old('creators') }}">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Choisir</div>
+                                    <div class="menu">
+                                        @foreach($creators as $creator)
+                                            <div class="item" data-value="{{ $creator->name }}">{{ $creator->name }}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                @if ($errors->has('creators'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('creators') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="field {{ $errors->has('genres') ? ' error' : '' }}">
+                                <label>Genre(s)</label>
+                                <div id="dropdown-genres" class="ui fluid multiple search selection dropdown">
+                                    <input name="genres" type="hidden" value="{{ old('genres') }}">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Choisir</div>
+                                    <div class="menu">
+                                        @foreach($genres as $genre)
+                                            <div class="item" data-value="{{ $genre->name }}">{{ $genre->name }}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @if ($errors->has('genres'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('genres') }}</strong>
                                     </div>
                                 @endif
                             </div>
                         </div>
                     </div>
+                    <button class="positive ui button" type="submit">Créer la série</button>
                 </div>
+
                 <div class="ui tab blue segment" data-tab="second">
                     <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
+                    <button class="ui basic button add_actor_button">
+                        <i class="icon user"></i>
+                        Ajouter un acteur
+                    </button>
+                    <div class="add_actor">
+                        <div class="two fields">
+                            <div class="field {{ $errors->has('name') ? ' error' : '' }}">
+                                <label>Nom de l'acteur</label>
+                                <input name="name" placeholder="Nom de l'acteur" type="text" value="{{ old('name') }}">
+
+                                @if ($errors->has('name'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="field {{ $errors->has('role') ? ' error' : '' }}">
+                                <label>Nom original de la série</label>
+                                <input name="role" placeholder="Role de l'acteur" type="text" value="{{ old('role') }}">
+
+                                @if ($errors->has('role'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('role') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="positive ui button" type="submit">Créer la série</button>
                 </div>
                 <div class="ui tab red segment" data-tab="third">
                     <h4 class="ui dividing header">Ajouter les saisons et les épisodes</h4>
 
+                    <button class="positive ui button" type="submit">Créer la série</button>
+                </div>
+
+                <div class="ui tab violet segment" data-tab="fourth">
+                    <h4 class="ui dividing header">Informations sur la rentrée</h4>
+                    <div class="two fields">
+                        <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
+                            <label>Taux érectile</label>
+                            <div class="ui left icon input">
+                                <input name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ old('taux_erectile') }}">
+                                <i class="percent icon"></i>
+                            </div>
+
+                            @if ($errors->has('taux_erectile'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('taux_erectile') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
+                            <label>Avis de la rédaction</label>
+                            <textarea name="avis_rentree" value="{{ old('avis_rentree') }}"></textarea>
+
+                            @if ($errors->has('avis_rentree'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('avis_rentree') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <button class="positive ui button" type="submit">Créer la série</button>
                 </div>
             </div>
         </div>
     </form>
 
-    <script>
-        $('#dropdown-encours')
-                .dropdown({
-                })
-        ;
+    @section('scripts')
+        <script>
+            $('#dropdown-creators')
+                    .dropdown({
+                        allowAdditions: true,
+                        forceSelection : false,
+                        minCharacters: 4
+                    })
+            ;
+            $('#dropdown-genres')
+                    .dropdown({
+                        allowAdditions: true,
+                        forceSelection : false
+                    })
+            ;
+            $('#dropdown-chaines')
+                    .dropdown({
+                        allowAdditions: true,
+                        forceSelection : false
+                    })
+            ;
 
-        $('.menu .item')
-                .tab()
-        ;
-    </script>
+            $('#dropdown-nationalities')
+                    .dropdown({
+                        allowAdditions: true,
+                        forceSelection : false
+                    })
+            ;
+
+            $( '#date-picker-us' ).datepicker({
+                showAnim: "blind",
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true
+            });
+
+            $( '#date-picker-fr' ).datepicker({
+                showAnim: "blind",
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true
+            });
+
+            $('#dropdown-encours')
+                    .dropdown({
+                    })
+            ;
+
+            $('.menu .item')
+                    .tab()
+            ;
+
+            $(document).ready(function() {
+                var max_fields      = 10; //maximum input boxes allowed
+                var wrapper         = $(".add_actor"); //Fields wrapper
+                var add_button      = $(".add_actor_button"); //Add button ID
+
+                var x = 1; //initlal text box count
+                $(add_button).click(function(e){ //on add input button click
+                    e.preventDefault();
+                    if(x < max_fields){ //max input box allowed
+                        x++; //text box increment
+                        $(wrapper).append('<div class="two fields">' +
+                        '<div class="field {{ $errors->has('name') ? ' error' : '' }}">' +
+                        '<label>Nom de l\'acteur</label>' +
+                        '<input name="name" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">' +
+
+                        '@if ($errors->has('name'))' +
+                        '<div class="ui red message">' +
+                        '<strong>{{ $errors->first('name') }}</strong>' +
+                        '</div>' +
+                        '@endif' +
+                        '</div>' +
+
+                        '<div class="field {{ $errors->has('role') ? ' error' : '' }}">' +
+                        '<label>Nom original de la série</label>' +
+                        '<input name="role" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">' +
+
+                        '@if ($errors->has('role'))' +
+                        '<div class="ui red message">' +
+                        '<strong>{{ $errors->first('role') }}</strong>' +
+                        '</div>' +
+                        '@endif' +
+                        '</div>' +
+                        '<a href="#" class="remove_field"><i class="delete icon"></i></a>' +
+                        '</div>'); //add input box
+                    }
+                });
+
+                $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                    e.preventDefault(); $(this).parent('div').remove(); x--;
+                })
+            });
+        </script>
+    @endsection
 @endsection

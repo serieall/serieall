@@ -20,4 +20,9 @@ class Artist extends Model {
 		return $this->morphedByMany('App\Models\Show', 'artistable');
 	}
 
+	public function articles()
+	{
+		return $this->morphToMany('App\Models\Article', 'articlable');
+	}
+
 }

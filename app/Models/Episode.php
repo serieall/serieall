@@ -20,4 +20,19 @@ class Episode extends Model {
 		return $this->morphToMany('App\Models\Artist', 'artistable');
 	}
 
+	public function comments()
+	{
+		return $this->morphMany('App\Models\Comment', 'commentable');
+	}
+
+	public function users()
+	{
+		return $this->belongsToMany('App\Models\User');
+	}
+
+	public function articles()
+	{
+		return $this->morphToMany('App\Models\Article', 'articlable');
+	}
+
 }

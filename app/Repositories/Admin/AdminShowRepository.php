@@ -39,20 +39,31 @@ class AdminShowRepository
         }
     }
 
-    public function getArtists(){
-        return Artist::all();
+    public function getCreators(){
+        return DB::table('artists')
+            ->select('artists.name')
+            ->where('artistables.profession', 'creator')
+            ->join('artistables', 'artists.id', '=', 'artistables.artist_id')
+            ->orderBy('artists.name', 'asc')
+            ->get();
     }
 
     public function getGenres(){
-        return Genre::all();
+        return DB::table('genres')
+            ->orderBy('name', 'asc')
+            ->get();
     }
 
     public function getChannels(){
-        return Channel::all();
+        return DB::table('channels')
+            ->orderBy('name', 'asc')
+            ->get();
     }
 
     public function getNationalities(){
-        return Nationality::all();
+        return DB::table('nationalities')
+            ->orderBy('name', 'asc')
+            ->get();
     }
 
 

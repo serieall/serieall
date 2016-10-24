@@ -15,4 +15,9 @@ class Channel extends Model {
 		return $this->belongsToMany('App\Models\Show');
 	}
 
+	public function articles()
+	{
+		return $this->morphToMany('App\Models\Article', 'articlable');
+	}
+
 }

@@ -20,4 +20,14 @@ class Season extends Model {
 		return $this->hasMany('App\Models\Episode');
 	}
 
+	public function comments()
+	{
+		return $this->morphMany('App\Models\Comment', 'commentable');
+	}
+
+	public function articles()
+	{
+		return $this->morphToMany('App\Models\Article', 'articlable');
+	}
+
 }

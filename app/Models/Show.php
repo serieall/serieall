@@ -40,4 +40,14 @@ class Show extends Model {
 		return $this->belongsToMany('App\Models\Genre');
 	}
 
+	public function comments()
+	{
+		return $this->morphMany('App\Models\Comment', 'commentable');
+	}
+
+	public function articles()
+	{
+		return $this->morphToMany('App\Models\Article', 'articlable');
+	}
+
 }
