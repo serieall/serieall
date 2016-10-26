@@ -9,6 +9,7 @@ use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowCreateManuallyRequest;
 
 use App\Repositories\Admin\AdminShowRepository;
+use Illuminate\Support\Facades\Log;
 
 class AdminShowController extends Controller
 {
@@ -105,7 +106,11 @@ class AdminShowController extends Controller
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
-        dd($inputs);
+        Log::info($inputs);
+        foreach($inputs['actors'] as $actor){
+            Log::info($actor['name'] . ' : ' . $actor['role']);
+        }
+        return response()->json();
     }
 
     /**

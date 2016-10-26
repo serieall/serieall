@@ -234,41 +234,15 @@
                 <div class="ui tab blue segment" data-tab="second">
                     <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
                     <p>
-                        <button class="ui basic button add_actor_button">
+                        <button class="ui basic button" id="add-actor">
                             <i class="icon user"></i>
                             Ajouter un acteur
                         </button>
                         <br />
                     </p>
 
-                    <div class="add_actor">
-                        <div class="two fields">
-                            <div class="field {{ $errors->has('name') ? ' error' : '' }}">
-                                <label>Nom de l'acteur</label>
-                                <input name="name" placeholder="Nom de l'acteur" type="text" value="{{ old('name') }}">
+                    <div class="div-actors">
 
-                                @if ($errors->has('name'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </div>
-                                @endif
-                            </div>
-
-                            <div class="field {{ $errors->has('role') ? ' error' : '' }}">
-                                <label>Rôle</label>
-                                <input name="role" placeholder="Role de l'acteur" type="text" value="{{ old('role') }}">
-
-                                @if ($errors->has('role'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('role') }}</strong>
-                                    </div>
-                                @endif
-                            </div>
-
-                            <a href="#" class="ui items remove_field">
-                                <i class="item middle aligned content delete icon"></i>
-                            </a>
-                        </div>
                     </div>
 
                     <button class="positive ui button" type="submit">Créer la série</button>
@@ -341,7 +315,7 @@
                             @endif
                         </div>
                     </div>
-                    <button class="positive ui button" type="submit">Créer la série</button>
+                    <button class="submit positive ui button" type="submit">Créer la série</button>
                 </div>
             </div>
         </div>
@@ -403,46 +377,69 @@
                     .accordion()
             ;
 
-            $(document).ready(function() {
-                var max_fields      = 50; //maximum input boxes allowed
-                var wrapper         = $(".add_actor"); //Fields wrapper
-                var add_button      = $(".add_actor_button"); //Add button ID
+            $(function(){
+                var max_fields  =   50; // Nombre maximums de ligne sautorisées
+                var actor_number  =   $('.div-actors .line').length; // Nombre d'acteurs
 
-                var x = 1; //initlal text box count
-                $(add_button).click(function(e){ //on add input button click
-                    e.preventDefault();
-                    if(x < max_fields){ //max input box allowed
-                        x++; //text box increment
-                        $(wrapper).append('<div class="two fields">' +
-                        '<div class="field {{ $errors->has('name') ? ' error' : '' }}">' +
-                        '<label>Nom de l\'acteur</label>' +
-                        '<input name="name" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">' +
-
-                        '@if ($errors->has('name'))' +
-                        '<div class="ui red message">' +
-                        '<strong>{{ $errors->first('name') }}</strong>' +
-                        '</div>' +
-                        '@endif' +
-                        '</div>' +
-
-                        '<div class="field {{ $errors->has('role') ? ' error' : '' }}">' +
-                        '<label>Rôle</label>' +
-                        '<input name="role" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">' +
-
-                        '@if ($errors->has('role'))' +
-                        '<div class="ui red message">' +
-                        '<strong>{{ $errors->first('role') }}</strong>' +
-                        '</div>' +
-                        '@endif' +
-                        '</div>' +
-                        '<a href="#" class="ui items remove_field"><i class="item middle aligned content delete icon"></i></a>' +
-                        '</div>'); //add input box
-                    }
+                // Supprimer une ligne
+                $(document).on('click', '.negative', function(){
+                    $(this).parents('.div-actor').remove();
                 });
 
-                $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-                    e.preventDefault(); $(this).parent('div').remove(); x--;
+                $('#add-actor').click(function(e){
+                    e.preventDefault();
+
+                    if(actor_number < max_fields){
+                        var html = '<div class="two fields div-actor" id="line' + actor_number + '">'
+                                + '<div class="field {{ $errors->has('name') ? ' error' : '' }}">'
+                                + '<label for="name' + actor_number + '">Nom de l\'acteur</label>'
+                                + '<input name="actors[' + actor_number + '][name]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">'
+                                + '@if ($errors->has('name'))'
+                                + '<div class="ui red message">'
+                                + '<strong>{{ $errors->first('name') }}</strong>'
+                                + '</div>'
+                                + '@endif'
+                                + '</div>'
+                                + '<div class="field {{ $errors->has('role') ? ' error' : '' }}">'
+                                + '<label for="role' + actor_number + '">Rôle</label>'
+                                + '<input name="actors[' + actor_number + '][role]" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">'
+                                + '@if ($errors->has('role'))'
+                                + '<div class="ui red message">'
+                                + '<strong>{{ $errors->first('role') }}</strong>'
+                                + '</div>'
+                                + '@endif'
+                                + '</div>'
+                                + '<button class="ui negative button">Supprimer</button>'
+                                + '</div>';
+
+                        ++actor_number;
+
+                        $('.div-actors').append(html);
+                    }
+                });
+            });
+
+            // Submission
+            $(document).on('submit', 'form', function(e) {
+                e.preventDefault();
+                $('.submit').addClass("loading");
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json"
                 })
+                        .done(function (data) {
+                            window.location.href = '{!! url('/adminShow') !!}';
+                        })
+                        .fail(function (data) {
+                            $.each(data.responseJSON, function (key, value) {
+                                if (key == 'name') {
+                                    $('.help-block').eq(0).text(value);
+                                    $('.form-group').eq(0).addClass('has-error');
+                                }
+                            });
+                        });
             });
         </script>
     @endsection
