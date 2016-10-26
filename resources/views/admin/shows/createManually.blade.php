@@ -233,10 +233,14 @@
 
                 <div class="ui tab blue segment" data-tab="second">
                     <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
-                    <button class="ui basic button add_actor_button">
-                        <i class="icon user"></i>
-                        Ajouter un acteur
-                    </button>
+                    <p>
+                        <button class="ui basic button add_actor_button">
+                            <i class="icon user"></i>
+                            Ajouter un acteur
+                        </button>
+                        <br />
+                    </p>
+
                     <div class="add_actor">
                         <div class="two fields">
                             <div class="field {{ $errors->has('name') ? ' error' : '' }}">
@@ -251,7 +255,7 @@
                             </div>
 
                             <div class="field {{ $errors->has('role') ? ' error' : '' }}">
-                                <label>Nom original de la série</label>
+                                <label>Rôle</label>
                                 <input name="role" placeholder="Role de l'acteur" type="text" value="{{ old('role') }}">
 
                                 @if ($errors->has('role'))
@@ -260,13 +264,51 @@
                                     </div>
                                 @endif
                             </div>
+
+                            <a href="#" class="ui items remove_field">
+                                <i class="item middle aligned content delete icon"></i>
+                            </a>
                         </div>
                     </div>
 
                     <button class="positive ui button" type="submit">Créer la série</button>
                 </div>
+
                 <div class="ui tab red segment" data-tab="third">
                     <h4 class="ui dividing header">Ajouter les saisons et les épisodes</h4>
+                    <div class="ui styled accordion" id="seasons">
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Saison 1
+                        </div>
+                        <div class="content">
+                            <p class="transition hidden">
+                                <div class="two fields">
+                                    <div class="field {{ $errors->has('numero') ? ' error' : '' }}">
+                                        <label>Numéro de la saison</label>
+                                        <input name="numero" placeholder="Numéro de la saison" type="number" value="{{ old('numero') }}">
+
+                                        @if ($errors->has('numero'))
+                                            <div class="ui red message">
+                                                <strong>{{ $errors->first('numero') }}</strong>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="field {{ $errors->has('ba') ? ' error' : '' }}">
+                                        <label>Bande Annonce</label>
+                                        <input name="ba" placeholder="Bande Annonce" type="text" value="{{ old('ba') }}">
+
+                                        @if ($errors->has('ba'))
+                                            <div class="ui red message">
+                                                <strong>{{ $errors->first('ba') }}</strong>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
 
                     <button class="positive ui button" type="submit">Créer la série</button>
                 </div>
@@ -357,8 +399,12 @@
                     .tab()
             ;
 
+            $('.ui.accordion')
+                    .accordion()
+            ;
+
             $(document).ready(function() {
-                var max_fields      = 10; //maximum input boxes allowed
+                var max_fields      = 50; //maximum input boxes allowed
                 var wrapper         = $(".add_actor"); //Fields wrapper
                 var add_button      = $(".add_actor_button"); //Add button ID
 
@@ -380,7 +426,7 @@
                         '</div>' +
 
                         '<div class="field {{ $errors->has('role') ? ' error' : '' }}">' +
-                        '<label>Nom original de la série</label>' +
+                        '<label>Rôle</label>' +
                         '<input name="role" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">' +
 
                         '@if ($errors->has('role'))' +
@@ -389,7 +435,7 @@
                         '</div>' +
                         '@endif' +
                         '</div>' +
-                        '<a href="#" class="remove_field"><i class="delete icon"></i></a>' +
+                        '<a href="#" class="ui items remove_field"><i class="item middle aligned content delete icon"></i></a>' +
                         '</div>'); //add input box
                     }
                 });
