@@ -228,7 +228,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="positive ui button" type="submit">Créer la série</button>
+                    <button class="submit positive ui button" type="submit">Créer la série</button>
                 </div>
 
                 <div class="ui tab blue segment" data-tab="second">
@@ -241,50 +241,37 @@
                         <br />
                     </p>
 
-                    <div class="div-actors">
+                    <div class="div-actors" id="sortable">
 
                     </div>
 
-                    <button class="positive ui button" type="submit">Créer la série</button>
+                    <button class="submit positive ui button" type="submit">Créer la série</button>
                 </div>
 
                 <div class="ui tab red segment" data-tab="third">
                     <h4 class="ui dividing header">Ajouter les saisons et les épisodes</h4>
-                    <div class="ui styled accordion" id="seasons">
+                    <div class="ui styled accordion">
                         <div class="title">
                             <i class="dropdown icon"></i>
                             Saison 1
                         </div>
                         <div class="content">
                             <p class="transition hidden">
-                                <div class="two fields">
-                                    <div class="field {{ $errors->has('numero') ? ' error' : '' }}">
-                                        <label>Numéro de la saison</label>
-                                        <input name="numero" placeholder="Numéro de la saison" type="number" value="{{ old('numero') }}">
+                                <div class="field {{ $errors->has('ba') ? ' error' : '' }}">
+                                    <label>Bande Annonce</label>
+                                    <input name="ba" placeholder="Bande Annonce" type="text" value="{{ old('ba') }}">
 
-                                        @if ($errors->has('numero'))
-                                            <div class="ui red message">
-                                                <strong>{{ $errors->first('numero') }}</strong>
-                                            </div>
-                                        @endif
+                                    @if ($errors->has('ba'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('ba') }}</strong>
                                     </div>
-
-                                    <div class="field {{ $errors->has('ba') ? ' error' : '' }}">
-                                        <label>Bande Annonce</label>
-                                        <input name="ba" placeholder="Bande Annonce" type="text" value="{{ old('ba') }}">
-
-                                        @if ($errors->has('ba'))
-                                            <div class="ui red message">
-                                                <strong>{{ $errors->first('ba') }}</strong>
-                                            </div>
-                                        @endif
-                                    </div>
+                                    @endif
                                 </div>
                             </p>
                         </div>
                     </div>
 
-                    <button class="positive ui button" type="submit">Créer la série</button>
+                    <button class="submit positive ui button" type="submit">Créer la série</button>
                 </div>
 
                 <div class="ui tab violet segment" data-tab="fourth">
@@ -381,9 +368,21 @@
                 var max_fields  =   50; // Nombre maximums de ligne sautorisées
                 var actor_number  =   $('.div-actors .line').length; // Nombre d'acteurs
 
-                // Supprimer une ligne
-                $(document).on('click', '.negative', function(){
-                    $(this).parents('.div-actor').remove();
+                $('#sortable').sortable({
+                    axis: "y",
+                    containment: "#sortable",
+                    handle: "label",
+                    distance: 10, // Le drag ne commence qu'à partir de 10px de distance de l'élément
+                    // Evenement appelé lorsque l'élément est relaché
+                    stop: function(event, ui){
+                        // Pour chaque item de liste
+                        $(obj).find("#line" + actor_number).each(function(){
+                            // On actualise sa position
+                            index = parseInt($(this).index()+1);
+                            // On la met à jour dans la page
+                            $(this).find(".count").text(index);
+                        });
+                    }
                 });
 
                 $('#add-actor').click(function(e){
@@ -391,6 +390,7 @@
 
                     if(actor_number < max_fields){
                         var html = '<div class="two fields div-actor" id="line' + actor_number + '">'
+                                + '<span class="count">'+parseInt($('.div-actor').index()+1)+'</span>'
                                 + '<div class="field {{ $errors->has('name') ? ' error' : '' }}">'
                                 + '<label for="name' + actor_number + '">Nom de l\'acteur</label>'
                                 + '<input name="actors[' + actor_number + '][name]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">'
@@ -422,7 +422,9 @@
             // Submission
             $(document).on('submit', 'form', function(e) {
                 e.preventDefault();
+
                 $('.submit').addClass("loading");
+
                 $.ajax({
                     method: $(this).attr('method'),
                     url: $(this).attr('action'),
