@@ -70,3 +70,8 @@
 #message-top{
     margin-bottom : 1rem;
 }
+
+.icon:hover{
+    cursor: grab;
+    background-color: #858585;
+}

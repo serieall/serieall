@@ -234,6 +234,9 @@
                 <div class="ui tab blue segment" data-tab="second">
                     <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
                     <p>
+                        <div class="ui info message">
+                            Vous pouvez utiliser l'icone <i class="list layout icon"></i> pour changer l'ordre des éléments.
+                        </div>
                         <button class="ui basic button" id="add-actor">
                             <i class="icon user"></i>
                             Ajouter un acteur
@@ -366,34 +369,61 @@
 
             $(function(){
                 var max_fields  =   50; // Nombre maximums de ligne sautorisées
-                var actor_number  =   $('.div-actors .line').length; // Nombre d'acteurs
+                var actor_number  =  $('.div-actors').length; // Nombre d'acteurs
+
+                var obj = $(this);
 
                 $('#sortable').sortable({
                     axis: "y",
                     containment: "#sortable",
-                    handle: "label",
-                    distance: 10, // Le drag ne commence qu'à partir de 10px de distance de l'élément
+                    handle: ".icon",
+                    cursor: "grabbing",
                     // Evenement appelé lorsque l'élément est relaché
                     stop: function(event, ui){
                         // Pour chaque item de liste
-                        $(obj).find("#line" + actor_number).each(function(){
+                        $('#sortable').find('.div-actor').each(function(){
                             // On actualise sa position
                             index = parseInt($(this).index()+1);
+
                             // On la met à jour dans la page
-                            $(this).find(".count").text(index);
+                            $(this).find(".count").text(index + ' - ');
+                            $(this).attr("id", 'line' + index);
+                            $(this).find(".name-label").attr( "for", 'name' + index);
+                            $(this).find(".name-input").attr( "name", 'actors[' + index + '][name]');
+                            $(this).find(".role-label").attr( "for", 'role' + index );
+                            $(this).find(".role-input").attr( "name", 'actors[' + index + '][role]');
                         });
                     }
+                });
+
+                $(document).on('click', '.negative', function(){
+                    $(this).parents('.div-actor').remove();
+                    $('#sortable').find('.div-actor').each(function(){
+                        // On actualise sa position
+                        index = parseInt($(this).index()+1);
+                        // On la met à jour dans la page
+                        $(this).find(".count").text(index + ' - ');
+                        $(this).attr("id", 'line' + index);
+                        $(this).find(".name-label").attr( "for", 'name' + index);
+                        $(this).find(".name-input").attr( "name", 'actors[' + index + '][name]');
+                        $(this).find(".role-label").attr( "for", 'role' + index );
+                        $(this).find(".role-input").attr( "name", 'actors[' + index + '][role]');
+                    });
+
+                    --actor_number;
+                    console.log(actor_number);
                 });
 
                 $('#add-actor').click(function(e){
                     e.preventDefault();
 
                     if(actor_number < max_fields){
-                        var html = '<div class="two fields div-actor" id="line' + actor_number + '">'
-                                + '<span class="count">'+parseInt($('.div-actor').index()+1)+'</span>'
+                        var html = '<div class="three fields div-actor" id="line' + actor_number + '">'
+                                + '<span class="count">'+ actor_number +' - </span>'
+                                + '<i class="large list layout icon"></i>'
                                 + '<div class="field {{ $errors->has('name') ? ' error' : '' }}">'
-                                + '<label for="name' + actor_number + '">Nom de l\'acteur</label>'
-                                + '<input name="actors[' + actor_number + '][name]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">'
+                                + '<label class="name-label" for="name' + actor_number + '">Nom de l\'acteur</label>'
+                                + '<input class="name-input" name="actors[' + actor_number + '][name]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">'
                                 + '@if ($errors->has('name'))'
                                 + '<div class="ui red message">'
                                 + '<strong>{{ $errors->first('name') }}</strong>'
@@ -401,8 +431,8 @@
                                 + '@endif'
                                 + '</div>'
                                 + '<div class="field {{ $errors->has('role') ? ' error' : '' }}">'
-                                + '<label for="role' + actor_number + '">Rôle</label>'
-                                + '<input name="actors[' + actor_number + '][role]" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">'
+                                + '<label class="role-label" for="role' + actor_number + '">Rôle</label>'
+                                + '<input class="role-input" name="actors[' + actor_number + '][role]" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">'
                                 + '@if ($errors->has('role'))'
                                 + '<div class="ui red message">'
                                 + '<strong>{{ $errors->first('role') }}</strong>'
