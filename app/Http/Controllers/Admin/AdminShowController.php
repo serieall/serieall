@@ -45,12 +45,12 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        $creators = $this->adminShowRepository->getCreators();
+        $actors = $this->adminShowRepository->getActors();
         $genres = $this->adminShowRepository->getGenres();
         $channels = $this->adminShowRepository->getChannels();
         $nationalities = $this->adminShowRepository->getNationalities();
 
-        return view('admin/shows/addShow', compact('navActive', 'creators', 'genres', 'channels', 'nationalities'));
+        return view('admin/shows/addShow', compact('navActive', '$actors', 'genres', 'channels', 'nationalities'));
     }
 
     /**
@@ -63,12 +63,12 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        $creators = $this->adminShowRepository->getCreators();
+        $actors = $this->adminShowRepository->getActors();
         $genres = $this->adminShowRepository->getGenres();
         $channels = $this->adminShowRepository->getChannels();
         $nationalities = $this->adminShowRepository->getNationalities();
 
-        return view('admin/shows/createManually', compact('navActive', 'creators', 'genres', 'channels', 'nationalities'));
+        return view('admin/shows/createManually', compact('navActive', 'actors', 'genres', 'channels', 'nationalities'));
     }
 
 

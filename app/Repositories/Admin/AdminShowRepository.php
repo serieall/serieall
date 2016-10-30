@@ -39,12 +39,9 @@ class AdminShowRepository
         }
     }
 
-    public function getCreators(){
+    public function getActors(){
         return DB::table('artists')
-            ->select('artists.name')
-            ->where('artistables.profession', 'creator')
-            ->join('artistables', 'artists.id', '=', 'artistables.artist_id')
-            ->orderBy('artists.name', 'asc')
+            ->orderBy('name', 'asc')
             ->get();
     }
 

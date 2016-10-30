@@ -71,7 +71,6 @@
     margin-bottom : 1rem;
 }
 
-.icon:hover{
+.sortable .button-move:hover{
     cursor: grab;
-    background-color: #858585;
 }
