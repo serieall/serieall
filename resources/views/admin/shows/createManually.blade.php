@@ -461,7 +461,7 @@
                             + '</div>'
                             + '</div>'
                             + '</div>'
-                            + '<div class="content" id="contentseason'+ season_number +'">'
+                            + '<div class="content" numero_saison=' + season_number + ' id="contentseason'+ season_number +'">'
                             + '<div class="field {{ $errors->has('ba') ? ' error' : '' }}">'
                             + '<label>Bande Annonce</label>'
                             + '<input class="ba-input" name="seasons[' + season_number + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
@@ -486,20 +486,20 @@
 
                     // Fonction de Drag 'N Drop pour changer l'ordre des épisodes
                     $(function(){
-                        //Définition des variables
-                        var episode_number = $('.div-episodes').length; // Nombre d'épisode total
+                        var episode_number =  $(this).next('.div-episode').length; // Nombre d'épisode total
 
-                        //Suppression d'un episode
 
                         //Ajout d'un episode
                         $('.add-episode').click(function(e){
                             e.preventDefault();
-                            console.log('ajout ep');
+
+                            var number_season_parent = $(this).parents('.content').attr('numero_saison');
+
                             var html = '<div class="title div-episode" id="lineepisode' + episode_number +'">'
                                     + '<div class="ui grid">'
                                     + '<div class="twelve wide column middle aligned div-expandable">'
                                     + '<i class="dropdown icon"></i>'
-                                    + 'Episode '+ season_number + 'x' + episode_number
+                                    + 'Episode '+ number_season_parent + 'x' + episode_number
                                     + '</div>'
                                     + '<div class="four wide column">'
                                     + '<button class="ui right floated negative basic circular icon button remove-season">'
@@ -523,7 +523,8 @@
                                     + '</div>'
                                     + '</div>';
 
-                            ++episode_number;
+                            ++ episode_number;
+                            console.log(episode_number);
 
                             $(this).next('.div-episodes').append(html);
                         });
