@@ -471,7 +471,7 @@
                             + '</div>'
                             + '@endif'
                             + '</div>'
-                            + '<button class="ui basic button add-episode">'
+                            + '<button class="ui basic button add-episode'+ season_number +'">'
                             + '<i class="tv icon"></i>'
                             + 'Ajouter un épisode'
                             + '</button>'
@@ -487,10 +487,13 @@
                     // Fonction de Drag 'N Drop pour changer l'ordre des épisodes
                     $(function(){
                         var episode_number =  $(this).next('.div-episode').length; // Nombre d'épisode total
-
+                        var season_number = $(this).next('.content').attr('numero_saison');
+                        console.log(season_number);
 
                         //Ajout d'un episode
-                        $('.add-episode').click(function(e){
+                        $('.add-episode' + season_number).click(function(e){
+
+                            console.log($(this));
                             e.preventDefault();
 
                             var number_season_parent = $(this).parents('.content').attr('numero_saison');
@@ -532,8 +535,6 @@
 
                 });
             });
-
-
 
             // Submission
             $(document).on('submit', 'form', function(e) {
