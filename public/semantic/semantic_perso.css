@@ -71,6 +71,17 @@
     margin-bottom : 1rem;
 }
 
-.sortable .button-move:hover{
+.moveSeason:hover{
     cursor: grab;
+}
+
+.moveEpisode:hover{
+    cursor: grab;
+}
+
+.portlet-placeholder {
+    border: 1px dotted black;
+    background-color: #1074b2;
+    margin: 0 1em 1em 0;
+    height: 50px;
 }

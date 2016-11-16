@@ -227,8 +227,8 @@
                                 @endif
                             </div>
                         </div>
+                        <button class="submit positive ui button" type="submit">Créer la série</button>
                     </div>
-                    <button class="submit positive ui button" type="submit">Créer la série</button>
                 </div>
 
                 <div class="ui tab blue segment" data-tab="second">
@@ -256,7 +256,7 @@
                             Vous pouvez utiliser l'icone <i class="hashtag icon"></i> pour changer l'ordre des éléments.
                         </div>
 
-                        <button class="ui basic button add-season">
+                        <button class="ui basic button seasonAdd">
                             <i class="object group icon"></i>
                             Ajouter une saison
                         </button>
@@ -264,11 +264,9 @@
                     </p>
 
 
-                    <div class="ui styled fluid accordion div-seasons sortable-season">
+                    <div class="ui fluid styled accordion seasonsBlock" id="sortableSeasons">
 
                     </div>
-
-
 
                     <p></p>
                     <button class="submit positive ui button" type="submit">Créer la série</button>
@@ -360,11 +358,13 @@
                     .tab()
             ;
 
-            $('.ui.styled.fluid.accordion.div-seasons')
+            $('.ui.styled.fluid.accordion.seasonsBlock')
                     .accordion({
                         selector: {
-                            trigger: '.div-expandable'
-                        }
+                            trigger: '.expandableBlock'
+
+                        },
+                        exclusive: false
                     })
             ;
 
@@ -378,7 +378,11 @@
                 // Suppression d'un acteur
                 $(document).on('click', '.remove-actor', function(){
                     $(this).parents('.div-actor').remove();
-                    });
+                    $(this).find(".actor_name-label").attr( "for", 'name' + index);
+                    $(this).find(".actor_name-input").attr( "name", 'actors[' + index + '][name]');
+                    $(this).find(".actor_role-label").attr( "for", 'role' + index );
+                    $(this).find(".actor_role-input").attr( "name", 'actors[' + index + '][role]');
+                });
 
                 // Ajouter un acteur
                 $('.add-actor').click(function(e) {
@@ -389,10 +393,10 @@
                                 + '<button class="ui right floated negative basic circular icon button remove-actor">'
                                 + '<i class="remove icon"></i>'
                                 + '</button>'
-                                + '<div class="two fields" id="line' + actor_number + '">'
+                                + '<div class="two fields">'
                                 + '<div class="field {{ $errors->has('name') ? ' error' : '' }}">'
-                                + '<label class="name-label" for="name' + actor_number + '">Nom de l\'acteur</label>'
-                                + '<input class="name-input" name="actors[' + actor_number + '][name]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">'
+                                + '<label class="actor_name-label" for="name' + actor_number + '">Nom de l\'acteur</label>'
+                                + '<input class="actor_name-input" name="actors[' + actor_number + '][name]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">'
                                 + '@if ($errors->has('name'))'
                                 + '<div class="ui red message">'
                                 + '<strong>{{ $errors->first('name') }}</strong>'
@@ -400,8 +404,8 @@
                                 + '@endif'
                                 + '</div>'
                                 + '<div class="field {{ $errors->has('role') ? ' error' : '' }}">'
-                                + '<label class="role-label" for="role' + actor_number + '">Rôle</label>'
-                                + '<input class="role-input" name="actors[' + actor_number + '][role]" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">'
+                                + '<label class="actor_role-label" for="role' + actor_number + '">Rôle</label>'
+                                + '<input class="actor_role-input" name="actors[' + actor_number + '][role]" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">'
                                 + '@if ($errors->has('role'))'
                                 + '<div class="ui red message">'
                                 + '<strong>{{ $errors->first('role') }}</strong>'
@@ -417,124 +421,193 @@
                 });
             });
 
-
-
             // Fonction de Drag 'N Drop pour changer l'ordre des saisons
             $(function(){
                 //Définition des variables
-                var season_number = $('.div-seasons').length; // Nombre de saisons
+                var seasonNumber = $('.seasonsBlock').length; // Nombre de saisons
+
+                // Déplacement d'une saison
+                $('#sortableSeasons').sortable({
+                    axis: "y",
+                    containment: ".seasonsBlock",
+                    handle: ".seasonMove",
+                    cursor: "grabbing",
+                    cancel: '',
+                    placeholder: "ui segment fluid portlet-placeholder",
+                    // Evenement appelé lorsque l'élément est relaché
+                    stop: function(event, ui){
+                        // Pour chaque item de liste
+                        $('#sortableSeasons').find('.seasonBlock').each(function(){
+                            // On actualise sa position
+                            seasonIndex = parseInt($(this).index()+1);
+
+                            // On met à jour les infos saisons
+                            $(this).find(".seasonName").html('<i class="dropdown icon"></i>Saison ' + seasonIndex);
+                            $(this).find(".content").attr("seasonNumber", seasonIndex);
+                            $(this).find(".seasonInputBA").attr("name", 'seasons[' + seasonIndex + '][ba]' );
+                            $(this).find(".episodeAdd").attr("id", 'episodeAdd' + seasonIndex );
+                            $(this).find(".episodesBlock").attr("id", 'episodes' + seasonIndex );
+
+                            $(this).find('.episodeBlock').each(function () {
+                                $(this).attr("class", 'episodeBlock episode' + seasonIndex);
+
+                                // On actualise sa position
+                                episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
+
+                                $(this).find(".episodeName").html('<i class="dropdown icon"></i>Episode ' + seasonIndex + '.' + episodeIndex);
+                            });
+                        });
+                    }
+                });
 
                 //Suppression d'une saison
-                $(document).on('click', '.remove-season', function(){
-                    $(this).parents('.div-season').next('.content').remove();
-                    $(this).parents('.div-season').remove();
+                $(document).on('click', '.seasonRemove', function(){
+                    $(this).parents('.seasonBlock').next('.content').remove();
+                    $(this).parents('.seasonBlock').remove();
 
-                    $('.sortable-season').find('.div-season').each(function(){
+                    $('#sortableSeasons').find('.seasonBlock').each(function(){
                         // On actualise sa position
-                        index = parseInt($(this).index('.div-season')+1);
+                        seasonIndex = parseInt($(this).index()+1);
                         // On la met à jour dans la page
-                        $(this).find(".div-expandable").html('<i class="dropdown icon"></i> Saison '+ index);
-                        $(this).attr("id", 'lineseason' + index);
-                        $(this).next('.div-episodes').attr("id", 'contentseason'+ index);
-                        $(this).find(".ba-input").attr( "name", 'seasons[' + index + '][ba]');
+                        $(this).find(".expandableBlock").html('<i class="dropdown icon"></i> Saison '+ seasonIndex);
+                        $(this).find(".seasonInputBA").attr( "name", 'seasons[' + seasonIndex + '][ba]');
                     });
 
-                    --season_number;
+                    --seasonNumber;
                 });
 
                 //Ajout d'une saison
-                $('.add-season').click(function(e){
+                $('.seasonAdd').click(function(e){
                     e.preventDefault();
-                    var html = '<div class="title div-season" id="lineseason' + season_number +'">'
+                    var html = '<div class="seasonBlock">'
+                            + '<div class="title">'
                             + '<div class="ui grid">'
-                            + '<div class="twelve wide column middle aligned div-expandable">'
+                            + '<div class="twelve wide column middle aligned expandableBlock seasonName">'
                             + '<i class="dropdown icon"></i>'
-                            + 'Saison '+ season_number
+                            + 'Saison '+ seasonNumber
                             + '</div>'
                             + '<div class="four wide column">'
-                            + '<button class="ui right floated negative basic circular icon button remove-season">'
+                            + '<button class="ui right floated negative basic circular icon button seasonRemove">'
                             + '<i class="remove icon"></i>'
                             + '</button>'
-                            + '<button class="ui right floated positive basic circular icon button move-season">'
+                            + '<button class="ui right floated positive basic circular icon button seasonMove">'
                             + '<i class="hashtag icon"></i>'
                             + '</button>'
                             + '</div>'
                             + '</div>'
                             + '</div>'
-                            + '<div class="content" numero_saison=' + season_number + ' id="contentseason'+ season_number +'">'
+                            + '<div class="content" seasonNumber=' + seasonNumber + '>'
                             + '<div class="field {{ $errors->has('ba') ? ' error' : '' }}">'
                             + '<label>Bande Annonce</label>'
-                            + '<input class="ba-input" name="seasons[' + season_number + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
+                            + '<input class="seasonInputBA" name="seasons[' + seasonNumber + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
                             + '@if ($errors->has('ba'))'
                             + '<div class="ui red message">'
                             + '<strong>{{ $errors->first('ba') }}</strong>'
                             + '</div>'
                             + '@endif'
                             + '</div>'
-                            + '<button class="ui basic button add-episode'+ season_number +'">'
+                            + '<button class="ui basic button episodeAdd" id="episodeAdd'+ seasonNumber +'">'
                             + '<i class="tv icon"></i>'
                             + 'Ajouter un épisode'
                             + '</button>'
-                            + '<div class="accordion transition hidden div-episodes">'
+                            + '<div class="accordion transition hidden episodesBlock sortableEpisodes" id="episodes' + seasonNumber + '">'
+                            + '</div>'
                             + '</div>'
                             + '</div>';
 
-                    ++season_number;
-
-                    $('.div-seasons').append(html);
-
+                    $('.seasonsBlock').append(html);
 
                     // Fonction de Drag 'N Drop pour changer l'ordre des épisodes
                     $(function(){
-                        var episode_number =  $(this).next('.div-episode').length; // Nombre d'épisode total
-                        var season_number = $(this).next('.content').attr('numero_saison');
-                        console.log(season_number);
+                        $('.sortableEpisodes').sortable({
+                            axis: "y",
+                            connectWith: ".episodesBlock",
+                            containment: ".episodesBlock",
+                            handle: ".episodeMove",
+                            cursor: "grabbing",
+                            cancel: '',
+                            placeholder: "ui segment fluid portlet-placeholder",
+                            // Evenement appelé lorsque l'élément est relaché
+                            stop: function(event, ui){
+                                // Pour chaque item de liste
+                                $('.sortableEpisodes').find('.episodeBlock').each(function(){
+                                    var seasonNumber = $(this).parents('.content').attr('seasonNumber');
+
+                                    $(this).attr("class", 'episodeBlock episode' + seasonNumber);
+
+                                    // On actualise sa position
+                                    episodeIndex = parseInt($(this).index('.episode' + seasonNumber) + 1);
+
+                                    // On met à jour les infos saisons
+                                    $(this).find(".episodeName").html('<i class="dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
+                                });
+                            }
+                        });
+
+                        //Suppression d'un épisode
+                        $(document).on('click', '.episodeRemove', function(){
+                            var seasonNumber = $(this).parents('.content').attr('seasonNumber');
+
+                            $(this).parents('.episodeBlock').next('.content').remove();
+                            $(this).parents('.episodeBlock').remove();
+
+                            $('#episodes' + seasonNumber).find('.episodeBlock').each(function(){
+                                // On actualise sa position
+                                episodeIndex = parseInt($(this).index('.episode' + seasonNumber) +1);
+
+                                // On la met à jour dans la page
+                                $(this).find(".episodeName").html('<i class="dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
+                                $(this).find(".ba-input").attr( "name", 'episodes[' + seasonNumber + '][' + episodeIndex + '][ba]');
+                            });
+                        });
 
                         //Ajout d'un episode
-                        $('.add-episode' + season_number).click(function(e){
-
-                            console.log($(this));
+                        $('#episodeAdd' + seasonNumber).click(function(e){
                             e.preventDefault();
 
-                            var number_season_parent = $(this).parents('.content').attr('numero_saison');
+                            var seasonNumber = $(this).parents('.content').attr('seasonNumber');
+                            var episodeNumber =  $('#episodes' + seasonNumber).children('.episodeBlock').length + 1 ; // Nombre d'épisode total
 
-                            var html = '<div class="title div-episode" id="lineepisode' + episode_number +'">'
+                            var html = '<div class="episodeBlock episode' + seasonNumber +'">'
+                                    + '<div class="title">'
                                     + '<div class="ui grid">'
-                                    + '<div class="twelve wide column middle aligned div-expandable">'
+                                    + '<div class="twelve wide column middle aligned expandableBlock episodeName">'
                                     + '<i class="dropdown icon"></i>'
-                                    + 'Episode '+ number_season_parent + 'x' + episode_number
+                                    + 'Episode ' + seasonNumber + '.' + episodeNumber
                                     + '</div>'
                                     + '<div class="four wide column">'
-                                    + '<button class="ui right floated negative basic circular icon button remove-season">'
+                                    + '<button class="ui right floated negative basic circular icon button episodeRemove">'
                                     + '<i class="remove icon"></i>'
                                     + '</button>'
-                                    + '<button class="ui right floated positive basic circular icon button move-season">'
+                                    + '<button class="ui right floated positive basic circular icon button episodeMove">'
                                     + '<i class="hashtag icon"></i>'
                                     + '</button>'
                                     + '</div>'
                                     + '</div>'
                                     + '</div>'
-                                    + '<div class="content" id="contentepisode'+ episode_number +'">'
+                                    + '<div class="content">'
                                     + '<div class="field {{ $errors->has('ba') ? ' error' : '' }}">'
                                     + '<label>Bande Annonce</label>'
-                                    + '<input class="ba-input" name="episodes[' + episode_number + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
+                                    + '<input class="ba-input" name="episodes['+ seasonNumber +'][' + episodeNumber + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
                                     + '@if ($errors->has('ba'))'
                                     + '<div class="ui red message">'
                                     + '<strong>{{ $errors->first('ba') }}</strong>'
                                     + '</div>'
                                     + '@endif'
                                     + '</div>'
+                                    + '</div>'
                                     + '</div>';
+                            ++episodeNumber;
 
-                            ++ episode_number;
-                            console.log(episode_number);
-
-                            $(this).next('.div-episodes').append(html);
+                            $(this).next('.episodesBlock').append(html);
                         });
-                    });
 
+                        ++seasonNumber;
+                    });
                 });
             });
+
+
 
             // Submission
             $(document).on('submit', 'form', function(e) {
