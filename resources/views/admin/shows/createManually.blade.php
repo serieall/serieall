@@ -119,7 +119,7 @@
                                 <div class="ui calendar" id="datepicker">
                                     <div class="ui input left icon">
                                         <i class="calendar icon"></i>
-                                        <input name="diffusion_us" id="date-picker-us" type="date" placeholder="Date" value="{{ old('diffusion_us') }}">
+                                        <input name="diffusion_us" class="date-picker" type="date" placeholder="Date" value="{{ old('diffusion_us') }}">
                                     </div>
                                 </div>
                                 @if ($errors->has('diffusion_us'))
@@ -134,7 +134,7 @@
                                 <div class="ui calendar" id="datepicker">
                                     <div class="ui input left icon">
                                         <i class="calendar icon"></i>
-                                        <input name="diffusion_fr" id="date-picker-fr" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">
+                                        <input name="diffusion_fr" class="date-picker" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">
                                     </div>
                                 </div>
                                 @if ($errors->has('diffusion_fr'))
@@ -335,14 +335,7 @@
                     })
             ;
 
-            $( '#date-picker-us' ).datepicker({
-                showAnim: "blind",
-                dateFormat: "yy-mm-dd",
-                changeMonth: true,
-                changeYear: true
-            });
-
-            $( '#date-picker-fr' ).datepicker({
+            $( '.date-picker' ).datepicker({
                 showAnim: "blind",
                 dateFormat: "yy-mm-dd",
                 changeMonth: true,
@@ -444,9 +437,10 @@
                             // On met à jour les infos saisons
                             $(this).find(".seasonName").html('<i class="dropdown icon"></i>Saison ' + seasonIndex);
                             $(this).find(".content").attr("seasonNumber", seasonIndex);
-                            $(this).find(".seasonInputBA").attr("name", 'seasons[' + seasonIndex + '][ba]' );
                             $(this).find(".episodeAdd").attr("id", 'episodeAdd' + seasonIndex );
                             $(this).find(".episodesBlock").attr("id", 'episodes' + seasonIndex );
+
+                            $(this).find(".seasonInputBA").attr("name", 'seasons[' + seasonIndex + '][ba]' );
 
                             $(this).find('.episodeBlock').each(function () {
                                 $(this).attr("class", 'episodeBlock episode' + seasonIndex);
@@ -455,6 +449,17 @@
                                 episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
 
                                 $(this).find(".episodeName").html('<i class="dropdown icon"></i>Episode ' + seasonIndex + '.' + episodeIndex);
+                                $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name]');
+                                $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name_fr]');
+                                $(this).find(".episodeInputResumeEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][resume]');
+                                $(this).find(".episodeInputResumeFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][resume_fr]');
+                                $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][diffusion_us]');
+                                $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][diffusion_fr]');
+                                $(this).find(".episodeInputParticularite").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][particularite]');
+                                $(this).find(".episodeInputBA").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][ba]');
+                                $(this).find(".episodeInputDirectors").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][directors]');
+                                $(this).find(".episodeInputWriters").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][writers]');
+                                $(this).find(".episodeInputGuests").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][guests]');
                             });
                         });
                     }
@@ -471,6 +476,26 @@
                         // On la met à jour dans la page
                         $(this).find(".expandableBlock").html('<i class="dropdown icon"></i> Saison '+ seasonIndex);
                         $(this).find(".seasonInputBA").attr( "name", 'seasons[' + seasonIndex + '][ba]');
+
+                        $(this).find('.episodeBlock').each(function () {
+                            $(this).attr("class", 'episodeBlock episode' + seasonIndex);
+
+                            // On actualise sa position
+                            episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
+
+                            $(this).find(".episodeName").html('<i class="dropdown icon"></i>Episode ' + seasonIndex + '.' + episodeIndex);
+                            $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name]');
+                            $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name_fr]');
+                            $(this).find(".episodeInputResumeEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][resume]');
+                            $(this).find(".episodeInputResumeFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][resume_fr]');
+                            $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][diffusion_us]');
+                            $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][diffusion_fr]');
+                            $(this).find(".episodeInputParticularite").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][particularite]');
+                            $(this).find(".episodeInputBA").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][ba]');
+                            $(this).find(".episodeInputDirectors").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][directors]');
+                            $(this).find(".episodeInputWriters").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][writers]');
+                            $(this).find(".episodeInputGuests").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][guests]');
+                        });
                     });
 
                     --seasonNumber;
@@ -538,8 +563,20 @@
                                     // On actualise sa position
                                     episodeIndex = parseInt($(this).index('.episode' + seasonNumber) + 1);
 
-                                    // On met à jour les infos saisons
+                                    // On met à jour les infos épisodes
                                     $(this).find(".episodeName").html('<i class="dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
+                                    $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name]');
+                                    $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name_fr]');
+                                    $(this).find(".episodeInputResumeEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][resume]');
+                                    $(this).find(".episodeInputResumeFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][resume_fr]');
+                                    $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][diffusion_us]');
+                                    $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][diffusion_fr]');
+                                    $(this).find(".episodeInputParticularite").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][particularite]');
+                                    $(this).find(".episodeInputBA").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][ba]');
+                                    $(this).find(".episodeInputDirectors").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][directors]');
+                                    $(this).find(".episodeInputWriters").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][writers]');
+                                    $(this).find(".episodeInputGuests").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][guests]');
+
                                 });
                             }
                         });
@@ -557,7 +594,17 @@
 
                                 // On la met à jour dans la page
                                 $(this).find(".episodeName").html('<i class="dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
-                                $(this).find(".ba-input").attr( "name", 'episodes[' + seasonNumber + '][' + episodeIndex + '][ba]');
+                                $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name]');
+                                $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name_fr]');
+                                $(this).find(".episodeInputResumeEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][resume]');
+                                $(this).find(".episodeInputResumeFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][resume_fr]');
+                                $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][diffusion_us]');
+                                $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][diffusion_fr]');
+                                $(this).find(".episodeInputParticularite").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][particularite]');
+                                $(this).find(".episodeInputBA").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][ba]');
+                                $(this).find(".episodeInputDirectors").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][directors]');
+                                $(this).find(".episodeInputWriters").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][writers]');
+                                $(this).find(".episodeInputGuests").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][guests]');
                             });
                         });
 
@@ -586,9 +633,92 @@
                                     + '</div>'
                                     + '</div>'
                                     + '<div class="content">'
+                                    + '<div class="two fields">'
+                                    + '<div class="field {{ $errors->has('name') ? ' error' : '' }}">'
+                                    + '<label>Nom original</label>'
+                                    + '<input class="episodeInputNameEN" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][name]" placeholder="Nom original de l\'épisode" type="text" value="{{ old('name') }}">'
+                                    + '@if ($errors->has('name'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('name') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+                                    + '<div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">'
+                                    + '<label>Nom français</label>'
+                                    + '<input class="episodeInputNameFR" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][name_fr]" placeholder="Nom français de l\'épisode" type="text" value="{{ old('name_fr') }}">'
+                                    + '@if ($errors->has('name_fr'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('name_fr') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+                                    + '</div>'
+
+                                    + '<div class="two fields">'
+                                    + '<div class="field {{ $errors->has('resume') ? ' error' : '' }}">'
+                                    + '<label>Résumé original</label>'
+                                    + '<textarea class="episodeInputResumeEN" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][resume]" placeholder="Résumé original de l\'épisode" value="{{ old('resume') }}""></textarea>'
+                                    + '@if ($errors->has('resume'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('resume') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+                                    + '<div class="field {{ $errors->has('resume_fr') ? ' error' : '' }}">'
+                                    + '<label>Résumé de l\'épisode</label>'
+                                    + '<textarea class="episodeInputResumeFR" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][resume_fr]" placeholder="Résumé en français de l\'épisode" value="{{ old('resume_fr') }}""></textarea>'
+                                    + '@if ($errors->has('resume_fr'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('resume_fr') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+                                    + '</div>'
+
+                                    + '<div class="two fields">'
+                                    + '<div class="field {{ $errors->has('diffusion_us') ? ' error' : '' }}">'
+                                    + '<label>Date de la diffusion originale</label>'
+                                    + '<div class="ui calendar" id="datepicker">'
+                                    + '<div class="ui input left icon">'
+                                    + '<i class="calendar icon"></i>'
+                                    + '<input class="episodeInputDiffusionUS date-picker" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][diffusion_us]" type="date" placeholder="Date" value="{{ old('diffusion_us') }}">'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '@if ($errors->has('diffusion_us'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('diffusion_us') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+                                    + '<div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">'
+                                    + '<label>Date de la diffusion française</label>'
+                                    + '<div class="ui calendar" id="datepicker">'
+                                    + '<div class="ui input left icon">'
+                                    + '<i class="calendar icon"></i>'
+                                    + '<input class="episodeInputDiffusionFR date-picker" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][diffusion_fr]" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '@if ($errors->has('diffusion_fr'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('diffusion_fr') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+                                    + '</div>'
+
+                                    + '<div class="two fields">'
+                                    + '<div class="field {{ $errors->has('particularite') ? ' error' : '' }}">'
+                                    + '<label>Particularité</label>'
+                                    + '<textarea rows="2" class="episodeInputParticularite" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][particularite]" placeholder="Particularité de l\'épisode" value="{{ old('particularite') }}""></textarea>'
+                                    + '@if ($errors->has('particularite'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('particularite') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
                                     + '<div class="field {{ $errors->has('ba') ? ' error' : '' }}">'
-                                    + '<label>Bande Annonce</label>'
-                                    + '<input class="ba-input" name="episodes['+ seasonNumber +'][' + episodeNumber + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
+                                    + '<label>Bande annonce de l\'épisode</label>'
+                                    + '<input class="episodeInputBA" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][ba]" type="date" placeholder="Bande Annonce de l\'épisode" value="{{ old('ba') }}">'
                                     + '@if ($errors->has('ba'))'
                                     + '<div class="ui red message">'
                                     + '<strong>{{ $errors->first('ba') }}</strong>'
@@ -596,7 +726,97 @@
                                     + '@endif'
                                     + '</div>'
                                     + '</div>'
+
+                                    + '<div class="three fields">'
+
+                                    + '<div class="field {{ $errors->has('directors') ? ' error' : '' }}">'
+                                    + '<label>Réalisateur(s) de la série</label>'
+                                    + '<div class="ui fluid multiple search selection dropdown directorDropdown">'
+                                    + '<input name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][directors]" type="hidden" value="{{ old('directors') }}">'
+                                    + '<i class="dropdown icon"></i>'
+                                    + '<div class="default text">Choisir</div>'
+                                    + '<div class="menu">'
+                                    + '@foreach($actors as $actor)'
+                                    + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                                    + '@endforeach'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '@if ($errors->has('directors'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('directors') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+
+                                    + '<div class="field {{ $errors->has('writers') ? ' error' : '' }}">'
+                                    + '<label>Scénariste(s) de la série</label>'
+                                    + '<div class="ui fluid multiple search selection dropdown writerDropdown">'
+                                    + '<input name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][writers]" type="hidden" value="{{ old('writers') }}">'
+                                    + '<i class="dropdown icon"></i>'
+                                    + '<div class="default text">Choisir</div>'
+                                    + '<div class="menu">'
+                                    + '@foreach($actors as $actor)'
+                                    + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                                    + '@endforeach'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '@if ($errors->has('writers'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('writers') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+
+                                    + '<div class="field {{ $errors->has('guests') ? ' error' : '' }}">'
+                                    + '<label>Guest(s) de la série</label>'
+                                    + '<div class="ui fluid multiple search selection dropdown guestDropdown">'
+                                    + '<input name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][guests]" type="hidden" value="{{ old('guests') }}">'
+                                    + '<i class="dropdown icon"></i>'
+                                    + '<div class="default text">Choisir</div>'
+                                    + '<div class="menu">'
+                                    + '@foreach($actors as $actor)'
+                                    + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                                    + '@endforeach'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '@if ($errors->has('guests'))'
+                                    + '<div class="ui red message">'
+                                    + '<strong>{{ $errors->first('guests') }}</strong>'
+                                    + '</div>'
+                                    + '@endif'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</div>'
                                     + '</div>';
+
+                            $(function() {
+                                $( '.date-picker' ).datepicker({
+                                    showAnim: "blind",
+                                    dateFormat: "yy-mm-dd",
+                                    changeMonth: true,
+                                    changeYear: true
+                                });
+
+                                $('.guestDropdown')
+                                        .dropdown({
+                                            allowAdditions: true,
+                                            forceSelection : false,
+                                            minCharacters: 4
+                                        });
+                                $('.writerDropdown')
+                                        .dropdown({
+                                            allowAdditions: true,
+                                            forceSelection : false,
+                                            minCharacters: 4
+                                        });
+                                $('.directorDropdown')
+                                        .dropdown({
+                                            allowAdditions: true,
+                                            forceSelection : false,
+                                            minCharacters: 4
+                                        });
+                            });
+
                             ++episodeNumber;
 
                             $(this).next('.episodesBlock').append(html);
@@ -606,7 +826,6 @@
                     });
                 });
             });
-
 
 
             // Submission

@@ -14,6 +14,7 @@ class CreateEpisodesTable extends Migration {
 			$table->string('name');
 			$table->string('name_fr');
 			$table->text('resume');
+            $table->text('resume_fr');
 			$table->text('particularite');
 			$table->date('diffusion_us');
 			$table->date('diffusion_fr');

@@ -147,22 +147,27 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                     }
 
                     # Nom FR, sil n'existe pas, on en met pas
-                    $episodeNameFR = $getEpisode_fr->episodeName;
+                    $episodeNameFR = $getEpisode_en->episodeName;
                     if (is_null($episodeNameFR)) {
                         $logMessage = 'Pas de nom FR de l\'épisode';
                         saveLogMessage($jobName, $logMessage);
                         $episodeNameFR = 'TBA';
                     }
 
-                    # Résumé, si pas de version française, on met la version anglaise, et sinon on met le résumé par défaut
-                    $episodeResume = $getEpisode_fr->overview;
-                    if (is_null($episodeResume)) {
-                        $episodeResume = $getEpisode_en->overview;
-                        if (is_null($episodeResume)) {
-                            $logMessage = 'Pas de résumé de l\'épisode';
-                            saveLogMessage($jobName, $logMessage);
-                            $episodeResume = 'TBA';
-                        }
+                    # Résumé en version française, sinon on met le résumé par défaut
+                    $episodeResumeFR = $getEpisode_fr->overview;
+                    if (is_null($episodeResumeFR)) {
+                        $logMessage = 'Pas de résumé de l\'épisode en français';
+                        saveLogMessage($jobName, $logMessage);
+                        $episodeResumeFR = 'TBA';
+                    }
+
+                    # Résumé en version anglaise, sinon on met le résumé par défaut
+                    $episodeResumeEN = $getEpisode_en->overview;
+                    if (is_null($episodeResumeEN)) {
+                        $logMessage = 'Pas de résumé de l\'épisode en anglais';
+                        saveLogMessage($jobName, $logMessage);
+                        $episodeResumeEN = 'TBA';
                     }
 
                     # On prépare le nouvel épisode
@@ -171,7 +176,8 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                         'name' => $episodeName,
                         'name_fr' => $episodeNameFR,
                         'thetvdb_id' => $episodeID,
-                        'resume' => $episodeResume,
+                        'resume' => $episodeResumeEN,
+                        'resume_fr' => $episodeResumeFR,
                         'diffusion_us' => $episodeDiffusionUS,
                     ]);
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
@@ -451,19 +457,12 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         if(!is_null($show_fr->overview)) {
             $logMessage = 'Ajout du résumé FR';
             saveLogMessage($jobName, $logMessage);
-            $show_new->synopsis = $show_fr->overview;
+            $show_new->synopsis_fr = $show_fr->overview;
         }
-        else {
-            if(!is_null($show_en->overview)) {
-                $logMessage = 'Ajout du résumé EN';
-                saveLogMessage($jobName, $logMessage);
-                $show_new->synopsis = $show_en->overview;
-            }
-            else{
-                $logMessage = 'Pas de résumé';
-                saveLogMessage($jobName, $logMessage);
-                $show_new->synopsis = 'TBA';
-            }
+        if(!is_null($show_en->overview)) {
+            $logMessage = 'Ajout du résumé EN';
+            saveLogMessage($jobName, $logMessage);
+            $show_new->synopsis = $show_en->overview;
         }
 
         if(!is_null($show_en->firstAired)) {

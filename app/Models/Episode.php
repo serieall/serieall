@@ -8,7 +8,7 @@ class Episode extends Model {
 
 	protected $table = 'episodes';
 	public $timestamps = true;
-	protected $fillable = array('thetvdb_id', 'numero', 'name', 'name_fr', 'resume', 'particularite', 'diffusion_us', 'diffusion_fr', 'ba', 'moyenne', 'nbnotes');
+	protected $fillable = array('thetvdb_id', 'numero', 'name', 'name_fr', 'resume', 'resume_fr', 'particularite', 'diffusion_us', 'diffusion_fr', 'ba', 'moyenne', 'nbnotes');
 
 	public function season()
 	{

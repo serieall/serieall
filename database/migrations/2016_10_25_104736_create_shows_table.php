@@ -14,6 +14,7 @@ class CreateShowsTable extends Migration {
 			$table->string('name')->index();
 			$table->string('name_fr');
 			$table->text('synopsis');
+            $table->text('synopsis_fr');
 			$table->integer('format');
 			$table->integer('annee');
 			$table->boolean('encours');

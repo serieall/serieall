@@ -149,12 +149,14 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         }
 
                         # Résumé, si pas de version française, on met la version anglaise, et sinon on met le résumé par défaut
-                        $episodeResume = $getEpisode_fr->overview;
-                        if (is_null($episodeResume)) {
-                            $episodeResume = $getEpisode_en->overview;
-                            if (is_null($episodeResume)) {
-                                $episodeResume = 'TBA';
-                            }
+                        $episodeResumeFR = $getEpisode_fr->overview;
+                        if (is_null($episodeResumeFR)) {
+                            $episodeResumeFR = 'TBA';
+                        }
+
+                        $episodeResumeEN = $getEpisode_en->overview;
+                        if (is_null($episodeResumeEN)) {
+                            $episodeResumeEN = 'TBA';
                         }
 
                         $logMessage = 'Création de l\'épisode n°' . $episodeNumero;
@@ -166,7 +168,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             'name' => $episodeName,
                             'name_fr' => $episodeNameFR,
                             'thetvdb_id' => $episodeID,
-                            'resume' => $episodeResume,
+                            'resume' => $episodeResumeEN,
+                            'resume_fr' => $episodeResumeFR,
                             'diffusion_us' => $episodeDiffusionUS,
                         ]);
                         # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
@@ -192,6 +195,12 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                                 $episode_ref->name = $getEpisode_en->episodeName;
                             }
                         }
+
+                        /*
+                         *
+                         * TODO: Forcer la modification des noms d'épisode ?
+                         *
+                         */
 
                         $nomFREpisode = $episode_ref->name_fr;
                         # Si le nom FR est à TBA dans notre base
@@ -219,25 +228,29 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                             }
                         }
 
-                        $resumeEpisode = $episode_ref->resume;
+                        $resumeEpisodeFR = $episode_ref->resume_fr;
                         # Si le résumé est à TBA dans notre base
-                        if ($resumeEpisode == 'TBA') {
+                        if ($resumeEpisodeFR == 'TBA') {
                             # On vérifie si le résumé est rempli en FR
                             if (!is_null($getEpisode_fr->overview)) {
                                 # On sauvegarde le résumé en français
                                 $logMessage = 'Mise à jour du résumé en français.';
                                 saveLogMessage($jobName, $logMessage);
 
-                                $episode_ref->resume = $getEpisode_fr->overview;
-                            } else {
-                                # On vérifie que le résumé est rempli en EN
-                                if (!is_null($getEpisode_en->overview)) {
-                                    # On sauvegarde le résumé en EN
-                                    $logMessage = 'Mise à jour du résumé en anglais.';
-                                    saveLogMessage($jobName, $logMessage);
+                                $episode_ref->resume_fr = $getEpisode_fr->overview;
+                            }
+                        }
 
-                                    $episode_ref->resume = $getEpisode_en->overview;
-                                }
+                        $resumeEpisodeEN = $episode_ref->resume;
+                        # Si le résumé est à TBA dans notre base
+                        if ($resumeEpisodeEN == 'TBA') {
+                            # On vérifie que le résumé est rempli en EN
+                            if (!is_null($getEpisode_fr->overview)) {
+                                # On sauvegarde le résumé en EN
+                                $logMessage = 'Mise à jour du résumé en anglais.';
+                                saveLogMessage($jobName, $logMessage);
+
+                                $episode_ref->resume = $getEpisode_en->overview;
                             }
                         }
 
@@ -561,25 +574,29 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                 $logMessage = 'Nom de la série : ' . $show_en->seriesName;
                 saveLogMessage($jobName, $logMessage);
 
-                $resumeSerie = $serieInBDD->resume;
+                $resumeSerieEN = $serieInBDD->resume;
                 # Si le résumé est à TBA dans notre base
-                if ($resumeSerie == 'TBA') {
-                    # On vérifie si le résumé est rempli en FR
-                    if (!is_null($show_fr->overview)) {
+                if ($resumeSerieEN == 'TBA') {
+                    # On vérifie si le résumé est rempli en EN
+                    if (!is_null($show_en->overview)) {
                         # On sauvegarde le résumé en français
+                        $logMessage = 'Mise à jour du résumé en anglais.';
+                        saveLogMessage($jobName, $logMessage);
+
+                        $serieInBDD->resume = $show_en->overview;
+                    }
+                }
+
+                $resumeSerieFR = $serieInBDD->resume_fr;
+                # Si le résumé est à TBA dans notre base
+                if ($resumeSerieFR == 'TBA') {
+                    # On vérifie que le résumé est rempli en FR
+                    if (!is_null($show_fr->overview)) {
+                        # On sauvegarde le résumé en EN
                         $logMessage = 'Mise à jour du résumé en français.';
                         saveLogMessage($jobName, $logMessage);
 
-                        $serieInBDD->resume = $show_fr->overview;
-                    } else {
-                        # On vérifie que le résumé est rempli en EN
-                        if (!is_null($show_en->overview)) {
-                            # On sauvegarde le résumé en EN
-                            $logMessage = 'Mise à jour du résumé en anglais.';
-                            saveLogMessage($jobName, $logMessage);
-
-                            $serieInBDD->resume = $show_en->overview;
-                        }
+                        $serieInBDD->resume_fr = $show_fr->overview;
                     }
                 }
 
