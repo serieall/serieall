@@ -39,6 +39,21 @@ class AdminShowRepository
         }
     }
 
+    public function createManuallyShowJob($inputs){
+        $URLShow = Str::slug($inputs['name']);
+        $verifURLShow = $this->show->where('show_url', $URLShow)->first();
+
+        if(is_null($verifURLShow)){
+            dispatch(new AddShowFromTVDB($inputs));
+            return $dispatchOK = true;
+        }
+        else
+        {
+            return $dispatchOK = false;
+        }
+
+    }
+
     public function getActors(){
         return DB::table('artists')
             ->orderBy('name', 'asc')

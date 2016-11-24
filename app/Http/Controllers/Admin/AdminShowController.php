@@ -107,9 +107,17 @@ class AdminShowController extends Controller
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         Log::info($inputs);
-        foreach($inputs['actors'] as $actor){
-            Log::info($actor['name'] . ' : ' . $actor['role']);
+
+        $dispatchOK = $this->adminShowRepository->createManuallyShowJob($inputs);
+
+        if($dispatchOK){
+
         }
+        else
+        {
+
+        }
+
         return response()->json();
     }
 
