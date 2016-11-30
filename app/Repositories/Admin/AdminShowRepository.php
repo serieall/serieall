@@ -3,14 +3,10 @@
 
 namespace App\Repositories\Admin;
 
-use App\Models\Channel;
-use App\Models\Nationality;
 use App\Models\Show;
-use App\Models\Artist;
-use App\Models\Genre;
 use App\Jobs\AddShowFromTVDB;
 use Illuminate\Support\Facades\DB;
-use App\Jobs\UpdateShowFromTVDB;
+use Illuminate\Support\Str;
 
 class AdminShowRepository
 {
@@ -44,7 +40,6 @@ class AdminShowRepository
         $verifURLShow = $this->show->where('show_url', $URLShow)->first();
 
         if(is_null($verifURLShow)){
-            dispatch(new AddShowFromTVDB($inputs));
             return $dispatchOK = true;
         }
         else

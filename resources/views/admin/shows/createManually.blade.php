@@ -39,7 +39,7 @@
                         <div class="two fields">
                             <div class="field {{ $errors->has('name') ? ' error' : '' }}">
                                 <label>Nom original de la série</label>
-                                <input name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
+                                <input required name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
 
                                 @if ($errors->has('name'))
                                     <div class="ui red message">
@@ -146,10 +146,10 @@
                         </div>
 
                         <div class="two fields">
-                            <div class="field {{ $errors->has('chaine_fr') ? ' error' : '' }}">
+                            <div class="field {{ $errors->has('channels') ? ' error' : '' }}">
                                 <label>Chaine(s)</label>
                                 <div id="dropdown-chaines" class="ui fluid multiple search selection dropdown">
-                                    <input name="chaine_fr" type="hidden" value="{{ old('chaine_fr') }}">
+                                    <input name="channels" type="hidden" value="{{ old('channels') }}">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Choisir</div>
                                     <div class="menu">
@@ -159,9 +159,9 @@
                                     </div>
                                 </div>
 
-                                @if ($errors->has('chaine_fr'))
+                                @if ($errors->has('channels'))
                                     <div class="ui red message">
-                                        <strong>{{ $errors->first('chaine_fr') }}</strong>
+                                        <strong>{{ $errors->first('channels') }}</strong>
                                     </div>
                                 @endif
                             </div>
@@ -387,21 +387,21 @@
                                 + '<i class="remove icon"></i>'
                                 + '</button>'
                                 + '<div class="two fields">'
-                                + '<div class="field {{ $errors->has('name') ? ' error' : '' }}">'
+                                + '<div class="field {{ $errors->has('name_actor') ? ' error' : '' }}">'
                                 + '<label class="actor_name-label" for="name' + actor_number + '">Nom de l\'acteur</label>'
-                                + '<input class="actor_name-input" name="actors[' + actor_number + '][name]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name') }}">'
-                                + '@if ($errors->has('name'))'
+                                + '<input required class="actor_name-input" name="actors[' + actor_number + '][name_actor]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name_actor') }}">'
+                                + '@if ($errors->has('name_actor'))'
                                 + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('name') }}</strong>'
+                                + '<strong>{{ $errors->first('name_actor') }}</strong>'
                                 + '</div>'
                                 + '@endif'
                                 + '</div>'
-                                + '<div class="field {{ $errors->has('role') ? ' error' : '' }}">'
+                                + '<div class="field {{ $errors->has('role_actor') ? ' error' : '' }}">'
                                 + '<label class="actor_role-label" for="role' + actor_number + '">Rôle</label>'
-                                + '<input class="actor_role-input" name="actors[' + actor_number + '][role]" placeholder="Role de l\'acteur" type="text" value="{{ old('role') }}">'
-                                + '@if ($errors->has('role'))'
+                                + '<input required class="actor_role-input" name="actors[' + actor_number + '][role_actor]" placeholder="Role de l\'acteur" type="text" value="{{ old('role_actor') }}">'
+                                + '@if ($errors->has('role_actor'))'
                                 + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('role') }}</strong>'
+                                + '<strong>{{ $errors->first('role_actor') }}</strong>'
                                 + '</div>'
                                 + '@endif'
                                 + '</div>'
