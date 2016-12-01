@@ -39,7 +39,7 @@
                         <div class="two fields">
                             <div class="field {{ $errors->has('name') ? ' error' : '' }}">
                                 <label>Nom original de la série</label>
-                                <input required name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
+                                <input name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
 
                                 @if ($errors->has('name'))
                                     <div class="ui red message">
@@ -387,23 +387,17 @@
                                 + '<i class="remove icon"></i>'
                                 + '</button>'
                                 + '<div class="two fields">'
-                                + '<div class="field {{ $errors->has('name_actor') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label class="actor_name-label" for="name' + actor_number + '">Nom de l\'acteur</label>'
-                                + '<input required class="actor_name-input" name="actors[' + actor_number + '][name_actor]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name_actor') }}">'
-                                + '@if ($errors->has('name_actor'))'
+                                + '<input class="actor_name-input" name="actors[' + actor_number + '][name_actor]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name_actor') }}">'
                                 + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('name_actor') }}</strong>'
                                 + '</div>'
-                                + '@endif'
                                 + '</div>'
                                 + '<div class="field {{ $errors->has('role_actor') ? ' error' : '' }}">'
                                 + '<label class="actor_role-label" for="role' + actor_number + '">Rôle</label>'
-                                + '<input required class="actor_role-input" name="actors[' + actor_number + '][role_actor]" placeholder="Role de l\'acteur" type="text" value="{{ old('role_actor') }}">'
-                                + '@if ($errors->has('role_actor'))'
+                                + '<input class="actor_role-input" name="actors[' + actor_number + '][role_actor]" placeholder="Role de l\'acteur" type="text" value="{{ old('role_actor') }}">'
                                 + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('role_actor') }}</strong>'
                                 + '</div>'
-                                + '@endif'
                                 + '</div>'
                                 + '</div>';
 
@@ -846,10 +840,9 @@
                         .fail(function (data) {
                             $('.submit').removeClass("loading");
                             $.each(data.responseJSON, function (key, value) {
-                                if (key == 'name') {
-                                    $('.help-block').eq(0).text(value);
-                                    $('.form-group').eq(0).addClass('has-error');
-                                }
+                                var input = 'input[name="' + key + '"]';
+                                $(input + '+small').text(value);
+                                $(input).parent().addClass('error');
                             });
                         });
             });

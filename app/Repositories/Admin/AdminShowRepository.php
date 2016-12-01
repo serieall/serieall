@@ -40,11 +40,12 @@ class AdminShowRepository
         $verifURLShow = $this->show->where('show_url', $URLShow)->first();
 
         if(is_null($verifURLShow)){
-            return $dispatchOK = true;
+
+            return $createOK = true;
         }
         else
         {
-            return $dispatchOK = false;
+            return $createOK = false;
         }
 
     }
