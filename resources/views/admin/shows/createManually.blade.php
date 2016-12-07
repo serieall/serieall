@@ -40,23 +40,13 @@
                             <div class="field {{ $errors->has('name') ? ' error' : '' }}">
                                 <label>Nom original de la série</label>
                                 <input id="name" name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
-
-                                @if ($errors->has('name'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
 
                             <div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">
                                 <label>Nom français de la série</label>
                                 <input id="name_fr" name="name_fr" placeholder="Nom français" type="text" value="{{ old('name_fr') }}">
-
-                                @if ($errors->has('name_fr'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('name_fr') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
                         </div>
 
@@ -64,12 +54,7 @@
                             <div class="field {{ $errors->has('resume') ? ' error' : '' }}">
                                 <label>Résumé</label>
                                 <textarea id="resume" name="resume" value="{{ old('resume') }}"></textarea>
-
-                                @if ($errors->has('resume'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('resume') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
 
                             <div class="two fields field">
@@ -79,12 +64,7 @@
                                         <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ old('format') }}">
                                         <i class="tv icon"></i>
                                     </div>
-
-                                    @if ($errors->has('format'))
-                                        <div class="ui red message">
-                                            <strong>{{ $errors->first('format') }}</strong>
-                                        </div>
-                                    @endif
+                                    <div class="ui red hidden message"></div>
                                 </div>
 
                                 <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
@@ -103,12 +83,7 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    @if ($errors->has('encours'))
-                                        <div class="ui red message">
-                                            <strong>{{ $errors->first('encours') }}</strong>
-                                        </div>
-                                    @endif
+                                    <div class="ui red hidden message"></div>
                                 </div>
                             </div>
                         </div>
@@ -122,11 +97,7 @@
                                         <input id="diffusion_us" name="diffusion_us" class="date-picker" type="date" placeholder="Date" value="{{ old('diffusion_us') }}">
                                     </div>
                                 </div>
-                                @if ($errors->has('diffusion_us'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('diffusion_us') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
 
                             <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
@@ -137,11 +108,7 @@
                                         <input id="diffusion_fr" name="diffusion_fr" class="date-picker" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">
                                     </div>
                                 </div>
-                                @if ($errors->has('diffusion_fr'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('diffusion_fr') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
                         </div>
 
@@ -158,12 +125,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-
-                                @if ($errors->has('channels'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('channels') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
 
                             <div class="field {{ $errors->has('nationalities') ? ' error' : '' }}">
@@ -178,12 +140,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-
-                                @if ($errors->has('nationalities'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('nationalities') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
                         </div>
 
@@ -200,12 +157,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-
-                                @if ($errors->has('creators'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('creators') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
 
                             <div class="field {{ $errors->has('genres') ? ' error' : '' }}">
@@ -220,11 +172,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                @if ($errors->has('genres'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('genres') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red hidden message"></div>
                             </div>
                         </div>
                         <button class="submit positive ui button" type="submit">Créer la série</button>
@@ -278,23 +226,13 @@
                                 <input id="taux_erectile" name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ old('taux_erectile') }}">
                                 <i class="percent icon"></i>
                             </div>
-
-                            @if ($errors->has('taux_erectile'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('taux_erectile') }}</strong>
-                                </div>
-                            @endif
+                            <div class="ui red hidden message"></div>
                         </div>
 
                         <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
                             <label>Avis de la rédaction</label>
                             <textarea id="avis_rentree" name="avis_rentree" value="{{ old('avis_rentree') }}"></textarea>
-
-                            @if ($errors->has('avis_rentree'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('avis_rentree') }}</strong>
-                                </div>
-                            @endif
+                            <div class="ui red hidden message"></div>
                         </div>
                     </div>
                     <button class="submit positive ui button" type="submit">Créer la série</button>
@@ -384,10 +322,12 @@
                             + '<div class="field">'
                             + '<label class="actor_name-label">Nom de l\'acteur</label>'
                             + '<input class="actor_name-input" id="actors.'+ actor_number +'.name_actor" name="actors[' + actor_number + '][name_actor]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name_actor') }}">'
+                            + '<div class="ui red hidden message"></div>'
                             + '</div>'
                             + '<div class="field">'
                             + '<label class="actor_role-label">Rôle</label>'
                             + '<input class="actor_role-input" id="actors.'+ actor_number +'.role_actor" name="actors[' + actor_number + '][role_actor]" placeholder="Rôle" type="text" value="{{ old('role_actor') }}">'
+                            + '<div class="ui red hidden message"></div>'
                             + '</div>'
                             + '</div>';
 
@@ -536,11 +476,7 @@
                         + '<div class="field {{ $errors->has('ba') ? ' error' : '' }}">'
                         + '<label>Bande Annonce</label>'
                         + '<input class="seasonInputBA" name="seasons[' + seasonNumber + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
-                        + '@if ($errors->has('ba'))'
-                        + '<div class="ui red message">'
-                        + '<strong>{{ $errors->first('ba') }}</strong>'
-                        + '</div>'
-                        + '@endif'
+                        + '<div class="ui red hidden message"></div>'
                         + '</div>'
                         + '<button class="ui basic button episodeAdd" id="episodeAdd'+ seasonNumber +'">'
                         + '<i class="tv icon"></i>'
@@ -673,20 +609,12 @@
                                 + '<div class="field {{ $errors->has('name') ? ' error' : '' }}">'
                                 + '<label>Nom original</label>'
                                 + '<input class="episodeInputNameEN" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.name" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][name]" placeholder="Nom original de l\'épisode" type="text" value="{{ old('name') }}">'
-                                + '@if ($errors->has('name'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('name') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '<div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">'
                                 + '<label>Nom français</label>'
                                 + '<input class="episodeInputNameFR" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.name_fr" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][name_fr]" placeholder="Nom français de l\'épisode" type="text" value="{{ old('name_fr') }}">'
-                                + '@if ($errors->has('name_fr'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('name_fr') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '</div>'
 
@@ -694,20 +622,12 @@
                                 + '<div class="field {{ $errors->has('resume') ? ' error' : '' }}">'
                                 + '<label>Résumé original</label>'
                                 + '<textarea class="episodeInputResumeEN" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.resume" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][resume]" placeholder="Résumé original de l\'épisode" value="{{ old('resume') }}""></textarea>'
-                                + '@if ($errors->has('resume'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('resume') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '<div class="field {{ $errors->has('resume_fr') ? ' error' : '' }}">'
                                 + '<label>Résumé de l\'épisode</label>'
                                 + '<textarea class="episodeInputResumeFR" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.resume_fr" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][resume_fr]" placeholder="Résumé en français de l\'épisode" value="{{ old('resume_fr') }}""></textarea>'
-                                + '@if ($errors->has('resume_fr'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('resume_fr') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '</div>'
 
@@ -720,11 +640,7 @@
                                 + '<input class="episodeInputDiffusionUS date-picker" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.diffusion_us" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][diffusion_us]" type="date" placeholder="Date" value="{{ old('diffusion_us') }}">'
                                 + '</div>'
                                 + '</div>'
-                                + '@if ($errors->has('diffusion_us'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('diffusion_us') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '<div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">'
                                 + '<label>Date de la diffusion française</label>'
@@ -734,11 +650,7 @@
                                 + '<input class="episodeInputDiffusionFR date-picker" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.diffusion_fr" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][diffusion_fr]" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">'
                                 + '</div>'
                                 + '</div>'
-                                + '@if ($errors->has('diffusion_fr'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('diffusion_fr') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '</div>'
 
@@ -746,20 +658,12 @@
                                 + '<div class="field {{ $errors->has('particularite') ? ' error' : '' }}">'
                                 + '<label>Particularité</label>'
                                 + '<textarea rows="2" class="episodeInputParticularite" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.particularite" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][particularite]" placeholder="Particularité de l\'épisode" value="{{ old('particularite') }}""></textarea>'
-                                + '@if ($errors->has('particularite'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('particularite') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '<div class="field {{ $errors->has('ba') ? ' error' : '' }}">'
                                 + '<label>Bande annonce de l\'épisode</label>'
                                 + '<input class="episodeInputBA" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.ba" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][ba]" type="date" placeholder="Bande Annonce de l\'épisode" value="{{ old('ba') }}">'
-                                + '@if ($errors->has('ba'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('ba') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '</div>'
 
@@ -777,11 +681,7 @@
                                 + '@endforeach'
                                 + '</div>'
                                 + '</div>'
-                                + '@if ($errors->has('directors'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('directors') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
 
                                 + '<div class="field {{ $errors->has('writers') ? ' error' : '' }}">'
@@ -796,11 +696,7 @@
                                 + '@endforeach'
                                 + '</div>'
                                 + '</div>'
-                                + '@if ($errors->has('writers'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('writers') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
 
                                 + '<div class="field {{ $errors->has('guests') ? ' error' : '' }}">'
@@ -815,11 +711,7 @@
                                 + '@endforeach'
                                 + '</div>'
                                 + '</div>'
-                                + '@if ($errors->has('guests'))'
-                                + '<div class="ui red message">'
-                                + '<strong>{{ $errors->first('guests') }}</strong>'
-                                + '</div>'
-                                + '@endif'
+                                + '<div class="ui red hidden message"></div>'
                                 + '</div>'
                                 + '</div>'
                                 + '</div>'
@@ -880,12 +772,12 @@
                         window.location.href = '{!! route('adminShow.redirectJSON') !!}';
                     })
                     .fail(function (data) {
-                        console.log(data);
                         $('.submit').removeClass("loading");
                         $.each(data.responseJSON, function (key, value) {
-                            console.log(key);
-                            console.log(data.responseJSON);
                             var input = 'input[id="' + key + '"]';
+                            $(input + '+div').text(value);
+                            $(input + '+div').removeClass("hidden");
+
                             $(input).parent().addClass('error');
                         });
                     });
