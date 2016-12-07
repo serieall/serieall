@@ -40,7 +40,7 @@ class AdminShowRepository
         $verifURLShow = $this->show->where('show_url', $URLShow)->first();
 
         if(is_null($verifURLShow)){
-
+            dispatch(new AddShowManually($inputs));
             return $createOK = true;
         }
         else

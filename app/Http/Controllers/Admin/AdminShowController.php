@@ -114,6 +114,19 @@ class AdminShowController extends Controller
     }
 
     /**
+     * Store a newly manually created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectJSON()
+    {
+        return redirect()->route('adminShow.index')
+            ->with('status_header', 'Série en cours d\'ajout')
+            ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
