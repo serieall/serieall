@@ -588,7 +588,7 @@
                         var episodeNumber =  $('#episodes' + seasonNumber).children('.episodeBlock').length + 1 ; // Nombre d'épisode total
 
                         var html = '<div class="episodeBlock episode' + seasonNumber +'">'
-                                + '<div class="title">'
+                                + '<div class="red title">'
                                 + '<div class="ui grid">'
                                 + '<div class="twelve wide column middle aligned expandableBlock episodeName">'
                                 + '<i class="dropdown icon"></i>'
@@ -775,10 +775,14 @@
                         $('.submit').removeClass("loading");
                         $.each(data.responseJSON, function (key, value) {
                             var input = 'input[id="' + key + '"]';
+
                             $(input + '+div').text(value);
                             $(input + '+div').removeClass("hidden");
-
                             $(input).parent().addClass('error');
+
+                            if(key.indexOf('actors.') > -1) {
+                                $(input).parents('.div-actor').addClass('red');
+                            }
                         });
                     });
         });
