@@ -3,6 +3,7 @@
 
 namespace App\Repositories\Admin;
 
+use App\Jobs\AddShowManually;
 use App\Models\Show;
 use App\Jobs\AddShowFromTVDB;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,7 @@ class AdminShowRepository
 
     public function createShowJob($inputs){
         $verifIDTheTVDB = $this->show->where('thetvdb_id', $inputs['thetvdb_id'])->first();
+
         if(is_null($verifIDTheTVDB)){
             dispatch(new AddShowFromTVDB($inputs));
             return $dispatchOK = true;
@@ -47,7 +49,6 @@ class AdminShowRepository
         {
             return $createOK = false;
         }
-
     }
 
     public function getActors(){

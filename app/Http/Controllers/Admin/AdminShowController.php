@@ -108,9 +108,11 @@ class AdminShowController extends Controller
 
         Log::info($inputs);
 
-        $this->adminShowRepository->createManuallyShowJob($inputs);
+        $createOK = $this->adminShowRepository->createManuallyShowJob($inputs);
 
-        return response()->json();
+        if($createOK) {
+            return response()->json();
+        }
     }
 
     /**
