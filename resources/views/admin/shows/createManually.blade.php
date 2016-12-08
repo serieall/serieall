@@ -459,7 +459,7 @@
                         + '<div class="title">'
                         + '<div class="ui grid">'
                         + '<div class="twelve wide column middle aligned expandableBlock seasonName">'
-                        + '<i class="dropdown icon"></i>'
+                        + '<i class="icon-error dropdown icon"></i>'
                         + 'Saison '+ seasonNumber
                         + '</div>'
                         + '<div class="four wide column">'
@@ -588,7 +588,7 @@
                         var episodeNumber =  $('#episodes' + seasonNumber).children('.episodeBlock').length + 1 ; // Nombre d'épisode total
 
                         var html = '<div class="episodeBlock episode' + seasonNumber +'">'
-                                + '<div class="red title">'
+                                + '<div class="title">'
                                 + '<div class="ui grid">'
                                 + '<div class="twelve wide column middle aligned expandableBlock episodeName">'
                                 + '<i class="dropdown icon"></i>'
@@ -782,6 +782,10 @@
 
                             if(key.indexOf('actors.') > -1) {
                                 $(input).parents('.div-actor').addClass('red');
+                            }
+
+                            if(key.indexOf('seasons.') > -1) {
+
                             }
                         });
                     });
