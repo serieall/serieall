@@ -28,10 +28,10 @@
         <div class="ui centered grid">
             <div class="ten wide column segment">
                 <div class="ui pointing secondary menu">
-                    <a class="item active" data-tab="first">Série</a>
-                    <a class="item" data-tab="second">Acteurs</a>
-                    <a class="item" data-tab="third">Saisons & épisodes</a>
-                    <a class="item" data-tab="fourth">Rentrée</a>
+                    <a class="dataShow item active" data-tab="first">Série</a>
+                    <a class="dataActor item" data-tab="second">Acteurs</a>
+                    <a class="dataSeason item" data-tab="third">Saisons & épisodes</a>
+                    <a class="dataRentree item" data-tab="fourth">Rentrée</a>
                 </div>
                 <div class="ui tab active" data-tab="first">
                     <div class="ui teal segment">
@@ -70,14 +70,15 @@
                                 <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
                                     <label>Série en cours</label>
                                     <div id="dropdown-encours" class="ui fluid search selection dropdown">
+                                        <input name="encours" type="hidden">
                                         <i class="dropdown icon"></i>
                                         <span class="text">Choisir</span>
                                         <div class="menu">
-                                            <div class="item">
+                                            <div class="item" data-value="1">
                                                 <i class="checkmark icon"></i>
                                                 Oui
                                             </div>
-                                            <div class="item">
+                                            <div class="item" data-value="0">
                                                 <i class="remove icon"></i>
                                                 Non
                                             </div>
@@ -220,7 +221,7 @@
                 <div class="ui tab violet segment" data-tab="fourth">
                     <h4 class="ui dividing header">Informations sur la rentrée</h4>
                     <div class="two fields">
-                        <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
+                        <div class="field">
                             <label>Taux érectile</label>
                             <div class="ui left icon input">
                                 <input id="taux_erectile" name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ old('taux_erectile') }}">
@@ -229,9 +230,9 @@
                             <div class="ui red hidden message"></div>
                         </div>
 
-                        <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
+                        <div class="field">
                             <label>Avis de la rédaction</label>
-                            <textarea id="avis_rentree" name="avis_rentree" value="{{ old('avis_rentree') }}"></textarea>
+                            <textarea id="avis_rentree" name="avis_rentree" value="{{ old('rentree.avis_rentree') }}"></textarea>
                             <div class="ui red hidden message"></div>
                         </div>
                     </div>
@@ -359,7 +360,7 @@
                         seasonIndex = parseInt($(this).index()+1);
 
                         // On met à jour les infos saisons
-                        $(this).find(".seasonName").html('<i class="dropdown icon"></i>Saison ' + seasonIndex);
+                        $(this).find(".seasonName").html('<i class="errorSeason'+ seasonIndex +' dropdown icon"></i>Saison ' + seasonIndex);
                         $(this).find(".content").attr("seasonNumber", seasonIndex);
                         $(this).find(".episodeAdd").attr("id", 'episodeAdd' + seasonIndex );
                         $(this).find(".episodesBlock").attr("id", 'episodes' + seasonIndex );
@@ -367,13 +368,17 @@
                         $(this).find(".seasonInputBA").attr("name", 'seasons[' + seasonIndex + '][ba]' );
                         $(this).find(".seasonInputBA").attr("id", 'seasons.' + seasonIndex + '.ba' );
 
+                        $(this).attr( "season", seasonIndex);
+
                         $(this).find('.episodeBlock').each(function () {
                             $(this).attr("class", 'episodeBlock episode' + seasonIndex);
 
                             // On actualise sa position
                             episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
 
-                            $(this).find(".episodeName").html('<i class="dropdown icon"></i>Episode ' + seasonIndex + '.' + episodeIndex);
+                            $(this).attr( "episode", episodeIndex);
+
+                            $(this).find(".episodeName").html('<i class="errorEpisode'+ seasonIndex + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonIndex + '.' + episodeIndex);
 
                             $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name]');
                             $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name_fr]');
@@ -413,13 +418,16 @@
                     seasonIndex = parseInt($(this).index()+1);
                     // On la met à jour dans la page
                     $(this).find(".expandableBlock").html('<i class="dropdown icon"></i> Saison '+ seasonIndex);
-                    $(this).find(".seasonInputBA").attr( "name", 'seasons[' + seasonIndex + '][ba]');
+                    $(this).find(".content").attr("seasonNumber", seasonIndex);
+                    $(this).attr( "season", seasonIndex);
 
                     $(this).find('.episodeBlock').each(function () {
                         $(this).attr("class", 'episodeBlock episode' + seasonIndex);
 
                         // On actualise sa position
                         episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
+
+                        $(this).attr( "episode", episodeIndex);
 
                         $(this).find(".episodeName").html('<i class="dropdown icon"></i>Episode ' + seasonIndex + '.' + episodeIndex);
 
@@ -455,11 +463,11 @@
             //Ajout d'une saison
             $('.seasonAdd').click(function(e){
                 e.preventDefault();
-                var html = '<div class="seasonBlock">'
+                var html = '<div class="seasonBlock" season="'+ seasonNumber +'">'
                         + '<div class="title">'
                         + '<div class="ui grid">'
                         + '<div class="twelve wide column middle aligned expandableBlock seasonName">'
-                        + '<i class="icon-error dropdown icon"></i>'
+                        + '<i class="errorSeason'+ seasonNumber +' dropdown icon"></i>'
                         + 'Saison '+ seasonNumber
                         + '</div>'
                         + '<div class="four wide column">'
@@ -511,7 +519,10 @@
                                 episodeIndex = parseInt($(this).index('.episode' + seasonNumber) + 1);
 
                                 // On met à jour les infos épisodes
-                                $(this).find(".episodeName").html('<i class="dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
+                                $(this).attr( "season", seasonNumber);
+                                $(this).attr( "episode", episodeIndex);
+
+                                $(this).find(".episodeName").html('<i class="errorEpisode'+ seasonNumber + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
 
                                 $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name]');
                                 $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name_fr]');
@@ -552,7 +563,10 @@
                             episodeIndex = parseInt($(this).index('.episode' + seasonNumber) +1);
 
                             // On la met à jour dans la page
-                            $(this).find(".episodeName").html('<i class="dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
+                            $(this).attr( "season", seasonNumber);
+                            $(this).attr( "episode", episodeIndex);
+
+                            $(this).find(".episodeName").html('<i class="errorEpisode'+ seasonNumber + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
 
                             $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name]');
                             $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name_fr]');
@@ -587,11 +601,11 @@
                         var seasonNumber = $(this).parents('.content').attr('seasonNumber');
                         var episodeNumber =  $('#episodes' + seasonNumber).children('.episodeBlock').length + 1 ; // Nombre d'épisode total
 
-                        var html = '<div class="episodeBlock episode' + seasonNumber +'">'
+                        var html = '<div class="episodeBlock episode' + seasonNumber +'" season="'+ seasonNumber +'" episode="'+ episodeNumber +'">'
                                 + '<div class="title">'
                                 + '<div class="ui grid">'
                                 + '<div class="twelve wide column middle aligned expandableBlock episodeName">'
-                                + '<i class="dropdown icon"></i>'
+                                + '<i class="errorEpisode'+ seasonNumber + 'x' + episodeNumber +' dropdown icon"></i>'
                                 + 'Episode ' + seasonNumber + '.' + episodeNumber
                                 + '</div>'
                                 + '<div class="four wide column">'
@@ -782,10 +796,27 @@
 
                             if(key.indexOf('actors.') > -1) {
                                 $(input).parents('.div-actor').addClass('red');
+
+                                $('.dataActor').addClass('red');
+                                $('.dataActor').css('color', '#DB3041');
                             }
+                            else if(key.indexOf('seasons.') > -1) {
+                                var seasonNumber = $(input).parents('.episodeBlock').attr('season');
+                                var episodeNumber = $(input).parents('.episodeBlock').attr('episode');
 
-                            if(key.indexOf('seasons.') > -1) {
+                                $('.errorSeason' + seasonNumber).addClass('red');
+                                $('.errorEpisode' + seasonNumber + 'x' + episodeNumber).addClass('red');
 
+                                $('.dataSeason').addClass('red');
+                                $('.dataSeason').css('color', '#DB3041');
+                            }
+                            else if(key.indexOf('rentree.') > -1) {
+                                $('.dataRentree').addClass('red');
+                                $('.dataRentree').css('color', '#DB3041');
+                            }
+                            else{
+                                $('.dataShow').addClass('red');
+                                $('.dataShow').css('color', '#DB3041');
                             }
                         });
                     });
