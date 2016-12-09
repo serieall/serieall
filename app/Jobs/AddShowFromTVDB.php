@@ -819,7 +819,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 $getEpisodeNextPage++;
             }
         }
-        $logMessage = '>>>>>>>>>> Lancement du job d\'ajout <<<<<<<<<<';
+        $logMessage = '>>>>>>>>>> Fin du job d\'ajout <<<<<<<<<<';
         saveLogMessage($jobName, $logMessage);
     }
 }

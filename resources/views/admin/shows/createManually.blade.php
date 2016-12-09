@@ -37,13 +37,13 @@
                     <div class="ui teal segment">
                         <h4 class="ui dividing header">Informations générales sur la série</h4>
                         <div class="two fields">
-                            <div class="field {{ $errors->has('name') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Nom original de la série</label>
                                 <input id="name" name="name" placeholder="Nom original de la série" type="text" value="{{ old('name') }}">
                                 <div class="ui red hidden message"></div>
                             </div>
 
-                            <div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Nom français de la série</label>
                                 <input id="name_fr" name="name_fr" placeholder="Nom français" type="text" value="{{ old('name_fr') }}">
                                 <div class="ui red hidden message"></div>
@@ -51,14 +51,14 @@
                         </div>
 
                         <div class="two fields">
-                            <div class="field {{ $errors->has('resume') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Résumé</label>
                                 <textarea id="resume" name="resume" value="{{ old('resume') }}"></textarea>
                                 <div class="ui red hidden message"></div>
                             </div>
 
                             <div class="two fields field">
-                                <div class="field {{ $errors->has('format') ? ' error' : '' }}">
+                                <div class="field">
                                     <label>Format</label>
                                     <div class="ui left icon input">
                                         <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ old('format') }}">
@@ -67,7 +67,7 @@
                                     <div class="ui red hidden message"></div>
                                 </div>
 
-                                <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
+                                <div class="field">
                                     <label>Série en cours</label>
                                     <div id="dropdown-encours" class="ui fluid search selection dropdown">
                                         <input name="encours" type="hidden">
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="two fields">
-                            <div class="field {{ $errors->has('diffusion_us') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Date de la diffusion originale</label>
                                 <div class="ui calendar" id="datepicker">
                                     <div class="ui input left icon">
@@ -101,7 +101,7 @@
                                 <div class="ui red hidden message"></div>
                             </div>
 
-                            <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Date de la diffusion française</label>
                                 <div class="ui calendar" id="datepicker">
                                     <div class="ui input left icon">
@@ -114,7 +114,7 @@
                         </div>
 
                         <div class="two fields">
-                            <div class="field {{ $errors->has('channels') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Chaine(s)</label>
                                 <div id="dropdown-chaines" class="ui fluid multiple search selection dropdown">
                                     <input id="channels" name="channels" type="hidden" value="{{ old('channels') }}">
@@ -129,7 +129,7 @@
                                 <div class="ui red hidden message"></div>
                             </div>
 
-                            <div class="field {{ $errors->has('nationalities') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Nationalité(s)</label>
                                 <div id="dropdown-nationalities" class="ui fluid multiple search selection dropdown">
                                     <input id="nationalities" name="nationalities" type="hidden" value="{{ old('nationalities') }}">
@@ -146,7 +146,7 @@
                         </div>
 
                         <div class="two fields">
-                            <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Créateur(s) de la série</label>
                                 <div id="dropdown-creators" class="ui fluid multiple search selection dropdown">
                                     <input id="creators" name="creators" type="hidden" value="{{ old('creators') }}">
@@ -161,7 +161,7 @@
                                 <div class="ui red hidden message"></div>
                             </div>
 
-                            <div class="field {{ $errors->has('genres') ? ' error' : '' }}">
+                            <div class="field">
                                 <label>Genre(s)</label>
                                 <div id="dropdown-genres" class="ui fluid multiple search selection dropdown">
                                     <input id="genres" name="genres" type="hidden" value="{{ old('genres') }}">
@@ -306,8 +306,10 @@
             // Suppression d'un acteur
             $(document).on('click', '.remove-actor', function(){
                 $(this).parents('.div-actor').remove();
-                $(this).find(".actor_name-input").attr( "name", 'actors.' + index + '.name');
-                $(this).find(".actor_role-input").attr( "name", 'actors.' + index + '.role');
+                $(this).find(".actor_name-input").attr( "name", 'actors[' + index + '][name]');
+                $(this).find(".actor_role-input").attr( "name", 'actors[' + index + '[role]');
+                $(this).find(".actor_name-input").attr( "id", 'actors.' + index + '.name');
+                $(this).find(".actor_role-input").attr( "id", 'actors.' + index + '.role');
             });
 
             // Ajouter un acteur
@@ -481,7 +483,10 @@
                         + '</div>'
                         + '</div>'
                         + '<div class="content" seasonNumber=' + seasonNumber + '>'
-                        + '<div class="field {{ $errors->has('ba') ? ' error' : '' }}">'
+
+                        + '<input class="seasonInputNumber" name="seasons[' + seasonNumber + '][number]" type="hidden" value="'+ seasonNumber +'">'
+
+                        + '<div class="field">'
                         + '<label>Bande Annonce</label>'
                         + '<input class="seasonInputBA" name="seasons[' + seasonNumber + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
                         + '<div class="ui red hidden message"></div>'
@@ -620,12 +625,12 @@
                                 + '</div>'
                                 + '<div class="content">'
                                 + '<div class="two fields">'
-                                + '<div class="field {{ $errors->has('name') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Nom original</label>'
                                 + '<input class="episodeInputNameEN" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.name" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][name]" placeholder="Nom original de l\'épisode" type="text" value="{{ old('name') }}">'
                                 + '<div class="ui red hidden message"></div>'
                                 + '</div>'
-                                + '<div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Nom français</label>'
                                 + '<input class="episodeInputNameFR" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.name_fr" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][name_fr]" placeholder="Nom français de l\'épisode" type="text" value="{{ old('name_fr') }}">'
                                 + '<div class="ui red hidden message"></div>'
@@ -633,12 +638,12 @@
                                 + '</div>'
 
                                 + '<div class="two fields">'
-                                + '<div class="field {{ $errors->has('resume') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Résumé original</label>'
                                 + '<textarea class="episodeInputResumeEN" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.resume" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][resume]" placeholder="Résumé original de l\'épisode" value="{{ old('resume') }}""></textarea>'
                                 + '<div class="ui red hidden message"></div>'
                                 + '</div>'
-                                + '<div class="field {{ $errors->has('resume_fr') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Résumé de l\'épisode</label>'
                                 + '<textarea class="episodeInputResumeFR" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.resume_fr" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][resume_fr]" placeholder="Résumé en français de l\'épisode" value="{{ old('resume_fr') }}""></textarea>'
                                 + '<div class="ui red hidden message"></div>'
@@ -646,7 +651,7 @@
                                 + '</div>'
 
                                 + '<div class="two fields">'
-                                + '<div class="field {{ $errors->has('diffusion_us') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Date de la diffusion originale</label>'
                                 + '<div class="ui calendar" id="datepicker">'
                                 + '<div class="ui input left icon">'
@@ -656,7 +661,7 @@
                                 + '</div>'
                                 + '<div class="ui red hidden message"></div>'
                                 + '</div>'
-                                + '<div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Date de la diffusion française</label>'
                                 + '<div class="ui calendar" id="datepicker">'
                                 + '<div class="ui input left icon">'
@@ -669,12 +674,12 @@
                                 + '</div>'
 
                                 + '<div class="two fields">'
-                                + '<div class="field {{ $errors->has('particularite') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Particularité</label>'
                                 + '<textarea rows="2" class="episodeInputParticularite" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.particularite" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][particularite]" placeholder="Particularité de l\'épisode" value="{{ old('particularite') }}""></textarea>'
                                 + '<div class="ui red hidden message"></div>'
                                 + '</div>'
-                                + '<div class="field {{ $errors->has('ba') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Bande annonce de l\'épisode</label>'
                                 + '<input class="episodeInputBA" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.ba" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][ba]" type="date" placeholder="Bande Annonce de l\'épisode" value="{{ old('ba') }}">'
                                 + '<div class="ui red hidden message"></div>'
@@ -683,7 +688,7 @@
 
                                 + '<div class="three fields">'
 
-                                + '<div class="field {{ $errors->has('directors') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Réalisateur(s) de la série</label>'
                                 + '<div class="ui fluid multiple search selection dropdown directorDropdown">'
                                 + '<input id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.directors" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][directors]" type="hidden" value="{{ old('directors') }}">'
@@ -698,7 +703,7 @@
                                 + '<div class="ui red hidden message"></div>'
                                 + '</div>'
 
-                                + '<div class="field {{ $errors->has('writers') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Scénariste(s) de la série</label>'
                                 + '<div class="ui fluid multiple search selection dropdown writerDropdown">'
                                 + '<input id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.writers" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][writers]" type="hidden" value="{{ old('writers') }}">'
@@ -713,7 +718,7 @@
                                 + '<div class="ui red hidden message"></div>'
                                 + '</div>'
 
-                                + '<div class="field {{ $errors->has('guests') ? ' error' : '' }}">'
+                                + '<div class="field">'
                                 + '<label>Guest(s) de la série</label>'
                                 + '<div class="ui fluid multiple search selection dropdown guestDropdown">'
                                 + '<input id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.guests" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][guests]" type="hidden" value="{{ old('guests') }}">'
