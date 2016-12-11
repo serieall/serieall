@@ -17,9 +17,9 @@
 @section('content')
     <h1 class="ui header" id="admin-titre">
         Ajouter une série manuellement
-        <div class="sub header">
+        <span class="sub header">
             Remplir le formulaire ci-dessous pour ajouter une nouvelle série
-        </div>
+        </span>
     </h1>
 
     <form class="ui form" method="POST" action="{{ route('adminShow.storeManually') }}">
@@ -52,8 +52,8 @@
 
                         <div class="two fields">
                             <div class="field">
-                                <label>Résumé</label>
-                                <textarea id="resume" name="resume" value="{{ old('resume') }}"></textarea>
+                                <label for="resume">Résumé</label>
+                                <textarea id="resume" name="resume"></textarea>
                                 <div class="ui red hidden message"></div>
                             </div>
 
@@ -231,8 +231,8 @@
                         </div>
 
                         <div class="field">
-                            <label>Avis de la rédaction</label>
-                            <textarea id="avis_rentree" name="avis_rentree" value="{{ old('rentree.avis_rentree') }}"></textarea>
+                            <label for="avis_rentree">Avis de la rédaction</label>
+                            <textarea id="avis_rentree" name="avis_rentree"></textarea>
                             <div class="ui red hidden message"></div>
                         </div>
                     </div>
@@ -241,6 +241,7 @@
             </div>
         </div>
     </form>
+@endsection
 
 @section('scripts')
     <script>
@@ -322,17 +323,39 @@
                             + '<i class="remove icon"></i>'
                             + '</button>'
                             + '<div class="two fields">'
+
                             + '<div class="field">'
-                            + '<label class="actor_name-label">Nom de l\'acteur</label>'
-                            + '<input class="actor_name-input" id="actors.'+ actor_number +'.name_actor" name="actors[' + actor_number + '][name_actor]" placeholder="Nom de l\'acteur" type="text" value="{{ old('name_actor') }}">'
+                            + '<label>Nom de l\'acteur</label>'
+                            + '<div class="ui fluid search selection dropdown actorDropdown">'
+                            + '<input class="actor_name-input" id="actors.'+ actor_number +'.name_actor" name="actors[' + actor_number + '][name_actor]" type="hidden" value="{{ old('guests') }}">'
+                            + '<i class="dropdown icon"></i>'
+                            + '<div class="default text">Choisir</div>'
+                            + '<div class="menu">'
+                            + '@foreach($actors as $actor)'
+                            + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                            + '@endforeach'
+                            + '</div>'
+                            + '</div>'
                             + '<div class="ui red hidden message"></div>'
                             + '</div>'
+
                             + '<div class="field">'
                             + '<label class="actor_role-label">Rôle</label>'
                             + '<input class="actor_role-input" id="actors.'+ actor_number +'.role_actor" name="actors[' + actor_number + '][role_actor]" placeholder="Rôle" type="text" value="{{ old('role_actor') }}">'
                             + '<div class="ui red hidden message"></div>'
+
+                            + '</div>'
                             + '</div>'
                             + '</div>';
+
+                            $(function() {
+                                $('.actorDropdown')
+                                    .dropdown({
+                                        allowAdditions: true,
+                                        forceSelection : false,
+                                        minCharacters: 4
+                                    });
+                            });
 
                     ++actor_number;
 
@@ -355,11 +378,11 @@
                 cancel: '',
                 placeholder: "ui segment fluid portlet-placeholder",
                 // Evenement appelé lorsque l'élément est relaché
-                stop: function(event, ui){
+                stop: function(){
                     // Pour chaque item de liste
                     $('#sortableSeasons').find('.seasonBlock').each(function(){
                         // On actualise sa position
-                        seasonIndex = parseInt($(this).index()+1);
+                        var seasonIndex = parseInt($(this).index()+1);
 
                         // On met à jour les infos saisons
                         $(this).find(".seasonName").html('<i class="errorSeason'+ seasonIndex +' dropdown icon"></i>Saison ' + seasonIndex);
@@ -376,7 +399,7 @@
                             $(this).attr("class", 'episodeBlock episode' + seasonIndex);
 
                             // On actualise sa position
-                            episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
+                            var episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
 
                             $(this).attr( "episode", episodeIndex);
 
@@ -417,7 +440,7 @@
 
                 $('#sortableSeasons').find('.seasonBlock').each(function(){
                     // On actualise sa position
-                    seasonIndex = parseInt($(this).index()+1);
+                    var seasonIndex = parseInt($(this).index()+1);
                     // On la met à jour dans la page
                     $(this).find(".expandableBlock").html('<i class="dropdown icon"></i> Saison '+ seasonIndex);
                     $(this).find(".content").attr("seasonNumber", seasonIndex);
@@ -427,7 +450,7 @@
                         $(this).attr("class", 'episodeBlock episode' + seasonIndex);
 
                         // On actualise sa position
-                        episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
+                        var episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
 
                         $(this).attr( "episode", episodeIndex);
 
@@ -513,7 +536,7 @@
                         cancel: '',
                         placeholder: "ui segment fluid portlet-placeholder",
                         // Evenement appelé lorsque l'élément est relaché
-                        stop: function(event, ui){
+                        stop: function(){
                             // Pour chaque item de liste
                             $('.sortableEpisodes').find('.episodeBlock').each(function(){
                                 var seasonNumber = $(this).parents('.content').attr('seasonNumber');
@@ -521,7 +544,7 @@
                                 $(this).attr("class", 'episodeBlock episode' + seasonNumber);
 
                                 // On actualise sa position
-                                episodeIndex = parseInt($(this).index('.episode' + seasonNumber) + 1);
+                                var episodeIndex = parseInt($(this).index('.episode' + seasonNumber) + 1);
 
                                 // On met à jour les infos épisodes
                                 $(this).attr( "season", seasonNumber);
@@ -565,7 +588,7 @@
 
                         $('#episodes' + seasonNumber).find('.episodeBlock').each(function(){
                             // On actualise sa position
-                            episodeIndex = parseInt($(this).index('.episode' + seasonNumber) +1);
+                            var episodeIndex = parseInt($(this).index('.episode' + seasonNumber) +1);
 
                             // On la met à jour dans la page
                             $(this).attr( "season", seasonNumber);
@@ -624,6 +647,9 @@
                                 + '</div>'
                                 + '</div>'
                                 + '<div class="content">'
+
+                                + '<input class="episodeInputNumber" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][number]" type="hidden" value="'+ episodeNumber +'">'
+
                                 + '<div class="two fields">'
                                 + '<div class="field">'
                                 + '<label>Nom original</label>'
@@ -787,11 +813,12 @@
                 data: $(this).serialize(),
                 dataType: "json"
             })
-                    .done(function (data) {
+                    .done(function () {
                         window.location.href = '{!! route('adminShow.redirectJSON') !!}';
                     })
                     .fail(function (data) {
                         $('.submit').removeClass("loading");
+
                         $.each(data.responseJSON, function (key, value) {
                             var input = 'input[id="' + key + '"]';
 
@@ -802,8 +829,10 @@
                             if(key.indexOf('actors.') > -1) {
                                 $(input).parents('.div-actor').addClass('red');
 
-                                $('.dataActor').addClass('red');
-                                $('.dataActor').css('color', '#DB3041');
+                                var dataActor = $('.dataActor');
+
+                                $(dataActor).addClass('red');
+                                $(dataActor).css('color', '#DB3041');
                             }
                             else if(key.indexOf('seasons.') > -1) {
                                 var seasonNumber = $(input).parents('.episodeBlock').attr('season');
@@ -812,20 +841,24 @@
                                 $('.errorSeason' + seasonNumber).addClass('red');
                                 $('.errorEpisode' + seasonNumber + 'x' + episodeNumber).addClass('red');
 
-                                $('.dataSeason').addClass('red');
-                                $('.dataSeason').css('color', '#DB3041');
+                                var dataSeason = $('.dataSeason');
+
+                                $(dataSeason).addClass('red');
+                                $(dataSeason).css('color', '#DB3041');
                             }
                             else if(key.indexOf('rentree.') > -1) {
-                                $('.dataRentree').addClass('red');
-                                $('.dataRentree').css('color', '#DB3041');
+                                var dataRentree = $('.dataRentree');
+
+                                $(dataRentree).addClass('red');
+                                $(dataRentree).css('color', '#DB3041');
                             }
                             else{
-                                $('.dataShow').addClass('red');
-                                $('.dataShow').css('color', '#DB3041');
+                                var dataShow = $('.dataShow');
+                                $(dataShow).addClass('red');
+                                $(dataShow).css('color', '#DB3041');
                             }
                         });
                     });
         });
     </script>
-@endsection
 @endsection
