@@ -29,6 +29,7 @@ class AddShowManually implements ShouldQueue
      *
      * @return void
      */
+
     public function __construct($inputs)
     {
         $this->inputs = $inputs;
@@ -214,7 +215,7 @@ class AddShowManually implements ShouldQueue
                 $nationality = trim($nationality);
                 # On met en forme l'URL
                 $nationality_url = Str::slug($nationality);
-                # On vérifie si la nationalité existe déjà en base
+                # On verified si la nationalité existe déjà en base
                 $nationality_ref = Nationality::where('nationality_url', $nationality_url)->first();
 
                 # Si elle n'existe pas
