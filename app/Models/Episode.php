@@ -43,6 +43,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $resume_fr
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereResumeFr($value)
  */
 class Episode extends Model {
 

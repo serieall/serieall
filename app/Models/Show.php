@@ -52,6 +52,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $synopsis_fr
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereSynopsisFr($value)
  */
 class Show extends Model {
 
