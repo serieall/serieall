@@ -9,7 +9,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 
 use App\Models\Show;
 use App\Models\Genre;
@@ -27,9 +26,8 @@ class AddShowManually implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $inputs
      */
-
     public function __construct($inputs)
     {
         $this->inputs = $inputs;
@@ -84,10 +82,10 @@ class AddShowManually implements ShouldQueue
 
         $show->diffusion_us = $this->inputs['diffusion_us'];
         # Diffusion US de la série
-        $logMessage = 'Diffusion US : ' . $show->diffusionUS;
+        $logMessage = 'Diffusion US : ' . $show->diffusion_us;
         saveLogMessage($jobName, $logMessage);
 
-        $dateTemp = date_create($show->diffusionUS);
+        $dateTemp = date_create($show->diffusion_us);
         $show->annee = date_format($dateTemp, "Y");
         # Année de diffusion de la série
         $logMessage = 'Année : ' . $show->annee;
@@ -95,7 +93,7 @@ class AddShowManually implements ShouldQueue
 
         $show->diffusion_fr = $this->inputs['diffusion_fr'];
         # Diffusion FR de la série
-        $logMessage = 'Diffusion FR : ' . $show->diffusionFR;
+        $logMessage = 'Diffusion FR : ' . $show->diffusion_fr;
         saveLogMessage($jobName, $logMessage);
 
         $show->taux_erectile = $this->inputs['taux_erectile'];
@@ -325,7 +323,7 @@ class AddShowManually implements ShouldQueue
 
         /*
         |--------------------------------------------------------------------------
-        | Ajout des informations sur les saisons et les épisodes de la série
+        | Add information on seasons and episodes
         |--------------------------------------------------------------------------
         */
 

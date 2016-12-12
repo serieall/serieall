@@ -29,7 +29,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $inputs
      */
 
     public function __construct($inputs)
@@ -719,7 +719,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 # Récupération du rôle
                 $actorRole = $actor->role;
                 if (is_null($actorRole)) {
-                    $logMessage = 'Rôle de ' . $actorName . ' non renseigné ' . $channel . '.';
+                    $logMessage = 'Rôle de ' . $actorName . ' non renseigné.';
                     saveLogMessage($jobName, $logMessage);
                     $actorRole = 'TBA';
                 }
