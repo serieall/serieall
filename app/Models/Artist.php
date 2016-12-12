@@ -4,6 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Artist
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $artist_url
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereArtistUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Artist extends Model {
 
 	protected $table = 'artists';

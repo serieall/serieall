@@ -4,6 +4,46 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Episode
+ *
+ * @property int $id
+ * @property int $thetvdb_id
+ * @property int $numero
+ * @property string $name
+ * @property string $name_fr
+ * @property string $resume
+ * @property string $particularite
+ * @property string $diffusion_us
+ * @property string $diffusion_fr
+ * @property string $ba
+ * @property float $moyenne
+ * @property int $nbnotes
+ * @property int $season_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Models\Season $season
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[] $artists
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereThetvdbId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereNumero($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereNameFr($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereResume($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereParticularite($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereDiffusionUs($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereDiffusionFr($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereBa($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereMoyenne($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereNbnotes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereSeasonId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Episode extends Model {
 
 	protected $table = 'episodes';

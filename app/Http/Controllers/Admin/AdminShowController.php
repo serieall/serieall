@@ -102,6 +102,7 @@ class AdminShowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function storeManually(ShowCreateManuallyRequest $request)
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);

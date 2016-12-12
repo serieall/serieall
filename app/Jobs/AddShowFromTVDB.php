@@ -18,7 +18,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use GuzzleHttp\Client;
-use \Illuminate\Support\Str;
+use Illuminate\Support\Str;
 
 class AddShowFromTVDB extends Job implements ShouldQueue
 {
@@ -31,6 +31,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
      *
      * @return void
      */
+
     public function __construct($inputs)
     {
         $this->inputs = $inputs;
@@ -314,6 +315,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
      *
      * @return void
      */
+
     public function handle()
     {
         /*

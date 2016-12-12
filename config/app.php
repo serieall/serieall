@@ -159,6 +159,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         \App\Providers\BroadcastServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
 
         /*

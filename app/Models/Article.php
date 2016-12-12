@@ -4,6 +4,38 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Article
+ *
+ * @property int $id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $name
+ * @property string $article_url
+ * @property string $intro
+ * @property string $content
+ * @property string $image
+ * @property string $source
+ * @property bool $state
+ * @property bool $frontpage
+ * @property int $category_id
+ * @property-read \App\Models\Category $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereIntro($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereSource($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereState($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereFrontpage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereCategoryId($value)
+ * @mixin \Eloquent
+ */
 class Article extends Model {
 
 	protected $table = 'articles';
