@@ -651,6 +651,13 @@
 
                                 + '<input class="episodeInputNumber" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][number]" type="hidden" value="'+ episodeNumber +'">'
 
+                                + '<div class="field">'
+                                + '<div class="ui slider checkbox">'
+                                + '<input id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.special" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][special]" type="checkbox">'
+                                + '<label>Episode Spécial</label>'
+                                + '</div>'
+                                + '</div>'
+
                                 + '<div class="two fields">'
                                 + '<div class="field">'
                                 + '<label>Nom original</label>'
@@ -789,6 +796,8 @@
                                         forceSelection : false,
                                         minCharacters: 4
                                     });
+
+
                         });
 
                         ++episodeNumber;
