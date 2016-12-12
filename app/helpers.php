@@ -5,8 +5,14 @@
  * Date: 20/10/2016
  * Time: 11:46
  */
+
 use App\Models\Log;
 
+/**
+ * @param $logName
+ * @param $logMessage
+ * @return bool
+ */
 function saveLogMessage($logName, $logMessage){
     $log = new Log();
     $log->name = $logName;

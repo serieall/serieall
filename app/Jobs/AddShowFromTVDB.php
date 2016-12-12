@@ -37,6 +37,14 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $this->inputs = $inputs;
     }
 
+    /**
+     * @param $client
+     * @param $getEpisodes
+     * @param $api_version
+     * @param $token
+     * @param $show_new
+     * @param $jobName
+     */
     private function AddEpisodeOneByOne($client, $getEpisodes, $api_version, $token, $show_new, $jobName)
     {
         # Pour chaque épisode dans le paramètre getEpisodes

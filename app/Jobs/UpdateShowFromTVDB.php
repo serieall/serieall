@@ -16,21 +16,28 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client;
 use \Illuminate\Support\Str;
 
+/**
+ * Class UpdateShowFromTVDB
+ * @package App\Jobs
+ */
 class UpdateShowFromTVDB extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
     /**
-     * Create a new job instance.
-     *
-     * @return void
+     * UpdateShowFromTVDB constructor.
      */
     public function __construct()
     {
     }
 
     /**
-     * Mettre à jour les épisodes un par un
+     * @param $client
+     * @param $getEpisodes
+     * @param $api_version
+     * @param $token
+     * @param $serieInBDD
+     * @param $jobName
      *
      * @return void
      */
@@ -396,7 +403,7 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                                     if (empty($guest_liaison)) {
                                         # On lie l'acteur à la série
-                                        $logMessage = 'Le guest ' . $director . ' existe déjà mais n\'est pas lié à la série. On le lie.';
+                                        $logMessage = 'Le guest ' . $guestStar . ' existe déjà mais n\'est pas lié à la série. On le lie.';
                                         saveLogMessage($jobName, $logMessage);
 
                                         $episode_ref->artists()->attach($guestStar_ref->id, ['profession' => 'guest']);

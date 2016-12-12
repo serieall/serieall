@@ -527,6 +527,7 @@
 
                 // Fonction de Drag 'N Drop pour changer l'ordre des épisodes
                 $(function(){
+                    //Déplacement d'un épisode
                     $('.sortableEpisodes').sortable({
                         axis: "y",
                         connectWith: ".episodesBlock",
