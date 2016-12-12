@@ -2,11 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use App\Notifications\ResetPasswordNotification;
 
 /**
  * App\Models\User
@@ -33,9 +29,6 @@ use App\Notifications\ResetPasswordNotification;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Episode[] $episodes
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Poll[] $polls
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUserUrl($value)
@@ -55,13 +48,7 @@ use App\Notifications\ResetPasswordNotification;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable {
-    use Notifiable;
-
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPasswordNotification($token));
-    }
+class User extends Model {
 
 	protected $table = 'users';
 	public $timestamps = true;

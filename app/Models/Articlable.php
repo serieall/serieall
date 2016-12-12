@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Articlable whereArticlableType($value)
  * @mixin \Eloquent
  */
-
 class Articlable extends Model {
 
 	protected $table = 'articlables';

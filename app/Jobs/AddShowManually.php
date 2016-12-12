@@ -40,10 +40,10 @@ class AddShowManually implements ShouldQueue
      */
     public function handle()
     {
-        # ID de l'utilisateur
+        # ID User
         $userID = $this->inputs['user_id'];
-        # Cartouche du log
-        $jobName = 'AddShowMannually-' . $this->inputs['name'] . '-BY-' . $userID;
+        # Text box of log file
+        $jobName = 'AddShowManually-' . $this->inputs['name'] . '-BY-' . $userID;
         $logMessage = '>>>>>>>>>> Lancement du job d\'ajout <<<<<<<<<<';
         saveLogMessage($jobName, $logMessage);
 
