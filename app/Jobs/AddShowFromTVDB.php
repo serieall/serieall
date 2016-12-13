@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-
 use App\Models\Channel;
 use App\Models\Nationality;
 use App\Models\Show;
