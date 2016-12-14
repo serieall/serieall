@@ -97,26 +97,21 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 | On crée la saison si elle n'existe pas
                 */
                 # Variables de la saison
-
-                $logMessage = '>>>SAISONS';
-                saveLogMessage($jobName, $logMessage);
-
-                $seasonID = $getEpisode_en->airedSeasonID;
                 # ID TheTVDB
-                $logMessage = '>>>>ID TheTVDB : ' . $seasonID;
-                saveLogMessage($jobName, $logMessage);
+                $seasonID = $getEpisode_en->airedSeasonID;
 
-                $seasonName = $getEpisode_en->airedSeason;
                 # Numéro de la saison
-                $logMessage = '>>>>Numéro : ' . $seasonName;
-                saveLogMessage($jobName, $logMessage);
+                $seasonName = $getEpisode_en->airedSeason;
 
                 # Vérification de la présence de la saison dans la BDD
                 $season_ref = Season::where('thetvdb_id', $seasonID)->first();
 
                 # Si elle n'existe pas
                 if (is_null($season_ref)) {
-                    $logMessage = '>>>>Création de la saison ' . $seasonName . ' **';
+                    $logMessage = '>>>SAISONS';
+                    saveLogMessage($jobName, $logMessage);
+
+                    $logMessage = '>>>>Création de la saison ' . $seasonName;
                     saveLogMessage($jobName, $logMessage);
 
                     # On prépare la nouvelle saison
@@ -125,13 +120,17 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                         'thetvdb_id' => $seasonID
                     ]);
 
+                    # ID TheTVDB
+                    $logMessage = '>>>>ID TheTVDB : ' . $seasonID;
+                    saveLogMessage($jobName, $logMessage);
+
+                    # Numéro de la saison
+                    $logMessage = '>>>>Numéro : ' . $seasonName;
+                    saveLogMessage($jobName, $logMessage);
+
                     # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                     $season_ref->show()->associate($show_new);
                     $season_ref->save();
-                } else {
-                    $logMessage = '>>>>Liaison de la saison ' . $seasonName . '.';
-                    saveLogMessage($jobName, $logMessage);
-                    $season_ref->show()->associate($show_new);
                 }
 
                 /*
@@ -142,16 +141,18 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 */
 
                 $episode_new = new Episode();
-                $logMessage = '>>>>EPISODES';
+                $episode_new->numero = $getEpisode_en->airedEpisodeNumber;
+
+                $logMessage = '>>>>EPISODE ' . $seasonName . '.' . $episode_new->numero;
                 saveLogMessage($jobName, $logMessage);
 
-                $episode_new->id = $episodeID;
+                $episode_new->thetvdb_id = $episodeID;
                 # TheTVDB ID
                 $logMessage = '>>>>>ID TheTVDB : ' . $episode_new->id;
                 saveLogMessage($jobName, $logMessage);
 
-                $episode_new->numero = $getEpisode_en->airedEpisodeNumber;
-                # TheTVDB ID
+
+                # Numéro
                 $logMessage = '>>>>>Numéro : ' . $episode_new->numero;
                 saveLogMessage($jobName, $logMessage);
 
@@ -738,8 +739,6 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 # Récupération du rôle
                 $actorRole = $actor->role;
                 if (is_null($actorRole)) {
-                    $logMessage = '>>>Rôle de ' . $actorName . ' non renseigné.';
-                    saveLogMessage($jobName, $logMessage);
                     $actorRole = 'TBA';
                 }
 
