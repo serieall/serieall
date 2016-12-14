@@ -11,7 +11,7 @@ class CreateSeasonsTable extends Migration {
 			$table->increments('id');
 			$table->integer('thetvdb_id')->unique()->nullable();
 			$table->smallInteger('name');
-			$table->text('ba');
+			$table->text('ba')->nullable();
 			$table->float('moyenne');
 			$table->integer('nbnotes');
 			$table->integer('show_id')->unsigned();

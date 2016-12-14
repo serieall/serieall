@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Log;
 use App\Models\Show;
 use App\Models\Artist;
 use App\Models\Temp;
@@ -80,6 +81,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         ->where('artistables.profession', 'writer')
                         ->get();
 
+                    \Illuminate\Support\Facades\Log::info('Apparemment il est lié :(');
+
                     if (empty($writer_liaison)) {
                         # On lie l'acteur à la série
                         $logMessage = '>>>>>>Liaison du scénariste : ' . $writer;
@@ -99,6 +102,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         */
         $directors = $getEpisode_en->directors;
         if (!empty($directors)) {
+            $logMessage = '>>>>>REALISATEURS';
+            saveLogMessage($jobName, $logMessage);
+
             # Pour chaque réal
             foreach ($directors as $director) {
                 # On supprime les espaces
@@ -124,12 +130,12 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
 
                 } else {
                     # On vérifie que le scénariste n'est pas déjà lié à la série
-                    $writer_liaison = $director_ref->episodes()
+                    $director_liaison = $director_ref->episodes()
                         ->where('episodes.thetvdb_id', $episodeID)
                         ->where('artistables.profession', 'director')
                         ->get();
 
-                    if (empty($writer_liaison)) {
+                    if (empty($director_liaison)) {
                         # On lie l'acteur à la série
                         $logMessage = '>>>>>>Liaison du réalisateur : ';
                         saveLogMessage($jobName, $logMessage);
@@ -138,7 +144,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     }
                 }
             }
-
         }
 
         /*
@@ -149,6 +154,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         */
         $guestStars = $getEpisode_en->guestStars;
         if (!empty($guestStars)) {
+            $logMessage = '>>>>>GUESTS';
+            saveLogMessage($jobName, $logMessage);
+
             # Pour chaque guest
             foreach ($guestStars as $guestStar) {
                 # On supprime les espaces
@@ -190,8 +198,6 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
             }
         }
     }
-
-
 
     /**
      * @param $getEpisodes
@@ -459,8 +465,13 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                         */
 
                         # Variables de la saison
-                        $seasonID = $getEpisode_en->airedSeasonID;
                         $seasonName = $getEpisode_en->airsAfterSeason;
+
+                        # On récupère l'ID de la saison en question
+                        $seasonID = Season::where('name', $seasonName)
+                            ->where('show_id', $serieInBDD->id)
+                            ->first();
+                        $seasonID = $seasonID->thetvdb_id;
 
                         # Vérification de la présence de la saison dans la BDD
                         $season_ref = Season::where('thetvdb_id', $seasonID)->first();

@@ -12,19 +12,19 @@ class CreateShowsTable extends Migration {
 			$table->integer('thetvdb_id')->unique()->nullable();
 			$table->string('show_url')->unique();
 			$table->string('name')->index();
-			$table->string('name_fr');
-			$table->text('synopsis');
-			$table->text('synopsis_fr');
+			$table->string('name_fr')->nullable();
+			$table->text('synopsis')->nullable();
+			$table->text('synopsis_fr')->nullable();
 			$table->integer('format');
-			$table->integer('annee');
+			$table->integer('annee')->nullable();
 			$table->boolean('encours');
-			$table->date('diffusion_us');
-			$table->date('diffusion_fr');
+			$table->date('diffusion_us')->nullable();
+			$table->date('diffusion_fr')->nullable();
 			$table->float('moyenne');
 			$table->float('moyenne_redac');
 			$table->integer('nbnotes');
-			$table->integer('taux_erectile');
-			$table->text('avis_rentree');
+			$table->integer('taux_erectile')->nullable();
+			$table->text('avis_rentree')->nullable();
 			$table->timestamps();
 		});
 	}
