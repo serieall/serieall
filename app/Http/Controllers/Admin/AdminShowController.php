@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Jobs\UpdateShowFromTVDB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowCreateManuallyRequest;
@@ -161,6 +162,14 @@ class AdminShowController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function TestUpdate(){
+       dispatch(new UpdateShowFromTVDB());
+
+        return redirect()->back()
+            ->with('warning_header', 'Série déjà ajoutée')
+            ->with('warning', 'La série que vous voulez créer existe déjà chez Série-All.');
     }
 
     /**

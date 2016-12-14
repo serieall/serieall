@@ -40,6 +40,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('adminShow/createManually', 'Admin\AdminShowController@createManually')->name('adminShow.createManually');
     Route::post('adminShow/storeManually', 'Admin\AdminShowController@storeManually')->name('adminShow.storeManually');
+    Route::get('adminShow/testUpdate', 'Admin\AdminShowController@TestUpdate')->name('adminShow.TestUpdate');
     Route::get('adminShow/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('adminShow.redirectJSON');
     Route::resource('adminShow', 'Admin\AdminShowController');
 });
