@@ -47,6 +47,8 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
         | On crée les scénaristes s'ils n'existent pas et on les lie à l'épisode
         */
         $writers = $getEpisode_en->writers;
+        \Illuminate\Support\Facades\Log::info($writers);
+
         if (!empty($writers)) {
             $logMessage = '>>>>>SCENARISTES';
             saveLogMessage($jobName, $logMessage);
@@ -79,11 +81,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     $writer_liaison = $writer_ref->episodes()
                         ->where('episodes.thetvdb_id', $episodeID)
                         ->where('artistables.profession', 'writer')
-                        ->get();
+                        ->first();
 
-                    \Illuminate\Support\Facades\Log::info('Apparemment il est lié :(');
-
-                    if (empty($writer_liaison)) {
+                    if (is_null($writer_liaison)) {
                         # On lie l'acteur à la série
                         $logMessage = '>>>>>>Liaison du scénariste : ' . $writer;
                         saveLogMessage($jobName, $logMessage);
@@ -133,9 +133,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     $director_liaison = $director_ref->episodes()
                         ->where('episodes.thetvdb_id', $episodeID)
                         ->where('artistables.profession', 'director')
-                        ->get();
+                        ->first();
 
-                    if (empty($director_liaison)) {
+                    if (is_null($director_liaison)) {
                         # On lie l'acteur à la série
                         $logMessage = '>>>>>>Liaison du réalisateur : ';
                         saveLogMessage($jobName, $logMessage);
@@ -185,9 +185,9 @@ class UpdateShowFromTVDB extends Job implements ShouldQueue
                     $guest_liaison = $guestStar_ref->episodes()
                         ->where('episodes.thetvdb_id', $episodeID)
                         ->where('artistables.profession', 'guest')
-                        ->get();
+                        ->first();
 
-                    if (empty($guest_liaison)) {
+                    if (is_null($guest_liaison)) {
                         # On lie l'acteur à la série
                         $logMessage = '>>>>>>Liaison du guest : ' . $guestStar;
                         saveLogMessage($jobName, $logMessage);

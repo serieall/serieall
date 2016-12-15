@@ -27,7 +27,7 @@
                     <i class="dropdown icon"></i>
                     <div class="menu">
                         <a class="item" href={{ route('adminShow.create') }}><i class="cloud download icon"></i> Création via The TVDB</a>
-                        <a class="item" href={{ route('adminShow.TestUpdate') }}><i class="signup icon"></i> Création manuelle</a>
+                        <a class="item" href={{ route('adminShow.createManually') }}><i class="signup icon"></i> Création manuelle</a>
                     </div>
                 </div>
             </div>

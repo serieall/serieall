@@ -164,14 +164,6 @@ class AdminShowController extends Controller
         //
     }
 
-    public function TestUpdate(){
-       dispatch(new UpdateShowFromTVDB());
-
-        return redirect()->back()
-            ->with('warning_header', 'Série déjà ajoutée')
-            ->with('warning', 'La série que vous voulez créer existe déjà chez Série-All.');
-    }
-
     /**
      * Remove the specified resource from storage.
      *

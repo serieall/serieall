@@ -365,7 +365,7 @@
         });
 
         // Fonction de Drag 'N Drop pour changer l'ordre des saisons
-        $(function(){
+        $(function() {
             //Définition des variables
             var seasonNumber = $('.seasonsBlock').length; // Nombre de saisons
 
@@ -378,22 +378,22 @@
                 cancel: '',
                 placeholder: "ui segment fluid portlet-placeholder",
                 // Evenement appelé lorsque l'élément est relaché
-                stop: function(){
+                stop: function () {
                     // Pour chaque item de liste
-                    $('#sortableSeasons').find('.seasonBlock').each(function(){
+                    $('#sortableSeasons').find('.seasonBlock').each(function () {
                         // On actualise sa position
-                        var seasonIndex = parseInt($(this).index()+1);
+                        var seasonIndex = parseInt($(this).index() + 1);
 
                         // On met à jour les infos saisons
-                        $(this).find(".seasonName").html('<i class="errorSeason'+ seasonIndex +' dropdown icon"></i>Saison ' + seasonIndex);
+                        $(this).find(".seasonName").html('<i class="errorSeason' + seasonIndex + ' dropdown icon"></i>Saison ' + seasonIndex);
                         $(this).find(".content").attr("seasonNumber", seasonIndex);
-                        $(this).find(".episodeAdd").attr("id", 'episodeAdd' + seasonIndex );
-                        $(this).find(".episodesBlock").attr("id", 'episodes' + seasonIndex );
+                        $(this).find(".episodeAdd").attr("id", 'episodeAdd' + seasonIndex);
+                        $(this).find(".episodesBlock").attr("id", 'episodes' + seasonIndex);
 
-                        $(this).find(".seasonInputBA").attr("name", 'seasons[' + seasonIndex + '][ba]' );
-                        $(this).find(".seasonInputBA").attr("id", 'seasons.' + seasonIndex + '.ba' );
+                        $(this).find(".seasonInputBA").attr("name", 'seasons[' + seasonIndex + '][ba]');
+                        $(this).find(".seasonInputBA").attr("id", 'seasons.' + seasonIndex + '.ba');
 
-                        $(this).attr( "season", seasonIndex);
+                        $(this).attr("season", seasonIndex);
 
                         $(this).find('.episodeBlock').each(function () {
                             $(this).attr("class", 'episodeBlock episode' + seasonIndex);
@@ -401,50 +401,50 @@
                             // On actualise sa position
                             var episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
 
-                            $(this).attr( "episode", episodeIndex);
+                            $(this).attr("episode", episodeIndex);
 
-                            $(this).find(".episodeName").html('<i class="errorEpisode'+ seasonIndex + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonIndex + '.' + episodeIndex);
+                            $(this).find(".episodeName").html('<i class="errorEpisode' + seasonIndex + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonIndex + '.' + episodeIndex);
 
-                            $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name]');
-                            $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name_fr]');
-                            $(this).find(".episodeInputResumeEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][resume]');
-                            $(this).find(".episodeInputResumeFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][resume_fr]');
-                            $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][diffusion_us]');
-                            $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][diffusion_fr]');
-                            $(this).find(".episodeInputParticularite").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][particularite]');
-                            $(this).find(".episodeInputBA").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][ba]');
-                            $(this).find(".episodeInputDirectors").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][directors]');
-                            $(this).find(".episodeInputWriters").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][writers]');
-                            $(this).find(".episodeInputGuests").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][guests]');
+                            $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name]');
+                            $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name_fr]');
+                            $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume]');
+                            $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume_fr]');
+                            $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_us]');
+                            $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_fr]');
+                            $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][particularite]');
+                            $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][ba]');
+                            $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][directors]');
+                            $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][writers]');
+                            $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][guests]');
 
-                            $(this).find(".episodeInputNameEN").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.name');
-                            $(this).find(".episodeInputNameFR").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.name_fr');
-                            $(this).find(".episodeInputResumeEN").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.resume');
-                            $(this).find(".episodeInputResumeFR").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.resume_fr');
-                            $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.diffusion_us');
-                            $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.diffusion_fr');
-                            $(this).find(".episodeInputParticularite").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.particularite');
-                            $(this).find(".episodeInputBA").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.ba');
-                            $(this).find(".episodeInputDirectors").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.directors');
-                            $(this).find(".episodeInputWriters").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.writers');
-                            $(this).find(".episodeInputGuests").attr("id", 'seasons.'+ seasonIndex +'episodes.' + episodeIndex + '.guests');
+                            $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name');
+                            $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name_fr');
+                            $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume');
+                            $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume_fr');
+                            $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_us');
+                            $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_fr');
+                            $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.particularite');
+                            $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.ba');
+                            $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.directors');
+                            $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.writers');
+                            $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonIndex + 'episodes.' + episodeIndex + '.guests');
                         });
                     });
                 }
             });
 
             //Suppression d'une saison
-            $(document).on('click', '.seasonRemove', function(){
+            $(document).on('click', '.seasonRemove', function () {
                 $(this).parents('.seasonBlock').next('.content').remove();
                 $(this).parents('.seasonBlock').remove();
 
-                $('#sortableSeasons').find('.seasonBlock').each(function(){
+                $('#sortableSeasons').find('.seasonBlock').each(function () {
                     // On actualise sa position
-                    var seasonIndex = parseInt($(this).index()+1);
+                    var seasonIndex = parseInt($(this).index() + 1);
                     // On la met à jour dans la page
-                    $(this).find(".expandableBlock").html('<i class="dropdown icon"></i> Saison '+ seasonIndex);
+                    $(this).find(".expandableBlock").html('<i class="dropdown icon"></i> Saison ' + seasonIndex);
                     $(this).find(".content").attr("seasonNumber", seasonIndex);
-                    $(this).attr( "season", seasonIndex);
+                    $(this).attr("season", seasonIndex);
 
                     $(this).find('.episodeBlock').each(function () {
                         $(this).attr("class", 'episodeBlock episode' + seasonIndex);
@@ -452,33 +452,33 @@
                         // On actualise sa position
                         var episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
 
-                        $(this).attr( "episode", episodeIndex);
+                        $(this).attr("episode", episodeIndex);
 
                         $(this).find(".episodeName").html('<i class="dropdown icon"></i>Episode ' + seasonIndex + '.' + episodeIndex);
 
-                        $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name]');
-                        $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][name_fr]');
-                        $(this).find(".episodeInputResumeEN").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][resume]');
-                        $(this).find(".episodeInputResumeFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][resume_fr]');
-                        $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][diffusion_us]');
-                        $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][diffusion_fr]');
-                        $(this).find(".episodeInputParticularite").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][particularite]');
-                        $(this).find(".episodeInputBA").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][ba]');
-                        $(this).find(".episodeInputDirectors").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][directors]');
-                        $(this).find(".episodeInputWriters").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][writers]');
-                        $(this).find(".episodeInputGuests").attr("name", 'seasons['+ seasonIndex +'][episodes][' + episodeIndex + '][guests]');
+                        $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name]');
+                        $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name_fr]');
+                        $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume]');
+                        $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume_fr]');
+                        $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_us]');
+                        $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_fr]');
+                        $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][particularite]');
+                        $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][ba]');
+                        $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][directors]');
+                        $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][writers]');
+                        $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][guests]');
 
-                        $(this).find(".episodeInputNameEN").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.name');
-                        $(this).find(".episodeInputNameFR").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.name_fr');
-                        $(this).find(".episodeInputResumeEN").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.resume');
-                        $(this).find(".episodeInputResumeFR").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.resume_fr');
-                        $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.diffusion_us');
-                        $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.diffusion_fr');
-                        $(this).find(".episodeInputParticularite").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.particularite');
-                        $(this).find(".episodeInputBA").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.ba');
-                        $(this).find(".episodeInputDirectors").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.directors');
-                        $(this).find(".episodeInputWriters").attr("id", 'seasons.'+ seasonIndex +'.episodes.' + episodeIndex + '.writers');
-                        $(this).find(".episodeInputGuests").attr("id", 'seasons.'+ seasonIndex +'episodes.' + episodeIndex + '.guests');
+                        $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name');
+                        $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name_fr');
+                        $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume');
+                        $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume_fr');
+                        $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_us');
+                        $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_fr');
+                        $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.particularite');
+                        $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.ba');
+                        $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.directors');
+                        $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.writers');
+                        $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonIndex + 'episodes.' + episodeIndex + '.guests');
                     });
                 });
 
@@ -486,47 +486,47 @@
             });
 
             //Ajout d'une saison
-            $('.seasonAdd').click(function(e){
+            $('.seasonAdd').click(function (e) {
                 e.preventDefault();
-                var html = '<div class="seasonBlock" season="'+ seasonNumber +'">'
-                        + '<div class="title">'
-                        + '<div class="ui grid">'
-                        + '<div class="twelve wide column middle aligned expandableBlock seasonName">'
-                        + '<i class="errorSeason'+ seasonNumber +' dropdown icon"></i>'
-                        + 'Saison '+ seasonNumber
-                        + '</div>'
-                        + '<div class="four wide column">'
-                        + '<button class="ui right floated negative basic circular icon button seasonRemove">'
-                        + '<i class="remove icon"></i>'
-                        + '</button>'
-                        + '<button class="ui right floated positive basic circular icon button seasonMove">'
-                        + '<i class="move icon"></i>'
-                        + '</button>'
-                        + '</div>'
-                        + '</div>'
-                        + '</div>'
-                        + '<div class="content" seasonNumber=' + seasonNumber + '>'
+                var html = '<div class="seasonBlock" season="' + seasonNumber + '">'
+                    + '<div class="title">'
+                    + '<div class="ui grid">'
+                    + '<div class="twelve wide column middle aligned expandableBlock seasonName">'
+                    + '<i class="errorSeason' + seasonNumber + ' dropdown icon"></i>'
+                    + 'Saison ' + seasonNumber
+                    + '</div>'
+                    + '<div class="four wide column">'
+                    + '<button class="ui right floated negative basic circular icon button seasonRemove">'
+                    + '<i class="remove icon"></i>'
+                    + '</button>'
+                    + '<button class="ui right floated positive basic circular icon button seasonMove">'
+                    + '<i class="move icon"></i>'
+                    + '</button>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '<div class="content" seasonNumber=' + seasonNumber + '>'
 
-                        + '<input class="seasonInputNumber" name="seasons[' + seasonNumber + '][number]" type="hidden" value="'+ seasonNumber +'">'
+                    + '<input class="seasonInputNumber" name="seasons[' + seasonNumber + '][number]" type="hidden" value="' + seasonNumber + '">'
 
-                        + '<div class="field">'
-                        + '<label>Bande Annonce</label>'
-                        + '<input class="seasonInputBA" name="seasons[' + seasonNumber + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
-                        + '<div class="ui red hidden message"></div>'
-                        + '</div>'
-                        + '<button class="ui basic button episodeAdd" id="episodeAdd'+ seasonNumber +'">'
-                        + '<i class="tv icon"></i>'
-                        + 'Ajouter un épisode'
-                        + '</button>'
-                        + '<div class="accordion transition hidden episodesBlock sortableEpisodes" id="episodes' + seasonNumber + '">'
-                        + '</div>'
-                        + '</div>'
-                        + '</div>';
+                    + '<div class="field">'
+                    + '<label>Bande Annonce</label>'
+                    + '<input class="seasonInputBA" name="seasons[' + seasonNumber + '][ba]" placeholder="Bande annonce" type="text" value="{{ old('ba') }}">'
+                    + '<div class="ui red hidden message"></div>'
+                    + '</div>'
+                    + '<button class="ui basic button episodeAdd" id="episodeAdd' + seasonNumber + '">'
+                    + '<i class="tv icon"></i>'
+                    + 'Ajouter un épisode'
+                    + '</button>'
+                    + '<div class="accordion transition hidden episodesBlock sortableEpisodes" id="episodes' + seasonNumber + '">'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>';
 
                 $('.seasonsBlock').append(html);
 
                 // Fonction de Drag 'N Drop pour changer l'ordre des épisodes
-                $(function(){
+                $(function () {
                     //Déplacement d'un épisode
                     $('.sortableEpisodes').sortable({
                         axis: "y",
@@ -537,9 +537,9 @@
                         cancel: '',
                         placeholder: "ui segment fluid portlet-placeholder",
                         // Evenement appelé lorsque l'élément est relaché
-                        stop: function(){
+                        stop: function () {
                             // Pour chaque item de liste
-                            $('.sortableEpisodes').find('.episodeBlock').each(function(){
+                            $('.sortableEpisodes').find('.episodeBlock').each(function () {
                                 var seasonNumber = $(this).parents('.content').attr('seasonNumber');
 
                                 $(this).attr("class", 'episodeBlock episode' + seasonNumber);
@@ -548,230 +548,241 @@
                                 var episodeIndex = parseInt($(this).index('.episode' + seasonNumber) + 1);
 
                                 // On met à jour les infos épisodes
-                                $(this).attr( "season", seasonNumber);
-                                $(this).attr( "episode", episodeIndex);
+                                $(this).attr("season", seasonNumber);
+                                $(this).attr("episode", episodeIndex);
 
-                                $(this).find(".episodeName").html('<i class="errorEpisode'+ seasonNumber + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
+                                $(this).find(".episodeName").html('<i class="errorEpisode' + seasonNumber + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
 
-                                $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name]');
-                                $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name_fr]');
-                                $(this).find(".episodeInputResumeEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][resume]');
-                                $(this).find(".episodeInputResumeFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][resume_fr]');
-                                $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][diffusion_us]');
-                                $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][diffusion_fr]');
-                                $(this).find(".episodeInputParticularite").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][particularite]');
-                                $(this).find(".episodeInputBA").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][ba]');
-                                $(this).find(".episodeInputDirectors").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][directors]');
-                                $(this).find(".episodeInputWriters").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][writers]');
-                                $(this).find(".episodeInputGuests").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][guests]');
+                                $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][name]');
+                                $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][name_fr]');
+                                $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][resume]');
+                                $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][resume_fr]');
+                                $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][diffusion_us]');
+                                $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][diffusion_fr]');
+                                $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][particularite]');
+                                $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][ba]');
+                                $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][directors]');
+                                $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][writers]');
+                                $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][guests]');
 
-                                $(this).find(".episodeInputNameEN").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.name');
-                                $(this).find(".episodeInputNameFR").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.name_fr');
-                                $(this).find(".episodeInputResumeEN").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.resume');
-                                $(this).find(".episodeInputResumeFR").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.resume_fr');
-                                $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.diffusion_us');
-                                $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.diffusion_fr');
-                                $(this).find(".episodeInputParticularite").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.particularite');
-                                $(this).find(".episodeInputBA").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.ba');
-                                $(this).find(".episodeInputDirectors").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.directors');
-                                $(this).find(".episodeInputWriters").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.writers');
-                                $(this).find(".episodeInputGuests").attr("id", 'seasons.'+ seasonNumber +'episodes.' + episodeIndex + '.guests');
+                                $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.name');
+                                $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.name_fr');
+                                $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.resume');
+                                $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.resume_fr');
+                                $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.diffusion_us');
+                                $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.diffusion_fr');
+                                $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.particularite');
+                                $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.ba');
+                                $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.directors');
+                                $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.writers');
+                                $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonNumber + 'episodes.' + episodeIndex + '.guests');
                             });
                         }
                     });
 
                     //Suppression d'un épisode
-                    $(document).on('click', '.episodeRemove', function(){
+                    $(document).on('click', '.episodeRemove', function () {
                         var seasonNumber = $(this).parents('.content').attr('seasonNumber');
 
                         $(this).parents('.episodeBlock').next('.content').remove();
                         $(this).parents('.episodeBlock').remove();
 
-                        $('#episodes' + seasonNumber).find('.episodeBlock').each(function(){
+                        $('#episodes' + seasonNumber).find('.episodeBlock').each(function () {
                             // On actualise sa position
-                            var episodeIndex = parseInt($(this).index('.episode' + seasonNumber) +1);
+                            var episodeIndex = parseInt($(this).index('.episode' + seasonNumber) + 1);
 
                             // On la met à jour dans la page
-                            $(this).attr( "season", seasonNumber);
-                            $(this).attr( "episode", episodeIndex);
+                            $(this).attr("season", seasonNumber);
+                            $(this).attr("episode", episodeIndex);
 
-                            $(this).find(".episodeName").html('<i class="errorEpisode'+ seasonNumber + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
+                            $(this).find(".episodeName").html('<i class="errorEpisode' + seasonNumber + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + episodeIndex);
 
-                            $(this).find(".episodeInputNameEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name]');
-                            $(this).find(".episodeInputNameFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][name_fr]');
-                            $(this).find(".episodeInputResumeEN").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][resume]');
-                            $(this).find(".episodeInputResumeFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][resume_fr]');
-                            $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][diffusion_us]');
-                            $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][diffusion_fr]');
-                            $(this).find(".episodeInputParticularite").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][particularite]');
-                            $(this).find(".episodeInputBA").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][ba]');
-                            $(this).find(".episodeInputDirectors").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][directors]');
-                            $(this).find(".episodeInputWriters").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][writers]');
-                            $(this).find(".episodeInputGuests").attr("name", 'seasons['+ seasonNumber +'][episodes][' + episodeIndex + '][guests]');
+                            $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][name]');
+                            $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][name_fr]');
+                            $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][resume]');
+                            $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][resume_fr]');
+                            $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][diffusion_us]');
+                            $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][diffusion_fr]');
+                            $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][particularite]');
+                            $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][ba]');
+                            $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][directors]');
+                            $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][writers]');
+                            $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][guests]');
 
-                            $(this).find(".episodeInputNameEN").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.name');
-                            $(this).find(".episodeInputNameFR").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.name_fr');
-                            $(this).find(".episodeInputResumeEN").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.resume');
-                            $(this).find(".episodeInputResumeFR").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.resume_fr');
-                            $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.diffusion_us');
-                            $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.diffusion_fr');
-                            $(this).find(".episodeInputParticularite").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.particularite');
-                            $(this).find(".episodeInputBA").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.ba');
-                            $(this).find(".episodeInputDirectors").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.directors');
-                            $(this).find(".episodeInputWriters").attr("id", 'seasons.'+ seasonNumber +'.episodes.' + episodeIndex + '.writers');
-                            $(this).find(".episodeInputGuests").attr("id", 'seasons.'+ seasonNumber +'episodes.' + episodeIndex + '.guests');
+                            $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.name');
+                            $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.name_fr');
+                            $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.resume');
+                            $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.resume_fr');
+                            $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.diffusion_us');
+                            $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.diffusion_fr');
+                            $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.particularite');
+                            $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.ba');
+                            $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.directors');
+                            $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.writers');
+                            $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonNumber + 'episodes.' + episodeIndex + '.guests');
                         });
                     });
 
                     //Ajout d'un episode
-                    $('#episodeAdd' + seasonNumber).click(function(e){
+                    $('#episodeAdd' + seasonNumber).click(function (e) {
                         e.preventDefault();
 
                         var seasonNumber = $(this).parents('.content').attr('seasonNumber');
-                        var episodeNumber =  $('#episodes' + seasonNumber).children('.episodeBlock').length + 1 ; // Nombre d'épisode total
+                        var episodeNumber = $('#episodes' + seasonNumber).children('.episodeBlock').length + 1; // Nombre d'épisode total
 
-                        var html = '<div class="episodeBlock episode' + seasonNumber +'" season="'+ seasonNumber +'" episode="'+ episodeNumber +'">'
-                                + '<div class="title">'
-                                + '<div class="ui grid">'
-                                + '<div class="twelve wide column middle aligned expandableBlock episodeName">'
-                                + '<i class="errorEpisode'+ seasonNumber + 'x' + episodeNumber +' dropdown icon"></i>'
-                                + 'Episode ' + seasonNumber + '.' + episodeNumber
-                                + '</div>'
-                                + '<div class="four wide column">'
-                                + '<button class="ui right floated negative basic circular icon button episodeRemove">'
-                                + '<i class="remove icon"></i>'
-                                + '</button>'
-                                + '<button class="ui right floated positive basic circular icon button episodeMove">'
-                                + '<i class="move icon"></i>'
-                                + '</button>'
-                                + '</div>'
-                                + '</div>'
-                                + '</div>'
-                                + '<div class="content">'
+                        var html = '<div class="episodeBlock episode' + seasonNumber + '" season="' + seasonNumber + '" episode="' + episodeNumber + '">'
+                            + '<div class="title">'
+                            + '<div class="ui grid">'
+                            + '<div class="twelve wide column middle aligned expandableBlock episodeName">'
+                            + '<i class="errorEpisode' + seasonNumber + 'x' + episodeNumber + ' dropdown icon"></i>'
+                            + 'Episode ' + seasonNumber + '.' + episodeNumber
+                            + '</div>'
+                            + '<div class="four wide column">'
+                            + '<button class="ui right floated negative basic circular icon button episodeRemove">'
+                            + '<i class="remove icon"></i>'
+                            + '</button>'
+                            + '<button class="ui right floated positive basic circular icon button episodeMove">'
+                            + '<i class="move icon"></i>'
+                            + '</button>'
+                            + '</div>'
+                            + '</div>'
+                            + '</div>'
+                            + '<div class="content">'
 
-                                + '<input class="episodeInputNumber" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][number]" type="hidden" value="'+ episodeNumber +'">'
+                            + '<input class="episodeInputNumber" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][number]" type="hidden" value="' + episodeNumber + '">'
 
-                                + '<div class="field">'
-                                + '<div class="ui slider checkbox">'
-                                + '<input id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.special" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][special]" type="checkbox">'
-                                + '<label>Episode Spécial</label>'
-                                + '</div>'
-                                + '</div>'
+                            + '<div class="field">'
+                            + '<div class="ui slider checkbox">'
+                            + '<input id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.special" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][special]" type="checkbox">'
+                            + '<label>Episode Spécial</label>'
+                            + '</div>'
+                            + '</div>'
 
-                                + '<div class="two fields">'
-                                + '<div class="field">'
-                                + '<label>Nom original</label>'
-                                + '<input class="episodeInputNameEN" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.name" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][name]" placeholder="Nom original de l\'épisode" type="text" value="{{ old('name') }}">'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '<div class="field">'
-                                + '<label>Nom français</label>'
-                                + '<input class="episodeInputNameFR" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.name_fr" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][name_fr]" placeholder="Nom français de l\'épisode" type="text" value="{{ old('name_fr') }}">'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '</div>'
+                            + '<div class="two fields">'
+                            + '<div class="field">'
+                            + '<label>Nom original</label>'
+                            + '<input class="episodeInputNameEN" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.name" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][name]" placeholder="Nom original de l\'épisode" type="text" value="{{ old('name') }}">'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '<div class="field">'
+                            + '<label>Nom français</label>'
+                            + '<input class="episodeInputNameFR" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.name_fr" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][name_fr]" placeholder="Nom français de l\'épisode" type="text" value="{{ old('name_fr') }}">'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '</div>'
 
-                                + '<div class="two fields">'
-                                + '<div class="field">'
-                                + '<label>Résumé original</label>'
-                                + '<textarea class="episodeInputResumeEN" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.resume" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][resume]" placeholder="Résumé original de l\'épisode" value="{{ old('resume') }}""></textarea>'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '<div class="field">'
-                                + '<label>Résumé de l\'épisode</label>'
-                                + '<textarea class="episodeInputResumeFR" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.resume_fr" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][resume_fr]" placeholder="Résumé en français de l\'épisode" value="{{ old('resume_fr') }}""></textarea>'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '</div>'
+                            + '<div class="two fields">'
+                            + '<div class="field">'
+                            + '<label>Résumé original</label>'
+                            + '<textarea class="episodeInputResumeEN" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.resume" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][resume]" placeholder="Résumé original de l\'épisode" value="{{ old('resume') }}""></textarea>'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '<div class="field">'
+                            + '<label>Résumé de l\'épisode</label>'
+                            + '<textarea class="episodeInputResumeFR" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.resume_fr" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][resume_fr]" placeholder="Résumé en français de l\'épisode" value="{{ old('resume_fr') }}""></textarea>'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '</div>'
 
-                                + '<div class="two fields">'
-                                + '<div class="field">'
-                                + '<label>Date de la diffusion originale</label>'
-                                + '<div class="ui calendar" id="datepicker">'
-                                + '<div class="ui input left icon">'
-                                + '<i class="calendar icon"></i>'
-                                + '<input class="episodeInputDiffusionUS date-picker" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.diffusion_us" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][diffusion_us]" type="date" placeholder="Date" value="{{ old('diffusion_us') }}">'
-                                + '</div>'
-                                + '</div>'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '<div class="field">'
-                                + '<label>Date de la diffusion française</label>'
-                                + '<div class="ui calendar" id="datepicker">'
-                                + '<div class="ui input left icon">'
-                                + '<i class="calendar icon"></i>'
-                                + '<input class="episodeInputDiffusionFR date-picker" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.diffusion_fr" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][diffusion_fr]" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">'
-                                + '</div>'
-                                + '</div>'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '</div>'
+                            + '<div class="two fields">'
+                            + '<div class="field">'
+                            + '<label>Date de la diffusion originale</label>'
+                            + '<div class="ui calendar" id="datepicker">'
+                            + '<div class="ui input left icon">'
+                            + '<i class="calendar icon"></i>'
+                            + '<input class="episodeInputDiffusionUS date-picker" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.diffusion_us" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][diffusion_us]" type="date" placeholder="Date" value="{{ old('diffusion_us') }}">'
+                            + '</div>'
+                            + '</div>'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '<div class="field">'
+                            + '<label>Date de la diffusion française</label>'
+                            + '<div class="ui calendar" id="datepicker">'
+                            + '<div class="ui input left icon">'
+                            + '<i class="calendar icon"></i>'
+                            + '<input class="episodeInputDiffusionFR date-picker" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.diffusion_fr" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][diffusion_fr]" type="date" placeholder="Date" value="{{ old('diffusion_fr') }}">'
+                            + '</div>'
+                            + '</div>'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '</div>'
 
-                                + '<div class="two fields">'
-                                + '<div class="field">'
-                                + '<label>Particularité</label>'
-                                + '<textarea rows="2" class="episodeInputParticularite" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.particularite" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][particularite]" placeholder="Particularité de l\'épisode" value="{{ old('particularite') }}""></textarea>'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '<div class="field">'
-                                + '<label>Bande annonce de l\'épisode</label>'
-                                + '<input class="episodeInputBA" id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.ba" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][ba]" type="date" placeholder="Bande Annonce de l\'épisode" value="{{ old('ba') }}">'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '</div>'
+                            + '<div class="two fields">'
+                            + '<div class="field">'
+                            + '<label>Particularité</label>'
+                            + '<textarea rows="2" class="episodeInputParticularite" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.particularite" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][particularite]" placeholder="Particularité de l\'épisode" value="{{ old('particularite') }}""></textarea>'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '<div class="field">'
+                            + '<label>Bande annonce de l\'épisode</label>'
+                            + '<input class="episodeInputBA" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.ba" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][ba]" type="date" placeholder="Bande Annonce de l\'épisode" value="{{ old('ba') }}">'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '</div>'
 
-                                + '<div class="three fields">'
+                            + '<div class="three fields">'
 
-                                + '<div class="field">'
-                                + '<label>Réalisateur(s) de la série</label>'
-                                + '<div class="ui fluid multiple search selection dropdown directorDropdown">'
-                                + '<input id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.directors" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][directors]" type="hidden" value="{{ old('directors') }}">'
-                                + '<i class="dropdown icon"></i>'
-                                + '<div class="default text">Choisir</div>'
-                                + '<div class="menu">'
-                                + '@foreach($actors as $actor)'
-                                + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
-                                + '@endforeach'
-                                + '</div>'
-                                + '</div>'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
+                            + '<div class="field">'
+                            + '<label>Réalisateur(s) de la série</label>'
+                            + '<div class="ui fluid multiple search selection dropdown directorDropdown">'
+                            + '<input id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.directors" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][directors]" type="hidden" value="{{ old('directors') }}">'
+                            + '<i class="dropdown icon"></i>'
+                            + '<div class="default text">Choisir</div>'
+                            + '<div class="menu">'
+                            + '@foreach($actors as $actor)'
+                            + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                            + '@endforeach'
+                            + '</div>'
+                            + '</div>'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
 
-                                + '<div class="field">'
-                                + '<label>Scénariste(s) de la série</label>'
-                                + '<div class="ui fluid multiple search selection dropdown writerDropdown">'
-                                + '<input id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.writers" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][writers]" type="hidden" value="{{ old('writers') }}">'
-                                + '<i class="dropdown icon"></i>'
-                                + '<div class="default text">Choisir</div>'
-                                + '<div class="menu">'
-                                + '@foreach($actors as $actor)'
-                                + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
-                                + '@endforeach'
-                                + '</div>'
-                                + '</div>'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
+                            + '<div class="field">'
+                            + '<label>Scénariste(s) de la série</label>'
+                            + '<div class="ui fluid multiple search selection dropdown writerDropdown">'
+                            + '<input id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.writers" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][writers]" type="hidden" value="{{ old('writers') }}">'
+                            + '<i class="dropdown icon"></i>'
+                            + '<div class="default text">Choisir</div>'
+                            + '<div class="menu">'
+                            + '@foreach($actors as $actor)'
+                            + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                            + '@endforeach'
+                            + '</div>'
+                            + '</div>'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
 
-                                + '<div class="field">'
-                                + '<label>Guest(s) de la série</label>'
-                                + '<div class="ui fluid multiple search selection dropdown guestDropdown">'
-                                + '<input id="seasons.'+ seasonNumber +'.episodes.' + episodeNumber + '.guests" name="seasons['+ seasonNumber +'][episodes][' + episodeNumber + '][guests]" type="hidden" value="{{ old('guests') }}">'
-                                + '<i class="dropdown icon"></i>'
-                                + '<div class="default text">Choisir</div>'
-                                + '<div class="menu">'
-                                + '@foreach($actors as $actor)'
-                                + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
-                                + '@endforeach'
-                                + '</div>'
-                                + '</div>'
-                                + '<div class="ui red hidden message"></div>'
-                                + '</div>'
-                                + '</div>'
-                                + '</div>'
-                                + '</div>';
+                            + '<div class="field">'
+                            + '<label>Guest(s) de la série</label>'
+                            + '<div class="ui fluid multiple search selection dropdown guestDropdown">'
+                            + '<input id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.guests" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][guests]" type="hidden" value="{{ old('guests') }}">'
+                            + '<i class="dropdown icon"></i>'
+                            + '<div class="default text">Choisir</div>'
+                            + '<div class="menu">'
+                            + '@foreach($actors as $actor)'
+                            + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                            + '@endforeach'
+                            + '</div>'
+                            + '</div>'
+                            + '<div class="ui red hidden message"></div>'
+                            + '</div>'
+                            + '</div>'
+                            + '</div>'
+                            + '</div>';
 
-                        $(function() {
-                            $( '.date-picker' ).datepicker({
+                        console.log('#seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.special');
+                        $('seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][special]').on('click', function() {
+                            if ($('seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][special]').is(':checked')) {
+                                console.log('C\'est coché.');
+                            }
+                            else {
+                                console.log('C\'est pas coché.');
+                            }
+                        });
+
+
+                        $(function () {
+                            $('.date-picker').datepicker({
                                 showAnim: "blind",
                                 dateFormat: "yy-mm-dd",
                                 changeMonth: true,
@@ -779,26 +790,23 @@
                             });
 
                             $('.guestDropdown')
-                                    .dropdown({
-                                        allowAdditions: true,
-                                        forceSelection : false,
-                                        minCharacters: 4
-                                    });
+                                .dropdown({
+                                    allowAdditions: true,
+                                    forceSelection: false,
+                                    minCharacters: 4
+                                });
                             $('.writerDropdown')
-                                    .dropdown({
-                                        allowAdditions: true,
-                                        forceSelection : false,
-                                        minCharacters: 4
-                                    });
+                                .dropdown({
+                                    allowAdditions: true,
+                                    forceSelection: false,
+                                    minCharacters: 4
+                                });
                             $('.directorDropdown')
-                                    .dropdown({
-                                        allowAdditions: true,
-                                        forceSelection : false,
-                                        minCharacters: 4
-                                    });
-
-
-
+                                .dropdown({
+                                    allowAdditions: true,
+                                    forceSelection: false,
+                                    minCharacters: 4
+                                });
                         });
 
                         ++episodeNumber;
