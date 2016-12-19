@@ -379,57 +379,7 @@
                 placeholder: "ui segment fluid portlet-placeholder",
                 // Evenement appelé lorsque l'élément est relaché
                 stop: function () {
-                    // Pour chaque item de liste
-                    $('#sortableSeasons').find('.seasonBlock').each(function () {
-                        // On actualise sa position
-                        var seasonIndex = parseInt($(this).index() + 1);
-
-                        // On met à jour les infos saisons
-                        $(this).find(".seasonName").html('<i class="errorSeason' + seasonIndex + ' dropdown icon"></i>Saison ' + seasonIndex);
-                        $(this).find(".content").attr("seasonNumber", seasonIndex);
-                        $(this).find(".episodeAdd").attr("id", 'episodeAdd' + seasonIndex);
-                        $(this).find(".episodesBlock").attr("id", 'episodes' + seasonIndex);
-
-                        $(this).find(".seasonInputBA").attr("name", 'seasons[' + seasonIndex + '][ba]');
-                        $(this).find(".seasonInputBA").attr("id", 'seasons.' + seasonIndex + '.ba');
-
-                        $(this).attr("season", seasonIndex);
-
-                        $(this).find('.episodeBlock').each(function () {
-                            $(this).attr("class", 'episodeBlock episode' + seasonIndex);
-
-                            // On actualise sa position
-                            var episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
-
-                            $(this).attr("episode", episodeIndex);
-
-                            $(this).find(".episodeName").html('<i class="errorEpisode' + seasonIndex + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonIndex + '.' + episodeIndex);
-
-                            $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name]');
-                            $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name_fr]');
-                            $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume]');
-                            $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume_fr]');
-                            $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_us]');
-                            $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_fr]');
-                            $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][particularite]');
-                            $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][ba]');
-                            $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][directors]');
-                            $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][writers]');
-                            $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][guests]');
-
-                            $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name');
-                            $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name_fr');
-                            $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume');
-                            $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume_fr');
-                            $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_us');
-                            $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_fr');
-                            $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.particularite');
-                            $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.ba');
-                            $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.directors');
-                            $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.writers');
-                            $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonIndex + 'episodes.' + episodeIndex + '.guests');
-                        });
-                    });
+                    RecalculNumeroEpisode();
                 }
             });
 
@@ -438,49 +388,7 @@
                 $(this).parents('.seasonBlock').next('.content').remove();
                 $(this).parents('.seasonBlock').remove();
 
-                $('#sortableSeasons').find('.seasonBlock').each(function () {
-                    // On actualise sa position
-                    var seasonIndex = parseInt($(this).index() + 1);
-                    // On la met à jour dans la page
-                    $(this).find(".expandableBlock").html('<i class="dropdown icon"></i> Saison ' + seasonIndex);
-                    $(this).find(".content").attr("seasonNumber", seasonIndex);
-                    $(this).attr("season", seasonIndex);
-
-                    $(this).find('.episodeBlock').each(function () {
-                        $(this).attr("class", 'episodeBlock episode' + seasonIndex);
-
-                        // On actualise sa position
-                        var episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
-
-                        $(this).attr("episode", episodeIndex);
-
-                        $(this).find(".episodeName").html('<i class="dropdown icon"></i>Episode ' + seasonIndex + '.' + episodeIndex);
-
-                        $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name]');
-                        $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name_fr]');
-                        $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume]');
-                        $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume_fr]');
-                        $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_us]');
-                        $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_fr]');
-                        $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][particularite]');
-                        $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][ba]');
-                        $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][directors]');
-                        $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][writers]');
-                        $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][guests]');
-
-                        $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name');
-                        $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name_fr');
-                        $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume');
-                        $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume_fr');
-                        $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_us');
-                        $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_fr');
-                        $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.particularite');
-                        $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.ba');
-                        $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.directors');
-                        $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.writers');
-                        $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonIndex + 'episodes.' + episodeIndex + '.guests');
-                    });
-                });
+                RecalculNumeroEpisode();
 
                 --seasonNumber;
             });
@@ -564,6 +472,9 @@
                                 $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][directors]');
                                 $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][writers]');
                                 $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][guests]');
+                                $(this).find(".episodeInputNumber").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][number]');
+                                $(this).find(".episodeInputSpecial").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][special]');
+                                $(this).find(".episodeInputNumber").attr("value", episodeIndex);
 
                                 $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.name');
                                 $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.name_fr');
@@ -575,7 +486,56 @@
                                 $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.ba');
                                 $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.directors');
                                 $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.writers');
-                                $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonNumber + 'episodes.' + episodeIndex + '.guests');
+                                $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.guests');
+                                $(this).find(".episodeInputNumber").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.number');
+                                $(this).find(".episodeInputSpecial").attr("id", 'seasons.' + seasonNumber + 'episodes.' + episodeIndex + '.special');
+                            });
+
+                            $('.sortableEpisodes').find('.episodeSpecialBlock').each(function () {
+                                var seasonNumber = $(this).parents('.content').attr('seasonNumber');
+
+                                // On met à jour les infos épisodes
+                                $(this).attr("season", seasonNumber);
+
+                                $(this).find(".episodeName").html('<i class="errorEpisode' + seasonNumber + 'x' + 0 + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + 0);
+
+                                // On actualise sa position
+                                var episodeIndex = parseInt($(this).index('.episodeSpecial' + seasonNumber) + 1);
+
+                                // On la met à jour dans la page
+                                $(this).attr("season", seasonNumber);
+                                $(this).attr("episode", episodeIndex);
+
+                                $(this).find(".episodeName").html('<i class="errorEpisode' + seasonNumber + 'x' + 0 + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + 0);
+
+                                $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][name]');
+                                $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][name_fr]');
+                                $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][resume]');
+                                $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][resume_fr]');
+                                $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_us]');
+                                $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_fr]');
+                                $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][particularite]');
+                                $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][ba]');
+                                $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][directors]');
+                                $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][writers]');
+                                $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][guests]');
+                                $(this).find(".episodeInputNumber").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][number]');
+                                $(this).find(".episodeInputSpecial").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][special]');
+                                $(this).find(".episodeInputNumber").attr("value", 0);
+
+                                $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.name');
+                                $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.name_fr');
+                                $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.resume');
+                                $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.resume_fr');
+                                $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_us');
+                                $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_fr');
+                                $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.particularite');
+                                $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.ba');
+                                $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.directors');
+                                $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.writers');
+                                $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.guests');
+                                $(this).find(".episodeInputNumber").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.number');
+                                $(this).find(".episodeInputSpecial").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.special');
                             });
                         }
                     });
@@ -584,6 +544,8 @@
                     $(document).on('click', '.episodeRemove', function () {
                         var seasonNumber = $(this).parents('.content').attr('seasonNumber');
 
+                        $(this).parents('.episodeSpecialBlock').next('.content').remove();
+                        $(this).parents('.episodeSpecialBlock').remove();
                         $(this).parents('.episodeBlock').next('.content').remove();
                         $(this).parents('.episodeBlock').remove();
 
@@ -608,6 +570,9 @@
                             $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][directors]');
                             $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][writers]');
                             $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][guests]');
+                            $(this).find(".episodeInputNumber").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][number]');
+                            $(this).find(".episodeInputSpecial").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][special]');
+                            $(this).find(".episodeInputNumber").attr("value", episodeIndex);
 
                             $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.name');
                             $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.name_fr');
@@ -619,7 +584,49 @@
                             $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.ba');
                             $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.directors');
                             $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.writers');
-                            $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonNumber + 'episodes.' + episodeIndex + '.guests');
+                            $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.guests');
+                            $(this).find(".episodeInputNumber").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.number');
+                            $(this).find(".episodeInputSpecial").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.special');
+                        });
+
+                        $('#episodes' + seasonNumber).find('.episodeSpecialBlock').each(function () {
+                            // On actualise sa position
+                            var episodeIndex = parseInt($(this).index('.episodeSpecial' + seasonNumber) + 1);
+
+                            // On la met à jour dans la page
+                            $(this).attr("season", seasonNumber);
+                            $(this).attr("episode", episodeIndex);
+
+                            $(this).find(".episodeName").html('<i class="errorEpisode' + seasonNumber + 'x' + 0 + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + 0);
+
+                            $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][name]');
+                            $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][name_fr]');
+                            $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][resume]');
+                            $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][resume_fr]');
+                            $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_us]');
+                            $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_fr]');
+                            $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][particularite]');
+                            $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][ba]');
+                            $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][directors]');
+                            $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][writers]');
+                            $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][guests]');
+                            $(this).find(".episodeInputNumber").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][number]');
+                            $(this).find(".episodeInputSpecial").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][special]');
+                            $(this).find(".episodeInputNumber").attr("value", 0);
+
+                            $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.name');
+                            $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.name_fr');
+                            $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.resume');
+                            $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.resume_fr');
+                            $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_us');
+                            $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_fr');
+                            $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.particularite');
+                            $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.ba');
+                            $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.directors');
+                            $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.writers');
+                            $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.guests');
+                            $(this).find(".episodeInputNumber").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.number');
+                            $(this).find(".episodeInputSpecial").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.special');
                         });
                     });
 
@@ -649,11 +656,11 @@
                             + '</div>'
                             + '<div class="content">'
 
-                            + '<input class="episodeInputNumber" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][number]" type="hidden" value="' + episodeNumber + '">'
+                            + '<input class="episodeInputNumber" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.number" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][number]" type="hidden" value="' + episodeNumber + '">'
 
                             + '<div class="field">'
                             + '<div class="ui slider checkbox">'
-                            + '<input id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.special" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][special]" type="checkbox">'
+                            + '<input class="episodeInputSpecial" onclick="clickEpisodeSpecial(this)" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.special" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][special]" type="checkbox">'
                             + '<label>Episode Spécial</label>'
                             + '</div>'
                             + '</div>'
@@ -725,7 +732,7 @@
                             + '<div class="field">'
                             + '<label>Réalisateur(s) de la série</label>'
                             + '<div class="ui fluid multiple search selection dropdown directorDropdown">'
-                            + '<input id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.directors" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][directors]" type="hidden" value="{{ old('directors') }}">'
+                            + '<input class="episodeInputDirectors" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.directors" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][directors]" type="hidden" value="{{ old('directors') }}">'
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
@@ -740,7 +747,7 @@
                             + '<div class="field">'
                             + '<label>Scénariste(s) de la série</label>'
                             + '<div class="ui fluid multiple search selection dropdown writerDropdown">'
-                            + '<input id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.writers" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][writers]" type="hidden" value="{{ old('writers') }}">'
+                            + '<input class="episodeInputWriters" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.writers" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][writers]" type="hidden" value="{{ old('writers') }}">'
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
@@ -755,7 +762,7 @@
                             + '<div class="field">'
                             + '<label>Guest(s) de la série</label>'
                             + '<div class="ui fluid multiple search selection dropdown guestDropdown">'
-                            + '<input id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.guests" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][guests]" type="hidden" value="{{ old('guests') }}">'
+                            + '<input class="episodeInputGuests" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.guests" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][guests]" type="hidden" value="{{ old('guests') }}">'
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
@@ -769,16 +776,6 @@
                             + '</div>'
                             + '</div>'
                             + '</div>';
-
-                        console.log('#seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.special');
-                        $('seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][special]').on('click', function() {
-                            if ($('seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][special]').is(':checked')) {
-                                console.log('C\'est coché.');
-                            }
-                            else {
-                                console.log('C\'est pas coché.');
-                            }
-                        });
 
 
                         $(function () {
@@ -812,6 +809,7 @@
                         ++episodeNumber;
 
                         $(this).next('.episodesBlock').append(html);
+
                     });
 
                     ++seasonNumber;
@@ -819,6 +817,174 @@
             });
         });
 
+        function clickEpisodeSpecial(input){
+            var seasonNumber = input.id.split('.')[1];
+            var episodeNumber = input.id.split('.')[3];
+
+            if (input.checked) {
+                // Quand c'est coché
+                var episodeNameJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.name';
+                var episodeNameFRJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.name_fr';
+                var episodeResumeJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.resume';
+                var episodeResumeFRJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.resume_fr';
+                var episodeDiffusionUSJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.diffusion_us';
+                var episodeDiffusionFRJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.diffusion_fr';
+                var episodeParticulariteJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.particularite';
+                var episodeBAJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.ba';
+                var episodeDirectorsJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.directors';
+                var episodeWritersJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.writers';
+                var episodeGuestsJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.guests';
+                var episodeSpecialJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.special';
+                var episodeNumberJ = '#seasons\\.' + seasonNumber + '\\.episodes\\.' + episodeNumber + '\\.number';
+
+                $(episodeNameJ).parents('.episodeBlock').attr("episode", '0');
+                $(episodeNameJ).parents('.episodeBlock').find(".episodeName").html('<i class="errorEpisode' + seasonNumber + 'x' + 0 + ' dropdown icon"></i> Episode ' + seasonNumber + '.' + 0);
+                $(episodeNameJ).parents('.episodeBlock').attr("class", 'episodeSpecialBlock episodeSpecial' + seasonNumber);
+
+
+                $(this).find('.episodeSpecialBlock').each(function () {
+                    var episodeIndex = parseInt($(this).index('.episodeSpecial' + seasonNumber) + 1);
+
+                    $(episodeNameJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][name]');
+                    $(episodeNameFRJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][name_fr]');
+                    $(episodeResumeJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][resume]');
+                    $(episodeResumeFRJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][resume_fr]');
+                    $(episodeDiffusionUSJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_us]');
+                    $(episodeDiffusionFRJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_fr]');
+                    $(episodeParticulariteJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][particularite]');
+                    $(episodeBAJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][ba]');
+                    $(episodeDirectorsJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][directors]');
+                    $(episodeWritersJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][writers]');
+                    $(episodeGuestsJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][guests]');
+                    $(episodeSpecialJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][special]');
+                    $(episodeNumberJ).attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][number]');
+                    $(episodeNumberJ).attr("value", 0);
+
+                    $(episodeNameJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.name');
+                    $(episodeNameFRJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.name_fr');
+                    $(episodeResumeJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.resume');
+                    $(episodeResumeFRJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.resume_fr');
+                    $(episodeDiffusionUSJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_us');
+                    $(episodeDiffusionFRJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_fr');
+                    $(episodeParticulariteJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.particularite');
+                    $(episodeBAJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.ba');
+                    $(episodeDirectorsJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.directors');
+                    $(episodeWritersJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.writers');
+                    $(episodeGuestsJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.guests');
+                    $(episodeSpecialJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.special');
+                    $(episodeNumberJ).attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.number');
+                });
+
+                RecalculNumeroEpisode();
+            }
+            else
+            {
+                // Quand c'est pas coché
+                var episodeNameJ2 = '#seasons\\.' + seasonNumber + '\\.episodesSpeciaux\\.' + episodeNumber + '\\.name';
+                $(episodeNameJ2).parents('.episodeSpecialBlock').attr("class", 'episodeBlock episode' + seasonNumber);
+                RecalculNumeroEpisode();
+            }
+        }
+
+        function RecalculNumeroEpisode(){
+            $('#sortableSeasons').find('.seasonBlock').each(function () {
+                // On actualise sa position
+                var seasonIndex = parseInt($(this).index() + 1);
+
+                // On met à jour les infos saisons
+                $(this).find(".seasonName").html('<i class="errorSeason' + seasonIndex + ' dropdown icon"></i>Saison ' + seasonIndex);
+                $(this).find(".content").attr("seasonNumber", seasonIndex);
+                $(this).find(".episodeAdd").attr("id", 'episodeAdd' + seasonIndex);
+                $(this).find(".episodesBlock").attr("id", 'episodes' + seasonIndex);
+
+                $(this).find(".seasonInputBA").attr("name", 'seasons[' + seasonIndex + '][ba]');
+                $(this).find(".seasonInputBA").attr("id", 'seasons.' + seasonIndex + '.ba');
+
+                $(this).attr("season", seasonIndex);
+
+                $(this).find('.episodeBlock').each(function () {
+                    $(this).attr("class", 'episodeBlock episode' + seasonIndex);
+
+                    // On actualise sa position
+                    var episodeIndex = parseInt($(this).index('.episode' + seasonIndex) + 1);
+
+                    $(this).attr("episode", episodeIndex);
+
+                    $(this).find(".episodeName").html('<i class="errorEpisode' + seasonIndex + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonIndex + '.' + episodeIndex);
+
+                    $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name]');
+                    $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][name_fr]');
+                    $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume]');
+                    $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][resume_fr]');
+                    $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_us]');
+                    $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][diffusion_fr]');
+                    $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][particularite]');
+                    $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][ba]');
+                    $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][directors]');
+                    $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][writers]');
+                    $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][guests]');
+                    $(this).find(".episodeInputSpecial").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][special]');
+                    $(this).find(".episodeInputNumber").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][number]');
+                    $(this).find(".episodeInputSpecial").attr("name", 'seasons[' + seasonIndex + '][episodes][' + episodeIndex + '][special]');
+                    $(this).find(".episodeInputNumber").attr("value", episodeIndex);
+
+                    $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name');
+                    $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.name_fr');
+                    $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume');
+                    $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume_fr');
+                    $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_us');
+                    $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_fr');
+                    $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.particularite');
+                    $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.ba');
+                    $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.directors');
+                    $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.writers');
+                    $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.guests');
+                    $(this).find(".episodeInputNumber").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.number');
+                    $(this).find(".episodeInputSpecial").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.special');
+                });
+
+                $(this).find('.episodeSpecialBlock').each(function () {
+                    $(this).attr("class", 'episodeSpecialBlock episodeSpecial' + seasonIndex);
+
+                    // On actualise sa position
+                    var episodeIndex = parseInt($(this).index('.episodeSpecial' + seasonIndex) + 1);
+
+                    $(this).attr("episode", episodeIndex);
+
+                    $(this).find(".episodeName").html('<i class="errorEpisode' + seasonIndex + 'x' + episodeIndex + ' dropdown icon"></i> Episode ' + seasonIndex + '.' + 0);
+
+                    $(this).find(".episodeInputNameEN").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][name]');
+                    $(this).find(".episodeInputNameFR").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][name_fr]');
+                    $(this).find(".episodeInputResumeEN").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][resume]');
+                    $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][resume_fr]');
+                    $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][diffusion_us]');
+                    $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][diffusion_fr]');
+                    $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][particularite]');
+                    $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][ba]');
+                    $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][directors]');
+                    $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][writers]');
+                    $(this).find(".episodeInputGuests").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][guests]');
+                    $(this).find(".episodeInputSpecial").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][special]');
+                    $(this).find(".episodeInputNumber").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][number]');
+                    $(this).find(".episodeInputSpecial").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][special]');
+                    $(this).find(".episodeInputNumber").attr("value", 0);
+
+                    $(this).find(".episodeInputNameEN").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.name');
+                    $(this).find(".episodeInputNameFR").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.name_fr');
+                    $(this).find(".episodeInputResumeEN").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.resume');
+                    $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.resume_fr');
+                    $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.diffusion_us');
+                    $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.diffusion_fr');
+                    $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.particularite');
+                    $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.ba');
+                    $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.directors');
+                    $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.writers');
+                    $(this).find(".episodeInputGuests").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.guests');
+                    $(this).find(".episodeInputNumber").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.number');
+                    $(this).find(".episodeInputSpecial").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.special');
+                });
+            });
+        }
 
         // Submission
         $(document).on('submit', 'form', function(e) {

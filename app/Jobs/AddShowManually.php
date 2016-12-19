@@ -541,6 +541,186 @@ class AddShowManually implements ShouldQueue
                         }
                     }
                 }
+
+                # Ajout des épisodes spéciaux
+                if (isset($season['episodesSpeciaux'])) {
+                    foreach ($season['episodesSpeciaux'] as $episode) {
+                        $episode_new = new Episode();
+                        $logMessage = '>>>EPISODES SPECIAUX';
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->numero = $episode['number'];
+                        # Numéro de l'épisode
+                        $logMessage = '>>>>Numéro : ' . $episode_new->numero;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->name = $episode['name'];
+                        # Nom original de l'épisode
+                        $logMessage = '>>>>Nom Original : ' . $episode_new->name;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->name_fr = $episode['name_fr'];
+                        # Nom français de l'épisode
+                        $logMessage = '>>>>Nom français : ' . $episode_new->name_fr;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->resume = $episode['resume'];
+                        # Résumé de l'épisode
+                        $logMessage = '>>>>Résumé : ' . $episode_new->resume;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->resume_fr = $episode['resume_fr'];
+                        # Résumé français de l'épisode
+                        $logMessage = '>>>>Résumé français : ' . $episode_new->resume_fr;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->diffusion_us = $episode['diffusion_us'];
+                        # Diffusion originale de l'épisode
+                        $logMessage = '>>>>Diffusion Originale : ' . $episode_new->diffusion_us;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->diffusion_fr = $episode['diffusion_fr'];
+                        # Diffusion française de l'épisode
+                        $logMessage = '>>>>Diffusion française : ' . $episode_new->diffusion_fr;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->particularite = $episode['particularite'];
+                        # Particularité de l'épisode
+                        $logMessage = '>>>>Particularité : ' . $episode_new->particularite;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->ba = $episode['ba'];
+                        # Bande annonce de l'épisode
+                        $logMessage = '>>>>Bande Annonce : ' . $episode_new->name;
+                        saveLogMessage($jobName, $logMessage);
+
+                        $episode_new->season()->associate($season_new);
+                        $episode_new->save();
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Ajout des informations sur les réalisateurs de l'épisode
+                        |--------------------------------------------------------------------------
+                        */
+                        if (!empty($episode['directors'])) {
+                            $directors = $episode['directors'];
+                            $directors = explode(',', $directors);
+                            $logMessage = '>>>>REALISATEURS';
+                            saveLogMessage($jobName, $logMessage);
+
+                            # Pour chaque créateur
+                            foreach ($directors as $director) {
+                                # On supprime les espaces
+                                $director = trim($director);
+                                # On met en forme l'URL
+                                $director_url = Str::slug($director);
+                                # On vérifie si le genre existe déjà en base
+                                $director_ref = Artist::where('artist_url', $director_url)->first();
+
+                                # Si il n'existe pas
+                                if (is_null($director_ref)) {
+                                    $logMessage = '>>>>>Ajout du réalisateur : ' . $director . '.';
+                                    saveLogMessage($jobName, $logMessage);
+                                    # On prépare le nouveau créateur
+                                    $director_ref = new Artist([
+                                        'name' => $director,
+                                        'artist_url' => $director_ref
+                                    ]);
+
+                                    # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                                    $episode_new->artists()->save($director_ref, ['profession' => 'director']);
+                                } else {
+                                    $logMessage = '>>>>>Liaison du réalisateur : ' . $director . '.';
+                                    saveLogMessage($jobName, $logMessage);
+                                    # Si il existe, on crée juste le lien
+                                    $episode_new->artists()->attach($director_ref->id, ['profession' => 'director']);
+                                }
+                            }
+                        }
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Ajout des informations sur les scénaristes de l'épisode
+                        |--------------------------------------------------------------------------
+                        */
+                        if (!empty($episode['writers'])) {
+                            $writers = $episode['writers'];
+                            $writers = explode(',', $writers);
+                            $logMessage = '>>>>SCENARISTES';
+                            saveLogMessage($jobName, $logMessage);
+
+                            # Pour chaque créateur
+                            foreach ($writers as $writer) {
+                                # On supprime les espaces
+                                $writer = trim($writer);
+                                # On met en forme l'URL
+                                $writer_url = Str::slug($writer);
+                                # On vérifie si le genre existe déjà en base
+                                $writer_ref = Artist::where('artist_url', $writer_url)->first();
+
+                                # Si il n'existe pas
+                                if (is_null($writer_ref)) {
+                                    $logMessage = '>>>>>Ajout du réalisateur : ' . $writer . '.';
+                                    saveLogMessage($jobName, $logMessage);
+                                    # On prépare le nouveau créateur
+                                    $writer_ref = new Artist([
+                                        'name' => $writer,
+                                        'artist_url' => $writer_ref
+                                    ]);
+
+                                    # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                                    $episode_new->artists()->save($writer_ref, ['profession' => 'writer']);
+                                } else {
+                                    $logMessage = '>>>>>Liaison du réalisateur : ' . $writer . '.';
+                                    saveLogMessage($jobName, $logMessage);
+                                    # Si il existe, on crée juste le lien
+                                    $episode_new->artists()->attach($writer_ref->id, ['profession' => 'writer']);
+                                }
+                            }
+                        }
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Ajout des informations sur les guests de l'épisode
+                        |--------------------------------------------------------------------------
+                        */
+                        if (!empty($episode['guests'])) {
+                            $guests = $episode['guests'];
+                            $guests = explode(',', $guests);
+                            $logMessage = '>>>>GUESTS';
+                            saveLogMessage($jobName, $logMessage);
+
+                            # Pour chaque créateur
+                            foreach ($guests as $guest) {
+                                # On supprime les espaces
+                                $guest = trim($guest);
+                                # On met en forme l'URL
+                                $guest_url = Str::slug($guest);
+                                # On vérifie si le genre existe déjà en base
+                                $guest_ref = Artist::where('artist_url', $guest_url)->first();
+
+                                # Si il n'existe pas
+                                if (is_null($guest_ref)) {
+                                    $logMessage = '>>>>>Ajout du réalisateur : ' . $guest . '.';
+                                    saveLogMessage($jobName, $logMessage);
+                                    # On prépare le nouveau créateur
+                                    $guest_ref = new Artist([
+                                        'name' => $guest,
+                                        'artist_url' => $guest_ref
+                                    ]);
+
+                                    # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                                    $episode_new->artists()->save($guest_ref, ['profession' => 'writer']);
+                                } else {
+                                    $logMessage = '>>>>>Liaison du réalisateur : ' . $guest . '.';
+                                    saveLogMessage($jobName, $logMessage);
+                                    # Si il existe, on crée juste le lien
+                                    $episode_new->artists()->attach($guest_ref->id, ['profession' => 'writer']);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
