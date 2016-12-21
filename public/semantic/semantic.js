@@ -4911,6 +4911,9 @@ $.fn.dropdown = function(parameters) {
           if(settings.apiSettings) {
             if( module.can.useAPI() ) {
               module.queryRemote(searchTerm, function() {
+                  if (settings.localSearch) {
+                      module.filterItems(searchTerm);
+                  }
                 afterFiltered();
               });
             }
@@ -7710,6 +7713,7 @@ $.fn.dropdown.settings = {
 
 
   apiSettings            : false,
+  localSearch            : true,       // Whether trigger local search instead of querying data from remote source
   selectOnKeydown        : true,       // Whether selection should occur automatically when keyboard shortcuts used
   minCharacters          : 0,          // Minimum characters required to trigger API call
   saveRemoteData         : true,       // Whether remote name/value pairs should be stored in sessionStorage to allow remote data to be restored on page refresh

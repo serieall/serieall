@@ -192,6 +192,16 @@
 
                     <div class="div-actors">
 
+
+
+
+
+
+
+
+
+
+
                     </div>
 
                     <p></p>
@@ -435,8 +445,10 @@
 
                 // Fonction de Drag 'N Drop pour changer l'ordre des épisodes
                 $(function () {
+                    var sortableEpisodes = '.sortableEpisodes';
+
                     //Déplacement d'un épisode
-                    $('.sortableEpisodes').sortable({
+                    $(sortableEpisodes).sortable({
                         axis: "y",
                         connectWith: ".episodesBlock",
                         containment: ".episodesBlock",
@@ -447,7 +459,7 @@
                         // Evenement appelé lorsque l'élément est relaché
                         stop: function () {
                             // Pour chaque item de liste
-                            $('.sortableEpisodes').find('.episodeBlock').each(function () {
+                            $(sortableEpisodes).find('.episodeBlock').each(function () {
                                 var seasonNumber = $(this).parents('.content').attr('seasonNumber');
 
                                 $(this).attr("class", 'episodeBlock episode' + seasonNumber);
@@ -543,13 +555,14 @@
                     //Suppression d'un épisode
                     $(document).on('click', '.episodeRemove', function () {
                         var seasonNumber = $(this).parents('.content').attr('seasonNumber');
+                        var episodeSelector = '#episodes' + seasonNumber;
 
                         $(this).parents('.episodeSpecialBlock').next('.content').remove();
                         $(this).parents('.episodeSpecialBlock').remove();
                         $(this).parents('.episodeBlock').next('.content').remove();
                         $(this).parents('.episodeBlock').remove();
 
-                        $('#episodes' + seasonNumber).find('.episodeBlock').each(function () {
+                        $(episodeSelector).find('.episodeBlock').each(function () {
                             // On actualise sa position
                             var episodeIndex = parseInt($(this).index('.episode' + seasonNumber) + 1);
 
@@ -589,7 +602,7 @@
                             $(this).find(".episodeInputSpecial").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.special');
                         });
 
-                        $('#episodes' + seasonNumber).find('.episodeSpecialBlock').each(function () {
+                        $(episodeSelector).find('.episodeSpecialBlock').each(function () {
                             // On actualise sa position
                             var episodeIndex = parseInt($(this).index('.episodeSpecial' + seasonNumber) + 1);
 

@@ -68,18 +68,30 @@
                         {{ $show->episodes_count }}
                     </td>
                     <td class="center aligned">
-                        <a href="#" id="action">
-                            <i class="big icons">
-                                <i class="big thin circle icon"></i>
-                                <i class="edit icon"></i>
-                            </i>
-                        </a>
-                        <a href="#" id="action">
-                            <i class="big icons">
-                                <i class="big thin circle icon"></i>
-                                <i class="trash icon"></i>
-                            </i>
-                        </a>
+                        <div class="ui centered grid">
+                            <div class="four wide column">
+                                <!-- Formulaire d'édition -->
+                                <form action="{{ route('adminShow.edit', $show->id) }}" method="get" >
+
+                                    <button class="circular ui blue icon button" type="submit">
+                                        <i class="icon edit"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="four wide column">
+                                <!-- Formulaire de suppression -->
+                                <form action="{{ route('adminShow.destroy', $show->id) }}" method="post" >
+                                    {{ csrf_field() }}
+
+                                    <input type="hidden" name="_method" value="DELETE">
+
+                                    <button class="circular ui red icon button" type="submit" value="Supprimer cette série ?" onclick="return confirm('Voulez-vous vraiment supprimer cette série ?')">
+                                        <i class="icon remove"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

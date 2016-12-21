@@ -4,22 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-use App\Jobs\UpdateShowFromTVDB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowCreateManuallyRequest;
 
 use App\Repositories\Admin\AdminShowRepository;
+use App\Repositories\SeasonRepository;
 use Illuminate\Support\Facades\Log;
 
 class AdminShowController extends Controller
 {
 
     protected $adminShowRepository;
+    protected $seasonRepository;
 
-    public function __construct(AdminShowRepository $adminShowRepository)
+    public function __construct(AdminShowRepository $adminShowRepository, SeasonRepository $seasonRepository)
     {
         $this->adminShowRepository = $adminShowRepository;
+        $this->seasonRepository = $seasonRepository;
     }
 
     /**
@@ -120,7 +122,6 @@ class AdminShowController extends Controller
     /**
      * Store a newly manually created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function redirectJSON()
@@ -131,17 +132,6 @@ class AdminShowController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -149,7 +139,23 @@ class AdminShowController extends Controller
      */
     public function edit($id)
     {
-        //
+        #Variable qui détecte dans quelle partie de l'admin on se trouve
+        $navActive = 'show';
+
+        $show = $this->adminShowRepository->getAllInformationsOnShowByID($id);
+        $genres = $this->adminShowRepository->formatRequestInVariable($show->genres);
+        $channels = $this->adminShowRepository->formatRequestInVariable($show->channels);
+        $nationalities = $this->adminShowRepository->formatRequestInVariable($show->nationalities);
+        $creators = $this->adminShowRepository->formatRequestInVariable($show->creators);
+
+        $seasonsEpisodes = $this->seasonRepository->getSeasonsEpisodesForShowByID($id);
+
+        $allActors = $this->adminShowRepository->getActors();
+        $allGenres = $this->adminShowRepository->getGenres();
+        $allChannels = $this->adminShowRepository->getChannels();
+        $allNationalities = $this->adminShowRepository->getNationalities();
+
+        return view('admin/shows/edit',  compact('show', 'allActors', 'allGenres', 'allChannels', 'allNationalities', 'navActive', 'genres', 'channels', 'nationalities', 'creators', 'seasonsEpisodes'));
     }
 
     /**
@@ -172,6 +178,8 @@ class AdminShowController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->adminShowRepository->destroy($id);
+
+        return redirect()->back();
     }
 }

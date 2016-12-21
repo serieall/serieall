@@ -76,6 +76,16 @@ class Show extends Model {
 		return $this->morphToMany('App\Models\Artist', 'artistable');
 	}
 
+	public function actors()
+    {
+        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'actor');
+    }
+
+    public function creators()
+    {
+        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'creator');
+    }
+
 	public function channels()
 	{
 		return $this->belongsToMany('App\Models\Channel');

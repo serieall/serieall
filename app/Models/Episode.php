@@ -62,6 +62,21 @@ class Episode extends Model {
 		return $this->morphToMany('App\Models\Artist', 'artistable');
 	}
 
+    public function writers()
+    {
+        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'writer');
+    }
+
+    public function directors()
+    {
+        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'director');
+    }
+
+    public function guests()
+    {
+        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'guest');
+    }
+
 	public function comments()
 	{
 		return $this->morphMany('App\Models\Comment', 'commentable');
