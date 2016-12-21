@@ -160,7 +160,6 @@ return [
         \App\Providers\BroadcastServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Dingo\Api\Provider\LaravelServiceProvider::class,
 
 
         /*
@@ -225,8 +224,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Notif' => Illuminate\Support\Facades\Notification::class,
-        'API' => Dingo\Api\Facade\API::class,
-        'APIRoute' => Dingo\Api\Facade\Route::class,
 
     ],
 
