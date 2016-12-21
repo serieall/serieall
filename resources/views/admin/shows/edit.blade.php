@@ -330,7 +330,7 @@
                                                         <div class="ui red hidden message"></div>
                                                     </div>
                                                     <div class="field">
-                                                        <label>Résumé de l\'épisode</label>
+                                                        <label>Résumé de l'épisode</label>
                                                         <textarea class="episodeInputResumeFR" id="seasons.{{ $season->name }}.episodes.{{ $episode->numero}}.resume_fr" name="seasons[{{ $season->name }}][episodes][{{ $episode->numero}}][resume_fr]" placeholder="Résumé en français de l'épisode">{{ $episode->resume_fr }}</textarea>
                                                         <div class="ui red hidden message"></div>
                                                     </div>
@@ -366,7 +366,7 @@
                                                         <div class="ui red hidden message"></div>
                                                     </div>
                                                     <div class="field">
-                                                        <label>Bande annonce de l\'épisode</label>
+                                                        <label>Bande annonce de l'épisode</label>
                                                         <input class="episodeInputBA" id="seasons.{{ $season->name }}.episodes.{{ $episode->numero}}.ba" name="seasons[{{ $season->name }}][episodes][{{ $episode->numero}}][ba]" placeholder="Bande Annonce de l'épisode" value="{{ $episode->ba }}">
                                                         <div class="ui red hidden message"></div>
                                                     </div>

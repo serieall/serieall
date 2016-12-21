@@ -157,24 +157,13 @@ class AdminShowRepository
 
     /**
      * @param $id
-     * @return string
-     */
-    public function getaArtistsFormattedByIDShow($id){
-        // On récupère la série
-        $show = $this->getByID($id);
-
-        // On récupère la liste des acteurs
-        $artists = $show->actors()->select('artists.id', 'artists.name', 'artistables.role')->get();
-
-        return $artists;
-    }
-
-    /**
-     * @param $id
      * @return Show|\Illuminate\Database\Eloquent\Builder
      */
     public function getAllInformationsOnShowByID($id){
-        return $this->show->where('shows.id', '=', $id)->with('channels', 'nationalities', 'creators', 'genres')->first();
+        return $this->show->where('shows.id', '=', $id)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function($q)
+        {
+            $q->select('artists.id', 'artists.name', 'artistables.role');
+        }])->first();
     }
 
     /**
