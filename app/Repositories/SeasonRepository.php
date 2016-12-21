@@ -32,6 +32,7 @@ class SeasonRepository
             $query->with('writers', 'directors', 'guests');
             $query->orderBy('episodes.numero', 'asc');
         }])
+        ->orderBy('seasons.name', 'asc')
         ->get();
     }
 }

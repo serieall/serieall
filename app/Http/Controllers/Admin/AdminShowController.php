@@ -143,6 +143,7 @@ class AdminShowController extends Controller
         $navActive = 'show';
 
         $show = $this->adminShowRepository->getAllInformationsOnShowByID($id);
+        dd($show);
         $genres = $this->adminShowRepository->formatRequestInVariable($show->genres);
         $channels = $this->adminShowRepository->formatRequestInVariable($show->channels);
         $nationalities = $this->adminShowRepository->formatRequestInVariable($show->nationalities);

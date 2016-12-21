@@ -27,7 +27,7 @@ class TempsSeeder extends Seeder
 
         DB::table('temps')->insert([
             'key' => 'last_update',
-            'value' => '',
+            'value' => '1482331983',
             'created_at' => $date,
             'updated_at' => $date
         ]);

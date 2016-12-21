@@ -57,9 +57,9 @@ class Episode extends Model {
 		return $this->belongsTo('App\Models\Season');
 	}
 
-	public function artists()
+    public function artists()
 	{
-		return $this->morphToMany('App\Models\Artist', 'artistable');
+        return $this->morphToMany('App\Models\Artist', 'artistable');
 	}
 
     public function writers()

@@ -169,10 +169,18 @@ class AdminShowRepository
         return $artists;
     }
 
+    /**
+     * @param $id
+     * @return Show|\Illuminate\Database\Eloquent\Builder
+     */
     public function getAllInformationsOnShowByID($id){
         return $this->show->where('shows.id', '=', $id)->with('channels', 'nationalities', 'creators', 'genres')->first();
     }
 
+    /**
+     * @param $objets
+     * @return string
+     */
     public function formatRequestInVariable($objets){
         $liste = '';
         // Pour chaque chaine on incrémente dans une variable
