@@ -377,7 +377,7 @@
                                                     <div class="field">
                                                         <label>Réalisateur(s) de l'épisode</label>
                                                         <div class="ui fluid multiple search selection dropdown artistsDropdown">
-                                                            <input class="episodeInputDirectors" id="seasons.{{ $season->name }}.episodes.{{ $episode->numero}}.directors" name="seasons[{{ $season->name }}][episodes][{{ $episode->numero}}][directors]" type="hidden" value="
+                                                            <input class="episodeInputDirectors" id="seasons.{{ $season->name }}.episodes.{{ $episode->numero}}.directors" name="seasons[{{ $season->name }}][episodes][{{ $episode->numero}}][directors]" type="hidden"
                                                                 <?php $listeDirectors = "" ?>
                                                                 @foreach($episode->directors as $director)
                                                                     @if ($loop->last)
@@ -386,8 +386,7 @@
                                                                     @endif
                                                                     <?php $listeDirectors.= "$director->name," ; ?>
                                                                 @endforeach
-                                                                <?php echo $listeDirectors; ?>
-                                                               ">
+                                                                value="{{  $listeDirectors }}">
                                                             <i class="dropdown icon"></i>
                                                             <div class="default text">Choisir</div>
                                                         </div>
@@ -397,7 +396,7 @@
                                                     <div class="field">
                                                         <label>Scénariste(s) de l'épisode</label>
                                                         <div class="ui fluid multiple search selection dropdown artistsDropdown">
-                                                            <input class="episodeInputWriters" id="seasons.{{ $season->name }}.episodes.{{ $episode->numero}}.writers" name="seasons[{{ $season->name }}][episodes][{{ $episode->numero}}][writers]" type="hidden" value="
+                                                            <input class="episodeInputWriters" id="seasons.{{ $season->name }}.episodes.{{ $episode->numero}}.writers" name="seasons[{{ $season->name }}][episodes][{{ $episode->numero}}][writers]" type="hidden"
                                                                 <?php $listeWriters = "" ?>
                                                                 @foreach($episode->writers as $writer)
                                                                     @if ($loop->last)
@@ -406,8 +405,7 @@
                                                                     @endif
                                                                     <?php $listeWriters.= "$writer->name," ; ?>
                                                                 @endforeach
-                                                                <?php echo $listeWriters; ?>
-                                                            ">
+                                                                value="{{ $listeWriters }}">
                                                             <i class="dropdown icon"></i>
                                                             <div class="default text">Choisir</div>
                                                         </div>
@@ -417,7 +415,7 @@
                                                     <div class="field">
                                                         <label>Guest(s) de l'épisode</label>
                                                         <div class="ui fluid multiple search selection dropdown artistsDropdown">
-                                                            <input class="episodeInputGuests" id="seasons.{{ $season->name }}.episodes.{{ $episode->numero}}.guests" name="seasons[{{ $season->name }}][episodes][{{ $episode->numero}}][guests]" type="hidden" value="
+                                                            <input class="episodeInputGuests" id="seasons.{{ $season->name }}.episodes.{{ $episode->numero}}.guests" name="seasons[{{ $season->name }}][episodes][{{ $episode->numero}}][guests]" type="hidden"
                                                                 <?php $listeGuests = "" ?>
                                                                 @foreach($episode->guests as $guest)
                                                                     @if ($loop->last)
@@ -427,7 +425,7 @@
                                                                     <?php $listeGuests.= "$guest->name," ; ?>
                                                                 @endforeach
                                                                 <?php echo $listeGuests; ?>
-                                                            ">
+                                                                value="{{ $listeGuests }}">
                                                             <i class="dropdown icon"></i>
                                                             <div class="default text">Choisir</div>
 
