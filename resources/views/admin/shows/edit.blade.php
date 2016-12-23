@@ -22,7 +22,7 @@
         </span>
     </h1>
 
-    <form class="ui form" method="POST" action="{{ route('adminShow.update', $show->id) }}">
+    <form class="ui form" method="POST" action="{{ route('adminShow.updateManually') }}">
         {{ csrf_field() }}
 
         <div class="ui centered grid">
@@ -37,9 +37,10 @@
                     <div class="ui teal segment">
                         <h4 class="ui dividing header">Informations générales sur la série</h4>
                         <div class="two fields">
-                            <div class="field">
+                            <input class="showInputID" name="id" type="hidden" value="{{ $show->id}}">
+                            <div class="disabled field">
                                 <label>Nom original de la série</label>
-                                <input disabled id="name" name="name" placeholder="Nom original de la série" type="text" value="{{ old('name', $show->name) }}">
+                                <input id="name" name="name" placeholder="Nom original de la série" type="text" value="{{ $show->name }}">
                                 <div class="ui red hidden message"></div>
                             </div>
 
@@ -588,7 +589,7 @@
                                 $(dataSeason).addClass('red');
                                 $(dataSeason).css('color', '#DB3041');
                             }
-                            else if(key.indexOf('rentree.') > -1) {
+                            else if(key.indexOf('taux_erectile') > -1) {
                                 var dataRentree = $('.dataRentree');
 
                                 $(dataRentree).addClass('red');

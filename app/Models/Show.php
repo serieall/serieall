@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $name_fr
  * @property string $synopsis
+ * @property string $synopsis_fr
  * @property int $format
  * @property int $annee
  * @property bool $encours
@@ -33,12 +34,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Genre[] $genres
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[] $creators
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[] $actors
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereThetvdbId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereShowUrl($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereNameFr($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereSynopsis($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereSynopsisFr($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereFormat($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereAnnee($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereEncours($value)
@@ -52,8 +56,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property string $synopsis_fr
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereSynopsisFr($value)
  */
 class Show extends Model {
 
@@ -75,16 +77,6 @@ class Show extends Model {
 	{
 		return $this->morphToMany('App\Models\Artist', 'artistable');
 	}
-
-	public function actors()
-    {
-        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'actor');
-    }
-
-    public function creators()
-    {
-        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'creator');
-    }
 
 	public function channels()
 	{
@@ -109,6 +101,16 @@ class Show extends Model {
 	public function articles()
 	{
 		return $this->morphToMany('App\Models\Article', 'articlable');
+	}
+
+	public function creators()
+	{
+		return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'creator');
+	}
+
+	public function actors()
+	{
+		return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'actor');
 	}
 
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Repositories\LogRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowCreateManuallyRequest;
+use App\Http\Requests\ShowUpdateManuallyRequest;
 
 use App\Repositories\Admin\AdminShowRepository;
 use App\Repositories\SeasonRepository;
@@ -17,11 +19,13 @@ class AdminShowController extends Controller
 
     protected $adminShowRepository;
     protected $seasonRepository;
+    protected $logRepository;
 
-    public function __construct(AdminShowRepository $adminShowRepository, SeasonRepository $seasonRepository)
+    public function __construct(AdminShowRepository $adminShowRepository, SeasonRepository $seasonRepository, LogRepository $logRepository)
     {
         $this->adminShowRepository = $adminShowRepository;
         $this->seasonRepository = $seasonRepository;
+        $this->logRepository = $logRepository;
     }
 
     /**
@@ -110,8 +114,6 @@ class AdminShowController extends Controller
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
-        Log::info($inputs);
-
         $createOK = $this->adminShowRepository->createManuallyShowJob($inputs);
 
         if($createOK) {
@@ -142,6 +144,8 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
+
+
         $show = $this->adminShowRepository->getAllInformationsOnShowByID($id);
 
         $genres = $this->adminShowRepository->formatRequestInVariable($show->genres);
@@ -162,13 +166,19 @@ class AdminShowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param ShowUpdateManuallyRequest|Request $request
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function update(Request $request, $id)
+    public function updateManually(ShowUpdateManuallyRequest $request)
     {
-        //
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        $this->adminShowRepository->updateManuallyShowJob($inputs);
+
+        Log::info('test');
+        return response()->json();
+
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -30,6 +29,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Episode[] $episodes
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Poll[] $polls
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\List_log[] $logs
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUserUrl($value)
@@ -79,6 +79,11 @@ class User extends Authenticatable {
 	public function polls()
 	{
 		return $this->belongsToMany('App\Models\Poll');
+	}
+
+	public function logs()
+	{
+		return $this->hasMany('App\Models\List_log');
 	}
 
 }

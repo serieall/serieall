@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Artistable
  *
- * @property int $id
  * @property int $artist_id
  * @property int $artistable_id
  * @property string $artistable_type
  * @property string $profession
  * @property string $role
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Artistable whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artistable whereArtistId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artistable whereArtistableId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artistable whereArtistableType($value)

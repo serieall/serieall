@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Articlable
  *
- * @property int $id
  * @property int $article_id
  * @property int $articlable_id
  * @property string $articlable_type
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Articlable whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Articlable whereArticleId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Articlable whereArticlableId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Articlable whereArticlableType($value)

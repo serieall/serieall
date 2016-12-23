@@ -4,8 +4,10 @@
 namespace App\Repositories\Admin;
 
 use App\Jobs\AddShowManually;
+use App\Jobs\UpdateShowFromTVDB;
 use App\Models\Show;
 use App\Jobs\AddShowFromTVDB;
+use App\Jobs\UpdateShowManually;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -72,6 +74,14 @@ class AdminShowRepository
         {
             return $createOK = false;
         }
+    }
+
+    /**
+     * @param $inputs
+     * @return bool
+     */
+    public function updateManuallyShowJob($inputs){
+        dispatch(new UpdateShowManually($inputs));
     }
 
     /**

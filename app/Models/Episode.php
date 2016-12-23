@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $name_fr
  * @property string $resume
+ * @property string $resume_fr
  * @property string $particularite
  * @property string $diffusion_us
  * @property string $diffusion_fr
@@ -27,12 +28,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[] $directors
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[] $writers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[] $guests
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereThetvdbId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereNumero($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereNameFr($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereResume($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereResumeFr($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereParticularite($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereDiffusionUs($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereDiffusionFr($value)
@@ -43,8 +48,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property string $resume_fr
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereResumeFr($value)
  */
 class Episode extends Model {
 
@@ -57,25 +60,10 @@ class Episode extends Model {
 		return $this->belongsTo('App\Models\Season');
 	}
 
-    public function artists()
+	public function artists()
 	{
-        return $this->morphToMany('App\Models\Artist', 'artistable');
+		return $this->morphToMany('App\Models\Artist', 'artistable');
 	}
-
-    public function writers()
-    {
-        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'writer');
-    }
-
-    public function directors()
-    {
-        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'director');
-    }
-
-    public function guests()
-    {
-        return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'guest');
-    }
 
 	public function comments()
 	{
@@ -90,6 +78,21 @@ class Episode extends Model {
 	public function articles()
 	{
 		return $this->morphToMany('App\Models\Article', 'articlable');
+	}
+
+	public function directors()
+	{
+		return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'director');
+	}
+
+	public function writers()
+	{
+		return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession','writer');
+	}
+
+	public function guests()
+	{
+		return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'guest');
 	}
 
 }

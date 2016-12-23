@@ -1,21 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Youkoulayley
- * Date: 20/10/2016
- * Time: 11:46
- */
 
 use App\Models\Log;
 
 /**
- * @param $logName
+ * @param $logID
  * @param $logMessage
  * @return bool
+ * @internal param $logJob
+ * @internal param $logObjet
+ * @internal param $logName
  */
-function saveLogMessage($logName, $logMessage){
+function saveLogMessage($logID, $logMessage){
     $log = new Log();
-    $log->name = $logName;
+    $log->list_log_id = $logID;
     $log->message = $logMessage;
     $log->save();
 

@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Show_user
  *
- * @property int $id
  * @property int $show_id
  * @property int $user_id
  * @property bool $state
  * @property string $message
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show_user whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show_user whereShowId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show_user whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show_user whereState($value)

@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Episode_user
  *
- * @property int $id
  * @property int $episode_id
  * @property int $user_id
  * @property int $rate
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode_user whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode_user whereEpisodeId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode_user whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode_user whereRate($value)

@@ -37,9 +37,11 @@ Route::post('changepassword', 'UserController@changePassword');
 */
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin', 'Admin\AdminController@index')->name('adminIndex');
+    Route::get('admin/log/{id}', 'Admin\AdminController@viewLog')->name('adminLog');
 
     Route::get('adminShow/createManually', 'Admin\AdminShowController@createManually')->name('adminShow.createManually');
     Route::post('adminShow/storeManually', 'Admin\AdminShowController@storeManually')->name('adminShow.storeManually');
+    Route::post('adminShow/updateManually', 'Admin\AdminShowController@updateManually')->name('adminShow.updateManually');
     Route::get('adminShow/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('adminShow.redirectJSON');
     Route::resource('adminShow', 'Admin\AdminShowController');
 });

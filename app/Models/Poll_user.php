@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Poll_user
  *
- * @property int $id
  * @property int $poll_id
  * @property int $user_id
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Poll_user whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Poll_user wherePollId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Poll_user whereUserId($value)
  * @mixin \Eloquent
