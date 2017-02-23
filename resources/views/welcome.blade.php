@@ -8,7 +8,7 @@
                 <div class="panel-heading">Bienvenue</div>
 
                 <div class="panel-body">
-                    Page par défaut
+                    Coucou le CESI
                 </div>
             </div>
         </div>
