@@ -16,9 +16,9 @@
 
 @section('content')
     <h1 class="ui header" id="admin-titre">
-        Ajouter une série manuellement
+        Modifier une série
         <span class="sub header">
-            Remplir le formulaire ci-dessous pour ajouter une nouvelle série
+            Attention, une modification de série manuelle pourrait être écrasée par une future mise à jour automatique en provenance de TheTVDB.
         </span>
     </h1>
 

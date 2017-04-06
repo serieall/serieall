@@ -8,7 +8,7 @@
                 <div class="panel-heading">Bienvenue</div>
 
                 <div class="panel-body">
-                    Coucou le CESI
+                    Bienvenue
                 </div>
             </div>
         </div>
