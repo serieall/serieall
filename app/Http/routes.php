@@ -44,4 +44,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('adminShow/updateManually', 'Admin\AdminShowController@updateManually')->name('adminShow.updateManually');
     Route::get('adminShow/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('adminShow.redirectJSON');
     Route::resource('adminShow', 'Admin\AdminShowController');
+
+    Route::resource('adminArtist', 'Admin\AdminArtistController');
 });
