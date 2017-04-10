@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Repositories\Admin;
+namespace App\Repositories;
 
 use App\Jobs\AddShowManually;
 use App\Jobs\UpdateShowFromTVDB;
@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /**
- * Class AdminShowRepository
+ * Class ShowRepository
  * @package App\Repositories\Admin
  */
-class AdminShowRepository
+class ShowRepository
 {
     /**
      * @var Show

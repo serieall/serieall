@@ -195,9 +195,15 @@
 
                         @foreach($show->actors as $actor)
                             <div class="ui segment div-actor">
-                                <button class="ui right floated negative basic circular icon button remove-actor">
-                                    <i class="remove icon"></i>
-                                </button>
+                               <form action="{{ route('adminActors.destroy', $show->id) }}" method="post" >
+                                   {{ csrf_field() }}
+
+                                   <input type="hidden" name="_method" value="DELETE">
+
+                                   <button class="ui right floated negative basic circular icon button remove-actor-manually">
+                                       <i class="remove icon"></i>
+                                   </button>
+                               </form>
 
                                 <div class="two fields">
 
@@ -543,6 +549,72 @@
                     exclusive: false
                 })
         ;
+
+        // Fonction de création et de suppression des nouveau acteurs
+        $(function(){
+            // Définition des variables
+            var max_fields  =   50; // Nombre maximums de ligne sautorisées
+            var actor_number  =  $('.div-actors').length; // Nombre d'acteurs
+
+            // Suppression d'un acteur
+            $(document).on('click', '.remove-actor', function(){
+                $(this).parents('.div-actor').remove();
+                $(this).find(".actor_name-input").attr( "name", 'actors[' + index + '][name]');
+                $(this).find(".actor_role-input").attr( "name", 'actors[' + index + '[role]');
+                $(this).find(".actor_name-input").attr( "id", 'actors.' + index + '.name');
+                $(this).find(".actor_role-input").attr( "id", 'actors.' + index + '.role');
+            });
+
+            // Ajouter un acteur
+            $('.add-actor').click(function(e) {
+                e.preventDefault();
+
+                if (actor_number < max_fields) {
+                    var html = '<div class="ui segment div-actor">'
+                        + '<button class="ui right floated negative basic circular icon button remove-actor">'
+                        + '<i class="remove icon"></i>'
+                        + '</button>'
+                        + '<div class="two fields">'
+
+                        + '<div class="field">'
+                        + '<label>Nom de l\'acteur</label>'
+                        + '<div class="ui fluid search selection dropdown actorDropdown">'
+                        + '<input class="actor_name-input" id="actors.'+ actor_number +'.name_actor" name="actors[' + actor_number + '][name_actor]" type="hidden" value="{{ old('guests') }}">'
+                        + '<i class="dropdown icon"></i>'
+                        + '<div class="default text">Choisir</div>'
+                        + '<div class="menu">'
+                        + '@foreach($actors as $actor)'
+                        + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                        + '@endforeach'
+                        + '</div>'
+                        + '</div>'
+                        + '<div class="ui red hidden message"></div>'
+                        + '</div>'
+
+                        + '<div class="field">'
+                        + '<label class="actor_role-label">Rôle</label>'
+                        + '<input class="actor_role-input" id="actors.'+ actor_number +'.role_actor" name="actors[' + actor_number + '][role_actor]" placeholder="Rôle" type="text" value="{{ old('role_actor') }}">'
+                        + '<div class="ui red hidden message"></div>'
+
+                        + '</div>'
+                        + '</div>'
+                        + '</div>';
+
+                    $(function() {
+                        $('.actorDropdown')
+                            .dropdown({
+                                allowAdditions: true,
+                                forceSelection : false,
+                                minCharacters: 4
+                            });
+                    });
+
+                    ++actor_number;
+
+                    $('.div-actors').append(html);
+                }
+            });
+        });
 
         // Submission
         $(document).on('submit', 'form', function(e) {

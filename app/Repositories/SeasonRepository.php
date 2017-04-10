@@ -7,7 +7,7 @@ use App\Models\Season;
 use Illuminate\Support\Facades\Log;
 
 /**
- * Class AdminShowRepository
+ * Class SeasonRepository
  * @package App\Repositories\Admin
  */
 class SeasonRepository

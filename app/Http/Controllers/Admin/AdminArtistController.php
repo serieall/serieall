@@ -4,28 +4,29 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-use App\Repositories\LogRepository;
+use App\Repositories\ArtistRepository;
+use App\Repositories\showRepository;
+use App\Repositories\SeasonRepository;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowCreateManuallyRequest;
 use App\Http\Requests\ShowUpdateManuallyRequest;
 
-use App\Repositories\ShowRepository;
-use App\Repositories\SeasonRepository;
 use Illuminate\Support\Facades\Log;
 
-class AdminShowController extends Controller
+class AdminArtistController extends Controller
 {
 
+    protected $artistRepository;
     protected $showRepository;
     protected $seasonRepository;
-    protected $logRepository;
 
-    public function __construct(ShowRepository $showRepository, SeasonRepository $seasonRepository, LogRepository $logRepository)
+    public function __construct(ArtistRepository $artistRepository, showRepository $showRepository, SeasonRepository $seasonRepository)
     {
+        $this->artistRepository = $artistRepository;
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
-        $this->logRepository = $logRepository;
     }
 
     /**

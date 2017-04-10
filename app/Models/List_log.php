@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\List_log whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\List_log whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\User $user
  */
 class List_log extends Model {
 

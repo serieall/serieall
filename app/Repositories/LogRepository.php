@@ -8,7 +8,7 @@ use App\Models\List_log;
 use Carbon\Carbon;
 
 /**
- * Class AdminShowRepository
+ * Class ShowRepository
  * @package App\Repositories\Admin
  */
 class LogRepository
