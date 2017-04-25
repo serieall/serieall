@@ -28,6 +28,7 @@ class AdminController extends Controller
 
     /**
      * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function viewLog($id){
         #Variable qui détecte dans quelle partie de l'admin on se trouve

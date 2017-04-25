@@ -8,23 +8,16 @@
     <title>SérieAll BETA</title>
     <link rel="icon" href="images/logo_v2.ico">
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+    <!-- CSS -->
+    {{ Html::style('/semantic/semantic.css') }}
+    {{ Html::style('/semantic/semantic_perso.css') }}
+    {{ Html::style('/js/jquery.css') }}
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
+    <!-- Javascript -->
+    {{ Html::script('/js/jquery.js') }}
+    {{ Html::script('/js/jquery.ui.js') }}
+    {{ Html::script('/js/datatables.js') }}
+    {{ Html::script('/semantic/semantic.js') }}
 
     <!-- Piwik -->
     <script type="text/javascript">
@@ -42,64 +35,131 @@
     <noscript><p><img src="//analytics.journeytotheit.ovh/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
 </head>
-<body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Série-All
+<body>
+    <div class="ui secondary pointing menu">
+        <a href="/"><img src="images/logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
+        <a class="item
+            @if($navActive == 'show')
+                active
+            @endif">
+            Séries TV
+        </a>
+        <a class="item
+           @if($navActive == 'articles')
+                active
+            @endif">
+            Articles
+        </a>
+        <a class="item
+           @if($navActive == 'planning')
+                active
+            @endif">
+            Planning
+        </a>
+        <a class="item
+            @if($navActive == 'classement')
+                active
+            @endif">
+            Classements
+        </a>
+        <div class="right secondary pointing menu">
+            @if (Auth::guest())
+                <a class="item
+                    @if($navActive == 'articles')
+                        active
+                    @endif" href="{{ url('/login') }}">
+                    <div>
+                        Connexion
+                        <i class="sign in icon"></i>
+                    </div>
                 </a>
-            </div>
+                <a class="item
+                    @if($navActive == 'articles')
+                        active
+                    @endif" href="{{ url('/register') }}">
+                    <div>
+                        Inscription
+                        <i class="wizard icon"></i>
+                    </div>
+                </a>
+            @else
+                <div class="ui dropdown item">
+                    {{ Auth::user()->username }} <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="{{ url('/') }}">
+                            Revenir sur le site
+                        </a>
+                        <a class="item" href="{{ url('/logout') }}">
+                            Se déconnecter
+                        </a>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="ui centered grid">
+        <div class="row">
+                @yield('content')
+        </div>
+    </div>
+    <div id="footer" class="ui vertical footer segment">
+        <div class="ui center aligned container">
+            <div class="ui centered stackable grid">
+                <div class="centered three wide column">
+                    <h3>Série-All</h3>
+                    <ul class="ui list">
+                        <li>A propos</li>
+                        <li>Notre équipe</li>
+                        <li>Mentions légales</li>
+                        <li>Nous contacter</li>
+                    </ul>
+                </div>
+                <div class="three wide column">
+                    <h3>Communauté</h3>
+                    <ul class="ui list">
+                        <li>Inscription</li>
+                        <li>Liste des membres</li>
+                        <li>Forum</li>
+                        <li>Rejoindre l'équipe</li>
+                    </ul>
+                </div>
+                <div class="center aligned three wide column">
+                    <div class="row">
+                        <i class="circular facebook f big icon"></i>
+                        <i class="circular twitter big icon"></i>
+                    </div>
+                    <div class="row">
+                        <i class="circular mixcloud big icon"></i>
+                        <i class="circular rss big icon"></i>
+                        <i class="circular spotify big icon"></i>
+                    </div>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Accueil</a></li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Connexion</a></li>
-                        <li><a href="{{ url('/register') }}">Inscription</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->username }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                @if(Auth::user()->role > 1)
-                                    <li><a href="{{ url('/admin')}}"><i class = "fa fa-btn fa-lock"></i>Administration</a></li>
-                                @endif
-                                <li><a href="{{ url('/profil', Auth::user()->username)}}"><i class = "fa fa-btn fa-user"></i>Profil</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Se déconnecter</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
+                </div>
+                <div class="three wide column">
+                    <h3>Séries</h3>
+                    <ul class="ui list">
+                        <li>Liste des séries</li>
+                        <li>Articles</li>
+                        <li>Planning</li>
+                        <li>Classement</li>
+                    </ul>
+                </div>
+                <div class="three wide column">
+                    <h3>Partenaires</h3>
+                    <ul class="ui list">
+                        <li>VODD</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </nav>
-
-    @yield('content')
-
-    <!-- JavaScripts -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#footer .icon').hover(function(){
+                $(this).transition('tada');
+            }, function(){});
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>
