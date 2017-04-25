@@ -114,11 +114,10 @@
 }
 
 #footer {
+    margin-top: 2rem;
     background: #213d64;
     padding: 4em 0em 4em 0em;
     width: 100%;
-    position: absolute;
-    bottom: 0;
 }
 
 #footer ul {
@@ -141,4 +140,31 @@
 #footer ul.ui.list li:before, .ui.bulleted.list .list > .item:before, .ui.bulleted.list > .item:before {
     content: '■';
     color: #1074b2;
+}
+
+#titre-page {
+    padding: 7rem 0;
+    min-height: 180px;
+    margin-bottom: 2rem;
+}
+
+#titre-page:after {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background-size: cover;
+    opacity: 0.45;
+    filter: blur(5px);
+    box-sizing: inherit;
+    background-image: url("/images/inscription.jpg");
+    background-position: 0% 15%;
+}
+
+#titre-page h1 {
+    color: white;
+    text-shadow: 0 0 7px black;
 }

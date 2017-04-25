@@ -19,6 +19,7 @@ Route::get('/', function () {
     Partie Authentification
 */
 Auth::routes();
+
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');
 

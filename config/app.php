@@ -160,6 +160,7 @@ return [
         \App\Providers\BroadcastServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
 
         /*

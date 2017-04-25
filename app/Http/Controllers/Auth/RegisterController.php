@@ -38,6 +38,17 @@ class RegisterController extends Controller
         $this->middleware('guest');
         $this->activationService = $activationService;
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $navActive = 'register';
+
+        return view('auth.register', compact('navActive'));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -50,6 +61,7 @@ class RegisterController extends Controller
             'username' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
     }
     /**

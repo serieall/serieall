@@ -98,9 +98,7 @@
         </div>
     </div>
     <div class="ui centered grid">
-        <div class="row">
-                @yield('content')
-        </div>
+        @yield('content')
     </div>
     <div id="footer" class="ui vertical footer segment">
         <div class="ui center aligned container">
