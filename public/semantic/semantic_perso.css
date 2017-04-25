@@ -168,3 +168,11 @@
     color: white;
     text-shadow: 0 0 7px black;
 }
+
+.register-validation {
+    text-align: center;
+}
+
+.rc-anchor .rc-anchor-normal .rc-anchor-light {
+    text-align: center;
+}

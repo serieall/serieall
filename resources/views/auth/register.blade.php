@@ -62,17 +62,34 @@
                     @endif
                 </div>
 
-                <div class="field {{ $errors->has('captcha') ? ' error' : '' }}">
-                    {!! app('captcha')->display() !!}
+                <div class="ui section divider"></div>
 
-                    @if ($errors->has('captcha'))
-                        <div class="ui red message">
-                            <strong>{{ $errors->first('captcha') }}</strong>
+                <div class="register-validation">
+                    <div class="field {{ $errors->has('captcha') ? ' error' : '' }}">
+                        {!! app('captcha')->display() !!}
+
+                        @if ($errors->has('captcha'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('captcha') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="field {{ $errors->has('cgu') ? ' error' : '' }}">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="cgu">
+                            <label>J'ai lu et j'accepte les conditions générales d'utilisation</label>
                         </div>
-                    @endif
-                </div>
 
-                <button class="positive ui button" type="submit">S'incrire !</button>
+                        @if ($errors->has('cgu'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('cgu') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+
+                    <button class="positive ui button" type="submit">S'incrire !</button>
+                </div>
             </form>
         </div>
     </div>
