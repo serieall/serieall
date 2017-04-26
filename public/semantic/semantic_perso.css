@@ -87,7 +87,7 @@
     height: 50px;
 }
 
-/*SHOW*/
+/*HEADER*/
 .ui.secondary.pointing.menu .active.item {
     border-color: #1074b2;
 }
@@ -113,6 +113,8 @@
     border-bottom: 1px solid rgba(34, 36, 38, 0.15);
 }
 
+
+/* FOOTER */
 #footer {
     margin-top: 2rem;
     background: #213d64;
@@ -142,37 +144,34 @@
     color: #1074b2;
 }
 
-#titre-page {
-    padding: 7rem 0;
-    min-height: 180px;
-    margin-bottom: 2rem;
-}
-
-#titre-page:after {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: -1;
-    width: 100%;
+/* FIX FOOTER TO BOTTOM */
+#body {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    content: '';
-    background-size: cover;
-    opacity: 0.45;
-    filter: blur(5px);
-    box-sizing: inherit;
-    background-image: url("/images/inscription.jpg");
-    background-position: 0% 15%;
+    background-color: #f3f3f3;
+}
+#header {
+    background-color: white;
 }
 
-#titre-page h1 {
-    color: white;
-    text-shadow: 0 0 7px black;
+#footer,#header {
+    flex:none;
 }
 
-.register-validation {
+#content {
+    flex: 1 0 auto;
+}
+
+/* BUTTON */
+.ui.buttons .or:before {
+    content: 'ou';
+}
+
+.button-center {
     text-align: center;
 }
 
-.rc-anchor .rc-anchor-normal .rc-anchor-light {
-    text-align: center;
+.ui.dropdown .menu {
+    z-index: 1001;
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.19 on 2017-04-25.
+ * Generated for Laravel 5.4.19 on 2017-04-26.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12163,61 +12163,6 @@ namespace Barryvdh\Debugbar {
     }         
 }
     
-namespace Mews\Captcha\Facades {
-
-    class Captcha {
-        
-        /**
-         * Create captcha image
-         *
-         * @param string $config
-         * @return \Mews\Captcha\ImageManager->response 
-         * @static 
-         */
-        public static function create($config = 'default')
-        {
-            return \Mews\Captcha\Captcha::create($config);
-        }
-        
-        /**
-         * Captcha check
-         *
-         * @param $value
-         * @return bool 
-         * @static 
-         */
-        public static function check($value)
-        {
-            return \Mews\Captcha\Captcha::check($value);
-        }
-        
-        /**
-         * Generate captcha image source
-         *
-         * @param null $config
-         * @return string 
-         * @static 
-         */
-        public static function src($config = null)
-        {
-            return \Mews\Captcha\Captcha::src($config);
-        }
-        
-        /**
-         * Generate captcha image html tag
-         *
-         * @param null $config
-         * @return string 
-         * @static 
-         */
-        public static function img($config = null)
-        {
-            return \Mews\Captcha\Captcha::img($config);
-        }
-        
-    }         
-}
-    
     
 namespace {
 
@@ -14255,8 +14200,6 @@ namespace {
     class Html extends \Collective\Html\HtmlFacade {}
     
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
-    
-    class Captcha extends \Mews\Captcha\Facades\Captcha {}
     
 }
 

@@ -35,8 +35,8 @@
     <noscript><p><img src="//analytics.journeytotheit.ovh/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
 </head>
-<body>
-    <div class="ui secondary pointing menu">
+<body id="body">
+    <div class="ui secondary pointing menu" id="header">
         <a href="/"><img src="images/logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
         <a class="item
             @if($navActive == 'show')
@@ -65,7 +65,7 @@
         <div class="right secondary pointing menu">
             @if (Auth::guest())
                 <a class="item
-                    @if($navActive == 'articles')
+                    @if($navActive == 'login')
                         active
                     @endif" href="{{ url('/login') }}">
                     <div>
@@ -74,7 +74,7 @@
                     </div>
                 </a>
                 <a class="item
-                    @if($navActive == 'articles')
+                    @if($navActive == 'register')
                         active
                     @endif" href="{{ url('/register') }}">
                     <div>
@@ -83,21 +83,34 @@
                     </div>
                 </a>
             @else
-                <div class="ui dropdown item">
+                <div class="ui pointing labeled icon dropdown link item">
                     {{ Auth::user()->username }} <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href="{{ url('/') }}">
-                            Revenir sur le site
-                        </a>
-                        <a class="item" href="{{ url('/logout') }}">
-                            Se déconnecter
-                        </a>
+                        @if(Auth::user()->role > 1)
+                            <div class="item">
+                                <i class="lock icon"></i>
+                                <a href="{{ url('/admin')}}">Administration</a>
+                            </div>
+                        @endif
+                        <div class="item">
+                            <i class="user icon"></i>
+                            <a href="{{ url('/profil', Auth::user()->username)}}}">
+                                Profil
+                            </a>
+                        </div>
+
+                        <div class="item">
+                            <i class="sign out icon"></i>
+                            <a href="{{ url('/logout') }}">
+                                Se déconnecter
+                            </a>
+                        </div>
                     </div>
                 </div>
             @endif
         </div>
     </div>
-    <div class="ui centered grid">
+    <div class="ui centered grid" id="content">
         @yield('content')
     </div>
     <div id="footer" class="ui vertical footer segment">
@@ -156,6 +169,11 @@
             $('#footer .icon').hover(function(){
                 $(this).transition('tada');
             }, function(){});
+
+            $('.dropdown')
+                .dropdown()
+            ;
+
         });
     </script>
     @yield('scripts')

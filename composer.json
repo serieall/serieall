@@ -13,7 +13,8 @@
         "pusher/pusher-php-server": "^2.6",
         "barryvdh/laravel-ide-helper": "^2.2",
         "doctrine/dbal": "^2.5",
-        "anhskohbo/no-captcha": "^2.3"
+        "anhskohbo/no-captcha": "^2.3",
+        "thomaswelton/laravel-gravatar": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
