@@ -110,6 +110,27 @@
             @endif
         </div>
     </div>
+    @if (session('status'))
+        <div id="message-top" class="ui container centered grid">
+            <div class="ui success compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    <p>{{ session('status') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if (session('warning'))
+        <div id="message-top" class="ui container centered grid">
+            <div class="ui orange compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    <p>{{ session('warning') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="ui centered grid" id="content">
         @yield('content')
     </div>
