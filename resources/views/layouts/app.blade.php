@@ -37,7 +37,7 @@
 </head>
 <body id="body">
     <div class="ui secondary pointing menu" id="header">
-        <a href="/"><img src="images/logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
+        <a href="/"><img src="/images/logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
         <a class="item
             @if($navActive == 'show')
                 active
@@ -83,28 +83,35 @@
                     </div>
                 </a>
             @else
-                <div class="ui pointing labeled icon dropdown link item">
-                    {{ Auth::user()->username }} <i class="dropdown icon"></i>
+
+                <div class="icon item">
+                    <i class="large alarm icon"></i>
+                </div>
+                <div class="ui pointing labeled icon dropdown link item" @if($navActive == 'profil')id="profil-actif"@endif>
+                    <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
+                    <span>{{ Auth::user()->username }}</span> <i class="dropdown icon"></i>
                     <div class="menu">
                         @if(Auth::user()->role > 1)
-                            <div class="item">
-                                <i class="lock icon"></i>
-                                <a href="{{ url('/admin')}}">Administration</a>
-                            </div>
+                            <a href="{{ url('/admin')}}">
+                                <div class="item">
+                                    <i class="lock icon"></i>
+                                    Administration
+                                </div>
+                            </a>
                         @endif
-                        <div class="item">
-                            <i class="user icon"></i>
-                            <a href="{{ url('/profil', Auth::user()->username)}}}">
+                        <a href="{{ url('/profil', Auth::user()->username) }}">
+                            <div class="item">
+                                <i class="user icon"></i>
                                 Profil
-                            </a>
-                        </div>
+                            </div>
+                        </a>
 
-                        <div class="item">
-                            <i class="sign out icon"></i>
-                            <a href="{{ url('/logout') }}">
+                        <a href="{{ url('/logout') }}">
+                            <div class="item">
+                                <i class="sign out icon"></i>
                                 Se déconnecter
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             @endif
@@ -195,6 +202,14 @@
                 .dropdown()
             ;
 
+            $('.message .close')
+                .on('click', function() {
+                    $(this)
+                        .closest('.message')
+                        .transition('fade')
+                    ;
+                })
+            ;
         });
     </script>
     @yield('scripts')

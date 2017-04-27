@@ -21,10 +21,11 @@ class UserController extends Controller
     }
 
     public function getProfile($username){
+        $navActive = 'profil';
 
         $user = $this->userRepository->getUserByUsername($username);
 
-        return view('users.profile', compact('user'));
+        return view('users.profile', compact('user', 'navActive'));
     }
 
     public function changePassword(changePasswordRequest $request){
