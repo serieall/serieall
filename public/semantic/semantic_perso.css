@@ -96,11 +96,11 @@
 .ui.secondary.pointing.menu .item {
     color: #444444;
     border-bottom-width: 4px;
-    margin: auto 0 0 0;
+    margin: 2px 0 0;
+    height: 50px;
 }
 
 .ui.secondary.pointing.menu .item:hover {
-    margin: auto 0 0 0;
     border-bottom-width: 4px;
     border-color: #1074b2;
 }
@@ -121,11 +121,15 @@
     border-color: #1074b2;
 }
 
+.ui.secondary.pointing.menu .search.item{
+    border-color: transparent;
+}
+
 /* FOOTER */
 #footer {
     margin-top: 2rem;
     background: #213d64;
-    padding: 4em 0em 4em 0em;
+    padding: 4em 0 4em 0;
     width: 100%;
 }
 
@@ -175,7 +179,7 @@
     content: 'ou';
 }
 
-.button-center {
+.div-center {
     text-align: center;
 }
 
@@ -190,5 +194,7 @@
 
 .ui.pointing.dropdown.link .item {
     border-bottom: none;
+    margin: inherit;
+    height: inherit;
 }
 

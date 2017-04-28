@@ -65,7 +65,7 @@
                 <div class="field {{ $errors->has('cgu') ? ' error' : '' }}">
                     <div class="ui checkbox">
                         <input type="checkbox" name="cgu">
-                        <label>J'ai lu et j'accepte les conditions générales d'utilisation</label>
+                        <label for="cgu">J'ai lu et j'accepte les conditions générales d'utilisation</label>
                     </div>
 
                     @if ($errors->has('cgu'))
@@ -75,7 +75,7 @@
                     @endif
                 </div>
 
-                <div class="button-center">
+                <div class="div-center">
                     <button class="positive ui button" type="submit">S'incrire !</button>
                 </div>
             </form>

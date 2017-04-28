@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SérieAll BETA</title>
-    <link rel="icon" href="images/logo_v2.ico">
+    <link rel="icon" href="/images/logo_v2.ico">
 
     <!-- CSS -->
     {{ Html::style('/semantic/semantic.css') }}
@@ -63,6 +63,19 @@
             Classements
         </a>
         <div class="right secondary pointing menu">
+            <div class="ui search item">
+                <div class="ui icon input">
+                    <input class="prompt" type="text" placeholder="Rechercher une série...">
+                    <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+            </div>
+            <a class="item
+                @if($navActive == 'show')
+                    active
+                @endif">
+                Forum
+            </a>
             @if (Auth::guest())
                 <a class="item
                     @if($navActive == 'login')
@@ -117,28 +130,35 @@
             @endif
         </div>
     </div>
-    @if (session('status'))
-        <div id="message-top" class="ui container centered grid">
-            <div class="ui success compact message">
-                <i class="close icon"></i>
-                <div class="content">
-                    <p>{{ session('status') }}</p>
-                </div>
-            </div>
-        </div>
-    @endif
 
-    @if (session('warning'))
-        <div id="message-top" class="ui container centered grid">
-            <div class="ui orange compact message">
-                <i class="close icon"></i>
-                <div class="content">
-                    <p>{{ session('warning') }}</p>
+    <div class="ui centered grid" id="content">
+        @if (session('status') || session('success'))
+            <div id="message-top" class="ui container centered grid">
+                <div class="ui success compact message">
+                    <i class="close icon"></i>
+                    <div class="content">
+                        @if (session('success'))
+                            <p>{{ session('success') }}</p>
+                        @endif
+                        @if (session('status'))
+                            <p>{{ session('status') }}</p>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
-    @endif
-    <div class="ui centered grid" id="content">
+        @endif
+
+        @if (session('warning'))
+            <div id="message-top" class="ui container centered grid">
+                <div class="ui orange compact message">
+                    <i class="close icon"></i>
+                    <div class="content">
+                        <p>{{ session('warning') }}</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @yield('content')
     </div>
     <div id="footer" class="ui vertical footer segment">

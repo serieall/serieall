@@ -31,7 +31,7 @@
                 <div class="field {{ $errors->has('remember') ? ' error' : '' }}">
                     <div class="ui checkbox">
                         <input type="checkbox" name="remember">
-                        <label>Se souvenir de moi</label>
+                        <label for="remember">Se souvenir de moi</label>
                     </div>
 
                     @if ($errors->has('remember'))
@@ -41,13 +41,11 @@
                     @endif
                 </div>
 
-                <div class="button-center">
+                <div class="div-center">
                     <div class="ui large buttons">
                         <button class="ui positive button">Se connecter</button>
                         <div class="or"></div>
-                        <a href="{{ url('/password/reset') }}">
-                            <button class="ui negative button">Mot de passe oublié</button>
-                        </a>
+                        <a href="{{ url('/password/reset') }}" class="ui negative button">Mot de passe oublié</a>
                     </div>
                 </div>
             </form>
