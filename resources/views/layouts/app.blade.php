@@ -249,7 +249,8 @@
                     fields: { name: "title", url: "url" },
                     selectFirstResult: true,
                     minCharacters: 0,
-                    searchFullText: false
+                    searchFullText: false,
+                    maxResults: 0
                 });
         })
     </script>
