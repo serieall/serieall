@@ -1,10 +1,12 @@
 <?php
 namespace App\Http\Controllers\Auth;
 use App\Models\User;
+
 use App\Http\Controllers\Controller;
+use App\Services\ActivationService;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Services\ActivationService;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
@@ -28,10 +30,10 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
     protected $activationService;
+
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * RegisterController constructor.
+     * @param ActivationService $activationService
      */
     public function __construct(ActivationService $activationService)
     {
@@ -69,7 +71,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return User
+     * @return \Illuminate\Database\Eloquent\Model
      */
     protected function create(array $data)
     {

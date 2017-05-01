@@ -193,8 +193,7 @@ class ShowRepository
         return $liste;
     }
 
-    public function getShowByURL($show_url)
-    {
-        return $this->show->where('show_url', $show_url);
+    public function getShowDropdown(){
+        return $this->show->select('name', 'show_url')->get();
     }
 }

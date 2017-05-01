@@ -63,13 +63,20 @@
             Classements
         </a>
         <div class="right secondary pointing menu">
-            <div class="ui search item">
+            <div id="showDropdown" class="ui search">
                 <div class="ui icon input">
-                    <input class="prompt" type="text" placeholder="Rechercher une série...">
+                    <input class="prompt" placeholder="Rechercher une série..." type="text">
                     <i class="search icon"></i>
                 </div>
-                <div class="results"></div>
+                <div class="results">
+                    @foreach($shows as $show)
+                        <a href="{{ url('/serie', $show->show_url) }}"><div class="item" data-value="{{ $show->name }}">{{ $show->name }}</div></a>
+                    @endforeach
+                </div>
             </div>
+
+
+
             <a class="item
                 @if($navActive == 'show')
                     active
@@ -214,23 +221,43 @@
     </div>
     <script>
         $(document).ready(function() {
-            $('#footer .icon').hover(function(){
+            $('#footer .icon').hover(function () {
                 $(this).transition('tada');
-            }, function(){});
+            }, function () {
+            });
 
             $('.dropdown')
                 .dropdown()
             ;
 
             $('.message .close')
-                .on('click', function() {
+                .on('click', function () {
                     $(this)
                         .closest('.message')
                         .transition('fade')
                     ;
                 })
             ;
-        });
+
+            $('#showDropdown')
+                .search({
+                    fields: { name: "description", value: "data-value", url: "url" },
+                    apiSettings: {
+                        response: {
+                            success: true,
+                            results: [
+                                    @foreach($shows as $show)
+                                {"description": "{{ $show->name }}", "data-value": "{{ $show->show_url }}", "url": "serie/{{ $show->show_url }}"},
+                                @endforeach
+                            ]
+                        }
+                    },
+                    selectFirstResult: true,
+                    showNoResults: true,
+                    minCharacters: 0
+
+                });
+        })
     </script>
     @yield('scripts')
 </body>
