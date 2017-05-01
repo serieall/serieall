@@ -248,7 +248,8 @@
                     source : showSearch,
                     fields: { name: "title", url: "url" },
                     selectFirstResult: true,
-                    minCharacters: 0
+                    minCharacters: 0,
+                    searchFullText: false
                 });
         })
     </script>
