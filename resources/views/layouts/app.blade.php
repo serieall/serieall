@@ -72,8 +72,6 @@
                 </div>
             </div>
 
-
-
             <a class="item
                 @if($navActive == 'show')
                     active
@@ -236,23 +234,21 @@
                 })
             ;
 
+            var showSearch = [
+                    @foreach($shows as $show)
+                    {
+                        title: '{{ $show->name }}',
+                        url: '/serie/{{ $show->show_url }}'
+                    },
+                @endforeach
+        ];
+
             $('#showDropdown')
                 .search({
-                    fields: { name: "description", value: "data-value", url: "url" },
-                    apiSettings: {
-                        response: {
-                            success: true,
-                            results: [
-                                    @foreach($shows as $show)
-                                {"description": "{{ $show->name }}", "data-value": "{{ $show->show_url }}", "url": "serie/{{ $show->show_url }}"},
-                                @endforeach
-                            ]
-                        }
-                    },
+                    source : showSearch,
+                    fields: { name: "title", url: "url" },
                     selectFirstResult: true,
-                    showNoResults: true,
                     minCharacters: 0
-
                 });
         })
     </script>
