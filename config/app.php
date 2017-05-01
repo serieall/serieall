@@ -161,6 +161,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+        Dingo\Api\Provider\LaravelServiceProvider::class,
 
 
         /*
@@ -227,6 +228,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Notif' => Illuminate\Support\Facades\Notification::class,
         'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
+        'DingoApi' => Dingo\Api\Facade\API::class,
+        'DingoRoute' => Dingo\Api\Facade\Route::class,
 
     ],
 
