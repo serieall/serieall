@@ -69,9 +69,6 @@
                     <i class="search icon"></i>
                 </div>
                 <div class="results">
-                    @foreach($shows as $show)
-                        <a href="{{ url('/serie', $show->show_url) }}"><div class="item" data-value="{{ $show->name }}">{{ $show->name }}</div></a>
-                    @endforeach
                 </div>
             </div>
 
