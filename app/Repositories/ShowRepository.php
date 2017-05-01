@@ -194,6 +194,6 @@ class ShowRepository
     }
 
     public function getShowDropdown(){
-        return $this->show->select('name', 'show_url')->get();
+        return $this->show->select('name', 'show_url')->orderBy('name')->get();
     }
 }
