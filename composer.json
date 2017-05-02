@@ -15,7 +15,8 @@
         "doctrine/dbal": "^2.5",
         "anhskohbo/no-captcha": "^2.3",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "dingo/api": "1.0.*@dev"
+        "dingo/api": "1.0.*@dev",
+      "johannesschobel/dingoquerymapper": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

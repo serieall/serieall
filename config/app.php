@@ -129,7 +129,7 @@ return [
     |
     */
 
-    'providers' => [
+    'providers' => array(
 
         /*
          * Laravel Framework Service Providers...
@@ -162,7 +162,7 @@ return [
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
-
+        JohannesSchobel\DingoQueryMapper\DingoQueryMapperServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -179,7 +179,7 @@ return [
         App\Packages\Hashing\YourHashingServiceProvider::class,
         App\Providers\PasswordResetServiceProvider::class,
 
-    ],
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -231,7 +231,6 @@ return [
         'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
         'DingoApi' => Dingo\Api\Facade\API::class,
         'DingoRoute' => Dingo\Api\Facade\Route::class,
-
     ],
 
 ];

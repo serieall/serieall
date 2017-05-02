@@ -245,12 +245,13 @@
 
             $('#showDropdown')
                 .search({
-                    source : showSearch,
-                    fields: { name: "title", url: "url" },
+                    apiSettings: {
+                        url: '/api/shows?name={query}*'
+                    },
+                    fields: { results: "data", title: "name", url: "url" },
                     selectFirstResult: true,
                     minCharacters: 0,
-                    searchFullText: false,
-                    maxResults: 0
+                    searchFullText: true
                 });
         })
     </script>

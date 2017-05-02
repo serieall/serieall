@@ -1,5 +1,6 @@
 <?php
     use Illuminate\Http\Request;
+    use Dingo\Api\Routing\Router;
     /*
     |--------------------------------------------------------------------------
     | API Routes
@@ -10,6 +11,9 @@
     | is assigned the "api" middleware group. Enjoy building your API!
     |
     */
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
+
+    $api = app(Router::class);
+
+    $api->version('v1', [], function (Router $api){
+       $api->get('shows', '\App\Http\Controllers\Api\V1\ShowController@index');
     });

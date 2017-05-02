@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fecbf1481253beb1273f0956a83ed4e6",
+    "content-hash": "3fa1b3a23195860ac884caa10922a5de",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -1040,6 +1040,49 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "johannesschobel/dingoquerymapper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johannesschobel/dingoquerymapper.git",
+                "reference": "6ebb761c5ceafc1bbb41b0a23961ffbc8741073c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johannesschobel/dingoquerymapper/zipball/6ebb761c5ceafc1bbb41b0a23961ffbc8741073c",
+                "reference": "6ebb761c5ceafc1bbb41b0a23961ffbc8741073c",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.1",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JohannesSchobel\\DingoQueryMapper": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes Schobel",
+                    "email": "johannes.schobel@googlemail.com"
+                }
+            ],
+            "description": "Uses Dingo/API Request Query Parameters to filter Laravel Models",
+            "keywords": [
+                "api",
+                "dingo",
+                "laravel",
+                "query string"
+            ],
+            "time": "2017-05-01T16:32:27+00:00"
         },
         {
             "name": "laravel/framework",
@@ -4458,7 +4501,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dingo/api": 20
+        "dingo/api": 20,
+        "johannesschobel/dingoquerymapper": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
