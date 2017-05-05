@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.21 on 2017-05-01.
+ * Generated for Laravel 5.4.21 on 2017-05-03.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -6869,7 +6869,7 @@ namespace Illuminate\Support\Facades {
          * ("Client-Ip" for instance), configure it via "setTrustedHeaderName()" with
          * the "client-ip" key.
          *
-         * @return string The client IP address
+         * @return string|null The client IP address
          * @see getClientIps()
          * @see http://en.wikipedia.org/wiki/X-Forwarded-For
          * @static 
@@ -6972,7 +6972,7 @@ namespace Illuminate\Support\Facades {
          * If your reverse proxy uses a different header name than "X-Forwarded-Port",
          * configure it via "setTrustedHeaderName()" with the "client-port" key.
          *
-         * @return string 
+         * @return int|string can be a string if fetched from the server bag
          * @static 
          */
         public static function getPort()
@@ -13260,77 +13260,6 @@ namespace Dingo\Api\Facade {
     }         
 }
     
-namespace Marcelgwerder\ApiHandler\Facades {
-
-    class ApiHandler {
-        
-        /**
-         * Return a new Result object for a single dataset
-         *
-         * @param mixed $queryBuilder Some kind of query builder instance
-         * @param array|integer $identification Identification of the dataset to work with
-         * @param array|boolean $queryParams The parameters used for parsing
-         * @return \Marcelgwerder\ApiHandler\Result Result object that provides getter methods
-         * @static 
-         */
-        public static function parseSingle($queryBuilder, $identification, $queryParams = false)
-        {
-            return \Marcelgwerder\ApiHandler\ApiHandler::parseSingle($queryBuilder, $identification, $queryParams);
-        }
-        
-        /**
-         * Return a new Result object for multiple datasets
-         *
-         * @param mixed $queryBuilder Some kind of query builder instance
-         * @param array $fullTextSearchColumns Columns to search in fulltext search
-         * @param array|boolean $queryParams A list of query parameter
-         * @return \Marcelgwerder\ApiHandler\Result 
-         * @static 
-         */
-        public static function parseMultiple($queryBuilder, $fullTextSearchColumns = array(), $queryParams = false)
-        {
-            return \Marcelgwerder\ApiHandler\ApiHandler::parseMultiple($queryBuilder, $fullTextSearchColumns, $queryParams);
-        }
-        
-        /**
-         * Return a new "created" response object
-         *
-         * @param array|object $object
-         * @return \Response 
-         * @static 
-         */
-        public static function created($object)
-        {
-            return \Marcelgwerder\ApiHandler\ApiHandler::created($object);
-        }
-        
-        /**
-         * Return a new "updated" response object
-         *
-         * @param array|object $object
-         * @return \Response 
-         * @static 
-         */
-        public static function updated($object = null)
-        {
-            return \Marcelgwerder\ApiHandler\ApiHandler::updated($object);
-        }
-        
-        /**
-         * Return a new "deleted" response object
-         *
-         * @param array|object $object
-         * @return \Response 
-         * @static 
-         */
-        public static function deleted($object = null)
-        {
-            return \Marcelgwerder\ApiHandler\ApiHandler::deleted($object);
-        }
-        
-    }         
-}
-    
     
 namespace {
 
@@ -15376,8 +15305,6 @@ namespace {
     class DingoApi extends \Dingo\Api\Facade\API {}
     
     class DingoRoute extends \Dingo\Api\Facade\Route {}
-    
-    class ApiHandler extends \Marcelgwerder\ApiHandler\Facades\ApiHandler {}
     
 }
 

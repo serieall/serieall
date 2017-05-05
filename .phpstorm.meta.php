@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-05-01.
+    * Generated on 2017-05-03.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -45,6 +45,7 @@ namespace PHPSTORM_META {
             'gravatar' instanceof \Thomaswelton\LaravelGravatar\Gravatar,
             'api.router' instanceof \Dingo\Api\Routing\Router,
             'Dingo\Api\Routing\ResourceRegistrar' instanceof \Dingo\Api\Routing\ResourceRegistrar,
+            'api.url' instanceof \Dingo\Api\Routing\UrlGenerator,
             'api.limiting' instanceof \Dingo\Api\Http\RateLimit\Handler,
             'api.http.validator' instanceof \Dingo\Api\Http\RequestValidator,
             'Dingo\Api\Http\Validation\Domain' instanceof \Dingo\Api\Http\Validation\Domain,
@@ -62,7 +63,6 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
-            'ApiHandler' instanceof \Marcelgwerder\ApiHandler\ApiHandler,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\PusherBroadcaster,
@@ -190,6 +190,7 @@ namespace PHPSTORM_META {
             'gravatar' instanceof \Thomaswelton\LaravelGravatar\Gravatar,
             'api.router' instanceof \Dingo\Api\Routing\Router,
             'Dingo\Api\Routing\ResourceRegistrar' instanceof \Dingo\Api\Routing\ResourceRegistrar,
+            'api.url' instanceof \Dingo\Api\Routing\UrlGenerator,
             'api.limiting' instanceof \Dingo\Api\Http\RateLimit\Handler,
             'api.http.validator' instanceof \Dingo\Api\Http\RequestValidator,
             'Dingo\Api\Http\Validation\Domain' instanceof \Dingo\Api\Http\Validation\Domain,
@@ -207,7 +208,6 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
-            'ApiHandler' instanceof \Marcelgwerder\ApiHandler\ApiHandler,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\PusherBroadcaster,
@@ -335,6 +335,7 @@ namespace PHPSTORM_META {
             'gravatar' instanceof \Thomaswelton\LaravelGravatar\Gravatar,
             'api.router' instanceof \Dingo\Api\Routing\Router,
             'Dingo\Api\Routing\ResourceRegistrar' instanceof \Dingo\Api\Routing\ResourceRegistrar,
+            'api.url' instanceof \Dingo\Api\Routing\UrlGenerator,
             'api.limiting' instanceof \Dingo\Api\Http\RateLimit\Handler,
             'api.http.validator' instanceof \Dingo\Api\Http\RequestValidator,
             'Dingo\Api\Http\Validation\Domain' instanceof \Dingo\Api\Http\Validation\Domain,
@@ -352,7 +353,6 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
-            'ApiHandler' instanceof \Marcelgwerder\ApiHandler\ApiHandler,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\PusherBroadcaster,
@@ -480,6 +480,7 @@ namespace PHPSTORM_META {
             'gravatar' instanceof \Thomaswelton\LaravelGravatar\Gravatar,
             'api.router' instanceof \Dingo\Api\Routing\Router,
             'Dingo\Api\Routing\ResourceRegistrar' instanceof \Dingo\Api\Routing\ResourceRegistrar,
+            'api.url' instanceof \Dingo\Api\Routing\UrlGenerator,
             'api.limiting' instanceof \Dingo\Api\Http\RateLimit\Handler,
             'api.http.validator' instanceof \Dingo\Api\Http\RequestValidator,
             'Dingo\Api\Http\Validation\Domain' instanceof \Dingo\Api\Http\Validation\Domain,
@@ -497,7 +498,6 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
-            'ApiHandler' instanceof \Marcelgwerder\ApiHandler\ApiHandler,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\PusherBroadcaster,

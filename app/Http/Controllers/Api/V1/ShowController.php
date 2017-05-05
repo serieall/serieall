@@ -8,6 +8,7 @@ use Dingo\Api\Contract\Http\Request;
 use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use JohannesSchobel\DingoQueryMapper\Parser\DingoQueryMapper;
 
 class ShowController extends Controller
@@ -16,7 +17,12 @@ class ShowController extends Controller
 
     public function index(Request $request) : Response
     {
-        $shows = Show::all();
+        $shows = DB::table('shows')
+            ->select('name','show_url', DB::raw('LOWER(name) as name_lower'))
+            ->get();
+
+        dd($shows);
+
         $qm = new DingoQueryMapper($request);
         $shows = $qm->createFromCollection($shows)->paginate();
 

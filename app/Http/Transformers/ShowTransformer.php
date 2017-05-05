@@ -10,8 +10,9 @@ class ShowTransformer extends TransformerAbstract
     public function transform(Show $show) : array
     {
         return [
-        'name' => $show->name,
-        'url' => $show->show_url,
-    ];
+            'name' => $show->name,
+            'name_lower' => $show->name_lower,
+            'url' => "/serie/" . $show->show_url,
+        ];
     }
 }

@@ -32,7 +32,7 @@ Route::resource('user', 'UserController');
 Route::get('profil/{user}', 'UserController@getProfile');
 Route::post('changepassword', 'UserController@changePassword');
 
-Route::get('serie/{show_url}', 'ShowController@getShow');
+Route::get('serie/{show_url}', 'ShowController@getShow')->name('fiche');
 
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
