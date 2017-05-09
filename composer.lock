@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fa1b3a23195860ac884caa10922a5de",
+    "content-hash": "26d6c6ef099d787fe5c2c935e167aab2",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -1042,60 +1042,17 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
-            "name": "johannesschobel/dingoquerymapper",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/johannesschobel/dingoquerymapper.git",
-                "reference": "6ebb761c5ceafc1bbb41b0a23961ffbc8741073c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/johannesschobel/dingoquerymapper/zipball/6ebb761c5ceafc1bbb41b0a23961ffbc8741073c",
-                "reference": "6ebb761c5ceafc1bbb41b0a23961ffbc8741073c",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": ">=5.1",
-                "php": ">=5.5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "JohannesSchobel\\DingoQueryMapper": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Johannes Schobel",
-                    "email": "johannes.schobel@googlemail.com"
-                }
-            ],
-            "description": "Uses Dingo/API Request Query Parameters to filter Laravel Models",
-            "keywords": [
-                "api",
-                "dingo",
-                "laravel",
-                "query string"
-            ],
-            "time": "2017-05-01T16:32:27+00:00"
-        },
-        {
             "name": "laravel/framework",
-            "version": "v5.4.21",
+            "version": "v5.4.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2ed668f96d1a6ca42f50d5c87ee9ceecfc0a6eee"
+                "reference": "fc5c7a18644f231bcb8d02f4ec2f3a2517f5015d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2ed668f96d1a6ca42f50d5c87ee9ceecfc0a6eee",
-                "reference": "2ed668f96d1a6ca42f50d5c87ee9ceecfc0a6eee",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/fc5c7a18644f231bcb8d02f4ec2f3a2517f5015d",
+                "reference": "fc5c7a18644f231bcb8d02f4ec2f3a2517f5015d",
                 "shasum": ""
             },
             "require": {
@@ -1211,7 +1168,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-04-28T15:40:01+00:00"
+            "time": "2017-05-08T21:45:45+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -1413,6 +1370,58 @@
                 "rest"
             ],
             "time": "2017-03-12T01:28:43+00:00"
+        },
+        {
+            "name": "marcelgwerder/laravel-api-handler",
+            "version": "v0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcelgwerder/laravel-api-handler.git",
+                "reference": "b2f0486a2f5b9b776113d64e402cc00d00283194"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcelgwerder/laravel-api-handler/zipball/b2f0486a2f5b9b776113d64e402cc00d00283194",
+                "reference": "b2f0486a2f5b9b776113d64e402cc00d00283194",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.0",
+                "illuminate/http": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Marcelgwerder\\ApiHandler\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Gwerder",
+                    "email": "info@marcelgwerder.ch"
+                }
+            ],
+            "description": "Package providing helper functions for a Laravel REST-API ",
+            "homepage": "http://github.com/marcelgwerder/laravel-api-handler",
+            "keywords": [
+                "api",
+                "laravel",
+                "mysql",
+                "parse",
+                "rest",
+                "url"
+            ],
+            "time": "2017-03-28T18:49:29+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -4503,8 +4512,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dingo/api": 20,
-        "johannesschobel/dingoquerymapper": 20
+        "dingo/api": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
