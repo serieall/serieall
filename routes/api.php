@@ -15,5 +15,5 @@
     $api = app(Router::class);
 
     $api->version('v1', [], function (Router $api){
-       $api->get('shows', '\App\Http\Controllers\Api\V1\ShowController@index');
+       $api->get('shows/search', '\App\Http\Controllers\Api\V1\ShowSearchController@index');
     });
