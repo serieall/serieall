@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.21 on 2017-05-03.
+ * Generated for Laravel 5.4.22 on 2017-05-09.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -4014,7 +4014,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string|\Closure $listener
          * @param bool $wildcard
-         * @return mixed 
+         * @return \Closure 
          * @static 
          */
         public static function makeListener($listener, $wildcard = false)
@@ -13260,6 +13260,77 @@ namespace Dingo\Api\Facade {
     }         
 }
     
+namespace Marcelgwerder\ApiHandler\Facades {
+
+    class ApiHandler {
+        
+        /**
+         * Return a new Result object for a single dataset
+         *
+         * @param mixed $queryBuilder Some kind of query builder instance
+         * @param array|integer $identification Identification of the dataset to work with
+         * @param array|boolean $queryParams The parameters used for parsing
+         * @return \Marcelgwerder\ApiHandler\Result Result object that provides getter methods
+         * @static 
+         */
+        public static function parseSingle($queryBuilder, $identification, $queryParams = false)
+        {
+            return \Marcelgwerder\ApiHandler\ApiHandler::parseSingle($queryBuilder, $identification, $queryParams);
+        }
+        
+        /**
+         * Return a new Result object for multiple datasets
+         *
+         * @param mixed $queryBuilder Some kind of query builder instance
+         * @param array $fullTextSearchColumns Columns to search in fulltext search
+         * @param array|boolean $queryParams A list of query parameter
+         * @return \Marcelgwerder\ApiHandler\Result 
+         * @static 
+         */
+        public static function parseMultiple($queryBuilder, $fullTextSearchColumns = array(), $queryParams = false)
+        {
+            return \Marcelgwerder\ApiHandler\ApiHandler::parseMultiple($queryBuilder, $fullTextSearchColumns, $queryParams);
+        }
+        
+        /**
+         * Return a new "created" response object
+         *
+         * @param array|object $object
+         * @return \Response 
+         * @static 
+         */
+        public static function created($object)
+        {
+            return \Marcelgwerder\ApiHandler\ApiHandler::created($object);
+        }
+        
+        /**
+         * Return a new "updated" response object
+         *
+         * @param array|object $object
+         * @return \Response 
+         * @static 
+         */
+        public static function updated($object = null)
+        {
+            return \Marcelgwerder\ApiHandler\ApiHandler::updated($object);
+        }
+        
+        /**
+         * Return a new "deleted" response object
+         *
+         * @param array|object $object
+         * @return \Response 
+         * @static 
+         */
+        public static function deleted($object = null)
+        {
+            return \Marcelgwerder\ApiHandler\ApiHandler::deleted($object);
+        }
+        
+    }         
+}
+    
     
 namespace {
 
@@ -13324,6 +13395,18 @@ namespace {
     class Notif extends \Illuminate\Support\Facades\Notification {}
     
     class Eloquent extends \Illuminate\Database\Eloquent\Model {    
+        /**
+         * Create and return and un-saved model instance.
+         *
+         * @param array $attributes
+         * @return \Illuminate\Database\Eloquent\Model 
+         * @static 
+         */
+        public static function make($attributes = array())
+        {
+            return \Illuminate\Database\Eloquent\Builder::make($attributes);
+        }
+        
         /**
          * Register a new global scope.
          *
@@ -15305,6 +15388,8 @@ namespace {
     class DingoApi extends \Dingo\Api\Facade\API {}
     
     class DingoRoute extends \Dingo\Api\Facade\Route {}
+    
+    class ApiHandler extends \Marcelgwerder\ApiHandler\Facades\ApiHandler {}
     
 }
 

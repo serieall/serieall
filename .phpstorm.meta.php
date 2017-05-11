@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-05-03.
+    * Generated on 2017-05-09.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -63,6 +63,7 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
+            'ApiHandler' instanceof \Marcelgwerder\ApiHandler\ApiHandler,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\PusherBroadcaster,
@@ -208,6 +209,7 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
+            'ApiHandler' instanceof \Marcelgwerder\ApiHandler\ApiHandler,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\PusherBroadcaster,
@@ -353,6 +355,7 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
+            'ApiHandler' instanceof \Marcelgwerder\ApiHandler\ApiHandler,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\PusherBroadcaster,
@@ -498,6 +501,7 @@ namespace PHPSTORM_META {
             'api.transformer' instanceof \Dingo\Api\Transformer\Factory,
             'Dingo\Api\Console\Command\Docs' instanceof \Dingo\Api\Console\Command\Docs,
             'api.router.adapter' instanceof \Dingo\Api\Routing\Adapter\Laravel,
+            'ApiHandler' instanceof \Marcelgwerder\ApiHandler\ApiHandler,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\PusherBroadcaster,
