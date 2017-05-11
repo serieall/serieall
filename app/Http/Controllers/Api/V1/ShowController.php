@@ -16,9 +16,9 @@ class ShowController extends Controller
 
     public function index() : Response
     {
-        $shows = DB::table('shows')->select('name', 'show_url')->orderBy('name');
+        $shows = DB::table('shows')->orderBy('name');
 
-        $shows = ApiHandler::parseMultiple($shows, array('name', 'show_url'))->getResult();
+        $shows = ApiHandler::parseMultiple($shows, array('id', 'name', 'show_url'))->getResult();
 
         return $this->response->collection($shows, new ShowTransformer);
     }
