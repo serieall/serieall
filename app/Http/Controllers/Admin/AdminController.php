@@ -17,11 +17,9 @@ class AdminController extends Controller
     }
 
     public function index(){
-        #Variable qui détecte dans quelle partie de l'admin on se trouve
-        $navActive = 'home';
         $logs = $this->logRepository->getDistinctLogs();
 
-        return view('admin/index', compact('navActive', 'logs'));
+        return view('admin/index', compact('logs'));
     }
 
     /**
@@ -29,12 +27,9 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function viewLog($id){
-        #Variable qui détecte dans quelle partie de l'admin on se trouve
-        $navActive = 'home';
-
         $log = $this->logRepository->getLogsByID($id);
 
-        return view('admin/log', compact('navActive', 'log'));
+        return view('admin/log', compact('log'));
     }
 
 

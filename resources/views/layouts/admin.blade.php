@@ -42,14 +42,14 @@
             <img class="ui centered image" src="/images/logo_v2.png">
         </div>
         <a class="ui header item
-            @if($navActive == 'home')
+            @if($navActive == 'AdminHome')
                 blue
             @endif" href="{{ route('adminIndex') }}">
             <i class="home icon"></i>
             Accueil
         </a>
         <a class="ui header item
-             @if($navActive == 'show')
+             @if($navActive == 'AdminShow')
                 blue
              @endif" href="{{ route('adminShow.index') }}">
             <i class="tv icon"></i>
