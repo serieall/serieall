@@ -63,7 +63,7 @@
             Classements
         </a>
         <div class="right secondary pointing menu">
-            <div id="showDropdown" class="ui search">
+            <div id="showDropdown" class="ui search dropdown">
                 <div class="ui icon input">
                     <input class="prompt" placeholder="Rechercher une série..." type="text">
                     <i class="search icon"></i>
