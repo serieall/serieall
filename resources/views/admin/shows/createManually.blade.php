@@ -153,8 +153,8 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Choisir</div>
                                     <div class="menu">
-                                        @foreach($actors as $actor)
-                                            <div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>
+                                        @foreach($artists as $artist)
+                                            <div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -183,14 +183,14 @@
                 <div class="ui tab blue segment" data-tab="second">
                     <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
                     <p>
-                        <button class="ui basic button add-actor">
+                        <button class="ui basic button add-artist">
                             <i class="user icon"></i>
                             Ajouter un acteur
                         </button>
                         <br />
                     </p>
 
-                    <div class="div-actors">
+                    <div class="div-artists">
 
 
 
@@ -312,37 +312,37 @@
         $(function(){
             // Définition des variables
             var max_fields  =   50; // Nombre maximums de ligne sautorisées
-            var actor_number  =  $('.div-actors').length; // Nombre d'acteurs
+            var artist_number  =  $('.div-artists').length; // Nombre d'acteurs
 
             // Suppression d'un acteur
-            $(document).on('click', '.remove-actor', function(){
-                $(this).parents('.div-actor').remove();
-                $(this).find(".actor_name-input").attr( "name", 'actors[' + index + '][name]');
-                $(this).find(".actor_role-input").attr( "name", 'actors[' + index + '[role]');
-                $(this).find(".actor_name-input").attr( "id", 'actors.' + index + '.name');
-                $(this).find(".actor_role-input").attr( "id", 'actors.' + index + '.role');
+            $(document).on('click', '.remove-artist', function(){
+                $(this).parents('.div-artist').remove();
+                $(this).find(".artist_name-input").attr( "name", 'artists[' + index + '][name]');
+                $(this).find(".artist_role-input").attr( "name", 'artists[' + index + '[role]');
+                $(this).find(".artist_name-input").attr( "id", 'artists.' + index + '.name');
+                $(this).find(".artist_role-input").attr( "id", 'artists.' + index + '.role');
             });
 
             // Ajouter un acteur
-            $('.add-actor').click(function(e) {
+            $('.add-artist').click(function(e) {
                 e.preventDefault();
 
-                if (actor_number < max_fields) {
-                    var html = '<div class="ui segment div-actor">'
-                            + '<button class="ui right floated negative basic circular icon button remove-actor">'
+                if (artist_number < max_fields) {
+                    var html = '<div class="ui segment div-artist">'
+                            + '<button class="ui right floated negative basic circular icon button remove-artist">'
                             + '<i class="remove icon"></i>'
                             + '</button>'
                             + '<div class="two fields">'
 
                             + '<div class="field">'
                             + '<label>Nom de l\'acteur</label>'
-                            + '<div class="ui fluid search selection dropdown actorDropdown">'
-                            + '<input class="actor_name-input" id="actors.'+ actor_number +'.name_actor" name="actors[' + actor_number + '][name_actor]" type="hidden" value="{{ old('guests') }}">'
+                            + '<div class="ui fluid search selection dropdown artistDropdown">'
+                            + '<input class="artist_name-input" id="artists.'+ artist_number +'.name_artist" name="artists[' + artist_number + '][name_artist]" type="hidden" value="{{ old('guests') }}">'
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
-                            + '@foreach($actors as $actor)'
-                            + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                            + '@foreach($artists as $artist)'
+                            + '<div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>'
                             + '@endforeach'
                             + '</div>'
                             + '</div>'
@@ -350,8 +350,8 @@
                             + '</div>'
 
                             + '<div class="field">'
-                            + '<label class="actor_role-label">Rôle</label>'
-                            + '<input class="actor_role-input" id="actors.'+ actor_number +'.role_actor" name="actors[' + actor_number + '][role_actor]" placeholder="Rôle" type="text" value="{{ old('role_actor') }}">'
+                            + '<label class="artist_role-label">Rôle</label>'
+                            + '<input class="artist_role-input" id="artists.'+ artist_number +'.role_artist" name="artists[' + artist_number + '][role_artist]" placeholder="Rôle" type="text" value="{{ old('role_artist') }}">'
                             + '<div class="ui red hidden message"></div>'
 
                             + '</div>'
@@ -359,7 +359,7 @@
                             + '</div>';
 
                             $(function() {
-                                $('.actorDropdown')
+                                $('.artistDropdown')
                                     .dropdown({
                                         allowAdditions: true,
                                         forceSelection : false,
@@ -367,9 +367,9 @@
                                     });
                             });
 
-                    ++actor_number;
+                    ++artist_number;
 
-                    $('.div-actors').append(html);
+                    $('.div-artists').append(html);
                 }
             });
         });
@@ -749,8 +749,8 @@
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
-                            + '@foreach($actors as $actor)'
-                            + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                            + '@foreach($artists as $artist)'
+                            + '<div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>'
                             + '@endforeach'
                             + '</div>'
                             + '</div>'
@@ -764,8 +764,8 @@
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
-                            + '@foreach($actors as $actor)'
-                            + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                            + '@foreach($artists as $artist)'
+                            + '<div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>'
                             + '@endforeach'
                             + '</div>'
                             + '</div>'
@@ -779,8 +779,8 @@
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
-                            + '@foreach($actors as $actor)'
-                            + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
+                            + '@foreach($artists as $artist)'
+                            + '<div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>'
                             + '@endforeach'
                             + '</div>'
                             + '</div>'
@@ -1024,8 +1024,8 @@
                             $(input + '+div').removeClass("hidden");
                             $(input).parent().addClass('error');
 
-                            if(key.indexOf('actors.') > -1) {
-                                $(input).parents('.div-actor').addClass('red');
+                            if(key.indexOf('artists.') > -1) {
+                                $(input).parents('.div-artist').addClass('red');
 
                                 var dataActor = $('.dataActor');
 

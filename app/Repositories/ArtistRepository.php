@@ -36,4 +36,13 @@ class ArtistRepository
     {
 
     }
+
+    /**
+     * @return mixed
+     */
+    public function getArtists(){
+        return DB::table('artists')
+            ->orderBy('name', 'asc')
+            ->get();
+    }
 }

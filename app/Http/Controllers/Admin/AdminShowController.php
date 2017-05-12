@@ -11,6 +11,10 @@ use App\Http\Requests\ShowCreateManuallyRequest;
 use App\Http\Requests\ShowUpdateManuallyRequest;
 
 use App\Repositories\ShowRepository;
+use App\Repositories\ArtistRepository;
+use App\Repositories\ChannelRepository;
+use App\Repositories\GenreRepository;
+use App\Repositories\NationalityRepository;
 use App\Repositories\SeasonRepository;
 use Illuminate\Support\Facades\Log;
 
@@ -18,12 +22,26 @@ class AdminShowController extends Controller
 {
 
     protected $showRepository;
+    protected $artistRepository;
+    protected $channelRepository;
+    protected $genreRepository;
+    protected $nationalityRepository;
     protected $seasonRepository;
     protected $logRepository;
 
-    public function __construct(ShowRepository $showRepository, SeasonRepository $seasonRepository, LogRepository $logRepository)
+    public function __construct(ShowRepository $showRepository,
+                                ArtistRepository $artistRepository,
+                                ChannelRepository $channelRepository,
+                                GenreRepository $genreRepository,
+                                NationalityRepository $nationalityRepository,
+                                SeasonRepository $seasonRepository,
+                                LogRepository $logRepository)
     {
         $this->showRepository = $showRepository;
+        $this->artistRepository = $artistRepository;
+        $this->channelRepository = $channelRepository;
+        $this->genreRepository = $genreRepository;
+        $this->nationalityRepository = $nationalityRepository;
         $this->seasonRepository = $seasonRepository;
         $this->logRepository = $logRepository;
     }
@@ -52,12 +70,12 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        $actors = $this->showRepository->getActors();
-        $genres = $this->showRepository->getGenres();
-        $channels = $this->showRepository->getChannels();
-        $nationalities = $this->showRepository->getNationalities();
+        $artists = $this->artistRepository->getArtists();
+        $genres = $this->genreRepository->getGenres();
+        $channels = $this->channelRepository->getChannels();
+        $nationalities = $this->nationalityRepository->getNationalities();
 
-        return view('admin/shows/addShow', compact('navActive', 'actors', 'genres', 'channels', 'nationalities'));
+        return view('admin/shows/addShow', compact('navActive', 'artists', 'genres', 'channels', 'nationalities'));
     }
 
     /**
@@ -70,12 +88,12 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-        $actors = $this->showRepository->getActors();
-        $genres = $this->showRepository->getGenres();
-        $channels = $this->showRepository->getChannels();
-        $nationalities = $this->showRepository->getNationalities();
+        $artists = $this->artistRepository->getArtists();
+        $genres = $this->genreRepository->getGenres();
+        $channels = $this->channelRepository->getChannels();
+        $nationalities = $this->nationalityRepository->getNationalities();
 
-        return view('admin/shows/createManually', compact('navActive', 'actors', 'genres', 'channels', 'nationalities'));
+        return view('admin/shows/createManually', compact('navActive', 'artists', 'genres', 'channels', 'nationalities'));
     }
 
 
@@ -144,8 +162,6 @@ class AdminShowController extends Controller
         #Variable qui détecte dans quelle partie de l'admin on se trouve
         $navActive = 'show';
 
-
-
         $show = $this->showRepository->getAllInformationsOnShowByID($id);
 
         $genres = $this->showRepository->formatRequestInVariable($show->genres);
@@ -155,10 +171,10 @@ class AdminShowController extends Controller
 
         $seasonsEpisodes = $this->seasonRepository->getSeasonsEpisodesForShowByID($id);
 
-        $allActors = $this->showRepository->getActors();
-        $allGenres = $this->showRepository->getGenres();
-        $allChannels = $this->showRepository->getChannels();
-        $allNationalities = $this->showRepository->getNationalities();
+        $allActors = $this->artistRepository->getArtists();
+        $allGenres = $this->genreRepository->getGenres();
+        $allChannels = $this->channelRepository->getChannels();
+        $allNationalities = $this->nationalityRepository->getNationalities();
 
         return view('admin/shows/edit',  compact('show', 'allActors', 'allGenres', 'allChannels', 'allNationalities', 'navActive', 'genres', 'channels', 'nationalities', 'creators', 'seasonsEpisodes'));
     }

@@ -41,6 +41,12 @@ class ShowRepository
             ->get();
     }
 
+    public function getShowByURL($show_url){
+        return $this->show->where('show_url', $show_url)
+            ->with('seasons')
+            ->get();
+    }
+
     /**
      * @param $inputs
      * @return bool
@@ -122,42 +128,6 @@ class ShowRepository
     }
 
     /**
-     * @return mixed
-     */
-    public function getActors(){
-        return DB::table('artists')
-            ->orderBy('name', 'asc')
-            ->get();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGenres(){
-        return DB::table('genres')
-            ->orderBy('name', 'asc')
-            ->get();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getChannels(){
-        return DB::table('channels')
-            ->orderBy('name', 'asc')
-            ->get();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNationalities(){
-        return DB::table('nationalities')
-            ->orderBy('name', 'asc')
-            ->get();
-    }
-
-    /**
      * @param $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
@@ -191,9 +161,5 @@ class ShowRepository
         $liste = substr($liste, 0, -1);
 
         return $liste;
-    }
-
-    public function getShowDropdown(){
-        return $this->show->select('name', 'show_url')->orderBy('name')->get();
     }
 }

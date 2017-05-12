@@ -234,15 +234,6 @@
                 })
             ;
 
-            var showSearch = [
-                    @foreach($shows as $show)
-                    {
-                        title: '{{ $show->name }}',
-                        url: '/serie/{{ $show->show_url }}'
-                    },
-                @endforeach
-        ];
-
             $('#showDropdown')
                 .search({
                     apiSettings: {

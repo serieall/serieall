@@ -9,12 +9,10 @@ use App\Repositories\LogRepository;
 class AdminController extends Controller
 {
     protected $nbPerPage = 20;
-    protected $adminRepository;
     protected $logRepository;
 
-    public function __construct(AdminRepository $adminRepository, LogRepository $logRepository)
+    public function __construct(LogRepository $logRepository)
     {
-        $this->adminRepository = $adminRepository;
         $this->logRepository = $logRepository;
     }
 

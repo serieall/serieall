@@ -26,6 +26,6 @@ class ShowController extends Controller
     {
         $show = $this->showRepository->getShowByURL($show_url);
 
-        return view('show/', compact('show'));
+        return view('shows/fiche', compact('show'));
     }
 }

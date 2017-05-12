@@ -67,8 +67,8 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
-                                    @foreach($actors as $actor)
-                                        <div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>
+                                    @foreach($artists as $artist)
+                                        <div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>
                                     @endforeach
                                 </div>
                             </div>
