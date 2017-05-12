@@ -53,8 +53,6 @@ class AdminShowController extends Controller
      */
     public function index()
     {
-        #Variable qui détecte dans quelle partie de l'admin on se trouve
-        $navActive = 'show';
         $shows = $this->showRepository->getShowByName();
 
         return view('admin/shows/indexShows', compact('shows', 'navActive'));
@@ -67,9 +65,6 @@ class AdminShowController extends Controller
      */
     public function create()
     {
-        #Variable qui détecte dans quelle partie de l'admin on se trouve
-        $navActive = 'show';
-
         $artists = $this->artistRepository->getArtists();
         $genres = $this->genreRepository->getGenres();
         $channels = $this->channelRepository->getChannels();
@@ -85,9 +80,6 @@ class AdminShowController extends Controller
      */
     public function createManually()
     {
-        #Variable qui détecte dans quelle partie de l'admin on se trouve
-        $navActive = 'show';
-
         $artists = $this->artistRepository->getArtists();
         $genres = $this->genreRepository->getGenres();
         $channels = $this->channelRepository->getChannels();
@@ -159,9 +151,6 @@ class AdminShowController extends Controller
      */
     public function edit($id)
     {
-        #Variable qui détecte dans quelle partie de l'admin on se trouve
-        $navActive = 'show';
-
         $show = $this->showRepository->getAllInformationsOnShowByID($id);
 
         $genres = $this->showRepository->formatRequestInVariable($show->genres);

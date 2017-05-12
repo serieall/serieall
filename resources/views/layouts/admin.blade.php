@@ -49,7 +49,7 @@
             Accueil
         </a>
         <a class="ui header item
-             @if($navActive == 'AdminShow')
+             @if($navActive == 'AdminShows')
                 blue
              @endif" href="{{ route('adminShow.index') }}">
             <i class="tv icon"></i>

@@ -19,6 +19,11 @@ class ComposerServiceProvider extends ServiceProvider
             ['admin/index','admin/log'],
             'App\Http\ViewComposers\NavActiveAdminHomeComposer'
         );
+
+        View::composer(
+            ['admin/shows/indexShows','admin/shows/edit','admin/shows/createManually','admin/shows/addShow'],
+            'App\Http\ViewComposers\NavActiveAdminShowsComposer'
+        );
     }
 
     /**
