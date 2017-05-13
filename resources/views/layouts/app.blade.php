@@ -39,7 +39,7 @@
     <div class="ui secondary pointing menu" id="header">
         <a href="/"><img src="/images/logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
         <a class="item
-            @if($navActive == 'show')
+            @if($navActive == 'shows')
                 active
             @endif">
             Séries TV
@@ -57,7 +57,7 @@
             Planning
         </a>
         <a class="item
-            @if($navActive == 'classement')
+            @if($navActive == 'classements')
                 active
             @endif">
             Classements
@@ -73,7 +73,7 @@
             </div>
 
             <a class="item
-                @if($navActive == 'show')
+                @if($navActive == 'forum')
                     active
                 @endif">
                 Forum

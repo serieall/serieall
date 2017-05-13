@@ -30,8 +30,6 @@ class ForgotPasswordController extends Controller
      */
     public function showLinkRequestForm()
     {
-        $navActive = 'login';
-
-        return view('auth.passwords.email', compact('navActive'));
+        return view('auth.passwords.email');
     }
 }

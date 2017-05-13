@@ -46,9 +46,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $navActive = 'register';
-
-        return view('auth.register', compact('navActive'));
+        return view('auth.register');
     }
 
     /**

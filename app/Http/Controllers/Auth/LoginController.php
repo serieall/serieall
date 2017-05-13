@@ -22,6 +22,7 @@ class LoginController extends Controller
     |
     */
     use AuthenticatesUsers;
+
     /**
      * Where to redirect users after login.
      *
@@ -30,10 +31,12 @@ class LoginController extends Controller
     protected $redirectTo = '/';
     protected $activationService;
     protected $hashingProvider;
+
+
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * LoginController constructor.
+     * @param ActivationService $activationService
+     * @param YourHasher $hashingProvider
      */
     public function __construct(ActivationService $activationService, YourHasher $hashingProvider)
     {
@@ -47,9 +50,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        $navActive = 'login';
-
-        return view('auth.login', compact('navActive'));
+        return view('auth.login');
     }
 
     /**
@@ -86,6 +87,11 @@ class LoginController extends Controller
         return 'username';
     }
 
+    /**
+     * @param Request $request
+     * @param $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function authenticated(Request $request, $user)
     {
         if (! $user->activated) {
@@ -96,6 +102,10 @@ class LoginController extends Controller
         return redirect()->intended($this->redirectPath());
     }
 
+    /**
+     * @param $token
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function activateUser($token)
     {
         if ($user = $this->activationService->activateUser($token)) {
