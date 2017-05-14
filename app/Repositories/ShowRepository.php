@@ -4,11 +4,9 @@
 namespace App\Repositories;
 
 use App\Jobs\AddShowManually;
-use App\Jobs\UpdateShowFromTVDB;
 use App\Models\Show;
 use App\Jobs\AddShowFromTVDB;
 use App\Jobs\UpdateShowManually;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /**
@@ -44,7 +42,7 @@ class ShowRepository
     public function getShowByURL($show_url){
         return $this->show->where('show_url', $show_url)
             ->with('seasons')
-            ->get();
+            ->first();
     }
 
     /**
@@ -88,6 +86,8 @@ class ShowRepository
      */
     public function updateManuallyShowJob($inputs){
         dispatch(new UpdateShowManually($inputs));
+
+        return true;
     }
 
     /**

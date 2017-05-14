@@ -113,6 +113,10 @@
  font-weight: normal;
 }
 
+.ui.secondary.pointing.menu .active.item:hover {
+    border-color: #1074b2;
+}
+
 .ui.secondary.pointing.menu {
     border-bottom: 1px solid rgba(34, 36, 38, 0.15);
 }
@@ -196,4 +200,17 @@
 
 #showDropdown {
     margin: auto 0;
+}
+
+#topImage {
+    padding-top: 0;
+
+}
+
+#topImage .column {
+    height: 100px;
+}
+
+#topImage img {
+    width: 100%;
 }
