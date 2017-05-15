@@ -118,7 +118,7 @@
 }
 
 .ui.secondary.pointing.menu {
-    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    border-bottom: 0px solid rgba(34, 36, 38, 0.15);
 }
 
 #profil-actif {
@@ -202,15 +202,28 @@
     margin: auto 0;
 }
 
-#topImage {
+*:not(#topImageShow){
+    box-sizing : inherit;
+}
+
+#topImageShow {
     padding-top: 0;
-
+    padding-bottom: 0;
+    z-index: -1;
 }
 
-#topImage .column {
-    height: 100px;
+#topImageShow .column {
+    height: 300px;
 }
 
-#topImage img {
+#topImageShow img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-filter: blur(5px) opacity(1);
+    filter: blur(5px) opacity(1);
+}
+
+#menuFiche {
+    padding-top: 0;
 }
