@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SérieAll BETA</title>
-    <link rel="icon" href="/images/logo_v2.ico">
+    <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
 
     <!-- CSS -->
     {{ Html::style('/semantic/semantic.css') }}

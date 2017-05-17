@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Validator;
+use Illuminate\Support\Facades\View;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +14,12 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot() {
-        //
+        $folderImages = config('directories.images');
+        $folderShows = config('directories.shows');
+
+        View::share('folderImages', $folderImages);
+        View::share('folderShows', $folderShows);
+
     }
 
     /**
