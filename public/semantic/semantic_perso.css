@@ -1,4 +1,55 @@
+/* TEXT */
+.ui.red.text {
+    color: #DB2828 !important;
+}
+
+.ui.orange.text {
+    color: #F2711C !important;
+}
+
+.ui.yellow.text {
+    color: #FBBD08 !important;
+}
+
+.ui.green.text {
+    color: #21BA45 !important;
+}
+
+.ui.teal.text {
+    color: #00B5AD !important;
+}
+
+.ui.blue.text {
+    color: #2185D0 !important;
+}
+
+.ui.violet.text {
+    color: #6435C9 !important;
+}
+
+.ui.purple.text {
+    color: #A333C8 !important;
+}
+
+.ui.pink.text {
+    color: #E03997 !important;
+}
+
+.ui.brown.text {
+    color: #A5673F !important;
+}
+
+.ui.grey.text {
+    color: #767676 !important;
+}
+
+.ui.black.text {
+    color: #1B1C1D !important;
+}
+
+
 /*ADMIN*/
+
 #menu-admin{
     border-radius: 0;
 }
@@ -214,6 +265,7 @@
 }
 
 #topImageShow img {
+    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -262,12 +314,19 @@
 }
 
 #LeftBlockShow h1 {
-    padding: 1rem;
+    padding: 2rem;
     color: #213d64;
+    margin-bottom: 0;
 }
 
 #ListSeasons table {
     border: none;
+    margin: 0;
+}
+
+#ListSeasons table tr td a {
+    color: black;
+    border-bottom: 1px solid black ;
 }
 
 #ListSeasons table tr td {
@@ -276,4 +335,15 @@
 
 #ListSeasons tr:nth-child(odd) {
     background-color: #d4e4f0;
+}
+
+#ListSeasons .AllSeasons {
+    padding: 2rem;
+    text-align: right;
+    text-decoration: underline;
+}
+
+#topInfo {
+    position: absolute;
+    color:white;
 }

@@ -5,6 +5,9 @@
     <div id="topImageShow"  class="row nobox">
         <div class="column">
             <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Bannière {{ $show->name }}" />
+            <div id="topInfo">
+
+            </div>
         </div>
     </div>
 
@@ -45,19 +48,19 @@
                 <div class="row">
                     <div id="ListSeasons" class="ui segment">
                         <h1>Liste des saisons</h1>
-                        <table class="ui padded table">
+                        <table class="ui padded table center aligned">
                             @foreach($seasons as $season)
                                 <tr>
                                     <td>
-                                        Saison {{ $season->name }}
+                                        <a href="#">Saison {{ $season->name }}</a>
                                     </td>
                                     <td>
                                         @if($season->moyenne > $noteGood)
-                                            <p class="ui green label">
+                                            <p class="ui green text">
                                         @elseif($season->moyenne > $noteNeutral && $season->moyenne < $noteGood)
-                                            <p class="ui gray label">
+                                            <p class="ui gray text">
                                         @else
-                                            <p class="ui red label">
+                                            <p class="ui red text">
                                         @endif
                                             {{ $season->moyenne }}
                                         </p>
@@ -66,12 +69,10 @@
                                     <td>
                                         24
                                         <i class="green smile icon"></i>
-                                    </td>
-                                    <td>
+
                                         12
                                         <i class="gray meh icon"></i>
-                                    </td>
-                                    <td>
+
                                         3
                                         <i class="red frown icon"></i>
                                     </td>
@@ -81,10 +82,7 @@
                                 </tr>
                             @endforeach
                         </table>
-                        <p>Toutes les saisons ></p>
-
-
-
+                        <a href="#"><p class="AllSeasons">Toutes les saisons ></p></a>
                     </div>
                 </div>
                 <div class="row">
