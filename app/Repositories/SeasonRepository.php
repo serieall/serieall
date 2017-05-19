@@ -4,7 +4,6 @@
 namespace App\Repositories;
 
 use App\Models\Season;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class SeasonRepository
@@ -34,5 +33,12 @@ class SeasonRepository
         }])
         ->orderBy('seasons.name', 'asc')
         ->get();
+    }
+
+    public function getSeasonsCountEpisodesForShowByID($id){
+        return $this->season->where('show_id', '=', $id)
+            ->withCount('episodes')
+            ->orderBy('seasons.name', 'asc')
+            ->get();
     }
 }

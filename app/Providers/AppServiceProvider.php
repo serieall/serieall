@@ -17,8 +17,15 @@ class AppServiceProvider extends ServiceProvider
         $folderImages = config('directories.images');
         $folderShows = config('directories.shows');
 
+        $noteGood = config('param.good');
+        $noteNeutral = config('param.neutral');
+        $noteBad = config('param.bad');
+
         View::share('folderImages', $folderImages);
         View::share('folderShows', $folderShows);
+        View::share('noteGood', $noteGood);
+        View::share('noteNeutral', $noteNeutral);
+        View::share('noteBad', $noteBad);
 
     }
 

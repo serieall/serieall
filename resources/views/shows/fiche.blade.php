@@ -40,62 +40,65 @@
     </div>
 
     <div class="row ui stackable grid">
-        <div class="ten wide column">
+        <div id="LeftBlockShow" class="ten wide column">
             <div class="ui stackable grid">
                 <div class="row">
-                    <div class="ui segment">
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam architecto
-                            blanditiis consequatur cum dignissimos dolorem ea esse in magni nesciunt possimus, quibusdam
-                            quis quos repellendus sit sunt. At, quos!
-                        </div>
-                        <div>Commodi, libero nihil. Ab blanditiis debitis ducimus maxime omnis placeat temporibus?
-                            Aspernatur corporis, cumque deserunt dolor dolorum error exercitationem fugiat ipsam labore
-                            libero quaerat totam, veritatis voluptatum. A accusamus, soluta!
-                        </div>
-                        <div>Animi, cum earum error fugiat natus possimus praesentium tempora voluptatibus. Accusantium
-                            animi architecto at commodi dolorem id ipsa iusto magni nisi officiis, pariatur perferendis
-                            sapiente sed sequi ut, vel, voluptate.
-                        </div>
-                        <div>Dignissimos eaque iste modi pariatur tempora ullam, vel. Accusamus aperiam architecto eaque
-                            eveniet itaque laudantium nisi nulla officia pariatur quibusdam, quisquam repellendus
-                            similique unde veniam voluptatibus. Deleniti dicta dolor iusto.
-                        </div>
-                        <div>Accusamus aliquid aut deleniti dolores, explicabo facere hic id illum laboriosam maxime
-                            minus nobis, numquam quae quidem quisquam repellendus ut voluptatem! Ducimus eveniet facere
-                            fugit ipsam. Ea sed soluta tempora.
-                        </div>
+                    <div id="ListSeasons" class="ui segment">
+                        <h1>Liste des saisons</h1>
+                        <table class="ui padded table">
+                            @foreach($seasons as $season)
+                                <tr>
+                                    <td>
+                                        Saison {{ $season->name }}
+                                    </td>
+                                    <td>
+                                        @if($season->moyenne > $noteGood)
+                                            <p class="ui green label">
+                                        @elseif($season->moyenne > $noteNeutral && $season->moyenne < $noteGood)
+                                            <p class="ui gray label">
+                                        @else
+                                            <p class="ui red label">
+                                        @endif
+                                            {{ $season->moyenne }}
+                                        </p>
+
+                                    </td>
+                                    <td>
+                                        24
+                                        <i class="green smile icon"></i>
+                                    </td>
+                                    <td>
+                                        12
+                                        <i class="gray meh icon"></i>
+                                    </td>
+                                    <td>
+                                        3
+                                        <i class="red frown icon"></i>
+                                    </td>
+                                    <td>
+                                        {{ $season->episodes_count }} épisodes
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <p>Toutes les saisons ></p>
+
+
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="ui segment">
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur, cumque id
-                            modi officia quae repudiandae temporibus vitae. Consequuntur facilis in mollitia nulla
-                            officiis pariatur quis sunt ullam, unde voluptates.
-                        </div>
-                        <div>Accusamus accusantium animi aperiam consequatur dignissimos dolore dolorem dolores, dolorum
-                            ea eligendi enim harum ipsam maiores molestiae non odit placeat quasi quibusdam tempora
-                            voluptate. Aliquam aspernatur dolorem eligendi qui quisquam.
-                        </div>
+                        <h1>Derniers avis sur la série</h1>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="four wide column">
+        <div id="RightBlockShow" class="five wide column">
             <div class="ui stackable grid">
                 <div class="row">
                     <div class="ui segment">
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid cumque doloribus ea error
-                            excepturi exercitationem expedita explicabo iusto libero mollitia nulla obcaecati, officiis
-                            pariatur quas ratione similique suscipit unde voluptatum!
-                        </div>
-                        <div>Architecto assumenda, atque deleniti dolores ea eius enim eos ex ipsum iure laudantium
-                            molestiae mollitia nulla officia pariatur perspiciatis porro praesentium provident quam qui
-                            repellendus, repudiandae sit soluta ut vel?
-                        </div>
-                        <div>A accusamus adipisci atque beatae cum, dolor facere laboriosam laborum non nulla porro quod
-                            repellat soluta sunt tempore vel voluptas voluptate. Aperiam eum harum nesciunt obcaecati
-                            quibusdam sint unde vitae.
-                        </div>
+
                     </div>
                 </div>
                 <div class="row">

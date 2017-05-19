@@ -118,7 +118,7 @@
 }
 
 .ui.secondary.pointing.menu {
-    border-bottom: 0px solid rgba(34, 36, 38, 0.15);
+    border-bottom: 0 solid rgba(34, 36, 38, 0.15);
 }
 
 #profil-actif {
@@ -224,14 +224,18 @@
 
 #menuFiche {
     padding-top: 0;
-    min-height: 150px;
 }
 
-#menuFiche .menu {
+#menuFiche .menu:last-child {
     border: none;
+    border-radius: 0;
 }
 
 #menuFiche .ui.menu > .item:first-child,.item:last-child {
+    border: none;
+}
+
+#menuFiche .ui.menu .item {
     border-radius: 0;
 }
 
@@ -242,4 +246,34 @@
 #menuFiche a.active {
     color: white;
     background: #213d64;
+}
+
+#LeftBlockShow {
+    margin-right: 2em;
+}
+
+#LeftBlockShow .segment, #RightBlockShow .segment {
+    border: none;
+    background-color: white;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    width: 100%;
+}
+
+#LeftBlockShow h1 {
+    padding: 1rem;
+    color: #213d64;
+}
+
+#ListSeasons table {
+    border: none;
+}
+
+#ListSeasons table tr td {
+    border-top: 0 !important;
+}
+
+#ListSeasons tr:nth-child(odd) {
+    background-color: #d4e4f0;
 }

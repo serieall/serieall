@@ -65,7 +65,7 @@ class Show extends Model {
 
 	public function seasons()
 	{
-		return $this->hasMany('App\Models\Season');
+		return $this->hasMany('App\Models\Season')->orderBy('name');
 	}
 
 	public function episodes()
