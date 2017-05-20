@@ -36,7 +36,7 @@
     <!-- End Piwik Code -->
 </head>
 <body id="body">
-    <div class="ui secondary pointing menu" id="header">
+    <div class="ui secondary pointing fluid stackable menu" id="header">
         <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
         <a class="item
             @if($navActive == 'shows')
@@ -62,8 +62,8 @@
             @endif">
             Classements
         </a>
-        <div class="right secondary pointing menu">
-            <div id="showDropdown" class="ui search dropdown">
+        <div class="right secondary pointing stackable menu">
+            <div id="showDropdown" class="item ui search dropdown">
                 <div class="ui icon input">
                     <input class="prompt" placeholder="Rechercher une série..." type="text">
                     <i class="search icon"></i>

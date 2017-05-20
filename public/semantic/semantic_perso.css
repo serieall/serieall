@@ -149,6 +149,11 @@
     border-bottom-width: 4px;
     margin: 2px 0 0;
     height: 50px;
+    text-align: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 .ui.secondary.pointing.menu .item:hover {
@@ -252,6 +257,11 @@
 
 #showDropdown {
     margin: auto 0;
+    border: none;
+}
+
+#showDropdown div {
+    text-align: left;
 }
 
 #topImageShow {
@@ -261,10 +271,10 @@
 }
 
 #topImageShow .column {
-    height: 300px;
+    min-height: 300px;
 }
 
-#topImageShow img {
+#topImageShow .topImageBanniere {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -272,6 +282,27 @@
     -webkit-filter: blur(10px) opacity(1);
     filter: blur(10px) opacity(1);
     transform: scale(1.1);
+}
+
+#topInfo {
+    position: absolute;
+    color:white;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#topInfo .column {
+    margin: 0 auto;
+    padding: 25px;
+}
+
+#topInfo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #menuFiche {
@@ -343,7 +374,3 @@
     text-decoration: underline;
 }
 
-#topInfo {
-    position: absolute;
-    color:white;
-}

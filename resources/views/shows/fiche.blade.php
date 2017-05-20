@@ -4,9 +4,22 @@
 
     <div id="topImageShow"  class="row nobox">
         <div class="column">
-            <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Bannière {{ $show->name }}" />
-            <div id="topInfo">
+            <img class="topImageBanniere" src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Bannière {{ $show->name }}" />
+            <div id="topInfo" class="ui stackable grid">
+                <div class="center aligned ten wide column">
+                    <div class="ui centered stackable grid">
+                        <div class="four wide column">
+                            <img  src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                        </div>
+                        <div class="twelve wide column">
+                            <h1>{{ $show->name }}</h1>
+                        </div>
+                    </div>
 
+            </div>
+                <div class="five wide column">
+
+                </div>
             </div>
         </div>
     </div>
@@ -68,13 +81,13 @@
                                     </td>
                                     <td>
                                         24
-                                        <i class="green smile icon"></i>
+                                        <i class="green smile large icon"></i>
 
                                         12
-                                        <i class="gray meh icon"></i>
+                                        <i class="gray meh large icon"></i>
 
                                         3
-                                        <i class="red frown icon"></i>
+                                        <i class="red frown large icon"></i>
                                     </td>
                                     <td>
                                         {{ $season->episodes_count }} épisodes
