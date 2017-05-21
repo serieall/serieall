@@ -41,7 +41,7 @@ class ShowRepository
 
     public function getShowByURL($show_url){
         return $this->show->where('show_url', $show_url)
-            ->with('seasons', 'episodes')
+            ->with('seasons', 'episodes', 'genres', 'nationalities', 'channels')
             ->first();
     }
 

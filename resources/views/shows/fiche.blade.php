@@ -8,17 +8,68 @@
             <div id="topInfo" class="ui stackable grid">
                 <div class="center aligned ten wide column">
                     <div class="ui centered stackable grid">
-                        <div class="four wide column">
-                            <img  src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                        <div id="midaligned" class="four wide column">
+                            <div class="topImageAffiche">
+                                <img  src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                            </div>
                         </div>
                         <div class="twelve wide column">
                             <h1>{{ $show->name }}</h1>
+                            @if($show->name != $show->name_fr)
+                                <h2>{{ $show->name_fr }}</h2>
+                            @endif
+
+                            <p>
+                                {{ $show->synopsis_fr }}
+                            </p>
+
+                            <table class="ui basic fixed table">
+                                <tr>
+                                    <td>
+                                        @if( $show->encours == 1)
+                                            <span class="ui green text">
+                                                <i class="checkmark icon"></i>
+                                                En cours
+                                            </span>
+                                        @else
+                                            <span class="ui red text">
+                                                <i class="remove icon"></i>
+                                                Terminée
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $nationalities }}
+                                    </td>
+                                    <td>
+                                        {{ $show->format }} minutes
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $genres }}
+                                    </td>
+                                    <td>
+                                        {{ $channels }}
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </table>
+
                         </div>
                     </div>
 
             </div>
                 <div class="five wide column">
-
+                    <div class="c100 p92 big dark green">
+                        <span>18.5</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

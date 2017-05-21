@@ -30,7 +30,10 @@ class ShowController extends Controller
     {
         $show = $this->showRepository->getShowByURL($show_url);
         $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
+        $genres = $this->showRepository->formatRequestInVariable($show->genres);
+        $nationalities = $this->showRepository->formatRequestInVariable($show->nationalities);
+        $channels = $this->showRepository->formatRequestInVariable($show->channels);
 
-        return view('shows/fiche', compact('show', 'seasons'));
+        return view('shows/fiche', compact('show', 'seasons', 'genres', 'nationalities', 'channels'));
     }
 }
