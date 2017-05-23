@@ -368,6 +368,7 @@
     width: 200px;
     height: 200px;
     stroke: #0d71bb;
+    drop-shadow: 1px 1px 2px black;
 }
 
 #rotate90 {

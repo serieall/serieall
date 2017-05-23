@@ -237,7 +237,7 @@
             $('#showDropdown')
                 .search({
                     apiSettings: {
-                        url: '/api/shows/search?name-lk=*{query}*'
+                        url: '/api/shows/search?_q={query}'
                     },
                     fields: { results: "data", title: "name", url: "url" },
                     selectFirstResult: true,
