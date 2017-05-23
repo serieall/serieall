@@ -18,3 +18,14 @@ function saveLogMessage($logID, $logMessage){
 
     return true;
 }
+
+function noteToCircle($note) {
+    $noteMax = config('param.noteMax');
+    $radiusCircle = config('param.radiusCircleNote');
+
+    $dashArray = 2 * pi() * $radiusCircle;
+//    565.48
+
+    return $dashArray * (1 - $note / $noteMax);
+
+}

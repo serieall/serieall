@@ -63,13 +63,11 @@
 
             </div>
                 <div class="five wide column">
-                    <div class="c100 p92 big dark green">
-                        <span>18.5</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
+                    <svg class="circleNote">
+                        <text>18.5</text>
+                        <circle cx="100" cy="100" r="90" fill="none" transform="rotate(-90deg 60deg 60deg)" stroke="#ffffff" stroke-width="10" ></circle>
+                        <circle cx="100" cy="100" r="90" fill="none" transform="rotate(-90deg 60deg 60deg)" stroke="#213d64" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="{{ $noteCircle }}" ></circle>
+                    </svg>
                 </div>
             </div>
         </div>

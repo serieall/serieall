@@ -34,6 +34,8 @@ class ShowController extends Controller
         $nationalities = $this->showRepository->formatRequestInVariable($show->nationalities);
         $channels = $this->showRepository->formatRequestInVariable($show->channels);
 
-        return view('shows/fiche', compact('show', 'seasons', 'genres', 'nationalities', 'channels'));
+        $noteCircle = noteToCircle($show->moyenne);
+
+        return view('shows/fiche', compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle'));
     }
 }
