@@ -11,7 +11,6 @@
     <!-- CSS -->
     {{ Html::style('/semantic/semantic.css') }}
     {{ Html::style('/semantic/semantic_perso.css') }}
-    {{ Html::style('/semantic/circle.css') }}
     {{ Html::style('/js/jquery.css') }}
 
     <!-- Javascript -->
