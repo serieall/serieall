@@ -39,18 +39,34 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{ $nationalities }}
+                                        @if(empty($nationalities))
+                                            <span class="ui grey text">Pas de nationalité</span>
+                                        @else
+                                            {{ $nationalities }}
+                                        @endif
                                     </td>
                                     <td>
-                                        {{ $show->format }} minutes
+                                        @if(empty($show->format))
+                                            <span class="ui grey text">Pas de durée</span>
+                                        @else
+                                            {{ $show->format }} minutes
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        {{ $genres }}
+                                        @if(empty($genres))
+                                            <span class="ui grey text">Pas de genre</span>
+                                        @else
+                                            {{ $genres }}
+                                        @endif
                                     </td>
                                     <td>
-                                        {{ $channels }}
+                                        @if(empty($channels))
+                                            <span class="ui grey text">Pas de chaîne</span>
+                                        @else
+                                            {{ $channels }}
+                                        @endif
                                     </td>
                                     <td>
 
@@ -60,14 +76,29 @@
 
                         </div>
                     </div>
-
-            </div>
-                <div class="five wide column">
+                </div>
+                <div class="center aligned five wide column">
                     <svg class="circleNote">
-                        <text>18.5</text>
-                        <circle cx="100" cy="100" r="90" fill="none" transform="rotate(-90deg 60deg 60deg)" stroke="#ffffff" stroke-width="10" ></circle>
-                        <circle cx="100" cy="100" r="90" fill="none" transform="rotate(-90deg 60deg 60deg)" stroke="#213d64" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="{{ $noteCircle }}" ></circle>
+                        <g>
+                            <circle cx="100" cy="100" r="90" fill="none" stroke="#ffffff" stroke-width="10" ></circle>
+                            <circle @if($show->moyenne > $noteGood)
+                                        class="circleGood"
+                                    @elseif($show->moyenne > $noteNeutral && $show->moyenne < $noteGood)
+                                        class="circleNeutral"
+                                    @else
+                                        class="circleBad"
+                                    @endif
+                                     cx="100" cy="100" r="90" fill="none" stroke="none" transform="rotate(-90 100 100)" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="{{ $noteCircle }}" ></circle>
+                        </g>
+                        <text x="50%" y="58%" text-anchor="middle" fill="white">{{ $show->moyenne }}</text>
                     </svg>
+                    <div id="ShowReviewCount">
+                        <p>
+                            245 avis <span class="ui green text">favorable <i class="green smile large icon"></i></span><br />
+                            42 avis <span class="ui grey text">neutre <i class="gray meh large icon"></i></span><br />
+                            25 avis <span class="ui red text">défavorable <i class="red frown large icon"></i></span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

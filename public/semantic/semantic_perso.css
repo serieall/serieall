@@ -364,6 +364,41 @@
     width:100px;
 }
 
+.circleNote{
+    width: 200px;
+    height: 200px;
+    stroke: #0d71bb;
+}
+
+#rotate90 {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.circleNote text {
+    font-size: 3em;
+    stroke: none;
+}
+
+.circleGood {
+    stroke: #21BA45;
+}
+
+.circleNeutral{
+    stroke: #767676;
+}
+
+.circleBad {
+    stroke: #DB2828;
+}
+
+#ShowReviewCount p {
+    text-align: center;
+}
+
 #menuFiche {
     padding-top: 0;
 }
@@ -433,7 +468,3 @@
     text-decoration: underline;
 }
 
-.circleNote{
-    width: 200px;
-    height: 200px;
-}
