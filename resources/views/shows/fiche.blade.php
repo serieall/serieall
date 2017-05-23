@@ -95,7 +95,7 @@
                     <div id="ShowReviewCount">
                         <p>
                             245 avis <span class="ui green text">favorable <i class="green smile large icon"></i></span><br />
-                            42 avis <span class="ui grey text">neutre <i class="gray meh large icon"></i></span><br />
+                            42 avis <span class="ui grey text">neutre <i class="grey meh large icon"></i></span><br />
                             25 avis <span class="ui red text">défavorable <i class="red frown large icon"></i></span>
                         </p>
                     </div>
@@ -164,7 +164,7 @@
                                         <i class="green smile large icon"></i>
 
                                         12
-                                        <i class="gray meh large icon"></i>
+                                        <i class="grey meh large icon"></i>
 
                                         3
                                         <i class="red frown large icon"></i>
