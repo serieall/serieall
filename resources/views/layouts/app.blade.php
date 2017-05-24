@@ -241,7 +241,7 @@
                     },
                     fields: { results: "data", title: "name", url: "url" },
                     selectFirstResult: true,
-                    minCharacters: 0,
+                    minCharacters: 1,
                     maxResults: 40
                 });
         })

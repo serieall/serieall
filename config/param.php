@@ -15,4 +15,6 @@ return [
     'bad' => 0,
 
     'radiusCircleNote' => 90,
+
+    'nombreMotResume' => 320,
 ];

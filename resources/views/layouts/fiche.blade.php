@@ -18,9 +18,15 @@
                                 <h2>{{ $show->name_fr }}</h2>
                             @endif
 
-                            <p>
-                                {{ $show->synopsis_fr }}
+                            <p class="showResume">
+                                {{ $showSynopsis }}
                             </p>
+
+                            @if($resumeComplet)
+                                <a href="#">
+                                    <p class="AllSynopsis">Lire le résumé complet ></p>
+                                </a>
+                            @endif
 
                             <table class="ui basic fixed table">
                                 <tr>

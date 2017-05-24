@@ -29,3 +29,19 @@ function noteToCircle($note) {
     return $dashArray * (1 - $note / $noteMax);
 
 }
+
+function cutResume($resume) {
+    $nombreMotResume = config('param.nombreMotResume');
+
+    $text = wordwrap($resume, $nombreMotResume, "***", true); // insertion de marqueurs ***
+
+    $tcut = explode("***", $text); // on créé un tableau à partir des marqueurs ***
+    $part1 = $tcut[0]; // la partie à mettre en exergue
+    $part2 = '';
+    for($i=1; $i<count($tcut); $i++) {
+        $part2 .= $tcut[$i].' ';
+    }
+    $part2 = trim($part2); //suppression du dernier espace dans la partie de texte restante
+
+    return $part1 . " ...";
+}

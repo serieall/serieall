@@ -349,12 +349,23 @@
 
 #topInfo h1 {
     font-size: 2.5em;
+    margin-bottom: 0;
 }
 #topInfo h2 {
     margin-top: 0;
     color: #b3b3b3;
     font-size: 1.2em;
     font-style: italic;
+}
+
+#topInfo p.AllSynopsis {
+    text-align: right;
+    text-decoration: underline;
+    margin-bottom: 1em;
+}
+
+#topInfo p.showResume {
+    margin-bottom: 0;
 }
 
 #circleNote{
@@ -468,4 +479,17 @@
     text-align: right;
     text-decoration: underline;
 }
+
+#ButtonsActions {
+    width: 100%;
+}
+
+#ButtonsActions .segment {
+    padding: 2rem;
+}
+
+#ButtonsActions button {
+    margin-bottom: 1rem;
+}
+
 

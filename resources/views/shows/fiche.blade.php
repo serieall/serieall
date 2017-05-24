@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="ui segment">
+                    <div id="ListAvis" class="ui segment">
                         <h1>Derniers avis sur la série</h1>
 
                     </div>
@@ -87,8 +87,25 @@
         <div id="RightBlockShow" class="five wide column">
             <div class="ui stackable grid">
                 <div class="row">
-                    <div class="ui segment">
-
+                    <div id="ButtonsActions">
+                        <div class="ui segment">
+                            <div class="ui fluid labeled icon dropdown blue button">
+                                <i class="play icon"></i>
+                                <span class="text">Je la regarde</span>
+                                <div class="menu">
+                                    <div class="item">
+                                        <i class="pause icon"></i> Je la met en pause
+                                    </div>
+                                    <div class="item">
+                                        <i class="delete icon"></i> J'abandonne la série
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="ui fluid button">
+                                <i class="calendar icon"></i>
+                                Je l'ajoute à mon planning
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
