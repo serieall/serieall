@@ -47,6 +47,22 @@
     color: #1B1C1D !important;
 }
 
+.ui.DarkBlueSerieAll.buttons .button,
+.ui.DarkBlueSerieAll.button {
+    background-color: #213d64;
+    color: #FFFFFF;
+    text-shadow: none;
+    background-image: none;
+}
+
+.ui.BlueSerieAll.buttons .button,
+.ui.BlueSerieAll.button {
+    background-color: #1074b2;
+    color: #FFFFFF;
+    text-shadow: none;
+    background-image: none;
+}
+
 
 /*ADMIN*/
 
@@ -445,13 +461,21 @@
     background-color: white;
     border-radius: 0;
     box-shadow: none;
-    padding: 0;
+    padding: 2rem;
     width: 100%;
 }
 
-#LeftBlockShow h1 {
-    padding: 2rem;
+#LeftBlockShow,#RightBlockShow h1 {
     color: #213d64;
+    margin-bottom: 1rem;
+}
+
+.segment#ListSeasons {
+    padding: 0;
+}
+
+.segment#ListSeasons h1 {
+    padding: 2rem;
     margin-bottom: 0;
 }
 
@@ -483,12 +507,31 @@
     width: 100%;
 }
 
-#ButtonsActions .segment {
-    padding: 2rem;
-}
-
-#ButtonsActions button {
+#ButtonsActions .dropdown {
     margin-bottom: 1rem;
+    text-align: center;
 }
 
+#LastArticles .row {
+    padding-bottom: 0;
+}
 
+#LastArticles .column {
+    padding: 0;  }
+
+#LastArticles img {
+    max-height: 100px;
+}
+
+#LastArticles h2 {
+    color: #1074b2;
+    text-decoration: underline;
+    font-size: 1.2em;
+    font-style: italic;
+    text-shadow: none;
+}
+
+#LastArticles p {
+    text-shadow: none;
+    color: black;
+}

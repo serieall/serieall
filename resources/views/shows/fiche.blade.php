@@ -89,32 +89,67 @@
                 <div class="row">
                     <div id="ButtonsActions">
                         <div class="ui segment">
-                            <div class="ui fluid labeled icon dropdown blue button">
-                                <i class="play icon"></i>
-                                <span class="text">Je la regarde</span>
+                            <div class="ui fluid icon dropdown DarkBlueSerieAll button">
+                                <span class="text"><i class="tv icon"></i>Actions sur la série</span>
                                 <div class="menu">
                                     <div class="item">
-                                        <i class="pause icon"></i> Je la met en pause
+                                        <i class="play icon"></i>
+                                        Je regarde la série
                                     </div>
                                     <div class="item">
-                                        <i class="delete icon"></i> J'abandonne la série
+                                        <i class="pause icon"></i>
+                                        Je met en pause la série
+                                    </div>
+                                    <div class="item">
+                                        <i class="stop icon"></i>
+                                        J'abandonne la série
                                     </div>
                                 </div>
                             </div>
                             <button class="ui fluid button">
                                 <i class="calendar icon"></i>
-                                Je l'ajoute à mon planning
+                                J'ajoute la série dans mon planning
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="ui segment">
-
+                    <div id="LastArticles" class="ui segment">
+                        <h1>Derniers articles sur la série</h1>
+                        <div class="ui stackable grid">
+                            <div class="row">
+                                <div class="center aligned four wide column">
+                                    <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                                </div>
+                                <div class="eleven wide column">
+                                    <a><h2>Critique 01.03</h2></a>
+                                    <p>Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="center aligned four wide column">
+                                    <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                                </div>
+                                <div class="eleven wide column">
+                                    <a><h2>Critique 01.02</h2></a>
+                                    <p>Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="center aligned four wide column">
+                                    <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                                </div>
+                                <div class="eleven wide column">
+                                    <a><h2>Critique 01.01</h2></a>
+                                    <p>Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="ui segment">
+                        <h1>Séries similaires</h1>
 
                     </div>
                 </div>
