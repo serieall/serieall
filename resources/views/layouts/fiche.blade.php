@@ -28,7 +28,7 @@
                                 </a>
                             @endif
 
-                            <table class="ui basic fixed table">
+                            <table class="ui computer only basic fixed table">
                                 <tr>
                                     <td>
                                         @if( $show->encours == 1)
