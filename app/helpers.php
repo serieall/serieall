@@ -19,6 +19,41 @@ function saveLogMessage($logID, $logMessage){
     return true;
 }
 
+/**
+ * @param $id
+ * @return array
+ */
+function roleUser($id) {
+    switch ($id) {
+        case 1:
+            $role = "Administrateur";
+            $color = "red";
+            break;
+        case 2:
+            $role = "Rédacteur";
+            $color = "purple";
+            break;
+        case 3:
+            $role = "Membre VIP";
+            $color = "orange";
+            break;
+        case 4:
+            $role = "Membre";
+            $color = "black";
+            break;
+        default:
+            $role = "Inconnu";
+            $color = "grey";
+    }
+
+    return array('role'=>$role, 'color'=>$color);
+
+}
+
+/**
+ * @param $note
+ * @return int
+ */
 function noteToCircle($note) {
     $noteMax = config('param.noteMax');
     $radiusCircle = config('param.radiusCircleNote');
@@ -30,18 +65,29 @@ function noteToCircle($note) {
 
 }
 
+/**
+ * @param $resume
+ * @return string
+ */
 function cutResume($resume) {
-    $nombreMotResume = config('param.nombreMotResume');
+    $nombreCaracResume = config('param.nombreCaracResume');
 
-    $text = wordwrap($resume, $nombreMotResume, "***", true); // insertion de marqueurs ***
+    // On insère des marqueurs "***" dans le texte
+    $text = wordwrap($resume, $nombreCaracResume, "***", true);
 
-    $tcut = explode("***", $text); // on créé un tableau à partir des marqueurs ***
-    $part1 = $tcut[0]; // la partie à mettre en exergue
+    $tcut = explode("***", $text);
+
+    // La première partie du tableau est celle qui nous intéresse
+    $part1 = $tcut[0];
     $part2 = '';
+
     for($i=1; $i<count($tcut); $i++) {
         $part2 .= $tcut[$i].' ';
     }
-    $part2 = trim($part2); //suppression du dernier espace dans la partie de texte restante
 
+    // Suppression du dernier espace dans la partie de texte restante
+    $part2 = trim($part2);
+
+    // On retourne la partie 1 avec les points de suspension
     return $part1 . " ...";
 }

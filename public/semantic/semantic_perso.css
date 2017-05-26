@@ -47,6 +47,55 @@
     color: #1B1C1D !important;
 }
 
+/* BORDER-LEFT */
+.ui.red.left.border {
+    border-left: 5px solid #DB2828 !important;
+}
+
+.ui.orange.left.border {
+    border-left: 5px solid #F2711C !important;
+}
+
+.ui.yellow.left.border {
+    border-left: 5px solid #FBBD08 !important;
+}
+
+.ui.green.left.border {
+    border-left: 5px solid #21BA45 !important;
+}
+
+.ui.teal.left.border {
+    border-left: 5px solid #00B5AD !important;
+}
+
+.ui.blue.left.border {
+    border-left: 5px solid #2185D0 !important;
+}
+
+.ui.violet.left.border {
+    border-left: 5px solid #6435C9 !important;
+}
+
+.ui.purple.left.border {
+    border-left: 5px solid #A333C8 !important;
+}
+
+.ui.pink.left.border {
+    border-left: 5px solid #E03997 !important;
+}
+
+.ui.brown.left.border {
+    border-left: 5px solid #A5673F !important;
+}
+
+.ui.grey.left.border {
+    border-left: 5px solid #767676 !important;
+}
+
+.ui.black.left.border {
+    border-left: 5px solid #1B1C1D !important;
+}
+
 .ui.DarkBlueSerieAll.buttons .button,
 .ui.DarkBlueSerieAll.button {
     background-color: #213d64;
@@ -503,6 +552,48 @@
     text-decoration: underline;
 }
 
+#ListAvis .grid {
+    margin-left: 0;
+}
+
+#ListAvis img {
+    margin: 0 auto;
+}
+
+#ListAvis .AvisResume {
+    text-align: justify;
+}
+
+#ListAvis .AvisBox {
+    padding: 0;
+}
+
+#ListAvis table {
+    border-radius: inherit;
+    border: none;
+}
+
+#ListAvis table tr td {
+    border-top: 0 !important;
+}
+#ListAvis table {
+    border-left: 5px solid grey;
+}
+
+#ListAvis table tr:first-child td {
+    border-bottom: 1px solid grey;
+}
+
+#ListAvis td.AvisStatus {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#ListAvis td.LireAvis {
+    text-align: right !important;
+    text-decoration: underline !important;
+}
+
 #ButtonsActions {
     width: 100%;
 }
@@ -531,7 +622,13 @@
     text-shadow: none;
 }
 
-#LastArticles p {
+#LastArticles p.ResumeArticle {
     text-shadow: none;
     color: black;
+}
+
+#LastArticles .AllArticles {
+    padding-top: 2rem;
+    text-align: right;
+    text-decoration: underline;
 }

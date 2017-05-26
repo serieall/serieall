@@ -106,7 +106,7 @@
                     <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
                     <span>{{ Auth::user()->username }}</span> <i class="dropdown icon"></i>
                     <div class="menu">
-                        @if(Auth::user()->role > 1)
+                        @if(Auth::user()->role < 4)
                             <a href="{{ url('/admin')}}">
                                 <div class="item">
                                     <i class="lock icon"></i>

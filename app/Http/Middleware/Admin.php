@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Log;
 
 class Admin
 {
@@ -15,7 +16,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->role > 1){
+        if ($request->user()->role < 4){
             return $next($request);
         }
 

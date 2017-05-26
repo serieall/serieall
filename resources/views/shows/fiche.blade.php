@@ -79,7 +79,72 @@
                 <div class="row">
                     <div id="ListAvis" class="ui segment">
                         <h1>Derniers avis sur la série</h1>
-
+                        <div class="ui stackable grid">
+                            <div class="row">
+                                <div class="center aligned three wide column">
+                                    <img class="ui tiny image" src="{{ Gravatar::src(Auth::user()->email) }}">
+                                    <span>{{ Auth::user()->username }}</span><br />
+                                    <span class="ui {!! roleUser(Auth::user()->role)['color'] !!} text">{!! roleUser(Auth::user()->role)['role'] !!}</span>
+                                </div>
+                                <div class="AvisBox center aligned twelve wide column">
+                                   <table class="ui grey left border table">
+                                       <tr>
+                                           <td class="ui grey text AvisStatus">Avis neutre</td>
+                                           <td class="right aligned">Déposé le 26/05/2017 à 9h53</td>
+                                       </tr>
+                                       <tr>
+                                           <td colspan="2" class="AvisResume">
+                                               <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
+                                                   dicta dolorem excepturi non nulla, obcaecati quo rerum sequi sint? Ab
+                                                   cumque deserunt doloribus iste, molestias provident quia repellat
+                                                   repellendus soluta?
+                                               </div>
+                                               <div>A culpa eius esse laboriosam neque nobis odio, sapiente. Aliquam
+                                                   animi, at consectetur earum eos itaque iure modi nisi nulla odio
+                                                   perspiciatis ...
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td class="ui grey text">10 réponses</td>
+                                           <td class="LireAvis"><a>Lire l'avis complet ></a></td>
+                                       </tr>
+                                   </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="center aligned three wide column">
+                                    <img class="ui tiny image" src="{{ Gravatar::src(Auth::user()->email) }}">
+                                    <span>{{ Auth::user()->username }}</span><br />
+                                    <span class="ui {!! roleUser(Auth::user()->role)['color'] !!} text">{!! roleUser(Auth::user()->role)['role'] !!}</span>
+                                </div>
+                                <div class="AvisBox center aligned twelve wide column">
+                                    <table class="ui green left border table">
+                                        <tr>
+                                            <td class="ui green text AvisStatus">Avis favorable</td>
+                                            <td class="right aligned">Déposé le 26/05/2017 à 9h53</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="AvisResume">
+                                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
+                                                    dicta dolorem excepturi non nulla, obcaecati quo rerum sequi sint? Ab
+                                                    cumque deserunt doloribus iste, molestias provident quia repellat
+                                                    repellendus soluta?
+                                                </div>
+                                                <div>A culpa eius esse laboriosam neque nobis odio, sapiente. Aliquam
+                                                    animi, at consectetur earum eos itaque iure modi nisi nulla odio
+                                                    perspiciatis ...
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ui grey text">10 réponses</td>
+                                            <td class="LireAvis"><a>Lire l'avis complet ></a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,7 +188,7 @@
                                 </div>
                                 <div class="eleven wide column">
                                     <a><h2>Critique 01.03</h2></a>
-                                    <p>Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
+                                    <p class="ResumeArticle">Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -132,7 +197,7 @@
                                 </div>
                                 <div class="eleven wide column">
                                     <a><h2>Critique 01.02</h2></a>
-                                    <p>Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
+                                    <p class="ResumeArticle">Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -141,16 +206,32 @@
                                 </div>
                                 <div class="eleven wide column">
                                     <a><h2>Critique 01.01</h2></a>
-                                    <p>Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
+                                    <p class="ResumeArticle">Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
                                 </div>
                             </div>
                         </div>
+                        <a href="#"><p class="AllArticles">Tous les articles ></p></a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="ui segment">
+                    <div id="SimilarShows" class="ui segment">
                         <h1>Séries similaires</h1>
-
+                        <div class="ui center aligned stackable grid">
+                            <div class="row">
+                                <div class="center aligned five wide column">
+                                    <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                                    <span>Série 1</span>
+                                </div>
+                                <div class="center aligned five wide column">
+                                    <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                                    <span>Série 2</span>
+                                </div>
+                                <div class="center aligned five wide column">
+                                    <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                                    <span>Série 3</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
