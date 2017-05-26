@@ -195,7 +195,7 @@
 
                         @foreach($show->actors as $actor)
                             <div class="ui segment div-actor">
-                               <form action="{{ route('adminActors.destroy', $show->id) }}" method="post" >
+                               <form action="{{ route('adminArtist.destroy', $show->id) }}" method="post" >
                                    {{ csrf_field() }}
 
                                    <input type="hidden" name="_method" value="DELETE">
@@ -583,7 +583,7 @@
                         + '<i class="dropdown icon"></i>'
                         + '<div class="default text">Choisir</div>'
                         + '<div class="menu">'
-                        + '@foreach($actors as $actor)'
+                        + '@foreach($allActors as $actor)'
                         + '<div class="item" data-value="{{ $actor->name }}">{{ $actor->name }}</div>'
                         + '@endforeach'
                         + '</div>'

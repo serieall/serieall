@@ -144,6 +144,17 @@
                                     </table>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="three wide column">
+
+                                </div>
+                                <div class="twelve wide column">
+                                    <div class="left foated ui DarkBlueSerieAll button">
+                                        <i class="write icon"></i> Ecrire un avis
+                                    </div>
+                                    <a href="#"><p class="AllAvis">Toutes les avis ></p></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

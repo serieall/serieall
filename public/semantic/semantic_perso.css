@@ -590,8 +590,14 @@
 }
 
 #ListAvis td.LireAvis {
-    text-align: right !important;
-    text-decoration: underline !important;
+    text-align: right;
+    text-decoration: underline;
+}
+
+#ListAvis .AllAvis {
+    text-align: right;
+    text-decoration: underline;
+    box-sizing: content-box;
 }
 
 #ButtonsActions {
