@@ -16,4 +16,5 @@
 
     $api->version('v1', [], function (Router $api){
        $api->get('shows/search', '\App\Http\Controllers\Api\V1\ShowSearchController@index');
+        $api->get('nationalities', '\App\Http\Controllers\Api\V1\NationalitiesController@index');
     });
