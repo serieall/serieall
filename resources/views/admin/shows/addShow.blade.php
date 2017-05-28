@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('breadcrumbs')
-    <a href="{{ route('adminIndex') }}" class="section">
+    <a href="{{ route('admin') }}" class="section">
         Administration
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('adminShow.index') }}" class="section">
+    <a href="{{ route('admin.shows.index') }}" class="section">
         Séries
     </a>
     <i class="right angle icon divider"></i>
@@ -23,7 +23,7 @@
     </h1>
     <div class="ui centered grid">
         <div class="ten wide column segment">
-            <form class="ui form" method="POST" action="{{ route('adminShow.store') }}">
+            <form class="ui form" method="POST" action="{{ route('admin.shows.store') }}">
                 {{ csrf_field() }}
 
                 <div class="ui teal segment">

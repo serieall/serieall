@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('breadcrumbs')
-    <a href="{{ route('adminIndex') }}" class="section">
+    <a href="{{ route('admin') }}" class="section">
         Administration
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('adminShow.index') }}" class="section">
+    <a href="{{ route('admin.shows.index') }}" class="section">
         Séries
     </a>
     <i class="right angle icon divider"></i>
@@ -22,7 +22,7 @@
         </span>
     </h1>
 
-    <form class="ui form" method="POST" action="{{ route('adminShow.storeManually') }}">
+    <form class="ui form" method="POST" action="{{ route('admin.shows.storeManually') }}">
         {{ csrf_field() }}
 
         <div class="ui centered grid">
@@ -191,16 +191,6 @@
                     </p>
 
                     <div class="div-artists">
-
-
-
-
-
-
-
-
-
-
 
                     </div>
 
@@ -1012,7 +1002,7 @@
                 dataType: "json"
             })
                     .done(function () {
-                        window.location.href = '{!! route('adminShow.redirectJSON') !!}';
+                        window.location.href = '{!! route('admin.shows.redirectJSON') !!}';
                     })
                     .fail(function (data) {
                         $('.submit').removeClass("loading");

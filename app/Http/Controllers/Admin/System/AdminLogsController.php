@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\LogRepository;
 
-class AdminController extends Controller
+class AdminLogsController extends Controller
 {
     protected $nbPerPage = 20;
     protected $logRepository;
@@ -16,21 +16,18 @@ class AdminController extends Controller
     }
 
     public function index() {
-        $logs = $this->logRepository->getTenDistinctLogs();
+        $logs = $this->logRepository->getAllDistinctLogs();
 
-        return view('admin/index', compact('logs'));
+        return view('admin/system/logs/index', compact('logs'));
     }
 
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function viewLog($id){
-        $log = $this->logRepository->getLogsByID($id);
+    public function view($id){
+        $log = $this->logRepository->getLogByID($id);
 
         return view('admin/system/logs/view', compact('log'));
     }
-
-
-
 }

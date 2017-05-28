@@ -123,17 +123,17 @@
     border: none;
 }
 
-#table-show-admin thead th{
+#tableAdmin thead th{
     background: #1074b2;
     color: white;
 }
 
-#table-show-admin_length {
+#tableAdmin_length {
     float: left;
     margin-bottom: 0.5em;
 }
 
-#table-show-admin_filter {
+#tableAdmin_filter {
     float: right;
     margin-bottom: 0.5em;
 }
@@ -151,16 +151,16 @@
     color: #1074b2;
 }
 
-#table-show-admin_paginate{
+#tableAdmin_paginate{
     float: right;
     margin-bottom: 3em;
 }
 
-#table-show-admin_info{
+#tableAdmin_info{
     float: left;
 }
 
-#table-show-admin_paginate span{
+#tableAdmin_paginate span{
     display: inherit;
 }
 
@@ -591,10 +591,17 @@
 
 #ListAvis td.LireAvis {
     text-align: right;
+}
+
+#ListAvis td.LireAvis a {
     text-decoration: underline;
 }
 
 #ListAvis .AllAvis {
+    float: right;
+}
+
+#ListAvis .AllAvis p {
     text-align: right;
     text-decoration: underline;
     box-sizing: content-box;

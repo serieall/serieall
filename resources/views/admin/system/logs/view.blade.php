@@ -1,7 +1,19 @@
 @extends('layouts.admin')
 @section('breadcrumbs')
-    <div class="active section">
+    <a href="{{ route('admin') }}" class="section">
         Administration
+    </a>
+    <i class="right angle icon divider"></i>
+    <a href="{{ route('admin.system') }}" class="section">
+        Système
+    </a>
+    <i class="right angle icon divider"></i>
+    <a href="{{ route('admin.logs') }}" class="section">
+        Logs
+    </a>
+    <i class="right angle icon divider"></i>
+    <div class="active section">
+        {{ $log->job }}
     </div>
 @endsection
 

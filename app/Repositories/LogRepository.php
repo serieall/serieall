@@ -30,16 +30,19 @@ class LogRepository
         $this->list_log = $list_log;
     }
 
-    public function getDistinctLogs(){
-        $dateNow = Carbon::now();
-        $dateTwoDaysAGo = $dateNow->subDay(2);
-        return $this->list_log->with('user')->select('id', 'job', 'object', 'object_id', 'user_id')->where('created_at', '>=', $dateTwoDaysAGo)->distinct()->get();
+    public function getTenDistinctLogs(){
+        return $this->list_log->with('user')->select('id', 'job', 'object', 'object_id', 'user_id', 'created_at')->limit(10)->orderBy('id', 'desc')->distinct()->get();
+    }
+
+    public function getAllDistinctLogs(){
+        return $this->list_log->with('user')->select('id', 'job', 'object', 'object_id', 'user_id', 'created_at')->orderBy('id', 'desc')->distinct()->get();
     }
 
     /**
      * @param $id
+     * @return LogRepository
      */
-    public function getLogsByID($id){
+    public function getLogByID($id){
         return $this->list_log->with('logs','user')->find($id);
     }
 }

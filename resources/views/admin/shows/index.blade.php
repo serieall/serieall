@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('breadcrumbs')
-    <a href="{{ route('adminIndex') }}" class="section">
+    <a href="{{ route('admin') }}" class="section">
         Administration
     </a>
     <i class="right angle icon divider"></i>
@@ -26,14 +26,14 @@
                     <span class="text">Ajouter une nouvelle série</span>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href={{ route('adminShow.create') }}><i class="cloud download icon"></i> Création via The TVDB</a>
-                        <a class="item" href={{ route('adminShow.createManually') }}><i class="signup icon"></i> Création manuelle</a>
+                        <a class="item" href={{ route('admin.shows.create') }}><i class="cloud download icon"></i> Création via The TVDB</a>
+                        <a class="item" href={{ route('admin.shows.createManually') }}><i class="signup icon"></i> Création manuelle</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <table id="table-show-admin" class="ui sortable selectable celled table">
+        <table id="tableAdmin" class="ui sortable selectable celled table">
             <thead>
                 <tr>
                     <th>Nom</th>
@@ -71,7 +71,7 @@
                         <div class="ui centered grid">
                             <div class="four wide column">
                                 <!-- Formulaire d'édition -->
-                                <form action="{{ route('adminShow.edit', $show->id) }}" method="get" >
+                                <form action="{{ route('admin.shows.edit', $show->id) }}" method="get" >
 
                                     <button class="circular ui blue icon button" type="submit">
                                         <i class="icon edit"></i>
@@ -81,7 +81,7 @@
 
                             <div class="four wide column">
                                 <!-- Formulaire de suppression -->
-                                <form action="{{ route('adminShow.destroy', $show->id) }}" method="post" >
+                                <form action="{{ route('admin.shows.destroy', $show->id) }}" method="post" >
                                     {{ csrf_field() }}
 
                                     <input type="hidden" name="_method" value="DELETE">
@@ -98,32 +98,8 @@
         </table>
     </div>
 
-    <div class="ui basic modal">
-        <div class="ui two column middle aligned very relaxed stackable grid">
-            <div class="center aligned column">
-                <a href={{ route('adminShow.create') }}>
-                    <div class="ui big teal labeled icon button">
-                        <i class="cloud download icon"></i>
-                        Création via TheTVDB
-                    </div>
-                </a>
-            </div>
-            <div class="ui vertical divider">
-                Ou
-            </div>
-            <div class="center aligned column">
-                <a href={{ route('adminShow.createManually') }}>
-                    <div class="ui big green labeled icon button">
-                        <i class="signup icon"></i>
-                        Création manuelle
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
         <script>
-            $('#table-show-admin').DataTable( {
+            $('#tableAdmin').DataTable( {
                 "order": [[ 0, "asc" ]],
                 "language": {
                     "lengthMenu": "Afficher _MENU_ enregistrements par page",

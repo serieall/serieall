@@ -21,7 +21,7 @@ function saveLogMessage($logID, $logMessage){
 
 /**
  * @param $id
- * @return array
+ * @return string
  */
 function roleUser($id) {
     switch ($id) {
@@ -46,7 +46,9 @@ function roleUser($id) {
             $color = "grey";
     }
 
-    return array('role'=>$role, 'color'=>$color);
+    $text = "<span class=\"ui " . $color . " text\">" . $role . "</span>";
+
+    return $text;
 
 }
 

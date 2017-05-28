@@ -10,7 +10,7 @@
         <h1 class="ui header">
             Bienvenue sur l'administration de Série-All
             <div class="sub header">
-                Ouh mais cette page est vide. Cool, cool, cool.
+                Là où il y a quelques infos.
             </div>
         </h1>
     </div>
@@ -29,12 +29,13 @@
                     <th>Objet modifié</th>
                     <th>ID de l'objet</th>
                     <th>Utilisateur</th>
+                    <th>Date</th>
                 </tr>
             </thead>
 
             @foreach($logs as $log)
                 <tr>
-                    <td><a href="{{ route('adminLog', $log->id) }}">{{ $log->job }}</a></td>
+                    <td><a href="{{ route('admin.logs.view', $log->id) }}">{{ $log->job }}</a></td>
                     <td>{{ $log->object }}</td>
                     <td>
                         @if($log->object_id != 0)
@@ -50,6 +51,7 @@
                             System
                         @endif
                     </td>
+                    <td>{{ $log->created_at }}</td>
                 </tr>
             @endforeach
 

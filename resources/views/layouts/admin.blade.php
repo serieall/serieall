@@ -44,14 +44,14 @@
         <a class="ui header item
             @if($navActive == 'AdminHome')
                 blue
-            @endif" href="{{ route('adminIndex') }}">
+            @endif" href="{{ route('admin') }}">
             <i class="home icon"></i>
             Accueil
         </a>
         <a class="ui header item
              @if($navActive == 'AdminShows')
                 blue
-             @endif" href="{{ route('adminShow.index') }}">
+             @endif" href="{{ route('admin.shows.index') }}">
             <i class="tv icon"></i>
             Séries
         </a>
@@ -63,7 +63,10 @@
             <i class="users icon"></i>
             Utilisateurs
         </a>
-        <a class="ui header item">
+        <a class="ui header item
+            @if($navActive == 'AdminSystem')
+                blue
+             @endif" href="{{ route('admin.system') }}">
             <i class="settings icon"></i>
             Système
         </a>

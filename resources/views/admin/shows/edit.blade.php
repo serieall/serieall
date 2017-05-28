@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('breadcrumbs')
-    <a href="{{ route('adminIndex') }}" class="section">
+    <a href="{{ route('admin') }}" class="section">
         Administration
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('adminShow.index') }}" class="section">
+    <a href="{{ route('admin.shows.index') }}" class="section">
         Séries
     </a>
     <i class="right angle icon divider"></i>
@@ -22,7 +22,7 @@
         </span>
     </h1>
 
-    <form class="ui form" method="POST" action="{{ route('adminShow.updateManually') }}">
+    <form class="ui form" method="POST" action="{{ route('admin.shows.updateManually') }}">
         {{ csrf_field() }}
 
         <div class="ui centered grid">
@@ -195,7 +195,7 @@
 
                         @foreach($show->actors as $actor)
                             <div class="ui segment div-actor">
-                               <form action="{{ route('adminArtist.destroy', $show->id) }}" method="post" >
+                               <form action="{{ route('admin.artists.destroy', $show->id) }}" method="post" >
                                    {{ csrf_field() }}
 
                                    <input type="hidden" name="_method" value="DELETE">
@@ -629,7 +629,7 @@
                 dataType: "json"
             })
                     .done(function () {
-                        window.location.href = '{!! route('adminShow.redirectJSON') !!}';
+                        window.location.href = '{!! route('admin.shows.redirectJSON') !!}';
                     })
                     .fail(function (data) {
                         $('.submit').removeClass("loading");

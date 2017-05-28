@@ -40,18 +40,40 @@ Route::get('serie/{show_url}', 'ShowController@getShow')->name('fiche');
 */
 Route::group(['middleware' => 'admin'], function () {
     /* HOME */
-    Route::get('admin', 'Admin\AdminController@index')->name('adminIndex');
+    Route::get('admin', 'Admin\AdminController@index')->name('admin');
 
     /* SHOWS */
-    Route::get('admin/show/createManually', 'Admin\AdminShowController@createManually')->name('adminShow.createManually');
-    Route::post('admin/show/storeManually', 'Admin\AdminShowController@storeManually')->name('adminShow.storeManually');
-    Route::post('admin/show/updateManually', 'Admin\AdminShowController@updateManually')->name('adminShow.updateManually');
-    Route::get('admin/show/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('adminShow.redirectJSON');
-    Route::resource('adminShow', 'Admin\AdminShowController');
+    Route::get('admin/shows/createManually', 'Admin\AdminShowController@createManually')->name('admin.shows.createManually');
+    Route::post('admin/shows/storeManually', 'Admin\AdminShowController@storeManually')->name('admin.shows.storeManually');
+    Route::post('admin/shows/updateManually', 'Admin\AdminShowController@updateManually')->name('admin.shows.updateManually');
+    Route::get('admin/shows/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('admin.shows.redirectJSON');
+    Route::resource('admin/shows', 'Admin\AdminShowController', [
+        'names' => [
+            'index' => 'admin.shows.index',
+            'create' => 'admin.shows.create',
+            'store' => 'admin.shows.store',
+            'show' => 'admin.shows.show',
+            'update' => 'admin.shows.update',
+            'destroy' => 'admin.shows.destroy',
+            'edit' => 'admin.shows.edit'
+        ]
+    ]);
 
     /* ARTISTS */
-    Route::resource('adminArtist', 'Admin\AdminArtistController');
+    Route::resource('admin/artists', 'Admin\AdminArtistController', [
+        'names' => [
+            'index' => 'admin.artists',
+            'create' => 'admin.artists.create',
+            'store' => 'admin.artists.store',
+            'show' => 'admin.artists.show',
+            'update' => 'admin.artists.update',
+            'destroy' => 'admin.artists.destroy',
+            'edit' => 'admin.artists.edit'
+        ]
+    ]);
 
     /* SYSTEM */
-    Route::get('admin/log/{id}', 'Admin\AdminController@viewLog')->name('adminLog');
+    Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');
+    Route::get('admin/system/logs', 'Admin\System\AdminLogsController@index')->name('admin.logs');
+    Route::get('admin/system/logs/view/{id}', 'Admin\System\AdminLogsController@view')->name('admin.logs.view');
 });

@@ -84,7 +84,7 @@
                                 <div class="center aligned three wide column">
                                     <img class="ui tiny image" src="{{ Gravatar::src(Auth::user()->email) }}">
                                     <span>{{ Auth::user()->username }}</span><br />
-                                    <span class="ui {!! roleUser(Auth::user()->role)['color'] !!} text">{!! roleUser(Auth::user()->role)['role'] !!}</span>
+                                    {!! roleUser(Auth::user()->role) !!}
                                 </div>
                                 <div class="AvisBox center aligned twelve wide column">
                                    <table class="ui grey left border table">
@@ -116,7 +116,7 @@
                                 <div class="center aligned three wide column">
                                     <img class="ui tiny image" src="{{ Gravatar::src(Auth::user()->email) }}">
                                     <span>{{ Auth::user()->username }}</span><br />
-                                    <span class="ui {!! roleUser(Auth::user()->role)['color'] !!} text">{!! roleUser(Auth::user()->role)['role'] !!}</span>
+                                    {!! roleUser(Auth::user()->role) !!}
                                 </div>
                                 <div class="AvisBox center aligned twelve wide column">
                                     <table class="ui green left border table">
@@ -149,10 +149,10 @@
 
                                 </div>
                                 <div class="twelve wide column">
-                                    <div class="left foated ui DarkBlueSerieAll button">
+                                    <div class="ui DarkBlueSerieAll button">
                                         <i class="write icon"></i> Ecrire un avis
                                     </div>
-                                    <a href="#"><p class="AllAvis">Toutes les avis ></p></a>
+                                    <a class="AllAvis" href="#"><p>Toutes les avis ></p></a>
                                 </div>
                             </div>
                         </div>
