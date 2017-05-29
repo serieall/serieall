@@ -47,9 +47,6 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
-                                    @foreach($nationalities as $nationality)
-                                        <div class="item" data-value="{{ $nationality->name }}">{{ $nationality->name }}</div>
-                                    @endforeach
                                 </div>
                             </div>
 
@@ -67,9 +64,7 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
-                                    @foreach($artists as $artist)
-                                        <div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>
-                                    @endforeach
+
                                 </div>
                             </div>
 
@@ -92,9 +87,6 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choisir</div>
                                 <div class="menu">
-                                    @foreach($channels as $channel)
-                                        <div class="item" data-value="{{ $channel->name }}">{{ $channel->name }}</div>
-                                    @endforeach
                                 </div>
                             </div>
 
@@ -167,34 +159,37 @@
         <script>
             $('#dropdown-creators')
                     .dropdown({
+                        apiSettings: {
+                            url: '/api/artists/list?name-lk=*{query}*'
+                        },
+                        fields: {remoteValues: "data", value: "name"},
                         allowAdditions: true,
                         forceSelection : false,
-                        minCharacters: 5
-                    })
-            ;
-            $('#dropdown-genres')
-                    .dropdown({
-                        allowAdditions: true,
-                        forceSelection : false,
-                        minCharacters : 2
+                        minCharacters: 2
                     })
             ;
             $('#dropdown-chainefr')
                     .dropdown({
+                        apiSettings: {
+                            url: '/api/channels/list?name-lk=*{query}*'
+                        },
+                        fields: {remoteValues: "data", value: "name"},
                         allowAdditions: true,
                         forceSelection : false,
                         minCharacters : 1
                     })
             ;
-
             $('#dropdown-nationalities')
                     .dropdown({
+                        apiSettings: {
+                            url: '/api/nationalities/list?name-lk=*{query}*'
+                        },
+                        fields: {remoteValues: "data", value: "name"},
                         allowAdditions: true,
                         forceSelection : false,
                         minCharacters : 1
                     })
             ;
-
             $( '#datepicker' ).datepicker({
                 showAnim: "blind",
                 dateFormat: "yy-mm-dd",

@@ -19,6 +19,6 @@ class NationalitiesController extends Controller
 
         $nationalities = ApiHandler::parseMultiple($nationalities, array('name'))->getResult();
 
-        return $this->response->collection($nationalities, new NationalitiesTransformer);
+        return $this->response->collection($nationalities, new NationalitiesTransformer());
     }
 }

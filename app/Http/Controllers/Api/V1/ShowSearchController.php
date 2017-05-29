@@ -19,6 +19,6 @@ class ShowSearchController extends Controller
 
         $shows = ApiHandler::parseMultiple($shows, array('name', 'name_fr'))->getResult();
 
-        return $this->response->collection($shows, new ShowSearchTransformer);
+        return $this->response->collection($shows, new ShowSearchTransformer());
     }
 }
