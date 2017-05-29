@@ -138,9 +138,8 @@
                         </div>
 
                         <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
-                            <label>Avis de la rédaction</label>
-                            <textarea name="avis_rentree" value="{{ old('avis_rentree') }}"></textarea>
-
+                            <label for="avis_rentree">Avis de la rédaction</label>
+                            <textarea id="avis_rentree" name="avis_rentree">{{ old('avis_rentree') }}</textarea>
                                 @if ($errors->has('avis_rentree'))
                                     <div class="ui red message">
                             <strong>{{ $errors->first('avis_rentree') }}</strong>
@@ -154,48 +153,48 @@
             </form>
         </div>
     </div>
+@endsection
 
-    @section('scripts')
-        <script>
-            $('#dropdown-creators')
-                    .dropdown({
-                        apiSettings: {
-                            url: '/api/artists/list?name-lk=*{query}*'
-                        },
-                        fields: {remoteValues: "data", value: "name"},
-                        allowAdditions: true,
-                        forceSelection : false,
-                        minCharacters: 2
-                    })
-            ;
-            $('#dropdown-chainefr')
-                    .dropdown({
-                        apiSettings: {
-                            url: '/api/channels/list?name-lk=*{query}*'
-                        },
-                        fields: {remoteValues: "data", value: "name"},
-                        allowAdditions: true,
-                        forceSelection : false,
-                        minCharacters : 1
-                    })
-            ;
-            $('#dropdown-nationalities')
-                    .dropdown({
-                        apiSettings: {
-                            url: '/api/nationalities/list?name-lk=*{query}*'
-                        },
-                        fields: {remoteValues: "data", value: "name"},
-                        allowAdditions: true,
-                        forceSelection : false,
-                        minCharacters : 1
-                    })
-            ;
-            $( '#datepicker' ).datepicker({
-                showAnim: "blind",
-                dateFormat: "yy-mm-dd",
-                changeMonth: true,
-                changeYear: true
-            });
-        </script>
-    @endsection
+@section('scripts')
+    <script>
+        $('#dropdown-creators')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/artists/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters: 2
+                })
+        ;
+        $('#dropdown-chainefr')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/channels/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 1
+                })
+        ;
+        $('#dropdown-nationalities')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/nationalities/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection : false,
+                    minCharacters : 1
+                })
+        ;
+        $( '#datepicker' ).datepicker({
+            showAnim: "blind",
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true
+        });
+    </script>
 @endsection
