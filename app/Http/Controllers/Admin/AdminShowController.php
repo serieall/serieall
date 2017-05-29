@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Repositories\LogRepository;
+use App\Models\List_log;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowCreateManuallyRequest;
@@ -102,7 +104,7 @@ class AdminShowController extends Controller
         $dispatchOK = $this->showRepository->createShowJob($inputs);
 
         if($dispatchOK) {
-            return redirect(route('adminShow.index'))
+            return redirect(route('admin.shows.index'))
                 ->with('status_header', 'Série en cours d\'ajout')
                 ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.');
         }
@@ -138,7 +140,7 @@ class AdminShowController extends Controller
      */
     public function redirectJSON()
     {
-        return redirect()->route('adminShow.index')
+        return redirect()->route('admin.shows.index')
             ->with('status_header', 'Série en cours d\'ajout')
             ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.');
     }
@@ -194,7 +196,20 @@ class AdminShowController extends Controller
      */
     public function destroy($id)
     {
-        $this->showRepository->destroy($id);
+        # Définition du nom du job
+        $list_log = new List_log();
+        $list_log->job = 'Suppression';
+        $list_log->object = 'Show';
+        $list_log->object_id = $id;
+        $list_log->user_id = \Auth::user()->id;
+        $list_log->save();
+
+        $logID = $list_log->id;
+
+        $logMessage = '>>>>>>>>>> Lancement de la suppression <<<<<<<<<<';
+        saveLogMessage($logID, $logMessage);
+
+        $this->showRepository->destroy($id, $logID);
 
         return redirect()->back();
     }

@@ -44,8 +44,8 @@ class ShowController extends Controller
             $synopsis = $show->synopsis_fr;
         }
 
-        $nombreMotResume = config('param.nombreMotResume');
-        if(strlen($synopsis) <= $nombreMotResume) {
+        $nombreCaracResume = config('param.nombreCaracResume');
+        if(strlen($synopsis) <= $nombreCaracResume) {
             $showSynopsis = $synopsis;
             $resumeComplet = false;
         }
