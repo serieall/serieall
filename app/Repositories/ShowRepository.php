@@ -45,6 +45,12 @@ class ShowRepository
             ->first();
     }
 
+    public function getShowDetailsByURL($show_url){
+        return $this->show->where('show_url', $show_url)
+            ->with('genres', 'nationalities', 'channels', 'creators', 'actors')
+            ->first();
+    }
+
     /**
      * @param $inputs
      * @return bool

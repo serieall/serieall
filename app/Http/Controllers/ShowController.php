@@ -58,7 +58,7 @@ class ShowController extends Controller
     }
 
     public function getShowDetails($show_url) {
-        $show = $this->showRepository->getShowByURL($show_url);
+        $show = $this->showRepository->getShowDetailsByURL($show_url);
         $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         $genres = $this->showRepository->formatRequestInVariable($show->genres);
         $nationalities = $this->showRepository->formatRequestInVariable($show->nationalities);

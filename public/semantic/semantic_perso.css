@@ -47,6 +47,10 @@
     color: #1B1C1D !important;
 }
 
+.ui.bold.text {
+    font-weight: bold;
+}
+
 /* BORDER-LEFT */
 .ui.red.left.border {
     border-left: 5px solid #DB2828 !important;
@@ -94,6 +98,14 @@
 
 .ui.black.left.border {
     border-left: 5px solid #1B1C1D !important;
+}
+
+.ui.basic.table {
+    border: 0;
+}
+
+.ui.basic.table tr td {
+    border-top: 0 !important;
 }
 
 .ui.DarkBlueSerieAll.buttons .button,
