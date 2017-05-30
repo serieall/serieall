@@ -63,8 +63,6 @@ class ComposerServiceProvider extends ServiceProvider
             ['shows/*'],
             'App\Http\ViewComposers\NavActiveShowsComposer'
         );
-
-
     }
 
     /**

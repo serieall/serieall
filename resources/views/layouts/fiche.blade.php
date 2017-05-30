@@ -109,5 +109,14 @@
         </div>
     </div>
 
-    @yield('content_fiche')
+    @yield('menu_fiche')
+    <div class="row ui stackable grid">
+        <div id="LeftBlockShow" class="ten wide column">
+            @yield('content_fiche_left')
+        </div>
+        <div id="RightBlockShow" class="five wide column">
+            @yield('content_fiche_right')
+        </div>
+    </div>
+
 @endsection

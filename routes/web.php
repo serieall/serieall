@@ -33,7 +33,8 @@ Route::resource('user', 'UserController');
 /*
     Partie Séries
 */
-Route::get('serie/{show_url}', 'ShowController@getShow')->name('fiche');
+Route::get('serie/{show_url}', 'ShowController@getShow')->name('show.fiche');
+Route::get('serie/{show_url}/details', 'ShowController@getShowDetails')->name('show.details');
 
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
