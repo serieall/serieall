@@ -18,7 +18,6 @@ use App\Repositories\ChannelRepository;
 use App\Repositories\GenreRepository;
 use App\Repositories\NationalityRepository;
 use App\Repositories\SeasonRepository;
-use Illuminate\Support\Facades\Log;
 
 class AdminShowController extends Controller
 {
@@ -49,50 +48,44 @@ class AdminShowController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Affiche l'index de l'administation des séries
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        // On récupère la liste des séries
         $shows = $this->showRepository->getShowByName();
 
-        return view('admin/shows/index', compact('shows', 'navActive'));
+        // On retourne la vue
+        return view('admin/shows/index', compact('shows'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création via theTVDB
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $artists = $this->artistRepository->getArtists();
-        $genres = $this->genreRepository->getGenres();
-        $channels = $this->channelRepository->getChannels();
-        $nationalities = $this->nationalityRepository->getNationalities();
-
-        return view('admin/shows/create', compact('navActive', 'artists', 'genres', 'channels', 'nationalities'));
+        // On retourne la vue
+        return view('admin/shows/create');
     }
 
     /**
-     * Show the form for creating a new resource manually.
+     * Affiche le formulaire de création manuelle
      *
      * @return \Illuminate\Http\Response
      */
     public function createManually()
     {
-        $artists = $this->artistRepository->getArtists();
-        $genres = $this->genreRepository->getGenres();
-        $channels = $this->channelRepository->getChannels();
-        $nationalities = $this->nationalityRepository->getNationalities();
-
-        return view('admin/shows/createManually', compact('navActive', 'artists', 'genres', 'channels', 'nationalities'));
+        // On retourne la vue
+        return view('admin/shows/createManually');
     }
 
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistre une nouvelle série via theTVDB
      *
      * @param ShowCreateRequest|Request $request
      * @return \Illuminate\Http\Response
@@ -116,7 +109,7 @@ class AdminShowController extends Controller
     }
 
     /**
-     * Store a newly manually created resource in storage.
+     * Enregistre une nouvelle série créée manuellement
      *
      * @param ShowCreateManuallyRequest|Request $request
      * @return \Illuminate\Http\Response
@@ -134,7 +127,7 @@ class AdminShowController extends Controller
     }
 
     /**
-     * Store a newly manually created resource in storage.
+     * Redirection JSON
      *
      * @return \Illuminate\Http\Response
      */
@@ -146,7 +139,7 @@ class AdminShowController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire d'édition d'une série
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -162,16 +155,11 @@ class AdminShowController extends Controller
 
         $seasonsEpisodes = $this->seasonRepository->getSeasonsEpisodesForShowByID($id);
 
-        $allActors = $this->artistRepository->getArtists();
-        $allGenres = $this->genreRepository->getGenres();
-        $allChannels = $this->channelRepository->getChannels();
-        $allNationalities = $this->nationalityRepository->getNationalities();
-
         return view('admin/shows/edit',  compact('show', 'allActors', 'allGenres', 'allChannels', 'allNationalities', 'navActive', 'genres', 'channels', 'nationalities', 'creators', 'seasonsEpisodes'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour une série
      *
      * @param ShowUpdateManuallyRequest|Request $request
      * @return \Illuminate\Http\Response
@@ -183,13 +171,11 @@ class AdminShowController extends Controller
 
         $this->showRepository->updateManuallyShowJob($inputs);
 
-        Log::info('test');
         return response()->json();
-
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime une série ainsi que tous les éléments qui lui sont rattachés
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

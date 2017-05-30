@@ -121,9 +121,6 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Choisir</div>
                                     <div class="menu">
-                                        @foreach($channels as $channel)
-                                            <div class="item" data-value="{{ $channel->name }}">{{ $channel->name }}</div>
-                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="ui red hidden message"></div>
@@ -136,9 +133,6 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Choisir</div>
                                     <div class="menu">
-                                        @foreach($nationalities as $nationality)
-                                            <div class="item" data-value="{{ $nationality->name }}">{{ $nationality->name }}</div>
-                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="ui red hidden message"></div>
@@ -153,9 +147,6 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Choisir</div>
                                     <div class="menu">
-                                        @foreach($artists as $artist)
-                                            <div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>
-                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="ui red hidden message"></div>
@@ -168,9 +159,6 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Choisir</div>
                                     <div class="menu">
-                                        @foreach($genres as $genre)
-                                            <div class="item" data-value="{{ $genre->name }}">{{ $genre->name }}</div>
-                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="ui red hidden message"></div>
@@ -247,19 +235,31 @@
     <script>
         $('#dropdown-creators')
                 .dropdown({
+                    apiSettings: {
+                        url: '/api/artists/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
                     forceSelection : false,
-                    minCharacters: 4
+                    minCharacters: 2
                 })
         ;
         $('#dropdown-genres')
                 .dropdown({
+                    apiSettings: {
+                        url: '/api/genres/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
                     forceSelection : false
                 })
         ;
         $('#dropdown-chaines')
                 .dropdown({
+                    apiSettings: {
+                        url: '/api/channels/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
                     forceSelection : false
                 })
@@ -267,6 +267,10 @@
 
         $('#dropdown-nationalities')
                 .dropdown({
+                    apiSettings: {
+                        url: '/api/nationalities/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
                     forceSelection : false
                 })
@@ -331,9 +335,6 @@
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
-                            + '@foreach($artists as $artist)'
-                            + '<div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>'
-                            + '@endforeach'
                             + '</div>'
                             + '</div>'
                             + '<div class="ui red hidden message"></div>'
@@ -351,9 +352,13 @@
                             $(function() {
                                 $('.artistDropdown')
                                     .dropdown({
+                                        apiSettings: {
+                                            url: '/api/artists/list?name-lk=*{query}*'
+                                        },
+                                        fields: {remoteValues: "data", value: "name"},
                                         allowAdditions: true,
                                         forceSelection : false,
-                                        minCharacters: 4
+                                        minCharacters: 2
                                     });
                             });
 
@@ -739,9 +744,6 @@
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
-                            + '@foreach($artists as $artist)'
-                            + '<div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>'
-                            + '@endforeach'
                             + '</div>'
                             + '</div>'
                             + '<div class="ui red hidden message"></div>'
@@ -754,9 +756,6 @@
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
-                            + '@foreach($artists as $artist)'
-                            + '<div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>'
-                            + '@endforeach'
                             + '</div>'
                             + '</div>'
                             + '<div class="ui red hidden message"></div>'
@@ -769,9 +768,6 @@
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
-                            + '@foreach($artists as $artist)'
-                            + '<div class="item" data-value="{{ $artist->name }}">{{ $artist->name }}</div>'
-                            + '@endforeach'
                             + '</div>'
                             + '</div>'
                             + '<div class="ui red hidden message"></div>'
@@ -791,18 +787,30 @@
 
                             $('.guestDropdown')
                                 .dropdown({
+                                    apiSettings: {
+                                        url: '/api/artists/list?name-lk=*{query}*'
+                                    },
+                                    fields: {remoteValues: "data", value: "name"},
                                     allowAdditions: true,
                                     forceSelection: false,
                                     minCharacters: 4
                                 });
                             $('.writerDropdown')
                                 .dropdown({
+                                    apiSettings: {
+                                        url: '/api/artists/list?name-lk=*{query}*'
+                                    },
+                                    fields: {remoteValues: "data", value: "name"},
                                     allowAdditions: true,
                                     forceSelection: false,
                                     minCharacters: 4
                                 });
                             $('.directorDropdown')
                                 .dropdown({
+                                    apiSettings: {
+                                        url: '/api/artists/list?name-lk=*{query}*'
+                                    },
+                                    fields: {remoteValues: "data", value: "name"},
                                     allowAdditions: true,
                                     forceSelection: false,
                                     minCharacters: 4
