@@ -115,9 +115,22 @@
     </div>
     <div class="ui segment">
         <h1>Acteur(s)</h1>
-        @foreach($show->actors as $actor)
-            {{ $actor->name }} as {{ $actor->role }}
-            <br />
-        @endforeach
+        <table class="ui basic table">
+            @foreach($show->actors as $actor)
+                <tr>
+                    <td>
+                        <img class="ui tiny image" src="{{ $folderActors }}{{ $actor->artist_url }}.jpg" />
+                    </td>
+                    <td>
+                        <span class="ui bold text">
+                            {{ $actor->name }}
+                        </span>
+                    </td>
+                    <td>
+                        {{ $actor->role }}
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </div>
 @endsection

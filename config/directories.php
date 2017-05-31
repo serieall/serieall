@@ -10,5 +10,6 @@ return [
 
     'images' => '/images/',
     'shows' => '/images/shows/',
+    'actors' => '/images/actors/',
 
 ];

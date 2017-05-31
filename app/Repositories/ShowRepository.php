@@ -46,9 +46,10 @@ class ShowRepository
     }
 
     public function getShowDetailsByURL($show_url){
-        return $this->show->where('show_url', $show_url)
-            ->with('genres', 'nationalities', 'channels', 'creators', 'actors')
-            ->first();
+        return $this->show->where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function($q)
+        {
+            $q->select('artists.id', 'artists.name', 'artists.artist_url', 'artistables.role');
+        }])->first();
     }
 
     /**

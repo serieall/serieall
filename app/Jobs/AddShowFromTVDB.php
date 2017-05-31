@@ -11,6 +11,7 @@ use App\Models\Artist;
 use App\Models\Temp;
 use App\Models\Season;
 use App\Models\Episode;
+use Illuminate\Support\Facades\Log;
 
 use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
@@ -462,6 +463,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $api_url = config('thetvdb.url');
         $api_version = config('thetvdb.version');
         $hours_duration_token = config('thetvdb.hoursduration');
+        $public = public_path();
 
         /*
         |--------------------------------------------------------------------------
@@ -591,6 +593,10 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         $logMessage = '>>ID TheTVDB : ' . $show_new->thetvdb_id;
         saveLogMessage($listLogID, $logMessage);
 
+        if(empty($show_en->name)){
+            $show_en->seriesName = $show_fr->seriesName;
+        }
+
         $show_new->name = $show_en->seriesName;
         # Nom original de la série
         $logMessage = '>>Nom original : ' . $show_new->name;
@@ -659,6 +665,20 @@ class AddShowFromTVDB extends Job implements ShouldQueue
         saveLogMessage($listLogID, $logMessage);
 
         $show_new->save();
+
+        /* Récupération de l'affiche de la série
+         */
+        $file = 'http://thetvdb.com/banners/posters/'. $show_new->thetvdb_id . '-1.jpg';
+        $file_headers = @get_headers($file);
+        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+            $logMessage = '>>Pas d\'image pour la série.';
+            saveLogMessage($listLogID, $logMessage);
+        }
+        else {
+            copy($file, $public . '/images/shows/' . $show_new->show_url . '.jpg');
+            $logMessage = '>>Image pour la série récupérée.';
+            saveLogMessage($listLogID, $logMessage);
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -871,6 +891,8 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 # Récupération du nom de l'acteur
                 $actorName = $actor->name;
 
+                $actorID = $actor->id;
+
                 # Récupération du rôle
                 $actorRole = $actor->role;
                 if (is_null($actorRole)) {
@@ -896,6 +918,19 @@ class AddShowFromTVDB extends Job implements ShouldQueue
 
                     # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                     $show_new->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+
+                    /* Récupération de la photo de l'acteur */
+                    $file = 'https://thetvdb.com/banners/_cache/actors/' . $actorID . '.jpg';
+                    $file_headers = @get_headers($file);
+                    if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                        $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
+                        saveLogMessage($listLogID, $logMessage);
+                    }
+                    else {
+                        copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
+                        $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
+                        saveLogMessage($listLogID, $logMessage);
+                    }
                 } else {
                     $logMessage = '>>>Liaison de l\'acteur ' . $actorName . '.';
                     saveLogMessage($listLogID, $logMessage);
@@ -904,6 +939,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 }
             }
         }
+
 
         /*
         |--------------------------------------------------------------------------

@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot() {
         $folderImages = config('directories.images');
         $folderShows = config('directories.shows');
+        $folderActors = config('directories.actors');
 
         $noteGood = config('param.good');
         $noteNeutral = config('param.neutral');
@@ -23,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('folderImages', $folderImages);
         View::share('folderShows', $folderShows);
+        View::share('folderActors', $folderActors);
         View::share('noteGood', $noteGood);
         View::share('noteNeutral', $noteNeutral);
         View::share('noteBad', $noteBad);
