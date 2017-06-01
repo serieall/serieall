@@ -891,6 +891,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 # Récupération du nom de l'acteur
                 $actorName = $actor->name;
 
+                # Récupération de l'ID de l'acteur pour l'image (ID non stocké)
                 $actorID = $actor->id;
 
                 # Récupération du rôle
@@ -910,7 +911,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                 if (is_null($actor_ref)) {
                     $logMessage = '>>>Création de l\'acteur ' . $actorName . '.';
                     saveLogMessage($listLogID, $logMessage);
-                    # On prépare la nouvelle saison
+                    # On prépare le nouvel acteur
                     $actor_ref = new Artist([
                         'name' => $actor,
                         'artist_url' => $actor_url
@@ -920,7 +921,7 @@ class AddShowFromTVDB extends Job implements ShouldQueue
                     $show_new->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
 
                     /* Récupération de la photo de l'acteur */
-                    $file = 'https://thetvdb.com/banners/_cache/actors/' . $actorID . '.jpg';
+                    $file = 'https://thetvdb.com/banners/actors/' . $actorID . '.jpg';
                     $file_headers = @get_headers($file);
                     if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                         $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
