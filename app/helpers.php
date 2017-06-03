@@ -10,7 +10,8 @@ use App\Models\Log;
  * @internal param $logObjet
  * @internal param $logName
  */
-function saveLogMessage($logID, $logMessage){
+function saveLogMessage($logID, $logMessage)
+{
     $log = new Log();
     $log->list_log_id = $logID;
     $log->message = $logMessage;
@@ -92,4 +93,25 @@ function cutResume($resume) {
 
     // On retourne la partie 1 avec les points de suspension
     return $part1 . " ...";
+}
+
+/**
+ * Convertion d'une array en string
+ *
+ * @param $objects
+ * @return string
+ * @internal param $objets
+ */
+function formatRequestInVariable($objects) {
+    $list = '';
+
+    // Pour chaque chaine on incrémente dans une variable
+    foreach ($objects as $object){
+        $list.= $object->name . ', ';
+    }
+
+    // On enlève la dernière virgule
+    $list = substr($list, 0, -2);
+
+    return $list;
 }

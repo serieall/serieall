@@ -55,7 +55,7 @@ class AdminShowController extends Controller
     public function index()
     {
         // On récupère la liste des séries
-        $shows = $this->showRepository->getShowByName();
+        $shows = $this->showRepository->getAllShowsWithCountSeasonsAndEpisodes();
 
         // On retourne la vue
         return view('admin/shows/index', compact('shows'));

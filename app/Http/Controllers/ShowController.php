@@ -23,67 +23,27 @@ class ShowController extends Controller
     }
 
     /**
+     * Envoi vers la page shows/index
+     *
      * @param $show_url
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getShow($show_url)
     {
-        $show = $this->showRepository->getShowByURL($show_url);
-        $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
-        $genres = $this->showRepository->formatRequestInVariable($show->genres);
-        $nationalities = $this->showRepository->formatRequestInVariable($show->nationalities);
-        $channels = $this->showRepository->formatRequestInVariable($show->channels);
+        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        $noteCircle = noteToCircle($show->moyenne);
-
-        /** Détection du résumé à afficher (fr ou en)*/
-        if(empty($show->synopsis_fr)) {
-            $synopsis = $show->synopsis;
-        }
-        else {
-            $synopsis = $show->synopsis_fr;
-        }
-
-        $nombreCaracResume = config('param.nombreCaracResume');
-        if(strlen($synopsis) <= $nombreCaracResume) {
-            $showSynopsis = $synopsis;
-            $resumeComplet = false;
-        }
-        else {
-            $showSynopsis = cutResume($synopsis);
-            $resumeComplet = true;
-        }
-
-        return view('shows/fiche', compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'showSynopsis', 'resumeComplet'));
+        return view('shows/index', compact('showInfo'));
     }
 
+    /**
+     * Envoi vers la page shows/details
+     *
+     * @param $show_url
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getShowDetails($show_url) {
-        $show = $this->showRepository->getShowDetailsByURL($show_url);
-        $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
-        $genres = $this->showRepository->formatRequestInVariable($show->genres);
-        $nationalities = $this->showRepository->formatRequestInVariable($show->nationalities);
-        $channels = $this->showRepository->formatRequestInVariable($show->channels);
+        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        $noteCircle = noteToCircle($show->moyenne);
-
-        /** Détection du résumé à afficher (fr ou en)*/
-        if(empty($show->synopsis_fr)) {
-            $synopsis = $show->synopsis;
-        }
-        else {
-            $synopsis = $show->synopsis_fr;
-        }
-
-        $nombreCaracResume = config('param.nombreCaracResume');
-        if(strlen($synopsis) <= $nombreCaracResume) {
-            $showSynopsis = $synopsis;
-            $resumeComplet = false;
-        }
-        else {
-            $showSynopsis = cutResume($synopsis);
-            $resumeComplet = true;
-        }
-
-        return view('shows/details', compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'showSynopsis', 'resumeComplet'));
+        return view('shows/details', compact('showInfo'));
     }
 }

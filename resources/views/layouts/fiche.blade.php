@@ -3,26 +3,26 @@
 @section('content')
     <div id="topImageShow"  class="row nobox">
         <div class="column">
-            <img class="topImageBanniere" src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Bannière {{ $show->name }}" />
+            <img class="topImageBanniere" src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Bannière {{ $showInfo['show']->name }}" />
             <div id="topInfo" class="ui stackable grid">
                 <div class="center aligned ten wide column">
                     <div class="ui centered stackable grid">
                         <div id="midaligned" class="four wide column">
                             <div class="topImageAffiche">
-                                <img  src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                                <img  src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
                             </div>
                         </div>
                         <div class="twelve wide column">
-                            <h1>{{ $show->name }}</h1>
-                            @if($show->name != $show->name_fr)
-                                <h2>{{ $show->name_fr }}</h2>
+                            <h1>{{ $showInfo['show']->name }}</h1>
+                            @if($showInfo['show']->name != $showInfo['show']->name_fr)
+                                <h2>{{ $showInfo['show']->name_fr }}</h2>
                             @endif
 
                             <p class="showResume">
-                                {{ $showSynopsis }}
+                                {{ $showInfo['showSynopsis'] }}
                             </p>
 
-                            @if($resumeComplet)
+                            @if($showInfo['fullSynopsis'])
                                 <a href="#">
                                     <p class="AllSynopsis">Lire le résumé complet ></p>
                                 </a>
@@ -31,7 +31,7 @@
                             <table class="ui computer only basic fixed table">
                                 <tr>
                                     <td>
-                                        @if( $show->encours == 1)
+                                        @if( $showInfo['show']->encours == 1)
                                             <span class="ui green text">
                                                 <i class="checkmark icon"></i>
                                                 En cours
@@ -44,33 +44,33 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if(empty($nationalities))
+                                        @if(empty($showInfo['nationalities']))
                                             <span class="ui grey text">Pas de nationalité</span>
                                         @else
-                                            {{ $nationalities }}
+                                            {{ $showInfo['nationalities'] }}
                                         @endif
                                     </td>
                                     <td>
-                                        @if(empty($show->format))
+                                        @if(empty($showInfo['show']->format))
                                             <span class="ui grey text">Pas de durée</span>
                                         @else
-                                            {{ $show->format }} minutes
+                                            {{ $showInfo['show']->format }} minutes
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        @if(empty($genres))
+                                        @if(empty($showInfo['genres']))
                                             <span class="ui grey text">Pas de genre</span>
                                         @else
-                                            {{ $genres }}
+                                            {{ $showInfo['genres'] }}
                                         @endif
                                     </td>
                                     <td>
-                                        @if(empty($channels))
+                                        @if(empty($showInfo['channels']))
                                             <span class="ui grey text">Pas de chaîne</span>
                                         @else
-                                            {{ $channels }}
+                                            {{ $showInfo['channels'] }}
                                         @endif
                                     </td>
                                     <td>
@@ -86,16 +86,16 @@
                     <svg class="circleNote">
                         <g>
                             <circle cx="100" cy="100" r="90" fill="none" stroke="#ffffff" stroke-width="10" ></circle>
-                            <circle @if($show->moyenne > $noteGood)
+                            <circle @if($showInfo['show']->moyenne > $noteGood)
                                     class="circleGood"
-                                    @elseif($show->moyenne > $noteNeutral && $show->moyenne < $noteGood)
+                                    @elseif($showInfo['show']->moyenne > $noteNeutral && $showInfo['show']->moyenne < $noteGood)
                                     class="circleNeutral"
                                     @else
                                     class="circleBad"
                                     @endif
-                                    cx="100" cy="100" r="90" fill="none" stroke="none" transform="rotate(-90 100 100)" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="{{ $noteCircle }}" ></circle>
+                                    cx="100" cy="100" r="90" fill="none" stroke="none" transform="rotate(-90 100 100)" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="{{ $showInfo['noteCircle'] }}" ></circle>
                         </g>
-                        <text x="50%" y="58%" text-anchor="middle" fill="white">{{ $show->moyenne }}</text>
+                        <text x="50%" y="58%" text-anchor="middle" fill="white">{{ $showInfo['show']->moyenne }}</text>
                     </svg>
                     <div id="ShowReviewCount">
                         <p>

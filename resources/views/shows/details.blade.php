@@ -4,7 +4,7 @@
     <div id="menuFiche" class="row">
         <div class="column">
             <div class="ui fluid six item stackable menu">
-                <a class="item" href="{{ route('show.fiche', $show->show_url) }}">
+                <a class="item" href="{{ route('show.fiche', $showInfo['show']->show_url) }}">
                     <i class="big home icon"></i>
                     Présentation
                 </a>
@@ -42,7 +42,7 @@
                     <span class="ui bold text">Titre original</span>
                 </td>
                 <td>
-                    {{ $show->name }}
+                    {{ $showInfo['show']->name }}
                 </td>
             </tr>
             <tr>
@@ -50,7 +50,7 @@
                     <span class="ui bold text">Titre français</span>
                 </td>
                 <td>
-                    {{ $show->name_fr }}
+                    {{ $showInfo['show']->name_fr }}
                 </td>
             </tr>
             <tr>
@@ -58,7 +58,7 @@
                     <span class="ui bold text">Année de création</span>
                 </td>
                 <td>
-                    {{ $show->annee }}
+                    {{ $showInfo['show']->annee }}
                 </td>
             </tr>
             <tr>
@@ -66,7 +66,7 @@
                     <span class="ui bold text">Chaîne(s) de diffusion</span>
                 </td>
                 <td>
-                    {{ $channels }}
+                    {{ $showInfo['channels'] }}
                 </td>
             </tr>
             <tr>
@@ -74,7 +74,7 @@
                     <span class="ui bold text">Format</span>
                 </td>
                 <td>
-                    {{ $show->format }}
+                    {{ $showInfo['show']->format }}
                 </td>
             </tr>
             <tr>
@@ -82,7 +82,7 @@
                     <span class="ui bold text">Nationalité(s)</span>
                 </td>
                 <td>
-                    {{ $nationalities }}
+                    {{ $showInfo['nationalities'] }}
                 </td>
             </tr>
             <tr>
@@ -90,7 +90,7 @@
                     <span class="ui bold text">Genre(s)</span>
                 </td>
                 <td>
-                    {{ $genres }}
+                    {{ $showInfo['genres'] }}
                 </td>
             </tr>
             <tr>
@@ -98,7 +98,7 @@
                     <span class="ui bold text">Résumé complet</span>
                 </td>
                 <td>
-                    {{ $show->synopsis_fr }}
+                    {{ $showInfo['show']->synopsis_fr }}
                 </td>
             </tr>
         </table>
@@ -108,7 +108,7 @@
 @section('content_fiche_right')
     <div class="ui segment">
         <h1>Créateur(s)</h1>
-            @foreach($show->creators as $creator)
+            @foreach($showInfo['show']->creators as $creator)
                 {{ $creator->name }}
                 <br />
             @endforeach
@@ -116,10 +116,14 @@
     <div class="ui segment">
         <h1>Acteur(s)</h1>
         <table class="ui basic table">
-            @foreach($show->actors as $actor)
+            @foreach($showInfo['show']->actors as $actor)
                 <tr>
                     <td>
-                        <img class="ui tiny image" src="{{ $folderActors }}{{ $actor->artist_url }}.jpg" />
+                        @if(file_exists(public_path() . "$folderActors" . "$actor->artist_url.jpg"))
+                            <img class="ui tiny image" src="{{ $folderActors }}{{ $actor->artist_url }}.jpg" />
+                        @else
+                            <img class="ui tiny image" src="{{ $folderActors }}default_empty.jpg" />
+                        @endif
                     </td>
                     <td>
                         <span class="ui bold text">

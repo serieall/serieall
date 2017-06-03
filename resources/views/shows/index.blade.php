@@ -12,7 +12,7 @@
                     <i class="big browser icon"></i>
                     Saisons
                 </a>
-                <a class="item" href="{{ route('show.details', $show->show_url) }}">
+                <a class="item" href="{{ route('show.details', $showInfo['show']->show_url) }}">
                     <i class="big list icon"></i>
                     Informations détaillées
                 </a>
@@ -39,7 +39,7 @@
              <div id="ListSeasons" class="ui segment">
                  <h1>Liste des saisons</h1>
                  <table class="ui padded table center aligned">
-                     @foreach($seasons as $season)
+                     @foreach($showInfo['seasons'] as $season)
                          <tr>
                              <td>
                                  <a href="#">Saison {{ $season->name }}</a>
@@ -195,7 +195,7 @@
                  <div class="ui stackable grid">
                      <div class="row">
                          <div class="center aligned four wide column">
-                             <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
                          </div>
                          <div class="eleven wide column">
                              <a><h2>Critique 01.03</h2></a>
@@ -204,7 +204,7 @@
                      </div>
                      <div class="row">
                          <div class="center aligned four wide column">
-                             <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
                          </div>
                          <div class="eleven wide column">
                              <a><h2>Critique 01.02</h2></a>
@@ -213,7 +213,7 @@
                      </div>
                      <div class="row">
                          <div class="center aligned four wide column">
-                             <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
                          </div>
                          <div class="eleven wide column">
                              <a><h2>Critique 01.01</h2></a>
@@ -230,15 +230,15 @@
                  <div class="ui center aligned stackable grid">
                      <div class="row">
                          <div class="center aligned five wide column">
-                             <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
                              <span>Série 1</span>
                          </div>
                          <div class="center aligned five wide column">
-                             <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
                              <span>Série 2</span>
                          </div>
                          <div class="center aligned five wide column">
-                             <img src="{{ $folderShows }}/{{ $show->show_url }}.jpg" alt="Affiche {{ $show->name }}" />
+                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
                              <span>Série 3</span>
                          </div>
                      </div>
