@@ -125,14 +125,15 @@ class ShowRepository
 
     public function getInfoShowFiche($show_url)
     {
-        if (Route::current()->getName() == "shows.fiche") {
+        if (Route::current()->getName() == "show.fiche") {
             $show = $this->getShowByURL($show_url);
-        } elseif (Route::current()->getName() == "shows.fiche") {
+        } elseif (Route::current()->getName() == "show.details") {
             $show = $this->getShowDetailsByURL($show_url);
         }
         else {
             $show = $this->getShowByURL($show_url);
         }
+
         $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         $genres = formatRequestInVariable($show->genres);
         $nationalities = formatRequestInVariable($show->nationalities);
