@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Repositories\LogRepository;
-use App\Models\List_log;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
@@ -182,21 +182,19 @@ class AdminShowController extends Controller
      */
     public function destroy($id)
     {
-        # Définition du nom du job
-        $list_log = new List_log();
-        $list_log->job = 'Suppression';
-        $list_log->object = 'Show';
-        $list_log->object_id = $id;
-        $list_log->user_id = \Auth::user()->id;
-        $list_log->save();
+        $userID = Auth::user()->id;
 
-        $logID = $list_log->id;
+        $dispatchOK = $this->showRepository->deleteJob($id, $userID);
 
-        $logMessage = '>>>>>>>>>> Lancement de la suppression <<<<<<<<<<';
-        saveLogMessage($logID, $logMessage);
-
-        $this->showRepository->destroy($id, $logID);
-
-        return redirect()->back();
+        if($dispatchOK) {
+            return redirect()->back()
+                ->with('status_header', 'Suppression')
+                ->with('status', 'La série est en cours de suppression.');
+        }
+        else {
+            return redirect()->back()
+                ->with('warning_header', 'Erreur')
+                ->with('warning', 'Ca marche pô.');
+        }
     }
 }

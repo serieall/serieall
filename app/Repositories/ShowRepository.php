@@ -7,6 +7,7 @@ use App\Jobs\AddShowManually;
 use App\Models\Show;
 use App\Jobs\AddShowFromTVDB;
 use App\Jobs\UpdateShowManually;
+use App\Jobs\DeleteShow;
 use Illuminate\Support\Str;
 
 /**
@@ -99,64 +100,14 @@ class ShowRepository
 
     /**
      * @param $id
+     * @param $userID
+     * @return bool
+     * @internal param $inputs
      */
-    public function destroy($id, $logID){
-        // On cherche la série
-        $show = $this->getByID($id);
+    public function deleteJob($id, $userID){
+        dispatch(new DeleteShow($id, $userID));
 
-        // On détache tous les artistes, chaines, nationalités et les genres
-        $logMessage = '> Détachement des artistes';
-        saveLogMessage($logID, $logMessage);
-        $show->artists()->detach();
-
-        $logMessage = '> Détachement des chaines';
-        saveLogMessage($logID, $logMessage);
-        $show->channels()->detach();
-
-        $logMessage = '> Détachement des nationalités';
-        saveLogMessage($logID, $logMessage);
-        $show->nationalities()->detach();
-
-        $logMessage = '> Détachement des genres';
-        saveLogMessage($logID, $logMessage);
-        $show->genres()->detach();
-
-        // On récupère les saisons
-        $seasons = $show->seasons()->get();
-
-        // Pour chaque saison
-        foreach($seasons as $season){
-            $logMessage = '> SAISON ' . $season->name;
-            saveLogMessage($logID, $logMessage);
-
-            // On récupère les épisodes
-            $episodes = $season->episodes()->get();
-
-            // Pour chaque épisode
-            foreach($episodes as $episode){
-                $logMessage = '>> EPISODE ' . $episode->numero;
-                saveLogMessage($logID, $logMessage);
-
-                // On détache les artistes
-                $logMessage = '>>> Détachement des artistes';
-                saveLogMessage($logID, $logMessage);
-                $episode->artists()->detach();
-
-                // On le supprime
-                $logMessage = '>>> Suppression de l\'épisode';
-                saveLogMessage($logID, $logMessage);
-                $episode->delete();
-            }
-            // On supprime la saison
-            $logMessage = '>> Suppression de la saison';
-            saveLogMessage($logID, $logMessage);
-            $season->delete();
-        }
-
-        // On supprime la série
-        $logMessage = '> Suppression de la série';
-        saveLogMessage($logID, $logMessage);
-        $show->delete();
+        return true;
     }
 
     /**
