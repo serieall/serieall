@@ -3,6 +3,8 @@
 use App\Models\Log;
 
 /**
+ * Enregistrement d'un nouveau message de log dans la base de données
+ *
  * @param $logID
  * @param $logMessage
  * @return bool
@@ -21,6 +23,8 @@ function saveLogMessage($logID, $logMessage)
 }
 
 /**
+ * Génération du rôle d'un utilisateur avec la couleur associée
+ *
  * @param $id
  * @return string
  */
@@ -50,10 +54,11 @@ function roleUser($id) {
     $text = "<span class=\"ui " . $color . " text\">" . $role . "</span>";
 
     return $text;
-
 }
 
 /**
+ * Génération de la note sur son cercle dans la fiche série
+ *
  * @param $note
  * @return int
  */
@@ -69,6 +74,8 @@ function noteToCircle($note) {
 }
 
 /**
+ * Découpage du résumé
+ *
  * @param $resume
  * @return string
  */

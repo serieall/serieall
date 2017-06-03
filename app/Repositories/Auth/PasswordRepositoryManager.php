@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Auth;
 
-use App\Repositories\Auth\PasswordRepository;
+use Psr\Log\InvalidArgumentException;
 use Illuminate\Auth\Passwords\PasswordBrokerManager as IlluminatePasswordBrokerManager;
 
 class PasswordRepositoryManager extends IlluminatePasswordBrokerManager

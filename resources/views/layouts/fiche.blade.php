@@ -23,7 +23,7 @@
                             </p>
 
                             @if($showInfo['fullSynopsis'])
-                                <a href="#">
+                                <a href="{{ route('show.details', $showInfo['show']->show_url) }}#showDetails">
                                     <p class="AllSynopsis">Lire le résumé complet ></p>
                                 </a>
                             @endif

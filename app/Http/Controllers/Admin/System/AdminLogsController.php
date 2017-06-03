@@ -10,11 +10,21 @@ class AdminLogsController extends Controller
     protected $nbPerPage = 20;
     protected $logRepository;
 
+    /**
+     * AdminLogsController constructor.
+     *
+     * @param LogRepository $logRepository
+     */
     public function __construct(LogRepository $logRepository)
     {
         $this->logRepository = $logRepository;
     }
 
+    /**
+     * Renvoi vers la page admin/system/logs/index
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index() {
         $logs = $this->logRepository->getAllDistinctLogs();
 
@@ -22,6 +32,9 @@ class AdminLogsController extends Controller
     }
 
     /**
+     * Affiche le contenu d'un log
+     * Renvoi vers la page admin/system/logs/view
+     *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

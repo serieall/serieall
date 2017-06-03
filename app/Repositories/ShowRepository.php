@@ -8,8 +8,6 @@ use App\Jobs\AddShowFromTVDB;
 use App\Jobs\UpdateShowManually;
 use App\Jobs\DeleteShow;
 
-use App\Repositories\SeasonRepository;
-
 use App\Models\Show;
 
 use Illuminate\Support\Facades\Route;
@@ -28,7 +26,8 @@ class ShowRepository
     protected $seasonRepository;
 
     /**
-     * AdminShowRepository constructor.
+     * ShowRepository constructor.
+     *
      * @param Show $show
      * @param \App\Repositories\SeasonRepository $seasonRepository
      */
@@ -125,6 +124,7 @@ class ShowRepository
 
     public function getInfoShowFiche($show_url)
     {
+        // En fonction de la route, on récupère les informations sur la série différemment
         if (Route::current()->getName() == "show.fiche") {
             $show = $this->getShowByURL($show_url);
         } elseif (Route::current()->getName() == "show.details") {
@@ -134,16 +134,16 @@ class ShowRepository
             $show = $this->getShowByURL($show_url);
         }
 
+        // On récupère les saisons, genres, nationalités et chaines
         $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         $genres = formatRequestInVariable($show->genres);
         $nationalities = formatRequestInVariable($show->nationalities);
         $channels = formatRequestInVariable($show->channels);
 
-        $numberCharaMaxResume = config('param.nombreCaracResume');
-
+        // On récupère la note de la série, et on calcule la position sur le cercle
         $noteCircle = noteToCircle($show->moyenne);
 
-        /** Détection du résumé à afficher (fr ou en)*/
+        // Détection du résumé à afficher (fr ou en)
         if(empty($show->synopsis_fr)) {
             $synopsis = $show->synopsis;
         }
@@ -151,7 +151,8 @@ class ShowRepository
             $synopsis = $show->synopsis_fr;
         }
 
-        /** Faut-il couper le résumé ? */
+        // Faut-il couper le résumé ? */
+        $numberCharaMaxResume = config('param.nombreCaracResume');
         if(strlen($synopsis) <= $numberCharaMaxResume) {
             $showSynopsis = $synopsis;
             $fullSynopsis = false;
@@ -161,7 +162,7 @@ class ShowRepository
             $fullSynopsis = true;
         }
 
-        return compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'showSynopsis', 'fullSynopsis');
+        return compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'synopsis', 'showSynopsis', 'fullSynopsis');
     }
 
     /**

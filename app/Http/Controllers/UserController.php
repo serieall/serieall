@@ -15,19 +15,33 @@ class UserController extends Controller
 
     protected $userRepository;
 
+    /**
+     * UserController constructor.
+     * @param UserRepository $userRepository
+     */
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * Renvoi vers la page users/profile
+     *
+     * @param $username
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getProfile($username){
-        $navActive = 'profil';
-
         $user = $this->userRepository->getUserByUsername($username);
 
-        return view('users.profile', compact('user', 'navActive'));
+        return view('users.profile', compact('user'));
     }
 
+    /**
+     * Changement du mot de passe de l'utilisateur
+     *
+     * @param changePasswordRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function changePassword(changePasswordRequest $request){
         $user = Auth::user();
         $password = $request->password;
@@ -68,7 +82,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request|\Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -101,8 +115,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request|\Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

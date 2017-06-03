@@ -34,7 +34,7 @@
 @endsection
 
 @section('content_fiche_left')
-    <div class="ui segment">
+    <div id="showDetails" class="ui segment">
         <h1>Informations détaillées</h1>
         <table class="ui basic table">
             <tr>
@@ -98,7 +98,7 @@
                     <span class="ui bold text">Résumé complet</span>
                 </td>
                 <td>
-                    {{ $showInfo['show']->synopsis_fr }}
+                    {{ $showInfo['synopsis'] }}
                 </td>
             </tr>
         </table>

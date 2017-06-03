@@ -10,12 +10,19 @@ class NationalityRepository
 {
     protected $nationality;
 
+    /**
+     * NationalityRepository constructor.
+     *
+     * @param Nationality $nationality
+     */
     public function __construct(Nationality $nationality)
     {
         $this->nationality = $nationality;
     }
 
     /**
+     * On récupère la liste des nationalités
+     *
      * @return mixed
      */
     public function getNationalities(){

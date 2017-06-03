@@ -2,13 +2,20 @@
 
 namespace App\Repositories\Auth;
 
+use \Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Auth\Passwords\PasswordBroker as IlluminatePasswordBroker;
-use Illuminate\Support\Facades\Log;
 
 class PasswordRepository extends IlluminatePasswordBroker
 {
-
-    public function emailResetLink(\Illuminate\Contracts\Auth\CanResetPassword $user, $token, \Closure $callback = null)
+    /**
+     * Envoi un email pour le reset du mot de passe
+     *
+     * @param CanResetPassword $user
+     * @param $token
+     * @param \Closure|null $callback
+     * @return mixed
+     */
+    public function emailResetLink(CanResetPassword $user, $token, \Closure $callback = null)
     {
         // We will use the reminder view that was given to the broker to display the
         // password reminder e-mail. We'll pass a "token" variable into the views

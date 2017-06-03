@@ -6,6 +6,10 @@ use League\Fractal\TransformerAbstract;
 
 class ShowSearchTransformer extends TransformerAbstract
 {
+    /**
+     * @param $show
+     * @return array
+     */
     public function transform($show) : array
     {
         return [

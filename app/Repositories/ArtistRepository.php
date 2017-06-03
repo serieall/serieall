@@ -21,7 +21,8 @@ class ArtistRepository
     protected $artist;
 
     /**
-     * ShowRepository constructor.
+     * ArtistRepository constructor.
+     *
      * @param Artist $artist
      */
     public function __construct(Artist $artist)
@@ -30,14 +31,8 @@ class ArtistRepository
     }
 
     /**
-     * @param $id
-     */
-    public function destroy($id)
-    {
-
-    }
-
-    /**
+     * On récupère tous les artistes
+     *
      * @return mixed
      */
     public function getArtists(){

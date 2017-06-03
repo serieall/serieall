@@ -15,6 +15,11 @@ class AdminArtistController extends Controller
 
     protected $artistRepository;
 
+    /**
+     * AdminArtistController constructor.
+     *
+     * @param ArtistRepository $artistRepository
+     */
     public function __construct(ArtistRepository $artistRepository)
     {
         $this->artistRepository = $artistRepository;
@@ -78,6 +83,6 @@ class AdminArtistController extends Controller
      */
     public function destroy($id)
     {
-        $this->artistRepository->destroy($id);
+
     }
 }

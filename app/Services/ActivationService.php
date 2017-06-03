@@ -3,28 +3,33 @@
 namespace App\Services;
 
 use Illuminate\Mail\Mailer;
-use Illuminate\Mail\Message;
 use App\Repositories\ActivationRepository;
 use App\Models\User;
-use Mail;
 use App\Notifications\ActivationUserNotification;
-use Illuminate\Notifications\Notification;
 
 class ActivationService
 {
-
     protected $mailer;
-
     protected $activationRepo;
-
     protected $resendAfter = 24;
 
+    /**
+     * ActivationService constructor.
+     *
+     * @param Mailer $mailer
+     * @param ActivationRepository $activationRepo
+     */
     public function __construct(Mailer $mailer, ActivationRepository $activationRepo)
     {
         $this->mailer = $mailer;
         $this->activationRepo = $activationRepo;
     }
 
+    /**
+     * Envoi du mail d'activation
+     *
+     * @param $user
+     */
     public function sendActivationMail($user)
     {
         if ($user->activated || !$this->shouldSend($user)) {
@@ -36,6 +41,12 @@ class ActivationService
         $user->notify(new ActivationUserNotification($token));
     }
 
+    /**
+     * Activation d'un utilisateur
+     *
+     * @param $token
+     * @return User
+     */
     public function activateUser($token)
     {
         $activation = $this->activationRepo->getActivationByToken($token);
@@ -53,9 +64,14 @@ class ActivationService
         $this->activationRepo->deleteActivation($token);
 
         return $user;
-
     }
 
+    /**
+     * Vérification d'un renvoi du mail d'activation
+     *
+     * @param $user
+     * @return bool
+     */
     private function shouldSend($user)
     {
         $activation = $this->activationRepo->getActivation($user);

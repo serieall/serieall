@@ -10,12 +10,19 @@ class GenreRepository
 {
     protected $genre;
 
+    /**
+     * GenreRepository constructor.
+     *
+     * @param Genre $genre
+     */
     public function __construct(Genre $genre)
     {
         $this->genre = $genre;
     }
 
     /**
+     * On récupère tous les genres
+     *
      * @return mixed
      */
     public function getGenres(){

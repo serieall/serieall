@@ -124,6 +124,10 @@ class AdminShowController extends Controller
         if($createOK) {
             return response()->json();
         }
+        else
+        {
+            return response()->json();
+        }
     }
 
     /**
@@ -148,10 +152,10 @@ class AdminShowController extends Controller
     {
         $show = $this->showRepository->getAllInformationsOnShowByID($id);
 
-        $genres = $this->showRepository->formatRequestInVariable($show->genres);
-        $channels = $this->showRepository->formatRequestInVariable($show->channels);
-        $nationalities = $this->showRepository->formatRequestInVariable($show->nationalities);
-        $creators = $this->showRepository->formatRequestInVariable($show->creators);
+        $genres = formatRequestInVariable($show->genres);
+        $channels = formatRequestInVariable($show->channels);
+        $nationalities = formatRequestInVariable($show->nationalities);
+        $creators = formatRequestInVariable($show->creators);
 
         $seasonsEpisodes = $this->seasonRepository->getSeasonsEpisodesForShowByID($id);
 
