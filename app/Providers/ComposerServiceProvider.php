@@ -42,7 +42,7 @@ class ComposerServiceProvider extends ServiceProvider
 
         // NavActive = login
         View::composer(
-            ['auth/login', 'auth/password/*'],
+            ['auth/login', 'auth/passwords/*'],
             'App\Http\ViewComposers\NavActiveLoginComposer'
         );
 

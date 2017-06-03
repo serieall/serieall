@@ -109,8 +109,10 @@ class LoginController extends Controller
     public function activateUser($token)
     {
         if ($user = $this->activationService->activateUser($token)) {
-            return redirect()->back();
+            return redirect()->route('login')->with('success', 'Votre adresse E-Mail a été validée. Vous pouvez maintenant vous connecter.');
         }
-        abort(404);
+        else {
+            return redirect()->route('login')->with('error', 'Erreur lors de la validation de votre adresse mail. Vous l\'avez peut être déjà validée. En cas de problèmes, n\'hésitez pas à nous contacter à l\'adresse : serieall.fr@gmail.com');
+        }
     }
 }
