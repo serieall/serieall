@@ -46,4 +46,16 @@ class ShowController extends Controller
 
         return view('shows/details', compact('showInfo'));
     }
+
+    /**
+     * Envoi vers la page shows/seasons
+     *
+     * @param $show_url
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getShowSeasons($show_url) {
+        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+
+        return view('shows/seasons', compact('showInfo'));
+    }
 }

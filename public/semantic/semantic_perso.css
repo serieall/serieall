@@ -657,3 +657,7 @@
     text-align: right;
     text-decoration: underline;
 }
+
+#ListActors img {
+    margin: 0 auto;
+}

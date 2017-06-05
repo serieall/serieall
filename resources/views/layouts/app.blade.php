@@ -180,7 +180,7 @@
                 <div class="centered three wide column">
                     <h3>Série-All</h3>
                     <ul class="ui list">
-                        <li>A propos</li>
+                        <li>À propos</li>
                         <li>Notre équipe</li>
                         <li>Mentions légales</li>
                         <li>Nous contacter</li>

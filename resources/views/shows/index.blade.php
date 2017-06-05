@@ -8,7 +8,7 @@
                     <i class="big home icon"></i>
                     Présentation
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('show.seasons', $showInfo['show']->show_url) }}">
                     <i class="big browser icon"></i>
                     Saisons
                 </a>
@@ -81,9 +81,9 @@
                  <div class="ui stackable grid">
                      <div class="row">
                          <div class="center aligned three wide column">
-                             <img class="ui tiny image" src="{{ Gravatar::src(Auth::user()->email) }}">
-                             <span>{{ Auth::user()->username }}</span><br />
-                             {!! roleUser(Auth::user()->role) !!}
+                             <img class="ui tiny image" src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
+                             <span>Youkoulayley</span><br />
+                             <span class="ui red text">Administrateur</span>
                          </div>
                          <div class="AvisBox center aligned twelve wide column">
                             <table class="ui grey left border table">
@@ -113,9 +113,9 @@
                      </div>
                      <div class="row">
                          <div class="center aligned three wide column">
-                             <img class="ui tiny image" src="{{ Gravatar::src(Auth::user()->email) }}">
-                             <span>{{ Auth::user()->username }}</span><br />
-                             {!! roleUser(Auth::user()->role) !!}
+                             <img class="ui tiny image" src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
+                             <span>Youkoulayley</span><br />
+                             <span class="ui red text">Administrateur</span>
                          </div>
                          <div class="AvisBox center aligned twelve wide column">
                              <table class="ui green left border table">
@@ -174,7 +174,7 @@
                              </div>
                              <div class="item">
                                  <i class="pause icon"></i>
-                                 Je met en pause la série
+                                 Je mets en pause la série
                              </div>
                              <div class="item">
                                  <i class="stop icon"></i>

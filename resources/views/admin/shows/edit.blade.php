@@ -488,7 +488,6 @@
                 minCharacters: 2
             });
 
-        ;
         $('#dropdown-genres')
                 .dropdown({
                     apiSettings: {

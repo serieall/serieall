@@ -8,7 +8,7 @@
                     <i class="big home icon"></i>
                     Présentation
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('show.seasons', $showInfo['show']->show_url) }}">
                     <i class="big browser icon"></i>
                     Saisons
                 </a>
@@ -113,28 +113,22 @@
                 <br />
             @endforeach
     </div>
-    <div class="ui segment">
+    <div class="ui segment" id="ListActors">
         <h1>Acteur(s)</h1>
-        <table class="ui basic table">
+        <ui class="ui stackable grid">
             @foreach($showInfo['show']->actors as $actor)
-                <tr>
-                    <td>
-                        @if(file_exists(public_path() . "$folderActors" . "$actor->artist_url.jpg"))
-                            <img class="ui tiny image" src="{{ $folderActors }}{{ $actor->artist_url }}.jpg" />
-                        @else
-                            <img class="ui tiny image" src="{{ $folderActors }}default_empty.jpg" />
-                        @endif
-                    </td>
-                    <td>
-                        <span class="ui bold text">
-                            {{ $actor->name }}
-                        </span>
-                    </td>
-                    <td>
+                <div class="ui center aligned four wide column">
+                    @if(file_exists(public_path() . "$folderActors" . "$actor->artist_url.jpg"))
+                        <img class="ui tiny image" src="{{ $folderActors }}{{ $actor->artist_url }}.jpg" />
+                    @else
+                        <img class="ui tiny image" src="{{ $folderActors }}default_empty.jpg" />
+                    @endif
+
+                        <span class="ui bold text">{{ $actor->name }}</span>
+                        <br />
                         {{ $actor->role }}
-                    </td>
-                </tr>
+                </div>
             @endforeach
-        </table>
+        </ui>
     </div>
 @endsection

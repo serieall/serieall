@@ -34,6 +34,7 @@ Route::resource('user', 'UserController');
     Partie Séries
 */
 Route::get('serie/{show_url}', 'ShowController@getShow')->name('show.fiche');
+Route::get('serie/{show_url}/seasons', 'ShowController@getShowSeasons')->name('show.seasons');
 Route::get('serie/{show_url}/details', 'ShowController@getShowDetails')->name('show.details');
 
 /*
