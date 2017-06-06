@@ -776,7 +776,6 @@
                             + '</div>'
                             + '</div>';
 
-
                         $(function () {
                             $('.date-picker').datepicker({
                                 showAnim: "blind",
