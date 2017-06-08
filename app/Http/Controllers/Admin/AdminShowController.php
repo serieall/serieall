@@ -157,9 +157,7 @@ class AdminShowController extends Controller
         $nationalities = formatRequestInVariable($show->nationalities);
         $creators = formatRequestInVariable($show->creators);
 
-        $seasonsEpisodes = $this->seasonRepository->getSeasonsEpisodesForShowByID($id);
-
-        return view('admin/shows/edit',  compact('show', 'allActors', 'allGenres', 'allChannels', 'allNationalities', 'navActive', 'genres', 'channels', 'nationalities', 'creators', 'seasonsEpisodes'));
+        return view('admin/shows/edit',  compact('show', 'genres', 'channels', 'nationalities', 'creators'));
     }
 
     /**

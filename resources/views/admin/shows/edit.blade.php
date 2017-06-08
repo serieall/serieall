@@ -166,12 +166,12 @@
                                 <div class="ui red hidden message"></div>
                             </div>
                         </div>
-                        <button class="submit positive ui button" type="submit">Créer la série</button>
+                        <button class="submit positive ui button" type="submit">Modifier la série</button>
                     </div>
                 </div>
 
                 <div class="ui tab blue segment" data-tab="second">
-                    <h4 class="ui dividing header">Ajouter un ou plusieurs acteurs</h4>
+                    <h4 class="ui dividing header">Modifier les acteurs</h4>
                     <p>
                         <button class="ui basic button add-artist">
                             <i class="user icon"></i>
@@ -231,25 +231,18 @@
                     </div>
 
                     <p></p>
-                    <button class="submit positive ui button" type="submit">Créer la série</button>
+                    <button class="submit positive ui button" type="submit">Modifier la série</button>
                 </div>
 
                 <div class="ui tab red segment" data-tab="third">
-                    <h4 class="ui dividing header">Ajouter les saisons et les épisodes</h4>
-                    <p>
+                    <h4 class="ui dividing header">Modifier les saisons et les épisodes</h4>
 
-                        <button class="ui basic button seasonAdd">
-                            <i class="object group icon"></i>
-                            Ajouter une saison
-                        </button>
-                        <br />
-                    </p>
-
-                    <div class="ui fluid styled accordion seasonsBlock" id="sortableSeasons">
-                    </div>
+                    @foreach($show->seasons as $season)
+                        <span>Saison {{ $season->name }}</span>
+                    @endforeach
 
                     <p></p>
-                    <button class="submit positive ui button" type="submit">Créer la série</button>
+                    <button class="submit positive ui button" type="submit">Modifier la série</button>
                 </div>
 
                 <div class="ui tab violet segment" data-tab="fourth">
@@ -270,7 +263,7 @@
                             <div class="ui red hidden message"></div>
                         </div>
                     </div>
-                    <button class="submit positive ui button" type="submit">Créer la série</button>
+                    <button class="submit positive ui button" type="submit">Modifier la série</button>
                 </div>
             </div>
         </div>
@@ -337,16 +330,6 @@
 
         $('.menu .item')
                 .tab()
-        ;
-
-        $('.ui.styled.fluid.accordion.seasonsBlock')
-                .accordion({
-                    selector: {
-                        trigger: '.expandableBlock'
-
-                    },
-                    exclusive: false
-                })
         ;
     </script>
 @endsection

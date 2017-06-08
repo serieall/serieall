@@ -225,7 +225,7 @@ class ShowRepository
      * @return Show|\Illuminate\Database\Eloquent\Builder
      */
     public function getAllInformationsOnShowByID($id){
-        return $this->show->where('shows.id', '=', $id)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function($q)
+        return $this->show->where('shows.id', '=', $id)->with(['channels', 'nationalities', 'creators', 'genres', 'seasons', 'actors' => function($q)
         {
             $q->select('artists.id', 'artists.name', 'artistables.role');
         }])->first();

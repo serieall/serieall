@@ -70,13 +70,9 @@
                     <td class="center aligned">
                         <div class="ui centered grid">
                             <div class="four wide column">
-                                <!-- Formulaire d'édition -->
-                                <form action="{{ route('admin.shows.edit', $show->id) }}" method="get" >
-
-                                    <button class="circular ui blue icon button" type="submit">
-                                        <i class="icon edit"></i>
-                                    </button>
-                                </form>
+                                <button class="circular ui blue icon button editButton">
+                                    <i class="icon edit"></i>
+                                </button>
                             </div>
 
                             <div class="four wide column">
@@ -94,11 +90,33 @@
                         </div>
                     </td>
                 </tr>
+                <div class="ui basic modal">
+                    <form action="{{ route('admin.shows.edit', $show->id) }}" method="get" >
+
+                        <div class="ui red labeled icon button">
+                            Modifier la série et les acteurs
+                            <i class="add icon"></i>
+                        </div>
+                    </form>
+                    <div class="ui horizontal divider">
+                        Ou
+                    </div>
+                    <div class="ui teal labeled icon button">
+                        Modifier les saisons et épisodes
+                        <i class="add icon"></i>
+                    </div>
+                </div>
             @endforeach
         </table>
     </div>
 
+
+
         <script>
+            $('.editButton')
+                .modal('show')
+            ;
+
             $('#tableAdmin').DataTable( {
                 "order": [[ 0, "asc" ]],
                 "language": {
