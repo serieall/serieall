@@ -49,15 +49,19 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/shows/storeManually', 'Admin\AdminShowController@storeManually')->name('admin.shows.storeManually');
     Route::post('admin/shows/updateManually', 'Admin\AdminShowController@updateManually')->name('admin.shows.updateManually');
     Route::get('admin/shows/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('admin.shows.redirectJSON');
+    Route::get('admin/shows/{show}/editShow', 'Admin\AdminShowController@editShow')->name('admin.shows.editShow');
+    Route::put('admin/shows/updateShow', 'Admin\AdminShowController@updateShow')->name('admin.shows.updateShow');
+    Route::get('admin/shows/{show}/editSeasons', 'Admin\AdminShowController@editSeasons')->name('admin.shows.editSeasons');
     Route::resource('admin/shows', 'Admin\AdminShowController', [
         'names' => [
             'index' => 'admin.shows.index',
             'create' => 'admin.shows.create',
             'store' => 'admin.shows.store',
             'show' => 'admin.shows.show',
-            'update' => 'admin.shows.update',
             'destroy' => 'admin.shows.destroy',
-            'edit' => 'admin.shows.edit'
+        ],
+        'except' => [
+            'edit', 'update'
         ]
     ]);
 

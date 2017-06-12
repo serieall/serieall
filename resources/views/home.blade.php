@@ -3,7 +3,7 @@
 @section('content')
     <div class="fifteen wide column">
         <div class="ui segment">
-            <div class="ui active dimmer">
+            <div class="ui active dimmer tempDimmer">
                 <div class="ui large text loader">En cours de réalisation</div>
             </div>
             <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus dolores facilis hic id, inventore iure iusto magni necessitatibus nemo nobis reprehenderit repudiandae rerum similique suscipit tenetur ut vel voluptate voluptatum.</span><span>Autem dolor fugit quae qui reiciendis vel. Adipisci architecto dignissimos dolor ea enim in, maiores nam obcaecati quam, quia quidem quos rerum soluta! Ab accusamus, at cum doloremque pariatur sunt.</span><span>Ab adipisci assumenda dolorem iste nobis nostrum quia sed sequi. Aliquid asperiores blanditiis, cupiditate dolorem eaque fuga fugiat inventore maxime nam necessitatibus nemo obcaecati quibusdam quidem recusandae similique, tempora vel.</span><span>Ab atque autem, blanditiis cum cumque dignissimos dolorem doloremque error eum eveniet ex fuga impedit itaque magnam, maiores neque non perferendis quidem sit suscipit tempora tenetur velit, voluptates. Eligendi, nulla?</span><span>Aperiam doloribus esse est quisquam reiciendis. Culpa cupiditate eligendi et illum impedit iure placeat provident quam veniam vitae? Ducimus, laborum veritatis! Alias corporis, eligendi inventore odit quae sapiente voluptates? Distinctio!</span></p>

@@ -47,6 +47,10 @@
     color: #1B1C1D !important;
 }
 
+.ui.white.text {
+    color: #FFFFFF !important;
+}
+
 .ui.bold.text {
     font-weight: bold;
 }
@@ -660,4 +664,12 @@
 
 #ListActors img {
     margin: 0 auto;
+}
+
+.ui.dimmer:not(.tempDimmer) {
+    z-index: 101;
+}
+
+.tempDimmer {
+    z-index: 0;
 }

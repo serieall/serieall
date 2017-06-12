@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             @foreach($shows as $show)
-                <tr>
+                <tr class="line">
                     <td>
                         {{ $show->name }}
                     </td>
@@ -71,6 +71,7 @@
                         <div class="ui centered grid">
                             <div class="four wide column">
                                 <button class="circular ui blue icon button editButton">
+                                    <span class="{{ $show->id }}"></span>
                                     <i class="icon edit"></i>
                                 </button>
                             </div>
@@ -90,60 +91,68 @@
                         </div>
                     </td>
                 </tr>
-                <div class="ui basic modal">
-                    <form action="{{ route('admin.shows.edit', $show->id) }}" method="get" >
-
-                        <div class="ui red labeled icon button">
-                            Modifier la série et les acteurs
-                            <i class="add icon"></i>
-                        </div>
-                    </form>
-                    <div class="ui horizontal divider">
-                        Ou
-                    </div>
-                    <div class="ui teal labeled icon button">
-                        Modifier les saisons et épisodes
-                        <i class="add icon"></i>
-                    </div>
-                </div>
             @endforeach
         </table>
+
+        <div class="ui basic modal">
+            <div class="ui center aligned basic segment">
+                <form class="editShow" action="" method="get">
+                    <button class="ui blue massive button" type="submit">
+                        <i class="add user"></i>
+                        Modifier la série et les acteurs
+                    </button>
+                </form>
+                <div class="ui horizontal divider white text">
+                    OU
+                </div>
+                <form class="editSeasons" action="" method="get" >
+                    <button class="ui teal massive button" type="submit">
+                        <i class="add user"></i>
+                        Modifier les saisons et les épisodes
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 
+    <script>
+        $(document).on('click', '.editButton', function () {
+            var idSeason = $(this).children('span').attr('class');
 
+            $('.ui.basic.modal').children('.segment').children('.editShow').attr('action', '/admin/shows/'+ idSeason +'/editShow');
+            $('.ui.basic.modal').children('.segment').children('.editSeasons').attr('action', '/admin/shows/'+ idSeason +'/editSeason');
 
-        <script>
-            $('.editButton')
-                .modal('show')
-            ;
+            $('.ui.basic.modal').modal('show');
+        })
+        ;
 
-            $('#tableAdmin').DataTable( {
-                "order": [[ 0, "asc" ]],
-                "language": {
-                    "lengthMenu": "Afficher _MENU_ enregistrements par page",
-                    "zeroRecords": "Aucun enregistrement trouvé",
-                    "info": "Page _PAGE_ sur _PAGES_",
-                    "infoEmpty": "Aucun enregistrement trouvé",
-                    "infoFiltered": "(filtré sur _MAX_ enregistrements)",
-                    "sSearch" : "",
-                    "oPaginate": {
-                        "sFirst":    	"Début",
-                        "sPrevious": 	"Précédent",
-                        "sNext":     	"Suivant",
-                        "sLast":     	"Fin"
-                    }
-                }} );
+        $('#tableAdmin').DataTable( {
+            "order": [[ 0, "asc" ]],
+            "language": {
+                "lengthMenu": "Afficher _MENU_ enregistrements par page",
+                "zeroRecords": "Aucun enregistrement trouvé",
+                "info": "Page _PAGE_ sur _PAGES_",
+                "infoEmpty": "Aucun enregistrement trouvé",
+                "infoFiltered": "(filtré sur _MAX_ enregistrements)",
+                "sSearch" : "",
+                "oPaginate": {
+                    "sFirst":    	"Début",
+                    "sPrevious": 	"Précédent",
+                    "sNext":     	"Suivant",
+                    "sLast":     	"Fin"
+                }
+            }} );
 
-            $('#add-serie')
-                    .on('click', function() {
-                        $('.ui.modal')
-                                .modal({
-                                    inverted: true
-                                })
-                                .modal('show')
-                        ;
-                    })
-            ;
-        </script>
+        $('#add-serie')
+                .on('click', function() {
+                    $('.ui.modal')
+                            .modal({
+                                inverted: true
+                            })
+                            .modal('show')
+                    ;
+                })
+        ;
+    </script>
 @endsection
 

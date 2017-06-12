@@ -6,10 +6,6 @@ use App\Http\Controllers\Controller;
 
 use App\Repositories\ArtistRepository;
 
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Log;
-
 class AdminArtistController extends Controller
 {
 

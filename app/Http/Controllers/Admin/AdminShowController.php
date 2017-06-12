@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowCreateManuallyRequest;
-use App\Http\Requests\ShowUpdateManuallyRequest;
+use App\Http\Requests\ShowUpdateRequest;
 
 use App\Repositories\ShowRepository;
 use App\Repositories\ArtistRepository;
@@ -139,7 +139,7 @@ class AdminShowController extends Controller
     {
         return redirect()->route('admin.shows.index')
             ->with('status_header', 'Série en cours d\'ajout')
-            ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.');
+            ->with('status', 'La demande de cManuallyréation de série a été effectuée. Le serveur la traitera dès que possible.');
     }
 
     /**
@@ -148,26 +148,26 @@ class AdminShowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editShow($id)
     {
-        $show = $this->showRepository->getAllInformationsOnShowByID($id);
+        $show = $this->showRepository->getInfoShowByID($id);
 
         $genres = formatRequestInVariable($show->genres);
         $channels = formatRequestInVariable($show->channels);
         $nationalities = formatRequestInVariable($show->nationalities);
         $creators = formatRequestInVariable($show->creators);
 
-        return view('admin/shows/edit',  compact('show', 'genres', 'channels', 'nationalities', 'creators'));
+        return view('admin/shows/editShow',  compact('show', 'genres', 'channels', 'nationalities', 'creators'));
     }
 
     /**
      * Met à jour une série
      *
-     * @param ShowUpdateManuallyRequest|Request $request
+     * @param ShowUpdateRequest|Request $request
      * @return \Illuminate\Http\Response
      * @internal param int $id
      */
-    public function updateManually(ShowUpdateManuallyRequest $request)
+    public function updateShow(ShowUpdateRequest $request)
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
