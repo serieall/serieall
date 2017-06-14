@@ -83,6 +83,18 @@ class AdminShowController extends Controller
         return view('admin/shows/createManually');
     }
 
+    /**
+     * Affiche les informations sur la série
+     *
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        // On retourne la vue
+        return view('admin/shows/show');
+    }
+
 
     /**
      * Enregistre une nouvelle série via theTVDB
@@ -140,24 +152,6 @@ class AdminShowController extends Controller
         return redirect()->route('admin.shows.index')
             ->with('status_header', 'Série en cours d\'ajout')
             ->with('status', 'La demande de cManuallyréation de série a été effectuée. Le serveur la traitera dès que possible.');
-    }
-
-    /**
-     * Affiche le formulaire d'édition d'une série
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function editShow($id)
-    {
-        $show = $this->showRepository->getInfoShowByID($id);
-
-        $genres = formatRequestInVariable($show->genres);
-        $channels = formatRequestInVariable($show->channels);
-        $nationalities = formatRequestInVariable($show->nationalities);
-        $creators = formatRequestInVariable($show->creators);
-
-        return view('admin/shows/editShow',  compact('show', 'genres', 'channels', 'nationalities', 'creators'));
     }
 
     /**

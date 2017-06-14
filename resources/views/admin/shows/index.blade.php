@@ -70,10 +70,13 @@
                     <td class="center aligned">
                         <div class="ui centered grid">
                             <div class="four wide column">
-                                <button class="circular ui blue icon button editButton">
-                                    <span class="{{ $show->id }}"></span>
-                                    <i class="icon edit"></i>
-                                </button>
+                                <!-- Formulaire d'édition -->
+                                <form action="{{ route('admin.shows.show', $show->id) }}" method="get" >
+
+                                    <button class="circular ui blue icon button" type="submit">
+                                        <i class="eye icon"></i>
+                                    </button>
+                                </form>
                             </div>
 
                             <div class="four wide column">
@@ -93,39 +96,7 @@
                 </tr>
             @endforeach
         </table>
-
-        <div class="ui basic modal">
-            <div class="ui center aligned basic segment">
-                <form class="editShow" action="" method="get">
-                    <button class="ui blue massive button" type="submit">
-                        <i class="add user"></i>
-                        Modifier la série et les acteurs
-                    </button>
-                </form>
-                <div class="ui horizontal divider white text">
-                    OU
-                </div>
-                <form class="editSeasons" action="" method="get" >
-                    <button class="ui teal massive button" type="submit">
-                        <i class="add user"></i>
-                        Modifier les saisons et les épisodes
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <script>
-        $(document).on('click', '.editButton', function () {
-            var idSeason = $(this).children('span').attr('class');
-
-            $('.ui.basic.modal').children('.segment').children('.editShow').attr('action', '/admin/shows/'+ idSeason +'/editShow');
-            $('.ui.basic.modal').children('.segment').children('.editSeasons').attr('action', '/admin/shows/'+ idSeason +'/editSeason');
-
-            $('.ui.basic.modal').modal('show');
-        })
-        ;
-
         $('#tableAdmin').DataTable( {
             "order": [[ 0, "asc" ]],
             "language": {
@@ -142,17 +113,6 @@
                     "sLast":     	"Fin"
                 }
             }} );
-
-        $('#add-serie')
-                .on('click', function() {
-                    $('.ui.modal')
-                            .modal({
-                                inverted: true
-                            })
-                            .modal('show')
-                    ;
-                })
-        ;
     </script>
 @endsection
 

@@ -5,20 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Repositories\ArtistRepository;
+use App\Repositories\ShowRepository;
 
 class AdminArtistController extends Controller
 {
 
     protected $artistRepository;
+    protected $showRepository;
 
     /**
      * AdminArtistController constructor.
      *
      * @param ArtistRepository $artistRepository
+     * @param ShowRepository $showRepository
      */
-    public function __construct(ArtistRepository $artistRepository)
+    public function __construct(ArtistRepository $artistRepository,
+                                ShowRepository $showRepository)
     {
         $this->artistRepository = $artistRepository;
+        $this->showRepository = $showRepository;
     }
 
     /**
@@ -80,5 +85,20 @@ class AdminArtistController extends Controller
     public function destroy($id)
     {
 
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $idShow
+     * @param $idActor
+     * @return \Illuminate\Http\Response
+     * @internal param int $id
+     */
+    public function unlinkShow($idShow, $idActor)
+    {
+        $show = $this->showRepository->getByID($idShow);
+        $suppression = $show->artists()->where('artists.id', '=', $idActor)->detach;
+        dd($suppression);
     }
 }

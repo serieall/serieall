@@ -66,6 +66,7 @@ Route::group(['middleware' => 'admin'], function () {
     ]);
 
     /* ARTISTS */
+    Route::post('admin/artists/{artist}/{show}/unlinkShow', 'Admin\AdminArtistController@unlinkShow')->name('admin.artists.unlinkShow');
     Route::resource('admin/artists', 'Admin\AdminArtistController', [
         'names' => [
             'index' => 'admin.artists',
