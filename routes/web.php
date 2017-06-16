@@ -45,13 +45,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin', 'Admin\AdminController@index')->name('admin');
 
     /* SHOWS */
-    Route::get('admin/shows/createManually', 'Admin\AdminShowController@createManually')->name('admin.shows.createManually');
-    Route::post('admin/shows/storeManually', 'Admin\AdminShowController@storeManually')->name('admin.shows.storeManually');
-    Route::post('admin/shows/updateManually', 'Admin\AdminShowController@updateManually')->name('admin.shows.updateManually');
+    Route::get('admin/shows/create/manually', 'Admin\AdminShowController@createManually')->name('admin.shows.createManually');
+    Route::post('admin/shows/store/manually', 'Admin\AdminShowController@storeManually')->name('admin.shows.storeManually');
+    Route::post('admin/shows/update/manually', 'Admin\AdminShowController@updateManually')->name('admin.shows.updateManually');
     Route::get('admin/shows/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('admin.shows.redirectJSON');
-    Route::get('admin/shows/{show}/editShow', 'Admin\AdminShowController@editShow')->name('admin.shows.editShow');
-    Route::put('admin/shows/updateShow', 'Admin\AdminShowController@updateShow')->name('admin.shows.updateShow');
-    Route::get('admin/shows/{show}/editSeasons', 'Admin\AdminShowController@editSeasons')->name('admin.shows.editSeasons');
     Route::resource('admin/shows', 'Admin\AdminShowController', [
         'names' => [
             'index' => 'admin.shows.index',

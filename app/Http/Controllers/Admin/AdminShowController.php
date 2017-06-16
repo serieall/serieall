@@ -69,7 +69,7 @@ class AdminShowController extends Controller
     public function create()
     {
         // On retourne la vue
-        return view('admin/shows/create');
+        return view('admin/shows/create/thetvdb');
     }
 
     /**
@@ -80,7 +80,7 @@ class AdminShowController extends Controller
     public function createManually()
     {
         // On retourne la vue
-        return view('admin/shows/createManually');
+        return view('admin/shows/create/manually');
     }
 
     /**
@@ -91,8 +91,10 @@ class AdminShowController extends Controller
      */
     public function show($id)
     {
+        $show = $this->showRepository->getInfoShowByID($id);
+
         // On retourne la vue
-        return view('admin/shows/show');
+        return view('admin/shows/show/index', compact('show'));
     }
 
 
