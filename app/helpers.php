@@ -122,3 +122,24 @@ function formatRequestInVariable($objects) {
 
     return $list;
 }
+
+/**
+ * Convertion d'une array en string sans espace
+ *
+ * @param $objects
+ * @return string
+ * @internal param $objets
+ */
+function formatRequestInVariableNoSpace($objects) {
+    $list = '';
+
+    // Pour chaque chaine on incrémente dans une variable
+    foreach ($objects as $object){
+        $list.= $object->name . ',';
+    }
+
+    // On enlève la dernière virgule
+    $list = substr($list, 0, -1);
+
+    return $list;
+}

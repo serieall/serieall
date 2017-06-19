@@ -55,11 +55,10 @@ Route::group(['middleware' => 'admin'], function () {
             'create' => 'admin.shows.create',
             'store' => 'admin.shows.store',
             'show' => 'admin.shows.show',
+            'edit' => 'admin.shows.edit',
+            'update' => 'admin.shows.update',
             'destroy' => 'admin.shows.destroy',
         ],
-        'except' => [
-            'edit', 'update'
-        ]
     ]);
 
     /* ARTISTS */

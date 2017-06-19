@@ -84,17 +84,21 @@ class AdminShowController extends Controller
     }
 
     /**
-     * Affiche les informations sur la série
+     * Mettre à jour les informations sur la série
      *
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit($id)
     {
         $show = $this->showRepository->getInfoShowByID($id);
+        $genres = formatRequestInVariable($show->genres);
+        $nationalities = formatRequestInVariableNoSpace($show->nationalities);
+        $channels = formatRequestInVariableNoSpace($show->channels);
+        $creators = formatRequestInVariableNoSpace($show->creators);
 
         // On retourne la vue
-        return view('admin/shows/show/index', compact('show'));
+        return view('admin/shows/edit', compact('show', 'genres', 'nationalities', 'channels', 'creators'));
     }
 
 

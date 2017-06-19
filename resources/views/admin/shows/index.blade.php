@@ -71,10 +71,10 @@
                         <div class="ui centered grid">
                             <div class="four wide column">
                                 <!-- Formulaire d'édition -->
-                                <form action="{{ route('admin.shows.show', $show->id) }}" method="get" >
+                                <form action="{{ route('admin.shows.edit', $show->id) }}" method="get" >
 
                                     <button class="circular ui blue icon button" type="submit">
-                                        <i class="eye icon"></i>
+                                        <i class="edit icon"></i>
                                     </button>
                                 </form>
                             </div>
