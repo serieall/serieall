@@ -4,10 +4,11 @@
 namespace App\Repositories;
 
 use App\Models\Artist;
-use App\Jobs\AddShowFromTVDB;
-use App\Jobs\UpdateShowManually;
+use App\Models\Show;
+
+use App\Repositories\ShowRepository;
+
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 /**
  * Class ArtistRepository
@@ -19,15 +20,23 @@ class ArtistRepository
      * @var Artist
      */
     protected $artist;
+    protected $show;
+    protected $showRepository;
 
     /**
      * ArtistRepository constructor.
      *
      * @param Artist $artist
+     * @param Show $show
+     * @param \App\Repositories\ShowRepository $showRepository
      */
-    public function __construct(Artist $artist)
+    public function __construct(Artist $artist,
+                                Show $show,
+                                ShowRepository $showRepository)
     {
         $this->artist = $artist;
+        $this->show = $show;
+        $this->showRepository = $showRepository;
     }
 
     /**
@@ -39,5 +48,16 @@ class ArtistRepository
         return DB::table('artists')
             ->orderBy('name', 'asc')
             ->get();
+    }
+
+    /**
+     * On récupère les artistes d'une série en fonction de son ID
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getActorsByShowID($show)
+    {
+        return $show->actors()->get();
     }
 }

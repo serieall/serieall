@@ -45,9 +45,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin', 'Admin\AdminController@index')->name('admin');
 
     /* SHOWS */
-    Route::get('admin/shows/create/manually', 'Admin\AdminShowController@createManually')->name('admin.shows.createManually');
-    Route::post('admin/shows/store/manually', 'Admin\AdminShowController@storeManually')->name('admin.shows.storeManually');
-    Route::post('admin/shows/update/manually', 'Admin\AdminShowController@updateManually')->name('admin.shows.updateManually');
+    Route::get('admin/shows/create/manually', 'Admin\AdminShowController@createManually')->name('admin.shows.create.manually');
+    Route::post('admin/shows/store/manually', 'Admin\AdminShowController@storeManually')->name('admin.shows.store.manually');
+    Route::post('admin/shows/update/manually', 'Admin\AdminShowController@updateManually')->name('admin.shows.update.manually');
     Route::get('admin/shows/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('admin.shows.redirectJSON');
     Route::resource('admin/shows', 'Admin\AdminShowController', [
         'names' => [

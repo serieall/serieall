@@ -22,7 +22,7 @@
         </span>
     </h1>
 
-    <form class="ui form" method="POST" action="{{ route('admin.shows.storeManually') }}">
+    <form class="ui form" method="POST" action="{{ route('admin.shows.store.manually') }}">
         {{ csrf_field() }}
 
         <div class="ui centered grid">

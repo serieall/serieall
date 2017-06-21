@@ -19,8 +19,7 @@ class AdminArtistController extends Controller
      * @param ArtistRepository $artistRepository
      * @param ShowRepository $showRepository
      */
-    public function __construct(ArtistRepository $artistRepository,
-                                ShowRepository $showRepository)
+    public function __construct(ArtistRepository $artistRepository, ShowRepository $showRepository)
     {
         $this->artistRepository = $artistRepository;
         $this->showRepository = $showRepository;
@@ -53,22 +52,21 @@ class AdminArtistController extends Controller
      */
     public function store()
     {
+
     }
 
-    /**
-     * Store a newly manually created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function redirectJSON()
+    public function show($id)
     {
+        $show = $this->showRepository->getByID($id);
+        $actors = $this->artistRepository->getActorsByShowID($show);
 
+        return view('admin.artists.show', compact('actors', 'show'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Editer la série
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -79,26 +77,11 @@ class AdminArtistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param $idShow
-     * @param $idActor
-     * @return \Illuminate\Http\Response
-     * @internal param int $id
-     */
-    public function unlinkShow($idShow, $idActor)
-    {
-        $show = $this->showRepository->getByID($idShow);
-        $suppression = $show->artists()->where('artists.id', '=', $idActor)->detach;
-        dd($suppression);
     }
 }

@@ -23,7 +23,7 @@ class ComposerServiceProvider extends ServiceProvider
 
         // NavActive = AdminShows
         View::composer(
-            ['admin/shows/*'],
+            ['admin/shows/*', 'admin/artists/*'],
             'App\Http\ViewComposers\NavActiveAdminShowsComposer'
         );
 

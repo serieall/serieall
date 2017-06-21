@@ -2,8 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\Episode;
-use App\Models\Season;
 use App\Models\Show;
 use App\Models\Genre;
 use App\Models\Channel;
@@ -15,7 +13,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
@@ -302,7 +299,5 @@ class UpdateShowManually implements ShouldQueue
         {
             $show->creators()->sync([]);
         }
-
-
     }
 }

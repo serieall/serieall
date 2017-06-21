@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\ShowUpdateManuallyRequest;
 use App\Repositories\LogRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -81,6 +82,30 @@ class AdminShowController extends Controller
     {
         // On retourne la vue
         return view('admin/shows/create/manually');
+    }
+
+    /**
+     * Met à jour une série manuellement
+     *
+     * @param ShowUpdateManuallyRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateManually(ShowUpdateManuallyRequest $request)
+    {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        $dispatchOK = $this->showRepository->updateManuallyShowJob($inputs);
+
+        if($dispatchOK) {
+            return redirect(route('admin.shows.index'))
+                ->with('status_header', 'Série en cours de modification')
+                ->with('status', 'La demande de modification de la série a été effectuée. Le serveur la traitera dès que possible.');
+        }
+        else {
+            return redirect()->back()
+                ->with('warning_header', 'Erreur')
+                ->with('warning', 'Problème lors de la mise à jour de la série');
+        }
     }
 
     /**

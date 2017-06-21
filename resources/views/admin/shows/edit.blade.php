@@ -10,7 +10,7 @@
     </a>
     <i class="right angle icon divider"></i>
     <div class="active section">
-        Modifier la série
+        {{ $show->name }}
     </div>
 @endsection
 
@@ -26,8 +26,10 @@
     <div class="ui centered grid">
         <div class="ten wide column segment">
             <div class="ui segment">
-                <form class="ui form" method="POST" action="{{ route('admin.shows.storeManually') }}">
+                <form class="ui form" method="POST" action="{{ route('admin.shows.update.manually') }}">
                     {{ csrf_field() }}
+
+                    <input type="hidden" name="id" value="{{ $show->id }}">
 
                     <div class="two fields">
                         <div class="field">
@@ -175,10 +177,10 @@
                         </div>
                     </div>
 
-                    <button class="submit positive ui button" type="submit">Créer la série</button>
+                    <button class="submit positive ui button" type="submit">Modifier la série</button>
                 </form>
             </div>
-            <button class="fluid ui huge blue button">>Modifier les acteurs de la série</button>
+            <button class="fluid ui huge blue button" onclick="window.location.href='{{ route('admin.artists.show', $show->id) }}'">Modifier les acteurs de la série</button>
             <br />
             <button class="fluid ui huge teal button">Modifier les saisons et les épisodes</button>
         </div>
