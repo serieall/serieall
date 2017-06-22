@@ -110,7 +110,7 @@ class Show extends Model {
 
 	public function actors()
 	{
-		return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'actor');
+		return $this->morphToMany('App\Models\Artist', 'artistable')->orderBy('name')->wherePivot('profession', 'actor')->withPivot('role');
 	}
 
 }

@@ -60,6 +60,8 @@ class AdminArtistController extends Controller
         $show = $this->showRepository->getByID($id);
         $actors = $this->artistRepository->getActorsByShowID($show);
 
+        #dd($actors);
+
         return view('admin.artists.show', compact('actors', 'show'));
     }
 

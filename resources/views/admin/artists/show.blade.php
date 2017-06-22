@@ -27,31 +27,56 @@
     </h1>
 
     <div class="ui centered grid">
-        <div class="ten wide column segment">
+        <div class="fifteen wide column segment">
             <div class="ui segment">
+                <div class="ui special four stackable cards">
                 @foreach($actors as $actor)
-                    <form class="ui form" method="POST" action="{{ route('admin.artists.update', $actor->id) }}">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Nom de l'acteur</label>
-                                <div class="ui fluid search selection dropdown artistDropdown">
-                                    <input name="name" type="hidden" value="{{ $actor->name }}">
-                                    <i class="dropdown icon"></i>
-                                    <div class="default text">Choisir</div>
-                                    <div class="menu">
+                    <div class="card">
+                        <div class="blurring dimmable image">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <div class="ui inverted button">Modifier la photo</div>
                                     </div>
                                 </div>
-                                <div class="ui red hidden message"></div>
+                            </div>
+                            @if(file_exists(public_path() . "$folderActors" . "$actor->artist_url.jpg"))
+                                <img class="right floated mini ui image" src="{{ $folderActors }}{{ $actor->artist_url }}.jpg" />
+                            @else
+                                <img class="right floated mini ui image" src="{{ $folderActors }}default_empty.jpg" />
+                            @endif
+                        </div>
+                        <form class="ui form" method="POST" action="{{ route('admin.artists.update', $actor->id) }}">
+                            <div class="content">
+                                <div class="header">
+                                    <div class="ui search selection dropdown artistDropdown">
+                                        <input name="name" type="hidden" value="{{ $actor->name }}">
+                                        <i class="dropdown icon"></i>
+                                        <div class="default text">Choisir</div>
+                                        <div class="menu">
+                                            </div>
+                                        </div>
+                                    <div class="ui red hidden message"></div>
                                 </div>
-                            <div class="field">
-                                <label>Rôle</label>
-                                <input name="role" placeholder="Rôle" type="text" value="{{ $actor->role }}">
-                                <div class="ui red hidden message"></div>
-
+                                <div class="meta">
+                                    <label class="artist_role-label">Rôle</label>
+                                    <input name="role" placeholder="Rôle" type="text" value="{{ $actor->pivot['role'] }}">
+                                    <div class="ui red hidden message"></div>
                                 </div>
                             </div>
+                            <div class="extra content">
+                                <div class="ui two buttons">
+                                    <div class="ui basic green button">Mettre à jour</div>
+                                    <div class="ui basic red button">Supprimer</div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 @endforeach
+                </div>
+
+
+
             </div>
         </div>
     </div>
@@ -70,5 +95,8 @@
                 minCharacters: 2
             })
         ;
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
     </script>
 @endsection
