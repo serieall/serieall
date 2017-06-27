@@ -15,7 +15,7 @@
                         <br />
 
                         <div class="field {{ $errors->has('password') ? ' error' : '' }}">
-                            <label>Mot de passe</label>
+                            <label>Ancien mot de passe</label>
                             <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
 
                             @if ($errors->has('password'))
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="field {{ $errors->has('new_password') ? ' error' : '' }}">
-                            <label>Mot de passe</label>
+                            <label>Nouveau mot de passe</label>
                             <input name="new_password" placeholder="Mot de passe" type="password" value="{{ old('new_password') }}">
 
                             @if ($errors->has('new_password'))
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="field {{ $errors->has('new_password_confirmation') ? ' error' : '' }}">
-                            <label>Mot de passe</label>
+                            <label>Confirmer le nouveau mot de passe</label>
                             <input name="new_password_confirmation" placeholder="Mot de passe" type="password" value="{{ old('new_password_confirmation') }}">
 
                             @if ($errors->has('new_password_confirmation'))
