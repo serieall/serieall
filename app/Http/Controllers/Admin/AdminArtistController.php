@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Log;
 use App\Repositories\ArtistRepository;
 use App\Repositories\ShowRepository;
 
@@ -55,14 +56,26 @@ class AdminArtistController extends Controller
 
     }
 
+    /**
+     * Affiche la liste des acteurs d'une série en fonction de son ID
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($id)
     {
         $show = $this->showRepository->getByID($id);
         $actors = $this->artistRepository->getActorsByShowID($show);
 
-        #dd($actors);
 
         return view('admin.artists.show', compact('actors', 'show'));
+    }
+
+    public function update(Request $request)
+    {
+        Log::info($request);
+
+        return response()->json();
     }
 
     /**

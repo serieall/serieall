@@ -29,7 +29,7 @@
     <div class="ui centered grid">
         <div class="fifteen wide column segment">
             <div class="ui segment">
-                <div class="ui special four stackable cards">
+                <div class="ui special five stackable cards">
                 @foreach($actors as $actor)
                     <div class="card">
                         <div class="blurring dimmable image">
@@ -46,37 +46,29 @@
                                 <img class="right floated mini ui image" src="{{ $folderActors }}default_empty.jpg" />
                             @endif
                         </div>
-                        <form class="ui form" method="POST" action="{{ route('admin.artists.update', $actor->id) }}">
-                            <div class="content">
-                                <div class="header">
-                                    <div class="ui search selection dropdown artistDropdown">
-                                        <input name="name" type="hidden" value="{{ $actor->name }}">
-                                        <i class="dropdown icon"></i>
-                                        <div class="default text">Choisir</div>
-                                        <div class="menu">
-                                            </div>
-                                        </div>
-                                    <div class="ui red hidden message"></div>
-                                </div>
+                        <div class="content">
+                            <div class="header">
+                                {{ $actor->name }}
+                            </div>
+                            <form class="ui form" method="POST" action="{{ route('admin.artists.update', $actor->id) }}">
                                 <div class="meta">
-                                    <label class="artist_role-label">Rôle</label>
+                                    <label class="artist_role-label">As</label>
                                     <input name="role" placeholder="Rôle" type="text" value="{{ $actor->pivot['role'] }}">
                                     <div class="ui red hidden message"></div>
                                 </div>
-                            </div>
-                            <div class="extra content">
-                                <div class="ui two buttons">
-                                    <div class="ui basic green button">Mettre à jour</div>
-                                    <div class="ui basic red button">Supprimer</div>
-                                </div>
+
+                                <button type="submit">Envoyer</button>
+                            </form>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui two buttons">
+                                <div class="ui basic green button">Mettre à jour</div>
+                                <div class="ui basic red button">Supprimer</div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 @endforeach
                 </div>
-
-
-
             </div>
         </div>
     </div>

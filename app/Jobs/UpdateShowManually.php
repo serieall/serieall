@@ -72,9 +72,14 @@ class UpdateShowManually implements ShouldQueue
         $logMessage = '>>Nom FR : ' . $show->name_fr;
         saveLogMessage($listLogID, $logMessage);
 
-        $show->synopsis = $this->inputs['resume'];
-        # Résumé de la série
-        $logMessage = '>>Résumé FR : ' . $show->synopsis;
+        $show->synopsis_fr = $this->inputs['resume_fr'];
+        # Résumé FR de la série
+        $logMessage = '>>Résumé FR : ' . $show->synopsis_fr;
+        saveLogMessage($listLogID, $logMessage);
+
+        $show->synopsis = $this->inputs['resume_en'];
+        # Résumé EN de la série
+        $logMessage = '>>Résumé EN : ' . $show->synopsis;
         saveLogMessage($listLogID, $logMessage);
 
         $show->format = $this->inputs['format'];

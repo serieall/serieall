@@ -47,40 +47,46 @@
 
                     <div class="two fields">
                         <div class="field">
-                            <label for="resume">Résumé</label>
-                            <textarea id="resume" name="resume">{{ $show->synopsis_fr }}</textarea>
+                            <label for="resume_en">Résumé EN</label>
+                            <textarea id="resume_en" name="resume_en">{{ $show->synopsis }}</textarea>
                             <div class="ui red hidden message"></div>
                         </div>
 
-                        <div class="two fields field">
-                            <div class="field">
-                                <label>Format</label>
-                                <div class="ui left icon input">
-                                    <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ $show->format }}">
-                                    <i class="tv icon"></i>
-                                </div>
-                                <div class="ui red hidden message"></div>
-                            </div>
+                        <div class="field">
+                            <label for="resume_fr">Résumé FR</label>
+                            <textarea id="resume_fr" name="resume_fr">{{ $show->synopsis_fr }}</textarea>
+                            <div class="ui red hidden message"></div>
+                        </div>
+                    </div>
 
-                            <div class="field">
-                                <label>Série en cours</label>
-                                <div id="dropdown-encours" class="ui fluid search selection dropdown">
-                                    <input name="encours" type="hidden" value="{{ $show->encours }}">
-                                    <i class="dropdown icon"></i>
-                                    <span class="text">Choisir</span>
-                                    <div class="menu">
-                                        <div class="item" data-value="1">
-                                            <i class="checkmark icon"></i>
-                                            Oui
-                                        </div>
-                                        <div class="item" data-value="0">
-                                            <i class="remove icon"></i>
-                                            Non
-                                        </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Format</label>
+                            <div class="ui left icon input">
+                                <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ $show->format }}">
+                                <i class="tv icon"></i>
+                            </div>
+                            <div class="ui red hidden message"></div>
+                        </div>
+
+                        <div class="field">
+                            <label>Série en cours</label>
+                            <div id="dropdown-encours" class="ui fluid search selection dropdown">
+                                <input name="encours" type="hidden" value="{{ $show->encours }}">
+                                <i class="dropdown icon"></i>
+                                <span class="text">Choisir</span>
+                                <div class="menu">
+                                    <div class="item" data-value="1">
+                                        <i class="checkmark icon"></i>
+                                        Oui
+                                    </div>
+                                    <div class="item" data-value="0">
+                                        <i class="remove icon"></i>
+                                        Non
                                     </div>
                                 </div>
-                                <div class="ui red hidden message"></div>
                             </div>
+                            <div class="ui red hidden message"></div>
                         </div>
                     </div>
 

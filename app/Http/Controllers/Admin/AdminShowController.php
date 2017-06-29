@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowCreateManuallyRequest;
-use App\Http\Requests\ShowUpdateRequest;
 
 use App\Repositories\ShowRepository;
 use App\Repositories\ArtistRepository;
@@ -183,22 +182,6 @@ class AdminShowController extends Controller
         return redirect()->route('admin.shows.index')
             ->with('status_header', 'Série en cours d\'ajout')
             ->with('status', 'La demande de cManuallyréation de série a été effectuée. Le serveur la traitera dès que possible.');
-    }
-
-    /**
-     * Met à jour une série
-     *
-     * @param ShowUpdateRequest|Request $request
-     * @return \Illuminate\Http\Response
-     * @internal param int $id
-     */
-    public function updateShow(ShowUpdateRequest $request)
-    {
-        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
-
-        $this->showRepository->updateManuallyShowJob($inputs);
-
-        return response()->json();
     }
 
     /**
