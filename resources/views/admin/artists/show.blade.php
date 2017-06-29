@@ -40,17 +40,13 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(file_exists(public_path() . "$folderActors" . "$actor->artist_url.jpg"))
-                                <img class="right floated mini ui image" src="{{ $folderActors }}{{ $actor->artist_url }}.jpg" />
-                            @else
-                                <img class="right floated mini ui image" src="{{ $folderActors }}default_empty.jpg" />
-                            @endif
+                            {!! ActorPicture($actor->artist_url) !!}
                         </div>
                         <div class="content">
                             <div class="header">
                                 {{ $actor->name }}
                             </div>
-                            <form class="ui form" method="POST" action="{{ route('admin.artists.update', $actor->id) }}">
+                            <form class="ui form" method="PUT" action="{{ route('admin.artists.update', $actor->id) }}">
                                 <div class="meta">
                                     <label class="artist_role-label">As</label>
                                     <input name="role" placeholder="Rôle" type="text" value="{{ $actor->pivot['role'] }}">

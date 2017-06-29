@@ -118,15 +118,11 @@
         <ui class="ui stackable grid">
             @foreach($showInfo['show']->actors as $actor)
                 <div class="ui center aligned four wide column">
-                    @if(file_exists(public_path() . "$folderActors" . "$actor->artist_url.jpg"))
-                        <img class="ui tiny image" src="{{ $folderActors }}{{ $actor->artist_url }}.jpg" />
-                    @else
-                        <img class="ui tiny image" src="{{ $folderActors }}default_empty.jpg" />
-                    @endif
+                    {!! ActorPicture($actor->artist_url) !!}
 
-                        <span class="ui bold text">{{ $actor->name }}</span>
-                        <br />
-                        {{ $actor->role }}
+                    <span class="ui bold text">{{ $actor->name }}</span>
+                    <br />
+                    {{ $actor->role }}
                 </div>
             @endforeach
         </ui>

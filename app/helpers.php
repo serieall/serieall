@@ -143,3 +143,19 @@ function formatRequestInVariableNoSpace($objects) {
 
     return $list;
 }
+
+/**
+ * Renvoi l'image d'un acteur
+ *
+ * @param $actor
+ * @return string
+ */
+function ActorPicture($actor){
+    $folderActors = config('directories.actors');
+
+    if(file_exists(public_path() . "$folderActors" . "$actor.jpg")) {
+        return "<img class=\"ui tiny image\" src=\"" . $folderActors . $actor->artist_url . ".jpg\" />";
+    } else {
+        return "<img class=\"ui tiny image\" src=\"" . $folderActors . "default_empty.jpg\" />";
+    }
+}

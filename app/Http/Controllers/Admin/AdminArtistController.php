@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\ArtistUpdateRequest;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\ArtistRepository;
 use App\Repositories\ShowRepository;
@@ -71,11 +72,9 @@ class AdminArtistController extends Controller
         return view('admin.artists.show', compact('actors', 'show'));
     }
 
-    public function update(Request $request)
+    public function update(ArtistUpdateRequest $request)
     {
         Log::info($request);
-
-        return response()->json();
     }
 
     /**
