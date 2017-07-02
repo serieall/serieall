@@ -62,18 +62,13 @@ Route::group(['middleware' => 'admin'], function () {
     ]);
 
     /* ARTISTS */
-    Route::post('admin/artists/{artist}/{show}/unlinkShow', 'Admin\AdminArtistController@unlinkShow')->name('admin.artists.unlinkShow');
-    Route::resource('admin/artists', 'Admin\AdminArtistController', [
-        'names' => [
-            'index' => 'admin.artists',
-            'create' => 'admin.artists.create',
-            'store' => 'admin.artists.store',
-            'show' => 'admin.artists.show',
-            'update' => 'admin.artists.update',
-            'destroy' => 'admin.artists.destroy',
-            'edit' => 'admin.artists.edit'
-        ]
-    ]);
+    Route::delete('admin/artists/{artist}/{show}/unlinkShow', 'Admin\AdminArtistController@unlinkShow')->name('admin.artists.unlinkShow');
+    Route::get('/admin/shows/{show}/artist/{artist}', 'Admin\AdminArtistController@edit')->name('admin.artists.edit');
+    Route::post('/admin/shows/{show}/artist/{artist}', 'Admin\AdminArtistController@update')->name('admin.artists.update');
+    Route::get('admin/artists/{show}', 'Admin\AdminArtistController@show')->name('admin.artists.show');
+    Route::get('admin/artists/{show}/create', 'Admin\AdminArtistController@create')->name('admin.artists.create');
+    Route::post('admin/artists/{show}/store', 'Admin\AdminArtistController@store')->name('admin.artists.store');
+    Route::get('admin/artists/redirectJSON/{show}', 'Admin\AdminArtistController@redirectJSON')->name('admin.artists.redirectJSON');
 
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');

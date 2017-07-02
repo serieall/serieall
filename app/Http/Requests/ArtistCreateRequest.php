@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArtistUpdateRequest extends FormRequest
+class ArtistCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class ArtistUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'role' => 'required|max:255',
-            'image' => 'image',
+            'artists.*.image' => 'image',
+            'artists.*.name' => 'required|max:255',
+            'artists.*.role' => 'required|max:255',
         ];
     }
 }

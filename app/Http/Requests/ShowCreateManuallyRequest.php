@@ -34,8 +34,8 @@ class ShowCreateManuallyRequest extends FormRequest
             'diffusion_fr' => 'date',
             'taux_erectile' => 'numeric|between:1,100',
 
-            'actors.*.name_actor' => 'required|max:255',
-            'actors.*.role_actor' => 'required|max:255',
+            'artists.*.name_actor' => 'required|max:255',
+            'artists.*.role_actor' => 'required|max:255',
 
             'seasons.*.episodes.*.name' => 'max:255',
             'seasons.*.episodes.*.name_fr' => 'max:255',

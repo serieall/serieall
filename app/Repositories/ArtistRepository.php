@@ -61,4 +61,17 @@ class ArtistRepository
     {
         return $show->actors()->get();
     }
+
+    /**
+     * On récupère un artiste d'une série en fonction de son ID
+     *
+     * @param $show
+     * @param $actor
+     * @return \Illuminate\Database\Eloquent\Collection
+     * @internal param $id
+     */
+    public function getActorByShowID($show, $actor)
+    {
+        return $show->actors()->findOrFail($actor);
+    }
 }

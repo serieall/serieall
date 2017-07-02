@@ -118,7 +118,7 @@
         <ui class="ui stackable grid">
             @foreach($showInfo['show']->actors as $actor)
                 <div class="ui center aligned four wide column">
-                    {!! ActorPicture($actor->artist_url) !!}
+                    <img class=" ui tiny image" src="{!! ActorPicture($actor->artist_url) !!}" />
 
                     <span class="ui bold text">{{ $actor->name }}</span>
                     <br />

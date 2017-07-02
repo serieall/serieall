@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Log;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Enregistrement d'un nouveau message de log dans la base de données
@@ -154,8 +155,8 @@ function ActorPicture($actor){
     $folderActors = config('directories.actors');
 
     if(file_exists(public_path() . "$folderActors" . "$actor.jpg")) {
-        return "<img class=\"ui tiny image\" src=\"" . $folderActors . $actor->artist_url . ".jpg\" />";
+        return $folderActors . $actor . ".jpg";
     } else {
-        return "<img class=\"ui tiny image\" src=\"" . $folderActors . "default_empty.jpg\" />";
+        return $folderActors . "default_empty.jpg";
     }
 }

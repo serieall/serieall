@@ -19,47 +19,65 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
-        Les acteurs de "{{ $show->name }}"
-        <span class="sub header">
-            Liste des acteurs
-        </span>
-    </h1>
+
+    <div class="ui grid">
+        <div class="ui height wide column">
+            <h1 class="ui header" id="admin-titre">
+                Acteurs
+                <div class="sub header">
+                    Les acteurs de "{{ $show->name }}"
+                </div>
+            </h1>
+        </div>
+        <div class="ui height wide column">
+            <form action="{{ route('admin.artists.create', [$show->id]) }}" method="get" >
+                <button class="ui right floated green button" type="submit">
+                    <i class="ui add icon"></i>
+                    Ajouter de nouveaux acteurs
+                </button>
+            </form>
+        </div>
+    </div>
+
 
     <div class="ui centered grid">
         <div class="fifteen wide column segment">
             <div class="ui segment">
                 <div class="ui special five stackable cards">
-                @foreach($actors as $actor)
+                @foreach($artists as $actor)
                     <div class="card">
                         <div class="blurring dimmable image">
                             <div class="ui dimmer">
                                 <div class="content">
                                     <div class="center">
-                                        <div class="ui inverted button">Modifier la photo</div>
+                                        <!-- Formulaire d'édition -->
+                                        <form action="{{ route('admin.artists.edit', [$show->id, $actor->id]) }}" method="get" >
+                                            <button class="ui inverted green button" type="submit">
+                                                &Eacute;diter
+                                            </button>
+                                        </form>
+                                        <br />
+                                        <br />
+                                        <!-- Formulaire de suppression -->
+                                        <form action="{{ route('admin.artists.unlinkShow', [$show->id, $actor->id]) }}" method="post" >
+                                            {{ csrf_field() }}
+
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button class="ui inverted red button" type="submit" value="Supprimer cet acteur ?" onclick="return confirm('Voulez-vous vraiment supprimer cet acteur ?')">
+                                                Supprimer
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            {!! ActorPicture($actor->artist_url) !!}
+                            <img class="ui tiny image" src="{!! ActorPicture($actor->artist_url) !!}" />
                         </div>
                         <div class="content">
                             <div class="header">
                                 {{ $actor->name }}
                             </div>
-                            <form class="ui form" method="PUT" action="{{ route('admin.artists.update', $actor->id) }}">
-                                <div class="meta">
-                                    <label class="artist_role-label">As</label>
-                                    <input name="role" placeholder="Rôle" type="text" value="{{ $actor->pivot['role'] }}">
-                                    <div class="ui red hidden message"></div>
-                                </div>
-
-                                <button type="submit">Envoyer</button>
-                            </form>
-                        </div>
-                        <div class="extra content">
-                            <div class="ui two buttons">
-                                <div class="ui basic green button">Mettre à jour</div>
-                                <div class="ui basic red button">Supprimer</div>
+                            <div class="meta">
+                                {{ $actor->pivot['role'] }}
                             </div>
                         </div>
                     </div>
