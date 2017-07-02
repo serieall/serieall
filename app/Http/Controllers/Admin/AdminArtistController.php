@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ArtistUpdateRequest;
 use App\Http\Requests\ArtistCreateRequest;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Input;
-use App\Models\Artist;
+
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Input;
+
+use App\Models\Artist;
+use App\Models\List_log;
+
 use App\Repositories\ArtistRepository;
 use App\Repositories\ShowRepository;
 
@@ -66,6 +69,23 @@ class AdminArtistController extends Controller
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
         $show = $this->showRepository->getByID($inputs['show_id']);
+
+        # ID User
+        $userID = $inputs['user_id'];
+
+        # Définition du nom du job
+        $list_log = new List_log();
+        $list_log->job = 'Ajout Manuel';
+        $list_log->object = 'Artist';
+        $list_log->object_id = mt_rand();
+        $list_log->user_id = $userID;
+
+        $list_log->save();
+
+        $listLogID = $list_log->id;
+
+        $logMessage = '>>>>>>>>>> Lancement du job d\'ajout <<<<<<<<<<';
+        saveLogMessage($listLogID, $logMessage);
 
         foreach ($inputs['artists'] as $key => $actor) {
             # Récupération du nom de l'acteur

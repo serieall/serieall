@@ -188,7 +188,7 @@
             </div>
             <button class="fluid ui huge blue button" onclick="window.location.href='{{ route('admin.artists.show', $show->id) }}'">Modifier les acteurs de la série</button>
             <br />
-            <button class="fluid ui huge teal button">Modifier les saisons et les épisodes</button>
+            <button class="fluid ui huge teal button" onclick="window.location.href='{{ route('admin.seasons.show', $show->id) }}'">Modifier les saisons et les épisodes</button>
         </div>
     </div>
 @endsection

@@ -34,13 +34,22 @@ class SeasonRepository
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getSeasonsEpisodesForShowByID($id){
-        return $this->season->where('show_id', '=', $id)->with(['episodes' => function ($query)
-        {
-            $query->with('writers', 'directors', 'guests');
-            $query->orderBy('episodes.numero', 'asc');
-        }])
-        ->orderBy('seasons.name', 'asc')
-        ->get();
+        return $this->season->where('show_id', '=', $id)
+            ->with('episodes')
+            ->orderBy('seasons.name', 'asc')
+            ->get();
+    }
+
+    /**
+     * Récupère une saison d'une série grâce à on ID.
+     * On ajoute les épisodes, les scénaristes, réalisateurs et guests.
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getSeasonEpisodesBySeasonID($id){
+        return $this->season->with('episodes')
+            ->findOrFail($id);
     }
 
     /**
@@ -55,5 +64,10 @@ class SeasonRepository
             ->withCount('episodes')
             ->orderBy('seasons.name', 'asc')
             ->get();
+    }
+
+    public function getSeasonByID($id)
+    {
+        return $this->season->findOrFail($id);
     }
 }

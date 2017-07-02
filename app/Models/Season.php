@@ -44,7 +44,7 @@ class Season extends Model {
 
 	public function episodes()
 	{
-		return $this->hasMany('App\Models\Episode');
+		return $this->hasMany('App\Models\Episode')->orderBy('numero');;
 	}
 
 	public function comments()

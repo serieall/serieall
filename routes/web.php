@@ -70,6 +70,15 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/artists/{show}/store', 'Admin\AdminArtistController@store')->name('admin.artists.store');
     Route::get('admin/artists/redirectJSON/{show}', 'Admin\AdminArtistController@redirectJSON')->name('admin.artists.redirectJSON');
 
+    /* SEASONS */
+    Route::get('admin/seasons/{show}', 'Admin\AdminSeasonController@show')->name('admin.seasons.show');
+    Route::get('admin/seasons/{show}/create', 'Admin\AdminSeasonController@create')->name('admin.seasons.create');
+    Route::get('admin/seasons/{show}/edit/{season}', 'Admin\AdminSeasonController@edit')->name('admin.seasons.edit');
+    Route::post('admin/seasons/{season}/update', 'Admin\AdminSeasonController@update')->name('admin.seasons.update');
+
+    /* EPISODES */
+
+
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');
     Route::get('admin/system/logs', 'Admin\System\AdminLogsController@index')->name('admin.logs');
