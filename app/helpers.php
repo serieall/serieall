@@ -1,7 +1,36 @@
 <?php
 
 use App\Models\Log;
-use Illuminate\Support\Facades\Storage;
+
+use App\Models\List_log;
+
+/**
+ * Initialisation du job d'ajout
+ *
+ * @param $idUser
+ * @param $type
+ * @param $model
+ * @param $idModel
+ * @return int
+ */
+function initJob($idUser, $type, $model, $idModel)
+{
+    # Définition du nom du job
+    $list_log = new List_log();
+    $list_log->job = $type;
+    $list_log->object = $model;
+    $list_log->object_id = $idModel;
+    $list_log->user_id = $idUser;
+
+    $list_log->save();
+
+    $listLogID = $list_log->id;
+
+    $logMessage = '~~~ Lancement du job ~~~';
+    saveLogMessage($listLogID, $logMessage);
+
+    return $listLogID;
+}
 
 /**
  * Enregistrement d'un nouveau message de log dans la base de données
@@ -19,6 +48,14 @@ function saveLogMessage($logID, $logMessage)
     $log->list_log_id = $logID;
     $log->message = $logMessage;
     $log->save();
+
+    return true;
+}
+
+function endJob($logID)
+{
+    $message = '~~~ END ~~~';
+    saveLogMessage($logID, $message);
 
     return true;
 }

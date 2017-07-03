@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ArtistUpdateRequest;
 use App\Http\Requests\ArtistCreateRequest;
 
+use App\Jobs\ArtistStore;
+use App\Jobs\ArtistUnlink;
+use App\Jobs\ArtistUpdate;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Input;
-
-use App\Models\Artist;
-use App\Models\List_log;
 
 use App\Repositories\ArtistRepository;
 use App\Repositories\ShowRepository;
@@ -58,7 +60,7 @@ class AdminArtistController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistrement d'un nouvel artist, et ajout de son image (l'accès en bas de données est parallélisé)
      *
      * @param ArtistCreateRequest $request
      * @return \Illuminate\Http\Response
@@ -70,75 +72,28 @@ class AdminArtistController extends Controller
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
         $show = $this->showRepository->getByID($inputs['show_id']);
 
-        # ID User
-        $userID = $inputs['user_id'];
-
-        # Définition du nom du job
-        $list_log = new List_log();
-        $list_log->job = 'Ajout Manuel';
-        $list_log->object = 'Artist';
-        $list_log->object_id = mt_rand();
-        $list_log->user_id = $userID;
-
-        $list_log->save();
-
-        $listLogID = $list_log->id;
-
-        $logMessage = '>>>>>>>>>> Lancement du job d\'ajout <<<<<<<<<<';
-        saveLogMessage($listLogID, $logMessage);
+        $idLog = initJob($inputs['user_id'], 'Ajout Manuel', 'Artist', mt_rand());
 
         foreach ($inputs['artists'] as $key => $actor) {
             # Récupération du nom de l'acteur
             $actorName = $actor['name'];
-
             # Récupération du rôle
             $actorRole = $actor['role'];
-
             # On supprime les espaces
-            $actor_url = trim($actorName);
-            # On met en forme l'URL
-            $actor_url = Str::slug($actor_url);
+            $actor_url = Str::slug(trim($actorName));
 
-            # Vérification de la présence de l'acteur
-            $actor_ref = Artist::where('artist_url', $actor_url)->first();
-
-            # Si elle n'existe pas
-            if (is_null($actor_ref)) {
-                # On prépare le nouvel acteur
-                $actor_ref = new Artist([
-                    'name' => $actor,
-                    'artist_url' => $actor_url
-                ]);
-
-                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                $show->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
-            } else {
-                # Si il existe, on vérifie qu'il n'a pas déjà un lien avec la série
-                $actor_liaison = $actor_ref->shows()
-                    ->where('shows.thetvdb_id', $inputs['show_id'])
-                    ->where('artistables.profession', 'actor')
-                    ->get()
-                    ->toArray();
-
-                if(empty($actor_liaison)) {
-                    # On lie l'acteur à la série
-                    $show->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
-                    # Ajout de l'image
-                }
-                else {
-                    # On met à jour le rôle et la photo
-                    $actor_ref->shows()->updateExistingPivot($show->id, ['role' => $request->role]);
-                }
-            }
+            $this->dispatch(new ArtistStore($actorName, $actorRole, $show, $idLog));
 
             $photo = 'artists.' . $key . '.image';
-
             # Ajout de l'image
             if (Input::hasFile($photo) && Input::file($photo)->isValid()) {
                 $destinationPath = public_path() . config('directories.actors');
                 $extension = "jpg";
-                $fileName = $actor_ref->artist_url . '.' . $extension;
+                $fileName = $actor_url . '.' . $extension;
                 Input::file($photo)->move($destinationPath, $fileName);
+
+                $logMessage = '> Ajout de l\'image ' . $fileName;
+                saveLogMessage($idLog, $logMessage);
             }
         }
 
@@ -181,13 +136,17 @@ class AdminArtistController extends Controller
      * Modification d'un acteur
      *
      * @param ArtistUpdateRequest $request
-     * @param $show_id
-     * @param $artist_id
      * @return mixed
+     * @internal param $show_id
+     * @internal param $artist_id
      */
-    public function update(ArtistUpdateRequest $request, $show_id, $artist_id) {
-        $show = $this->showRepository->getByID($show_id);
-        $artist = $this->artistRepository->getActorByShowID($show, $artist_id);
+    public function update(ArtistUpdateRequest $request) {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        $show = $this->showRepository->getByID($inputs['show_id']);
+        $artist = $this->artistRepository->getActorByShowID($show, $inputs['artist_id']);
+
+        $idLog = initJob($inputs['user_id'], 'Edition', 'Artist', $artist->id);
 
         # Ajout de l'image
         if( Input::hasfile('image')) {
@@ -196,15 +155,18 @@ class AdminArtistController extends Controller
                 $extension = "jpg";
                 $fileName = $artist->artist_url . '.' . $extension;
                 Input::file('image')->move($destinationPath, $fileName);
+
+                $logMessage = '> Ajout de l\'image ' . $fileName;
+                saveLogMessage($idLog, $logMessage);
             }
         }
 
         # Modification du rôle
-        $artist->shows()->updateExistingPivot($show->id, ['role' => $request->role]);
+        $this->dispatch(new ArtistUpdate($artist, $show->id, $inputs['role'], $idLog));
 
         return redirect()->route('admin.artists.show', $show->id)
-            ->with('status_header', 'Modification')
-            ->with('status', 'L\'acteur a été modifié');
+            ->with('status_header', 'Modification d\'un acteur')
+            ->with('status', 'La demande de modification a été envoyée au serveur. Il la traitera dès que possible.');
     }
 
     /**
@@ -220,11 +182,13 @@ class AdminArtistController extends Controller
     {
         $show = $this->showRepository->getByID($show_id);
 
-        $show->artists()->detach($artist_id);
+        $idLog = initJob(Auth::user()->id, 'Delete', 'Artist', $artist_id);
+
+        $this->dispatch(new ArtistUnlink($show, $artist_id, $idLog));
 
         return redirect()->back()
-            ->with('status_header', 'Suppression')
-            ->with('status', 'L\'acteur a été supprimé');
+            ->with('status_header', 'Suppression d\'un acteur')
+            ->with('status', 'La demande de suppression a été envoyée au serveur. Il la traitera dès que possible.');
     }
 
     /**

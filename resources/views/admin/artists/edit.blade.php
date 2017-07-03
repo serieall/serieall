@@ -36,6 +36,9 @@
                 <form class="ui form" action="{{ route('admin.artists.update', [$show->id, $artist->id]) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
+                    <input type="hidden" name="show_id" value="{{ $show->id }}">
+                    <input type="hidden" name="artist_id" value="{{ $artist->id }}">
+
                     <div class="ui two fields">
                         <img class="ui small left floated image" src="{{ ActorPicture($artist->artist_url) }}" alt="Photo {{ $artist->name }}">
                         <div class="ui field">
