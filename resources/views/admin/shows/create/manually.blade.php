@@ -331,7 +331,7 @@
                             + '<div class="field">'
                             + '<label>Nom de l\'acteur</label>'
                             + '<div class="ui fluid search selection dropdown artistDropdown">'
-                            + '<input class="artist_name-input" id="artists.'+ artist_number +'.name_artist" name="artists[' + artist_number + '][name_artist]" type="hidden" value="{{ old('guests') }}">'
+                            + '<input class="artist_name-input" id="artists.'+ artist_number +'.name_artist" name="artists[' + artist_number + '][name_actor]" type="hidden" value="{{ old('guests') }}">'
                             + '<i class="dropdown icon"></i>'
                             + '<div class="default text">Choisir</div>'
                             + '<div class="menu">'
@@ -342,7 +342,7 @@
 
                             + '<div class="field">'
                             + '<label class="artist_role-label">Rôle</label>'
-                            + '<input class="artist_role-input" id="artists.'+ artist_number +'.role_artist" name="artists[' + artist_number + '][role_artist]" placeholder="Rôle" type="text" value="{{ old('role_artist') }}">'
+                            + '<input class="artist_role-input" id="artists.'+ artist_number +'.role_artist" name="artists[' + artist_number + '][role_actor]" placeholder="Rôle" type="text" value="{{ old('role_artist') }}">'
                             + '<div class="ui red hidden message"></div>'
 
                             + '</div>'
