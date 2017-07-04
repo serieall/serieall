@@ -45,7 +45,7 @@
                         @endif
                     </td>
                     <td>
-                        @if($log->user != 0)
+                        @if(!is_null($log->user) || $log->user != 0)
                             {{ $log->user->username }}
                         @else
                             System
