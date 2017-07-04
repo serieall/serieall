@@ -36,6 +36,8 @@
                 <form class="ui form" action="{{ route('admin.seasons.update', $season->id) }}" method="post">
                     {{ csrf_field() }}
 
+                    <input type="hidden" name="_method" value="PUT">
+
                     <input type="hidden" name="id" value="{{ $season->id }}">
                     <input type="hidden" name="show_id" value="{{ $show->id }}">
                     <div class="ui two fields">

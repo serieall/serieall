@@ -31,6 +31,7 @@ class SeasonDelete implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @param SeasonRepository $seasonRepository
      * @return void
      */
     public function handle(SeasonRepository $seasonRepository)

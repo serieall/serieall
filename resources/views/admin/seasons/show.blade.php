@@ -52,7 +52,7 @@
                                     Saison {{ $season->name }}
                                 </div>
                                 <div class="four wide column">
-                                    <form action="{{ route('admin.seasons.destroy', [$show->id, $season->id]) }}" method="post" >
+                                    <form action="{{ route('admin.seasons.destroy', [$season->id]) }}" method="post" >
                                         {{ csrf_field() }}
 
                                         <input type="hidden" name="_method" value="DELETE">
@@ -81,9 +81,14 @@
                                                     Episode {{  $season->name }} x {{ $episode->numero }} - {{ $episode->name }}
                                                     </div>
                                                 <div class="four wide column">
-                                                    <button class="ui right floated red circular icon button episodeRemove">
-                                                        <i class="remove icon"></i>
+                                                    <form action="{{ route('admin.episodes.destroy', [$episode->id]) }}" method="post" >
+                                                        {{ csrf_field() }}
+
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button class="ui right floated red circular icon button episodeRemove" value="Supprimer cet épisode ?" onclick="return confirm('Voulez-vous vraiment supprimer cet épisode ?')">
+                                                            <i class="remove icon"></i>
                                                         </button>
+                                                    </form>
                                                     <button class="ui right floated blue circular icon button episodeMove">
                                                         <i class="edit icon"></i>
                                                         </button>

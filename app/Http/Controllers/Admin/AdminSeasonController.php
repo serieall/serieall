@@ -92,18 +92,19 @@ class AdminSeasonController extends Controller
     /**
      * Suppression d'une saison
      *
-     * @param $show_id
-     * @param $season_id
+     * @param $id
      * @return \Illuminate\Http\RedirectResponse
+     * @internal param $show_id
+     * @internal param $season_id
      * @internal param $id
      */
-    public function destroy($show_id, $season_id)
+    public function destroy($id)
     {
         $userID = Auth::user()->id;
 
-        dispatch(new SeasonDelete($season_id, $userID));
+        dispatch(new SeasonDelete($id, $userID));
 
-        return redirect()->route('admin.seasons.show', $show_id)
+        return redirect()->back()
             ->with('status_header', 'Suppression de la saison')
             ->with('status', 'La demande de suppression a été envoyée au serveur. Il la traitera dès que possible.');
     }
