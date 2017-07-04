@@ -16,7 +16,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Str;
 
 
-class UpdateShowManually implements ShouldQueue
+class ShowUpdateManually implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 

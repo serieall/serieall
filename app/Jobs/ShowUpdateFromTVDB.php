@@ -18,15 +18,15 @@ use GuzzleHttp\Client;
 use \Illuminate\Support\Str;
 
 /**
- * Class UpdateShowFromTVDB
+ * Class ShowUpdateFromTVDB
  * @package App\Jobs
  */
-class UpdateShowFromTVDB extends Job implements ShouldQueue
+class ShowUpdateFromTVDB extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
     /**
-     * UpdateShowFromTVDB constructor.
+     * ShowUpdateFromTVDB constructor.
      */
     public function __construct()
     {

@@ -12,7 +12,7 @@ use App\Models\List_log;
 
 use App\Repositories\ShowRepository;
 
-class DeleteShow implements ShouldQueue
+class ShowDelete implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

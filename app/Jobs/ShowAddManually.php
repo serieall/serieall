@@ -18,7 +18,7 @@ use App\Models\Nationality;
 use App\Models\Artist;
 
 
-class AddShowManually implements ShouldQueue
+class ShowAddManually implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 

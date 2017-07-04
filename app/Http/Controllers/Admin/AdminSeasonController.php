@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SeasonUpdateRequest;
+use App\Jobs\SeasonUpdate;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 
@@ -67,19 +68,31 @@ class AdminSeasonController extends Controller
         return view('admin.seasons.edit', compact('show', 'season'));
     }
 
+    /**
+     * Mise à jour d'une saison
+     *
+     * @param SeasonUpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(SeasonUpdateRequest $request)
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
-        $season = $this->seasonRepository->getSeasonByID($inputs['id']);
-
-        $season->name = $inputs['name'];
-        $season->ba = $inputs['ba'];
-
-        $season->save();
+        dispatch(new SeasonUpdate($inputs));
 
         return redirect()->route('admin.seasons.show', $inputs['show_id'])
         ->with('status_header', 'Modification')
         ->with('status', 'La saison a été modifié');
     }
+
+
+    /**
+     * Suppression d'une saison
+     *
+     * @param $id
+     */
+    public function destroy($id){
+
+    }
+
 }

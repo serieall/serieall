@@ -3,10 +3,10 @@
 
 namespace App\Repositories;
 
-use App\Jobs\AddShowManually;
-use App\Jobs\AddShowFromTVDB;
-use App\Jobs\UpdateShowManually;
-use App\Jobs\DeleteShow;
+use App\Jobs\ShowAddManually;
+use App\Jobs\ShowAddFromTVDB;
+use App\Jobs\ShowUpdateManually;
+use App\Jobs\ShowDelete;
 
 use App\Models\Show;
 
@@ -53,7 +53,7 @@ class ShowRepository
         $checkIDTheTVDB = $this->show->where('thetvdb_id', $inputs['thetvdb_id'])->first();
 
         if(is_null($checkIDTheTVDB)){
-            dispatch(new AddShowFromTVDB($inputs));
+            dispatch(new ShowAddFromTVDB($inputs));
             return $dispatchOK = true;
         }
         else
@@ -75,7 +75,7 @@ class ShowRepository
         $verifURLShow = $this->show->where('show_url', $URLShow)->first();
 
         if(is_null($verifURLShow)){
-            dispatch(new AddShowManually($inputs));
+            dispatch(new ShowAddManually($inputs));
             return $createOK = true;
         }
         else
@@ -91,7 +91,7 @@ class ShowRepository
      * @return bool
      */
     public function updateManuallyShowJob($inputs){
-        dispatch(new UpdateShowManually($inputs));
+        dispatch(new ShowUpdateManually($inputs));
 
         return true;
     }
@@ -105,7 +105,7 @@ class ShowRepository
      * @internal param $inputs
      */
     public function deleteJob($id, $userID){
-        dispatch(new DeleteShow($id, $userID));
+        dispatch(new ShowDelete($id, $userID));
 
         return true;
     }

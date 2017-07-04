@@ -21,7 +21,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 
-class AddShowFromTVDB extends Job implements ShouldQueue
+class ShowAddFromTVDB extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
