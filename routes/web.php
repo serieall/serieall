@@ -75,6 +75,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/seasons/{show}/create', 'Admin\AdminSeasonController@create')->name('admin.seasons.create');
     Route::get('admin/seasons/{show}/edit/{season}', 'Admin\AdminSeasonController@edit')->name('admin.seasons.edit');
     Route::post('admin/seasons/{season}/update', 'Admin\AdminSeasonController@update')->name('admin.seasons.update');
+    Route::delete('admin/seasons/{show_id}/{season_id}', 'Admin\AdminSeasonController@destroy')->name('admin.seasons.destroy');
 
     /* EPISODES */
 

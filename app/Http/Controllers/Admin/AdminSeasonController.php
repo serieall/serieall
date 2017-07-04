@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SeasonUpdateRequest;
+use App\Jobs\SeasonDelete;
 use App\Jobs\SeasonUpdate;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
+
+use Illuminate\Support\Facades\Auth;
 
 class AdminSeasonController extends Controller
 {
@@ -82,17 +85,27 @@ class AdminSeasonController extends Controller
 
         return redirect()->route('admin.seasons.show', $inputs['show_id'])
         ->with('status_header', 'Modification')
-        ->with('status', 'La saison a été modifié');
+        ->with('status', 'La demande de modification a été envoyée au serveur. Il la traitera dès que possible.');
     }
 
 
     /**
      * Suppression d'une saison
      *
-     * @param $id
+     * @param $show_id
+     * @param $season_id
+     * @return \Illuminate\Http\RedirectResponse
+     * @internal param $id
      */
-    public function destroy($id){
+    public function destroy($show_id, $season_id)
+    {
+        $userID = Auth::user()->id;
 
+        dispatch(new SeasonDelete($season_id, $userID));
+
+        return redirect()->route('admin.seasons.show', $show_id)
+            ->with('status_header', 'Suppression de la saison')
+            ->with('status', 'La demande de suppression a été envoyée au serveur. Il la traitera dès que possible.');
     }
 
 }

@@ -52,9 +52,14 @@
                                     Saison {{ $season->name }}
                                 </div>
                                 <div class="four wide column">
-                                    <button class="ui right floated red circular icon button seasonRemove">
-                                        <i class="remove icon"></i>
-                                    </button>
+                                    <form action="{{ route('admin.seasons.destroy', [$show->id, $season->id]) }}" method="post" >
+                                        {{ csrf_field() }}
+
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button class="ui right floated red circular icon button seasonRemove" value="Supprimer cette saison ?" onclick="return confirm('Voulez-vous vraiment supprimer cette saison et les épisodes liés ?')">
+                                            <i class="remove icon"></i>
+                                        </button>
+                                    </form>
 
                                     <form action="{{ route('admin.seasons.edit', [$show->id, $season->id]) }}" method="get" >
                                         {{ csrf_field() }}
