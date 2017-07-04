@@ -182,9 +182,7 @@ class AdminArtistController extends Controller
     {
         $show = $this->showRepository->getByID($show_id);
 
-        $idLog = initJob(Auth::user()->id, 'Delete', 'Artist', $artist_id);
-
-        $this->dispatch(new ArtistUnlink($show, $artist_id, $idLog));
+        dispatch(new ArtistUnlink($show, $artist_id));
 
         return redirect()->back()
             ->with('status_header', 'Suppression d\'un acteur')
