@@ -86,7 +86,5 @@ class ArtistStore implements ShouldQueue
                 $actor_ref->shows()->updateExistingPivot($this->show->id, ['role' => $this->actorRole]);
             }
         }
-
-        endJob($this->listLogID);
     }
 }

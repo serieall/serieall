@@ -41,7 +41,7 @@
                     <br />
                 </p>
 
-                <form class="ui form" action="{{ route('admin.artists.store', $show->id) }}" method="post" enctype="multipart/form-data">
+                <form class="ui form" action="{{ route('admin.artists.store') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="show_id" value="{{ $show->id }}">
@@ -160,7 +160,7 @@
                 processData: false // obligatoire pour de l'upload
             })
                 .done(function () {
-                    window.location.href = '{!! route('admin.artists.redirectJSON', $show->id) !!}';
+                    window.location.href = '{!! route('admin.artists.redirect', $show->id) !!}';
                 })
                 .fail(function (data) {
                     $('.submit').removeClass("loading");

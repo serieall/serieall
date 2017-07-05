@@ -15,19 +15,23 @@ class ArtistUnlink implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $show;
-    protected $artist_id;
+    protected $artistID;
+    protected $userID;
 
     /**
      * Create a new job instance.
      *
      * @param $show
-     * @param $artist_id
-     * @param $idLog
+     * @param $artistID
+     * @param $userID
+     * @internal param $artistID
+     * @internal param $idLog
      */
-    public function __construct($show, $artist_id)
+    public function __construct($show, $artistID, $userID)
     {
         $this->show = $show;
-        $this->artist_id = $artist_id;
+        $this->artistID = $artistID;
+        $this->userID = $userID;
     }
 
     /**
@@ -37,11 +41,11 @@ class ArtistUnlink implements ShouldQueue
      */
     public function handle()
     {
-        $idLog = initJob(Auth::user()->id, 'Delete', 'Artist', $this->artist_id);
+        $idLog = initJob($this->userID, 'Suppression', 'Artist', $this->artistID);
 
-        $this->show->artists()->detach($this->artist_id);
+        $this->show->artists()->detach($this->artistID);
 
-        $logMessage = 'Détachement de l\'artiste ' . $this->artist_id . ' de la série ' . $this->show['name'];
+        $logMessage = 'Détachement de l\'artiste ' . $this->artistID . ' de la série ' . $this->show['name'];
         saveLogMessage($idLog, $logMessage);
 
         endJob($idLog);

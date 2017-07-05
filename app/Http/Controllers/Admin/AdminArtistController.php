@@ -97,6 +97,7 @@ class AdminArtistController extends Controller
             }
         }
 
+        endJob($idLog);
         return response()->json();
     }
 
@@ -180,9 +181,10 @@ class AdminArtistController extends Controller
      */
     public function unlinkShow($show_id, $artist_id)
     {
+        $userID = Auth::user()->id;
         $show = $this->showRepository->getByID($show_id);
 
-        dispatch(new ArtistUnlink($show, $artist_id));
+        dispatch(new ArtistUnlink($show, $artist_id, $userID));
 
         return redirect()->back()
             ->with('status_header', 'Suppression d\'un acteur')
@@ -190,11 +192,11 @@ class AdminArtistController extends Controller
     }
 
     /**
-     * Redirection JSON
+     * Redirection
      * @param $show_id
      * @return \Illuminate\Http\Response
      */
-    public function redirectJSON($show_id)
+    public function redirect($show_id)
     {
         return redirect()->route('admin.artists.show', $show_id)
             ->with('status_header', 'Acteurs en cours d\'ajout')

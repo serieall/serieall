@@ -62,22 +62,24 @@ Route::group(['middleware' => 'admin'], function () {
     ]);
 
     /* ARTISTS */
-    Route::delete('admin/artists/{artist}/{show}/unlinkShow', 'Admin\AdminArtistController@unlinkShow')->name('admin.artists.unlinkShow');
-    Route::get('/admin/shows/{show}/artist/{artist}', 'Admin\AdminArtistController@edit')->name('admin.artists.edit');
-    Route::post('/admin/shows/{show}/artist/{artist}', 'Admin\AdminArtistController@update')->name('admin.artists.update');
-    Route::get('admin/artists/{show}', 'Admin\AdminArtistController@show')->name('admin.artists.show');
-    Route::get('admin/artists/{show}/create', 'Admin\AdminArtistController@create')->name('admin.artists.create');
-    Route::post('admin/artists/{show}/store', 'Admin\AdminArtistController@store')->name('admin.artists.store');
-    Route::get('admin/artists/redirectJSON/{show}', 'Admin\AdminArtistController@redirectJSON')->name('admin.artists.redirectJSON');
+    Route::get('admin/shows/{show}/artists', 'Admin\AdminArtistController@show')->name('admin.artists.show');
+    Route::get('admin/shows/{show}/artists/create', 'Admin\AdminArtistController@create')->name('admin.artists.create');
+    Route::post('admin/artists/store', 'Admin\AdminArtistController@store')->name('admin.artists.store');
+    Route::get('admin/shows/{show}/artists/{artist}', 'Admin\AdminArtistController@edit')->name('admin.artists.edit');
+    Route::put('admin/artists', 'Admin\AdminArtistController@update')->name('admin.artists.update');
+    Route::get('admin/shows/{show}/artists/redirect', 'Admin\AdminArtistController@redirect')->name('admin.artists.redirect');
+    Route::delete('admin/shows/{show}/artists/{artist}/unlinkShow', 'Admin\AdminArtistController@unlinkShow')->name('admin.artists.unlinkShow');
 
     /* SEASONS */
-    Route::get('admin/seasons/{show}', 'Admin\AdminSeasonController@show')->name('admin.seasons.show');
-    Route::get('admin/seasons/{show}/create', 'Admin\AdminSeasonController@create')->name('admin.seasons.create');
-    Route::get('admin/seasons/{show}/edit/{season}', 'Admin\AdminSeasonController@edit')->name('admin.seasons.edit');
-    Route::put('admin/seasons/{season}/update', 'Admin\AdminSeasonController@update')->name('admin.seasons.update');
+    Route::get('admin/shows/{show}/seasons', 'Admin\AdminSeasonController@show')->name('admin.seasons.show');
+    Route::get('admin/shows/{show}/seasons/create', 'Admin\AdminSeasonController@create')->name('admin.seasons.create');
+    Route::get('admin/shows/{show}/seasons/{season}/edit', 'Admin\AdminSeasonController@edit')->name('admin.seasons.edit');
+    Route::put('admin/seasons/{season}', 'Admin\AdminSeasonController@update')->name('admin.seasons.update');
     Route::delete('admin/seasons/{season}', 'Admin\AdminSeasonController@destroy')->name('admin.seasons.destroy');
 
     /* EPISODES */
+    Route::get('admin/shows/{show}/seasons/{season}/episodes/{episode}', 'Admin\AdminEpisodeController@edit')->name('admin.episodes.edit');
+    Route::put('admin/episodes/update', 'Admin\AdminEpisodeController@update')->name('admin.episodes.update');
     Route::delete('admin/episodes/{episode}', 'Admin\AdminEpisodeController@destroy')->name('admin.episodes.destroy');
 
     /* SYSTEM */
