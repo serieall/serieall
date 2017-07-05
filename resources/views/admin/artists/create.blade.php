@@ -129,7 +129,7 @@
                                 },
                                 fields: {remoteValues: "data", value: "name"},
                                 allowAdditions: true,
-                                forceSelection : false,
+                                forceSelection : true,
                                 minCharacters: 2
                             });
                     });
