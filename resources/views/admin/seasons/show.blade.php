@@ -62,7 +62,7 @@
                                     </form>
 
                                     <form action="{{ route('admin.seasons.edit', [$show->id, $season->id]) }}" method="get" >
-                                        {{ csrf_field() }}
+
                                         <button class="ui right floated blue circular icon button" type="submit">
                                             <i class="edit icon"></i>
                                         </button>
@@ -77,9 +77,9 @@
                                         <div class="title">
                                             <div class="ui grid">
                                                 <div class="twelve wide column middle aligned episodeName">
-                                                    <i class="errorEpisode' + seasonNumber + 'x' + episodeNumber + ' dropdown icon"></i>
+                                                    <i class="dropdown icon"></i>
                                                     Episode {{  $season->name }} x {{ $episode->numero }} - {{ $episode->name }}
-                                                    </div>
+                                                </div>
                                                 <div class="four wide column">
                                                     <form action="{{ route('admin.episodes.destroy', [$episode->id]) }}" method="post" >
                                                         {{ csrf_field() }}
@@ -91,10 +91,10 @@
                                                     </form>
                                                     <button class="ui right floated blue circular icon button episodeMove">
                                                         <i class="edit icon"></i>
-                                                        </button>
-                                                    </div>
+                                                    </button>
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
@@ -113,7 +113,7 @@
                 selector: {
                     trigger: '.expandableBlock'
                 },
-                exclusive: false
+                exclusive: true
             })
         ;
     </script>

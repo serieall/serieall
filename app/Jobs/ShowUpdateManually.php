@@ -7,7 +7,6 @@ use App\Models\Genre;
 use App\Models\Channel;
 use App\Models\Nationality;
 use App\Models\Artist;
-use App\Models\List_log;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -39,22 +38,13 @@ class ShowUpdateManually implements ShouldQueue
      */
     public function handle()
     {
-        # ID User
-        $userID = $this->inputs['user_id'];
-
-        # Définition du nom du job
-        $list_log = new List_log();
-        $list_log->job = 'Mise à jour Manuelle';
-        $list_log->object = 'Show';
-        $list_log->object_id = mt_rand();
-        $list_log->user_id = $userID;
-
-        $list_log->save();
-
-        $listLogID = $list_log->id;
-
-        $logMessage = '>>>>>>>>>> Lancement du job d\'update <<<<<<<<<<';
-        saveLogMessage($listLogID, $logMessage);
+        /*
+        |--------------------------------------------------------------------------
+        | Initialisation du job
+        |--------------------------------------------------------------------------
+        */
+        
+        $idLog = initJob($this->inputs['user_id'], 'Mise à jour manuelle', 'Show', mt_rand());
 
         /*
         |--------------------------------------------------------------------------
@@ -65,58 +55,58 @@ class ShowUpdateManually implements ShouldQueue
         $show = Show::where('id', '=', $this->inputs['id'])->first();
 
         $logMessage = '>SERIE';
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->name_fr = $this->inputs['name_fr'];
         # Nom FR de la série
         $logMessage = '>>Nom FR : ' . $show->name_fr;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->synopsis_fr = $this->inputs['resume_fr'];
         # Résumé FR de la série
         $logMessage = '>>Résumé FR : ' . $show->synopsis_fr;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->synopsis = $this->inputs['resume_en'];
         # Résumé EN de la série
         $logMessage = '>>Résumé EN : ' . $show->synopsis;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->format = $this->inputs['format'];
         # Format de la série
         $logMessage = '>>Format : ' . $show->format;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->encours = $this->inputs['encours'];
         # La série est en cours ?
         $logMessage = '>>>En cours : ' . $show->encours;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->diffusion_us = $this->inputs['diffusion_us'];
         # Diffusion US de la série
         $logMessage = '>>Diffusion US : ' . $show->diffusion_us;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $dateTemp = date_create($show->diffusion_us);
         $show->annee = date_format($dateTemp, "Y");
         # Année de diffusion de la série
         $logMessage = '>>Année : ' . $show->annee;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->diffusion_fr = $this->inputs['diffusion_fr'];
         # Diffusion FR de la série
         $logMessage = '>>Diffusion FR : ' . $show->diffusion_fr;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->taux_erectile = $this->inputs['taux_erectile'];
         # Taux Erectile
         $logMessage = '>>Taux érectile: ' . $show->taux_erectile;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->avis_rentree = $this->inputs['avis_rentree'];
         # Avis sur la série
         $logMessage = '>>Avis : ' . $show->avis_rentree;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->save();
 
@@ -130,7 +120,7 @@ class ShowUpdateManually implements ShouldQueue
 
         if (!empty($genres)) {
             $logMessage = '>>GENRES';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
             $genres = explode(',', $genres);
             # Pour chaque genre
             foreach ($genres as $genre) {
@@ -144,7 +134,7 @@ class ShowUpdateManually implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($genre_ref)) {
                     $logMessage = '>>>Ajout du genre : ' . $genre . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau genre
                     $genre_ref = new Genre([
                         'name' => $genre,
@@ -156,7 +146,7 @@ class ShowUpdateManually implements ShouldQueue
 
                 } else {
                     $logMessage = '>>>Liaison du genre : ' . $genre . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $show->genres()->attach($genre_ref->id);
                 }
@@ -182,7 +172,7 @@ class ShowUpdateManually implements ShouldQueue
 
         if (!empty($channels)) {
             $logMessage = '>>CHAINES';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
             $channels = explode(',', $channels);
 
             # Pour chaque chaines
@@ -197,7 +187,7 @@ class ShowUpdateManually implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($channel_ref)) {
                     $logMessage = '>>>Ajout de la chaine : ' . $channel . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare la nouvelle nationalité
                     $channel_ref = new Channel([
                         'name' => $channel,
@@ -227,7 +217,7 @@ class ShowUpdateManually implements ShouldQueue
 
         if (!empty($nationalities)) {
             $logMessage = '>>NATIONALITES';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
             $nationalities = explode(',', $nationalities);
 
             # Pour chaque nationalité
@@ -242,7 +232,7 @@ class ShowUpdateManually implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($nationality_ref)) {
                     $logMessage = '>>>Ajout de la nationalité : ' . $nationality . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare la nouvelle nationalité
                     $nationality_ref = new Nationality([
                         'name' => $nationality,
@@ -271,7 +261,7 @@ class ShowUpdateManually implements ShouldQueue
 
         if (!empty($creators)) {
             $logMessage = '>>CREATEURS';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
             $creators = explode(',', $creators);
 
             # Pour chaque créateur
@@ -286,7 +276,7 @@ class ShowUpdateManually implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($creator_ref)) {
                     $logMessage = '>>>Ajout du créateur : ' . $creator . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau créateur
                     $creator_ref = new Artist([
                         'name' => $creator,
@@ -304,5 +294,7 @@ class ShowUpdateManually implements ShouldQueue
         {
             $show->creators()->sync([]);
         }
+
+        endJob($idLog);
     }
 }

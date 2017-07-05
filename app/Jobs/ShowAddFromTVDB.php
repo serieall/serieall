@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Channel;
-use App\Models\List_log;
 use App\Models\Nationality;
 use App\Models\Show;
 use App\Models\Genre;
@@ -11,7 +10,6 @@ use App\Models\Artist;
 use App\Models\Temp;
 use App\Models\Season;
 use App\Models\Episode;
-use Illuminate\Support\Facades\Log;
 
 use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
@@ -40,11 +38,11 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
     /**
      * @param $getEpisode_en
-     * @param $listLogID
+     * @param $idLog
      * @param $episodeID
      * @internal param $jobName
      */
-    private function AddWritersDirectorsGuests($getEpisode_en, $listLogID, $episodeID){
+    private function AddWritersDirectorsGuests($getEpisode_en, $idLog, $episodeID){
         $episode_new = Episode::where('thetvdb_id', $episodeID)->first();
 
         /*
@@ -56,7 +54,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         $guestStars = $getEpisode_en->guestStars;
         if (!empty($guestStars)) {
             $logMessage = '>>>>>GUESTS';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             # Pour chaque guest
             foreach ($guestStars as $guestStar) {
@@ -70,7 +68,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($guestStar_ref)) {
                     $logMessage = '>>>>>>Création du guest ' . $guestStar . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau guest
                     $guestStar_ref = new Artist([
                         'name' => $guestStar,
@@ -82,7 +80,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
                 } else {
                     $logMessage = '>>>>>>Liaison du guest ' . $guestStar . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $episode_new->artists()->attach($guestStar_ref->id, ['profession' => 'guest']);
                 }
@@ -98,7 +96,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         $directors = $getEpisode_en->directors;
         if (!empty($directors)) {
             $logMessage = '>>>>>REALISATEURS';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             # Pour chaque réal
             foreach ($directors as $director) {
@@ -112,7 +110,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($director_ref)) {
                     $logMessage = '>>>>>>Création du réalisateur ' . $director . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau réal
                     $director_ref = new Artist([
                         'name' => $director,
@@ -124,7 +122,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
                 } else {
                     $logMessage = '>>>>>>Liaison du réalisateur ' . $director . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $episode_new->artists()->attach($director_ref->id, ['profession' => 'director']);
                 }
@@ -140,7 +138,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         $writers = $getEpisode_en->writers;
         if (!empty($writers)) {
             $logMessage = '>>>>>SCENARISTES';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             # Pour chaque scénariste
             foreach ($writers as $writer) {
@@ -154,7 +152,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($writer_ref)) {
                     $logMessage = '>>>>>>Création du scénariste ' . $writer . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau scénariste
                     $writer_ref = new Artist([
                         'name' => $writer,
@@ -166,7 +164,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
                 } else {
                     $logMessage = '>>>>>>Liaison du scénariste ' . $writer . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $episode_new->artists()->attach($writer_ref->id, ['profession' => 'writer']);
                 }
@@ -179,12 +177,12 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
      * @param $api_version
      * @param $token
      * @param $show_new
-     * @param $listLogID
+     * @param $idLog
      * @param $api_url
      * @internal param $jobName
      * @internal param $client
      */
-    private function AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $listLogID, $api_url)
+    private function AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url)
     {
         $client = new Client(['base_uri' => $api_url]);
 
@@ -247,10 +245,10 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($season_ref)) {
                     $logMessage = '>>>SAISONS';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     $logMessage = '>>>>Création de la saison ' . $seasonName;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     # On prépare la nouvelle saison
                     $season_ref = new Season([
@@ -260,11 +258,11 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
                     # ID TheTVDB
                     $logMessage = '>>>>ID TheTVDB : ' . $seasonID;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     # Numéro de la saison
                     $logMessage = '>>>>Numéro : ' . $seasonName;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                     $season_ref->show()->associate($show_new);
@@ -282,49 +280,49 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 $episode_new->numero = $getEpisode_en->airedEpisodeNumber;
 
                 $logMessage = '>>>>EPISODE ' . $seasonName . '.' . $episode_new->numero;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 $episode_new->thetvdb_id = $episodeID;
                 # TheTVDB ID
                 $logMessage = '>>>>>ID TheTVDB : ' . $episode_new->id;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
 
                 # Numéro
                 $logMessage = '>>>>>Numéro : ' . $episode_new->numero;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 $episode_new->name = $getEpisode_en->episodeName;
                 # Nom original de l'épisode
                 $logMessage = '>>>>>Nom original de l\'épisode : ' . $episode_new->name;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 $episode_new->name_fr = $getEpisode_fr->episodeName;
                 # Nom français de l\'épisode
                 $logMessage = '>>>>>Nom français de l\'épisode : ' . $episode_new->name_fr;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 $episode_new->resume = $getEpisode_en->overview;
                 # Résumé original
                 $logMessage = '>>>>>Résumé original : ' . $episode_new->resume;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 $episode_new->resume_fr = $getEpisode_fr->overview;
                 # Résumé original
                 $logMessage = '>>>>>Résumé français : ' . $episode_new->resume_fr;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 $episode_new->diffusion_us = $getEpisode_en->firstAired;
                 # Diffusion originale
                 $logMessage = '>>>>>Diffusion originale : ' . $episode_new->name_fr;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                 $episode_new->season()->associate($season_ref);
                 $episode_new->save();
 
                 # Ajout des informations sur les scénaristes, réalisateurs et guests
-                $this->AddWritersDirectorsGuests($getEpisode_en, $listLogID, $episodeID);
+                $this->AddWritersDirectorsGuests($getEpisode_en, $idLog, $episodeID);
             }
             else{
                 /*
@@ -358,10 +356,10 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     # Si elle n'existe pas
                     if (is_null($season_ref)) {
                         $logMessage = '>>>SAISONS';
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $logMessage = '>>>>Création de la saison ' . $seasonName;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         # On prépare la nouvelle saison
                         $season_ref = new Season([
@@ -371,11 +369,11 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
                         # ID TheTVDB
                         $logMessage = '>>>>ID TheTVDB : ' . $seasonID;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         # Numéro de la saison
                         $logMessage = '>>>>Numéro : ' . $seasonName;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                         $season_ref->show()->associate($show_new);
@@ -393,49 +391,49 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $episode_new->numero = 0;
 
                     $logMessage = '>>>>EPISODE ' . $seasonName . '.' . $episode_new->numero;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     $episode_new->thetvdb_id = $episodeID;
                     # TheTVDB ID
                     $logMessage = '>>>>>ID TheTVDB : ' . $episode_new->id;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
 
                     # Numéro
                     $logMessage = '>>>>>Numéro : ' . $episode_new->numero;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     $episode_new->name = $getEpisode_en->episodeName;
                     # Nom original de l'épisode
                     $logMessage = '>>>>>Nom original de l\'épisode : ' . $episode_new->name;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     $episode_new->name_fr = $getEpisode_fr->episodeName;
                     # Nom français de l\'épisode
                     $logMessage = '>>>>>Nom français de l\'épisode : ' . $episode_new->name_fr;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     $episode_new->resume = $getEpisode_en->overview;
                     # Résumé original
                     $logMessage = '>>>>>Résumé original : ' . $episode_new->resume;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     $episode_new->resume_fr = $getEpisode_fr->overview;
                     # Résumé original
                     $logMessage = '>>>>>Résumé français : ' . $episode_new->resume_fr;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     $episode_new->diffusion_us = $getEpisode_en->firstAired;
                     # Diffusion originale
                     $logMessage = '>>>>>Diffusion originale : ' . $episode_new->name_fr;
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
 
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                     $episode_new->season()->associate($season_ref);
                     $episode_new->save();
 
                     # Ajout des informations sur les scénaristes, réalisateurs et guests
-                    $this->AddWritersDirectorsGuests($getEpisode_en, $listLogID, $episodeID);
+                    $this->AddWritersDirectorsGuests($getEpisode_en, $idLog, $episodeID);
                 }
             }
         }
@@ -451,11 +449,17 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
     {
         /*
         |--------------------------------------------------------------------------
+        | Initialisation du job
+        |--------------------------------------------------------------------------
+        */
+        $idLog = initJob($this->inputs['user_id'], 'Ajout via TVDB', 'Show', $this->inputs['thetvdb_id']);
+        
+        /*
+        |--------------------------------------------------------------------------
         | Définition des variables
         |--------------------------------------------------------------------------
         */
         $theTVDBID = $this->inputs['thetvdb_id'];
-        $userID = $this->inputs['user_id'];
         $key_token = "token";
         $api_key = config('thetvdb.apikey');
         $api_username = config('thetvdb.username');
@@ -524,20 +528,6 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
             $token = $keyToken->value;
         }
 
-        # Définition du nom du job
-        $list_log = new List_log();
-        $list_log->job = 'Ajout via TVDB';
-        $list_log->object = 'Show';
-        $list_log->object_id = $theTVDBID;
-        $list_log->user_id = $userID;
-
-        $list_log->save();
-
-        $listLogID = $list_log->id;
-
-        $logMessage = '>>>>>>>>>> Lancement du job d\'ajout <<<<<<<<<<';
-        saveLogMessage($listLogID, $logMessage);
-
         /*
         |--------------------------------------------------------------------------
         | Recupération de la série en français et avec la langue par défaut
@@ -586,12 +576,12 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         */
         $show_new = new Show();
         $logMessage = '>SERIE';
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->thetvdb_id = $theTVDBID;
         # Diffusion originale
         $logMessage = '>>ID TheTVDB : ' . $show_new->thetvdb_id;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         if(empty($show_en->name)){
             $show_en->seriesName = $show_fr->seriesName;
@@ -600,47 +590,47 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         $show_new->name = $show_en->seriesName;
         # Nom original de la série
         $logMessage = '>>Nom original : ' . $show_new->name;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->name_fr = $show_fr->seriesName;
         # Nom français de la série
         $logMessage = '>>Nom français : ' . $show_new->name_fr;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->synopsis = $show_en->overview;
         # Résumé de la série
         $logMessage = '>>Résumé original : ' . $show_new->synopsis;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->synopsis_fr = $show_fr->overview;
         # Résumé français de la série
         $logMessage = '>>Résumé français : ' . $show_new->synopsis_fr;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->diffusion_us = $show_en->firstAired;
         # Diffusion originale
         $logMessage = '>>Diffusion originale : ' . $show_new->diffusion_us;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->diffusion_fr = $this->inputs['diffusion_fr'];
         # Diffusion française
         $logMessage = '>>Diffusion française : ' . $show_new->diffusion_fr;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->format = $show_en->runtime;
         # Format
         $logMessage = '>>Format : ' . $show_new->format;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->taux_erectile = $this->inputs['taux_erectile'];
         # Taux Erectile
         $logMessage = '>>Taux Erectile : ' . $show_new->taux_erectile;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->avis_rentree = $this->inputs['avis_rentree'];
         # Format
         $logMessage = '>>Avis Rentrée : ' . $show_new->avis_rentree;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         if ($show_en->status == 'Continuing'){
             $show_new->encours = 1;
@@ -651,18 +641,18 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         }
         # En Cours
         $logMessage = '>>En cours : ' . $show_new->encours;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $dateTemp = date_create($show_en->firstAired);
         $show_new->annee = date_format($dateTemp, "Y");
         # Année
         $logMessage = '>>Année : ' . $show_new->annee;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->show_url = Str::slug($show_new->name);
         # URL
         $logMessage = '>>URL : ' . $show_new->show_url;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show_new->save();
 
@@ -672,12 +662,12 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         $file_headers = @get_headers($file);
         if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
             $logMessage = '>>Pas d\'image pour la série.';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
         }
         else {
             copy($file, $public . '/images/shows/' . $show_new->show_url . '.jpg');
             $logMessage = '>>Image pour la série récupérée.';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
         }
 
         /*
@@ -691,7 +681,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
         $genres = $show_en->genre;
         $logMessage = '>>GENRES';
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         if(!empty($genres)) {
             # Pour chaque genre
@@ -706,7 +696,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($genre_ref)) {
                     $logMessage = '>>>Ajout du genre ' . $genre . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau genre
                     $genre_ref = new Genre([
                         'name' => $genre,
@@ -718,7 +708,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
                 } else {
                     $logMessage = '>>>Liaison du genre ' . $genre . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $show_new->genres()->attach($genre_ref->id);
                 }
@@ -734,7 +724,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         */
         $creators = $this->inputs['creators'];
         $logMessage = '>>CREATEURS';
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         if(!empty($creators)) {
             $creators = explode(',', $creators);
@@ -751,7 +741,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($creator_ref)) {
                     $logMessage = '>>Ajout du créateur ' . $creator . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau créateur
                     $creator_ref = new Artist([
                         'name' => $creator,
@@ -762,7 +752,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $show_new->artists()->save($creator_ref, ['profession' => 'creator']);
                 } else {
                     $logMessage = '>>Liaison du créateur ' . $creator . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $show_new->artists()->attach($creator_ref->id, ['profession' => 'creator']);
                 }
@@ -778,7 +768,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         */
         $nationalities = $this->inputs['nationalities'];
         $logMessage = '>>NATIONALITES';
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         if(!empty($nationalities)) {
             $nationalities = explode(',', $nationalities);
@@ -795,7 +785,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($nationality_ref)) {
                     $logMessage = '>>>Ajout de la nationalité ' . $nationality . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare la nouvelle nationalité
                     $nationality_ref = new Nationality([
                         'name' => $nationality,
@@ -806,7 +796,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $show_new->nationalities()->save($nationality_ref);
                 } else {
                     $logMessage = '>>>Liaison de la nationalité ' . $nationality . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si elle existe, on crée juste le lien
                     $show_new->nationalities()->attach($nationality_ref->id);
                 }
@@ -831,7 +821,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         if(!empty($channels)) {
             $channels = explode(',', $channels);
             $logMessage = '>>CHAINES';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             # Pour chaque chaines
             foreach ($channels as $channel) {
@@ -845,7 +835,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($channel_ref)) {
                     $logMessage = '>>>Ajout de la chaine ' . $channel . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare la nouvelle nationalité
                     $channel_ref = new Channel([
                         'name' => $channel,
@@ -856,7 +846,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $show_new->channels()->save($channel_ref);
                 } else {
                     $logMessage = '>>>Liaison de la chaine ' . $channel . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si elle existe, on crée juste le lien
                     $show_new->channels()->attach($channel_ref->id);
                 }
@@ -887,7 +877,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         if(!is_null($actors)) {
             $logMessage = '>>ACTEURS';
             foreach ($actors as $actor) {
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
                 # Récupération du nom de l'acteur
                 $actorName = $actor->name;
 
@@ -910,7 +900,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($actor_ref)) {
                     $logMessage = '>>>Création de l\'acteur ' . $actorName . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouvel acteur
                     $actor_ref = new Artist([
                         'name' => $actor,
@@ -925,16 +915,16 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $file_headers = @get_headers($file);
                     if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                         $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
                     }
                     else {
                         copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
                         $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
                     }
                 } else {
                     $logMessage = '>>>Liaison de l\'acteur ' . $actorName . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $show_new->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
                 }
@@ -984,17 +974,17 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         | page et on exécute la fonction de récupération des informations.
         */
         if(is_null($getEpisodeNextPage)){
-            $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $listLogID, $api_url);
+            $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url);
         }
         else{
             $logMessage = '>>>En cours, page n°1';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
-            $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $listLogID, $api_url);
+            $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url);
 
             while($getEpisodeNextPage <= $getEpisodeLastPage) {
                 $logMessage = 'En cours, page n°'.$getEpisodeNextPage;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage, [
                     'headers' => [
@@ -1007,11 +997,11 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 $getEpisodes_en = json_decode($getEpisodes_en);
                 $getEpisodes = $getEpisodes_en->data;
 
-                $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $listLogID, $api_url);
+                $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url);
                 $getEpisodeNextPage++;
             }
         }
-        $logMessage = '>>>>>>>>>> Fin du job d\'ajout <<<<<<<<<<';
-        saveLogMessage($listLogID, $logMessage);
+
+        endJob($idLog);
     }
 }

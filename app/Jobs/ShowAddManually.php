@@ -8,7 +8,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Str;
 
-use App\Models\List_log;
 use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Show;
@@ -41,23 +40,13 @@ class ShowAddManually implements ShouldQueue
      */
     public function handle()
     {
-        # ID User
-        $userID = $this->inputs['user_id'];
-        
-        # Définition du nom du job
-        $list_log = new List_log();
-        $list_log->job = 'Ajout Manuel';
-        $list_log->object = 'Show';
-        $list_log->object_id = mt_rand();
-        $list_log->user_id = $userID;
-
-        $list_log->save();
-
-        $listLogID = $list_log->id;
-        
-        $logMessage = '>>>>>>>>>> Lancement du job d\'ajout <<<<<<<<<<';
-        saveLogMessage($listLogID, $logMessage);
-
+        /*
+         |--------------------------------------------------------------------------
+         | Initialisation du Job
+         |--------------------------------------------------------------------------
+         */
+        $idLog = initJob($this->inputs['user_id'], 'Ajout Manuel', 'Show', mt_rand());
+            
         /*
         |--------------------------------------------------------------------------
         | Ajout des informations sur la saison
@@ -66,63 +55,63 @@ class ShowAddManually implements ShouldQueue
 
         $show = new Show();
         $logMessage = '>SERIE';
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->name = $this->inputs['name'];
         # Nom original de la série
         $logMessage = '>>Nom original : ' . $show->name;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->name_fr = $this->inputs['name_fr'];
         # Nom FR de la série
         $logMessage = '>>Nom FR : ' . $show->name_fr;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->synopsis = $this->inputs['resume'];
         # Résumé de la série
         $logMessage = '>>Résumé FR : ' . $show->synopsis;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->format = $this->inputs['format'];
         # Format de la série
         $logMessage = '>>Format : ' . $show->format;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->encours = $this->inputs['encours'];
         # La série est en cours ?
         $logMessage = '>>>En cours : ' . $show->encours;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->diffusion_us = $this->inputs['diffusion_us'];
         # Diffusion US de la série
         $logMessage = '>>Diffusion US : ' . $show->diffusion_us;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $dateTemp = date_create($show->diffusion_us);
         $show->annee = date_format($dateTemp, "Y");
         # Année de diffusion de la série
         $logMessage = '>>Année : ' . $show->annee;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->diffusion_fr = $this->inputs['diffusion_fr'];
         # Diffusion FR de la série
         $logMessage = '>>Diffusion FR : ' . $show->diffusion_fr;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->taux_erectile = $this->inputs['taux_erectile'];
         # Taux Erectile
         $logMessage = '>>Taux érectile: ' . $show->taux_erectile;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->avis_rentree = $this->inputs['avis_rentree'];
         # Avis sur la série
         $logMessage = '>>Avis : ' . $show->avis_rentree;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->show_url = Str::slug($show->name);
         #Utilisation de la méthode Slug pour l'URL
         $logMessage = '>>URL : ' . $show->show_url;
-        saveLogMessage($listLogID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
 
         $show->save();
 
@@ -137,7 +126,7 @@ class ShowAddManually implements ShouldQueue
 
         if (!empty($genres)) {
             $logMessage = '>>GENRES';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             $genres = explode(',', $genres);
             # Pour chaque genre
@@ -152,7 +141,7 @@ class ShowAddManually implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($genre_ref)) {
                     $logMessage = '>>>Ajout du genre : ' . $genre . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau genre
                     $genre_ref = new Genre([
                         'name' => $genre,
@@ -164,7 +153,7 @@ class ShowAddManually implements ShouldQueue
 
                 } else {
                     $logMessage = '>>>Liaison du genre : ' . $genre . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $show->genres()->attach($genre_ref->id);
                 }
@@ -181,7 +170,7 @@ class ShowAddManually implements ShouldQueue
 
         if (!empty($channels)) {
             $logMessage = '>>CHAINES';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             $channels = explode(',', $channels);
 
@@ -197,7 +186,7 @@ class ShowAddManually implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($channel_ref)) {
                     $logMessage = '>>>Ajout de la chaine : ' . $channel . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare la nouvelle nationalité
                     $channel_ref = new Channel([
                         'name' => $channel,
@@ -208,7 +197,7 @@ class ShowAddManually implements ShouldQueue
                     $show->channels()->save($channel_ref);
                 } else {
                     $logMessage = '>>>Liaison de la chaine : ' . $channel . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si elle existe, on crée juste le lien
                     $show->channels()->attach($channel_ref->id);
                 }
@@ -225,7 +214,7 @@ class ShowAddManually implements ShouldQueue
 
         if (!empty($nationalities)) {
             $logMessage = '>>NATIONALITES';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             $nationalities = explode(',', $nationalities);
 
@@ -241,7 +230,7 @@ class ShowAddManually implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($nationality_ref)) {
                     $logMessage = '>>>Ajout de la nationalité : ' . $nationality . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare la nouvelle nationalité
                     $nationality_ref = new Nationality([
                         'name' => $nationality,
@@ -252,7 +241,7 @@ class ShowAddManually implements ShouldQueue
                     $show->nationalities()->save($nationality_ref);
                 } else {
                     $logMessage = '>>>Liaison de la nationalité : ' . $nationality . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si elle existe, on crée juste le lien
                     $show->nationalities()->attach($nationality_ref->id);
                 }
@@ -269,7 +258,7 @@ class ShowAddManually implements ShouldQueue
 
         if (!empty($creators)) {
             $logMessage = '>>CREATEURS';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             $creators = explode(',', $creators);
 
@@ -285,7 +274,7 @@ class ShowAddManually implements ShouldQueue
                 # Si il n'existe pas
                 if (is_null($creator_ref)) {
                     $logMessage = '>>>Ajout du créateur : ' . $creator . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare le nouveau créateur
                     $creator_ref = new Artist([
                         'name' => $creator,
@@ -296,7 +285,7 @@ class ShowAddManually implements ShouldQueue
                     $show->artists()->save($creator_ref, ['profession' => 'creator']);
                 } else {
                     $logMessage = '>>>Liaison du créateur : ' . $creator . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $show->artists()->attach($creator_ref->id, ['profession' => 'creator']);
                 }
@@ -311,7 +300,7 @@ class ShowAddManually implements ShouldQueue
         if (isset($this->inputs['actors'])) {
             $actors = $this->inputs['actors'];
             $logMessage = '>>ACTEURS';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             foreach ($actors as $actor) {
                 # Récupération du nom de l'acteur
@@ -330,7 +319,7 @@ class ShowAddManually implements ShouldQueue
                 # Si elle n'existe pas
                 if (is_null($actor_ref)) {
                     $logMessage = '>>>Création de l\'acteur : ' . $actorName . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # On prépare la nouvelle saison
                     $actor_ref = new Artist([
                         'name' => $actor,
@@ -341,7 +330,7 @@ class ShowAddManually implements ShouldQueue
                     $show->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
                 } else {
                     $logMessage = '>>>Liaison de l\'acteur : ' . $actorName . '.';
-                    saveLogMessage($listLogID, $logMessage);
+                    saveLogMessage($idLog, $logMessage);
                     # Si il existe, on crée juste le lien
                     $show->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
                 }
@@ -357,7 +346,7 @@ class ShowAddManually implements ShouldQueue
         if (isset($this->inputs['seasons'])) {
             $seasons = $this->inputs['seasons'];
             $logMessage = '>>SAISONS';
-            saveLogMessage($listLogID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             foreach ($seasons as $season) {
                 $season_new = new Season();
@@ -366,12 +355,12 @@ class ShowAddManually implements ShouldQueue
                 $season_new->name = $season['number'];
                 # Numéro de la saison
                 $logMessage = '>>>Numéro : ' . $season_new->name;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 $season_new->ba = $season['ba'];
                 # Bande annonce de la saison
                 $logMessage = '>>>Bande Annonce : ' . $season_new->ba;
-                saveLogMessage($listLogID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 # Enregistrement de la saison
                 $season_new->show()->associate($show);
@@ -382,52 +371,52 @@ class ShowAddManually implements ShouldQueue
                     foreach ($season['episodes'] as $episode) {
                         $episode_new = new Episode();
                         $logMessage = '>>>EPISODES';
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->numero = $episode['number'];
                         # Numéro de l'épisode
                         $logMessage = '>>>>Numéro : ' . $episode_new->numero;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->name = $episode['name'];
                         # Nom original de l'épisode
                         $logMessage = '>>>>Nom Original : ' . $episode_new->name;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->name_fr = $episode['name_fr'];
                         # Nom français de l'épisode
                         $logMessage = '>>>>Nom français : ' . $episode_new->name_fr;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->resume = $episode['resume'];
                         # Résumé de l'épisode
                         $logMessage = '>>>>Résumé : ' . $episode_new->resume;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->resume_fr = $episode['resume_fr'];
                         # Résumé français de l'épisode
                         $logMessage = '>>>>Résumé français : ' . $episode_new->resume_fr;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->diffusion_us = $episode['diffusion_us'];
                         # Diffusion originale de l'épisode
                         $logMessage = '>>>>Diffusion Originale : ' . $episode_new->diffusion_us;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->diffusion_fr = $episode['diffusion_fr'];
                         # Diffusion française de l'épisode
                         $logMessage = '>>>>Diffusion française : ' . $episode_new->diffusion_fr;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->particularite = $episode['particularite'];
                         # Particularité de l'épisode
                         $logMessage = '>>>>Particularité : ' . $episode_new->particularite;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->ba = $episode['ba'];
                         # Bande annonce de l'épisode
                         $logMessage = '>>>>Bande Annonce : ' . $episode_new->name;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->season()->associate($season_new);
                         $episode_new->save();
@@ -441,7 +430,7 @@ class ShowAddManually implements ShouldQueue
                             $directors = $episode['directors'];
                             $directors = explode(',', $directors);
                             $logMessage = '>>>>REALISATEURS';
-                            saveLogMessage($listLogID, $logMessage);
+                            saveLogMessage($idLog, $logMessage);
 
                             # Pour chaque créateur
                             foreach ($directors as $director) {
@@ -455,7 +444,7 @@ class ShowAddManually implements ShouldQueue
                                 # Si il n'existe pas
                                 if (is_null($director_ref)) {
                                     $logMessage = '>>>>>Ajout du réalisateur : ' . $director . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # On prépare le nouveau créateur
                                     $director_ref = new Artist([
                                         'name' => $director,
@@ -466,7 +455,7 @@ class ShowAddManually implements ShouldQueue
                                     $episode_new->artists()->save($director_ref, ['profession' => 'director']);
                                 } else {
                                     $logMessage = '>>>>>Liaison du réalisateur : ' . $director . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # Si il existe, on crée juste le lien
                                     $episode_new->artists()->attach($director_ref->id, ['profession' => 'director']);
                                 }
@@ -482,7 +471,7 @@ class ShowAddManually implements ShouldQueue
                             $writers = $episode['writers'];
                             $writers = explode(',', $writers);
                             $logMessage = '>>>>SCENARISTES';
-                            saveLogMessage($listLogID, $logMessage);
+                            saveLogMessage($idLog, $logMessage);
 
                             # Pour chaque créateur
                             foreach ($writers as $writer) {
@@ -496,7 +485,7 @@ class ShowAddManually implements ShouldQueue
                                 # Si il n'existe pas
                                 if (is_null($writer_ref)) {
                                     $logMessage = '>>>>>Ajout du réalisateur : ' . $writer . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # On prépare le nouveau créateur
                                     $writer_ref = new Artist([
                                         'name' => $writer,
@@ -507,7 +496,7 @@ class ShowAddManually implements ShouldQueue
                                     $episode_new->artists()->save($writer_ref, ['profession' => 'writer']);
                                 } else {
                                     $logMessage = '>>>>>Liaison du réalisateur : ' . $writer . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # Si il existe, on crée juste le lien
                                     $episode_new->artists()->attach($writer_ref->id, ['profession' => 'writer']);
                                 }
@@ -523,7 +512,7 @@ class ShowAddManually implements ShouldQueue
                             $guests = $episode['guests'];
                             $guests = explode(',', $guests);
                             $logMessage = '>>>>GUESTS';
-                            saveLogMessage($listLogID, $logMessage);
+                            saveLogMessage($idLog, $logMessage);
 
                             # Pour chaque créateur
                             foreach ($guests as $guest) {
@@ -537,7 +526,7 @@ class ShowAddManually implements ShouldQueue
                                 # Si il n'existe pas
                                 if (is_null($guest_ref)) {
                                     $logMessage = '>>>>>Ajout du réalisateur : ' . $guest . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # On prépare le nouveau créateur
                                     $guest_ref = new Artist([
                                         'name' => $guest,
@@ -548,7 +537,7 @@ class ShowAddManually implements ShouldQueue
                                     $episode_new->artists()->save($guest_ref, ['profession' => 'writer']);
                                 } else {
                                     $logMessage = '>>>>>Liaison du réalisateur : ' . $guest . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # Si il existe, on crée juste le lien
                                     $episode_new->artists()->attach($guest_ref->id, ['profession' => 'writer']);
                                 }
@@ -562,52 +551,52 @@ class ShowAddManually implements ShouldQueue
                     foreach ($season['episodesSpeciaux'] as $episode) {
                         $episode_new = new Episode();
                         $logMessage = '>>>EPISODES SPECIAUX';
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->numero = $episode['number'];
                         # Numéro de l'épisode
                         $logMessage = '>>>>Numéro : ' . $episode_new->numero;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->name = $episode['name'];
                         # Nom original de l'épisode
                         $logMessage = '>>>>Nom Original : ' . $episode_new->name;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->name_fr = $episode['name_fr'];
                         # Nom français de l'épisode
                         $logMessage = '>>>>Nom français : ' . $episode_new->name_fr;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->resume = $episode['resume'];
                         # Résumé de l'épisode
                         $logMessage = '>>>>Résumé : ' . $episode_new->resume;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->resume_fr = $episode['resume_fr'];
                         # Résumé français de l'épisode
                         $logMessage = '>>>>Résumé français : ' . $episode_new->resume_fr;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->diffusion_us = $episode['diffusion_us'];
                         # Diffusion originale de l'épisode
                         $logMessage = '>>>>Diffusion Originale : ' . $episode_new->diffusion_us;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->diffusion_fr = $episode['diffusion_fr'];
                         # Diffusion française de l'épisode
                         $logMessage = '>>>>Diffusion française : ' . $episode_new->diffusion_fr;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->particularite = $episode['particularite'];
                         # Particularité de l'épisode
                         $logMessage = '>>>>Particularité : ' . $episode_new->particularite;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->ba = $episode['ba'];
                         # Bande annonce de l'épisode
                         $logMessage = '>>>>Bande Annonce : ' . $episode_new->name;
-                        saveLogMessage($listLogID, $logMessage);
+                        saveLogMessage($idLog, $logMessage);
 
                         $episode_new->season()->associate($season_new);
                         $episode_new->save();
@@ -621,7 +610,7 @@ class ShowAddManually implements ShouldQueue
                             $directors = $episode['directors'];
                             $directors = explode(',', $directors);
                             $logMessage = '>>>>REALISATEURS';
-                            saveLogMessage($listLogID, $logMessage);
+                            saveLogMessage($idLog, $logMessage);
 
                             # Pour chaque créateur
                             foreach ($directors as $director) {
@@ -635,7 +624,7 @@ class ShowAddManually implements ShouldQueue
                                 # Si il n'existe pas
                                 if (is_null($director_ref)) {
                                     $logMessage = '>>>>>Ajout du réalisateur : ' . $director . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # On prépare le nouveau créateur
                                     $director_ref = new Artist([
                                         'name' => $director,
@@ -646,7 +635,7 @@ class ShowAddManually implements ShouldQueue
                                     $episode_new->artists()->save($director_ref, ['profession' => 'director']);
                                 } else {
                                     $logMessage = '>>>>>Liaison du réalisateur : ' . $director . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # Si il existe, on crée juste le lien
                                     $episode_new->artists()->attach($director_ref->id, ['profession' => 'director']);
                                 }
@@ -662,7 +651,7 @@ class ShowAddManually implements ShouldQueue
                             $writers = $episode['writers'];
                             $writers = explode(',', $writers);
                             $logMessage = '>>>>SCENARISTES';
-                            saveLogMessage($listLogID, $logMessage);
+                            saveLogMessage($idLog, $logMessage);
 
                             # Pour chaque créateur
                             foreach ($writers as $writer) {
@@ -676,7 +665,7 @@ class ShowAddManually implements ShouldQueue
                                 # Si il n'existe pas
                                 if (is_null($writer_ref)) {
                                     $logMessage = '>>>>>Ajout du réalisateur : ' . $writer . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # On prépare le nouveau créateur
                                     $writer_ref = new Artist([
                                         'name' => $writer,
@@ -687,7 +676,7 @@ class ShowAddManually implements ShouldQueue
                                     $episode_new->artists()->save($writer_ref, ['profession' => 'writer']);
                                 } else {
                                     $logMessage = '>>>>>Liaison du réalisateur : ' . $writer . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # Si il existe, on crée juste le lien
                                     $episode_new->artists()->attach($writer_ref->id, ['profession' => 'writer']);
                                 }
@@ -703,7 +692,7 @@ class ShowAddManually implements ShouldQueue
                             $guests = $episode['guests'];
                             $guests = explode(',', $guests);
                             $logMessage = '>>>>GUESTS';
-                            saveLogMessage($listLogID, $logMessage);
+                            saveLogMessage($idLog, $logMessage);
 
                             # Pour chaque créateur
                             foreach ($guests as $guest) {
@@ -717,7 +706,7 @@ class ShowAddManually implements ShouldQueue
                                 # Si il n'existe pas
                                 if (is_null($guest_ref)) {
                                     $logMessage = '>>>>>Ajout du réalisateur : ' . $guest . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # On prépare le nouveau créateur
                                     $guest_ref = new Artist([
                                         'name' => $guest,
@@ -728,7 +717,7 @@ class ShowAddManually implements ShouldQueue
                                     $episode_new->artists()->save($guest_ref, ['profession' => 'writer']);
                                 } else {
                                     $logMessage = '>>>>>Liaison du réalisateur : ' . $guest . '.';
-                                    saveLogMessage($listLogID, $logMessage);
+                                    saveLogMessage($idLog, $logMessage);
                                     # Si il existe, on crée juste le lien
                                     $episode_new->artists()->attach($guest_ref->id, ['profession' => 'writer']);
                                 }
@@ -739,7 +728,6 @@ class ShowAddManually implements ShouldQueue
             }
         }
 
-        $logMessage = '>>>>>>>>>> Fin du job d\'ajout <<<<<<<<<<';
-        saveLogMessage($listLogID, $logMessage);
+        endJob($idLog);
     }
 }

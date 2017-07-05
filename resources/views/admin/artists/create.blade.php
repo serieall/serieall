@@ -108,7 +108,8 @@
 
                         + '<div class="field">'
                         + '<label>Nom de l\'acteur</label>'
-                        + '<select id="artists.'+ artist_number +'.name" name="artists[' + artist_number + '][name]" class="ui fluid search dropdown artistDropdown"></select>'
+                        + '<select id="artists.'+ artist_number +'.name" name="artists[' + artist_number + '][name]" class="ui fluid search dropdown artistDropdown">'
+                        + '</select>'
                         + '<div class="ui red hidden message"></div>'
                         + '</div>'
 

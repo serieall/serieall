@@ -8,8 +8,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-use App\Models\List_log;
-
 use App\Repositories\ShowRepository;
 
 class ShowDelete implements ShouldQueue
@@ -41,39 +39,29 @@ class ShowDelete implements ShouldQueue
      */
     public function handle(ShowRepository $showRepository)
     {
+        // Initilisation du repository
         $this->showRepository = $showRepository;
-
-        # Définition du nom du job
-        $list_log = new List_log();
-        $list_log->job = 'Suppression';
-        $list_log->object = 'Show';
-        $list_log->object_id = $this->id;
-        $list_log->user_id = $this->userID;
-        $list_log->save();
-
-        $logID = $list_log->id;
-
-        $logMessage = '>>>>>>>>>> Lancement de la suppression <<<<<<<<<<';
-        saveLogMessage($logID, $logMessage);
-
+        
+        $idLog = initJob($this->userID, 'Suppression', 'Show', $this->id);
+        
         // On cherche la série
         $show = $this->showRepository->getByID($this->id);
 
         // On détache tous les artistes, chaines, nationalités et les genres
         $logMessage = '> Détachement des artistes';
-        saveLogMessage($logID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
         $show->artists()->detach();
 
         $logMessage = '> Détachement des chaines';
-        saveLogMessage($logID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
         $show->channels()->detach();
 
         $logMessage = '> Détachement des nationalités';
-        saveLogMessage($logID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
         $show->nationalities()->detach();
 
         $logMessage = '> Détachement des genres';
-        saveLogMessage($logID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
         $show->genres()->detach();
 
         // On récupère les saisons
@@ -82,7 +70,7 @@ class ShowDelete implements ShouldQueue
         // Pour chaque saison
         foreach($seasons as $season){
             $logMessage = '> SAISON ' . $season->name;
-            saveLogMessage($logID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
 
             // On récupère les épisodes
             $episodes = $season->episodes()->get();
@@ -90,27 +78,29 @@ class ShowDelete implements ShouldQueue
             // Pour chaque épisode
             foreach($episodes as $episode){
                 $logMessage = '>> EPISODE ' . $episode->numero;
-                saveLogMessage($logID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
 
                 // On détache les artistes
                 $logMessage = '>>> Détachement des artistes';
-                saveLogMessage($logID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
                 $episode->artists()->detach();
 
                 // On le supprime
                 $logMessage = '>>> Suppression de l\'épisode';
-                saveLogMessage($logID, $logMessage);
+                saveLogMessage($idLog, $logMessage);
                 $episode->delete();
             }
             // On supprime la saison
             $logMessage = '>> Suppression de la saison';
-            saveLogMessage($logID, $logMessage);
+            saveLogMessage($idLog, $logMessage);
             $season->delete();
         }
 
         // On supprime la série
         $logMessage = '> Suppression de la série';
-        saveLogMessage($logID, $logMessage);
+        saveLogMessage($idLog, $logMessage);
         $show->delete();
+        
+        endJob($idLog);
     }
 }
