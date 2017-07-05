@@ -64,7 +64,7 @@ Route::group(['middleware' => 'admin'], function () {
     /* ARTISTS */
     Route::get('admin/shows/{show}/artists', 'Admin\AdminArtistController@show')->name('admin.artists.show');
     Route::get('admin/shows/{show}/artists/create', 'Admin\AdminArtistController@create')->name('admin.artists.create');
-    Route::post('admin/artists/store', 'Admin\AdminArtistController@store')->name('admin.artists.store');
+    Route::post('admin/artists', 'Admin\AdminArtistController@store')->name('admin.artists.store');
     Route::get('admin/shows/{show}/artists/{artist}', 'Admin\AdminArtistController@edit')->name('admin.artists.edit');
     Route::put('admin/artists', 'Admin\AdminArtistController@update')->name('admin.artists.update');
     Route::get('admin/shows/{show}/artists/redirect', 'Admin\AdminArtistController@redirect')->name('admin.artists.redirect');
