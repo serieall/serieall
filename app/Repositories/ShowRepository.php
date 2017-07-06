@@ -230,4 +230,13 @@ class ShowRepository
             ->with(['channels', 'nationalities', 'creators', 'genres'])
             ->first();
     }
+
+    public function getShowSeasonsEpisodesByShowID($id)
+    {
+        return $this->show
+            ->with(['seasons' => function($q){
+                $q->with('episodes');
+            }])
+            ->findOrFail($id);
+    }
 }

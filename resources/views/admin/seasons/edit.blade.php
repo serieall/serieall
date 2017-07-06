@@ -9,11 +9,11 @@
         Séries
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('admin.shows.edit', $show->id) }}" class="section">
-        {{ $show->name }}
+    <a href="{{ route('admin.shows.edit', $season->show->id) }}" class="section">
+        {{ $season->show->name }}
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('admin.seasons.show', $show->id) }}" class="section">
+    <a href="{{ route('admin.seasons.show', $season->show->id) }}" class="section">
         Saisons & Episodes
     </a>
     <i class="right angle icon divider"></i>
@@ -26,7 +26,7 @@
     <h1 class="ui header" id="admin-titre">
         Saison {{ $season->name }}
         <span class="sub header">
-            Modifier la saison {{ $season->name }} de "{{ $show->name }}"
+            Modifier la saison {{ $season->name }} de "{{ $season->show->name }}"
         </span>
     </h1>
 
@@ -39,7 +39,7 @@
                     <input type="hidden" name="_method" value="PUT">
 
                     <input type="hidden" name="id" value="{{ $season->id }}">
-                    <input type="hidden" name="show_id" value="{{ $show->id }}">
+                    <input type="hidden" name="show_id" value="{{ $season->show->id }}">
                     <div class="ui two fields">
                         <div class="ui field">
                             <label for="name">Numéro de la saison</label>

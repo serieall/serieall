@@ -44,7 +44,7 @@
         <div class="fifteen wide column segment">
             <div class="ui segment">
                 <div class="ui fluid styled accordion seasonsBlock" id="sortableSeasons">
-                    @foreach($seasons as $season)
+                    @foreach($show->seasons as $season)
                         <div class="title">
                             <div class="ui grid">
                                 <div class="twelve wide column middle aligned seasonName">

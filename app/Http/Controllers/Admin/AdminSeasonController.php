@@ -33,15 +33,15 @@ class AdminSeasonController extends Controller
     /**
      * Affiche la liste des saisons et des épisodes d'une série en fonction de son ID
      *
-     * @param $id
+     * @param $show_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @internal param $id
      */
-    public function show($id)
+    public function show($show_id)
     {
-        $show = $this->showRepository->getByID($id);
-        $seasons = $this->seasonRepository->getSeasonsEpisodesForShowByID($id);
+        $show = $this->showRepository->getShowSeasonsEpisodesByShowID($show_id);
 
-        return view('admin.seasons.show', compact('seasons', 'show'));
+        return view('admin.seasons.show', compact('show'));
     }
 
     /**
@@ -60,15 +60,15 @@ class AdminSeasonController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param $show_id
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param $show_id
      */
-    public function edit($show_id, $season_id)
+    public function edit($id)
     {
-        $show = $this->showRepository->getByID($show_id);
-        $season = $this->seasonRepository->getSeasonEpisodesBySeasonID($season_id);
+        $season = $this->seasonRepository->getSeasonShowEpisodesBySeasonID($id);
 
-        return view('admin.seasons.edit', compact('show', 'season'));
+        return view('admin.seasons.edit', compact('season'));
     }
 
     /**
