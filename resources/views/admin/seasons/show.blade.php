@@ -71,7 +71,7 @@
                                 @foreach($season->episodes as $episode)
                                     <tr>
                                         <td>
-                                            Episode {{  $season->name }} x {{ $episode->numero }} - {{ $episode->name }}
+                                            <a href="{{ route('admin.episodes.edit', $episode->id) }}">Episode {{  $season->name }} x {{ $episode->numero }} - {{ $episode->name }}</a>
                                         </td>
                                         <td class="right aligned">
                                             <form action="{{ route('admin.episodes.destroy', [$episode->id]) }}" method="post" >

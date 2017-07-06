@@ -26,7 +26,7 @@
     <h1 class="ui header" id="admin-titre">
         Episode {{ $episode->season->name }} x {{ $episode->numero }}
         <span class="sub header">
-            Modifier l'épisode {{ $episode->season->name }} x {{ $episode->numero }} : {{ $episode->name }} de "{{ $episode->show->name }}"
+            Modifier l'épisode {{ $episode->season->name }} x {{ $episode->numero }} : "{{ $episode->name }}" de "{{ $episode->show->name }}"
         </span>
     </h1>
 
@@ -41,15 +41,16 @@
                     <input type="hidden" name="id" value="{{ $episode->id }}">
                     <input type="hidden" name="season_id" value="{{ $episode->season->id }}">
                     <input type="hidden" name="show_id" value="{{ $episode->show->id }}">
+
                     <div class="ui two fields">
                         <div class="ui field">
-                            <label for="name">Numéro de l'épisode</label>
-                            <input id="name" name="name" type="number" value="{{ $episode->numero }}">
+                            <label for="numero">Numéro de l'épisode</label>
+                            <input id="numero" name="numero" type="number" value="{{ $episode->numero }}">
                             <div class="ui red hidden message"></div>
                         </div>
                         <div class="ui field">
-                            <label for="ba">Bande Annonce</label>
-                            <input type="text" id="ba" name="ba" value="{{ $episode->ba }}">
+                            <label for="season_id">Saison</label>
+
                         </div>
                     </div>
                     <button class="ui green button" type="submit">Modifier</button>
