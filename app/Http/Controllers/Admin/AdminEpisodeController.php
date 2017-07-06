@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\EpisodeUpdateRequest;
 use App\Jobs\EpisodeDelete;
+use App\Jobs\EpisodeUpdate;
 use App\Repositories\EpisodeRepository;
 
 use Illuminate\Support\Facades\Auth;
@@ -26,11 +28,37 @@ class AdminEpisodeController extends Controller
         $this->episodeRepository = $episodeRepository;
     }
 
-    public function edit($episode_id)
+    /**
+     * Montre le formulaire d'édition d'un épisode
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
     {
-        $episode=$this->episodeRepository->getEpisodeWithSeasonShowByID($episode_id);
+        $episode=$this->episodeRepository->getEpisodeWithSeasonShowByID($id);
+        $directors = formatRequestInVariableNoSpace($episode->directors);
+        $writers = formatRequestInVariableNoSpace($episode->writers);
+        $guests = formatRequestInVariableNoSpace($episode->guests);
 
-        return view('admin.episodes.edit', compact('episode'));
+        return view('admin.episodes.edit', compact('episode', 'directors', 'writers', 'guests'));
+    }
+
+    /**
+     * Met à jour une série
+     *
+     * @param EpisodeUpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(EpisodeUpdateRequest $request)
+    {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        dispatch(new EpisodeUpdate($inputs));
+
+        return redirect()->route('admin.seasons.show', $inputs['show_id'])
+            ->with('status_header', 'Modification')
+            ->with('status', 'La demande de modification a été envoyée au serveur. Il la traitera dès que possible.');
     }
 
     /**

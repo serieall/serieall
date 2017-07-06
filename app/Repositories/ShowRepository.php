@@ -231,12 +231,31 @@ class ShowRepository
             ->first();
     }
 
+    /**
+     * Récupère la série grâce à son ID, les saisons et les épisodes associés
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
     public function getShowSeasonsEpisodesByShowID($id)
     {
         return $this->show
             ->with(['seasons' => function($q){
                 $q->with('episodes');
             }])
+            ->findOrFail($id);
+    }
+
+    /**
+     * Récupère la série grâce à son ID, et les acteurs associés
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public function getShowActorsByID($id)
+    {
+        return $this->show
+            ->with('actors')
             ->findOrFail($id);
     }
 }

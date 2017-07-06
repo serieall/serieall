@@ -37,16 +37,6 @@ class AdminArtistController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param $show_id
@@ -109,10 +99,9 @@ class AdminArtistController extends Controller
      */
     public function show($id)
     {
-        $show = $this->showRepository->getByID($id);
-        $artists = $this->artistRepository->getActorsByShowID($show);
+        $show = $this->showRepository->getShowActorsByID($id);
 
-        return view('admin.artists.show', compact('artists', 'show'));
+        return view('admin.artists.show', compact('show'));
     }
 
     /**

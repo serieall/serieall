@@ -52,7 +52,7 @@
                                         Voir les épisodes
                                         <i class="dropdown icon"></i>
                                     </span>
-                                    <a href="{{ route('admin.seasons.edit', [$show->id, $season->id]) }}">Saison {{ $season->name }}</a>
+                                    <a href="{{ route('admin.seasons.edit', [$season->id]) }}">Saison {{ $season->name }}</a>
                                 </div>
                                 <div class="four wide column">
                                     <form action="{{ route('admin.seasons.destroy', [$season->id]) }}" method="post" >

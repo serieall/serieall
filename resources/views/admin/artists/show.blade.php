@@ -44,7 +44,7 @@
         <div class="fifteen wide column segment">
             <div class="ui segment">
                 <div class="ui special five stackable cards">
-                @foreach($artists as $actor)
+                @foreach($show->actors as $actor)
                     <div class="card">
                         <div class="blurring dimmable image">
                             <div class="ui dimmer">
