@@ -47,7 +47,7 @@
             @foreach($shows as $show)
                 <tr class="line">
                     <td>
-                        {{ $show->name }}
+                        <a href="{{ route('admin.shows.edit', $show->id) }}">{{ $show->name }}</a>
                     </td>
                     <td>
                         @foreach($show->channels as $channel)
@@ -68,34 +68,23 @@
                         {{ $show->episodes_count }}
                     </td>
                     <td class="center aligned">
-                        <div class="ui centered grid">
-                            <div class="four wide column">
-                                <!-- Formulaire d'édition -->
-                                <form action="{{ route('admin.shows.edit', $show->id) }}" method="get" >
+                        <div class="four wide column">
+                            <!-- Formulaire de suppression -->
+                            <form action="{{ route('admin.shows.destroy', $show->id) }}" method="post" >
+                                {{ csrf_field() }}
 
-                                    <button class="circular ui blue icon button" type="submit">
-                                        <i class="edit icon"></i>
-                                    </button>
-                                </form>
-                            </div>
+                                <input type="hidden" name="_method" value="DELETE">
 
-                            <div class="four wide column">
-                                <!-- Formulaire de suppression -->
-                                <form action="{{ route('admin.shows.destroy', $show->id) }}" method="post" >
-                                    {{ csrf_field() }}
-
-                                    <input type="hidden" name="_method" value="DELETE">
-
-                                    <button class="circular ui red icon button" type="submit" value="Supprimer cette série ?" onclick="return confirm('Voulez-vous vraiment supprimer cette série ?')">
-                                        <i class="icon remove"></i>
-                                    </button>
-                                </form>
-                            </div>
+                                <button class="circular ui red icon button" type="submit" value="Supprimer cette série ?" onclick="return confirm('Voulez-vous vraiment supprimer cette série ?')">
+                                    <i class="icon remove"></i>
+                                </button>
+                            </form>
                         </div>
                     </td>
                 </tr>
             @endforeach
         </table>
+    </div>
     <script>
         $('#tableAdmin').DataTable( {
             "order": [[ 0, "asc" ]],

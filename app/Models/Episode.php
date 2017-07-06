@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 /**
  * App\Models\Episode
@@ -50,10 +51,16 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  */
 class Episode extends Model {
+    use BelongsToThrough;
 
 	protected $table = 'episodes';
 	public $timestamps = true;
 	protected $fillable = array('thetvdb_id', 'numero', 'name', 'name_fr', 'resume', 'resume_fr', 'particularite', 'diffusion_us', 'diffusion_fr', 'ba', 'moyenne', 'nbnotes');
+
+    public function show()
+    {
+        return $this->belongsToThrough(Show::class, Season::class);
+    }
 
 	public function season()
 	{

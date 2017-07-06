@@ -56,40 +56,25 @@
             </div>
 
             <div class="ui segment">
-                <div class="ui fluid styled accordion">
-                    <div class="active title">
-                        <div class="twelve wide column middle aligned expandableBlock">
-                            <i class="dropdown icon"></i>
-                            Episodes
-                        </div>
-                    </div>
-                    <div class="active content">
-                        <div class="ui accordion">
-                            @foreach($season->episodes as $episode)
-                                <div class="title">
-                                    <div class="ui grid">
-                                        <div class="twelve wide column middle aligned">
-                                            Episode {{  $season->name }} x {{ $episode->numero }} - {{ $episode->name }}
-                                        </div>
-                                        <div class="four wide column">
-                                            <form action="{{ route('admin.episodes.destroy', [$episode->id]) }}" method="post" >
-                                                {{ csrf_field() }}
+                <table class="ui selectable table">
+                    @foreach($season->episodes as $episode)
+                        <tr>
+                            <td>
+                                <a href="{{ route('admin.episodes.edit', $episode->id) }}">Episode {{  $season->name }} x {{ $episode->numero }} - {{ $episode->name }}</a>
+                            </td>
+                            <td class="right aligned">
+                                <form action="{{ route('admin.episodes.destroy', [$episode->id]) }}" method="post" >
+                                    {{ csrf_field() }}
 
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button class="ui right floated red circular icon button" value="Supprimer cet épisode ?" onclick="return confirm('Voulez-vous vraiment supprimer cet épisode ?')">
-                                                    <i class="remove icon"></i>
-                                                </button>
-                                            </form>
-                                            <button class="ui right floated blue circular icon button">
-                                                <i class="edit icon"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="ui red circular icon button" value="Supprimer cet épisode ?" onclick="return confirm('Voulez-vous vraiment supprimer cet épisode ?')">
+                                        <i class="remove icon"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
             </div>
         </div>
     </div>

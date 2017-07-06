@@ -22,7 +22,7 @@
         </div>
     </h1>
     <div class="ui centered grid">
-        <div class="ten wide column segment">
+        <div class="fifteen wide column segment">
             <form class="ui form" method="POST" action="{{ route('admin.shows.store') }}">
                 {{ csrf_field() }}
 

@@ -69,7 +69,6 @@ class AdminArtistController extends Controller
      */
     public function store(ArtistCreateRequest $request)
     {
-        dd($request);
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
         $show = $this->showRepository->getByID($inputs['show_id']);
 
@@ -200,8 +199,6 @@ class AdminArtistController extends Controller
      */
     public function redirect($show_id)
     {
-
-        dd($show_id);
         return redirect()->route('admin.artists.show', $show_id)
             ->with('status_header', 'Acteurs en cours d\'ajout')
             ->with('status', 'La demande de création d\'acteurs a été effectuée. Le serveur la traitera dès que possible.');

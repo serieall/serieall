@@ -47,9 +47,12 @@
                     @foreach($seasons as $season)
                         <div class="title">
                             <div class="ui grid">
-                                <div class="twelve wide column middle aligned expandableBlock seasonName">
-                                    <i class="errorSeason' + seasonNumber + ' dropdown icon"></i>
-                                    Saison {{ $season->name }}
+                                <div class="twelve wide column middle aligned seasonName">
+                                    <span class="expandableBlock">
+                                        Voir les épisodes
+                                        <i class="dropdown icon"></i>
+                                    </span>
+                                    <a href="{{ route('admin.seasons.edit', [$show->id, $season->id]) }}">Saison {{ $season->name }}</a>
                                 </div>
                                 <div class="four wide column">
                                     <form action="{{ route('admin.seasons.destroy', [$season->id]) }}" method="post" >
@@ -60,44 +63,29 @@
                                             <i class="remove icon"></i>
                                         </button>
                                     </form>
-
-                                    <form action="{{ route('admin.seasons.edit', [$show->id, $season->id]) }}" method="get" >
-
-                                        <button class="ui right floated blue circular icon button" type="submit">
-                                            <i class="edit icon"></i>
-                                        </button>
-                                    </form>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
                         <div class="content">
-                            <div class="accordion transition hidden episodesBlock sortableEpisodes">
+                            <table class="ui selectable table">
                                 @foreach($season->episodes as $episode)
-                                    <div class="episodeBlock">
-                                        <div class="title">
-                                            <div class="ui grid">
-                                                <div class="twelve wide column middle aligned episodeName">
-                                                    <i class="dropdown icon"></i>
-                                                    Episode {{  $season->name }} x {{ $episode->numero }} - {{ $episode->name }}
-                                                </div>
-                                                <div class="four wide column">
-                                                    <form action="{{ route('admin.episodes.destroy', [$episode->id]) }}" method="post" >
-                                                        {{ csrf_field() }}
+                                    <tr>
+                                        <td>
+                                            Episode {{  $season->name }} x {{ $episode->numero }} - {{ $episode->name }}
+                                        </td>
+                                        <td class="right aligned">
+                                            <form action="{{ route('admin.episodes.destroy', [$episode->id]) }}" method="post" >
+                                             {{ csrf_field() }}
 
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <button class="ui right floated red circular icon button episodeRemove" value="Supprimer cet épisode ?" onclick="return confirm('Voulez-vous vraiment supprimer cet épisode ?')">
-                                                            <i class="remove icon"></i>
-                                                        </button>
-                                                    </form>
-                                                    <button class="ui right floated blue circular icon button episodeMove">
-                                                        <i class="edit icon"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button class="ui red circular icon button" value="Supprimer cet épisode ?" onclick="return confirm('Voulez-vous vraiment supprimer cet épisode ?')">
+                                                   <i class="remove icon"></i>
+                                             </button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
-                            </div>
+                            </table>
                         </div>
                     @endforeach
                 </div>

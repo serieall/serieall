@@ -26,6 +26,13 @@ class AdminEpisodeController extends Controller
         $this->episodeRepository = $episodeRepository;
     }
 
+    public function edit($episode_id)
+    {
+        $episode=$this->episodeRepository->getEpisodeWithSeasonShowByID($episode_id);
+
+        return view('admin.episodes.edit', compact('episode'));
+    }
+
     /**
      * Suppression d'un épisode
      *

@@ -26,7 +26,7 @@
         {{ csrf_field() }}
 
         <div class="ui centered grid">
-            <div class="ten wide column segment">
+            <div class="fifteen wide column segment">
                 <div class="ui pointing secondary menu">
                     <a class="dataShow item active" data-tab="first">Série</a>
                     <a class="dataActor item" data-tab="second">Acteurs</a>

@@ -34,4 +34,9 @@ class EpisodeRepository
     {
         return $this->episode->findOrFail($id);
     }
+
+    public function getEpisodeWithSeasonShowByID($id)
+    {
+        return $this->episode->with('season', 'show')->findOrFail($id);
+    }
 }

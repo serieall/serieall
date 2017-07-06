@@ -16,7 +16,8 @@
         "anhskohbo/no-captcha": "^2.3",
         "thomaswelton/laravel-gravatar": "~1.0",
         "dingo/api": "1.0.*@dev",
-        "marcelgwerder/laravel-api-handler": "^0.7.0"
+        "marcelgwerder/laravel-api-handler": "^0.7.0",
+        "znck/belongs-to-through": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

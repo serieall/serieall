@@ -9,24 +9,24 @@
         Séries
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('admin.shows.edit', $show->id) }}" class="section">
-        {{ $show->name }}
+    <a href="{{ route('admin.shows.edit', $episode->show->id) }}" class="section">
+        {{ $episode->show->name }}
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('admin.seasons.show', $show->id) }}" class="section">
+    <a href="{{ route('admin.seasons.show', $episode->show->id) }}" class="section">
         Saisons & Episodes
     </a>
     <i class="right angle icon divider"></i>
     <div class="active section">
-        Episode {{ $season->name }} x {{ $episode->name }}
+        Episode {{ $episode->season->name }} x {{ $episode->numero }}
     </div>
 @endsection
 
 @section('content')
     <h1 class="ui header" id="admin-titre">
-        Episode {{ $season->name }} x {{ $episode->name }}
+        Episode {{ $episode->season->name }} x {{ $episode->numero }}
         <span class="sub header">
-            Modifier l'épisode {{ $season->name }} x {{ $episode->name }} de "{{ $show->name }}"
+            Modifier l'épisode {{ $episode->season->name }} x {{ $episode->numero }} : {{ $episode->name }} de "{{ $episode->show->name }}"
         </span>
     </h1>
 
@@ -39,8 +39,8 @@
                     <input type="hidden" name="_method" value="PUT">
 
                     <input type="hidden" name="id" value="{{ $episode->id }}">
-                    <input type="hidden" name="season_id" value="{{ $season->id }}">
-                    <input type="hidden" name="show_id" value="{{ $show->id }}">
+                    <input type="hidden" name="season_id" value="{{ $episode->season->id }}">
+                    <input type="hidden" name="show_id" value="{{ $episode->show->id }}">
                     <div class="ui two fields">
                         <div class="ui field">
                             <label for="name">Numéro de l'épisode</label>

@@ -24,7 +24,12 @@
 
 
     <div class="ui centered grid">
-        <div class="ten wide column segment">
+        <div class="fifteen wide column segment">
+            <div class="ui huge two buttons">
+                <button class="fluid ui blue button" onclick="window.location.href='{{ route('admin.artists.show', $show->id) }}'">Modifier les acteurs de la série</button>
+                <button class="fluid ui teal button" onclick="window.location.href='{{ route('admin.seasons.show', $show->id) }}'">Modifier les saisons et les épisodes</button>
+            </div>
+
             <div class="ui segment">
                 <form class="ui form" method="POST" action="{{ route('admin.shows.update.manually') }}">
                     {{ csrf_field() }}
@@ -186,9 +191,6 @@
                     <button class="submit positive ui button" type="submit">Modifier la série</button>
                 </form>
             </div>
-            <button class="fluid ui huge blue button" onclick="window.location.href='{{ route('admin.artists.show', $show->id) }}'">Modifier les acteurs de la série</button>
-            <br />
-            <button class="fluid ui huge teal button" onclick="window.location.href='{{ route('admin.seasons.show', $show->id) }}'">Modifier les saisons et les épisodes</button>
         </div>
     </div>
 @endsection
