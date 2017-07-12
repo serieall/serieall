@@ -45,7 +45,7 @@ class EpisodeUpdate implements ShouldQueue
         |--------------------------------------------------------------------------
         */
 
-        $idLog = initJob($this->inputs['user_id'], 'Mise à jour', 'Show', $this->inputs['id']);
+        $idLog = initJob($this->inputs['user_id'], 'Mise à jour', 'Episode', $this->inputs['id']);
 
         /*
         |--------------------------------------------------------------------------
@@ -110,6 +110,7 @@ class EpisodeUpdate implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $directors = $this->inputs['directors'];
+        Log::info($directors);
 
         if (!empty($directors)) {
             $logMessage = '>>REALISATEURS';
@@ -139,7 +140,12 @@ class EpisodeUpdate implements ShouldQueue
                     $director_ref->save();
                 }
                 $listDirectors[] = $director_ref->id;
+                array_unshift($listDirectors, "phoney");
+                unset($listDirectors[0]);
+                Log::info($director_ref);
+                Log::info($listDirectors);
             }
+
             $episode->directors()->sync($listDirectors, ['profession' => 'director']);
         }
         else
@@ -156,7 +162,6 @@ class EpisodeUpdate implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $writers = $this->inputs['writers'];
-        Log::info($writers);
 
         if (!empty($writers)) {
             $logMessage = '>>SCENARISTES';

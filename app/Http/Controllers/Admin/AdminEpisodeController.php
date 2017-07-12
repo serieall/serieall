@@ -9,6 +9,8 @@ use App\Jobs\EpisodeDelete;
 use App\Jobs\EpisodeUpdate;
 use App\Repositories\EpisodeRepository;
 
+use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Auth;
 
 class AdminEpisodeController extends Controller
@@ -57,7 +59,7 @@ class AdminEpisodeController extends Controller
         dispatch(new EpisodeUpdate($inputs));
 
         return redirect()->route('admin.seasons.show', $inputs['show_id'])
-            ->with('status_header', 'Modification')
+            ->with('status_header', 'Modification de l\'épisode')
             ->with('status', 'La demande de modification a été envoyée au serveur. Il la traitera dès que possible.');
     }
 

@@ -33,13 +33,14 @@
     <div class="ui centered grid">
         <div class="fifteen wide column segment">
             <div class="ui segment">
-                <form class="ui form" action="{{ route('admin.episodes.update', $episode->id) }}" method="post">
+                <form class="ui form" action="{{ route('admin.episodes.update') }}" method="POST">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="_method" value="PUT">
 
                     <input type="hidden" name="id" value="{{ $episode->id }}">
                     <input type="hidden" name="show_id" value="{{ $episode->show->id }}">
+                    <input type="hidden" name="season_id" value="{{ $episode->season->id }}">
 
                     <div class="ui two fields">
                         <div class="ui field">

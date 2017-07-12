@@ -30,9 +30,9 @@ class EpisodeUpdateRequest extends FormRequest
             'name_fr' => 'max:255',
             'diffusion_us' => 'date',
             'diffusion_fr' => 'date',
-            'directors' => ['regex:/^[A-Za-z0-9-éèàùç%+ ]{1,255}?(,[A-Za-z0-9-éèàùç%+ ]{1,255})*$/'],
-            'writers' => ['regex:/^[A-Za-z0-9-éèàùç%+ ]{1,255}?(,[A-Za-z0-9-éèàùç%+ ]{1,255})*$/'],
-            'guests' => ['regex:/^[A-Za-z0-9-éèàùç%+ ]{1,255}?(,[A-Za-z0-9-éèàùç%+ ]{1,255})*$/'],
+            'directors' => ['regex:/^[A-Za-z0-9-.éèàùç%+ ]{1,255}?(,[A-Za-z0-9-.éèàùç%+ ]{1,255})*$/'],
+            'writers' => ['regex:/^[A-Za-z0-9-.éèàùç%+ ]{1,255}?(,[A-Za-z0-9-.éèàùç%+ ]{1,255})*$/'],
+            'guests' => ['regex:/^[A-Za-z0-9-.éèàùç%+ ]{1,255}?(,[A-Za-z0-9-.éèàùç%+ ]{1,255})*$/'],
         ];
     }
 }
