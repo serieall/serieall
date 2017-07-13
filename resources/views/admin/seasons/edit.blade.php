@@ -41,14 +41,26 @@
                     <input type="hidden" name="id" value="{{ $season->id }}">
                     <input type="hidden" name="show_id" value="{{ $season->show->id }}">
                     <div class="ui two fields">
-                        <div class="ui field">
+                        <div class="ui field {{ $errors->has('name') ? ' error' : '' }}">
                             <label for="name">Numéro de la saison</label>
                             <input id="name" name="name" type="number" value="{{ $season->name }}">
-                            <div class="ui red hidden message"></div>
+
+                            @if ($errors->has('name'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </div>
+                            @endif
                         </div>
-                        <div class="ui field">
+
+                        <div class="ui field {{ $errors->has('ba') ? ' error' : '' }}">
                             <label for="ba">Bande Annonce</label>
                             <input type="text" id="ba" name="ba" value="{{ $season->ba }}">
+
+                            @if ($errors->has('ba'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('ba') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <button class="ui green button" type="submit">Modifier</button>

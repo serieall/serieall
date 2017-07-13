@@ -37,44 +37,64 @@
                     <input type="hidden" name="id" value="{{ $show->id }}">
 
                     <div class="two fields">
-                        <div class="field">
+                        <div class="field {{ $errors->has('name') ? ' error' : '' }}">
                             <label>Nom original de la série</label>
                             <input id="name" name="name" placeholder="Nom original de la série" type="text" value="{{ $show->name }}">
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('name'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="field">
+                        <div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">
                             <label>Nom français de la série</label>
                             <input id="name_fr" name="name_fr" placeholder="Nom français" type="text" value="{{ $show->name_fr }}">
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('name_fr'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('name_fr') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="two fields">
-                        <div class="field">
+                        <div class="field {{ $errors->has('resume_en') ? ' error' : '' }}">
                             <label for="resume_en">Résumé EN</label>
                             <textarea id="resume_en" name="resume_en">{{ $show->synopsis }}</textarea>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('resume_en'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('resume_fr') }}</strong>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="field">
+                        <div class="field {{ $errors->has('resume_fr') ? ' error' : '' }}">
                             <label for="resume_fr">Résumé FR</label>
                             <textarea id="resume_fr" name="resume_fr">{{ $show->synopsis_fr }}</textarea>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('resume_fr'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('resume_fr') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="two fields">
-                        <div class="field">
+                        <div class="field {{ $errors->has('format') ? ' error' : '' }}">
                             <label>Format</label>
                             <div class="ui left icon input">
                                 <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ $show->format }}">
                                 <i class="tv icon"></i>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('format'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('format') }}</strong>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="field">
+                        <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
                             <label>Série en cours</label>
                             <div id="dropdown-encours" class="ui fluid search selection dropdown">
                                 <input name="encours" type="hidden" value="{{ $show->encours }}">
@@ -91,12 +111,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('encours'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('encours') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="two fields">
-                        <div class="field">
+                        <div class="field {{ $errors->has('diffusion_us') ? ' error' : '' }}">
                             <label>Date de la diffusion originale</label>
                             <div class="ui calendar" id="datepicker">
                                 <div class="ui input left icon">
@@ -104,10 +128,14 @@
                                     <input id="diffusion_us" name="diffusion_us" class="date-picker" type="date" placeholder="Date" value="{{ $show->diffusion_us }}">
                                 </div>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('diffusion_us'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('diffusion_us') }}</strong>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="field">
+                        <div class="field {{ $errors->has('diffusion_fr') ? ' error' : '' }}">
                             <label>Date de la diffusion française</label>
                             <div class="ui calendar" id="datepicker">
                                 <div class="ui input left icon">
@@ -115,12 +143,16 @@
                                     <input id="diffusion_fr" name="diffusion_fr" class="date-picker" type="date" placeholder="Date" value="{{ $show->diffusion_fr }}">
                                 </div>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('diffusion_fr'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('diffusion_fr') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="two fields">
-                        <div class="field">
+                        <div class="field {{ $errors->has('channels') ? ' error' : '' }}">
                             <label>Chaine(s)</label>
                             <div id="dropdown-chaines" class="ui fluid multiple search selection dropdown">
                                 <input id="channels" name="channels" type="hidden" value="{{ $channels }}">
@@ -129,10 +161,14 @@
                                 <div class="menu">
                                 </div>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('channels'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('channels') }}</strong>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="field">
+                        <div class="field {{ $errors->has('nationalities') ? ' error' : '' }}">
                             <label>Nationalité(s)</label>
                             <div id="dropdown-nationalities" class="ui fluid multiple search selection dropdown">
                                 <input id="nationalities" name="nationalities" type="hidden" value="{{ $nationalities }}">
@@ -141,12 +177,16 @@
                                 <div class="menu">
                                 </div>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('nationalities'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('nationalities') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="two fields">
-                        <div class="field">
+                        <div class="field {{ $errors->has('creators') ? ' error' : '' }}">
                             <label>Créateur(s) de la série</label>
                             <div id="dropdown-creators" class="ui fluid multiple search selection dropdown">
                                 <input id="creators" name="creators" type="hidden" value="{{ $creators }}">
@@ -155,10 +195,14 @@
                                 <div class="menu">
                                 </div>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('creators'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('creators') }}</strong>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="field">
+                        <div class="field {{ $errors->has('genres') ? ' error' : '' }}">
                             <label>Genre(s)</label>
                             <div id="dropdown-genres" class="ui fluid multiple search selection dropdown">
                                 <input id="genres" name="genres" type="hidden" value="{{ $genres }}">
@@ -167,24 +211,36 @@
                                 <div class="menu">
                                 </div>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('genres'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('genres') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="two fields">
-                        <div class="field">
+                        <div class="field {{ $errors->has('taux_erectile') ? ' error' : '' }}">
                             <label>Taux érectile</label>
                             <div class="ui left icon input">
                                 <input id="taux_erectile" name="taux_erectile" placeholder="Pourcentage..." type="number" value="{{ $show->taux_erectile }}">
                                 <i class="percent icon"></i>
                             </div>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('taux_erectile'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('taux_erectile') }}</strong>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="field">
+                        <div class="field {{ $errors->has('avis_rentree') ? ' error' : '' }}">
                             <label for="avis_rentree">Avis de la rédaction</label>
                             <textarea id="avis_rentree" name="avis_rentree">{{ $show->avis_rentree }}</textarea>
-                            <div class="ui red hidden message"></div>
+                            @if ($errors->has('avis_rentree'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('avis_rentree') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 

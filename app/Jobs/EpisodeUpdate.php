@@ -140,13 +140,11 @@ class EpisodeUpdate implements ShouldQueue
                     $director_ref->save();
                 }
                 $listDirectors[] = $director_ref->id;
-                array_unshift($listDirectors, "phoney");
-                unset($listDirectors[0]);
                 Log::info($director_ref);
                 Log::info($listDirectors);
             }
 
-            $episode->directors()->sync($listDirectors, ['profession' => 'director']);
+            Log::info($episode->directors()->sync($listDirectors, ['profession' => 'director']));
         }
         else
         {
