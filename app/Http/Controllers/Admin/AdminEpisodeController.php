@@ -9,6 +9,7 @@ use App\Jobs\EpisodeDelete;
 use App\Jobs\EpisodeUpdate;
 use App\Repositories\EpisodeRepository;
 
+use App\Repositories\SeasonRepository;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Auth;
@@ -16,18 +17,28 @@ use Illuminate\Support\Facades\Auth;
 class AdminEpisodeController extends Controller
 {
     protected $episodeRepository;
+    protected $seasonRepository;
 
     /**
      * AdminArtistController constructor.
      *
      * @param EpisodeRepository $episodeRepository
+     * @param SeasonRepository $seasonRepostiory
      * @internal param SeasonRepository $seasonRepository
      * @internal param ShowRepository $showRepository
      * @internal param ArtistRepository $artistRepository
      */
-    public function __construct(EpisodeRepository $episodeRepository)
+    public function __construct(EpisodeRepository $episodeRepository,
+                                SeasonRepository $seasonRepostiory)
     {
         $this->episodeRepository = $episodeRepository;
+        $this->seasonRepository = $seasonRepostiory;
+    }
+
+    public function create($season_id){
+        $season = $this->seasonRepository->getSeasonWithShowByID($season_id);
+
+        return view('admin.episodes.create', compact('season'));
     }
 
     /**

@@ -167,7 +167,7 @@
                             @endif
                         </div>
                         <div class="ui field {{ $errors->has('directors') ? ' error' : '' }}">
-                            <label for="directors">Réalisateur(s) de la série</label>
+                            <label for="directors">Réalisateur(s) de l'épisode</label>
                             <div class="ui fluid multiple search selection dropdown artistsDropdown">
                                 <input id="directors" name="directors" type="hidden" value="{{ $directors }}">
                                 <i class="dropdown icon"></i>
@@ -185,7 +185,7 @@
                     </div>
                     <div class="ui two fields">
                         <div class="ui field {{ $errors->has('writers') ? ' error' : '' }}">
-                            <label>Scénariste(s) de la série</label>
+                            <label>Scénariste(s) de l'épisode</label>
                             <div class="ui fluid multiple search selection dropdown artistsDropdown">
                                 <input id="writers" name="writers" type="hidden" value="{{ $writers }}">
                                 <i class="dropdown icon"></i>
@@ -202,7 +202,7 @@
                         </div>
 
                         <div class="ui field {{ $errors->has('guests') ? ' error' : '' }}">
-                            <label>Guest(s) de la série</label>
+                            <label>Guest(s) de l'épisode</label>
                             <div class="ui fluid multiple search selection dropdown artistsDropdown">
                                 <input id="guests" name="guests" type="hidden" value="{{ $guests }}">
                                 <i class="dropdown icon"></i>

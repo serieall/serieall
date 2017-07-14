@@ -75,7 +75,7 @@
         // Fonction de création et de suppression des nouveau acteurs
         $(function(){
             // Définition des variables
-            var max_fields  =   50; // Nombre maximums de ligne sautorisées
+            var max_fields  =   1000; // Nombre maximums de ligne sautorisées
             var artist_number  =  $('.div-artists').length; // Nombre d'acteurs
 
             // Suppression d'un acteur

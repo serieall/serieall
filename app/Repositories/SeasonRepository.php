@@ -63,4 +63,16 @@ class SeasonRepository
             ->with('show', 'episodes')
             ->findOrFail($id);
     }
+
+    /**
+     * Récupère une saison via son ID et récuèper également la série associée
+     *
+     * @param $id
+     */
+    public function getSeasonWithShowByID($id)
+    {
+        return $this->season
+            ->with('show')
+            ->findOrFail($id);
+    }
 }
