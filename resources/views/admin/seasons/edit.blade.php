@@ -23,12 +23,25 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
-        Saison {{ $season->name }}
-        <span class="sub header">
-            Modifier la saison {{ $season->name }} de "{{ $season->show->name }}"
-        </span>
-    </h1>
+
+    <div class="ui grid">
+        <div class="ui height wide column">
+            <h1 class="ui header" id="admin-titre">
+                Saison {{ $season->name }}
+                <div class="sub header">
+                    Modifier la saison {{ $season->name }} de "{{ $season->show->name }}"
+                </div>
+            </h1>
+        </div>
+        <div class="ui height wide column">
+            <form action="{{ route('admin.episodes.create', $season->id) }}" method="get" >
+                <button class="ui right floated green button" type="submit">
+                    <i class="ui add icon"></i>
+                    Ajouter de nouveaux épisodes
+                </button>
+            </form>
+        </div>
+    </div>
 
     <div class="ui centered grid">
         <div class="fifteen wide column segment">

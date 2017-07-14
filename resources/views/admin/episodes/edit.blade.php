@@ -13,8 +13,8 @@
         {{ $episode->show->name }}
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('admin.seasons.show', $episode->show->id) }}" class="section">
-        Saisons & Episodes
+    <a href="{{ route('admin.seasons.edit', $episode->season->id) }}" class="section">
+        Saison {{ $episode->season->name }}
     </a>
     <i class="right angle icon divider"></i>
     <div class="active section">

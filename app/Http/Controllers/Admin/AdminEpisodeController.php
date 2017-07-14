@@ -58,7 +58,7 @@ class AdminEpisodeController extends Controller
 
         dispatch(new EpisodeUpdate($inputs));
 
-        return redirect()->route('admin.seasons.show', $inputs['show_id'])
+        return redirect()->route('admin.seasons.edit', $inputs['season_id'])
             ->with('status_header', 'Modification de l\'épisode')
             ->with('status', 'La demande de modification a été envoyée au serveur. Il la traitera dès que possible.');
     }

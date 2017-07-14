@@ -78,6 +78,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('admin/seasons/{season}', 'Admin\AdminSeasonController@destroy')->name('admin.seasons.destroy');
 
     /* EPISODES */
+    Route::get('admin/seasons/{season}/episodes/create', 'Admin\AdminEpisodeController@create')->name('admin.episodes.create');
+    Route::post('admin/episodes', 'Admin\AdminEpisodeController@store')->name('admin.episodes.store');
     Route::get('admin/episodes/{episode}', 'Admin\AdminEpisodeController@edit')->name('admin.episodes.edit');
     Route::put('admin/episodes/update', 'Admin\AdminEpisodeController@update')->name('admin.episodes.update');
     Route::delete('admin/episodes/{episode}', 'Admin\AdminEpisodeController@destroy')->name('admin.episodes.destroy');
