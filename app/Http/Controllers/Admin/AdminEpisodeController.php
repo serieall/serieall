@@ -38,7 +38,7 @@ class AdminEpisodeController extends Controller
      */
     public function edit($id)
     {
-        $episode = $this->episodeRepository->getEpisodeWithSeasonShowByID($id);
+        $episode=$this->episodeRepository->getEpisodeWithSeasonShowByID($id);
         $directors = formatRequestInVariableNoSpace($episode->directors);
         $writers = formatRequestInVariableNoSpace($episode->writers);
         $guests = formatRequestInVariableNoSpace($episode->guests);

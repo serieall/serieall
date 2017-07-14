@@ -140,11 +140,12 @@ class EpisodeUpdate implements ShouldQueue
                     $director_ref->save();
                 }
                 $listDirectors[] = $director_ref->id;
-                Log::info($director_ref);
-                Log::info($listDirectors);
             }
 
-            Log::info($episode->directors()->sync($listDirectors, ['profession' => 'director']));
+            $pivotData = array_fill(0, count($listDirectors), ['profession' => 'director']);
+            $syncData  = array_combine($listDirectors, $pivotData);
+
+            $episode->directors()->sync($syncData);
         }
         else
         {
@@ -190,7 +191,10 @@ class EpisodeUpdate implements ShouldQueue
                 }
                 $listWriters[] = $writer_ref->id;
             }
-            $episode->writers()->sync($listWriters, ['profession' => 'writer']);
+            $pivotData = array_fill(0, count($listWriters), ['profession' => 'writer']);
+            $syncData  = array_combine($listWriters, $pivotData);
+
+            $episode->writers()->sync($syncData);
         }
         else
         {
@@ -236,7 +240,10 @@ class EpisodeUpdate implements ShouldQueue
                 }
                 $listGuests[] = $guest_ref->id;
             }
-            $episode->guests()->sync($listGuests, ['profession' => 'guest']);
+            $pivotData = array_fill(0, count($listGuests), ['profession' => 'guest']);
+            $syncData  = array_combine($listGuests, $pivotData);
+
+            $episode->guests()->sync($syncData);
         }
         else
         {
