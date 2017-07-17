@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\SeasonCreateRequest;
 use App\Http\Requests\SeasonUpdateRequest;
 use App\Jobs\SeasonDelete;
+use App\Jobs\SeasonStore;
 use App\Jobs\SeasonUpdate;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
+
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -55,6 +59,15 @@ class AdminSeasonController extends Controller
         $show = $this->showRepository->getByID($show_id);
 
         return view('admin.seasons.create', compact('show'));
+    }
+
+    public function store(SeasonCreateRequest $request)
+    {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        $this->dispatch(new SeasonStore($inputs));
+
+        return response()->json();
     }
 
     /**
@@ -107,6 +120,19 @@ class AdminSeasonController extends Controller
         return redirect()->back()
             ->with('status_header', 'Suppression de la saison')
             ->with('status', 'La demande de suppression a été envoyée au serveur. Il la traitera dès que possible.');
+    }
+
+    /**
+     * Redirection
+     *
+     * @param $show_id
+     * @return \Illuminate\Http\Response
+     */
+    public function redirect($show_id)
+    {
+        return redirect()->route('admin.seasons.show', $show_id)
+            ->with('status_header', 'Saisons en cours d\'ajout')
+            ->with('status', 'La demande de création a été effectuée. Le serveur la traitera dès que possible.');
     }
 
 }

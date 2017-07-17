@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SeasonUpdateRequest extends FormRequest
+class SeasonCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class SeasonUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|numeric',
+            'seasons.*.name' => 'required|numeric',
+            'seasons.*.ba' => 'max:255',
         ];
     }
 }
