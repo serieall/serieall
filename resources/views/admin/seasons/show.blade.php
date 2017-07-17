@@ -33,7 +33,7 @@
             <form action="{{ route('admin.seasons.create', [$show->id]) }}" method="get" >
                 <button class="ui right floated green button" type="submit">
                     <i class="ui add icon"></i>
-                    Ajouter une nouvelle saison
+                    Ajouter de nouvelles saisons
                 </button>
             </form>
         </div>

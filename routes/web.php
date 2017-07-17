@@ -73,8 +73,10 @@ Route::group(['middleware' => 'admin'], function () {
     /* SEASONS */
     Route::get('admin/shows/{show}/seasons', 'Admin\AdminSeasonController@show')->name('admin.seasons.show');
     Route::get('admin/shows/{show}/seasons/create', 'Admin\AdminSeasonController@create')->name('admin.seasons.create');
+    Route::post('admin/seasons', 'Admin\AdminSeasonController@store')->name('admin.seasons.store');
     Route::get('admin/seasons/{season}/edit', 'Admin\AdminSeasonController@edit')->name('admin.seasons.edit');
     Route::put('admin/seasons/{season}', 'Admin\AdminSeasonController@update')->name('admin.seasons.update');
+    Route::get('admin/seasons/{show}/redirect', 'Admin\AdminSeasonController@redirect')->name('admin.seasons.redirect');
     Route::delete('admin/seasons/{season}', 'Admin\AdminSeasonController@destroy')->name('admin.seasons.destroy');
 
     /* EPISODES */
