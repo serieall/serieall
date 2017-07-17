@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Log;
+use Illuminate\Support\Facades\Log as Test;
 
 use App\Models\List_log;
 

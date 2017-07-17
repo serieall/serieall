@@ -41,15 +41,13 @@
                     <br />
                 </p>
 
-                <form class="ui form" action="{{ route('admin.episodes.store', $season->id) }}" method="post" enctype="multipart/form-data">
+                <form class="ui form" action="{{ route('admin.episodes.store') }}" method="post">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="season_id" value="{{ $season->id }}">
 
-                    <div class="ui styled fluid accordion">
-                        <div class="div-episodes">
+                    <div class="div-episodes">
 
-                        </div>
                     </div>
 
                     <p></p>
@@ -65,7 +63,7 @@
     $('.ui.styled.fluid.accordion')
         .accordion({
             selector: {
-                trigger: '.title'
+                trigger: '.expandableBlock'
             },
             exclusive: false
         })
@@ -74,25 +72,48 @@
     $(function () {
         var episodeNumber  =  $('.div-episodes').length; // Nombre d'épisodes
 
+        //Suppression d'un épisode
+        $(document).on('click', '.remove-episode', function(){
+            $(this).parents('.div-episode').remove();
+        });
+
+
         //Ajout d'un episode
         $('.add-episode').click(function (e) {
             e.preventDefault();
 
-            var html =  '<div class="title">'
-                + '<div class="ui grid">'
-                + '<div class="twelve wide column middle aligned">'
-                + '<i class="dropdown icon"></i>'
-                + 'Episode à ajouter n°' + episodeNumber
+            var colorArray = [
+                'red',
+                'orange',
+                'yellow',
+                'olive',
+                'green',
+                'teal',
+                'blue',
+                'violet',
+                'purple',
+                'pink',
+                'brown',
+                'grey',
+                'black'
+            ];
+            var randomNumber = Math.floor(Math.random()*colorArray.length);
+
+            var html = '<div class="ui ' + colorArray[randomNumber] +' segment div-episode">'
+                + '<div class="ui two fields">'
+                + '<div class="ui field">'
+                + '<label for="numero">Numéro de l\'épisode</label>'
+                + '<input id="episodes.' + episodeNumber + '.numero" name="[episodes][' + episodeNumber + '][numero]" type="number" min="0">'
+                + '<div class="ui red hidden message"></div>'
                 + '</div>'
-                + '<div class="four wide column">'
-                + '<button class="ui right floated negative basic circular icon button episodeRemove">'
+
+                + '<div class="ui field">'
+                + '<button class="ui right floated negative basic circular icon button remove-episode">'
                 + '<i class="remove icon"></i>'
                 + '</button>'
                 + '</div>'
                 + '</div>'
-                + '</div>'
 
-                + '<div class="content">'
                 + '<div class="two fields">'
                 + '<div class="field">'
                 + '<label>Nom original</label>'
@@ -193,7 +214,6 @@
                 + '<div class="ui red hidden message"></div>'
                 + '</div>'
                 + '</div>'
-                + '</div>'
                 + '</div>';
 
             $(function () {
@@ -241,6 +261,48 @@
             $('.div-episodes').append(html);
 
         });
+    });
+
+    // Submission
+    $(document).on('submit', 'form', function(e) {
+        e.preventDefault();
+
+        $('.submit').addClass("loading");
+
+        $.ajax({
+            method: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: "json"
+        })
+            .done(function () {
+                window.location.href = '{!! route('admin.episodes.redirect', $season->id) !!}';
+            })
+            .fail(function (data) {
+                $('.submit').removeClass("loading");
+
+                $.each(data.responseJSON, function (key, value) {
+                    var input = 'input[id="' + key + '"]';
+
+                    $(input + '+div').text(value);
+                    $(input + '+div').removeClass("hidden");
+                    $(input).parent().addClass('error');
+
+                    if(key.indexOf('episodes.') > -1) {
+                        $(input).parents('.div-episode').addClass('red');
+
+                        var dataEpisode = $('.dataEpisode');
+
+                        $(dataEpisode).addClass('red');
+                        $(dataEpisode).css('color', '#DB3041');
+                    }
+                    else{
+                        var dataShow = $('.dataShow');
+                        $(dataShow).addClass('red');
+                        $(dataShow).css('color', '#DB3041');
+                    }
+                });
+            });
     });
 </script>
 @endsection

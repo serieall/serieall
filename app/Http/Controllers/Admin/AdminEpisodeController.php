@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\EpisodeUpdateRequest;
+use App\Http\Requests\EpisodeCreateRequest;
+
 use App\Jobs\EpisodeDelete;
 use App\Jobs\EpisodeUpdate;
+
 use App\Repositories\EpisodeRepository;
-
 use App\Repositories\SeasonRepository;
-use Illuminate\Support\Facades\Log;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class AdminEpisodeController extends Controller
@@ -23,22 +25,45 @@ class AdminEpisodeController extends Controller
      * AdminArtistController constructor.
      *
      * @param EpisodeRepository $episodeRepository
-     * @param SeasonRepository $seasonRepostiory
+     * @param SeasonRepository $seasonRepository
+     * @internal param SeasonRepository $seasonRepostiory
      * @internal param SeasonRepository $seasonRepository
      * @internal param ShowRepository $showRepository
      * @internal param ArtistRepository $artistRepository
      */
     public function __construct(EpisodeRepository $episodeRepository,
-                                SeasonRepository $seasonRepostiory)
+                                SeasonRepository $seasonRepository)
     {
         $this->episodeRepository = $episodeRepository;
-        $this->seasonRepository = $seasonRepostiory;
+        $this->seasonRepository = $seasonRepository;
     }
 
-    public function create($season_id){
+    /**
+     * Affiche le formulaire de création de nouveaux épisodes
+     *
+     * @param $season_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create($season_id)
+    {
         $season = $this->seasonRepository->getSeasonWithShowByID($season_id);
 
         return view('admin.episodes.create', compact('season'));
+    }
+
+
+    /**
+     * Stocke la nouvelle série.
+     *
+     * @param EpisodeCreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(EpisodeCreateRequest $request)
+    {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        Log::info($inputs);
+        return response()->json();
     }
 
     /**
@@ -49,7 +74,7 @@ class AdminEpisodeController extends Controller
      */
     public function edit($id)
     {
-        $episode=$this->episodeRepository->getEpisodeWithSeasonShowByID($id);
+        $episode = $this->episodeRepository->getEpisodeWithSeasonShowByID($id);
         $directors = formatRequestInVariableNoSpace($episode->directors);
         $writers = formatRequestInVariableNoSpace($episode->writers);
         $guests = formatRequestInVariableNoSpace($episode->guests);
@@ -92,6 +117,20 @@ class AdminEpisodeController extends Controller
         return redirect()->back()
             ->with('status_header', 'Suppression de l\'épisode')
             ->with('status', 'La demande de suppression a été envoyée au serveur. Il la traitera dès que possible.');
+    }
+
+    /**
+     * Redirection
+     *
+     * @param $season_id
+     * @return \Illuminate\Http\Response
+     * @internal param $show_id
+     */
+    public function redirect($season_id)
+    {
+        return redirect()->route('admin.seasons.edit', $season_id)
+            ->with('status_header', 'Episodes en cours d\'ajout')
+            ->with('status', 'La demande de création a été effectuée. Le serveur la traitera dès que possible.');
     }
 
 }
