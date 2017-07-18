@@ -93,8 +93,25 @@
             $('.add-artist').click(function(e) {
                 e.preventDefault();
 
+                var colorArray = [
+                    'red',
+                    'orange',
+                    'yellow',
+                    'olive',
+                    'green',
+                    'teal',
+                    'blue',
+                    'violet',
+                    'purple',
+                    'pink',
+                    'brown',
+                    'grey',
+                    'black'
+                ];
+                var randomNumber = Math.floor(Math.random()*colorArray.length);
+
                 if (artist_number < max_fields) {
-                    var html = '<div class="ui segment div-artist">'
+                    var html = '<div class="ui ' + colorArray[randomNumber] + ' segment div-artist">'
                         + '<button class="ui right floated negative basic circular icon button remove-artist">'
                         + '<i class="remove icon"></i>'
                         + '</button>'

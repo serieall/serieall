@@ -75,8 +75,25 @@
             $('.add-season').click(function(e) {
                 e.preventDefault();
 
+                var colorArray = [
+                    'red',
+                    'orange',
+                    'yellow',
+                    'olive',
+                    'green',
+                    'teal',
+                    'blue',
+                    'violet',
+                    'purple',
+                    'pink',
+                    'brown',
+                    'grey',
+                    'black'
+                ];
+                var randomNumber = Math.floor(Math.random()*colorArray.length);
+
                 if (seasonNumber < max_fields) {
-                    var html = '<div class="ui segment div-season">'
+                    var html = '<div class="ui '  + colorArray[randomNumber] + ' segment div-season">'
                         + '<button class="ui right floated negative basic circular icon button remove-season">'
                         + '<i class="remove icon"></i>'
                         + '</button>'
