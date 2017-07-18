@@ -8,6 +8,7 @@ use App\Http\Requests\EpisodeUpdateRequest;
 use App\Http\Requests\EpisodeCreateRequest;
 
 use App\Jobs\EpisodeDelete;
+use App\Jobs\EpisodeStore;
 use App\Jobs\EpisodeUpdate;
 
 use App\Repositories\EpisodeRepository;
@@ -62,7 +63,8 @@ class AdminEpisodeController extends Controller
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
-        Log::info($inputs);
+        $this->dispatch(new EpisodeStore($inputs));
+
         return response()->json();
     }
 
