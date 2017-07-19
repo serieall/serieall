@@ -44,7 +44,7 @@
                     <div class="ui two fields">
                         <img class="ui small left floated image" src="{{ ActorPicture($artist->artist_url) }}" alt="Photo {{ $artist->name }}">
                         <div class="ui field {{ $errors->has('image') ? ' error' : '' }}">
-                            <label for="image">Photo de l'actrice</label>
+                            <label for="image">Photo de l'acteur</label>
                             <input id="image" name="image" type="file">
 
                             @if ($errors->has('image'))
