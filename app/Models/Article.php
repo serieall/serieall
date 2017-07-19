@@ -42,42 +42,66 @@ class Article extends Model {
 	public $timestamps = true;
 	protected $fillable = array('name', 'article_url', 'intro', 'content', 'image', 'source', 'state', 'frontpage', 'category_id');
 
-	public function category()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
 	{
 		return $this->belongsTo('App\Models\Category');
 	}
 
-	public function users()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
 	{
 		return $this->belongsToMany('App\Models\User');
 	}
 
-	public function episodes()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function episodes()
 	{
 		return $this->morphedByMany('App\Models\Episode', 'articlable');
 	}
 
-	public function seasons()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function seasons()
 	{
 		return $this->morphedByMany('App\Models\Season', 'articlable');
 	}
 
-	public function shows()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function shows()
 	{
 		return $this->morphedByMany('App\Models\Show', 'articlable');
 	}
 
-	public function artists()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function artists()
 	{
 		return $this->morphedByMany('App\Models\Artist', 'articlable');
 	}
 
-	public function channels()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function channels()
 	{
 		return $this->morphedByMany('App\Models\Channel', 'articlable');
 	}
 
-	public function comments()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function comments()
 	{
 		return $this->morphMany('App\Models\Comment', 'commentable');
 	}

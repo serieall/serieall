@@ -31,7 +31,7 @@ class SeasonRepository
      * On ajoute également le nombre d'épisodes.
      *
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection|static[]|Season
      */
     public function getSeasonsCountEpisodesForShowByID($id){
         return $this->season->where('show_id', '=', $id)
@@ -44,7 +44,7 @@ class SeasonRepository
      * Récupère une saison par son ID
      *
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Season
      */
     public function getSeasonByID($id)
     {
@@ -55,7 +55,7 @@ class SeasonRepository
      * Récupère une saison, la série associée et les épisodes associés via l'ID de la saison
      *
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Season
      */
     public function getSeasonShowEpisodesBySeasonID($id)
     {
@@ -68,6 +68,7 @@ class SeasonRepository
      * Récupère une saison via son ID et récuèper également la série associée
      *
      * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Season
      */
     public function getSeasonWithShowByID($id)
     {

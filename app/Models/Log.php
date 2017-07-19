@@ -26,7 +26,10 @@ class Log extends Model {
 	public $timestamps = true;
 	protected $fillable = array('list_log_id', 'message');
 
-	public function list_log()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function list_log()
 	{
 		return $this->belongsTo('App\Models\List_log');
 	}

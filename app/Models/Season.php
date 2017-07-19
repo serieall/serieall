@@ -32,27 +32,38 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  */
 class Season extends Model {
-
 	protected $table = 'seasons';
 	public $timestamps = true;
 	protected $fillable = array('thetvdb_id', 'name', 'ba', 'moyenne', 'nbnotes');
 
-	public function show()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function show()
 	{
 		return $this->belongsTo('App\Models\Show');
 	}
 
-	public function episodes()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany|Episode
+     */
+    public function episodes()
 	{
-		return $this->hasMany('App\Models\Episode')->orderBy('numero');;
+		return $this->hasMany('App\Models\Episode')->orderBy('numero');
 	}
 
-	public function comments()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function comments()
 	{
 		return $this->morphMany('App\Models\Comment', 'commentable');
 	}
 
-	public function articles()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function articles()
 	{
 		return $this->morphToMany('App\Models\Article', 'articlable');
 	}

@@ -95,6 +95,7 @@ class EpisodeStore implements ShouldQueue
         |--------------------------------------------------------------------------
         */
             $directors = $episode['directors'];
+            $listDirectors = null;
 
             if (!empty($directors)) {
                 $logMessage = '>>REALISATEURS';
@@ -145,6 +146,7 @@ class EpisodeStore implements ShouldQueue
             |--------------------------------------------------------------------------
             */
             $writers = $episode['writers'];
+            $listWriters = null;
 
             if (!empty($writers)) {
                 $logMessage = '>>SCENARISTES';
@@ -194,6 +196,7 @@ class EpisodeStore implements ShouldQueue
             |--------------------------------------------------------------------------
             */
             $guests = $episode['guests'];
+            $listGuests = null;
 
             if (!empty($guests)) {
                 $logMessage = '>>GUESTS';

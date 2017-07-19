@@ -60,32 +60,50 @@ class User extends Authenticatable {
 	protected $fillable = array('username', 'user_url', 'email', 'password', 'role', 'suspended', 'activated', 'edito', 'antispoiler', 'website', 'twitter', 'facebook', 'ip', 'rememberToken');
 	protected $hidden = array('password', 'rememberToken');
 
-	public function comments()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
 	{
 		return $this->hasMany('App\Models\Comment');
 	}
 
-	public function shows()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function shows()
 	{
 		return $this->belongsToMany('App\Models\Show');
 	}
 
-	public function episodes()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function episodes()
 	{
 		return $this->belongsToMany('App\Models\Episode');
 	}
 
-	public function articles()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function articles()
 	{
 		return $this->belongsToMany('App\Models\Article');
 	}
 
-	public function polls()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function polls()
 	{
 		return $this->belongsToMany('App\Models\Poll');
 	}
 
-	public function logs()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function logs()
 	{
 		return $this->hasMany('App\Models\List_log');
 	}

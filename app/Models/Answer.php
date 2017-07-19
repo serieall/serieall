@@ -26,7 +26,10 @@ class Answer extends Model {
 	public $timestamps = true;
 	protected $fillable = array('name', 'question_id');
 
-	public function question()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function question()
 	{
 		return $this->belongsTo('App\Models\Question');
 	}

@@ -31,11 +31,17 @@ class List_log extends Model {
 	public $timestamps = true;
 	protected $fillable = array('job', 'object', 'object_id', 'user_id');
 
-	public function logs()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function logs()
 	{
 		return $this->hasMany('App\Models\Log');
 	}
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\Models\User');

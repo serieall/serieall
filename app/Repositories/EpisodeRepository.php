@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Episode;
+use App\Models\Show;
 
 /**
  * Class SeasonRepository
@@ -28,16 +29,20 @@ class EpisodeRepository
      * Récupère un épisode grâce à son ID
      *
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Episode
      */
     public function getEpisodeByID($id)
     {
         return $this->episode->findOrFail($id);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Episode
+     */
     public function getEpisodeWithSeasonShowByID($id)
     {
-        return $this->episode->with(['season', 'directors', 'writers', 'guests', 'show' => function($q){
+        return $this->episode->with(['season', 'directors', 'writers', 'guests', 'show' => function(Show $q){
             $q->with('seasons');
         }])->findOrFail($id);
     }

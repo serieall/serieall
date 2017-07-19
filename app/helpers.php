@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Log;
-use Illuminate\Support\Facades\Log as Test;
 
 use App\Models\List_log;
 
@@ -133,9 +132,6 @@ function cutResume($resume) {
     for($i=1; $i<count($tcut); $i++) {
         $part2 .= $tcut[$i].' ';
     }
-
-    // Suppression du dernier espace dans la partie de texte restante
-    $part2 = trim($part2);
 
     // On retourne la partie 1 avec les points de suspension
     return $part1 . " ...";

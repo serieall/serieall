@@ -117,6 +117,7 @@ class ShowUpdateManually implements ShouldQueue
         */
 
         $genres = $this->inputs['genres'];
+        $listGenres = null;
 
         if (!empty($genres)) {
             $logMessage = '>>GENRES';
@@ -151,10 +152,9 @@ class ShowUpdateManually implements ShouldQueue
                     $show->genres()->attach($genre_ref->id);
                 }
 
-                $listeGenres[] = $genre_ref->id;
-
-                $show->genres()->sync($listeGenres);
+                $listGenres[] = $genre_ref->id;
             }
+            $show->genres()->sync($listGenres);
         }
         else
         {
@@ -168,7 +168,7 @@ class ShowUpdateManually implements ShouldQueue
         */
 
         $channels = $this->inputs['channels'];
-
+        $listChannels = null;
 
         if (!empty($channels)) {
             $logMessage = '>>CHAINES';
@@ -197,10 +197,9 @@ class ShowUpdateManually implements ShouldQueue
                     # On crée la chaine si elle n'exite pas
                     $channel_ref->save();
                 }
-
-                $listeChannels[] = $channel_ref->id;
+                $listChannels[] = $channel_ref->id;
             }
-            $show->channels()->sync($listeChannels);
+            $show->channels()->sync($listChannels);
         }
         else
         {
@@ -214,6 +213,7 @@ class ShowUpdateManually implements ShouldQueue
         */
 
         $nationalities = $this->inputs['nationalities'];
+        $listNationalities = null;
 
         if (!empty($nationalities)) {
             $logMessage = '>>NATIONALITES';
@@ -242,9 +242,9 @@ class ShowUpdateManually implements ShouldQueue
                     # Et on crée la nouvelle nationlité
                     $nationality_ref->save();
                 }
-                $listeNationalities[] = $nationality_ref->id;
+                $listNationalities[] = $nationality_ref->id;
             }
-            $show->nationalities()->sync($listeNationalities);
+            $show->nationalities()->sync($listNationalities);
         }
         else
         {
@@ -258,6 +258,7 @@ class ShowUpdateManually implements ShouldQueue
         */
 
         $creators = $this->inputs['creators'];
+        $listCreators = null;
 
         if (!empty($creators)) {
             $logMessage = '>>CREATEURS';
@@ -286,9 +287,9 @@ class ShowUpdateManually implements ShouldQueue
                     # Et on le sauvegarde en passant par l'objet Show pour créer le lien entre les deux
                     $creator_ref->save();
                 }
-                $listeCreators[] = $creator_ref->id;
+                $listCreators[] = $creator_ref->id;
             }
-            $show->creators()->sync($listeCreators, ['profession' => 'creator']);
+            $show->creators()->sync($listCreators, ['profession' => 'creator']);
         }
         else
         {

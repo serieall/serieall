@@ -26,17 +26,26 @@ class Artist extends Model {
 	public $timestamps = true;
 	protected $fillable = array('name', 'artist_url');
 
-	public function episodes()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function episodes()
 	{
 		return $this->morphedByMany('App\Models\Episode', 'artistable');
 	}
 
-	public function shows()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function shows()
 	{
 		return $this->morphedByMany('App\Models\Show', 'artistable');
 	}
 
-	public function articles()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function articles()
 	{
 		return $this->morphToMany('App\Models\Article', 'articlable');
 	}

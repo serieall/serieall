@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\Episode;
 use App\Repositories\EpisodeRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

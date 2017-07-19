@@ -12,8 +12,6 @@ use App\Jobs\SeasonUpdate;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 
-use Illuminate\Support\Facades\Log;
-
 use Illuminate\Support\Facades\Auth;
 
 class AdminSeasonController extends Controller

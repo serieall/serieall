@@ -14,7 +14,6 @@ use App\Jobs\EpisodeUpdate;
 use App\Repositories\EpisodeRepository;
 use App\Repositories\SeasonRepository;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class AdminEpisodeController extends Controller

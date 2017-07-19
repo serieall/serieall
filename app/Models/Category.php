@@ -21,7 +21,10 @@ class Category extends Model {
 	protected $table = 'categories';
 	public $timestamps = true;
 
-	public function articles()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function articles()
 	{
 		return $this->hasMany('App\Models\Article');
 	}

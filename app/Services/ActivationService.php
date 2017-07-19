@@ -28,9 +28,9 @@ class ActivationService
     /**
      * Envoi du mail d'activation
      *
-     * @param $user
+     * @param User $user
      */
-    public function sendActivationMail($user)
+    public function sendActivationMail(User $user)
     {
         if ($user->activated || !$this->shouldSend($user)) {
             return;

@@ -27,12 +27,18 @@ class Channel extends Model {
 	public $timestamps = true;
 	protected $fillable = array('name', 'channel_url');
 
-	public function shows()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function shows()
 	{
 		return $this->belongsToMany('App\Models\Show');
 	}
 
-	public function articles()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function articles()
 	{
 		return $this->morphToMany('App\Models\Article', 'articlable');
 	}

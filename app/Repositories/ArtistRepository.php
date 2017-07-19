@@ -6,8 +6,6 @@ namespace App\Repositories;
 use App\Models\Artist;
 use App\Models\Show;
 
-use App\Repositories\ShowRepository;
-
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -53,11 +51,11 @@ class ArtistRepository
     /**
      * On récupère les artistes d'une série en fonction de son ID
      *
-     * @param $show
+     * @param Show $show
      * @return \Illuminate\Database\Eloquent\Collection
      * @internal param $id
      */
-    public function getActorsByShowID($show)
+    public function getActorsByShowID(Show $show)
     {
         return $show->actors()->get();
     }
@@ -65,12 +63,12 @@ class ArtistRepository
     /**
      * On récupère un artiste d'une série en fonction de son ID
      *
-     * @param $show
+     * @param Show $show
      * @param $actor
      * @return \Illuminate\Database\Eloquent\Collection
      * @internal param $id
      */
-    public function getActorByShowID($show, $actor)
+    public function getActorByShowID(Show $show, $actor)
     {
         return $show->actors()->findOrFail($actor);
     }

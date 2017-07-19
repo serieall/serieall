@@ -2,13 +2,12 @@
 
 namespace App\Jobs;
 
+use App\Models\Show;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-
-use Illuminate\Support\Facades\Auth;
 
 class ArtistUnlink implements ShouldQueue
 {
@@ -21,13 +20,13 @@ class ArtistUnlink implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param $show
+     * @param Show $show
      * @param $artistID
      * @param $userID
      * @internal param $artistID
      * @internal param $idLog
      */
-    public function __construct($show, $artistID, $userID)
+    public function __construct(Show $show, $artistID, $userID)
     {
         $this->show = $show;
         $this->artistID = $artistID;

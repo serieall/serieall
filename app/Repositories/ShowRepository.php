@@ -8,6 +8,8 @@ use App\Jobs\ShowAddFromTVDB;
 use App\Jobs\ShowUpdateManually;
 use App\Jobs\ShowDelete;
 
+use App\Models\Artist;
+use App\Models\Season;
 use App\Models\Show;
 
 use Illuminate\Support\Facades\Route;
@@ -172,7 +174,7 @@ class ShowRepository
     /**
      * Récupère la liste des séries avec le compte des saisons et des épisodes, la ou les nationalités, et la ou les chaînes.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection|static[]|Show
      *
      */
     public function getAllShowsWithCountSeasonsAndEpisodes(){
@@ -199,10 +201,10 @@ class ShowRepository
      * La différence avec la requête du dessus est surtout le fait que l'on récupère tout le casting.
      *
      * @param $show_url
-     * @return mixed
+     * @return mixed|Show
      */
     public function getShowDetailsByURL($show_url){
-        return $this->show->where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function($q)
+        return $this->show->where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function(Artist $q)
         {
             $q->select('artists.id', 'artists.name', 'artists.artist_url', 'artistables.role')
                 ->orderBy('artists.name', 'asc');
@@ -213,7 +215,7 @@ class ShowRepository
      * On récupère une série grâce à son ID.
      *
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Show
      */
     public function getByID($id){
         return $this->show->findOrFail($id);
@@ -222,7 +224,7 @@ class ShowRepository
     /**
      * On récupère les détails de la série avec son ID.
      * @param $id
-     * @return Show|\Illuminate\Database\Eloquent\Builder
+     * @return Show|\Illuminate\Database\Eloquent\Builder|Show
      */
     public function getInfoShowByID($id){
         return $this->show
@@ -235,12 +237,12 @@ class ShowRepository
      * Récupère la série grâce à son ID, les saisons et les épisodes associés
      *
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Show
      */
     public function getShowSeasonsEpisodesByShowID($id)
     {
         return $this->show
-            ->with(['seasons' => function($q){
+            ->with(['seasons' => function(Season $q){
                 $q->with('episodes');
             }])
             ->findOrFail($id);
@@ -250,7 +252,7 @@ class ShowRepository
      * Récupère la série grâce à son ID, et les acteurs associés
      *
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Show
      */
     public function getShowActorsByID($id)
     {

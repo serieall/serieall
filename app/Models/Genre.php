@@ -26,7 +26,10 @@ class Genre extends Model {
 	public $timestamps = true;
 	protected $fillable = array('name', 'genre_url');
 
-	public function shows()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function shows()
 	{
 		return $this->belongsToMany('App\Models\Show');
 	}

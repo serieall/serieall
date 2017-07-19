@@ -63,52 +63,82 @@ class Show extends Model {
 	public $timestamps = true;
 	protected $fillable = array('thetvdb_id', 'show_url', 'name', 'name_fr', 'synopsis', 'synopsis_fr', 'format', 'annee', 'encours', 'diffusion_us', 'diffusion_fr', 'moyenne', 'moyenne_redac', 'nbnotes', 'taux_erectile', 'avis_rentree');
 
-	public function seasons()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany|Season
+     */
+    public function seasons()
 	{
 		return $this->hasMany('App\Models\Season')->orderBy('name');
 	}
 
-	public function episodes()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough|Episode
+     */
+    public function episodes()
 	{
 		return $this->hasManyThrough('App\Models\Episode', '\App\Models\Season');
 	}
 
-	public function artists()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function artists()
 	{
 		return $this->morphToMany('App\Models\Artist', 'artistable');
 	}
 
-	public function channels()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function channels()
 	{
 		return $this->belongsToMany('App\Models\Channel');
 	}
 
-	public function nationalities()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function nationalities()
 	{
 		return $this->belongsToMany('App\Models\Nationality');
 	}
 
-	public function genres()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function genres()
 	{
 		return $this->belongsToMany('App\Models\Genre');
 	}
 
-	public function comments()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function comments()
 	{
 		return $this->morphMany('App\Models\Comment', 'commentable');
 	}
 
-	public function articles()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function articles()
 	{
 		return $this->morphToMany('App\Models\Article', 'articlable');
 	}
 
-	public function creators()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function creators()
 	{
 		return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'creator');
 	}
 
-	public function actors()
+    /**
+     * @return mixed
+     */
+    public function actors()
 	{
 		return $this->morphToMany('App\Models\Artist', 'artistable')->orderBy('name')->wherePivot('profession', 'actor')->withPivot('role');
 	}

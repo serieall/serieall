@@ -27,12 +27,18 @@ class Question extends Model {
 	public $timestamps = true;
 	protected $fillable = array('name', 'poll_id');
 
-	public function poll()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function poll()
 	{
 		return $this->belongsTo('App\Models\Poll');
 	}
 
-	public function answers()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
 	{
 		return $this->hasMany('App\Models\Answer');
 	}

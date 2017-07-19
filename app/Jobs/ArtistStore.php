@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Show;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -25,10 +26,10 @@ class ArtistStore implements ShouldQueue
      *
      * @param $actorName
      * @param $actorRole
-     * @param $show
+     * @param Show $show
      * @param $listLogID
      */
-    public function __construct($actorName, $actorRole, $show, $listLogID)
+    public function __construct($actorName, $actorRole, Show $show, $listLogID)
     {
         $this->actorName = $actorName;
         $this->actorRole = $actorRole;

@@ -49,7 +49,7 @@ class LogRepository
     public function getAllDistinctLogs(){
         return $this->list_log->with('user')
             ->select('id', 'job', 'object', 'object_id', 'user_id', 'created_at')
-            ->orderBy('id', 'desc')
+            ->orderBy('created_at', 'desc')
             ->distinct()
             ->get();
     }
