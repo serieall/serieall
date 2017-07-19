@@ -69,7 +69,12 @@ class ShowAddManually implements ShouldQueue
 
         $show->synopsis = $this->inputs['resume'];
         # Résumé de la série
-        $logMessage = '>>Résumé FR : ' . $show->synopsis;
+        $logMessage = '>>Résumé original : ' . $show->synopsis;
+        saveLogMessage($idLog, $logMessage);
+
+        $show->synopsis_fr = $this->inputs['resume_fr'];
+        # Résumé de la série
+        $logMessage = '>>Résumé FR : ' . $show->synopsis_fr;
         saveLogMessage($idLog, $logMessage);
 
         $show->format = $this->inputs['format'];
@@ -96,6 +101,11 @@ class ShowAddManually implements ShouldQueue
         $show->diffusion_fr = $this->inputs['diffusion_fr'];
         # Diffusion FR de la série
         $logMessage = '>>Diffusion FR : ' . $show->diffusion_fr;
+        saveLogMessage($idLog, $logMessage);
+
+        $show->particularite = $this->inputs['particularite'];
+        # Particularité de la série
+        $logMessage = '>>>>Particularité : ' . $show->particularite;
         saveLogMessage($idLog, $logMessage);
 
         $show->taux_erectile = $this->inputs['taux_erectile'];
@@ -408,11 +418,6 @@ class ShowAddManually implements ShouldQueue
                         $logMessage = '>>>>Diffusion française : ' . $episode_new->diffusion_fr;
                         saveLogMessage($idLog, $logMessage);
 
-                        $episode_new->particularite = $episode['particularite'];
-                        # Particularité de l'épisode
-                        $logMessage = '>>>>Particularité : ' . $episode_new->particularite;
-                        saveLogMessage($idLog, $logMessage);
-
                         $episode_new->ba = $episode['ba'];
                         # Bande annonce de l'épisode
                         $logMessage = '>>>>Bande Annonce : ' . $episode_new->name;
@@ -586,11 +591,6 @@ class ShowAddManually implements ShouldQueue
                         $episode_new->diffusion_fr = $episode['diffusion_fr'];
                         # Diffusion française de l'épisode
                         $logMessage = '>>>>Diffusion française : ' . $episode_new->diffusion_fr;
-                        saveLogMessage($idLog, $logMessage);
-
-                        $episode_new->particularite = $episode['particularite'];
-                        # Particularité de l'épisode
-                        $logMessage = '>>>>Particularité : ' . $episode_new->particularite;
                         saveLogMessage($idLog, $logMessage);
 
                         $episode_new->ba = $episode['ba'];

@@ -165,19 +165,10 @@
 
                 + '<div class="two fields">'
                 + '<div class="field">'
-                + '<label>Particularité</label>'
-                + '<textarea rows="2" class="episodeInputParticularite" id="episodes.' + episodeNumber + '.particularite" name="episodes[' + episodeNumber + '][particularite]" placeholder="Particularité de l\'épisode" value="{{ old('particularite') }}""></textarea>'
-                + '<div class="ui red hidden message"></div>'
-                + '</div>'
-                + '<div class="field">'
                 + '<label>Bande annonce de l\'épisode</label>'
                 + '<input class="episodeInputBA" id="episodes.' + episodeNumber + '.ba" name="episodes[' + episodeNumber + '][ba]" type="text" placeholder="Bande Annonce de l\'épisode" value="{{ old('ba') }}">'
                 + '<div class="ui red hidden message"></div>'
                 + '</div>'
-                + '</div>'
-
-                + '<div class="three fields">'
-
                 + '<div class="field">'
                 + '<label>Réalisateur(s) de l\'épisode</label>'
                 + '<div class="ui fluid multiple search selection dropdown directorDropdown">'
@@ -189,7 +180,9 @@
                 + '</div>'
                 + '<div class="ui red hidden message"></div>'
                 + '</div>'
+                + '</div>'
 
+                + '<div class="two fields">'
                 + '<div class="field">'
                 + '<label>Scénariste(s) de l\'épisode</label>'
                 + '<div class="ui fluid multiple search selection dropdown writerDropdown">'

@@ -61,7 +61,7 @@ class Show extends Model {
 
 	protected $table = 'shows';
 	public $timestamps = true;
-	protected $fillable = array('thetvdb_id', 'show_url', 'name', 'name_fr', 'synopsis', 'synopsis_fr', 'format', 'annee', 'encours', 'diffusion_us', 'diffusion_fr', 'moyenne', 'moyenne_redac', 'nbnotes', 'taux_erectile', 'avis_rentree');
+	protected $fillable = array('thetvdb_id', 'show_url', 'name', 'name_fr', 'synopsis', 'synopsis_fr', 'format', 'annee', 'encours', 'diffusion_us', 'diffusion_fr', 'particularite', 'moyenne', 'moyenne_redac', 'nbnotes', 'taux_erectile', 'avis_rentree');
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany|Season

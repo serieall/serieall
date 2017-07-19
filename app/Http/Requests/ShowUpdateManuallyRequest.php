@@ -31,6 +31,7 @@ class ShowUpdateManuallyRequest extends FormRequest
             'genres' => ['regex:/^[A-Za-z0-9-éèàùç%+(). ]{1,255}?(,[A-Za-z0-9-éèàùç%+(). ]{1,255})*$/'],
             'diffusion_us' => 'date',
             'diffusion_fr' => 'date',
+            'particularite' => 'max:255',
             'taux_erectile' => 'numeric|between:0,100',
         ];
     }

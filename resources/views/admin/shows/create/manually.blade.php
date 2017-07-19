@@ -52,11 +52,19 @@
 
                         <div class="two fields">
                             <div class="field">
-                                <label for="resume">Résumé</label>
+                                <label for="resume">Résumé original</label>
                                 <textarea id="resume" name="resume"></textarea>
                                 <div class="ui red hidden message"></div>
                             </div>
 
+                            <div class="field">
+                                <label for="resume">Résumé français</label>
+                                <textarea id="resume_fr" name="resume_fr"></textarea>
+                                <div class="ui red hidden message"></div>
+                            </div>
+                        </div>
+
+                        <div class="two fields">
                             <div class="two fields field">
                                 <div class="field">
                                     <label>Format</label>
@@ -86,6 +94,12 @@
                                     </div>
                                     <div class="ui red hidden message"></div>
                                 </div>
+                            </div>
+
+                            <div class="ui field">
+                                <label for="particularite">Particularité</label>
+                                <input id="particularite" name="particularite">
+                                <div class="ui red hidden message"></div>
                             </div>
                         </div>
 
@@ -474,7 +488,6 @@
                                 $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][resume_fr]');
                                 $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][diffusion_us]');
                                 $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][diffusion_fr]');
-                                $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][particularite]');
                                 $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][ba]');
                                 $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][directors]');
                                 $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][writers]');
@@ -489,7 +502,6 @@
                                 $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.resume_fr');
                                 $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.diffusion_us');
                                 $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.diffusion_fr');
-                                $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.particularite');
                                 $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.ba');
                                 $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.directors');
                                 $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.writers');
@@ -521,7 +533,6 @@
                                 $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][resume_fr]');
                                 $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_us]');
                                 $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_fr]');
-                                $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][particularite]');
                                 $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][ba]');
                                 $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][directors]');
                                 $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][writers]');
@@ -536,7 +547,6 @@
                                 $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.resume_fr');
                                 $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_us');
                                 $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_fr');
-                                $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.particularite');
                                 $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.ba');
                                 $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.directors');
                                 $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.writers');
@@ -573,7 +583,6 @@
                             $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][resume_fr]');
                             $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][diffusion_us]');
                             $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][diffusion_fr]');
-                            $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][particularite]');
                             $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][ba]');
                             $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][directors]');
                             $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodes][' + episodeIndex + '][writers]');
@@ -588,7 +597,6 @@
                             $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.resume_fr');
                             $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.diffusion_us');
                             $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.diffusion_fr');
-                            $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.particularite');
                             $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.ba');
                             $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.directors');
                             $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodes.' + episodeIndex + '.writers');
@@ -613,7 +621,6 @@
                             $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][resume_fr]');
                             $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_us]');
                             $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][diffusion_fr]');
-                            $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][particularite]');
                             $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][ba]');
                             $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][directors]');
                             $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonNumber + '][episodesSpeciaux][' + episodeIndex + '][writers]');
@@ -628,7 +635,6 @@
                             $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.resume_fr');
                             $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_us');
                             $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.diffusion_fr');
-                            $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.particularite');
                             $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.ba');
                             $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.directors');
                             $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonNumber + '.episodesSpeciaux.' + episodeIndex + '.writers');
@@ -723,19 +729,12 @@
                             + '</div>'
 
                             + '<div class="two fields">'
-                            + '<div class="field">'
-                            + '<label>Particularité</label>'
-                            + '<textarea rows="2" class="episodeInputParticularite" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.particularite" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][particularite]" placeholder="Particularité de l\'épisode" value="{{ old('particularite') }}""></textarea>'
-                            + '<div class="ui red hidden message"></div>'
-                            + '</div>'
+
                             + '<div class="field">'
                             + '<label>Bande annonce de l\'épisode</label>'
                             + '<input class="episodeInputBA" id="seasons.' + seasonNumber + '.episodes.' + episodeNumber + '.ba" name="seasons[' + seasonNumber + '][episodes][' + episodeNumber + '][ba]" type="date" placeholder="Bande Annonce de l\'épisode" value="{{ old('ba') }}">'
                             + '<div class="ui red hidden message"></div>'
                             + '</div>'
-                            + '</div>'
-
-                            + '<div class="three fields">'
 
                             + '<div class="field">'
                             + '<label>Réalisateur(s) de la série</label>'
@@ -748,6 +747,10 @@
                             + '</div>'
                             + '<div class="ui red hidden message"></div>'
                             + '</div>'
+
+                            + '</div>'
+
+                            + '<div class="two fields">'
 
                             + '<div class="field">'
                             + '<label>Scénariste(s) de la série</label>'
@@ -944,7 +947,6 @@
                     $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.resume_fr');
                     $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_us');
                     $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.diffusion_fr');
-                    $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.particularite');
                     $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.ba');
                     $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.directors');
                     $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonIndex + '.episodes.' + episodeIndex + '.writers');
@@ -969,7 +971,6 @@
                     $(this).find(".episodeInputResumeFR").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][resume_fr]');
                     $(this).find(".episodeInputDiffusionUS").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][diffusion_us]');
                     $(this).find(".episodeInputDiffusionFR").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][diffusion_fr]');
-                    $(this).find(".episodeInputParticularite").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][particularite]');
                     $(this).find(".episodeInputBA").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][ba]');
                     $(this).find(".episodeInputDirectors").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][directors]');
                     $(this).find(".episodeInputWriters").attr("name", 'seasons[' + seasonIndex + '][episodesSpeciaux][' + episodeIndex + '][writers]');
@@ -985,7 +986,6 @@
                     $(this).find(".episodeInputResumeFR").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.resume_fr');
                     $(this).find(".episodeInputDiffusionUS").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.diffusion_us');
                     $(this).find(".episodeInputDiffusionFR").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.diffusion_fr');
-                    $(this).find(".episodeInputParticularite").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.particularite');
                     $(this).find(".episodeInputBA").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.ba');
                     $(this).find(".episodeInputDirectors").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.directors');
                     $(this).find(".episodeInputWriters").attr("id", 'seasons.' + seasonIndex + '.episodesSpeciaux.' + episodeIndex + '.writers');

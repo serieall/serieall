@@ -15,7 +15,6 @@ class CreateEpisodesTable extends Migration {
 			$table->string('name_fr')->nullable();
 			$table->text('resume')->nullable();
 			$table->text('resume_fr')->nullable();
-			$table->text('particularite')->nullable();
 			$table->date('diffusion_us')->nullable();
 			$table->date('diffusion_fr')->nullable();
 			$table->text('ba')->nullable();

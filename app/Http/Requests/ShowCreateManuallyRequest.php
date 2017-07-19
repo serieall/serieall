@@ -32,6 +32,7 @@ class ShowCreateManuallyRequest extends FormRequest
             'genres' => ['regex:/^[A-Za-z0-9-éèàùç%+ ]{1,255}?(,[A-Za-z0-9-éèàùç%+ ]{1,255})*$/'],
             'diffusion_us' => 'date',
             'diffusion_fr' => 'date',
+            'particularite' => 'max:255',
             'taux_erectile' => 'numeric|between:1,100',
 
             'artists.*.name_actor' => 'required|max:255',

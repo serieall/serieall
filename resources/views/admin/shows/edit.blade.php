@@ -81,39 +81,52 @@
                     </div>
 
                     <div class="two fields">
-                        <div class="field {{ $errors->has('format') ? ' error' : '' }}">
-                            <label>Format</label>
-                            <div class="ui left icon input">
-                                <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ $show->format }}">
-                                <i class="tv icon"></i>
-                            </div>
-                            @if ($errors->has('format'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('format') }}</strong>
+                        <div class="two fields field">
+                            <div class="field {{ $errors->has('format') ? ' error' : '' }}">
+                                <label>Format</label>
+                                <div class="ui left icon input">
+                                    <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ $show->format }}">
+                                    <i class="tv icon"></i>
                                 </div>
-                            @endif
+                                @if ($errors->has('format'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('format') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
+                                <label>Série en cours</label>
+                                <div id="dropdown-encours" class="ui fluid search selection dropdown">
+                                    <input name="encours" type="hidden" value="{{ $show->encours }}">
+                                    <i class="dropdown icon"></i>
+                                    <span class="text">Choisir</span>
+                                    <div class="menu">
+                                        <div class="item" data-value="1">
+                                            <i class="checkmark icon"></i>
+                                            Oui
+                                        </div>
+                                        <div class="item" data-value="0">
+                                            <i class="remove icon"></i>
+                                            Non
+                                        </div>
+                                    </div>
+                                </div>
+                                @if ($errors->has('encours'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('encours') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
 
-                        <div class="field {{ $errors->has('encours') ? ' error' : '' }}">
-                            <label>Série en cours</label>
-                            <div id="dropdown-encours" class="ui fluid search selection dropdown">
-                                <input name="encours" type="hidden" value="{{ $show->encours }}">
-                                <i class="dropdown icon"></i>
-                                <span class="text">Choisir</span>
-                                <div class="menu">
-                                    <div class="item" data-value="1">
-                                        <i class="checkmark icon"></i>
-                                        Oui
-                                    </div>
-                                    <div class="item" data-value="0">
-                                        <i class="remove icon"></i>
-                                        Non
-                                    </div>
-                                </div>
-                            </div>
-                            @if ($errors->has('encours'))
+                        <div class="ui field {{ $errors->has('particularite') ? ' error' : '' }}">
+                            <label for="particularite">Particularité</label>
+                            <input id="particularite" name="particularite" value="{{ $show->particularite }}">
+
+                            @if ($errors->has('particularite'))
                                 <div class="ui red message">
-                                    <strong>{{ $errors->first('encours') }}</strong>
+                                    <strong>{{ $errors->first('particularite') }}</strong>
                                 </div>
                             @endif
                         </div>

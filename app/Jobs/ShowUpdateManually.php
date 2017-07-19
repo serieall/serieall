@@ -98,6 +98,11 @@ class ShowUpdateManually implements ShouldQueue
         $logMessage = '>>Diffusion FR : ' . $show->diffusion_fr;
         saveLogMessage($idLog, $logMessage);
 
+        $show->particularite = $this->inputs['particularite'];
+        # Particularité de la série
+        $logMessage = '>>>>Particularité : ' . $show->particularite;
+        saveLogMessage($idLog, $logMessage);
+
         $show->taux_erectile = $this->inputs['taux_erectile'];
         # Taux Erectile
         $logMessage = '>>Taux érectile: ' . $show->taux_erectile;
