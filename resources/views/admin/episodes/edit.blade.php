@@ -73,7 +73,7 @@
                             <label for="name">
                                 Nom anglais
                             </label>
-                            <input type="text" id="name" name="name" value="{{ $episode->name }}">
+                            <input id="name" name="name" value="{{ $episode->name }}">
 
                             @if ($errors->has('name'))
                                 <div class="ui red message">
@@ -85,7 +85,7 @@
                             <label for="name_fr">
                                 Nom français
                             </label>
-                            <input type="text" id="name_fr" name="name_fr" value="{{ $episode->name_fr }}">
+                            <input id="name_fr" name="name_fr" value="{{ $episode->name_fr }}">
 
                             @if ($errors->has('name_fr'))
                                 <div class="ui red message">
@@ -158,7 +158,7 @@
                             <label for="ba">
                                 Bande-Annonce
                             </label>
-                            <input type="text" id="ba" name="ba" value="{{ $episode->ba }}">
+                            <input id="ba" name="ba" value="{{ $episode->ba }}">
 
                             @if ($errors->has('ba'))
                                 <div class="ui red message">
@@ -218,7 +218,7 @@
                             @endif
                         </div>
                     </div>
-                    <button class="ui green button" type="submit">Modifier</button>
+                    <button class="ui green button">Modifier</button>
                 </form>
             </div>
         </div>
@@ -231,7 +231,7 @@
             .accordion({
                 selector: {
                     trigger: '.expandableBlock'
-                },
+                }
             })
         ;
         $( '.date-picker' ).datepicker({

@@ -17,9 +17,9 @@
 @section('content')
     <h1 class="ui header" id="admin-titre">
         Ajouter une série
-        <div class="sub header">
+        <span class="sub header">
             Remplir le formulaire ci-dessous pour ajouter une nouvelle série
-        </div>
+        </span>
     </h1>
     <div class="ui centered grid">
         <div class="fifteen wide column segment">

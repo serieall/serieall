@@ -42,7 +42,7 @@ class EpisodeRepository
      */
     public function getEpisodeWithSeasonShowByID($id)
     {
-        return $this->episode->with(['season', 'directors', 'writers', 'guests', 'show' => function(Show $q){
+        return $this->episode->with(['season', 'directors', 'writers', 'guests', 'show' => function($q){
             $q->with('seasons');
         }])->findOrFail($id);
     }

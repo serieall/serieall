@@ -9,9 +9,9 @@
     <div>
         <h1 class="ui header">
             Bienvenue sur l'administration de Série-All
-            <div class="sub header">
+            <span class="sub header">
                 Là où il y a quelques infos.
-            </div>
+            </span>
         </h1>
     </div>
 

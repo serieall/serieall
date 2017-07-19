@@ -20,9 +20,9 @@
             <div class="ui height wide column">
                 <h1 class="ui header" id="admin-titre">
                     Logs
-                    <div class="sub header">
+                    <span class="sub header">
                         Liste de tous les logs de Série-All
-                    </div>
+                    </span>
                 </h1>
             </div>
         </div>

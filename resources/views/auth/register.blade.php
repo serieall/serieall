@@ -52,12 +52,12 @@
 
                 <div class="ui section divider"></div>
 
-                <div class="field {{ $errors->has('captcha') ? ' error' : '' }}">
+                <div class="field {{ $errors->has('g-recaptcha-response') ? ' error' : '' }}">
                     {!! app('captcha')->display($attributes = []) !!}
 
-                    @if ($errors->has('captcha'))
+                    @if ($errors->has('g-recaptcha-response'))
                         <div class="ui red message">
-                            <strong>{{ $errors->first('captcha') }}</strong>
+                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
                         </div>
                     @endif
                 </div>

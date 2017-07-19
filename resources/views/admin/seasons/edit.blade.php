@@ -28,14 +28,14 @@
         <div class="ui height wide column">
             <h1 class="ui header" id="admin-titre">
                 Saison {{ $season->name }}
-                <div class="sub header">
+                <span class="sub header">
                     Modifier la saison {{ $season->name }} de "{{ $season->show->name }}"
-                </div>
+                </span>
             </h1>
         </div>
         <div class="ui height wide column">
-            <form action="{{ route('admin.episodes.create', $season->id) }}" method="get" >
-                <button class="ui right floated green button" type="submit">
+            <form action="{{ route('admin.episodes.create', $season->id) }}">
+                <button class="ui right floated green button">
                     <i class="ui add icon"></i>
                     Ajouter de nouveaux épisodes
                 </button>
@@ -67,7 +67,7 @@
 
                         <div class="ui field {{ $errors->has('ba') ? ' error' : '' }}">
                             <label for="ba">Bande Annonce</label>
-                            <input type="text" id="ba" name="ba" value="{{ $season->ba }}">
+                            <input id="ba" name="ba" value="{{ $season->ba }}">
 
                             @if ($errors->has('ba'))
                                 <div class="ui red message">
@@ -76,7 +76,7 @@
                             @endif
                         </div>
                     </div>
-                    <button class="ui green button" type="submit">Modifier</button>
+                    <button class="ui green button">Modifier</button>
                 </form>
             </div>
 
@@ -111,7 +111,7 @@
             .accordion({
                 selector: {
                     trigger: '.expandableBlock'
-                },
+                }
             })
         ;
     </script>

@@ -201,10 +201,10 @@ class ShowRepository
      * La différence avec la requête du dessus est surtout le fait que l'on récupère tout le casting.
      *
      * @param $show_url
-     * @return mixed|Show
+     * @return mixed
      */
     public function getShowDetailsByURL($show_url){
-        return $this->show->where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function(Artist $q)
+        return $this->show->where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function($q)
         {
             $q->select('artists.id', 'artists.name', 'artists.artist_url', 'artistables.role')
                 ->orderBy('artists.name', 'asc');
@@ -242,7 +242,7 @@ class ShowRepository
     public function getShowSeasonsEpisodesByShowID($id)
     {
         return $this->show
-            ->with(['seasons' => function(Season $q){
+            ->with(['seasons' => function($q){
                 $q->with('episodes');
             }])
             ->findOrFail($id);

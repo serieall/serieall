@@ -8,7 +8,7 @@
                     <i class="big home icon"></i>
                     Présentation
                 </a>
-                <a class="item" href="{{ route('show.seasons', $showInfo['show']->show_url) }}">
+                <a class="item">
                     <i class="big browser icon"></i>
                     Saisons
                 </a>
@@ -115,7 +115,7 @@
     </div>
     <div class="ui segment" id="ListActors">
         <h1>Acteur(s)</h1>
-        <ui class="ui stackable grid">
+        <div class="ui stackable grid">
             @foreach($showInfo['show']->actors as $actor)
                 <div class="ui center aligned four wide column">
                     <img class=" ui tiny image" src="{!! ActorPicture($actor->artist_url) !!}" />
@@ -125,6 +125,6 @@
                     {{ $actor->role }}
                 </div>
             @endforeach
-        </ui>
+        </div>
     </div>
 @endsection

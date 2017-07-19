@@ -205,7 +205,6 @@
                         <i class="circular rss big icon"></i>
                         <i class="circular spotify big icon"></i>
                     </div>
-
                 </div>
                 <div class="three wide column">
                     <h3>Séries</h3>

@@ -55,7 +55,7 @@
                         </div>
                         <div class="ui field {{ $errors->has('role') ? ' error' : '' }}">
                             <label for="role">Rôle</label>
-                            <input type="text" id="role" name="role" value="{{ $artist->pivot['role'] }}">
+                            <input id="role" name="role" value="{{ $artist->pivot['role'] }}">
 
                             @if ($errors->has('role'))
                                 <div class="ui red message">
@@ -64,7 +64,7 @@
                             @endif
                         </div>
                     </div>
-                    <button class="ui green button" type="submit">Modifier</button>
+                    <button class="ui green button">Modifier</button>
                 </form>
             </div>
         </div>

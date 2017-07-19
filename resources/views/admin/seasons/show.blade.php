@@ -24,14 +24,14 @@
         <div class="ui height wide column">
             <h1 class="ui header" id="admin-titre">
                 Saisons & Episodes
-                <div class="sub header">
+                <span class="sub header">
                     Les saisons et épisodes de "{{ $show->name }}"
-                </div>
+                </span>
             </h1>
         </div>
         <div class="ui height wide column">
-            <form action="{{ route('admin.seasons.create', [$show->id]) }}" method="get" >
-                <button class="ui right floated green button" type="submit">
+            <form action="{{ route('admin.seasons.create', [$show->id]) }}">
+                <button class="ui right floated green button">
                     <i class="ui add icon"></i>
                     Ajouter de nouvelles saisons
                 </button>

@@ -51,7 +51,7 @@
                     </div>
 
                     <p></p>
-                    <button class="submit positive ui button" type="submit">Envoyer</button>
+                    <button class="submit positive ui button">Envoyer</button>
                 </form>
             </div>
         </div>
@@ -107,7 +107,7 @@
 
                         + '<div class="ui field">'
                         + '<label for="ba">Bande Annonce</label>'
-                        + '<input type="text" id="seasons.'+ seasonNumber +'.ba" name="seasons[' + seasonNumber + '][ba]">'
+                        + '<input id="seasons.'+ seasonNumber +'.ba" name="seasons[' + seasonNumber + '][ba]">'
                         + '<div class="ui red hidden message"></div>'
                         + '</div>'
 

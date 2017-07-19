@@ -16,9 +16,9 @@
             <div class="ui height wide column">
                 <h1 class="ui header" id="admin-titre">
                     Séries
-                    <div class="sub header">
+                    <span class="sub header">
                         Liste de toutes les séries présentes sur Série-All
-                    </div>
+                    </span>
                 </h1>
             </div>
             <div class="ui height wide column">

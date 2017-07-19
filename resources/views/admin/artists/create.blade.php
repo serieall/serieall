@@ -51,7 +51,7 @@
                     </div>
 
                     <p></p>
-                    <button class="submit positive ui button" type="submit">Envoyer</button>
+                    <button class="submit positive ui button">Envoyer</button>
                 </form>
             </div>
         </div>
