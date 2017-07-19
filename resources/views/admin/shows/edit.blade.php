@@ -60,7 +60,7 @@
 
                     <div class="two fields">
                         <div class="field {{ $errors->has('resume_en') ? ' error' : '' }}">
-                            <label for="resume_en">Résumé EN</label>
+                            <label for="resume_en">Résumé anglais</label>
                             <textarea id="resume_en" name="resume_en">{{ $show->synopsis }}</textarea>
                             @if ($errors->has('resume_en'))
                                 <div class="ui red message">
@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="field {{ $errors->has('resume_fr') ? ' error' : '' }}">
-                            <label for="resume_fr">Résumé FR</label>
+                            <label for="resume_fr">Résumé français</label>
                             <textarea id="resume_fr" name="resume_fr">{{ $show->synopsis_fr }}</textarea>
                             @if ($errors->has('resume_fr'))
                                 <div class="ui red message">
