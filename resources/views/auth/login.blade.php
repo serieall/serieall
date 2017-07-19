@@ -8,7 +8,7 @@
 
                 <div class="field {{ $errors->has('username') ? ' error' : '' }}">
                     <label>Nom d'utilisateur</label>
-                    <input name="username" placeholder="Nom d'utilisateur" type="text" value="{{ old('username') }}">
+                    <input name="username" placeholder="Nom d'utilisateur" value="{{ old('username') }}">
 
                     @if ($errors->has('username'))
                         <div class="ui red message">
@@ -30,7 +30,7 @@
 
                 <div class="field {{ $errors->has('remember') ? ' error' : '' }}">
                     <div class="ui checkbox">
-                        <input type="checkbox" name="remember">
+                        <input type="checkbox" id="remember" name="remember">
                         <label for="remember">Se souvenir de moi</label>
                     </div>
 
