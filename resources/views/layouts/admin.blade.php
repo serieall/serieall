@@ -27,12 +27,12 @@
         (function() {
             var u="//analytics.journeytotheit.ovh/";
             _paq.push(['setTrackerUrl', u+'piwik.php']);
-            _paq.push(['setSiteId', '1']);
+            _paq.push(['setSiteId', '{{ env('APP_IDPIWIK') }}']);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
             g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
     </script>
-    <noscript><p><img src="//analytics.journeytotheit.ovh/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+    <noscript><p><img src="//analytics.journeytotheit.ovh/piwik.php?idsite={{ env('APP_IDPIWIK') }}" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
 
 </head>
