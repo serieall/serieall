@@ -63,7 +63,7 @@
 
         <script>
             $('#tableAdmin').DataTable( {
-                "order": [[ 0, "asc" ]],
+                "order": [[ 4, "desc" ]],
                 "language": {
                     "lengthMenu": "Afficher _MENU_ enregistrements par page",
                     "zeroRecords": "Aucun enregistrement trouvé",
