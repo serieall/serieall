@@ -70,6 +70,11 @@
             <i class="settings icon"></i>
             Système
         </a>
+        <div class="ui attached message">
+            <div class="header">
+                Version {{ config('app.version') }}
+            </div>
+        </div>
     </div>
 
     <div class="pushed">
