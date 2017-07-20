@@ -10,7 +10,7 @@
     <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
 
     <!-- CSS -->
-    {{ Html::style('/semantic/semantic.min.css') }}
+    {{ Html::style('/semantic/semantic.css') }}
     {{ Html::style('/semantic/semantic_perso.css') }}
     {{ Html::style('/js/jquery.css') }}
 
@@ -33,7 +33,7 @@
             height: 100%;
 
         }
-        .title {
+        p.title {
             font-size: 72px;
             color: whitesmoke;
             margin-bottom: 40px;
