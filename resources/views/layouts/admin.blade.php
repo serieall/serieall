@@ -17,7 +17,7 @@
     {{ Html::script('/js/jquery.js') }}
     {{ Html::script('/js/jquery.ui.js') }}
     {{ Html::script('/js/datatables.js') }}
-    {{ Html::script('/semantic/semantic.js') }}
+    {{ Html::script('/semantic/semantic.min.js') }}
 
 <!-- Piwik -->
     <script type="text/javascript">

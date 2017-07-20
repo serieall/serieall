@@ -10,7 +10,7 @@
     <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
 
     <!-- CSS -->
-    {{ Html::style('/semantic/semantic.css') }}
+    {{ Html::style('/semantic/semantic.min.css') }}
     {{ Html::style('/semantic/semantic_perso.css') }}
     {{ Html::style('/js/jquery.css') }}
 
@@ -18,7 +18,7 @@
     {{ Html::script('/js/jquery.js') }}
     {{ Html::script('/js/jquery.ui.js') }}
     {{ Html::script('/js/datatables.js') }}
-    {{ Html::script('/semantic/semantic.js') }}
+    {{ Html::script('/semantic/semantic.min.js') }}
 
     <style>
         body {
