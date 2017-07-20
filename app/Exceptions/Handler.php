@@ -45,6 +45,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+        if (env('APP_DEBUG')){
+            if ($this->isHttpException($e))
+            {
+                if($e instanceof NotFoundHttpException)
+                {
+                    return response()->view('front.missing', [], 404);
+                }
+                return $this->renderHttpException($e);
+            }
+            return parent::render($request, $e);
+        }
+        else{
+            return response()->view('errors.404');
+        }
+
     }
 }
