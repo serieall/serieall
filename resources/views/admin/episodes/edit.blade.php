@@ -55,9 +55,13 @@
                         </div>
                         <div class="ui field {{ $errors->has('season_id') ? ' error' : '' }}">
                             <label for="season_id">Saison</label>
-                            <select id="season_id" name="season_id" class="ui dropdown" data-value="{{ $episode->season_id }}">
+                            <select id="season_id" name="season_id" class="ui dropdown">
                                 @foreach($episode->show->seasons as $season)
-                                    <option value="{{ $season->id }}">{{ $season->name }}</option>
+                                    <option
+                                            @if($season->id == $episode->season_id)
+                                                    selected
+                                            @endif
+                                            value="{{ $season->id }}">{{ $season->name }}</option>
                                 @endforeach
                             </select>
 
