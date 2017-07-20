@@ -5,78 +5,257 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>SérieAll BETA</title>
+    <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+    <!-- CSS -->
+    {{ Html::style('/semantic/semantic.css') }}
+    {{ Html::style('/semantic/semantic_perso.css') }}
+    {{ Html::style('/js/jquery.css') }}
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    <!-- Javascript -->
+    {{ Html::script('/js/jquery.js') }}
+    {{ Html::script('/js/jquery.ui.js') }}
+    {{ Html::script('/js/datatables.js') }}
+    {{ Html::script('/semantic/semantic.min.js') }}
 
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
+    <!-- Piwik -->
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//analytics.journeytotheit.ovh/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <noscript><p><img src="//analytics.journeytotheit.ovh/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
 </head>
-<body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
-                </a>
+<body id="body">
+    <div class="ui secondary pointing fluid stackable menu" id="header">
+        <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
+        <a class="item
+            @if($navActive == 'shows')
+                active
+            @endif">
+            Séries TV
+        </a>
+        <a class="item
+           @if($navActive == 'articles')
+                active
+            @endif">
+            Articles
+        </a>
+        <a class="item
+           @if($navActive == 'planning')
+                active
+            @endif">
+            Planning
+        </a>
+        <a class="item
+            @if($navActive == 'classements')
+                active
+            @endif">
+            Classements
+        </a>
+        <div class="right secondary pointing stackable menu">
+            <div id="showDropdown" class="item ui search dropdown">
+                <div class="ui icon input">
+                    <input class="prompt" placeholder="Rechercher une série..." type="text">
+                    <i class="search icon"></i>
+                </div>
+                <div class="results">
+                </div>
             </div>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
-                </ul>
+            <a class="item
+                @if($navActive == 'forum')
+                    active
+                @endif">
+                Forum
+            </a>
+            @if (Auth::guest())
+                <a class="item
+                    @if($navActive == 'login')
+                        active
+                    @endif" href="{{ url('/login') }}">
+                    <div>
+                        Connexion
+                        <i class="sign in icon"></i>
+                    </div>
+                </a>
+                <a class="item
+                    @if($navActive == 'register')
+                        active
+                    @endif" href="{{ url('/register') }}">
+                    <div>
+                        Inscription
+                        <i class="wizard icon"></i>
+                    </div>
+                </a>
+            @else
 
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                <div class="icon item">
+                    <i class="large alarm icon"></i>
+                </div>
+                <div class="ui pointing labeled icon dropdown link item" @if($navActive == 'profil')id="profil-actif"@endif>
+                    <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
+                    <span>{{ Auth::user()->username }}</span> <i class="dropdown icon"></i>
+                    <div class="menu">
+                        @if(Auth::user()->role < 4)
+                            <a href="{{ url('/admin')}}">
+                                <div class="item">
+                                    <i class="lock icon"></i>
+                                    Administration
+                                </div>
                             </a>
+                        @endif
+                        <a href="{{ url('/profil', Auth::user()->username) }}">
+                            <div class="item">
+                                <i class="user icon"></i>
+                                Profil
+                            </div>
+                        </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
+                        <a href="{{ url('/logout') }}">
+                            <div class="item">
+                                <i class="sign out icon"></i>
+                                Se déconnecter
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    @if (session('status') || session('success'))
+        <div id="message-top" class="ui container centered grid">
+            <div class="ui success compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    @if (session('success'))
+                        <p>{{ session('success') }}</p>
                     @endif
-                </ul>
+                    @if (session('status'))
+                        <p>{{ session('status') }}</p>
+                    @endif
+                </div>
             </div>
         </div>
-    </nav>
+    @endif
 
-    @yield('content')
+    @if (session('warning'))
+        <div id="message-top" class="ui container centered grid">
+            <div class="ui orange compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    <p>{{ session('warning') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
 
-    <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    @if (session('error'))
+        <div id="message-top" class="ui container centered grid">
+            <div class="ui error compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    <p>{{ session('error') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <div class="ui centered grid" id="content">
+        @yield('content')
+    </div>
+    <div id="footer" class="ui vertical footer segment">
+        <div class="ui center aligned container">
+            <div class="ui centered stackable grid">
+                <div class="centered three wide column">
+                    <h3>Série-All</h3>
+                    <ul class="ui list">
+                        <li>À propos</li>
+                        <li>Notre équipe</li>
+                        <li>Mentions légales</li>
+                        <li>Nous contacter</li>
+                    </ul>
+                </div>
+                <div class="three wide column">
+                    <h3>Communauté</h3>
+                    <ul class="ui list">
+                        <li>Inscription</li>
+                        <li>Liste des membres</li>
+                        <li>Forum</li>
+                        <li>Rejoindre l'équipe</li>
+                    </ul>
+                </div>
+                <div class="center aligned three wide column">
+                    <div class="row">
+                        <i class="circular facebook f big icon"></i>
+                        <i class="circular twitter big icon"></i>
+                    </div>
+                    <div class="row">
+                        <i class="circular mixcloud big icon"></i>
+                        <i class="circular rss big icon"></i>
+                        <i class="circular spotify big icon"></i>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h3>Séries</h3>
+                    <ul class="ui list">
+                        <li>Liste des séries</li>
+                        <li>Articles</li>
+                        <li>Planning</li>
+                        <li>Classement</li>
+                    </ul>
+                </div>
+                <div class="three wide column">
+                    <h3>Partenaires</h3>
+                    <ul class="ui list">
+                        <li>VODD</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#footer .icon').hover(function () {
+                $(this).transition('tada');
+            }, function () {
+            });
+
+            $('.dropdown')
+                .dropdown()
+            ;
+
+            $('.message .close')
+                .on('click', function () {
+                    $(this)
+                        .closest('.message')
+                        .transition('fade')
+                    ;
+                })
+            ;
+
+            $('#showDropdown')
+                .search({
+                    apiSettings: {
+                        url: '/api/shows/search?_q={query}'
+                    },
+                    fields: { results: "data", title: "name", url: "url" },
+                    selectFirstResult: true,
+                    minCharacters: 1,
+                    maxResults: 40
+                });
+        })
+    </script>
+    @yield('scripts')
 </body>
 </html>

@@ -1,0 +1,674 @@
+/* TEXT */
+.ui.red.text {
+    color: #DB2828 !important;
+}
+
+.ui.orange.text {
+    color: #F2711C !important;
+}
+
+.ui.yellow.text {
+    color: #FBBD08 !important;
+}
+
+.ui.green.text {
+    color: #21BA45 !important;
+}
+
+.ui.teal.text {
+    color: #00B5AD !important;
+}
+
+.ui.blue.text {
+    color: #2185D0 !important;
+}
+
+.ui.violet.text {
+    color: #6435C9 !important;
+}
+
+.ui.purple.text {
+    color: #A333C8 !important;
+}
+
+.ui.pink.text {
+    color: #E03997 !important;
+}
+
+.ui.brown.text {
+    color: #A5673F !important;
+}
+
+.ui.grey.text {
+    color: #767676 !important;
+}
+
+.ui.black.text {
+    color: #1B1C1D !important;
+}
+
+.ui.white.text {
+    color: #FFFFFF !important;
+}
+
+.ui.bold.text {
+    font-weight: bold;
+}
+
+/* BORDER-LEFT */
+.ui.red.left.border {
+    border-left: 5px solid #DB2828 !important;
+}
+
+.ui.orange.left.border {
+    border-left: 5px solid #F2711C !important;
+}
+
+.ui.yellow.left.border {
+    border-left: 5px solid #FBBD08 !important;
+}
+
+.ui.green.left.border {
+    border-left: 5px solid #21BA45 !important;
+}
+
+.ui.teal.left.border {
+    border-left: 5px solid #00B5AD !important;
+}
+
+.ui.blue.left.border {
+    border-left: 5px solid #2185D0 !important;
+}
+
+.ui.violet.left.border {
+    border-left: 5px solid #6435C9 !important;
+}
+
+.ui.purple.left.border {
+    border-left: 5px solid #A333C8 !important;
+}
+
+.ui.pink.left.border {
+    border-left: 5px solid #E03997 !important;
+}
+
+.ui.brown.left.border {
+    border-left: 5px solid #A5673F !important;
+}
+
+.ui.grey.left.border {
+    border-left: 5px solid #767676 !important;
+}
+
+.ui.black.left.border {
+    border-left: 5px solid #1B1C1D !important;
+}
+
+.ui.basic.table {
+    border: 0;
+}
+
+.ui.basic.table tr td {
+    border-top: 0 !important;
+}
+
+.ui.DarkBlueSerieAll.buttons .button,
+.ui.DarkBlueSerieAll.button {
+    background-color: #213d64;
+    color: #FFFFFF;
+    text-shadow: none;
+    background-image: none;
+}
+
+.ui.BlueSerieAll.buttons .button,
+.ui.BlueSerieAll.button {
+    background-color: #1074b2;
+    color: #FFFFFF;
+    text-shadow: none;
+    background-image: none;
+}
+
+/*ADMIN*/
+
+#menu-admin{
+    border-radius: 0;
+}
+
+#div-bottom{
+    border: none;
+}
+
+#tableAdmin thead th{
+    background: #1074b2;
+    color: white;
+}
+
+#tableAdmin_length {
+    float: left;
+    margin-bottom: 0.5em;
+}
+
+#tableAdmin_filter {
+    float: right;
+    margin-bottom: 0.5em;
+}
+
+#icon-wiki{
+    margin-right: 0;
+    margin-left: 0.5em;
+}
+
+#action{
+    color: black;
+}
+
+#action:hover{
+    color: #1074b2;
+}
+
+#tableAdmin_paginate{
+    float: right;
+    margin-bottom: 3em;
+}
+
+#tableAdmin_info{
+    float: left;
+}
+
+#tableAdmin_paginate span{
+    display: inherit;
+}
+
+.ui.pagination.menu .item:last-child:before {
+    display: inline-block;
+}
+
+#admin-add{
+    margin-bottom: 2em;
+}
+
+#admin-titre{
+    margin-bottom: 2em;
+}
+
+.pushed {
+    margin-left : 15rem;
+}
+
+.padding-article{
+    padding: 2rem;
+}
+
+#message-top{
+    margin-top: 1rem;
+    margin-bottom : 1rem;
+}
+
+.moveSeason:hover{
+    cursor: grab;
+}
+
+.moveEpisode:hover{
+    cursor: grab;
+}
+
+.portlet-placeholder {
+    border: 1px dotted black;
+    background-color: #1074b2;
+    margin: 0 1em 1em 0;
+    height: 50px;
+}
+
+/*HEADER*/
+.ui.secondary.pointing.menu .active.item {
+    border-color: #1074b2;
+}
+
+.ui.secondary.pointing.menu .item {
+    color: #444444;
+    border-bottom-width: 4px;
+    margin: 2px 0 0;
+    height: 50px;
+    text-align: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.ui.secondary.pointing.menu .item:hover {
+    border-bottom-width: 4px;
+    border-color: #1074b2;
+}
+
+.ui.secondary.pointing.menu img{
+    margin: 2px 10px 2px;
+}
+
+.ui.secondary.pointing.menu .item.active {
+ font-weight: normal;
+}
+
+.ui.secondary.pointing.menu .active.item:hover {
+    border-color: #1074b2;
+}
+
+.ui.secondary.pointing.menu {
+    border-bottom: 0 solid rgba(34, 36, 38, 0.15);
+}
+
+#profil-actif {
+    border-color: #1074b2;
+}
+
+/* FOOTER */
+#footer {
+    margin-top: 2rem;
+    background: #213d64;
+    padding: 4em 0 4em 0;
+    width: 100%;
+}
+
+#footer ul {
+    color: white;
+}
+
+#footer h3 {
+    color: white;
+}
+
+#footer i.icon {
+    color: #213d64;
+    background-color: white;
+}
+
+#footer i.circular.icon {
+    box-shadow: none;
+}
+
+#footer ul.ui.list li:before, .ui.bulleted.list .list > .item:before, .ui.bulleted.list > .item:before {
+    content: '■';
+    color: #1074b2;
+}
+
+/* FIX FOOTER TO BOTTOM */
+#body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #f3f3f3;
+}
+#header {
+    background-color: white;
+    z-index: 1;
+}
+
+#footer,#header {
+    flex:none;
+}
+
+#content {
+    flex: 1 0 auto;
+}
+
+/* BUTTON */
+.ui.buttons .or:before {
+    content: 'ou';
+}
+
+.div-center {
+    text-align: center;
+}
+
+.ui.pointing.dropdown.link .item:hover {
+    background-color: #f3f3f3;
+    border-bottom: none;
+}
+
+.ui.pointing.dropdown.link .item {
+    border-bottom: none;
+    margin: inherit;
+    height: inherit;
+}
+
+.ui.loader, .ui.dimmer {
+    z-index: 0;
+}
+
+#showDropdown {
+    margin: auto 0;
+    border: none;
+}
+
+#showDropdown div {
+    text-align: left;
+}
+
+.ui.pointing.labeled.icon.dropdown .item {
+    text-align: left;
+}
+
+#topImageShow {
+    padding-top: 0;
+    padding-bottom: 0;
+    z-index: 0;
+}
+
+#topImageShow .column {
+    min-height: 300px;
+}
+
+#topImageShow .topImageBanniere {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-filter: blur(10px) opacity(1);
+    filter: blur(10px) opacity(1);
+    transform: scale(1.1);
+}
+
+#topInfo {
+    color: white;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-shadow: 1px 1px 2px black;
+}
+
+#topInfo .column {
+    margin: 0 auto;
+}
+
+#topInfo .grid {
+    padding: 0;
+}
+
+#topInfo p {
+    text-align: justify;
+}
+
+#topInfo .topImageAffiche {
+    max-height: 250px;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+#topInfo table {
+    border: none;
+    margin: 0;
+    color: white;
+}
+
+#topInfo table tr td a {
+    color: black;
+    border-bottom: 1px solid black ;
+}
+
+#topInfo table tr td {
+    border-top: 0 !important;
+}
+
+#midaligned {
+    display: flex; /* contexte sur le parent */
+    flex-direction: column; /* direction d'affichage verticale */
+    justify-content: center; /* alignement vertical */
+}
+
+#topInfo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 250px;
+    max-width: 250px;
+    box-shadow: 1px 1px 2px black;
+}
+
+#topInfo h1 {
+    font-size: 2.5em;
+    margin-bottom: 0;
+}
+#topInfo h2 {
+    margin-top: 0;
+    color: #b3b3b3;
+    font-size: 1.2em;
+    font-style: italic;
+}
+
+#topInfo p.AllSynopsis {
+    text-align: right;
+    text-decoration: underline;
+    margin-bottom: 1em;
+}
+
+#topInfo p.showResume {
+    margin-bottom: 0;
+}
+
+#circleNote{
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    width:100px;
+}
+
+.circleNote{
+    width: 200px;
+    height: 200px;
+    stroke: #0d71bb;
+    drop-shadow: 1px 1px 2px black;
+}
+
+#rotate90 {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.circleNote text {
+    font-size: 3em;
+    stroke: none;
+}
+
+.circleGood {
+    stroke: #21BA45;
+}
+
+.circleNeutral{
+    stroke: #767676;
+}
+
+.circleBad {
+    stroke: #DB2828;
+}
+
+#ShowReviewCount p {
+    text-align: center;
+}
+
+#menuFiche {
+    padding-top: 0;
+}
+
+#menuFiche .menu:last-child {
+    border: none;
+    border-radius: 0;
+}
+
+#menuFiche .ui.menu > .item:first-child,.item:last-child {
+    border: none;
+}
+
+#menuFiche .ui.menu .item {
+    border-radius: 0;
+}
+
+#menuFiche a {
+    height: 80px;
+}
+
+#menuFiche a.active {
+    color: white;
+    background: #213d64;
+}
+
+#LeftBlockShow {
+    margin-right: 2em;
+}
+
+#LeftBlockShow .segment, #RightBlockShow .segment {
+    border: none;
+    background-color: white;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 2rem;
+    width: 100%;
+}
+
+#LeftBlockShow,#RightBlockShow h1 {
+    color: #213d64;
+    margin-bottom: 1rem;
+}
+
+.segment#ListSeasons {
+    padding: 0;
+}
+
+.segment#ListSeasons h1 {
+    padding: 2rem;
+    margin-bottom: 0;
+}
+
+#ListSeasons table {
+    border: none;
+    margin: 0;
+}
+
+#ListSeasons table tr td a {
+    color: black;
+    border-bottom: 1px solid black ;
+}
+
+#ListSeasons table tr td {
+    border-top: 0 !important;
+}
+
+#ListSeasons tr:nth-child(odd) {
+    background-color: #d4e4f0;
+}
+
+#ListSeasons .AllSeasons {
+    padding: 2rem;
+    text-align: right;
+    text-decoration: underline;
+}
+
+#ListAvis .grid {
+    margin-left: 0;
+}
+
+#ListAvis img {
+    margin: 0 auto;
+}
+
+#ListAvis .AvisResume {
+    text-align: justify;
+}
+
+#ListAvis .AvisBox {
+    padding: 0;
+}
+
+#ListAvis table {
+    border-radius: inherit;
+    border: none;
+}
+
+#ListAvis table tr td {
+    border-top: 0 !important;
+}
+#ListAvis table {
+    border-left: 5px solid grey;
+}
+
+#ListAvis table tr:first-child td {
+    border-bottom: 1px solid grey;
+}
+
+#ListAvis td.AvisStatus {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#ListAvis td.LireAvis {
+    text-align: right;
+}
+
+#ListAvis td.LireAvis a {
+    text-decoration: underline;
+}
+
+#ListAvis .AllAvis {
+    float: right;
+}
+
+#ListAvis .AllAvis p {
+    text-align: right;
+    text-decoration: underline;
+    box-sizing: content-box;
+}
+
+#ButtonsActions {
+    width: 100%;
+}
+
+#ButtonsActions .dropdown {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#LastArticles .row {
+    padding-bottom: 0;
+}
+
+#LastArticles .column {
+    padding: 0;  }
+
+#LastArticles img {
+    max-height: 100px;
+}
+
+#LastArticles h2 {
+    color: #1074b2;
+    text-decoration: underline;
+    font-size: 1.2em;
+    font-style: italic;
+    text-shadow: none;
+}
+
+#LastArticles p.ResumeArticle {
+    text-shadow: none;
+    color: black;
+}
+
+#LastArticles .AllArticles {
+    padding-top: 2rem;
+    text-align: right;
+    text-decoration: underline;
+}
+
+#ListActors img {
+    margin: 0 auto;
+}
+
+.ui.dimmer:not(.tempDimmer) {
+    z-index: 101;
+}
+
+.tempDimmer {
+    z-index: 0;
+}

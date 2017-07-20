@@ -38,6 +38,7 @@ return [
     'email'                => 'The :attribute must be a valid email address.',
     'exists'               => 'The selected :attribute is invalid.',
     'filled'               => 'The :attribute field is required.',
+    'hash'                 => 'The :attribute doesn\'t match current password.',
     'image'                => 'The :attribute must be an image.',
     'in'                   => 'The selected :attribute is invalid.',
     'in_array'             => 'The :attribute field does not exist in :other.',
@@ -92,8 +93,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'creators' => [
+            'regexp' => 'Les créateurs doivent être séparés par des \',\' et contiennent chacun maximum 255 caractères.',
+        ],
+        'genres' => [
+            'regexp' => 'Les genres doivent être séparés par des \',\' et contiennent chacun maximum 255 caractères.',
         ],
     ],
 
