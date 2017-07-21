@@ -124,7 +124,8 @@
                         <a href="{{ url('/logout') }}">
                             <div class="item">
                                 <i class="sign out icon"></i>
-                                Se déconnecter</div>
+                                Se déconnecter
+                            </div>
                         </a>
                     </div>
                 </div>
