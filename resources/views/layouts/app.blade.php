@@ -133,7 +133,7 @@
         </div>
     </div>
 
-    <div class="ui centered grid" id="content">
+    <div class="ui centered stackable grid" id="content">
         @if (session('status') || session('success'))
             <div id="message-top" class="ui container centered grid">
                 <div class="ui success compact message">
