@@ -123,9 +123,9 @@
 
                         <a href="{{ url('/logout') }}">
                             <div class="item">
-                                <i class="sign out icon"></i>
-                                Se déconnecter
-                            </div>
+                                <i class="sign o
+                                ut icon"></i>
+                                Se déconnecter</div>
                         </a>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
         </div>
     </div>
 
-    <div class="ui centered grid" id="content">
+    <div class="ui centered stackable grid" id="content">
         @if (session('status') || session('success'))
             <div id="message-top" class="ui container centered grid">
                 <div class="ui success compact message">
