@@ -672,3 +672,7 @@
 .tempDimmer {
     z-index: 0;
 }
+
+.compact.message {
+    box-sizing: content-box;
+}

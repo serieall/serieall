@@ -132,8 +132,7 @@
             @endif
         </div>
     </div>
-
-    <div class="ui centered stackable grid" id="content">
+    <div class="ui stackable grid">
         @if (session('status') || session('success'))
             <div id="message-top" class="ui container centered grid">
                 <div class="ui success compact message">
@@ -171,7 +170,9 @@
                 </div>
             </div>
         @endif
+    </div>
 
+    <div class="ui centered stackable grid" id="content">
         @yield('content')
     </div>
     <div id="footer" class="ui vertical footer segment">
