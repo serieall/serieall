@@ -107,21 +107,21 @@
                     <span>{{ Auth::user()->username }}</span> <i class="dropdown icon"></i>
                     <div class="menu">
                         @if(Auth::user()->role < 4)
-                            <a href="{{ url('/admin')}}">
+                            <a href="{{ route('admin')}}">
                                 <div class="item">
                                     <i class="lock icon"></i>
                                     Administration
                                 </div>
                             </a>
                         @endif
-                        <a href="{{ url('/profil', Auth::user()->username) }}">
+                        <a href="{{ route('user.profile', Auth::user()->username) }}">
                             <div class="item">
                                 <i class="user icon"></i>
                                 Profil
                             </div>
                         </a>
 
-                        <a href="{{ url('/logout') }}">
+                        <a href="{{ route('logout') }}">
                             <div class="item">
                                 <i class="sign out icon"></i>
                                 Se déconnecter
