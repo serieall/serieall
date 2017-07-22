@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\UserRepository;
 use App\Http\Requests\changePasswordRequest;
+use Illuminate\Support\Facades\Log;
 
 
 class UserController extends Controller
@@ -44,14 +45,19 @@ class UserController extends Controller
         $user = Auth::user();
         $password = $request->password;
 
+        Log::info($user . ' veut changer son mot de passe.');
+
         if (Hash::check($password, $user->password)) {
             $user->password = Hash::make($request->new_password);
             $user->save();
+
+            Log::info($user . ' a réussi à changer son mot de passe.');
 
             return redirect()->back()
                 ->with('success', 'Votre mot de passe a été modifié !');
         }
         else{
+            Log::info($user . ' n\'a pas réussi à changer son mot de passe.');
             return redirect()->back()
                 ->with('warning', 'Votre mot de passe actuel ne correspond pas à celui saisi.');
         }
