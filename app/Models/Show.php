@@ -56,6 +56,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $particularite
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Show whereParticularite($value)
  */
 class Show extends Model {
 
