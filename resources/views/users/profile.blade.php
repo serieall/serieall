@@ -10,9 +10,10 @@
                 <!-- Si je suis connecté et que je suis l'utilisateur en question -->
                 @elseif(Auth::user()->id == $user->id)
                     <h1 class="div-center">Modification de votre mot de passe</h1>
-                    <form class="ui form" role="form" method="POST" action="{{ url('/changepassword') }}">
+                    <br />
+
+                    <form class="ui form" method="POST" action="{{ route('user.changepassword') }}">
                         {{ csrf_field() }}
-                        <br />
 
                         <div class="field {{ $errors->has('password') ? ' error' : '' }}">
                             <label>Ancien mot de passe</label>

@@ -26,8 +26,8 @@ Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name
 /*
     Partie Utilisateurs
 */
-Route::get('profil/{user}', 'UserController@getProfile');
-Route::post('changepassword', 'UserController@changePassword');
+Route::get('profil/{user}', 'UserController@getProfile')->name('user.profile');
+Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword');
 Route::resource('user', 'UserController');
 
 /*
