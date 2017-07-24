@@ -128,6 +128,15 @@
     background-image: none;
 }
 
+/* DIMMER */
+.ui.dimmer:not(.tempDimmer) {
+    z-index: 101;
+}
+
+.tempDimmer {
+    z-index: 0;
+}
+
 /*ADMIN*/
 
 #menu-admin{
@@ -665,14 +674,17 @@
     margin: 0 auto;
 }
 
-.ui.dimmer:not(.tempDimmer) {
-    z-index: 101;
+#seasonTab {
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
-.tempDimmer {
-    z-index: 0;
+.ui.secondary.menu .active.item {
+    color: white;
+    background-color: #213d64;
 }
 
-.compact.message {
-    box-sizing: content-box;
+.ui.secondary.menu .active.item:hover {
+    color: white;
+    background-color: #213d64;
 }

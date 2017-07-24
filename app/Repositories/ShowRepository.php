@@ -129,15 +129,20 @@ class ShowRepository
         // En fonction de la route, on récupère les informations sur la série différemment
         if (Route::current()->getName() == "show.fiche") {
             $show = $this->getShowByURL($show_url);
+            $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         } elseif (Route::current()->getName() == "show.details") {
             $show = $this->getShowDetailsByURL($show_url);
+            $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
+        } elseif (Route::current()->getName() == "show.seasons") {
+            $show = $this->getShowByURL($show_url);
+            $seasons = $this->seasonRepository->getSeasonsWithEpisodesForShowByID($show->id);
         }
         else {
             $show = $this->getShowByURL($show_url);
         }
 
         // On récupère les saisons, genres, nationalités et chaines
-        $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
+
         $genres = formatRequestInVariable($show->genres);
         $nationalities = formatRequestInVariable($show->nationalities);
         $channels = formatRequestInVariable($show->channels);

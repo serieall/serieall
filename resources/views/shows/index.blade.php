@@ -8,7 +8,7 @@
                     <i class="big home icon"></i>
                     Présentation
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('show.seasons', $showInfo['show']->show_url) }}">
                     <i class="big browser icon"></i>
                     Saisons
                 </a>
