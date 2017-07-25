@@ -138,7 +138,10 @@
                             <div class="ui calendar" id="datepicker">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input id="diffusion_us" name="diffusion_us" class="date-picker" type="date" placeholder="Date" value="{{ $show->diffusion_us }}">
+                                    <input id="diffusion_us" name="diffusion_us" class="date-picker" type="date" placeholder="Date"
+                                    @if(!is_null($show->diffusion_us))
+                                            value="{{ $show->diffusion_us }}"
+                                    @endif>
                                 </div>
                             </div>
                             @if ($errors->has('diffusion_us'))
@@ -153,7 +156,10 @@
                             <div class="ui calendar" id="datepicker">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input id="diffusion_fr" name="diffusion_fr" class="date-picker" type="date" placeholder="Date" value="{{ $show->diffusion_fr }}">
+                                    <input id="diffusion_fr" name="diffusion_fr" class="date-picker" type="date" placeholder="Date"
+                                    @if(!is_null($show->diffusion_fr))
+                                        value="{{ $show->diffusion_fr }}"
+                                    @endif>
                                 </div>
                             </div>
                             @if ($errors->has('diffusion_fr'))
