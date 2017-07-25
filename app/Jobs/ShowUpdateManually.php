@@ -12,7 +12,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
@@ -44,7 +43,7 @@ class ShowUpdateManually implements ShouldQueue
         | Initialisation du job
         |--------------------------------------------------------------------------
         */
-        
+
         $idLog = initJob($this->inputs['user_id'], 'Mise à jour manuelle', 'Show', mt_rand());
 
         /*
@@ -97,6 +96,11 @@ class ShowUpdateManually implements ShouldQueue
         $show->diffusion_fr = $this->inputs['diffusion_fr'];
         # Diffusion FR de la série
         $logMessage = '>>Diffusion FR : ' . $show->diffusion_fr;
+        saveLogMessage($idLog, $logMessage);
+
+        $show->particularite = $this->inputs['particularite'];
+        # Particularité de la série
+        $logMessage = '>>>>Particularité : ' . $show->particularite;
         saveLogMessage($idLog, $logMessage);
 
         $show->taux_erectile = $this->inputs['taux_erectile'];
@@ -153,7 +157,6 @@ class ShowUpdateManually implements ShouldQueue
                     $show->genres()->attach($genre_ref->id);
                 }
 
-                Log::info($listGenres);
                 $listGenres[] = $genre_ref->id;
             }
             $show->genres()->sync($listGenres);
