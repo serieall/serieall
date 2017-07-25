@@ -43,7 +43,7 @@ class ShowUpdateManually implements ShouldQueue
         | Initialisation du job
         |--------------------------------------------------------------------------
         */
-        
+
         $idLog = initJob($this->inputs['user_id'], 'Mise à jour manuelle', 'Show', mt_rand());
 
         /*
@@ -150,13 +150,7 @@ class ShowUpdateManually implements ShouldQueue
                     # Et on le sauvegarde ne passant par l'objet Show pour créer le lien entre les deux
                     $show->genres()->save($genre_ref);
 
-                } else {
-                    $logMessage = '>>>Liaison du genre : ' . $genre . '.';
-                    saveLogMessage($idLog, $logMessage);
-                    # Si il existe, on crée juste le lien
-                    $show->genres()->attach($genre_ref->id);
                 }
-
                 $listGenres[] = $genre_ref->id;
             }
             $show->genres()->sync($listGenres);

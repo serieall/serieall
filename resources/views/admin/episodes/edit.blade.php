@@ -130,7 +130,10 @@
                             <div class="ui calendar" id="datepicker">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input id="diffusion_us" name="diffusion_us" class="date-picker" type="date" placeholder="Date" value="{{ $episode->diffusion_us }}">
+                                    <input id="diffusion_us" name="diffusion_us" class="date-picker" type="date" placeholder="Date"
+                                       @if(!is_null($episode->diffusion_us))
+                                           value="{{ $episode->diffusion_us }}"
+                                       @endif>
                                 </div>
                             </div>
 
@@ -146,7 +149,10 @@
                             <div class="ui calendar" id="datepicker">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input id="diffusion_fr" name="diffusion_fr" class="date-picker" type="date" placeholder="Date" value="{{ $episode->diffusion_fr }}">
+                                    <input id="diffusion_fr" name="diffusion_fr" class="date-picker" type="date" placeholder="Date"
+                                       @if(!is_null($episode->diffusion_fr))
+                                           value="{{ $episode->diffusion_fr }}"
+                                       @endif>
                                 </div>
                             </div>
 

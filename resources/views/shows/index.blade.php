@@ -67,7 +67,12 @@
                                  <i class="red frown large icon"></i>
                              </td>
                              <td>
-                                 {{ $season->episodes_count }} épisodes
+                                 {{ $season->episodes_count }}
+                                 @if($season->episodes_count == 1)
+                                     épisode
+                                 @else
+                                     épisodes
+                                 @endif
                              </td>
                          </tr>
                      @endforeach
