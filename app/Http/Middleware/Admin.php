@@ -16,7 +16,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
+        Log::info($request->user()->username . ' passe par le middleware admin.');
+
         if ($request->user()->role < 4){
+            Log::info($request->user()->username . ' a été accepté par le middleware admin');
             return $next($request);
         }
 
