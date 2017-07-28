@@ -14,6 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 use \Illuminate\Support\Str;
 
 /**
@@ -664,8 +665,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         | Initialisation du job
         |--------------------------------------------------------------------------
         */
-        $idLog = initJob(0, 'Mise à jour via TVDB', 'Show', 0 );
-        
+        $idLog = initJob(null, 'Mise à jour via TVDB', 'Show', 0 );
         /*
         |--------------------------------------------------------------------------
         | Définition des variables

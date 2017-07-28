@@ -69,7 +69,7 @@
                                 <div class="field">
                                     <label>Format</label>
                                     <div class="ui left icon input">
-                                        <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ old('format') }}">
+                                        <input id="format" name="format" placeholder="Format de la série..." type="number" min="0" value="{{ old('format') }}">
                                         <i class="tv icon"></i>
                                     </div>
                                     <div class="ui red hidden message"></div>
@@ -293,6 +293,7 @@
         $( '.date-picker' ).datepicker({
             showAnim: "blind",
             dateFormat: "yy-mm-dd",
+            yearRange: "-100:+10",
             changeMonth: true,
             changeYear: true
         });
@@ -783,6 +784,7 @@
                             $('.date-picker').datepicker({
                                 showAnim: "blind",
                                 dateFormat: "yy-mm-dd",
+                                yearRange: "-100:+10",
                                 changeMonth: true,
                                 changeYear: true
                             });

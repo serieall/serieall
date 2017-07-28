@@ -85,7 +85,7 @@
                             <div class="field {{ $errors->has('format') ? ' error' : '' }}">
                                 <label>Format</label>
                                 <div class="ui left icon input">
-                                    <input id="format" name="format" placeholder="Format de la série..." type="number" value="{{ $show->format }}">
+                                    <input id="format" name="format" placeholder="Format de la série..." type="number" min="0" value="{{ $show->format }}">
                                     <i class="tv icon"></i>
                                 </div>
                                 @if ($errors->has('format'))
@@ -318,6 +318,7 @@
         $( '.date-picker' ).datepicker({
             showAnim: "blind",
             dateFormat: "yy-mm-dd",
+            yearRange: "-100:+10",
             changeMonth: true,
             changeYear: true
         });

@@ -213,6 +213,7 @@
                 $('.date-picker').datepicker({
                     showAnim: "blind",
                     dateFormat: "yy-mm-dd",
+                    yearRange: "-100:+10",
                     changeMonth: true,
                     changeYear: true
                 });
