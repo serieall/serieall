@@ -58,4 +58,10 @@ class ShowController extends Controller
 
         return view('shows/seasons', compact('showInfo'));
     }
+
+    public function getSeasonTab($show, $tab){
+        $season = $this->seasonRepository->getSeasonShowEpisodesBySeasonID($tab);
+
+        return view('shows.tabs.seasons', compact('season'));
+    }
 }

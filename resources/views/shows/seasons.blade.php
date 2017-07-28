@@ -49,15 +49,17 @@
                     </div>
                 </div>
 
-                <div class="active ui tab" data-tab="89">
-                    test
-                </div>
+                @foreach($showInfo['seasons'] as $season)
+                    @if($loop->first)
+                        <div class="ui active tab" data-tab="{{ $season->id }}">
 
-                <p class="ui tab" data-tab="90">
-                    test
-                </p>
+                        </div>
+                    @else
+                        <div class="ui tab" data-tab="{{ $season->id }}">
 
-                <a href="#"><p class="AllSeasons">Toutes les saisons ></p></a>
+                        </div>
+                    @endif
+                @endforeach
             </div>
     </div>
 @endsection
@@ -70,10 +72,8 @@
     <script>
         $('.ui.stackable.secondary.menu .item')
             .tab({
-                apiSettings: {
-                    url: '/api/episodes/seasons/{data-tab}'
-                }
-
+                path: 'seasons/',
+                auto: true
             })
         ;
     </script>
