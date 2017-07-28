@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ShowUpdateManuallyRequest;
+use App\Jobs\ShowUpdateFromTVDB;
 use App\Repositories\LogRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -206,5 +207,10 @@ class AdminShowController extends Controller
                 ->with('warning_header', 'Erreur')
                 ->with('warning', 'Ca marche pô.');
         }
+    }
+
+    public function UpdateTVDB()
+    {
+        $this->dispatch(new ShowUpdateFromTVDB());
     }
 }
