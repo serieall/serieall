@@ -56,7 +56,7 @@
                     <div class="ui two fields">
                         <div class="ui field {{ $errors->has('name') ? ' error' : '' }}">
                             <label for="name">Numéro de la saison</label>
-                            <input id="name" name="name" type="number" value="{{ $season->name }}">
+                            <input id="name" name="name" type="number" value="{{ $season->name }}" min="0">
 
                             @if ($errors->has('name'))
                                 <div class="ui red message">

@@ -101,7 +101,7 @@
                         + '<div class="ui two fields">'
                         + '<div class="ui field">'
                         + '<label for="name">Numéro de la saison</label>'
-                        + '<input id="seasons.'+ seasonNumber +'.name" name="seasons[' + seasonNumber + '][name]" type="number">'
+                        + '<input id="seasons.'+ seasonNumber +'.name" name="seasons[' + seasonNumber + '][name]" type="number" min="0">'
                         + '<div class="ui red hidden message"></div>'
                         + '</div>'
 
