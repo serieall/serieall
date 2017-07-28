@@ -665,7 +665,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         | Initialisation du job
         |--------------------------------------------------------------------------
         */
-        $idLog = initJob(1, 'Mise à jour via TVDB', 'Show', 0 );
+        $idLog = initJob(null, 'Mise à jour via TVDB', 'Show', 0 );
         /*
         |--------------------------------------------------------------------------
         | Définition des variables
