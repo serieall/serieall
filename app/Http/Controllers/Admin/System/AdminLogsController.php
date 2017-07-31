@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\FlushLogs1Week;
 use App\Repositories\LogRepository;
 
 class AdminLogsController extends Controller
@@ -42,5 +43,9 @@ class AdminLogsController extends Controller
         $log = $this->logRepository->getLogByID($id);
 
         return view('admin/system/logs/view', compact('log'));
+    }
+
+    public function testJob() {
+        $this->dispatch(new FlushLogs1Week());
     }
 }

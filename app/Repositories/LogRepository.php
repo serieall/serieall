@@ -6,6 +6,8 @@ namespace App\Repositories;
 use App\Models\Log;
 use App\Models\List_log;
 
+use Carbon\Carbon;
+
 /**
  * Class ShowRepository
  * @package App\Repositories\Admin
@@ -62,5 +64,17 @@ class LogRepository
      */
     public function getLogByID($id){
         return $this->list_log->with('logs','user')->find($id);
+    }
+
+    /**
+     * Récupère les logs de plus d'une semaine
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getLogsSup1Week()
+    {
+        $oneWeekAgo = Carbon::today()->subWeek()->toDateString();
+
+        return $this->list_log->where('created_at', '<', $oneWeekAgo)->get();
     }
 }

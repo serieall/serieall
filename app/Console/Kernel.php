@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\FlushLogs1Week;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\ShowUpdateFromTVDB;
@@ -27,6 +28,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             dispatch(new ShowUpdateFromTVDB());
+        })->daily();
+
+        $schedule->call(function() {
+            dispatch(new FlushLogs1Week());
         })->daily();
     }
 }
