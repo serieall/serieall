@@ -59,7 +59,10 @@
             <i class="file text outline icon"></i>
             Articles
         </a>
-        <a class="ui header item">
+        <a class="ui header item
+            @if($navActive == 'AdminUsers')
+                blue
+            @endif" href="{{ route('admin.users.index') }}">
             <i class="users icon"></i>
             Utilisateurs
         </a>

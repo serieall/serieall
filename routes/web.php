@@ -90,6 +90,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/episodes/{season}/redirect', 'Admin\AdminEpisodeController@redirect')->name('admin.episodes.redirect');
     Route::delete('admin/episodes/{episode}', 'Admin\AdminEpisodeController@destroy')->name('admin.episodes.destroy');
 
+    /* USERS */
+    Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');
+    Route::get('admin/users/create', 'Admin\AdminUserController@create')->name('admin.users.create');
+    Route::get('admin/users/edit', 'Admin\AdminUserController@edit')->name('admin.users.edit');
+    Route::delete('admin/users', 'Admin\AdminUserController@destroy')->name('admin.users.destroy');
+
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');
     Route::get('admin/system/logs', 'Admin\System\AdminLogsController@index')->name('admin.logs');

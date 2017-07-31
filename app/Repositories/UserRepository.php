@@ -5,6 +5,8 @@ namespace App\Repositories;
 
 use App\Models\User;
 
+use Illuminate\Support\Facades\DB;
+
 class UserRepository
 {
     protected $user;
@@ -27,5 +29,12 @@ class UserRepository
      */
     public function getUserByUsername($username){
         return $this->user->where('username', $username)->firstOrFail();
+    }
+
+    public function getAllUsers()
+    {
+        return DB::table('users')
+            ->orderBy('username', 'asc')
+            ->get();
     }
 }
