@@ -108,7 +108,7 @@
                     <div class="ui two fields">
                         <div class="field {{ $errors->has('password') ? ' error' : '' }}">
                             <label>Mot de passe</label>
-                            <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
+                            <input name="password" placeholder="Mot de passe" type="password">
 
                             @if ($errors->has('password'))
                                 <div class="ui red message">
@@ -119,7 +119,7 @@
 
                         <div class="field {{ $errors->has('password_confirmation') ? ' error' : '' }}">
                             <label>Confirmer le mot de passe</label>
-                            <input name="password_confirmation" placeholder="Confirmer le mot de passe" type="password" value="{{ old('password_confirmation') }}">
+                            <input name="password_confirmation" placeholder="Confirmer le mot de passe" type="password">
 
                             @if ($errors->has('password_confirmation'))
                                 <div class="ui red message">

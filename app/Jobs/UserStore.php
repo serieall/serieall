@@ -2,15 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Repositories\UserRepository;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Log;
 
-class UserUpdate implements ShouldQueue
+class UserStore implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,8 +19,6 @@ class UserUpdate implements ShouldQueue
      * Create a new job instance.
      *
      * @param $inputs
-     * @internal param $id
-     * @internal param $userID
      */
     public function __construct($inputs)
     {
@@ -31,19 +28,18 @@ class UserUpdate implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param UserRepository $userRepository
      * @return void
      */
-    public function handle(UserRepository $userRepository)
+    public function handle()
     {
-       /*
+        /*
        |--------------------------------------------------------------------------
        | Initialisation du job
        |--------------------------------------------------------------------------
        */
-        $idLog = initJob($this->inputs['user_id'], 'Edition', 'User', $this->inputs['id']);
+        $idLog = initJob($this->inputs['user_id'], 'Ajout', 'User', mt_rand());
 
-        $user = $userRepository->getUserByID($this->inputs['id']);
+        $user = new User();
 
         $message = 'Username : ' . $this->inputs['username'];
         saveLogMessage($idLog, $message);
@@ -53,12 +49,8 @@ class UserUpdate implements ShouldQueue
         saveLogMessage($idLog, $message);
         $user->role = $this->inputs['role'];
 
-        Log::info($this->inputs['password']);
-
-        if(!empty($this->inputs['password']))
-        {
-            $user->password = bcrypt($this->inputs['password']);
-        }
+        $user->password = bcrypt($this->inputs['password']);
+        $user->activated = 1;
 
         $message = 'E-Mail : ' . $this->inputs['email'];
         saveLogMessage($idLog, $message);

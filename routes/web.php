@@ -90,6 +90,7 @@ Route::group(['middleware' => 'admin'], function () {
     /* USERS */
     Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');
     Route::get('admin/users/create', 'Admin\AdminUserController@create')->name('admin.users.create');
+    Route::post('admin/users', 'Admin\AdminUserController@store')->name('admin.users.store');
     Route::get('admin/users/{user}', 'Admin\AdminUserController@edit')->name('admin.users.edit');
     Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
     Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');

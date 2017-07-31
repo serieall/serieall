@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Jobs\UserStore;
 use App\Jobs\UserUpdate;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +40,34 @@ class AdminUserController extends Controller
         $users = $this->userRepository->getAllUsers();
 
         // On retourne la vue
-        return view('admin/users/index', compact('users'));
+        return view('admin.users.index', compact('users'));
+    }
+
+    /**
+     * Affiche le formulaire de création d'utilisateur
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+
+    /**
+     * Ajoute un nouvel utilisateur
+     *
+     * @param UserStoreRequest $request
+     * @return string
+     */
+    public function store(UserStoreRequest $request)
+    {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        $this->dispatch(new UserStore($inputs));
+
+        return redirect()->route('admin.users.index')
+            ->with('status_header', 'Ajout d\'un utilisateur')
+            ->with('status', 'La demande d\'ajout a été envoyée au serveur. Il la traitera dès que possible.');
     }
 
     /**
