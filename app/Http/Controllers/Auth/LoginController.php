@@ -99,6 +99,10 @@ class LoginController extends Controller
             auth()->logout();
             return back()->with('warning', 'Vous devez valider votre adresse E-mail. Nous vous avons envoyé un code de validation.');
         }
+        elseif ($user->suspended) {
+            auth()->logout();
+            return back()->with('warning', 'Votre compte a été bloqué.');
+        }
         return redirect()->intended($this->redirectPath());
     }
 

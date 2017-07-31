@@ -25,12 +25,22 @@
             </h1>
         </div>
         <div class="ui height wide column">
-            <form action="{{ route('admin.users.ban', $user->id) }}">
-                <button class="ui right floated red button">
-                    <i class="ui ban icon"></i>
-                    Bannir l'utilisateur
-                </button>
-            </form>
+            @if($user->suspended == 0)
+                <form action="{{ route('admin.users.ban', $user->id) }}">
+                    <button class="ui right floated red button">
+                        <i class="ui ban icon"></i>
+                        Bannir l'utilisateur
+                    </button>
+                </form>
+            @else
+                <form action="{{ route('admin.users.unban', $user->id) }}">
+                    <button class="ui right floated green button">
+                        <i class="ui checkmark icon"></i>
+                        Autoriser l'utilisateur
+                    </button>
+                </form>
+            @endif
+
             <form action="{{ route('admin.users.reinit', $user->id) }}">
                 <button class="ui right floated green button">
                     <i class="ui mail outline icon"></i>

@@ -27,8 +27,7 @@ Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name
     Partie Utilisateurs
 */
 Route::get('profil/{user}', 'UserController@getProfile')->name('user.profile');
-Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword');
-Route::resource('user', 'UserController');
+Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword')->middleware('auth');
 
 /*
     Partie Séries
@@ -94,6 +93,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/users/{user}', 'Admin\AdminUserController@edit')->name('admin.users.edit');
     Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
     Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
+    Route::post('admin/users/unban/{user}', 'Admin\AdminUserController@unban')->name('admin.users.unban');
     Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
     Route::delete('admin/users/{user}', 'Admin\AdminUserController@destroy')->name('admin.users.destroy');
 

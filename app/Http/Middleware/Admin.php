@@ -3,10 +3,12 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class Admin
 {
+    use AuthenticatesUsers;
+
     /**
      * Handle an incoming request.
      *
@@ -16,10 +18,18 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        Log::info($request->user()->username . ' passe par le middleware admin.');
-
         if ($request->user()->role < 4){
-            Log::info($request->user()->username . ' a été accepté par le middleware admin');
+            if ($request->user()->suspended == 1) {
+                $this->guard()->logout();
+
+                $request->session()->flush();
+
+                $request->session()->regenerate();
+
+                return redirect()
+                    ->route('login')
+                    ->with('warning', 'Votre compte a été bloqué.');
+            }
             return $next($request);
         }
 
