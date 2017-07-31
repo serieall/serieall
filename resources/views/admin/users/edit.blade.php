@@ -26,27 +26,24 @@
         </div>
         <div class="ui height wide column">
             @if($user->suspended == 0)
-                <form action="{{ route('admin.users.ban', $user->id) }}">
+                <form action="{{ route('admin.users.ban', $user->id) }}" method="post">
+                    {{ csrf_field() }}
+
                     <button class="ui right floated red button">
                         <i class="ui ban icon"></i>
                         Bannir l'utilisateur
                     </button>
                 </form>
             @else
-                <form action="{{ route('admin.users.unban', $user->id) }}">
+                <form action="{{ route('admin.users.ban', $user->id) }}" method="post">
+                    {{ csrf_field() }}
+
                     <button class="ui right floated green button">
                         <i class="ui checkmark icon"></i>
                         Autoriser l'utilisateur
                     </button>
                 </form>
             @endif
-
-            <form action="{{ route('admin.users.reinit', $user->id) }}">
-                <button class="ui right floated green button">
-                    <i class="ui mail outline icon"></i>
-                    Envoyer un lien de réinitialisation de mdp
-                </button>
-            </form>
         </div>
     </div>
 
@@ -103,6 +100,30 @@
                             @if ($errors->has('role'))
                                 <div class="ui red message">
                                     <strong>{{ $errors->first('role') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="ui two fields">
+                        <div class="field {{ $errors->has('password') ? ' error' : '' }}">
+                            <label>Mot de passe</label>
+                            <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
+
+                            @if ($errors->has('password'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="field {{ $errors->has('password_confirmation') ? ' error' : '' }}">
+                            <label>Confirmer le mot de passe</label>
+                            <input name="password_confirmation" placeholder="Confirmer le mot de passe" type="password" value="{{ old('password_confirmation') }}">
+
+                            @if ($errors->has('password_confirmation'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
                                 </div>
                             @endif
                         </div>

@@ -39,7 +39,7 @@
                     <div class="two fields">
                         <div class="field {{ $errors->has('name') ? ' error' : '' }}">
                             <label>Nom original de la série</label>
-                            <input id="name" name="name" placeholder="Nom original de la série" type="text" value="{{ $show->name }}">
+                            <input id="name" name="name" placeholder="Nom original de la série" value="{{ $show->name }}">
                             @if ($errors->has('name'))
                                 <div class="ui red message">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -49,7 +49,7 @@
 
                         <div class="field {{ $errors->has('name_fr') ? ' error' : '' }}">
                             <label>Nom français de la série</label>
-                            <input id="name_fr" name="name_fr" placeholder="Nom français" type="text" value="{{ $show->name_fr }}">
+                            <input id="name_fr" name="name_fr" placeholder="Nom français" value="{{ $show->name_fr }}">
                             @if ($errors->has('name_fr'))
                                 <div class="ui red message">
                                     <strong>{{ $errors->first('name_fr') }}</strong>
@@ -263,7 +263,7 @@
                         </div>
                     </div>
 
-                    <button class="submit positive ui button" type="submit">Modifier la série</button>
+                    <button class="submit positive ui button">Modifier la série</button>
                 </form>
             </div>
         </div>
