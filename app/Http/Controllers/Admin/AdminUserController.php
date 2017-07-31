@@ -39,6 +39,13 @@ class AdminUserController extends Controller
         return view('admin/users/index', compact('users'));
     }
 
+    public function edit($id)
+    {
+        $user = $this->userRepository->getUserByID($id);
+
+        return view('admin.users.edit', compact('user'));
+    }
+
     /**
      * Supprime un utilisateur
      *

@@ -13,12 +13,13 @@
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 /*
     Partie Authentification
 */
 Auth::routes();
+
 
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');
@@ -93,7 +94,10 @@ Route::group(['middleware' => 'admin'], function () {
     /* USERS */
     Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');
     Route::get('admin/users/create', 'Admin\AdminUserController@create')->name('admin.users.create');
-    Route::get('admin/users/edit', 'Admin\AdminUserController@edit')->name('admin.users.edit');
+    Route::get('admin/users/{user}', 'Admin\AdminUserController@edit')->name('admin.users.edit');
+    Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
+    Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
+    Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
     Route::delete('admin/users/{user}', 'Admin\AdminUserController@destroy')->name('admin.users.destroy');
 
     /* SYSTEM */
