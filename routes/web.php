@@ -94,7 +94,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');
     Route::get('admin/users/create', 'Admin\AdminUserController@create')->name('admin.users.create');
     Route::get('admin/users/edit', 'Admin\AdminUserController@edit')->name('admin.users.edit');
-    Route::delete('admin/users', 'Admin\AdminUserController@destroy')->name('admin.users.destroy');
+    Route::delete('admin/users/{user}', 'Admin\AdminUserController@destroy')->name('admin.users.destroy');
 
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
+use App\Repositories\UserRepository;
+use App\Jobs\UserDelete;
 
 class AdminUserController extends Controller
 {
@@ -35,5 +37,22 @@ class AdminUserController extends Controller
 
         // On retourne la vue
         return view('admin/users/index', compact('users'));
+    }
+
+    /**
+     * Supprime un utilisateur
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $userID = Auth::user()->id;
+
+        dispatch(new UserDelete($id, $userID));
+
+        return redirect()->back()
+            ->with('status_header', 'Suppression d\'utilisateur')
+            ->with('status', 'La demande de suppression a été envoyée au serveur. Il la traitera dès que possible.');
     }
 }

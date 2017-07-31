@@ -54,12 +54,12 @@
                     <td class="center aligned">
                         <div class="four wide column">
                             <!-- Formulaire de suppression -->
-                            <form action="{{ route('admin.users.destroy') }}" method="post" >
+                            <form action="{{ route('admin.users.destroy', [$user->id]) }}" method="post" >
                                 {{ csrf_field() }}
 
                                 <input type="hidden" name="_method" value="DELETE">
 
-                                <button class="circular ui red icon button" type="submit" value="Supprimer cet utilisateur ?" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?')">
+                                <button class="circular ui red icon button" value="Supprimer cet utilisateur ?" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?')">
                                     <i class="icon remove"></i>
                                 </button>
                             </form>
