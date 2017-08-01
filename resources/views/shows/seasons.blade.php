@@ -35,6 +35,7 @@
 
 @section('content_fiche_left')
     <div class="ui stackable grid">
+        <div class="row">
             <div id="ListSeasons" class="ui segment">
                 <h1>Liste des saisons</h1>
                 <div class="ui stackable secondary menu">
@@ -61,6 +62,7 @@
                     @endif
                 @endforeach
             </div>
+        </div>
     </div>
 @endsection
 
