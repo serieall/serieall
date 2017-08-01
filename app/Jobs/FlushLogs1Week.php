@@ -62,7 +62,7 @@ class FlushLogs1Week implements ShouldQueue
 
             $logMessage = 'Suppression du job';
             saveLogMessage($idLog, $logMessage);
-            $log->delete;
+            $log->delete();
         }
 
         endJob($idLog);
