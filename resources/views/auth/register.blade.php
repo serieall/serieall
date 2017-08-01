@@ -6,7 +6,7 @@
             <form class="ui form" method="POST" action="{{ url('/register') }}">
                 {{ csrf_field() }}
 
-                <div class="field {{ $errors->has('username') ? ' error' : '' }}">
+                <div class="ui required field {{ $errors->has('username') ? ' error' : '' }}">
                     <label>Nom d'utilisateur</label>
                     <input name="username" placeholder="Nom d'utilisateur" type="text" value="{{ old('username') }}">
 
@@ -17,7 +17,7 @@
                     @endif
                 </div>
 
-                <div class="field {{ $errors->has('email') ? ' error' : '' }}">
+                <div class="ui required field {{ $errors->has('email') ? ' error' : '' }}">
                     <label>Adresse E-mail</label>
                     <input name="email" placeholder="Adresse e-mail" type="email" value="{{ old('email') }}">
 
@@ -28,7 +28,7 @@
                     @endif
                 </div>
 
-                <div class="field {{ $errors->has('password') ? ' error' : '' }}">
+                <div class="ui required field {{ $errors->has('password') ? ' error' : '' }}">
                     <label>Mot de passe</label>
                     <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
 
@@ -39,7 +39,7 @@
                     @endif
                 </div>
 
-                <div class="field {{ $errors->has('password_confirmation') ? ' error' : '' }}">
+                <div class="ui required field {{ $errors->has('password_confirmation') ? ' error' : '' }}">
                     <label>Confirmer le mot de passe</label>
                     <input name="password_confirmation" placeholder="Confirmer le mot de passe" type="password" value="{{ old('password_confirmation') }}">
 
@@ -52,7 +52,7 @@
 
                 <div class="ui section divider"></div>
 
-                <div class="field {{ $errors->has('g-recaptcha-response') ? ' error' : '' }}">
+                <div class="ui required field {{ $errors->has('g-recaptcha-response') ? ' error' : '' }}">
                     {!! app('captcha')->display($attributes = []) !!}
 
                     @if ($errors->has('g-recaptcha-response'))
@@ -62,7 +62,7 @@
                     @endif
                 </div>
 
-                <div class="field {{ $errors->has('cgu') ? ' error' : '' }}">
+                <div class="ui required field {{ $errors->has('cgu') ? ' error' : '' }}">
                     <div class="ui checkbox">
                         <input type="checkbox" name="cgu">
                         <label for="cgu">J'ai lu et j'accepte les conditions générales d'utilisation</label>

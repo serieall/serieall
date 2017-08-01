@@ -688,3 +688,26 @@
     color: white;
     background-color: #213d64;
 }
+
+/* PROFIL */
+.ui.menu .active.item {
+    color: white;
+    background-color: #1074b2;
+}
+
+.ui.pointing.menu .active.item::after {
+    background-color: #1074b2;
+}
+
+.ui.menu .active.item:hover {
+    color: white;
+    background-color: #1074b2;
+}
+
+.ui.pointing.menu .active.item:hover::after {
+    background-color: #1074b2;
+}
+
+.ui.center.aligned {
+    text-align: center;
+}

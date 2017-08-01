@@ -36,6 +36,18 @@ class UserController extends Controller
     }
 
     /**
+     * Affiche le formulaire de modification des paramètres
+     *
+     * @param $username
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getParameters($username){
+        $user = $this->userRepository->getUserByUsername($username);
+
+        return view('users.parameters', compact('user'));
+    }
+
+    /**
      * Changement du mot de passe de l'utilisateur
      *
      * @param changePasswordRequest $request

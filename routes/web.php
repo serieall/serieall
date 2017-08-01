@@ -27,8 +27,9 @@ Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name
     Partie Utilisateurs
 */
 Route::get('profil/{user}', 'UserController@getProfile')->name('user.profile');
-Route::get('profil/{user}/{tab}', 'ShowController@getUsersProfilTabs')->name('user.profile.tab');
+Route::get('profil/{user}/parametres', 'UserController@getParameters')->name('user.profile.parameters')->middleware('amithisuser');
 Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword')->middleware('auth');
+Route::post('changeinfos', 'UserController@changePassword')->name('user.changeinfos')->middleware('auth');
 
 /*
     Partie Séries

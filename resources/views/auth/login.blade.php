@@ -6,7 +6,7 @@
             <form class="ui form" method="POST" action="{{ url('/login') }}">
                 {{ csrf_field() }}
 
-                <div class="field {{ $errors->has('username') ? ' error' : '' }}">
+                <div class="ui required field {{ $errors->has('username') ? ' error' : '' }}">
                     <label>Nom d'utilisateur</label>
                     <input name="username" placeholder="Nom d'utilisateur" value="{{ old('username') }}">
 
@@ -17,7 +17,7 @@
                     @endif
                 </div>
 
-                <div class="field {{ $errors->has('password') ? ' error' : '' }}">
+                <div class="ui required field {{ $errors->has('password') ? ' error' : '' }}">
                     <label>Mot de passe</label>
                     <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
 
