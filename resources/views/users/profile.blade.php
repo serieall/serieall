@@ -41,7 +41,8 @@
                         <img src="{{ Gravatar::src($user->email) }}">
                     </span>
                     <div class="content">
-                        <a class="header">{{ $user->username }}</a>
+                        <a class="header">{{ $user->username }}</a><br />
+                        {!! roleUser($user->role) !!}
                         <div class="description">
                             <p>"<i>{{ $user->edito }}"</i></p>
                         </div>

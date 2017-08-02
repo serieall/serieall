@@ -204,20 +204,20 @@
     margin-left : 15rem;
 }
 
-.padding-article{
+.padding-article {
     padding: 2rem;
 }
 
-#message-top{
+#message-top {
     margin-top: 1rem;
     margin-bottom : 1rem;
 }
 
-.moveSeason:hover{
+.moveSeason:hover {
     cursor: grab;
 }
 
-.moveEpisode:hover{
+.moveEpisode:hover {
     cursor: grab;
 }
 
@@ -317,6 +317,10 @@
 }
 
 #content {
+    flex: 1 0 auto;
+}
+
+#messageBox {
     flex: 1 0 auto;
 }
 

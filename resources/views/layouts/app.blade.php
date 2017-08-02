@@ -132,10 +132,24 @@
             @endif
         </div>
     </div>
-    <div class="ui stackable grid">
-        @if (session('status') || session('success'))
-            <div id="message-top" class="ui container centered grid">
-                <div class="ui success compact message">
+
+    @if (session('status') || session('success') || session('error') || session('warning'))
+        <div class="ui centered stackable grid" id="messageBox">
+            <div class="ten wide column center aligned">
+                <div class="ui
+                 @if (session('success'))
+                    success
+                 @endif
+                 @if (session('status'))
+                    success
+                 @endif
+                 @if (session('warning'))
+                    orange
+                 @endif
+                 @if (session('error'))
+                     red
+                 @endif
+                 compact message">
                     <i class="close icon"></i>
                     <div class="content">
                         @if (session('success'))
@@ -144,33 +158,18 @@
                         @if (session('status'))
                             <p>{{ session('status') }}</p>
                         @endif
+                        @if (session('warning'))
+                            <p>{{ session('warning') }}</p>
+                        @endif
+                        @if (session('error'))
+                            <p>{{ session('error') }}</p>
+                        @endif
                     </div>
                 </div>
             </div>
-        @endif
+        </div>
+    @endif
 
-        @if (session('warning'))
-            <div id="message-top" class="ui container centered grid">
-                <div class="ui orange compact message">
-                    <i class="close icon"></i>
-                    <div class="content">
-                        <p>{{ session('warning') }}</p>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div id="message-top" class="ui container centered grid">
-                <div class="ui error compact message">
-                    <i class="close icon"></i>
-                    <div class="content">
-                        <p>{{ session('error') }}</p>
-                    </div>
-                </div>
-            </div>
-        @endif
-    </div>
 
     <div class="ui centered stackable grid" id="content">
         @yield('content')

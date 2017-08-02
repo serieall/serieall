@@ -39,11 +39,11 @@
                 Changement d'avatar
             </div>
             <p>
-                Série All utilise le systême Gravatar pour les avatars de ses utilisateurs. Gravatar est un site qui permet d'associer votre avatar à votre adresse mail.<br />
+                Série All utilise le système <a href="https://fr.gravatar.com/">Gravatar</a> pour les avatars de ses utilisateurs. <a href="https://fr.gravatar.com/">Gravatar</a> est un site qui permet d'associer votre avatar à votre adresse mail.<br />
                 <br/>
-                Ainsi sur n'importe quel site qui utilise Gravatar, il suffira de lui indiquer votre adresse mail afin qu'il affiche votre avatar. <br />
+                Ainsi sur n'importe quel site qui utilise <a href="https://fr.gravatar.com/">Gravatar</a>, il suffira de lui indiquer votre adresse mail afin qu'il affiche votre avatar. <br />
                 <ul class="list">
-                    <li>Rendez-vous sur cette page pour créér votre compte Gravatar</li>
+                <li>Rendez-vous sur <a href="https://fr.gravatar.com/site/signup">cette page</a> pour créér votre compte Gravatar</li>
                     <li>Complétez l'adresse mail associée à votre gravatar dans votre profil</li>
                     <li>C'est tout !</li>
                 </ul>
@@ -56,6 +56,8 @@
 
             <form class="ui form" method="POST" action="{{ route('user.changeinfos') }}">
                 {{ csrf_field() }}
+
+                <input name="id" type="hidden" value="{{ $user->id }}">
 
                 <div class="ui two fields">
                     <div class="ui required field {{ $errors->has('email') ? ' error' : '' }}">
