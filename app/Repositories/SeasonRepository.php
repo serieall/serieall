@@ -84,4 +84,18 @@ class SeasonRepository
             ->orderBy('seasons.name', 'asc')
             ->get();
     }
+
+    /**
+     * @param $showID
+     * @param $seasonName
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getSeasonEpisodesBySeasonNameAndShowID($showID, $seasonName)
+    {
+        return $this->season
+            ->with('episodes')
+            ->where('seasons.name', '=', $seasonName)
+            ->where('seasons.show_id', '=', $showID)
+            ->first();
+    }
 }

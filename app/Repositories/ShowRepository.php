@@ -135,7 +135,6 @@ class ShowRepository
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         } elseif (Route::current()->getName() == "show.seasons") {
             $show = $this->getShowByURL($show_url);
-            $seasons = $this->seasonRepository->getSeasonsWithEpisodesForShowByID($show->id);
         }
         else {
             $show = $this->getShowByURL($show_url);

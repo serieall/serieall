@@ -35,8 +35,7 @@ Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos
     Partie Séries
 */
 Route::get('serie/{show_url}', 'ShowController@getShow')->name('show.fiche');
-Route::get('serie/{show_url}/seasons', 'ShowController@getShowSeasons')->name('show.seasons');
-Route::get('serie/{show_url}/seasons/{tab}', 'ShowController@getSeasonTab')->name('show.seasons.tab');
+Route::get('serie/{show_url}/saison/{season}', 'ShowController@getShowSeasons')->name('show.seasons');
 Route::get('serie/{show_url}/details', 'ShowController@getShowDetails')->name('show.details');
 
 /*

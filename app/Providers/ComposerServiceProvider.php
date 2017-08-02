@@ -66,7 +66,7 @@ class ComposerServiceProvider extends ServiceProvider
 
         // NavActive = shows
         View::composer(
-            ['shows/*'],
+            ['shows/*', 'layouts/errors'],
             'App\Http\ViewComposers\NavActiveShowsComposer'
         );
     }

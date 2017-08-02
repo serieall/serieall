@@ -51,17 +51,13 @@ class ShowController extends Controller
      * Envoi vers la page shows/seasons
      *
      * @param $show_url
+     * @param $season
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getShowSeasons($show_url) {
+    public function getShowSeasons($show_url, $season) {
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season);
 
-        return view('shows/seasons', compact('showInfo'));
-    }
-
-    public function getSeasonTab($show, $tab){
-        $season = $this->seasonRepository->getSeasonShowEpisodesBySeasonID($tab);
-
-        return view('shows.tabs.seasons', compact('season'));
+        return view('shows.seasons', compact('showInfo', 'seasonInfo'));
     }
 }

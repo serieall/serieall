@@ -8,7 +8,7 @@
                     <i class="big home icon"></i>
                     Présentation
                 </a>
-                <a class="item" href="{{ route('show.seasons', $showInfo['show']->show_url) }}">
+                <a class="item" href="{{ route('show.seasons', [$showInfo['show']->show_url, '1']) }}">
                     <i class="big browser icon"></i>
                     Saisons
                 </a>
@@ -42,7 +42,7 @@
                      @foreach($showInfo['seasons'] as $season)
                          <tr>
                              <td>
-                                 <a href="#">Saison {{ $season->name }}</a>
+                                 <a href="{{ route('show.seasons', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
                              </td>
                              <td>
                                  @if($season->moyenne > $noteGood)
@@ -77,7 +77,7 @@
                          </tr>
                      @endforeach
                  </table>
-                 <a href="#"><p class="AllSeasons">Toutes les saisons ></p></a>
+                 <a href="{{ route('show.seasons', [$showInfo['show']->show_url, '1']) }}"><p class="AllSeasons">Toutes les saisons ></p></a>
              </div>
          </div>
          <div class="row">

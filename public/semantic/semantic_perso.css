@@ -542,6 +542,15 @@
     width: 100%;
 }
 
+#MiddleBlockShow .segment {
+    margin: 0 auto;
+    border: none;
+    background-color: white;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 2rem;
+}
+
 #LeftBlockShow,#RightBlockShow h1 {
     color: #213d64;
     margin-bottom: 1rem;
@@ -714,4 +723,9 @@
 
 .ui.center.aligned {
     text-align: center;
+}
+
+.NoteSeason {
+    font-size: 4em;
+    margin-bottom: 1px;
 }
