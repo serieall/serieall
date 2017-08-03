@@ -35,8 +35,9 @@ Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos
     Partie Séries
 */
 Route::get('serie/{show_url}', 'ShowController@getShow')->name('show.fiche');
-Route::get('serie/{show_url}/saison/{season}', 'ShowController@getShowSeasons')->name('show.seasons');
-Route::get('serie/{show_url}/details', 'ShowController@getShowDetails')->name('show.details');
+Route::get('saison/{show_url}/{season}', 'ShowController@getShowSeasons')->name('show.seasons');
+Route::get('episode/{show_url}/s{season}e{episode}', 'ShowController@getShowEpisodes')->name('show.episodes');
+Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.details');
 
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)

@@ -46,4 +46,12 @@ class EpisodeRepository
             $q->with('seasons');
         }])->findOrFail($id);
     }
+
+    public function getEpisodeByEpisodeNumeroAndSeasonID($seasonID, $episodeNumero)
+    {
+        return $this->episode
+            ->where('episodes.numero', '=', $episodeNumero)
+            ->where('episodes.season_id', '=', $seasonID)
+            ->first();
+    }
 }
