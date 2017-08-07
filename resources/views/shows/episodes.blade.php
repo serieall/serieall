@@ -35,17 +35,27 @@
 
 @section('content_fiche_left')
     <div id="showDetails" class="ui segment">
-        <h1>Informations sur l'épisode</h1>
-        <table class="ui basic table">
-            <tr>
-                <td>
-                    <span class="ui bold text">Titre original</span>
-                </td>
-                <td>
-                    {{ $episodeInfo->name }}
-                </td>
-            </tr>
-        </table>
+        <h1>
+            @if(!empty($episodeInfo->name))
+                {{ $episodeInfo->name }}
+            @else
+                TBA
+            @endif
+        </h1>
+        @if(!empty($episodeInfo->name_fr) && $episodeInfo->name_fr =! $episodeInfo->name)
+            <h2 class="ui episode titrefr">{{ $episodeInfo->name_fr }}</h2>
+        @endif
+        @if(empty($episodeInfo->resume_fr))
+            @if(empty($episodeInfo->resume))
+                            -
+            @else
+                {{ $episodeInfo->resume }}
+            @endif
+        @else
+            {{ $episodeInfo->resume_fr }}
+        @endif
+        <div class="ui divider"></div>
+
     </div>
 @endsection
 

@@ -57,6 +57,7 @@ class EpisodeRepository
 
     public function getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonID, $episodeNumero, $episodeID) {
         return $this->episode
+            ->with('directors', 'writers', 'guests')
             ->where('episodes.numero', '=', $episodeNumero)
             ->where('episodes.id', '=',$episodeID)
             ->where('episodes.season_id', '=', $seasonID)
