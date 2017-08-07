@@ -54,4 +54,12 @@ class EpisodeRepository
             ->where('episodes.season_id', '=', $seasonID)
             ->first();
     }
+
+    public function getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonID, $episodeNumero, $episodeID) {
+        return $this->episode
+            ->where('episodes.numero', '=', $episodeNumero)
+            ->where('episodes.id', '=',$episodeID)
+            ->where('episodes.season_id', '=', $seasonID)
+            ->first();
+    }
 }

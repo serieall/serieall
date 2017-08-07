@@ -66,11 +66,16 @@ class ShowController extends Controller
         return view('shows.seasons', compact('showInfo', 'seasonInfo'));
     }
 
-    public function getShowEpisodes($show_url, $season, $episode)
+    public function getShowEpisodes($showURL, $seasonName, $episodeNumero, $episodeID = null)
     {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
-        $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season);
-        $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroAndSeasonID($seasonInfo->id, $episode);
+        $showInfo = $this->showRepository->getInfoShowFiche($showURL);
+        $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $seasonName);
+        if($episodeNumero == 0) {
+            $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonInfo->id, $episodeNumero, $episodeID);
+        }
+        else {
+            $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroAndSeasonID($seasonInfo->id, $episodeNumero);
+        }
 
         return view('shows.episodes', compact('showInfo', 'seasonInfo', 'episodeInfo'));
     }

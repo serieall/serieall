@@ -63,7 +63,7 @@
                             <tr>
                                 <td>
                                     @if($episode->numero == 0)
-                                        <a href="{{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero]) }}">Episode spécial</a>
+                                        <a href="{{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id]) }}">Episode spécial</a>
                                     @else
                                         <a href="{{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero]) }}">Episode {{ $seasonInfo->name }}.{{ $episode->numero }}</a>
                                     @endif
