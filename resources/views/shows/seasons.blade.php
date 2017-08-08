@@ -34,23 +34,26 @@
 @endsection
 
 @section('content_fiche_width')
-    <div id="MiddleBlockShow" class="sixteen wide column">
-        <div class="row center aligned">
-            <div class="ui stackable secondary menu">
+    <div id="MiddleBlockShow" class="ten wide column">
+        <div class="ui stackable grid">
+            <div class="row">
                 <div class="ui segment">
-                    <div id="seasonsLine" class="ui stackable grid">
-                        @foreach($showInfo['show']->seasons as $season)
-                            <a class="
-                            @if($seasonInfo->name == $season->name)
+                    <div class="ui stackable secondary menu">
+                        <div id="seasonsLine" class="ui stackable grid">
+                            @foreach($showInfo['show']->seasons as $season)
+                                <a class="
+                                @if($seasonInfo->name == $season->name)
                                     active
-                            @endif
-                            item" href="{{ route('show.seasons', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
-                        @endforeach
+                                @endif
+                                item" href="{{ route('show.seasons', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="ui five wide column"></div>
 @endsection
 
 @section('content_fiche_left')
@@ -61,15 +64,18 @@
                     <table class="ui padded table center aligned">
                         @foreach($seasonInfo->episodes as $episode)
                             <tr>
-                                <td>
+                                <td class="left aligned">
                                     @if($episode->numero == 0)
                                         <a href="{{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id]) }}">Episode spécial</a>
                                     @else
                                         <a href="{{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero]) }}">Episode {{ $seasonInfo->name }}.{{ $episode->numero }}</a>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="left aligned">
                                     {{ $episode->name }}
+                                </td>
+                                <td>
+                                    {{ $episode->diffusion_us }}
                                 </td>
                                 <td>
                                     @if($episode->moyenne > $noteGood)

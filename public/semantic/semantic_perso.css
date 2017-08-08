@@ -543,12 +543,16 @@
 }
 
 #MiddleBlockShow .segment {
-    margin: 0 auto;
     border: none;
     background-color: white;
     border-radius: 0;
     box-shadow: none;
     padding: 2rem;
+    width: 100%;
+}
+
+#MiddleBlockShow {
+    margin-right: 2em;
 }
 
 #LeftBlockShow,#RightBlockShow h1 {

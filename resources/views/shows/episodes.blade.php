@@ -42,9 +42,7 @@
                 TBA
             @endif
         </h1>
-        @if(!empty($episodeInfo->name_fr) && $episodeInfo->name_fr =! $episodeInfo->name)
-            <h2 class="ui episode titrefr">{{ $episodeInfo->name_fr }}</h2>
-        @endif
+        <h2 class="ui episode titrefr">{{ $episodeInfo->name_fr }}</h2>
         @if(empty($episodeInfo->resume_fr))
             @if(empty($episodeInfo->resume))
                             -
