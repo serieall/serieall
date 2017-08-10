@@ -1,9 +1,9 @@
 @extends('layouts.fiche')
 
 @section('menu_fiche')
-    <div id="menuFiche" class="row">
+    <div id="menuFiche" class="menuFiche row">
         <div class="column">
-            <div class="ui fluid six item stackable menu">
+            <div class="ui fluid six item stackable menu ficheContainer">
                 <a class="active item">
                     <i class="big home icon"></i>
                     Présentation
