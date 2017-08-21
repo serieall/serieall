@@ -1,9 +1,9 @@
 @extends('layouts.fiche')
 
 @section('menu_fiche')
-    <div id="menuFiche" class="row">
+    <div id="menuFiche" class="menuFiche row">
         <div class="column">
-            <div class="ui fluid six item stackable menu">
+            <div class="ui fluid six item stackable menu ficheContainer">
                 <a class="item" href="{{ route('show.fiche', $showInfo['show']->show_url) }}">
                     <i class="big home icon"></i>
                     Présentation
