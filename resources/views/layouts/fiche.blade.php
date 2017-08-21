@@ -3,8 +3,10 @@
 @section('content')
     <div id="topImageShow"  class="row nobox">
         <div class="column">
+            <div class="topImageBanniereContainer">
             <img class="topImageBanniere" src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Bannière {{ $showInfo['show']->name }}" />
-            <div id="topInfo" class="ui stackable grid">
+            </div>
+            <div id="topInfo" class="ui stackable grid topInfo ficheContainer">
                 <div class="center aligned ten wide column">
                     <div class="ui centered stackable grid">
                         <div id="midaligned" class="four wide column">
@@ -110,7 +112,7 @@
     </div>
 
     @yield('menu_fiche')
-    <div class="row ui stackable grid">
+    <div class="row ui stackable grid ficheContainer">
         @yield('content_fiche_width')
         <div id="LeftBlockShow" class="ten wide column">
             @yield('content_fiche_left')
