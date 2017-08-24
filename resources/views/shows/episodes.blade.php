@@ -43,15 +43,17 @@
             @endif
         </h1>
         <h2 class="ui episode titrefr">{{ $episodeInfo->name_fr }}</h2>
-        @if(empty($episodeInfo->resume_fr))
-            @if(empty($episodeInfo->resume))
-                            -s
+        <p>
+            @if(empty($episodeInfo->resume_fr))
+                @if(empty($episodeInfo->resume))
+                    Pas de résumé pour l'instant ...
+                @else
+                    {{ $episodeInfo->resume }}
+                @endif
             @else
-                {{ $episodeInfo->resume }}
+                {{ $episodeInfo->resume_fr }}
             @endif
-        @else
-            {{ $episodeInfo->resume_fr }}
-        @endif
+        </p>
         <div class="ui divider"></div>
 
     </div>

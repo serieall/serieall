@@ -529,6 +529,49 @@
     background: #213d64;
 }
 
+#menuFiche {
+    padding-bottom: inherit;
+}
+
+#menuListSeasons {
+    padding-top: inherit;
+    padding-bottom: inherit;
+}
+
+#menuListSeasons .column {
+    padding-left: inherit;
+    padding-right: inherit;
+}
+
+#menuListSeasons .segment {
+    border-radius: inherit;
+    background: #213d64;
+}
+
+#menuListSeasons .ui.secondary.menu .item {
+    color: white;
+}
+
+#menuListSeasons .ui.secondary.menu .item:hover {
+    color: white;
+    background: rgba(0, 0, 0, 0.30);
+}
+
+#menuListSeasons .ui.secondary.menu .active.item {
+    color: black;
+    background-color: white;
+}
+
+#menuListSeasons .ui.secondary.menu .active.item:hover {
+    color: black;
+    background-color: white;
+}
+
+#seasonsLine {
+    margin-left: inherit;
+    margin-right: inherit;
+}
+
 #LeftBlockShow {
     margin-right: 2em;
 }
@@ -541,7 +584,6 @@
     padding: 2rem;
     width: 100%;
 }
-
 #MiddleBlockShow .segment {
     border: none;
     background-color: white;
@@ -551,7 +593,7 @@
     width: 100%;
 }
 
-#MiddleBlockShow {
+.marginTest {
     margin-right: 2em;
 }
 

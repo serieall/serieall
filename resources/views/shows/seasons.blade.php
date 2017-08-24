@@ -31,29 +31,23 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('content_fiche_width')
-    <div id="MiddleBlockShow" class="ten wide column">
-        <div class="ui stackable grid">
-            <div class="row">
-                <div class="ui segment">
-                    <div class="ui stackable secondary menu">
-                        <div id="seasonsLine" class="ui stackable grid">
-                            @foreach($showInfo['show']->seasons as $season)
-                                <a class="
+    <div id="menuListSeasons" class="row">
+        <div class="column ficheContainer">
+            <div class="ui segment">
+                <div class="ui stackable secondary menu">
+                    <div id="seasonsLine" class="ui stackable grid">
+                        @foreach($showInfo['show']->seasons as $season)
+                            <a class="
                                 @if($seasonInfo->name == $season->name)
                                     active
                                 @endif
-                                item" href="{{ route('show.seasons', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
-                            @endforeach
-                        </div>
+                                    item" href="{{ route('show.seasons', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="ui five wide column"></div>
 @endsection
 
 @section('content_fiche_left')
