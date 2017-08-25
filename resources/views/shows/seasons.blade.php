@@ -66,7 +66,11 @@
                                     @endif
                                 </td>
                                 <td class="left aligned">
-                                    {{ $episode->name }}
+                                    @if(!empty($episode->name_fr))
+                                        {{ $episode->name_fr }}
+                                    @else
+                                        {{ $episode->name }}
+                                    @endif
                                 </td>
                                 <td>
                                     {{ $episode->diffusion_us }}

@@ -34,15 +34,19 @@
 @endsection
 
 @section('content_fiche_left')
-    <div id="showDetails" class="ui segment">
+    <div id="episodeDetails" class="ui segment">
         <h1>
-            @if(!empty($episodeInfo->name))
-                {{ $episodeInfo->name }}
+            @if(!empty($episodeInfo->name_fr))
+                {{ $episodeInfo->name_fr }}
             @else
-                TBA
+                {{ $episodeInfo->name }}
             @endif
         </h1>
-        <h2 class="ui episode titrefr">{{ $episodeInfo->name_fr }}</h2>
+        <h2 class="ui episode titreen">
+            @if(!empty($episodeInfo->name_fr))
+                {{ $episodeInfo->name }}
+            @endif
+        </h2>
         <p>
             @if(empty($episodeInfo->resume_fr))
                 @if(empty($episodeInfo->resume))
@@ -56,6 +60,37 @@
         </p>
         <div class="ui divider"></div>
 
+        <table class="ui basic table">
+                <thead>
+                    <tr>
+                        @if($episodeInfo->diffusion_us != '0000-00-00')
+                            <th>
+                                <i class="calendar icon"></i>
+                                Diffusion originale
+                            </th>
+                        @endif
+                        @if($episodeInfo->diffusion_fr != '0000-00-00')
+                            <th>
+                                <i class="calendar icon"></i>
+                                <p class="ui bold text">Diffusion française</p>
+                            </th>
+                        @endif
+                    </tr>
+                </thead>
+            <tr>
+                @if($episodeInfo->diffusion_us != '0000-00-00')
+                    <td>
+                        {{ $episodeInfo->diffusion_us }}
+                    </td>
+                @endif
+                @if($episodeInfo->diffusion_fr != '0000-00-00')
+                    <td>
+                        {{ $episodeInfo->diffusion_fr }}
+                    </td>
+                @endif
+            </tr>
+        </table>
+
     </div>
 @endsection
 
@@ -63,17 +98,17 @@
     <div class="ui stackable grid">
         <div class="row">
             <div class="ui segment center aligned">
-                @if($seasonInfo->moyenne > $noteGood)
+                @if($episodeInfo->moyenne > $noteGood)
                     <p class="NoteSeason ui green text">
-                @elseif($seasonInfo->moyenne > $noteNeutral && $seasonInfo->moyenne < $noteGood)
+                @elseif($episodeInfo->moyenne > $noteNeutral && $episodeInfo->moyenne < $noteGood)
                     <p class="NoteSeason ui gray text">
                 @else
                     <p class="NoteSeason ui red text">
                         @endif
-                        {{ $seasonInfo->moyenne }}
+                        {{ $episodeInfo->moyenne }}
                     </p>
                     <p>
-                        {{ $seasonInfo->nbnotes }} notes
+                        {{ $episodeInfo->nbnotes }} notes
                     </p>
 
                     <div class="ui divider"></div>

@@ -443,7 +443,7 @@
     font-size: 2.5em;
     margin-bottom: 0;
 }
-#topInfo h2, .ui.episode.titrefr {
+#topInfo h2, .ui.episode.titreen {
     margin-top: 0;
     color: #b3b3b3;
     font-size: 1.2em;
@@ -746,6 +746,10 @@
 .ui.secondary.menu .active.item:hover {
     color: white;
     background-color: #213d64;
+}
+
+#episodeDetails p {
+    color: black;
 }
 
 /* PROFIL */
