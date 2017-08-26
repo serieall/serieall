@@ -752,6 +752,10 @@
     color: black;
 }
 
+#episodeDetails .ui.table thead th {
+    border-bottom: inherit;
+}
+
 /* PROFIL */
 .ui.menu .active.item {
     color: white;

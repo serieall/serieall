@@ -18,6 +18,7 @@ class CreateEpisodesTable extends Migration {
 			$table->date('diffusion_us')->nullable();
 			$table->date('diffusion_fr')->nullable();
 			$table->text('ba')->nullable();
+            $table->string('picture')->nullable();
 			$table->float('moyenne');
 			$table->integer('nbnotes');
 			$table->integer('season_id')->unsigned();

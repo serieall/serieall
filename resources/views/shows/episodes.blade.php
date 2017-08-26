@@ -60,6 +60,9 @@
         </p>
         <div class="ui divider"></div>
 
+        @if(!empty($episodeInfo->picture))
+            <img src="{{ $episodeInfo->picture }}">
+        @endif
         <table class="ui basic table">
                 <thead>
                     <tr>
@@ -72,7 +75,7 @@
                         @if($episodeInfo->diffusion_fr != '0000-00-00')
                             <th>
                                 <i class="calendar icon"></i>
-                                <p class="ui bold text">Diffusion française</p>
+                                Diffusion française
                             </th>
                         @endif
                     </tr>
@@ -91,6 +94,43 @@
             </tr>
         </table>
 
+        <div class="ui divider"></div>
+
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>
+                        Réalisateurs
+                    </th>
+                    <th>
+                        Scénaristes
+                    </th>
+                    <th>
+                        Guests
+                    </th>
+                </tr>
+            </thead>
+            <tr>
+                <td>
+                    @foreach($episodeInfo->directors as $director)
+                        {{ $director->name }}
+                        <br />
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($episodeInfo->writers as $writer)
+                        {{ $writer->name }}
+                        <br />
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($episodeInfo->guests as $guest)
+                        {{ $guest->name }}
+                        <br />
+                    @endforeach
+                </td>
+            </tr>
+        </table>
     </div>
 @endsection
 
