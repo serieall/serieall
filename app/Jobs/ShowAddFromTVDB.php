@@ -433,9 +433,19 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $logMessage = '>>>>>Résumé français : ' . $episode_new->resume_fr;
                     saveLogMessage($idLog, $logMessage);
 
+                    $episode_new->diffusion_fr = $getEpisode_fr->firstAired;
+                    # Diffusion française
+                    $logMessage = '>>>>>Diffusion française : ' . $episode_new->diffusion_fr;
+                    saveLogMessage($idLog, $logMessage);
+
                     $episode_new->diffusion_us = $getEpisode_en->firstAired;
                     # Diffusion originale
-                    $logMessage = '>>>>>Diffusion originale : ' . $episode_new->name_fr;
+                    $logMessage = '>>>>>Diffusion originale : ' . $episode_new->diffusion_us;
+                    saveLogMessage($idLog, $logMessage);
+
+                    $episode_new->picture = "https://thetvdb.com/banners/" . $getEpisode_en->filename;
+                    # Image
+                    $logMessage = '>>>>>Image : ' . $episode_new->name_fr;
                     saveLogMessage($idLog, $logMessage);
 
                     # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
