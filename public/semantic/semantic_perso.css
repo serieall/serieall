@@ -756,6 +756,16 @@
     border-bottom: inherit;
 }
 
+#episodeDetails .segment {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    border-top: none;
+}
+
+#episodeDetails .active.item:hover {
+    color: black;
+    background-color: inherit;
+}
+
 /* PROFIL */
 .ui.menu .active.item {
     color: white;

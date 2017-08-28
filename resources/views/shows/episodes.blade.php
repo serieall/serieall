@@ -60,44 +60,50 @@
         </p>
         <div class="ui divider"></div>
 
-        @if(!empty($episodeInfo->picture))
-            <img src="{{ $episodeInfo->picture }}">
-        @endif
-        <table class="ui basic table">
+        <div class="ui top attached tabular menu">
+            <a class="active item" data-tab="first" >Informations sur l'épisode</a>
+            <a class="item" data-tab="second">Fiche technique</a>
+        </div>
+        <div class="ui bottom attached active tab segment" data-tab="first">
+            @if(!empty($episodeInfo->picture))
+                <div class="ui center aligned">
+                    <img src="{{ $episodeInfo->picture }}">
+                </div>
+            @endif
+            <table class="ui basic table">
                 <thead>
-                    <tr>
-                        @if($episodeInfo->diffusion_us != '0000-00-00')
-                            <th>
-                                <i class="calendar icon"></i>
-                                Diffusion originale
-                            </th>
-                        @endif
-                        @if($episodeInfo->diffusion_fr != '0000-00-00')
-                            <th>
-                                <i class="calendar icon"></i>
-                                Diffusion française
-                            </th>
-                        @endif
-                    </tr>
+                <tr>
+                    @if($episodeInfo->diffusion_us != '0000-00-00')
+                        <th>
+                            <i class="calendar icon"></i>
+                            Diffusion originale
+                        </th>
+                    @endif
+                    @if($episodeInfo->diffusion_fr != '0000-00-00')
+                        <th>
+                            <i class="calendar icon"></i>
+                            Diffusion française
+                        </th>
+                    @endif
+                </tr>
                 </thead>
-            <tr>
-                @if($episodeInfo->diffusion_us != '0000-00-00')
-                    <td>
-                        {{ $episodeInfo->diffusion_us }}
-                    </td>
-                @endif
-                @if($episodeInfo->diffusion_fr != '0000-00-00')
-                    <td>
-                        {{ $episodeInfo->diffusion_fr }}
-                    </td>
-                @endif
-            </tr>
-        </table>
-
-        <div class="ui divider"></div>
-
-        <table class="ui table">
-            <thead>
+                <tr>
+                    @if($episodeInfo->diffusion_us != '0000-00-00')
+                        <td>
+                            {{ $episodeInfo->diffusion_us }}
+                        </td>
+                    @endif
+                    @if($episodeInfo->diffusion_fr != '0000-00-00')
+                        <td>
+                            {{ $episodeInfo->diffusion_fr }}
+                        </td>
+                    @endif
+                </tr>
+            </table>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="second">
+            <table class="ui table">
+                <thead>
                 <tr>
                     <th>
                         Réalisateurs
@@ -109,28 +115,29 @@
                         Guests
                     </th>
                 </tr>
-            </thead>
-            <tr>
-                <td>
-                    @foreach($episodeInfo->directors as $director)
-                        {{ $director->name }}
-                        <br />
-                    @endforeach
-                </td>
-                <td>
-                    @foreach($episodeInfo->writers as $writer)
-                        {{ $writer->name }}
-                        <br />
-                    @endforeach
-                </td>
-                <td>
-                    @foreach($episodeInfo->guests as $guest)
-                        {{ $guest->name }}
-                        <br />
-                    @endforeach
-                </td>
-            </tr>
-        </table>
+                </thead>
+                <tr>
+                    <td>
+                        @foreach($episodeInfo->directors as $director)
+                            {{ $director->name }}
+                            <br />
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach($episodeInfo->writers as $writer)
+                            {{ $writer->name }}
+                            <br />
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach($episodeInfo->guests as $guest)
+                            {{ $guest->name }}
+                            <br />
+                        @endforeach
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 @endsection
 
@@ -281,3 +288,10 @@
     </div>
 @endsection
 
+@section('scripts')
+    <script>
+        $('.ui.top.attached.tabular.menu .item')
+            .tab()
+        ;
+    </script>
+@endsection

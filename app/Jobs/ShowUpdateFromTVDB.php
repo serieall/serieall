@@ -346,9 +346,20 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                         $logMessage = '>>>>>Résumé français : ' . $episodeResumeFR;
                         saveLogMessage($idLog, $logMessage);
 
+                        $episodeDiffusionFR = $getEpisode_fr->firstAired;
+                        # Diffusion française
+                        $logMessage = '>>>>>Diffusion française : ' . $episodeDiffusionFR;
+                        saveLogMessage($idLog, $logMessage);
+
                         $episodeDiffusionUS = $getEpisode_en->firstAired;
                         # Diffusion originale
                         $logMessage = '>>>>>Diffusion originale : ' . $episodeDiffusionUS;
+                        saveLogMessage($idLog, $logMessage);
+
+
+                        $episodePicture = "https://thetvdb.com/banners/" . $getEpisode_en->filename;
+                        # Image
+                        $logMessage = '>>>>>Image : ' . $episodePicture;
                         saveLogMessage($idLog, $logMessage);
 
                         # On prépare le nouvel épisode
@@ -360,6 +371,8 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             'resume' => $episodeResumeEN,
                             'resume_fr' => $episodeResumeFR,
                             'diffusion_us' => $episodeDiffusionUS,
+                            'diffusion_fr' => $episodeDiffusionFR,
+                            'picture' => $episodePicture,
                         ]);
                         # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                         $episode_ref->season()->associate($season_ref);
