@@ -31,6 +31,42 @@
             </div>
         </div>
     </div>
+    <div id="menuListSeasons" class="row">
+        <div class="column ficheContainer">
+            <div class="ui segment">
+                <div class="ui stackable secondary menu">
+                    <div id="seasonsLine" class="ui stackable grid">
+                        <a class="item" href="{{ route('show.seasons', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
+                            <i class="browser icon"></i>
+                            Liste des saisons
+                        </a>
+
+                        @foreach($seasonInfo->episodes as $index => $episode)
+                            @if($episode->id == $episodeInfo->id)
+                                {{ $index }}
+                                @if($index == 0)
+                                    <a class="item" href="">
+                                        <i class="left chevron icon"></i>
+                                        Episode précédent
+                                    </a>
+                                @elseif($index == $totalEpisodes )
+                                    Dernier
+                                @else
+                                    Entre deux
+                                @endif
+                            @endif
+                        @endforeach
+
+
+                        <a class="item" href="{{ route('show.seasons', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
+                            Episode suivant
+                            <i class="right chevron icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('content_fiche_left')
@@ -70,7 +106,7 @@
                     <img src="{{ $episodeInfo->picture }}">
                 </div>
             @endif
-            <table class="ui basic table">
+            <table class="ui center aligned table">
                 <thead>
                 <tr>
                     @if($episodeInfo->diffusion_us != '0000-00-00')

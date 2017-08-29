@@ -94,6 +94,7 @@ class SeasonRepository
     {
         return $this->season
             ->with('episodes')
+            ->withCount('episodes')
             ->where('seasons.name', '=', $seasonName)
             ->where('seasons.show_id', '=', $showID)
             ->first();

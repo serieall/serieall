@@ -70,6 +70,7 @@ class ShowController extends Controller
     {
         $showInfo = $this->showRepository->getInfoShowFiche($showURL);
         $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $seasonName);
+
         if($episodeNumero == 0) {
             $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonInfo->id, $episodeNumero, $episodeID);
         }
@@ -77,6 +78,8 @@ class ShowController extends Controller
             $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroAndSeasonID($seasonInfo->id, $episodeNumero);
         }
 
-        return view('shows.episodes', compact('showInfo', 'seasonInfo', 'episodeInfo'));
+        $totalEpisodes = $seasonInfo->episodes_count - 1;
+
+        return view('shows.episodes', compact('showInfo', 'seasonInfo', 'episodeInfo', 'totalEpisodes'));
     }
 }
