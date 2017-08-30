@@ -10,7 +10,7 @@
                 </a>
                 <a class="active item">
                     <i class="big browser icon"></i>
-                    Saison {{ $seasonInfo->name }}
+                    Saisons
                 </a>
                 <a class="item" href="{{ route('show.details', $showInfo['show']->show_url) }}">
                     <i class="big list icon"></i>
@@ -118,6 +118,7 @@
         <div class="row">
             <div id="episodeDetails" class="ui segment">
                 <h1>
+                    S{{ $seasonInfo->name }}E{{ $episodeInfo->numero }} -
                     @if(!empty($episodeInfo->name_fr))
                         {{ $episodeInfo->name_fr }}
                     @else
