@@ -327,6 +327,22 @@
 
                     <div class="ui divider"></div>
 
+                    @if(Auth::Check())
+                        <form class="ui form">
+                            <select class="ui compact search dropdown">
+                                <option value="">Note</option>
+                                @for($i = 1; $i <= 20 ;$i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                            <button class="ui button">Valider</button>
+                        </form>
+                    @else
+                        Vous devez être connecté pour pouvoir noter l'épisode.
+                    @endif
+
+                    <div class="ui divider"></div>
+
                     <div class="ui feed">
                         <div class="event">
                             <div class="label">
