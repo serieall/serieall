@@ -328,14 +328,35 @@
                     <div class="ui divider"></div>
 
                     @if(Auth::Check())
-                        <form class="ui form">
-                            <select class="ui compact search dropdown">
-                                <option value="">Note</option>
-                                @for($i = 1; $i <= 20 ;$i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                            <button class="ui button">Valider</button>
+                        <form class="ui form" action="{{ route('episode.rate') }}" method="POST">
+                            {{ csrf_field() }}
+
+                            <div class="inline fields">
+                            <input type="hidden" name="episode_id" value="{{ $episodeInfo->id }}">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <div class="ui field {{ $errors->has('note') ? ' error' : '' }}">
+                                <label for="note">Noter l'épisode</label>
+                                <select id="note" name="note" class="ui compact search dropdown" required>
+                                    <option value="{{ old('note') }}">
+                                        @if(old('note'))
+                                            {{ old('note') }}
+                                        @else
+                                            Note
+                                        @endif
+                                    </option>
+                                    @for($i = 20; $i >= 1; $i--)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+
+                                @if ($errors->has('note'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('note') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                                <button class="ui button">Valider</button>
+                            </div>
                         </form>
                     @else
                         Vous devez être connecté pour pouvoir noter l'épisode.

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RateRequest;
+use App\Models\Episode_user;
+use App\Models\User;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\EpisodeRepository;
@@ -81,5 +84,19 @@ class ShowController extends Controller
         $totalEpisodes = $seasonInfo->episodes_count - 1;
 
         return view('shows.episodes', compact('showInfo', 'seasonInfo', 'episodeInfo', 'totalEpisodes'));
+    }
+
+    public function rateEpisode(RateRequest $request)
+    {
+
+        $rate_ref = User::Has('episodes')->get();
+
+        if(!is_null($rate_ref)) {
+            $inputs->season()->associate($season_ref);
+        }
+        else {
+
+        }
+
     }
 }
