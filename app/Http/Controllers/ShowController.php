@@ -88,15 +88,16 @@ class ShowController extends Controller
 
     public function rateEpisode(RateRequest $request)
     {
-
         $rate_ref = User::Has('episodes')->get();
+        $episode_ref = $this->episodeRepository->getEpisodeByID($request->episode_id);
 
-        if(!is_null($rate_ref)) {
-            $inputs->season()->associate($season_ref);
+        dd()
+
+        if($rate_ref) {
+            $episode_ref->users()->attach($request->user()->id, ['rate' => $request->note]);
         }
         else {
-
+            $episode_ref->users()->updateExistingPivot($request->user()->id, ['rate' => $request->note]);
         }
-
     }
 }
