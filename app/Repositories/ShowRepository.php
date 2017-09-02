@@ -264,4 +264,8 @@ class ShowRepository
             ->with('actors')
             ->findOrFail($id);
     }
+
+    public function getShowByID($id) {
+        return $this->show->findOrFail($id);
+    }
 }

@@ -45,15 +45,19 @@
                                  <a href="{{ route('show.seasons', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
                              </td>
                              <td>
-                                 @if($season->moyenne > $noteGood)
-                                     <p class="ui green text">
-                                 @elseif($season->moyenne > $noteNeutral && $season->moyenne < $noteGood)
-                                     <p class="ui gray text">
+                                 @if($season->moyenne < 1)
+                                     -
                                  @else
-                                     <p class="ui red text">
+                                     @if($season->moyenne > $noteGood)
+                                         <p class="ui green text">
+                                     @elseif($season->moyenne > $noteNeutral && $season->moyenne < $noteGood)
+                                         <p class="ui gray text">
+                                     @else
+                                         <p class="ui red text">
+                                     @endif
+                                         {{ $season->moyenne }}
+                                     </p>
                                  @endif
-                                     {{ $season->moyenne }}
-                                 </p>
 
                              </td>
                              <td>

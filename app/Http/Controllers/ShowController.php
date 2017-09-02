@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RateRequest;
+use App\Models\Episode;
 use App\Models\Episode_user;
-use App\Models\User;
+use App\Models\Season;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\EpisodeRepository;
@@ -86,18 +87,59 @@ class ShowController extends Controller
         return view('shows.episodes', compact('showInfo', 'seasonInfo', 'episodeInfo', 'totalEpisodes'));
     }
 
+    /**
+     * Notation d'un épisode
+     *
+     * @param RateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function rateEpisode(RateRequest $request)
     {
-        $rate_ref = User::Has('episodes')->get();
+        $user_id = $request->user()->id;
+        $rate_ref = Episode_user::where('episode_id', '=', $request->episode_id)
+            ->where('user_id', '=', $user_id)
+            ->first();
         $episode_ref = $this->episodeRepository->getEpisodeByID($request->episode_id);
+        $season_ref = $this->seasonRepository->getSeasonByID($episode_ref->season_id);
+        $show_ref = $this->showRepository->getShowByID($season_ref->show_id);
 
-        dd()
+        if(is_null($rate_ref)) {
+            echo "n'existe pas";
+            $episode_ref->users()->attach($user_id, ['rate' => $request->note]);
 
-        if($rate_ref) {
-            $episode_ref->users()->attach($request->user()->id, ['rate' => $request->note]);
+
+            # On incrémente tous les nombres d'épisodes
+            $episode_ref->nbnotes += 1;
+            $season_ref->nbnotes += 1 ;
+            $show_ref->nbnotes += 1;
         }
         else {
-            $episode_ref->users()->updateExistingPivot($request->user()->id, ['rate' => $request->note]);
+            echo "existe";
+            $episode_ref->users()->updateExistingPivot($user_id, ['rate' => $request->note]);
         }
+
+        // On calcule sa moyenne et on la sauvegarde dans l'objet
+        $mean_episode = Episode_user::where('episode_id', '=', $episode_ref->id)
+            ->avg('rate');
+        $episode_ref->moyenne = $mean_episode;
+        $episode_ref->save();
+
+        // On calcule la moyenne de la saison et on la sauvegarde dans l'objet
+        $mean_season = Episode::where('season_id', '=', $season_ref->id)
+            ->where('moyenne', '>', 0)
+            ->avg('moyenne');
+
+        $season_ref->moyenne = $mean_season;
+        $season_ref->save();
+
+        // On calcule la moyenne de la série et on la sauvegarde dans l'objet
+        $mean_show = Season::where('show_id', '=', $show_ref->id)
+            ->where('moyenne', '>', 0)
+            ->avg('moyenne');
+
+        $show_ref->moyenne = $mean_show;
+        $show_ref->save();
+
+        return redirect()->back();
     }
 }

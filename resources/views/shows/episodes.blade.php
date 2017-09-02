@@ -312,18 +312,32 @@
     <div class="ui stackable grid">
         <div class="row">
             <div class="ui segment center aligned">
-                @if($episodeInfo->moyenne > $noteGood)
-                    <p class="NoteSeason ui green text">
-                @elseif($episodeInfo->moyenne > $noteNeutral && $episodeInfo->moyenne < $noteGood)
-                    <p class="NoteSeason ui gray text">
-                @else
-                    <p class="NoteSeason ui red text">
-                        @endif
-                        {{ $episodeInfo->moyenne }}
+                @if($episodeInfo->moyenne < 1)
+                    <p class="NoteSeason">
+                        -
                     </p>
                     <p>
-                        {{ $episodeInfo->nbnotes }} notes
+                        Pas encore de notes
                     </p>
+                @else
+                    @if($episodeInfo->moyenne > $noteGood)
+                        <p class="NoteSeason ui green text">
+                    @elseif($episodeInfo->moyenne > $noteNeutral && $episodeInfo->moyenne < $noteGood)
+                        <p class="NoteSeason ui gray text">
+                    @else
+                        <p class="NoteSeason ui red text">
+                    @endif
+                            {{ $episodeInfo->moyenne }}
+                        </p>
+                        <p>
+                            {{ $episodeInfo->nbnotes }}
+                            @if($episodeInfo->nbnotes <= 1)
+                                note
+                            @else
+                                notes
+                            @endif
+                        </p>
+                @endif
 
                     <div class="ui divider"></div>
 
@@ -333,7 +347,7 @@
 
                             <div class="inline fields">
                             <input type="hidden" name="episode_id" value="{{ $episodeInfo->id }}">
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
                             <div class="ui field {{ $errors->has('note') ? ' error' : '' }}">
                                 <label for="note">Noter l'épisode</label>
                                 <select id="note" name="note" class="ui compact search dropdown" required>

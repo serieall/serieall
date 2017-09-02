@@ -97,7 +97,13 @@
                                     @endif
                                     cx="100" cy="100" r="90" fill="none" stroke="none" transform="rotate(-90 100 100)" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="{{ $showInfo['noteCircle'] }}" ></circle>
                         </g>
-                        <text x="50%" y="58%" text-anchor="middle" fill="white">{{ $showInfo['show']->moyenne }}</text>
+                        <text x="50%" y="58%" text-anchor="middle" fill="white">
+                            @if($showInfo['show']->moyenne < 1)
+                                -
+                            @else
+                                {{ $showInfo['show']->moyenne }}
+                            @endif
+                        </text>
                     </svg>
                     <div id="ShowReviewCount">
                         <p>

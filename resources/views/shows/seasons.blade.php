@@ -76,16 +76,21 @@
                                     {{ $episode->diffusion_us }}
                                 </td>
                                 <td>
-                                    @if($episode->moyenne > $noteGood)
-                                        <p class="ui green text">
-                                    @elseif($episode->moyenne > $noteNeutral && $episode->moyenne < $noteGood)
-                                        <p class="ui gray text">
-                                    @else
-                                        <p class="ui red text">
-                                            @endif
-                                            {{ $episode->moyenne }}
+                                    @if($episode->moyenne < 1)
+                                        <p class="ui black text">
+                                            -
                                         </p>
-
+                                    @else
+                                        @if($episode->moyenne > $noteGood)
+                                            <p class="ui green text">
+                                        @elseif($episode->moyenne > $noteNeutral && $episode->moyenne < $noteGood)
+                                            <p class="ui gray text">
+                                        @else
+                                            <p class="ui red text">
+                                        @endif
+                                                {{ $episode->moyenne }}
+                                            </p>
+                                    @endif
                                 </td>
                                 <td>
                                     24
@@ -192,18 +197,32 @@
     <div class="ui stackable grid">
         <div class="row">
             <div class="ui segment center aligned">
-                @if($seasonInfo->moyenne > $noteGood)
-                    <p class="NoteSeason ui green text">
-                @elseif($seasonInfo->moyenne > $noteNeutral && $seasonInfo->moyenne < $noteGood)
-                    <p class="NoteSeason ui gray text">
+                @if($seasonInfo->moyenne < 1)
+                    <p class="NoteSeason">
+                        -
+                    </p>
+                    <p>
+                        Pas encore de notes
+                    </p>
                 @else
-                    <p class="NoteSeason ui red text">
+                    @if($seasonInfo->moyenne > $noteGood)
+                        <p class="NoteSeason ui green text">
+                    @elseif($seasonInfo->moyenne > $noteNeutral && $seasonInfo->moyenne < $noteGood)
+                        <p class="NoteSeason ui gray text">
+                    @else
+                        <p class="NoteSeason ui red text">
+                    @endif
+                            {{ $seasonInfo->moyenne }}
+                    </p>
+                    <p>
+                        {{ $seasonInfo->nbnotes }}
+                        @if($seasonInfo->nbnotes <= 1)
+                            note
+                        @else
+                            notes
+                        @endif
+                    </p>
                 @endif
-                        {{ $seasonInfo->moyenne }}
-                </p>
-                <p>
-                    {{ $seasonInfo->nbnotes }} notes
-                </p>
 
                 <div class="ui divider"></div>
 
