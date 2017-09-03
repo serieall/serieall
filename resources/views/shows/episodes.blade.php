@@ -379,91 +379,25 @@
                     <div class="ui divider"></div>
 
                     <div class="ui feed">
-                        <div class="event">
-                            <div class="label">
-                                <img src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                            </div>
-                            <div class="content">
-                                <div class="summary">
-                                    <a href="{{ route('user.profile', 'Youkoulayley') }}" class="user">
-                                        Youkoulayley
-                                    </a>
-                                    a noté <a href="">{{ $seasonInfo->name }}.01</a> -
-                                    <span class="ui green text">
-                                        15
+                        @foreach($rates->users as $user)
+                            <div class="event">
+                                <div class="label">
+                                    <img src="{{ Gravatar::src($user->email) }}">
+                                </div>
+                                <div class="content">
+                                    <div class="summary">
+                                        <a href="{{ route('user.profile', $user->username) }}" class="user">
+                                            {{ $user->username }}
+                                        </a>
+                                        a noté <a href="">S{{ $seasonInfo->name }}E{{ $episodeInfo->numero }}</a> -
+                                        <span class="ui green text">
+                                        {{ $user->pivot->rate }}
                                     </span>
-                                    <div class="date"> 1 Hour Ago </div>
+                                        <div class="date"> {{ $user->pivot->updated_at }} </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="event">
-                            <div class="label">
-                                <img src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                            </div>
-                            <div class="content">
-                                <div class="summary">
-                                    <a href="{{ route('user.profile', 'Youkoulayley') }}" class="user">
-                                        Youkoulayley
-                                    </a>
-                                    a noté <a href="">{{ $seasonInfo->name }}.01</a> -
-                                    <span class="ui green text">
-                                        15
-                                    </span>
-                                    <div class="date"> 1 Hour Ago </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="label">
-                                <img src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                            </div>
-                            <div class="content">
-                                <div class="summary">
-                                    <a href="{{ route('user.profile', 'Youkoulayley') }}" class="user">
-                                        Youkoulayley
-                                    </a>
-                                    a noté <a href="">{{ $seasonInfo->name }}.01</a> -
-                                    <span class="ui green text">
-                                        15
-                                    </span>
-                                    <div class="date"> 1 Hour Ago </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="label">
-                                <img src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                            </div>
-                            <div class="content">
-                                <div class="summary">
-                                    <a href="{{ route('user.profile', 'Youkoulayley') }}" class="user">
-                                        Youkoulayley
-                                    </a>
-                                    a noté <a href="">{{ $seasonInfo->name }}.01</a> -
-                                    <span class="ui green text">
-                                        15
-                                    </span>
-                                    <div class="date"> 1 Hour Ago </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="label">
-                                <img src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                            </div>
-                            <div class="content">
-                                <div class="summary">
-                                    <a href="{{ route('user.profile', 'Youkoulayley') }}" class="user">
-                                        Youkoulayley
-                                    </a>
-                                    a noté <a href="">{{ $seasonInfo->name }}.01</a> -
-                                    <span class="ui green text">
-                                        15
-                                    </span>
-                                    <div class="date"> 1 Hour Ago </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
             </div>
         </div>

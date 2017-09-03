@@ -93,6 +93,8 @@ class ShowController extends Controller
 
         $totalEpisodes = $seasonInfo->episodes_count - 1;
 
-        return view('shows.episodes', compact('showInfo', 'seasonInfo', 'episodeInfo', 'totalEpisodes'));
+        $rates = $this->episodeRepository->getRatesByEpisodeID($episodeInfo->id);
+
+        return view('shows.episodes', compact('showInfo', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates'));
     }
 }

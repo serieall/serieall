@@ -18,6 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 class Episode_user extends Model {
 
 	protected $table = 'episode_user';
-	public $timestamps = false;
+	public $timestamps = true;
 	protected $fillable = array('episode_id', 'user_id', 'rate');
 }
