@@ -38,7 +38,11 @@ Route::get('serie/{show_url}', 'ShowController@getShow')->name('show.fiche');
 Route::get('saison/{show_url}/{season}', 'ShowController@getShowSeasons')->name('show.seasons');
 Route::get('episode/{show_url}/s{season}e{episode}/{id?}', 'ShowController@getShowEpisodes')->name('show.episodes');
 Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.details');
-Route::post('episode/rate', 'ShowController@rateEpisode')->name('episode.rate')->middleware('auth');
+
+/*
+    Partie Episodes
+ */
+Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate')->middleware('auth');
 
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
