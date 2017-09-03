@@ -89,32 +89,39 @@ class ShowController extends Controller
 
     /**
      * Notation d'un épisode
+     * Mise à jour de le moyenne des épisodes/saisons/séries
+     * Mise à jour du nombre de notes épisodes/saisons/séries
      *
      * @param RateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function rateEpisode(RateRequest $request)
     {
+        // Définition des variables
         $user_id = $request->user()->id;
+
+        // La note existe-elle ?
         $rate_ref = Episode_user::where('episode_id', '=', $request->episode_id)
             ->where('user_id', '=', $user_id)
             ->first();
+
+        // Objets épisode, saison et séries
         $episode_ref = $this->episodeRepository->getEpisodeByID($request->episode_id);
         $season_ref = $this->seasonRepository->getSeasonByID($episode_ref->season_id);
         $show_ref = $this->showRepository->getShowByID($season_ref->show_id);
 
+        // Si la note n'exite pas
         if(is_null($rate_ref)) {
-            echo "n'existe pas";
+            // On l'ajoute
             $episode_ref->users()->attach($user_id, ['rate' => $request->note]);
-
 
             # On incrémente tous les nombres d'épisodes
             $episode_ref->nbnotes += 1;
-            $season_ref->nbnotes += 1 ;
+            $season_ref->nbnotes += 1;
             $show_ref->nbnotes += 1;
         }
         else {
-            echo "existe";
+            // On la met simplement à jour
             $episode_ref->users()->updateExistingPivot($user_id, ['rate' => $request->note]);
         }
 
