@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
+
 use App\Repositories\EpisodeRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
@@ -32,6 +34,16 @@ class EpisodeController extends Controller
         $this->seasonRepository = $seasonRepository;
         $this->showRepository = $showRepository;
     }
+
+    public function getShowEpisodes($episodeID)
+    {
+        $client = new Client(['base_uri' => env('APP_URL')]);
+        $data = json_decode($client->request('GET', '/api/rates/episode/' . $episodeID)->getBody());
+        dd($data->episode->users);
+        return view('shows.episodes', compact('data'));
+    }
+
+
 
     /**
      * Notation d'un épisode

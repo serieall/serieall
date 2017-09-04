@@ -42,6 +42,7 @@ Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.de
 /*
     Partie Episodes
  */
+Route::get('/episode/fiche/{id}', 'EpisodeController@getShowEpisodes')->name('show.episodetest');
 Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate')->middleware('auth');
 
 /*

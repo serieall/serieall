@@ -17,6 +17,7 @@
     $api->version('v1', [], function (Router $api){
        $api->get('shows/search', '\App\Http\Controllers\Api\V1\ShowSearchController@index');
        $api->get('episodes/seasons/{id}', '\App\Http\Controllers\Api\V1\EpisodesBySeasonID@index');
+       $api->get('rates/episode/{id}', '\App\Http\Controllers\Api\V1\RatesEpisodeController@index');
        $api->get('nationalities/list', '\App\Http\Controllers\Api\V1\NationalitiesController@index');
        $api->get('artists/list', '\App\Http\Controllers\Api\V1\ArtistsController@index');
        $api->get('genres/list', '\App\Http\Controllers\Api\V1\GenresController@index');
