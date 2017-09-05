@@ -70,7 +70,7 @@ class EpisodeController extends Controller
         }
         else {
             // On la met simplement à jour
-            $episode_ref->users()->updateExistingPivot($user_id, ['rate' => $request->note, 'season_id' => $season_ref->id]);
+            $episode_ref->users()->updateExistingPivot($user_id, ['rate' => $request->note]);
         }
 
         // On calcule sa moyenne et on la sauvegarde dans l'objet
