@@ -68,7 +68,9 @@ class EpisodeRepository
 
     public function getRatesByEpisodeID($id)
     {
-        return $this->episode->where('episodes.id', '=', $id)
-            ->with('users')->first();
+        return $this->episode
+            ->where('episodes.id', '=', $id)
+            ->with('users')
+            ->first();
     }
 }

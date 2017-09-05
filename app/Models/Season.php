@@ -69,5 +69,4 @@ class Season extends Model {
 	{
 		return $this->morphToMany('App\Models\Article', 'articlable');
 	}
-
 }

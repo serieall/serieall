@@ -67,7 +67,7 @@ class ShowController extends Controller
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
         $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season);
 
-        return view('shows.seasons', compact('showInfo', 'seasonInfo'));
+        return view('shows.seasons', compact('showInfo', 'seasonInfo', 'rates'));
     }
 
     /**
