@@ -130,7 +130,7 @@
                         {{ $episodeInfo->name }}
                     @endif
                 </h2>
-                <p>
+                <p class="episodeResume">
                     @if(empty($episodeInfo->resume_fr))
                         @if(empty($episodeInfo->resume))
                             Pas de résumé pour l'instant ...

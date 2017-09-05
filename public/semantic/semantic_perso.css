@@ -794,6 +794,10 @@
     margin-bottom: 1px;
 }
 
+p.episodeResume {
+    text-align: justify;
+}
+
 
 /*Correctifs elpio */
 

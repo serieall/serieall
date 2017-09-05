@@ -35,16 +35,6 @@ class EpisodeController extends Controller
         $this->showRepository = $showRepository;
     }
 
-    public function getShowEpisodes($episodeID)
-    {
-        $client = new Client(['base_uri' => env('APP_URL')]);
-        $data = json_decode($client->request('GET', '/api/rates/episode/' . $episodeID)->getBody());
-        dd($data->episode->users);
-        return view('shows.episodes', compact('data'));
-    }
-
-
-
     /**
      * Notation d'un épisode
      * Mise à jour de le moyenne des épisodes/saisons/séries
