@@ -6,6 +6,7 @@ use App\Http\Requests\RateRequest;
 use App\Models\Episode;
 use App\Models\Episode_user;
 use App\Models\Season;
+use App\Models\User;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\EpisodeRepository;
@@ -67,9 +68,24 @@ class ShowController extends Controller
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
         $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season);
 
-        $ratesSeason = Season::with('users','episodes')->where('seasons.id', '=', $seasonInfo->id)->first();
-        dd($ratesSeason->users);
-
+//        $ratesSeason = Season::with(['episodes',
+//            'episodes.users' => function ($query) {
+//            $query->select('username','rate' ,'episode_user.updated_at');
+//            $query->orderBy('episode_user.updated_at', 'desc');
+//        }])
+//            ->where('seasons.id', '=', $seasonInfo->id)
+//            ->first();
+//
+        $ratesSeason = User::select('id','username')
+            ->with(['episodes' => function($q){
+                $q->select('id', 'numero', 'rate', 'episode_user.updated_at');
+            }
+                ,'episodes.season' => function($query) use ($seasonInfo){
+                $query->where('id', '=', $seasonInfo->id);
+            }])
+            ->get()
+            ->toJson();
+        ;
         return view('shows.seasons', compact('showInfo', 'seasonInfo', 'rates'));
     }
 
