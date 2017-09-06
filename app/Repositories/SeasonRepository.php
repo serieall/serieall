@@ -3,6 +3,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Episode_user;
 use App\Models\Season;
 
 /**

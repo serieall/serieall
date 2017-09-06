@@ -69,4 +69,9 @@ class Season extends Model {
 	{
 		return $this->morphToMany('App\Models\Article', 'articlable');
 	}
+
+	public function users()
+    {
+        return $this->hasManyThrough('App\Models\Episode_user', 'App\Models\Episode')->orderBy('episode_user.updated_at', 'desc');
+    }
 }
