@@ -72,6 +72,6 @@ class Season extends Model {
 
 	public function users()
     {
-        return $this->hasManyThrough('App\Models\Episode_user', 'App\Models\Episode')->orderBy('episode_user.updated_at', 'desc');
+        return $this->hasManyThrough('App\Models\Episode_user', 'App\Models\Episode');
     }
 }

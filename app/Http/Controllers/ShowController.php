@@ -76,16 +76,23 @@ class ShowController extends Controller
 //            ->where('seasons.id', '=', $seasonInfo->id)
 //            ->first();
 //
-        $ratesSeason = User::select('id','username')
-            ->with(['episodes' => function($q){
-                $q->select('id', 'numero', 'rate', 'episode_user.updated_at');
-            }
-                ,'episodes.season' => function($query) use ($seasonInfo){
-                $query->where('id', '=', $seasonInfo->id);
-            }])
-            ->get()
-            ->toJson();
-        ;
+//        $ratesSeason = User::select('id','username')
+//            ->with(['episodes' => function($q){
+//                $q->select('id', 'numero', 'rate', 'episode_user.updated_at');
+//            }
+//                ,'episodes.season' => function($query) use ($seasonInfo){
+//                $query->where('id', '=', $seasonInfo->id);
+//            }])
+//            ->get()
+//            ->toArray();
+//
+        $ratesSeason = Season::select('id','name')
+            ->with(['users'])
+            ->where('id', '=', $seasonInfo->id)
+            ->first()
+            ->toArray();
+
+        dd($ratesSeason);
         return view('shows.seasons', compact('showInfo', 'seasonInfo', 'rates'));
     }
 
