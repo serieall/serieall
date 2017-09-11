@@ -195,6 +195,33 @@ function ActorPicture($actor){
     }
 }
 
-function affichageNumeroEpisode($season_number, $episode_number) {
-    return $season_number . "." . sprintf("%02s", $episode_number );
+/**
+ * Affiche le numéro de l'épisode avec ou sans le lien en fonction de la variable link_enabled.
+ *
+ * @param $show_url
+ * @param $season_number
+ * @param $episode_number
+ * @param $episode_id
+ * @param $link_enabled
+ * @param $episode_string
+ * @return string
+ */
+function affichageNumeroEpisode($show_url, $season_number, $episode_number, $episode_id, $link_enabled, $episode_string) {
+    if( $episode_string ) {
+        $text = "Episode " . $season_number . "." . sprintf("%02s", $episode_number);
+    }
+    else {
+        $text = $season_number . "." . sprintf("%02s", $episode_number);
+    }
+
+    if($link_enabled) {
+        if ($episode_number == 0) {
+            return "<a href=\"" . route('show.episodes', [$show_url, $season_number, $episode_number, $episode_id]) . "\">" . $text . "</a>";
+        } else {
+            return "<a href=\"" . route('show.episodes', [$show_url, $season_number, $episode_number]) . "\">" . $text . "</a>";
+        }
+    }
+    else {
+        return $text;
+    }
 }

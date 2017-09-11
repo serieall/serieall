@@ -118,7 +118,7 @@
         <div class="row">
             <div id="episodeDetails" class="ui segment">
                 <h1>
-                    {{ affichageNumeroEpisode($seasonInfo->name, $episodeInfo->numero) }} -
+                    {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero, $episodeInfo->id, false, false) !!} -
                     @if(!empty($episodeInfo->name_fr))
                         {{ $episodeInfo->name_fr }}
                     @else
@@ -389,7 +389,7 @@
                                         <a href="{{ route('user.profile', $user->username) }}" class="user">
                                             {{ $user->username }}
                                         </a>
-                                        a noté <a href="">{{ affichageNumeroEpisode($seasonInfo->name, $episodeInfo->numero) }}</a> -
+                                        a noté cet épisode -
                                         <span class="ui green text">
                                         {{ $user->pivot->rate }}
                                     </span>

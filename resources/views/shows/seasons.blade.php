@@ -59,11 +59,7 @@
                         @foreach($seasonInfo->episodes as $episode)
                             <tr>
                                 <td class="left aligned">
-                                    @if($episode->numero == 0)
-                                        <a href="{{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id]) }}">Episode spécial</a>
-                                    @else
-                                        <a href="{{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero]) }}">Episode {{ $seasonInfo->name }}.{{ $episode->numero }}</a>
-                                    @endif
+                                    {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id, true, true) !!}
                                 </td>
                                 <td class="left aligned">
                                     @if(!empty($episode->name_fr))
@@ -237,7 +233,7 @@
                                     <a href="{{ route('user.profile', $rate['user']['username']) }}" class="user">
                                         {{ $rate['user']['username'] }}
                                     </a>
-                                    a noté <a href="">{{ affichageNumeroEpisode($seasonInfo->name, $rate['episode']['numero']) }}</a> -
+                                    a noté {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $rate['episode']['numero'], $rate['episode']['id'], true, false) !!} -
 
                                     @if($rate['rate'] > $noteGood)
                                         <span class="ui green text">
