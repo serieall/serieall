@@ -20,4 +20,15 @@ class Episode_user extends Model {
 	protected $table = 'episode_user';
 	public $timestamps = true;
 	protected $fillable = array('episode_id', 'user_id', 'rate');
+    protected $dates = ['created_at', 'updated_at'];
+
+	public function episode()
+    {
+        return $this->belongsTo('App\Models\Episode', 'episode_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
 }

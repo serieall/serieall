@@ -393,7 +393,7 @@
                                         <span class="ui green text">
                                         {{ $user->pivot->rate }}
                                     </span>
-                                        <div class="date"> {{ $user->pivot->updated_at }} </div>
+                                        <div class="date"> {{ date('d-m-Y', strtotime($user->pivot->updated_at ))}}  </div>
                                     </div>
                                 </div>
                             </div>

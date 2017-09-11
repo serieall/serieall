@@ -68,32 +68,18 @@ class ShowController extends Controller
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
         $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season);
 
-//        $ratesSeason = Season::with(['episodes',
-//            'episodes.users' => function ($query) {
-//            $query->select('username','rate' ,'episode_user.updated_at');
-//            $query->orderBy('episode_user.updated_at', 'desc');
-//        }])
-//            ->where('seasons.id', '=', $seasonInfo->id)
-//            ->first();
-//
-//        $ratesSeason = User::select('id','username')
-//            ->with(['episodes' => function($q){
-//                $q->select('id', 'numero', 'rate', 'episode_user.updated_at');
-//            }
-//                ,'episodes.season' => function($query) use ($seasonInfo){
-//                $query->where('id', '=', $seasonInfo->id);
-//            }])
-//            ->get()
-//            ->toArray();
-//
-        $ratesSeason = Season::select('id','name')
-            ->with(['users'])
+        $ratesSeason = Season::with(['users' => function($q){
+               $q->orderBy('updated_at', 'desc');
+            }, 'users.episode' => function($q){
+                $q->select('id', 'numero');
+            }, 'users.user' => function($q){
+                $q->select('id', 'username', 'email');
+            }])
             ->where('id', '=', $seasonInfo->id)
             ->first()
             ->toArray();
 
-        dd($ratesSeason);
-        return view('shows.seasons', compact('showInfo', 'seasonInfo', 'rates'));
+        return view('shows.seasons', compact('showInfo', 'seasonInfo', 'ratesSeason'));
     }
 
     /**
