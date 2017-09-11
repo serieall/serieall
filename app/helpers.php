@@ -194,3 +194,7 @@ function ActorPicture($actor){
         return $folderActors . "default_empty.jpg";
     }
 }
+
+function affichageNumeroEpisode($season_number, $episode_number) {
+    return $season_number . "." . sprintf("%02s", $episode_number );
+}

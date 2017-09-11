@@ -118,7 +118,7 @@
         <div class="row">
             <div id="episodeDetails" class="ui segment">
                 <h1>
-                    S{{ $seasonInfo->name }}E{{ $episodeInfo->numero }} -
+                    {{ affichageNumeroEpisode($seasonInfo->name, $episodeInfo->numero) }} -
                     @if(!empty($episodeInfo->name_fr))
                         {{ $episodeInfo->name_fr }}
                     @else
@@ -389,7 +389,7 @@
                                         <a href="{{ route('user.profile', $user->username) }}" class="user">
                                             {{ $user->username }}
                                         </a>
-                                        a noté <a href="">S{{ $seasonInfo->name }}E{{ $episodeInfo->numero }}</a> -
+                                        a noté <a href="">{{ affichageNumeroEpisode($seasonInfo->name, $episodeInfo->numero) }}</a> -
                                         <span class="ui green text">
                                         {{ $user->pivot->rate }}
                                     </span>

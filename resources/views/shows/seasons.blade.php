@@ -237,7 +237,7 @@
                                     <a href="{{ route('user.profile', $rate['user']['username']) }}" class="user">
                                         {{ $rate['user']['username'] }}
                                     </a>
-                                    a noté <a href="">S{{ $seasonInfo->name }}E{{ $rate['episode']['numero'] }}</a> -
+                                    a noté <a href="">{{ affichageNumeroEpisode($seasonInfo->name, $rate['episode']['numero']) }}</a> -
 
                                     @if($rate['rate'] > $noteGood)
                                         <span class="ui green text">
