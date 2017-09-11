@@ -189,13 +189,13 @@
                         <thead>
                         <tr>
                             <th>
-                                Réalisateurs
+                                Réalisateur(s)
                             </th>
                             <th>
-                                Scénaristes
+                                Scénariste(s)
                             </th>
                             <th>
-                                Guests
+                                Guest(s)
                             </th>
                         </tr>
                         </thead>
