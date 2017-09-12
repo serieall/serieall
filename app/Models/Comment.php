@@ -22,8 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereLeft($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereRight($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereMessage($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereThumb($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereSpoiler($value)
@@ -39,7 +37,7 @@ class Comment extends Model {
 
 	protected $table = 'comments';
 	public $timestamps = true;
-	protected $fillable = array('left', 'right', 'message', 'thumb', 'spoiler', 'parent_id', 'commentable_id', 'commentable_type');
+	protected $fillable = array('message', 'thumb', 'spoiler', 'parent_id', 'commentable_id', 'commentable_type');
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

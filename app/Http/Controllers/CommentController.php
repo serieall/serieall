@@ -36,6 +36,6 @@ class CommentController extends Controller
         $comment->save();
 
         $show = $this->showRepository->getShowByID($inputs['show_id']);
-        $show->comments()->attach($comment->id);
+        $show->comments()->save($comment);
     }
 }
