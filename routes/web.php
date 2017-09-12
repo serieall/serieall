@@ -40,6 +40,11 @@ Route::get('episode/{show_url}/s{season}e{episode}/{id?}', 'ShowController@getSh
 Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.details');
 
 /*
+    Partie Commentaire
+*/
+Route::post('comment', 'CommentController@store')->name('comment.store')->middleware('auth');
+
+/*
     Partie Episodes
  */
 Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate')->middleware('auth');

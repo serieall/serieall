@@ -157,10 +157,59 @@
 
                          </div>
                          <div class="twelve wide column">
-                             <div class="ui DarkBlueSerieAll button">
+                             <div class="ui DarkBlueSerieAll button WriteAvis">
                                  <i class="write icon"></i> Ecrire un avis
                              </div>
                              <a class="AllAvis" href="#"><p>Toutes les avis ></p></a>
+                         </div>
+                     </div>
+
+                     <div class="ui modal">
+                         <div class="header">Ecrire un avis sur la série</div>
+                         <div class="content">
+                             <form class="ui form" method="post" action="{{ route('comment.store') }}">
+                                {{ csrf_field() }}
+
+                                 <input type="hidden" name="show_id" value="{{ $showInfo['show']->id }}">
+
+                                 <div class="two fields">
+                                     <div class="ui field">
+                                         <div class="ui selection dropdown">
+                                             <input name="thumb" id="thumb" type="hidden">
+                                             <i class="dropdown icon"></i>
+                                             <div class="default text">Choisissez un type</div>
+                                             <div class="menu">
+                                                 <div class="item" data-value="1">
+                                                     <i class="green smile large icon"></i>
+                                                     Avis favorable
+                                                 </div>
+                                                 <div class="item" data-value="2">
+                                                     <i class="grey meh large icon"></i>
+                                                     Avis neutre
+                                                 </div>
+                                                 <div class="item" data-value="3">
+                                                     <i class="red frown large icon"></i>
+                                                     Avis défavorable
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <div class="ui field">
+                                         <div class="ui toggle checkbox">
+                                             <input id="spoiler" name="spoiler" type="checkbox">
+                                             <label for="spoiler">Mon avis contient des spoilers</label>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                                 <p></p>
+
+                                 <textarea name="avis" id="avis" placeholder="Ecrivez votre avis ici..."></textarea>
+                                 <br />
+
+                                 <button class="ui positive button">Envoyer</button>
+                             </form>
                          </div>
                      </div>
                  </div>
@@ -255,4 +304,12 @@
              </div>
          </div>
      </div>
+@endsection
+
+@section('scripts')
+    <script>
+        CKEDITOR.replace( 'avis' );
+        $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
+        $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
+    </script>
 @endsection

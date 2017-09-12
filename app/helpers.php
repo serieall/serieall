@@ -225,3 +225,24 @@ function affichageNumeroEpisode($show_url, $season_number, $episode_number, $epi
         return $text;
     }
 }
+
+/**
+ * Affiche la note avec la bonne couleur
+ *
+ * @param $rate
+ * @return string
+ */
+function affichageNote($rate) {
+    $noteGood = config('param.good');
+    $noteNeutral = config('param.neutral');
+
+    if($rate > $noteGood) {
+        return "<span class=\"ui green text\">$rate</span>";
+    }
+    elseif($rate > $noteNeutral && $rate < $noteGood) {
+        return "<span class=\"ui gray text\">$rate</span>";
+    }
+    else {
+        return "<span class=\"ui red text\">$rate</span>";
+    }
+}

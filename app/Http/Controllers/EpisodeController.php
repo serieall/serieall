@@ -61,7 +61,7 @@ class EpisodeController extends Controller
         // Si la note n'exite pas
         if(is_null($rate_ref)) {
             // On l'ajoute
-            $episode_ref->users()->attach($user_id, ['rate' => $request->note]);
+            $episode_ref->users()->attach($user_id, ['rate' => $request->note, 'season_id' => $season_ref->id, 'show_id' => $show_ref->id]);
 
             # On incrémente tous les nombres d'épisodes
             $episode_ref->nbnotes += 1;

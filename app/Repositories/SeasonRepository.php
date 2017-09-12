@@ -100,4 +100,12 @@ class SeasonRepository
             ->where('seasons.show_id', '=', $showID)
             ->first();
     }
+
+    public function getRatesBySeasonID($id)
+    {
+        return $this->season
+            ->where('seasons.id', '=', $id)
+            ->with('users')
+            ->first();
+    }
 }

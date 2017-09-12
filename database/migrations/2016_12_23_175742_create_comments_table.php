@@ -9,8 +9,6 @@ class CreateCommentsTable extends Migration {
 	{
 		Schema::create('comments', function(Blueprint $table) {
 			$table->increments('id');
-			$table->integer('left');
-			$table->integer('right');
 			$table->text('message');
 			$table->string('thumb')->nullable()->index();
 			$table->boolean('spoiler')->default(0);

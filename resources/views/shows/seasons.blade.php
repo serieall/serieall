@@ -233,17 +233,7 @@
                                     <a href="{{ route('user.profile', $rate['user']['username']) }}" class="user">
                                         {{ $rate['user']['username'] }}
                                     </a>
-                                    a noté {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $rate['episode']['numero'], $rate['episode']['id'], true, false) !!} -
-
-                                    @if($rate['rate'] > $noteGood)
-                                        <span class="ui green text">
-                                    @elseif($rate['rate'] > $noteNeutral && $rate['rate'] < $noteGood)
-                                        <span class="ui gray text">
-                                    @else
-                                        <span class="ui red text">
-                                    @endif
-                                        {{ $rate['rate'] }}
-                                    </span>
+                                    a noté {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $rate['episode']['numero'], $rate['episode']['id'], true, false) !!} - {!! affichageNote($rate['rate']) !!}
 
                                     <div class="date">{{ date('d-m-Y', strtotime($rate['updated_at'])) }}</div>
                                 </div>

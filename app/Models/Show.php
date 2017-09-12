@@ -145,4 +145,11 @@ class Show extends Model {
 		return $this->morphToMany('App\Models\Artist', 'artistable')->orderBy('name')->wherePivot('profession', 'actor')->withPivot('role');
 	}
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'episode_user')->withPivot('rate', 'updated_at');
+    }
 }

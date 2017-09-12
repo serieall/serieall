@@ -389,10 +389,7 @@
                                         <a href="{{ route('user.profile', $user->username) }}" class="user">
                                             {{ $user->username }}
                                         </a>
-                                        a noté cet épisode -
-                                        <span class="ui green text">
-                                        {{ $user->pivot->rate }}
-                                    </span>
+                                        a noté cet épisode - {!! affichageNote($user->pivot->rate) !!}
                                         <div class="date"> {{ date('d-m-Y', strtotime($user->pivot->updated_at ))}}  </div>
                                     </div>
                                 </div>
