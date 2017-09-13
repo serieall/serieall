@@ -35,16 +35,6 @@ class CommentController extends Controller
             $comment->message = $inputs['avis'];
             $comment->thumb = $inputs['thumb'];
 
-            if(!isset($inputs['spoiler'])){
-                $comment->spoiler = 0;
-            }
-            elseif($inputs['spoiler'] == "off") {
-                $comment->spoiler = 0;
-            }
-            elseif($inputs['spoiler'] == "on") {
-                $comment->spoiler = 1;
-            }
-
             $comment->user()->associate($user_id);
             $comment->save();
 
@@ -55,16 +45,6 @@ class CommentController extends Controller
             $comment_ref->message = $inputs['avis'];
             $comment_ref->thumb = $inputs['thumb'];
 
-            if(!isset($inputs['spoiler'])){
-                $comment_ref->spoiler = 0;
-            }
-            elseif($inputs['spoiler'] == "off") {
-                $comment_ref->spoiler = 0;
-            }
-            elseif($inputs['spoiler'] == "on") {
-                $comment_ref->spoiler = 1;
-            }
-
             $comment_ref->user()->associate($user_id);
             $comment_ref->save();
 
@@ -72,6 +52,16 @@ class CommentController extends Controller
             $show->comments()->save($comment_ref);
         }
 
-        return redirect()->back()->with('success', 'Votre avis a été ajouté');
+        return response()->json();
+    }
+
+    /**
+     * Redirection
+     * @return \Illuminate\Http\Response
+     * @internal param $show_id
+     */
+    public function redirect()
+    {
+        return redirect()->back();
     }
 }

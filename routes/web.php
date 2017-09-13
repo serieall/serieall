@@ -43,6 +43,7 @@ Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.de
     Partie Commentaire
 */
 Route::post('comment', 'CommentController@store')->name('comment.store')->middleware('auth');
+Route::get('comment/redirect', 'CommentController@redirect')->name('comment.redirect');
 
 /*
     Partie Episodes

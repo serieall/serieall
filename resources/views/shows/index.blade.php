@@ -83,7 +83,7 @@
                      @foreach($last_avis as $avis)
                          <div class="row">
                              <div class="center aligned three wide column">
-                                 <img class="ui tiny image" src="{{ Gravatar::src($avis->user->email) }}">
+                                 <img class="ui tiny avatar image" src="{{ Gravatar::src($avis->user->email) }}">
                                  <span>{{ $avis->user->username }}</span><br />
                                  {!! roleUser($avis->user->role) !!}
                              </div>
@@ -135,60 +135,51 @@
 
                                      </div>
                                      <div class="content">
-                                         <form class="ui form" method="post" action="{{ route('comment.store') }}">
+                                         <form id="formAvis" class="ui form" method="post" action="{{ route('comment.store') }}">
                                             {{ csrf_field() }}
 
                                              <input type="hidden" name="show_id" value="{{ $showInfo['show']->id }}">
 
-                                             <div class="two fields">
-                                                 <div class="ui field">
-                                                     <div class="ui toggle checkbox">
-                                                         <input id="spoiler" name="spoiler" type="checkbox" value="
-                                                            @if(!is_null($avis_user))
-                                                                {{ $avis_user->spoiler }}
-                                                            @endif
-                                                         ">
-                                                         <label for="spoiler">Mon avis contient des spoilers</label>
-                                                     </div>
+                                             <div class="ui field">
+                                                 <div class="textarea input">
+                                                     <input class="avis" type="hidden">
+                                                     <textarea name="avis" id="avis" class="avis" placeholder="Ecrivez votre avis ici...">
+                                                         @if(!is_null($avis_user))
+                                                            {{ $avis_user->message }}
+                                                         @endif
+                                                     </textarea>
+
+                                                     <div class="ui red hidden message"></div>
                                                  </div>
 
-                                                 <div class="ui field">
-                                                     <div class="ui selection dropdown">
-                                                         <input name="thumb" id="thumb" type="hidden" value="
-                                                            @if(!is_null($avis_user))
-                                                                {{ $avis_user->thumb }}
-                                                            @endif
-                                                         ">
-                                                         <i class="dropdown icon"></i>
-                                                         <div class="default text">Choisissez un type</div>
-                                                         <div class="menu">
-                                                             <div class="item" data-value="1">
-                                                                 <i class="green smile large icon"></i>
-                                                                 Avis favorable
-                                                             </div>
-                                                             <div class="item" data-value="2">
-                                                                 <i class="grey meh large icon"></i>
-                                                                 Avis neutre
-                                                             </div>
-                                                             <div class="item" data-value="3">
-                                                                 <i class="red frown large icon"></i>
-                                                                 Avis défavorable
-                                                             </div>
+                                             </div>
+
+                                             <div class="ui field">
+                                                 <div class="ui fluid selection dropdown">
+                                                     <input name="thumb" id="thumb" class="thumb" type="hidden" value="@if(!is_null($avis_user)){{ $avis_user->thumb }}@endif">
+                                                     <i class="dropdown icon"></i>
+                                                     <div class="default text">Choisissez un type</div>
+                                                     <div class="menu">
+                                                         <div class="item" data-value="1">
+                                                             <i class="green smile large icon"></i>
+                                                             Avis favorable
+                                                         </div>
+                                                         <div class="item" data-value="2">
+                                                             <i class="grey meh large icon"></i>
+                                                             Avis neutre
+                                                         </div>
+                                                         <div class="item" data-value="3">
+                                                             <i class="red frown large icon"></i>
+                                                             Avis défavorable
                                                          </div>
                                                      </div>
                                                  </div>
+                                                 <div class="ui red hidden message"></div>
                                              </div>
 
                                              <p></p>
 
-                                             <textarea name="avis" id="avis" placeholder="Ecrivez votre avis ici...">
-                                                 @if(!is_null($avis_user))
-                                                    {{ $avis_user->message }}
-                                                 @endif
-                                             </textarea>
-                                             <br />
-
-                                             <button class="ui positive button">Envoyer</button>
+                                             <button class="ui submit positive button">Envoyer</button>
                                          </form>
                                      </div>
                                  </div>
@@ -295,5 +286,33 @@
         $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
         $('.ui.accordion').accordion();
+
+        // Submission
+        $(document).on('submit', '#formAvis', function(e) {
+            e.preventDefault();
+
+            $('.submit').addClass("loading");
+
+            $.ajax({
+                method: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType: "json"
+            })
+                .done(function () {
+                    window.location.reload(false);
+                })
+                .fail(function (data) {
+                    $('.submit').removeClass("loading");
+
+                    $.each(data.responseJSON, function (key, value) {
+                        var input = 'input[class="' + key + '"]';
+
+                        $(input + '+div').text(value);
+                        $(input + '+div').removeClass("hidden");
+                        $(input).parent().addClass('error');
+                    });
+                });
+        });
     </script>
 @endsection
