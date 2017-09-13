@@ -25,7 +25,7 @@ class CommentCreateRequest extends FormRequest
     {
         return [
             'show_id' => 'required|exists:shows,id',
-            'thumb' => 'required|numeric',
+            'thumb' => 'required|numeric|between:1,3',
             'avis' => 'required|min:100',
         ];
     }

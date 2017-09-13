@@ -805,6 +805,10 @@ p.episodeResume {
     text-align: justify;
 }
 
+.ui.fluid.styled.accordion, .ui.fluid.styled.accordion .accordion {
+    margin-bottom: 1em;
+}
+
 
 /*Correctifs elpio */
 

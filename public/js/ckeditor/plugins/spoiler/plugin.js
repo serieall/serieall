@@ -40,17 +40,18 @@
 
 		function createSpoiler() {
 			var spoilerContainer = editor.document.createElement( 'div', { 'attributes' : { 'class': 'ui fluid styled accordion' } } );
-			// var spoilerToggle = editor.document.createElement( 'span', { 'attributes' : { 'class': 'spoiler-toggle hide-icon' } } );
 			var spoilerTitle = editor.document.createElement( 'div', { 'attributes' : { 'class': 'title' } } );
 			var spoilerContent = editor.document.createElement( 'div', { 'attributes' : { 'class': 'content' } } );
+
 			spoilerTitle.on( 'click', function( event ) {
 				setSwitcher( event.sender );
 			});
-			// spoilerTitle.append( spoilerToggle );
+
             spoilerTitle.appendHtml( 'Spoiler' );
 			spoilerContent.appendHtml( '<p><br></p>' );
 			spoilerContainer.append( spoilerTitle );
 			spoilerContainer.append( spoilerContent );
+
 			return spoilerContainer;
 		}
 
@@ -72,6 +73,7 @@
 		editor.addCommand( 'spoiler', {
 			exec: function( editor ) {
 				var spoiler = createSpoiler();
+
 				editor.insertElement( spoiler );
 			},
 			allowedContent: 'div{*}(*);br'

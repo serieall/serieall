@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	// %REMOVE_START%
 	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'basicstyles,notification,button,toolbar,clipboard,enterkey,entities,floatingspace,wysiwygarea,indent,indentlist,dialogui,dialog,fakeobjects,link,list,undo,spoiler';
+	config.plugins = 'basicstyles,notification,button,toolbar,clipboard,enterkey,entities,floatingspace,wysiwygarea,indent,indentlist,dialogui,dialog,fakeobjects,link,list,undo,htmlwriter,wordcount,spoiler';
 	config.skin = 'moono-lisa';
 	// %REMOVE_END%
 

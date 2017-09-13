@@ -83,8 +83,9 @@
                      @foreach($last_avis as $avis)
                          <div class="row">
                              <div class="center aligned three wide column">
-                                 <img class="ui tiny avatar image" src="{{ Gravatar::src($avis->user->email) }}">
-                                 <span>{{ $avis->user->username }}</span><br />
+                                 <a href="{{ route('user.profile', $avis->user->username) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($avis->user->email) }}">
+                                 {{ $avis->user->username }}</a>
+                                 <br />
                                  {!! roleUser($avis->user->role) !!}
                              </div>
                              <div class="AvisBox center aligned twelve wide column">
@@ -95,7 +96,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="AvisResume">
-                                            {!! $avis->message  !!}
+                                            {!! $avis->message !!}
                                         </td>
                                     </tr>
                                     <tr>
@@ -142,14 +143,15 @@
 
                                              <div class="ui field">
                                                  <div class="textarea input">
-                                                     <input class="avis" type="hidden">
                                                      <textarea name="avis" id="avis" class="avis" placeholder="Ecrivez votre avis ici...">
                                                          @if(!is_null($avis_user))
                                                             {{ $avis_user->message }}
                                                          @endif
                                                      </textarea>
 
-                                                     <div class="ui red hidden message"></div>
+                                                     <div class="nombreCarac ui red hidden message">
+                                                        100 caractères minimum requis.
+                                                     </div>
                                                  </div>
 
                                              </div>
@@ -282,37 +284,53 @@
 
 @section('scripts')
     <script>
-        CKEDITOR.replace( 'avis' );
+        CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true, minCharCount: 100}} );
         $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
-        $('.ui.fluid.styled.accordion').accordion();
+        $('.ui.accordion').accordion({});
 
         // Submission
         $(document).on('submit', '#formAvis', function(e) {
             e.preventDefault();
 
-            $('.submit').addClass("loading");
+            var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
+            var nombreCaracAvis = '{!! config('param.nombreCaracAvis') !!}';
 
-            $.ajax({
-                method: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                dataType: "json"
-            })
-                .done(function () {
-                    window.location.reload(false);
+
+
+            if(messageLength < nombreCaracAvis ) {
+                $('.nombreCarac').removeClass("hidden");
+            }
+            else {
+                $('.submit').addClass("loading");
+
+                var divNestedSpoilers = "div.content>div.accordion";
+                $(divNestedSpoilers).removeClass("ui fluid styled");
+                var message = CKEDITOR.instances['avis'].getData();
+
+                console.log(message);
+
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json"
                 })
-                .fail(function (data) {
-                    $('.submit').removeClass("loading");
+                    .done(function () {
+                        window.location.reload(false);
+                    })
+                    .fail(function (data) {
+                        $('.submit').removeClass("loading");
 
-                    $.each(data.responseJSON, function (key, value) {
-                        var input = 'input[class="' + key + '"]';
+                        $.each(data.responseJSON, function (key, value) {
+                            var input = 'input[class="' + key + '"]';
 
-                        $(input + '+div').text(value);
-                        $(input + '+div').removeClass("hidden");
-                        $(input).parent().addClass('error');
+                            $(input + '+div').text(value);
+                            $(input + '+div').removeClass("hidden");
+                            $(input).parent().addClass('error');
+                        });
                     });
-                });
+            }
         });
     </script>
 @endsection
