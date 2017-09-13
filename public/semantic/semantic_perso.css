@@ -584,6 +584,12 @@
     padding: 2rem;
     width: 100%;
 }
+
+#LeftBlockShow .inverted.segment, #RightBlockShow .inverted.segment {
+    background-color: black;
+    padding: 1rem;
+}
+
 #MiddleBlockShow .segment {
     border: none;
     background-color: white;

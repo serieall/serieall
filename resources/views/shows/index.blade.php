@@ -48,15 +48,7 @@
                                  @if($season->moyenne < 1)
                                      -
                                  @else
-                                     @if($season->moyenne > $noteGood)
-                                         <p class="ui green text">
-                                     @elseif($season->moyenne > $noteNeutral && $season->moyenne < $noteGood)
-                                         <p class="ui gray text">
-                                     @else
-                                         <p class="ui red text">
-                                     @endif
-                                         {{ $season->moyenne }}
-                                     </p>
+                                     {!! affichageNote($season->moyenne) !!}
                                  @endif
 
                              </td>
@@ -88,128 +80,119 @@
              <div id="ListAvis" class="ui segment">
                  <h1>Derniers avis sur la série</h1>
                  <div class="ui stackable grid">
-                     <div class="row">
-                         <div class="center aligned three wide column">
-                             <img class="ui tiny image" src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                             <span>Youkoulayley</span><br />
-                             <span class="ui red text">Administrateur</span>
+                     @foreach($last_avis as $avis)
+                         <div class="row">
+                             <div class="center aligned three wide column">
+                                 <img class="ui tiny image" src="{{ Gravatar::src($avis->user->email) }}">
+                                 <span>{{ $avis->user->username }}</span><br />
+                                 {!! roleUser($avis->user->role) !!}
+                             </div>
+                             <div class="AvisBox center aligned twelve wide column">
+                                <table class="ui {!! affichageThumbBorder($avis->thumb) !!} left border table">
+                                    <tr>
+                                        {!! affichageThumb($avis->thumb) !!}
+                                        <td class="right aligned">Déposé le {{ $avis->created_at }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="AvisResume">
+                                            {!! $avis->message  !!}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ui grey text">{{--Réponse--}}</td>
+                                        <td class="LireAvis"><a>Lire l'avis complet ></a></td>
+                                    </tr>
+                                </table>
+                             </div>
                          </div>
-                         <div class="AvisBox center aligned twelve wide column">
-                            <table class="ui grey left border table">
-                                <tr>
-                                    <td class="ui grey text AvisStatus">Avis neutre</td>
-                                    <td class="right aligned">Déposé le 26/05/2017 à 9h53</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="AvisResume">
-                                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-                                            dicta dolorem excepturi non nulla, obcaecati quo rerum sequi sint? Ab
-                                            cumque deserunt doloribus iste, molestias provident quia repellat
-                                            repellendus soluta?
-                                        </div>
-                                        <div>A culpa eius esse laboriosam neque nobis odio, sapiente. Aliquam
-                                            animi, at consectetur earum eos itaque iure modi nisi nulla odio
-                                            perspiciatis ...
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ui grey text">10 réponses</td>
-                                    <td class="LireAvis"><a>Lire l'avis complet ></a></td>
-                                </tr>
-                            </table>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="center aligned three wide column">
-                             <img class="ui tiny image" src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                             <span>Youkoulayley</span><br />
-                             <span class="ui red text">Administrateur</span>
-                         </div>
-                         <div class="AvisBox center aligned twelve wide column">
-                             <table class="ui green left border table">
-                                 <tr>
-                                     <td class="ui green text AvisStatus">Avis favorable</td>
-                                     <td class="right aligned">Déposé le 26/05/2017 à 9h53</td>
-                                 </tr>
-                                 <tr>
-                                     <td colspan="2" class="AvisResume">
-                                         <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-                                             dicta dolorem excepturi non nulla, obcaecati quo rerum sequi sint? Ab
-                                             cumque deserunt doloribus iste, molestias provident quia repellat
-                                             repellendus soluta?
-                                         </div>
-                                         <div>A culpa eius esse laboriosam neque nobis odio, sapiente. Aliquam
-                                             animi, at consectetur earum eos itaque iure modi nisi nulla odio
-                                             perspiciatis ...
-                                         </div>
-                                     </td>
-                                 </tr>
-                                 <tr>
-                                     <td class="ui grey text">10 réponses</td>
-                                     <td class="LireAvis"><a>Lire l'avis complet ></a></td>
-                                 </tr>
-                             </table>
-                         </div>
-                     </div>
+                     @endforeach
                      <div class="row">
                          <div class="three wide column">
 
                          </div>
                          <div class="twelve wide column">
-                             <div class="ui DarkBlueSerieAll button WriteAvis">
-                                 <i class="write icon"></i> Ecrire un avis
-                             </div>
-                             <a class="AllAvis" href="#"><p>Toutes les avis ></p></a>
-                         </div>
-                     </div>
+                             @if(Auth::check())
+                                 <div class="ui DarkBlueSerieAll button WriteAvis">
+                                     <i class="write icon"></i>
+                                     @if(is_null($avis_user))
+                                         Ecrire un avis
+                                     @else
+                                         Modifier mon avis
+                                     @endif
 
-                     <div class="ui modal">
-                         <div class="header">Ecrire un avis sur la série</div>
-                         <div class="content">
-                             <form class="ui form" method="post" action="{{ route('comment.store') }}">
-                                {{ csrf_field() }}
+                                 </div>
+                                 <a class="AllAvis" href="#"><p>Toutes les avis ></p></a>
 
-                                 <input type="hidden" name="show_id" value="{{ $showInfo['show']->id }}">
 
-                                 <div class="two fields">
-                                     <div class="ui field">
-                                         <div class="ui selection dropdown">
-                                             <input name="thumb" id="thumb" type="hidden">
-                                             <i class="dropdown icon"></i>
-                                             <div class="default text">Choisissez un type</div>
-                                             <div class="menu">
-                                                 <div class="item" data-value="1">
-                                                     <i class="green smile large icon"></i>
-                                                     Avis favorable
+                                 <div class="ui modal">
+
+                                     <div class="header">
+                                         @if(is_null($avis_user))
+                                             Ecrire un avis sur la série
+                                         @else
+                                             Modifier mon avis sur la série
+                                         @endif
+
+                                     </div>
+                                     <div class="content">
+                                         <form class="ui form" method="post" action="{{ route('comment.store') }}">
+                                            {{ csrf_field() }}
+
+                                             <input type="hidden" name="show_id" value="{{ $showInfo['show']->id }}">
+
+                                             <div class="two fields">
+                                                 <div class="ui field">
+                                                     <div class="ui toggle checkbox">
+                                                         <input id="spoiler" name="spoiler" type="checkbox" value="
+                                                            @if(!is_null($avis_user))
+                                                                {{ $avis_user->spoiler }}
+                                                            @endif
+                                                         ">
+                                                         <label for="spoiler">Mon avis contient des spoilers</label>
+                                                     </div>
                                                  </div>
-                                                 <div class="item" data-value="2">
-                                                     <i class="grey meh large icon"></i>
-                                                     Avis neutre
-                                                 </div>
-                                                 <div class="item" data-value="3">
-                                                     <i class="red frown large icon"></i>
-                                                     Avis défavorable
+
+                                                 <div class="ui field">
+                                                     <div class="ui selection dropdown">
+                                                         <input name="thumb" id="thumb" type="hidden" value="
+                                                            @if(!is_null($avis_user))
+                                                                {{ $avis_user->thumb }}
+                                                            @endif
+                                                         ">
+                                                         <i class="dropdown icon"></i>
+                                                         <div class="default text">Choisissez un type</div>
+                                                         <div class="menu">
+                                                             <div class="item" data-value="1">
+                                                                 <i class="green smile large icon"></i>
+                                                                 Avis favorable
+                                                             </div>
+                                                             <div class="item" data-value="2">
+                                                                 <i class="grey meh large icon"></i>
+                                                                 Avis neutre
+                                                             </div>
+                                                             <div class="item" data-value="3">
+                                                                 <i class="red frown large icon"></i>
+                                                                 Avis défavorable
+                                                             </div>
+                                                         </div>
+                                                     </div>
                                                  </div>
                                              </div>
-                                         </div>
-                                     </div>
 
-                                     <div class="ui field">
-                                         <div class="ui toggle checkbox">
-                                             <input id="spoiler" name="spoiler" type="checkbox">
-                                             <label for="spoiler">Mon avis contient des spoilers</label>
-                                         </div>
+                                             <p></p>
+
+                                             <textarea name="avis" id="avis" placeholder="Ecrivez votre avis ici...">
+                                                 @if(!is_null($avis_user))
+                                                    {{ $avis_user->message }}
+                                                 @endif
+                                             </textarea>
+                                             <br />
+
+                                             <button class="ui positive button">Envoyer</button>
+                                         </form>
                                      </div>
                                  </div>
-
-                                 <p></p>
-
-                                 <textarea name="avis" id="avis" placeholder="Ecrivez votre avis ici..."></textarea>
-                                 <br />
-
-                                 <button class="ui positive button">Envoyer</button>
-                             </form>
+                             @endif
                          </div>
                      </div>
                  </div>
@@ -311,5 +294,6 @@
         CKEDITOR.replace( 'avis' );
         $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
+        $('.ui.accordion').accordion();
     </script>
 @endsection

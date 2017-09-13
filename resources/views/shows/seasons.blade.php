@@ -77,15 +77,7 @@
                                             -
                                         </p>
                                     @else
-                                        @if($episode->moyenne > $noteGood)
-                                            <p class="ui green text">
-                                        @elseif($episode->moyenne > $noteNeutral && $episode->moyenne < $noteGood)
-                                            <p class="ui gray text">
-                                        @else
-                                            <p class="ui red text">
-                                        @endif
-                                                {{ $episode->moyenne }}
-                                            </p>
+                                        {!! affichageNote($episode->moyenne) !!}
                                     @endif
                                 </td>
                                 <td>

@@ -1,10 +1,10 @@
 /* spoiler */
-div.spoiler {
+.ui.fluid.styled.accordion {
 	padding: 5px;
 	line-height: 1.6;
 }
 
-div.spoiler div.spoiler-title {
+.ui.fluid.styled.accordion .title {
 	color: #000000;
 	font-size: 12px;
 	font-weight: bold;
@@ -31,7 +31,7 @@ div.spoiler div.spoiler-title {
 	-ms-user-select: none;
 }
 
-div.spoiler div.spoiler-title div.spoiler-toggle {
+.ui.fluid.styled.accordion .title .spoiler-toggle {
 	display: inline-block;
 	width: 11px;
 	height: 11px;
@@ -42,15 +42,15 @@ div.spoiler div.spoiler-title div.spoiler-toggle {
 	-webkit-user-modify: read-only;
 }
 
-div.spoiler div.spoiler-title div.hide-icon {
+.ui.fluid.styled.accordion .title .hide-icon {
 	background: url('../images/minus.png') no-repeat scroll left center transparent;
 }
 
-div.spoiler div.spoiler-title div.show-icon {
+.ui.fluid.styled.accordion .title .show-icon {
 	background: url('../images/plus.png') no-repeat scroll left center transparent;
 }
 
-div.spoiler div.spoiler-content {
+.ui.fluid.styled.accordion .content {
 	font-size: 13px;
 	border: 1px solid #bbbbbb;
 	border-top: 0px;

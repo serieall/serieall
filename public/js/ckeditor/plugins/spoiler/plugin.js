@@ -1,5 +1,5 @@
 ﻿CKEDITOR.plugins.add( 'spoiler' , {
-	lang: 'en,ru',
+	lang: 'en,fr,ru',
 	icons: 'spoiler',
 	init: function( editor ) {
 		if ( editor.blockless )
@@ -39,15 +39,15 @@
 		}
 
 		function createSpoiler() {
-			var spoilerContainer = editor.document.createElement( 'div', { 'attributes' : { 'class': 'spoiler' } } );
+			var spoilerContainer = editor.document.createElement( 'div', { 'attributes' : { 'class': 'ui fluid styled accordion' } } );
 			var spoilerToggle = editor.document.createElement( 'div', { 'attributes' : { 'class': 'spoiler-toggle hide-icon' } } );
-			var spoilerTitle = editor.document.createElement( 'div', { 'attributes' : { 'class': 'spoiler-title' } } );
-			var spoilerContent = editor.document.createElement( 'div', { 'attributes' : { 'class': 'spoiler-content' } } );
+			var spoilerTitle = editor.document.createElement( 'div', { 'attributes' : { 'class': 'title' } } );
+			var spoilerContent = editor.document.createElement( 'div', { 'attributes' : { 'class': 'content' } } );
 			spoilerToggle.on( 'click', function( event ) {
 				setSwitcher( event.sender );
 			});
 			spoilerTitle.append( spoilerToggle );
-			spoilerTitle.appendHtml( '<br>' );
+            spoilerTitle.appendHtml( 'Spoiler' );
 			spoilerContent.appendHtml( '<p><br></p>' );
 			spoilerContainer.append( spoilerTitle );
 			spoilerContainer.append( spoilerContent );

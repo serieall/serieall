@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RateRequest;
+use App\Models\Comment;
 use App\Models\Episode;
 use App\Models\Episode_user;
 use App\Models\Season;
@@ -10,6 +11,7 @@ use App\Models\User;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\EpisodeRepository;
+use Illuminate\Support\Facades\Auth;
 
 class ShowController extends Controller
 {
@@ -42,7 +44,20 @@ class ShowController extends Controller
     {
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        return view('shows/index', compact('showInfo'));
+        if(Auth::Check()) {
+            $avis_user = Comment::where('commentable_id', '=', $showInfo['show']->id)
+                ->where('user_id', '=', Auth::user()->id)
+                ->where('commentable_type', '=', 'App\Models\Show')
+                ->first();
+        }
+
+        $last_avis = Comment::where('commentable_id', '=', $showInfo['show']->id)
+            ->where('commentable_type', '=', 'App\Models\Show')
+            ->with('user')
+            ->limit(2)
+            ->get();
+
+        return view('shows/index', compact('showInfo', 'avis_user', 'last_avis'));
     }
 
     /**

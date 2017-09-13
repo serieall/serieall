@@ -246,3 +246,31 @@ function affichageNote($rate) {
         return "<span class=\"ui red text\">$rate</span>";
     }
 }
+
+function affichageThumb($thumb) {
+    switch ($thumb) {
+        case 1:
+            return "<td class=\"ui green text AvisStatus\">Avis favorable</td>";
+            break;
+        case 2:
+            return "<td class=\"ui grey text AvisStatus\">Avis neutre</td>";
+            break;
+        case 3:
+            return "<td class=\"ui red text AvisStatus\">Avis défavorable</td>";
+            break;
+    }
+}
+
+function affichageThumbBorder($thumb) {
+    switch ($thumb) {
+        case 1:
+            return "green";
+            break;
+        case 2:
+            return "grey";
+            break;
+        case 3:
+            return "red";
+            break;
+    }
+}
