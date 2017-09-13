@@ -311,7 +311,6 @@
                 .accordion({
                     selector: {
                         trigger: '.expandableBlock'
-
                     },
                     exclusive: false
                 })

@@ -285,7 +285,7 @@
         CKEDITOR.replace( 'avis' );
         $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
-        $('.ui.accordion').accordion();
+        $('.ui.fluid.styled.accordion').accordion();
 
         // Submission
         $(document).on('submit', '#formAvis', function(e) {
