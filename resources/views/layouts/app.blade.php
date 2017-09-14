@@ -19,6 +19,7 @@
     {{ Html::script('/js/datatables.js') }}
     {{ Html::script('/semantic/semantic.min.js') }}
     {{ Html::script('/js/ckeditor/ckeditor.js') }}
+    {{ Html::script('/jquery-spoiler/jquery.spoiler.min.js') }}
 
     <!-- Piwik -->
     <script type="text/javascript">

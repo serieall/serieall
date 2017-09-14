@@ -183,6 +183,9 @@
 
                                              <button class="ui submit positive button">Envoyer</button>
                                          </form>
+                                         <script>
+                                            CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true}} );
+                                         </script>
                                      </div>
                                  </div>
                              @endif
@@ -284,10 +287,10 @@
 
 @section('scripts')
     <script>
-        CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true, minCharCount: 100}} );
         $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
         $('.ui.accordion').accordion({});
+        $('.spoiler').spoiler();
 
         // Submission
         $(document).on('submit', '#formAvis', function(e) {
@@ -295,8 +298,6 @@
 
             var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
             var nombreCaracAvis = '{!! config('param.nombreCaracAvis') !!}';
-
-
 
             if(messageLength < nombreCaracAvis ) {
                 $('.nombreCarac').removeClass("hidden");
