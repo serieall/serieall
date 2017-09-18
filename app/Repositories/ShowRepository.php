@@ -265,6 +265,12 @@ class ShowRepository
             ->findOrFail($id);
     }
 
+    /**
+     * Get show by ID
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
     public function getShowByID($id) {
         return $this->show->findOrFail($id);
     }

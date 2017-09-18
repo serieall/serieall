@@ -139,7 +139,8 @@
                                          <form id="formAvis" class="ui form" method="post" action="{{ route('comment.store') }}">
                                             {{ csrf_field() }}
 
-                                             <input type="hidden" name="show_id" value="{{ $showInfo['show']->id }}">
+                                             <input type="hidden" name="object" value="Show">
+                                             <input type="hidden" name="object_id" value="{{ $showInfo['show']->id }}">
 
                                              <div class="ui field">
                                                  <div class="textarea input">
