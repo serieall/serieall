@@ -184,7 +184,7 @@
                                              <button class="ui submit positive button">Envoyer</button>
                                          </form>
                                          <script>
-                                            CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true}} );
+                                            CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true, showWordCount: false, showParagraphs: false }} );
                                          </script>
                                      </div>
                                  </div>
@@ -290,7 +290,6 @@
         $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
         $('.ui.accordion').accordion({});
-        $('.spoiler').spoiler();
 
         // Submission
         $(document).on('submit', '#formAvis', function(e) {
@@ -308,8 +307,6 @@
                 var divNestedSpoilers = "div.content>div.accordion";
                 $(divNestedSpoilers).removeClass("ui fluid styled");
                 var message = CKEDITOR.instances['avis'].getData();
-
-                console.log(message);
 
                 $.ajax({
                     method: $(this).attr('method'),

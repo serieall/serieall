@@ -128,6 +128,12 @@
     background-image: none;
 }
 
+blockquote {
+    font-style: italic;
+    padding-left: 20px;
+    border-left: #ccc 4px solid;
+}
+
 /* DIMMER */
 .ui.dimmer:not(.tempDimmer) {
     z-index: 101;

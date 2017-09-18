@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	// %REMOVE_START%
 	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'basicstyles,notification,button,toolbar,clipboard,enterkey,entities,floatingspace,wysiwygarea,dialogui,dialog,fakeobjects,link,list,undo,htmlwriter,wordcount,spoiler';
+	config.plugins = 'basicstyles,notification,button,toolbar,clipboard,enterkey,entities,floatingspace,wysiwygarea,dialogui,dialog,fakeobjects,link,list,undo,htmlwriter,wordcount,spoiler,blockquote';
 	config.skin = 'moono-lisa';
 	// %REMOVE_END%
 
@@ -34,8 +34,12 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.
-	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
+	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Subscript,Superscript';
 
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
+
+	// Prevent filler nodes in all empty blocks.
+    config.fillEmptyBlocks = false;
+    CKEDITOR.dtd.$removeEmpty['p'] = false;
 };
