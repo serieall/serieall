@@ -6,25 +6,33 @@ use App\Http\Requests\CommentCreateRequest;
 
 use App\Models\Comment;
 use App\Repositories\CommentRepository;
+use App\Repositories\EpisodeRepository;
+use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
-
-use Route;
 
 class CommentController extends Controller
 {
 
     protected $commentRepository;
     protected $showRepository;
+    protected $seasonRepository;
+    protected $episodeRepository;
 
     /**
      * CommentController constructor.
      * @param CommentRepository $commentRepository
      * @param ShowRepository $showRepository
+     * @param SeasonRepository $seasonRepository
+     * @param EpisodeRepository $episodeRepository
      */
     public function __construct(CommentRepository $commentRepository,
-                                ShowRepository $showRepository){
+                                ShowRepository $showRepository,
+                                SeasonRepository $seasonRepository,
+                                EpisodeRepository $episodeRepository){
         $this->commentRepository = $commentRepository;
         $this->showRepository = $showRepository;
+        $this->seasonRepository = $seasonRepository;
+        $this->episodeRepository = $episodeRepository;
     }
 
     /**
@@ -35,17 +43,30 @@ class CommentController extends Controller
      */
     public function store(CommentCreateRequest $request) {
         # Define variables by request
-        $user_id = $request->user()->id;
-        $object_id = $request->inputs['object_id'];
-        $object = 'App\Models\\' . $request->inputs['object'];
-
         $inputs = $request->all();
+        $user_id = $request->user()->id;
+        $object_id = $inputs['object_id'];
+        $object = $inputs['object'];
+        $objectFQ = 'App\Models\\' . $object;
 
-        # Get Show
-        $show = $this->showRepository->getShowByID($object_id);
+        # Get Object
+        switch ($object){
+            case 'Show':
+                $object = $this->showRepository->getShowByID($object_id);
+                break;
+            case 'Season':
+                $object = $this->seasonRepository->getSeasonByID($object_id);
+                break;
+            case 'Episode':
+                $object = $this->episodeRepository->getEpisodeByID($object_id);
+                break;
+            default:
+                return response()->json();
+                break;
+        }
 
         # Check id comment exist
-        $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $object, $object_id );
+        $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $objectFQ, $object_id );
 
         # If not, we create it
         if(is_null($comment_ref)) {
@@ -61,7 +82,7 @@ class CommentController extends Controller
             $comment->save();
 
             # Attach to show and save
-            $show->comments()->save($comment);
+            $object->comments()->save($comment);
         }
         else {
             # Redefine fields
@@ -73,7 +94,7 @@ class CommentController extends Controller
             $comment_ref->save();
 
             # Attach to show and save
-            $show->comments()->save($comment_ref);
+            $object->comments()->save($comment_ref);
         }
 
         return response()->json();

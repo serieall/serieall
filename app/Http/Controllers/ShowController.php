@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RateRequest;
-use App\Models\Comment;
-use App\Models\Episode;
-use App\Models\Episode_user;
+
 use App\Models\Season;
-use App\Models\User;
+
+use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\EpisodeRepository;
+
 use Illuminate\Support\Facades\Auth;
 
 class ShowController extends Controller
@@ -18,20 +17,24 @@ class ShowController extends Controller
     protected $showRepository;
     protected $seasonRepository;
     protected $episodeRepository;
+    protected $commentRepository;
 
     /**
      * ShowController constructor.
      * @param ShowRepository $showRepository
      * @param SeasonRepository $seasonRepository
      * @param EpisodeRepository $episodeRepository
+     * @param CommentRepository $commentRepository
      */
     public function __construct(ShowRepository $showRepository,
                                 SeasonRepository $seasonRepository,
-                                EpisodeRepository $episodeRepository)
+                                EpisodeRepository $episodeRepository,
+                                CommentRepository $commentRepository)
     {
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
         $this->episodeRepository = $episodeRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -42,22 +45,24 @@ class ShowController extends Controller
      */
     public function getShow($show_url)
     {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
-
-        if(Auth::Check()) {
-            $avis_user = Comment::where('commentable_id', '=', $showInfo['show']->id)
-                ->where('user_id', '=', Auth::user()->id)
-                ->where('commentable_type', '=', 'App\Models\Show')
-                ->first();
+        # Define variables
+        if(Auth::check()) {
+            $user_id = Auth::user()->id;
+        }
+        else {
+            $user_id = null;
         }
 
-        $last_avis = Comment::where('commentable_id', '=', $showInfo['show']->id)
-            ->where('commentable_type', '=', 'App\Models\Show')
-            ->with('user')
-            ->limit(2)
-            ->get();
+        $type = 'App\Models\Show';
 
-        return view('shows/index', compact('showInfo', 'avis_user', 'last_avis'));
+        # Get Show
+        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $show_id = $showInfo['show']->id;
+
+        # Get Comments
+        $comments = getComments($user_id, $type, $show_id);
+
+        return view('shows/index', compact('showInfo', 'comments'));
     }
 
     /**

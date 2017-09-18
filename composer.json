@@ -34,7 +34,11 @@
             "App\\": "app/"
         },
         "files": [
-            "app/helpers.php"
+            "app/Helpers/comments.php",
+            "app/Helpers/fiches.php",
+            "app/Helpers/helpers.php",
+            "app/Helpers/logs.php",
+            "app/Helpers/users.php"
         ]
     },
     "autoload-dev": {

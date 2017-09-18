@@ -25,7 +25,7 @@ class CommentCreateRequest extends FormRequest
     {
         return [
             'object_id' => 'required|exists:shows,id',
-            'object' => 'required|in([\'Show\', \'Season\', \'Episode\'])',
+            'object' => 'required|in:Show,Season,Episode',
             'thumb' => 'required|numeric|between:1,3',
             'avis' => 'required|min:100',
         ];
