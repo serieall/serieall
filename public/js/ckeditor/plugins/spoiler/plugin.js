@@ -1,5 +1,5 @@
-﻿CKEDITOR.plugins.add( 'spoiler' , {
-	lang: 'en,fr,ru',
+CKEDITOR.plugins.add( 'spoiler' , {
+	lang: 'en,ru',
 	icons: 'spoiler',
 	init: function( editor ) {
 		if ( editor.blockless )
@@ -39,19 +39,18 @@
 		}
 
 		function createSpoiler() {
-			var spoilerContainer = editor.document.createElement( 'div', { 'attributes' : { 'class': 'ui fluid styled accordion' } } );
-			var spoilerTitle = editor.document.createElement( 'div', { 'attributes' : { 'class': 'title' } } );
-			var spoilerContent = editor.document.createElement( 'div', { 'attributes' : { 'class': 'content' } } );
-
-			spoilerTitle.on( 'click', function( event ) {
+			var spoilerContainer = editor.document.createElement( 'div', { 'attributes' : { 'class': 'spoiler' } } );
+			var spoilerToggle = editor.document.createElement( 'div', { 'attributes' : { 'class': 'spoiler-toggle hide-icon' } } );
+			var spoilerTitle = editor.document.createElement( 'div', { 'attributes' : { 'class': 'spoiler-title' } } );
+			var spoilerContent = editor.document.createElement( 'div', { 'attributes' : { 'class': 'spoiler-content' } } );
+			spoilerToggle.on( 'click', function( event ) {
 				setSwitcher( event.sender );
 			});
-
-            spoilerTitle.appendHtml( 'Spoiler' );
+			spoilerTitle.append( spoilerToggle );
+			spoilerTitle.appendHtml( 'Spoiler' );
 			spoilerContent.appendHtml( '<p><br></p>' );
 			spoilerContainer.append( spoilerTitle );
 			spoilerContainer.append( spoilerContent );
-
 			return spoilerContainer;
 		}
 
@@ -73,7 +72,6 @@
 		editor.addCommand( 'spoiler', {
 			exec: function( editor ) {
 				var spoiler = createSpoiler();
-
 				editor.insertElement( spoiler );
 			},
 			allowedContent: 'div{*}(*);br'

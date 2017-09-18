@@ -12,6 +12,7 @@
     {{ Html::style('/semantic/semantic.css') }}
     {{ Html::style('/semantic/semantic_perso.css') }}
     {{ Html::style('/js/jquery.css') }}
+    {{ Html::style('/spoiler/spoiler.css') }}
 
     <!-- Javascript -->
     {{ Html::script('/js/jquery.js') }}
@@ -19,7 +20,7 @@
     {{ Html::script('/js/datatables.js') }}
     {{ Html::script('/semantic/semantic.min.js') }}
     {{ Html::script('/js/ckeditor/ckeditor.js') }}
-    {{ Html::script('/jquery-spoiler/jquery.spoiler.min.js') }}
+    {{ Html::script('/spoiler/spoiler.js') }}
 
     <!-- Piwik -->
     <script type="text/javascript">
