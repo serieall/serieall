@@ -41,7 +41,7 @@
                                 @if($seasonInfo->name == $season->name)
                                     active
                                 @endif
-                                    item" href="{{ route('show.seasons', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
+                                    item" href="{{ route('season.fiche', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
                         @endforeach
                     </div>
                 </div>

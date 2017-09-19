@@ -34,21 +34,23 @@ Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos
 /*
     Partie Séries
 */
-Route::get('serie/{show_url}', 'ShowController@getShow')->name('show.fiche');
-Route::get('saison/{show_url}/{season}', 'ShowController@getShowSeasons')->name('show.seasons');
-Route::get('episode/{show_url}/s{season}e{episode}/{id?}', 'ShowController@getShowEpisodes')->name('show.episodes');
+Route::get('serie/{show_url}', 'ShowController@getShowFiche')->name('show.fiche');
 Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.details');
+/*
+    Partie Saisons
+ */
+Route::get('saison/{show_url}/{season}', 'SeasonController@getSeasonFiche')->name('season.fiche');
+
+/*
+    Partie Episodes
+ */
+Route::get('episode/{show_url}/s{season}e{episode}/{id?}', 'EpisodeController@getEpisodeFiche')->name('episode.fiche');
+Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate')->middleware('auth');
 
 /*
     Partie Commentaire
 */
 Route::post('comment', 'CommentController@store')->name('comment.store')->middleware('auth');
-Route::get('comment/redirect', 'CommentController@redirect')->name('comment.redirect');
-
-/*
-    Partie Episodes
- */
-Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate')->middleware('auth');
 
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)

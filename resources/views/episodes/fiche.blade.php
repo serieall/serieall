@@ -36,7 +36,7 @@
             <div class="ui segment">
                 <div class="ui stackable secondary menu">
                     <div id="seasonsLine" class="ui stackable grid">
-                        <a class="item" href="{{ route('show.seasons', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
+                        <a class="item" href="{{ route('season.fiche', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
                             <i class="browser icon"></i>
                             Liste des saisons
                         </a>
@@ -50,9 +50,9 @@
                                     ?>
                                     <a class="item" href="
                                         @if($numeroEpisodeSuivant == 0)
-                                            {{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant, $IDEpisodeSuivant]) }}
+                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant, $IDEpisodeSuivant]) }}
                                         @else
-                                            {{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant]) }}
+                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant]) }}
                                         @endif
                                     ">
                                         Episode suivant
@@ -65,9 +65,9 @@
                                     ?>
                                     <a class="item" href="
                                         @if($numeroEpisodePrecedent == 0)
-                                            {{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent, $IDEpisodePrecedent]) }}
+                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent, $IDEpisodePrecedent]) }}
                                         @else
-                                            {{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent]) }}
+                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent]) }}
                                         @endif
                                     ">
                                         <i class="left chevron icon"></i>
@@ -80,9 +80,9 @@
                                     ?>
                                     <a class="item" href="
                                         @if($numeroEpisodePrecedent == 0)
-                                            {{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent, $IDEpisodePrecedent]) }}
+                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent, $IDEpisodePrecedent]) }}
                                         @else
-                                            {{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent]) }}
+                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent]) }}
                                         @endif
                                     ">
                                         <i class="left chevron icon"></i>
@@ -95,9 +95,9 @@
                                     ?>
                                     <a class="item" href="
                                         @if($numeroEpisodeSuivant == 0)
-                                            {{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant, $IDEpisodeSuivant]) }}
+                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant, $IDEpisodeSuivant]) }}
                                         @else
-                                            {{ route('show.episodes', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant]) }}
+                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant]) }}
                                         @endif
                                     ">
                                         Episode suivant

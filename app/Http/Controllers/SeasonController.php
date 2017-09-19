@@ -12,63 +12,58 @@ use App\Repositories\EpisodeRepository;
 
 use Illuminate\Support\Facades\Auth;
 
-class ShowController extends Controller
+class SeasonController extends Controller
 {
     protected $showRepository;
     protected $seasonRepository;
-    protected $episodeRepository;
     protected $commentRepository;
 
     /**
      * ShowController constructor.
      * @param ShowRepository $showRepository
      * @param SeasonRepository $seasonRepository
-     * @param EpisodeRepository $episodeRepository
      * @param CommentRepository $commentRepository
      */
     public function __construct(ShowRepository $showRepository,
                                 SeasonRepository $seasonRepository,
-                                EpisodeRepository $episodeRepository,
                                 CommentRepository $commentRepository)
     {
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
-        $this->episodeRepository = $episodeRepository;
         $this->commentRepository = $commentRepository;
     }
 
     /**
-     * Envoi vers la page shows/index
+     * Envoi vers la page shows/seasons
      *
      * @param $show_url
+     * @param $season
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getShowFiche($show_url)
-    {
+    public function getSeasonFiche($show_url, $season) {
         # Get ID User if user authenticated
         $user_id = getIDIfAuth();
 
-        # Get Show
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season);
 
         # Compile Object informations
-        $object = compileObjectInfos('Show', $showInfo['show']->id);
+        $object = compileObjectInfos('Season', $seasonInfo->id);
+
+        $ratesSeason = Season::with(['users' => function($q){
+               $q->orderBy('updated_at', 'desc');
+            }, 'users.episode' => function($q){
+                $q->select('id', 'numero');
+            }, 'users.user' => function($q){
+                $q->select('id', 'username', 'email');
+            }])
+            ->where('id', '=', $seasonInfo->id)
+            ->first()
+            ->toArray();
 
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        return view('shows/fiche', compact('showInfo', 'comments', 'object'));
-    }
-
-    /**
-     * Envoi vers la page shows/details
-     *
-     * @param $show_url
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function getShowDetails($show_url) {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
-
-        return view('shows/details', compact('showInfo'));
+        return view('seasons.fiche', compact('showInfo', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
     }
 }

@@ -54,9 +54,9 @@ function affichageNumeroEpisode($show_url, $season_number, $episode_number, $epi
 
     if($link_enabled) {
         if ($episode_number == 0) {
-            return "<a href=\"" . route('show.episodes', [$show_url, $season_number, $episode_number, $episode_id]) . "\">" . $text . "</a>";
+            return "<a href=\"" . route('episode.fiche', [$show_url, $season_number, $episode_number, $episode_id]) . "\">" . $text . "</a>";
         } else {
-            return "<a href=\"" . route('show.episodes', [$show_url, $season_number, $episode_number]) . "\">" . $text . "</a>";
+            return "<a href=\"" . route('episode.fiche', [$show_url, $season_number, $episode_number]) . "\">" . $text . "</a>";
         }
     }
     else {
