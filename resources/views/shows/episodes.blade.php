@@ -224,7 +224,7 @@
             </div>
         </div>
         <div class="row">
-            @include('comments.listavis')
+            @include('comments.avis_fiche')
         </div>
     </div>
 @endsection

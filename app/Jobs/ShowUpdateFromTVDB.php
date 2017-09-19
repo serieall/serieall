@@ -356,8 +356,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                         $logMessage = '>>>>>Diffusion originale : ' . $episodeDiffusionUS;
                         saveLogMessage($idLog, $logMessage);
 
-
-                        $episodePicture = "https://thetvdb.com/banners/" . $getEpisode_en->filename;
+                        $episodePicture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
                         # Image
                         $logMessage = '>>>>>Image : ' . $episodePicture;
                         saveLogMessage($idLog, $logMessage);
@@ -693,6 +692,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         $api_url = config('thetvdb.url');
         $api_version = config('thetvdb.version');
         $hours_duration_token = config('thetvdb.hoursduration');
+        $public = public_path();
 
         /*
         |--------------------------------------------------------------------------
@@ -988,6 +988,19 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             saveLogMessage($idLog, $logMessage);
 
                             $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+
+                            /* Récupération de la photo de l'acteur */
+                            $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
+                            $file_headers = @get_headers($file);
+                            if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
+                                saveLogMessage($idLog, $logMessage);
+                            }
+                            else {
+                                copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
+                                $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
+                                saveLogMessage($idLog, $logMessage);
+                            }
                         }
                     }
                 }

@@ -75,14 +75,13 @@ class CommentRepository
 
         if(!is_null($user_id)) {
             $user_comment = $this->getCommentByUserIDTypeTypeID($user_id, $object, $object_id);
+
             if(!is_null($user_comment)){
                 $user_comment_id = $user_comment->id;
             }
         }
 
         $last_comment = $this->getLastTwoCommentsByTypeTypeID($object, $object_id, $user_comment_id);
-
-
 
         return compact('user_comment', 'last_comment');
     }
