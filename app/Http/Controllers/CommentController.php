@@ -99,14 +99,4 @@ class CommentController extends Controller
 
         return response()->json();
     }
-
-    /**
-     * Redirection
-     * @return \Illuminate\Http\Response
-     * @internal param $show_id
-     */
-    public function redirect()
-    {
-        return redirect()->back();
-    }
 }

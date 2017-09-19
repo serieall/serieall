@@ -33,3 +33,15 @@ function roleUser($id) {
 
     return $text;
 }
+
+function getIDIfAuth() {
+    # Define variables
+    if(Auth::check()) {
+        $user_id = Auth::user()->id;
+    }
+    else {
+        $user_id = null;
+    }
+
+    return $user_id;
+}

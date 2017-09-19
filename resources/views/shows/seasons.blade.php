@@ -97,86 +97,7 @@
         </div>
 
         <div class="row">
-            <div id="ListAvis" class="ui segment">
-                <h1>Derniers avis sur la saison</h1>
-                <div class="ui stackable grid">
-                    <div class="row">
-                        <div class="center aligned three wide column">
-                            <img class="ui tiny image" src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                            <span>Youkoulayley</span><br />
-                            <span class="ui red text">Administrateur</span>
-                        </div>
-                        <div class="AvisBox center aligned twelve wide column">
-                            <table class="ui grey left border table">
-                                <tr>
-                                    <td class="ui grey text AvisStatus">Avis neutre</td>
-                                    <td class="right aligned">Déposé le 26/05/2017 à 9h53</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="AvisResume">
-                                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-                                            dicta dolorem excepturi non nulla, obcaecati quo rerum sequi sint? Ab
-                                            cumque deserunt doloribus iste, molestias provident quia repellat
-                                            repellendus soluta?
-                                        </div>
-                                        <div>A culpa eius esse laboriosam neque nobis odio, sapiente. Aliquam
-                                            animi, at consectetur earum eos itaque iure modi nisi nulla odio
-                                            perspiciatis ...
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ui grey text">10 réponses</td>
-                                    <td class="LireAvis"><a>Lire l'avis complet ></a></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="center aligned three wide column">
-                            <img class="ui tiny image" src="{{ Gravatar::src('bmayelle@hotmail.fr') }}">
-                            <span>Youkoulayley</span><br />
-                            <span class="ui red text">Administrateur</span>
-                        </div>
-                        <div class="AvisBox center aligned twelve wide column">
-                            <table class="ui green left border table">
-                                <tr>
-                                    <td class="ui green text AvisStatus">Avis favorable</td>
-                                    <td class="right aligned">Déposé le 26/05/2017 à 9h53</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="AvisResume">
-                                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-                                            dicta dolorem excepturi non nulla, obcaecati quo rerum sequi sint? Ab
-                                            cumque deserunt doloribus iste, molestias provident quia repellat
-                                            repellendus soluta?
-                                        </div>
-                                        <div>A culpa eius esse laboriosam neque nobis odio, sapiente. Aliquam
-                                            animi, at consectetur earum eos itaque iure modi nisi nulla odio
-                                            perspiciatis ...
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ui grey text">10 réponses</td>
-                                    <td class="LireAvis"><a>Lire l'avis complet ></a></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="three wide column">
-
-                        </div>
-                        <div class="twelve wide column">
-                            <div class="ui DarkBlueSerieAll button">
-                                <i class="write icon"></i> Ecrire un avis
-                            </div>
-                            <a class="AllAvis" href="#"><p>Toutes les avis ></p></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('comments.listavis')
         </div>
     </div>
 @endsection
@@ -273,3 +194,4 @@
         </div>
     </div>
 @endsection
+

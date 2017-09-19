@@ -34,7 +34,6 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/comments.php",
             "app/Helpers/fiches.php",
             "app/Helpers/helpers.php",
             "app/Helpers/logs.php",

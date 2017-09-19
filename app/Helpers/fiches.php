@@ -128,3 +128,52 @@ function affichageThumbBorder($thumb) {
             break;
     }
 }
+
+/**
+ * Generate a message if user comment exist
+ *
+ * @param $object
+ * @param $user_comment
+ * @return string
+ */
+function messageComment($object, $user_comment) {
+    switch($object){
+        case 'Show':
+            $text = "cette série";
+            break;
+        case 'Season':
+            $text = "cette saison";
+            break;
+        case 'Episode':
+            $text = "cet épisode";
+            break;
+        default:
+            $text = "cet objet";
+            break;
+    }
+
+    if(is_null($user_comment)) {
+        return "Aucun membre n'a donné son avis sur " . $text . ". Ecrivez un avis pour être le premier !";
+    }
+    else {
+        return "Vous êtes le seul à avoir donné votre avis sur " . $text . ".";
+    }
+}
+
+/**
+ * Compile all objects informations
+ *
+ * @param $object
+ * @param $object_id
+ * @return array
+ */
+function compileObjectInfos($object, $object_id) {
+    $object = array(
+        'id' => $object_id,
+        'model' => $object,
+        'fq_model' => 'App\Models\\' . $object
+    );
+
+    return $object;
+}
+

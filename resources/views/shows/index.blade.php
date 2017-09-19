@@ -82,44 +82,46 @@
                  <div class="ui stackable grid">
                      @if(!$comments['last_comment'])
                          <div class="row">
-                             <p class="ui black text">
-                                 @if(is_null($comments['user_comment']))
-                                     Aucun membre n'a donné son avis sur cette série. Ecrivez un avis pour être le premier !
-                                 @else
-                                     Vous êtes le seul à avoir donné un commentaire à cette série.
-                                 @endif
-                             </p>
+                             <div class="ui message">
+                                 <p>
+                                     {!! messageComment('Show', $comments['user_comment']) !!}
+                                 </p>
+                             </div>
                          </div>
+                         <div class="ui divider"></div>
                      @else
                          @foreach($comments['last_comment'] as $avis)
                              <div class="row">
                                  <div class="center aligned three wide column">
                                      <a href="{{ route('user.profile', $avis['user']['username']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($avis['user']['email']) }}">
-                                     {{ $avis['user']['username'] }}</a>
+                                         {{ $avis['user']['username'] }}</a>
                                      <br />
                                      {!! roleUser($avis['user']['role']) !!}
                                  </div>
                                  <div class="AvisBox center aligned twelve wide column">
-                                    <table class="ui {!! affichageThumbBorder($avis['thumb']) !!} left border table">
-                                        <tr>
-                                            {!! affichageThumb($avis['thumb']) !!}
-                                            <td class="right aligned">Déposé le {{ $avis['created_at'] }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="AvisResume">
-                                                {!! $avis['message'] !!}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ui grey text">{{--Réponse--}}</td>
-                                            <td class="LireAvis"><a>Lire l'avis complet ></a></td>
-                                        </tr>
-                                    </table>
+                                     <table class="ui {!! affichageThumbBorder($avis['thumb']) !!} left border table">
+                                         <tr>
+                                             {!! affichageThumb($avis['thumb']) !!}
+                                             <td class="right aligned">Déposé le {{ $avis['created_at'] }}</td>
+                                         </tr>
+                                         <tr>
+                                             <td colspan="2" class="AvisResume">
+                                                 {!! $avis['message'] !!}
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td class="ui grey text">{{--Réponse--}}</td>
+                                             <td class="LireAvis"><a>Lire l'avis complet ></a></td>
+                                         </tr>
+                                     </table>
                                  </div>
                              </div>
                          @endforeach
                      @endif
-                     @if(!is_null($comments['user_comment']))
+                     @if(isset($comments['user_comment']))
+                         <div class="row">
+                             <h3>Mon avis</h3>
+                         </div>
                          <div class="row">
                              <div class="center aligned three wide column">
                                  <a href="{{ route('user.profile', $comments['user_comment']['user']['username']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($comments['user_comment']['user']['email']) }}">
@@ -148,10 +150,7 @@
                      @endif
 
                      <div class="row">
-                         <div class="three wide column">
-
-                         </div>
-                         <div class="twelve wide column">
+                         <div class="column">
                              @if(Auth::check())
                                  <div class="ui DarkBlueSerieAll button WriteAvis">
                                      <i class="write icon"></i>
@@ -162,14 +161,14 @@
                                      @endif
 
                                  </div>
-                                 @if(!$comments['last_comment'])
-                                    <a class="AllAvis" href="#"><p>Toutes les avis ></p></a>
+                                 @if($comments['last_comment'])
+                                     <a class="AllAvis" href="#"><p>Tous les avis ></p></a>
                                  @endif
                              @endif
                          </div>
                      </div>
-                 </div>
-             </div>
+                </div>
+            </div>
          </div>
      </div>
 @endsection
@@ -265,7 +264,7 @@
      <div class="ui modal">
 
          <div class="header">
-             @if(is_null($comments['user_comment']))
+             @if(isset($comments['user_comment']))
                  Ecrire un avis sur la série
              @else
                  Modifier mon avis sur la série
@@ -285,7 +284,7 @@
                  <div class="ui field">
                      <div class="textarea input">
                          <textarea name="avis" id="avis" class="avis" placeholder="Ecrivez votre avis ici...">
-                             @if(!is_null($comments['user_comment']))
+                             @if(isset($comments['user_comment']))
                                  {{ $comments['user_comment']['message'] }}
                              @endif
                          </textarea>
@@ -299,7 +298,7 @@
 
                  <div class="ui field">
                      <div class="ui fluid selection dropdown">
-                         <input name="thumb" id="thumb" class="thumb" type="hidden" value="@if(!is_null($comments['user_comment'])){{ $comments['user_comment']['thumb'] }}@endif">
+                         <input name="thumb" id="thumb" class="thumb" type="hidden" value="@if(isset($comments['user_comment'])){{ $comments['user_comment']['thumb'] }}@endif">
                          <i class="dropdown icon"></i>
                          <div class="default text">Choisissez un type</div>
                          <div class="menu">

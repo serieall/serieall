@@ -24,7 +24,7 @@ class CommentCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'object_id' => 'required|exists:shows,id',
+            'object_id' => 'required|numeric',
             'object' => 'required|in:Show,Season,Episode',
             'thumb' => 'required|numeric|between:1,3',
             'avis' => 'required|min:100',
