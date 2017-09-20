@@ -24,6 +24,7 @@ class RateRequest extends Request
     public function rules()
     {
         return [
+            'episode_id' => 'required|exists:episodes,id',
             'note' => 'required|numeric',
         ];
     }

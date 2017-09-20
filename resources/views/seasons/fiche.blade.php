@@ -137,7 +137,7 @@
 
                 <div class="ui divider"></div>
 
-                <div class="ui feed">
+                <div class="ui feed showMoreOrLess">
                     @foreach($ratesSeason['users'] as $rate)
                         <div class="event">
                             <div class="label">
@@ -156,6 +156,8 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="fadeDiv fadeShowMoreOrLess"></div>
+                <div><button class="ui button slideShowMoreOrLess">Voir plus</button></div>
             </div>
         </div>
 
@@ -195,5 +197,37 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            var $divView = $('.showMoreOrLess');
+            var innerHeight = $divView.removeClass('showMoreOrLess').height();
+            $divView.addClass('showMoreOrLess');
+
+            if(innerHeight < 220) {
+                $('.fadeShowMoreOrLess').remove();
+                $('.slideShowMoreOrLess').remove();
+                $divView.removeClass('showMoreOrLess');
+            }
+
+            $('.slideShowMoreOrLess').click(function() {
+                $('.showMoreOrLess').animate({
+                    height: (($divView.height() == 220)? innerHeight  : "220px")
+                }, 500);
+
+                if($divView.height() == 220) {
+                    $('.slideShowMoreOrLess').text('Voir moins');
+                    $('.fadeDiv').removeClass('fadeShowMoreOrLess');
+                }
+                else {
+                    $('.slideShowMoreOrLess').text('Voir plus');
+                    $('.fadeDiv').addClass('fadeShowMoreOrLess');
+                }
+                return false;
+            });
+        });
+    </script>
 @endsection
 

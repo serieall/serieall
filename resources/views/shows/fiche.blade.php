@@ -1,5 +1,7 @@
 @extends('layouts.fiche')
 
+@section('pageTitle', $showInfo['show']->name)
+
 @section('menu_fiche')
     <div id="menuFiche" class="menuFiche row">
         <div class="column">

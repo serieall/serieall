@@ -102,7 +102,7 @@ class EpisodeController extends Controller
         $show_ref->moyenne = $mean_show;
         $show_ref->save();
 
-        return redirect()->back();
+        return response()->json();
     }
 
     /**

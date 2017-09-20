@@ -5,7 +5,11 @@
             <div class="row">
                 <div class="ui message">
                     <p>
-                        {!! messageComment($object['model'], $comments['user_comment']) !!}
+                        @if(isset($comments['user_comment']))
+                            {!! messageComment($object['model'], $comments['user_comment']) !!}
+                        @else
+                            {!! messageComment($object['model'], null) !!}
+                        @endif
                     </p>
                 </div>
             </div>
@@ -27,7 +31,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="AvisResume">
-                                    {!! $avis['message'] !!}
+                                    {!! cutResume($avis['message']) !!}
                                 </td>
                             </tr>
                             <tr>
@@ -58,12 +62,18 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="AvisResume">
-                                {!! $comments['user_comment']['message'] !!}
+                                {!! cutResume($comments['user_comment']['message']) !!}
                             </td>
+
                         </tr>
                         <tr>
-                            <td class="ui grey text">{{--Réponse--}}</td>
-                            <td class="LireAvis"><a>Lire l'avis complet ></a></td>
+                            <td class="ui grey text">10 réponses</td>
+                            <td>
+                                <button class="ui right floated compact icon button">
+                                    <i class="right arrow icon"></i>
+                                    Lire l'avis complet
+                                </button>
+                            </td>
                         </tr>
                     </table>
                 </div>

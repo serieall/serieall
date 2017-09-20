@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Connexion')
+
 @section('content')
     <div class="row">
         <div class="five wide column">

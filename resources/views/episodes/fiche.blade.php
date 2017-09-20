@@ -48,7 +48,7 @@
                                 @if($index == 0)
                                     <?php
                                         $numeroEpisodeSuivant = $seasonInfo->episodes[$index + 1]->numero;
-                                         $IDEpisodeSuivant = $seasonInfo->episodes[$index + 1]->id;
+                                        $IDEpisodeSuivant = $seasonInfo->episodes[$index + 1]->id;
                                     ?>
                                     <a class="item" href="
                                         @if($numeroEpisodeSuivant == 0)
@@ -265,15 +265,16 @@
                     <div class="ui divider"></div>
 
                     @if(Auth::Check())
-                        <form class="ui form" action="{{ route('episode.rate') }}" method="POST">
+                        <form id="RateEpisode" class="ui form" action="{{ route('episode.rate') }}" method="POST">
                             {{ csrf_field() }}
 
                             <div class="inline fields">
-                            <input type="hidden" name="episode_id" value="{{ $episodeInfo->id }}">
+                            <input type="hidden" class="episode_id" name="episode_id" value="{{ $episodeInfo->id }}">
+                            <div class="ui red message hidden"></div>
 
                             <div class="ui field {{ $errors->has('note') ? ' error' : '' }}">
                                 <label for="note">Noter l'épisode</label>
-                                <select id="note" name="note" class="ui compact search dropdown" required>
+                                <select id="note" name="note" class="note ui compact search dropdown" required>
                                     <option value="{{ old('note') }}">
                                         @if(old('note'))
                                             {{ old('note') }}
@@ -285,12 +286,7 @@
                                         <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
-
-                                @if ($errors->has('note'))
-                                    <div class="ui red message">
-                                        <strong>{{ $errors->first('note') }}</strong>
-                                    </div>
-                                @endif
+                                <div class="ui red message hidden"></div>
                             </div>
                                 <button class="ui button">Valider</button>
                             </div>
@@ -365,5 +361,33 @@
         $('.ui.top.attached.tabular.menu .item')
             .tab()
         ;
+
+        // Submission
+        $(document).on('submit', '#RateEpisode', function(e) {
+            e.preventDefault();
+
+            $('.submit').addClass("loading");
+
+            $.ajax({
+                method: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType: "json"
+            })
+                .done(function () {
+                    window.location.reload(false);
+                })
+                .fail(function (data) {
+                    $('.submit').removeClass("loading");
+
+                    $.each(data.responseJSON, function (key, value) {
+                        var input = 'input[class="' + key + '"]';
+
+                        $(input + '+div').text(value);
+                        $(input + '+div').removeClass("hidden");
+                        $(input).parent().addClass('error');
+                    });
+                });
+        });
     </script>
 @endsection
