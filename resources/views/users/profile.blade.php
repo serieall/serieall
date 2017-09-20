@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Profil de ' . $user->username)
+
 @section('content')
     <div class="ui ten wide column">
 

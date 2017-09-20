@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Paramètres')
+
 @section('content')
     <div class="ui eight wide column">
 

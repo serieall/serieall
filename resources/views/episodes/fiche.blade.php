@@ -1,5 +1,7 @@
 @extends('layouts.fiche')
 
+@section('pageTitle', affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero, $episodeInfo->id, false, false) . ' - ' . $showInfo['show']->name)
+
 @section('menu_fiche')
     <div id="menuFiche" class="menuFiche row">
         <div class="column">

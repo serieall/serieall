@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>SérieAll BETA</title>
+    <title>Administration - SérieAll BETA</title>
     <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
 
     <!-- CSS -->

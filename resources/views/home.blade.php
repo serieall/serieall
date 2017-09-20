@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Accueil')
+
 @section('content')
     <div class="fifteen wide column">
         <div class="ui segment">
