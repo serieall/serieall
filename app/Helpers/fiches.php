@@ -136,7 +136,7 @@ function affichageThumbBorder($thumb) {
  * @param $user_comment
  * @return string
  */
-function messageComment($object, $user_comment) {
+function messageComment($object, $user_comment = null) {
     switch($object){
         case 'Show':
             $text = "cette série";
