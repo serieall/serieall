@@ -371,28 +371,42 @@
         $(document).on('submit', '#RateEpisode', function(e) {
             e.preventDefault();
 
-            $('.submit').addClass("loading");
+            var rate = $('select#note').val();
 
-            $.ajax({
-                method: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                dataType: "json"
-            })
-                .done(function () {
-                    window.location.reload(false);
+            if( rate < 10 || rate > 15) {
+                <?php if (!isset($comments['user_comment'])){ ?>
+                    var needComment = false;
+                    $('.ecrireAvis').removeClass("hidden");
+                    $('.ui.modal').modal('show');
+                <?php } else { ?>
+                    var needComment = true;
+                <?php } ?>
+            }
+
+            if (needComment) {
+                $('.submit').addClass("loading");
+
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json"
                 })
-                .fail(function (data) {
-                    $('.submit').removeClass("loading");
+                    .done(function () {
+                        window.location.reload(false);
+                    })
+                    .fail(function (data) {
+                        $('.submit').removeClass("loading");
 
-                    $.each(data.responseJSON, function (key, value) {
-                        var input = 'input[class="' + key + '"]';
+                        $.each(data.responseJSON, function (key, value) {
+                            var input = 'input[class="' + key + '"]';
 
-                        $(input + '+div').text(value);
-                        $(input + '+div').removeClass("hidden");
-                        $(input).parent().addClass('error');
+                            $(input + '+div').text(value);
+                            $(input + '+div').removeClass("hidden");
+                            $(input).parent().addClass('error');
+                        });
                     });
-                });
+            }
         });
     </script>
 @endsection

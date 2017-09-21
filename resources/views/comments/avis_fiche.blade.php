@@ -126,6 +126,10 @@
             <input type="hidden" name="object_id" class="object_id" value="{{ $object['id'] }}">
             <div class="ui red hidden message"></div>
 
+            <div class="ecrireAvis ui info hidden message">
+                Vous devez écrire un avis pour attribuer cette note.
+            </div>
+
             <div class="ui field">
                 <div class="textarea input">
                          <textarea name="avis" id="avis" class="avis" placeholder="Ecrivez votre avis ici...">
