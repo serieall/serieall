@@ -322,10 +322,20 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 $logMessage = '>>>>>Diffusion originale : ' . $episode_new->diffusion_us;
                 saveLogMessage($idLog, $logMessage);
 
-                $episode_new->picture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
-                # Image
-                $logMessage = '>>>>>Image : ' . $episode_new->name_fr;
-                saveLogMessage($idLog, $logMessage);
+                /* Récupération de la photo de l'épisode */
+                if(!empty($getEpisode_en->filenam)) {
+                    $file = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                    $file_headers = @get_headers($file);
+                    if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                        $logMessage = '>>>Pas d\'image pour l\'épisode.';
+                        saveLogMessage($idLog, $logMessage);
+                    } else {
+                        $episode_new->picture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                        # Image
+                        $logMessage = '>>>>>Image : ' . $episode_new->name_fr;
+                        saveLogMessage($idLog, $logMessage);
+                    }
+                }
 
                 # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                 $episode_new->season()->associate($season_ref);

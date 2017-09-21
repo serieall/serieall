@@ -116,9 +116,9 @@
                         Pas encore de notes
                     </p>
                 @else
-                    @if($seasonInfo->moyenne > $noteGood)
+                    @if($seasonInfo->moyenne >= $noteGood)
                         <p class="NoteSeason ui green text">
-                    @elseif($seasonInfo->moyenne > $noteNeutral && $seasonInfo->moyenne < $noteGood)
+                    @elseif($seasonInfo->moyenne >= $noteNeutral && $seasonInfo->moyenne < $noteGood)
                         <p class="NoteSeason ui gray text">
                     @else
                         <p class="NoteSeason ui red text">
@@ -167,7 +167,7 @@
                 <div class="ui stackable grid">
                     <div class="row">
                         <div class="center aligned four wide column">
-                            <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                         </div>
                         <div class="eleven wide column">
                             <a><h2>Critique 01.03</h2></a>
@@ -176,7 +176,7 @@
                     </div>
                     <div class="row">
                         <div class="center aligned four wide column">
-                            <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                         </div>
                         <div class="eleven wide column">
                             <a><h2>Critique 01.02</h2></a>
@@ -185,7 +185,7 @@
                     </div>
                     <div class="row">
                         <div class="center aligned four wide column">
-                            <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                         </div>
                         <div class="eleven wide column">
                             <a><h2>Critique 01.01</h2></a>

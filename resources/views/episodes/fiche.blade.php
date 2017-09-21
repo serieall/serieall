@@ -243,9 +243,9 @@
                         Pas encore de notes
                     </p>
                 @else
-                    @if($episodeInfo->moyenne > $noteGood)
+                    @if($episodeInfo->moyenne >= $noteGood)
                         <p class="NoteSeason ui green text">
-                    @elseif($episodeInfo->moyenne > $noteNeutral && $episodeInfo->moyenne < $noteGood)
+                    @elseif($episodeInfo->moyenne >= $noteNeutral && $episodeInfo->moyenne < $noteGood)
                         <p class="NoteSeason ui gray text">
                     @else
                         <p class="NoteSeason ui red text">
@@ -324,7 +324,7 @@
                 <div class="ui stackable grid">
                     <div class="row">
                         <div class="center aligned four wide column">
-                            <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                         </div>
                         <div class="eleven wide column">
                             <a><h2>Critique 01.03</h2></a>
@@ -333,7 +333,7 @@
                     </div>
                     <div class="row">
                         <div class="center aligned four wide column">
-                            <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                         </div>
                         <div class="eleven wide column">
                             <a><h2>Critique 01.02</h2></a>
@@ -342,7 +342,7 @@
                     </div>
                     <div class="row">
                         <div class="center aligned four wide column">
-                            <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                         </div>
                         <div class="eleven wide column">
                             <a><h2>Critique 01.01</h2></a>
@@ -372,15 +372,25 @@
             e.preventDefault();
 
             var rate = $('select#note').val();
+            var episode_id = $('#RateEpisode .episode_id').val();
+            console.log(episode_id);
 
             if( rate < 10 || rate > 15) {
                 <?php if (!isset($comments['user_comment'])){ ?>
                     var needComment = false;
                     $('.ecrireAvis').removeClass("hidden");
                     $('.ui.modal').modal('show');
+
+                    $('#formAvis .note').val(rate);
+                    $('#formAvis .episode_id').val(episode_id);
+                    $('#formAvis .note').prop('disabled', false);
+                    $('#formAvis .episode_id').prop('disabled', false);
                 <?php } else { ?>
                     var needComment = true;
                 <?php } ?>
+            }
+            else {
+                var needComment = true;
             }
 
             if (needComment) {

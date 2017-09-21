@@ -4,14 +4,14 @@
     <div id="topImageShow"  class="row nobox">
         <div class="column">
             <div class="topImageBanniereContainer">
-            <img class="topImageBanniere" src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Bannière {{ $showInfo['show']->name }}" />
+                <img class="topImageBanniere" src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
             </div>
             <div id="topInfo" class="ui stackable grid topInfo ficheContainer">
                 <div class="center aligned ten wide column">
                     <div class="ui centered stackable grid">
                         <div id="midaligned" class="four wide column">
                             <div class="topImageAffiche">
-                                <img  src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                                <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                             </div>
                         </div>
                         <div class="twelve wide column">
@@ -105,9 +105,9 @@
                             </defs>
 
                             <circle cx="100" cy="100" r="90" fill="none"
-                                    @if($showInfo['show']->moyenne > $noteGood)
+                                    @if($showInfo['show']->moyenne >= $noteGood)
                                         stroke="url(#linear-good)"
-                                    @elseif($showInfo['show']->moyenne > $noteNeutral && $showInfo['show']->moyenne < $noteGood)
+                                    @elseif($showInfo['show']->moyenne >= $noteNeutral && $showInfo['show']->moyenne < $noteGood)
                                         stroke="url(#linear-neutral)"
                                     @else
                                         stroke="url(#linear-bad)"

@@ -34,6 +34,22 @@ function ActorPicture($actor){
 }
 
 /**
+ * Get Show's picture
+ *
+ * @param $show
+ * @return string
+ */
+function ShowPicture($show){
+    $folderShows = config('directories.shows');
+
+    if(file_exists(public_path() . "$folderShows" . "$show.jpg")) {
+        return $folderShows . $show . ".jpg";
+    } else {
+        return $folderShows . "default_empty.jpg";
+    }
+}
+
+/**
  * Get number of episode with or without link
  *
  * @param $show_url

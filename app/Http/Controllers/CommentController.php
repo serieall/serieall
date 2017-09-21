@@ -7,6 +7,7 @@ use App\Http\Requests\CommentCreateRequest;
 use App\Models\Comment;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
+use App\Repositories\RateRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
 
@@ -17,6 +18,7 @@ class CommentController extends Controller
     protected $showRepository;
     protected $seasonRepository;
     protected $episodeRepository;
+    protected $rateRepository;
 
     /**
      * CommentController constructor.
@@ -24,15 +26,18 @@ class CommentController extends Controller
      * @param ShowRepository $showRepository
      * @param SeasonRepository $seasonRepository
      * @param EpisodeRepository $episodeRepository
+     * @param RateRepository $rateRepository
      */
     public function __construct(CommentRepository $commentRepository,
                                 ShowRepository $showRepository,
                                 SeasonRepository $seasonRepository,
-                                EpisodeRepository $episodeRepository){
+                                EpisodeRepository $episodeRepository,
+                                RateRepository $rateRepository){
         $this->commentRepository = $commentRepository;
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
         $this->episodeRepository = $episodeRepository;
+        $this->rateRepository = $rateRepository;
     }
 
     /**
@@ -97,6 +102,10 @@ class CommentController extends Controller
             $object->comments()->save($comment_ref);
         }
 
-        return response()->json();
+        if(isset($inputs['episode_id']) && isset($inputs['note']))
+        {
+            $this->rateRepository->RateEpisode($user_id, $inputs['episode_id'], $inputs['note']);
+        }
+            return response()->json();
     }
 }

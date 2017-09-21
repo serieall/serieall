@@ -16,7 +16,7 @@
                 </a>
                 <a class="item" href="{{ route('show.details', $showInfo['show']->show_url) }}">
                     <i class="big list icon"></i>
-                    Détails
+                    Informations détaillées
                 </a>
                 <a class="item">
                     <i class="big comments icon"></i>
@@ -124,7 +124,7 @@
                  <div class="ui stackable grid">
                      <div class="row">
                          <div class="center aligned four wide column">
-                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                          </div>
                          <div class="eleven wide column">
                              <a><h2>Critique 01.03</h2></a>
@@ -133,7 +133,7 @@
                      </div>
                      <div class="row">
                          <div class="center aligned four wide column">
-                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                          </div>
                          <div class="eleven wide column">
                              <a><h2>Critique 01.02</h2></a>
@@ -142,7 +142,7 @@
                      </div>
                      <div class="row">
                          <div class="center aligned four wide column">
-                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                          </div>
                          <div class="eleven wide column">
                              <a><h2>Critique 01.01</h2></a>
@@ -162,15 +162,15 @@
                  <div class="ui center aligned stackable grid">
                      <div class="row">
                          <div class="center aligned five wide column">
-                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                              <span>Série 1</span>
                          </div>
                          <div class="center aligned five wide column">
-                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                              <span>Série 2</span>
                          </div>
                          <div class="center aligned five wide column">
-                             <img src="{{ $folderShows }}/{{ $showInfo['show']->show_url }}.jpg" alt="Affiche {{ $showInfo['show']->name }}" />
+                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
                              <span>Série 3</span>
                          </div>
                      </div>

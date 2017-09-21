@@ -121,6 +121,9 @@
             {{ csrf_field() }}
 
             <input type="hidden" class="object" name="object" value="{{ $object['model'] }}">
+            <input type="hidden" class="episode_id" name="episode_id" value="" disabled>
+            <input type="hidden" class="note" name="note" value="" disabled>
+
             <div class="ui red hidden message"></div>
 
             <input type="hidden" name="object_id" class="object_id" value="{{ $object['id'] }}">
@@ -160,7 +163,7 @@
                             Avis neutre
                         </div>
                         <div class="item" data-value="3">
-                            <i class="red frown large icon"></i>
+                            <i class="red frownt large icon"></i>
                             Avis défavorable
                         </div>
                     </div>
