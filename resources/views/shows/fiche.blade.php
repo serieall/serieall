@@ -75,7 +75,12 @@
                          </tr>
                      @endforeach
                  </table>
-                 <a href="{{ route('season.fiche', [$showInfo['show']->show_url, '1']) }}"><p class="AllSeasons">Toutes les saisons ></p></a>
+                 <a href="{{ route('season.fiche', [$showInfo['show']->show_url, '1']) }}">
+                     <button class="ui right floated icon button ListAll">
+                         Toutes les saisons
+                         <i class="right arrow icon"></i>
+                     </button>
+                 </a>
              </div>
          </div>
          <div class="row">
@@ -145,7 +150,10 @@
                          </div>
                      </div>
                  </div>
-                 <a href="#"><p class="AllArticles">Tous les articles ></p></a>
+                 <button class="ui right floated button">
+                     Tous les articles
+                     <i class="right arrow icon"></i>
+                 </button>
              </div>
          </div>
          <div class="row">

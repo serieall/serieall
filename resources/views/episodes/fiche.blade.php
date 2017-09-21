@@ -350,7 +350,12 @@
                         </div>
                     </div>
                 </div>
-                <a href="#"><p class="AllArticles">Tous les articles ></p></a>
+                <a href="#">
+                    <button class="ui right floated button">
+                        Tous les articles
+                        <i class="right arrow icon"></i>
+                    </button>
+                </a>
             </div>
         </div>
     </div>

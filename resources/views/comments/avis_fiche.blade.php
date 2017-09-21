@@ -36,7 +36,12 @@
                             </tr>
                             <tr>
                                 <td class="ui grey text">{{--Réponse--}}</td>
-                                <td class="LireAvis"><a>Lire l'avis complet ></a></td>
+                                <td class="LireAvis">
+                                    <button class="ui basic right floated button">
+                                        Lire l'avis complet
+                                        <i class="right arrow icon"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -69,9 +74,9 @@
                         <tr>
                             <td class="ui grey text">10 réponses</td>
                             <td>
-                                <button class="ui right floated compact icon button">
-                                    <i class="right arrow icon"></i>
+                                <button class="ui basic right floated button">
                                     Lire l'avis complet
+                                    <i class="right arrow icon"></i>
                                 </button>
                             </td>
                         </tr>
@@ -83,17 +88,19 @@
         <div class="row">
             <div class="column">
                 @if(Auth::check())
-                    <div class="ui DarkBlueSerieAll button WriteAvis">
+                    <button class="ui DarkBlueSerieAll button WriteAvis">
                         <i class="write icon"></i>
                         @if(is_null($comments['user_comment']))
                             Ecrire un avis
                         @else
                             Modifier mon avis
                         @endif
-
-                    </div>
+                    </button>
                     @if($comments['last_comment'])
-                        <a class="AllAvis" href="#"><p>Tous les avis ></p></a>
+                            <button class="ui right floated button">
+                                Tous les avis
+                                <i class="right arrow icon"></i>
+                            </button>
                     @endif
                 @endif
             </div>
