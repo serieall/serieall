@@ -76,6 +76,8 @@ function formatRequestInVariableNoSpace($objects) {
  * @return false|string
  */
 function formatDate($lenght, $date) {
+    setlocale(LC_TIME, 'french');
+
     switch ($lenght){
         case 'short':
             $format = '%d %h %Y';
