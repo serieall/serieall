@@ -90,10 +90,10 @@ function affichageNote($rate) {
     $noteGood = config('param.good');
     $noteNeutral = config('param.neutral');
 
-    if($rate > $noteGood) {
+    if($rate >= $noteGood) {
         return "<span class=\"ui green text\">$rate</span>";
     }
-    elseif($rate > $noteNeutral && $rate < $noteGood) {
+    elseif($rate >= $noteNeutral && $rate < $noteGood) {
         return "<span class=\"ui gray text\">$rate</span>";
     }
     else {

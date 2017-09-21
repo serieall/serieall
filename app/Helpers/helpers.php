@@ -67,3 +67,30 @@ function formatRequestInVariableNoSpace($objects) {
 
     return $list;
 }
+
+/**
+ * Génére un format de date
+ *
+ * @param $lenght
+ * @param $date
+ * @return false|string
+ */
+function formatDate($lenght, $date) {
+    switch ($lenght){
+        case 'short':
+            $format = 'd M Y';
+            break;
+        case 'long':
+            $format = 'd F Y';
+            break;
+        case 'full':
+            $format = 'd F Y \à G:i';
+            break;
+        default:
+            $format = 'd M Y';
+            break;
+    }
+
+   return date($format, strtotime($date ));
+}
+
