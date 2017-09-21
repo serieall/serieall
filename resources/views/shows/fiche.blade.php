@@ -16,7 +16,7 @@
                 </a>
                 <a class="item" href="{{ route('show.details', $showInfo['show']->show_url) }}">
                     <i class="big list icon"></i>
-                    Informations détaillées
+                    Détails
                 </a>
                 <a class="item">
                     <i class="big comments icon"></i>

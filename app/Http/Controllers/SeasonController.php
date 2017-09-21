@@ -52,6 +52,7 @@ class SeasonController extends Controller
 
         $ratesSeason = Season::with(['users' => function($q){
                $q->orderBy('updated_at', 'desc');
+               $q->limit(20);
             }, 'users.episode' => function($q){
                 $q->select('id', 'numero');
             }, 'users.user' => function($q){

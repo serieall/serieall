@@ -88,14 +88,31 @@
                     <svg class="circleNote">
                         <g>
                             <circle cx="100" cy="100" r="90" fill="none" stroke="#ffffff" stroke-width="10" ></circle>
-                            <circle @if($showInfo['show']->moyenne > $noteGood)
-                                    class="circleGood"
+
+                            <defs>
+                                <linearGradient id="linear-good" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%"   stop-color="#21BA45"/>
+                                    <stop offset="100%" stop-color="#6CB27B"/>
+                                </linearGradient>
+                                <linearGradient id="linear-neutral" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%"   stop-color="#767676"/>
+                                    <stop offset="100%" stop-color="#B7B7B7"/>
+                                </linearGradient>
+                                <linearGradient id="linear-bad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%"   stop-color="#DB2828"/>
+                                    <stop offset="100%" stop-color="#D86363"/>
+                                </linearGradient>
+                            </defs>
+
+                            <circle cx="100" cy="100" r="90" fill="none"
+                                    @if($showInfo['show']->moyenne > $noteGood)
+                                        stroke="url(#linear-good)"
                                     @elseif($showInfo['show']->moyenne > $noteNeutral && $showInfo['show']->moyenne < $noteGood)
-                                    class="circleNeutral"
+                                        stroke="url(#linear-neutral)"
                                     @else
-                                    class="circleBad"
+                                        stroke="url(#linear-bad)"
                                     @endif
-                                    cx="100" cy="100" r="90" fill="none" stroke="none" transform="rotate(-90 100 100)" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="{{ $showInfo['noteCircle'] }}" ></circle>
+                                    transform="rotate(-90 100 100)" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="{{ $showInfo['noteCircle'] }}"></circle>
                         </g>
                         <text x="50%" y="58%" text-anchor="middle" fill="white">
                             @if($showInfo['show']->moyenne < 1)
@@ -108,7 +125,7 @@
                     <div id="ShowReviewCount">
                         <p>
                             245 avis <span class="ui green text">favorable <i class="green smile large icon"></i></span><br />
-                            42 avis <span class="ui grey text">neutre <i class="grey meh large icon"></i></span><br />
+                            42 avis <span class="ui light grey text">neutre <i class="ui text light grey meh large icon"></i></span><br />
                             25 avis <span class="ui red text">défavorable <i class="red frown large icon"></i></span>
                         </p>
                     </div>

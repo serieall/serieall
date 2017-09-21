@@ -39,6 +39,10 @@
     color: #A5673F !important;
 }
 
+.ui.light.grey.text {
+    color: #cccccc !important;
+}
+
 .ui.grey.text {
     color: #767676 !important;
 }
@@ -491,18 +495,6 @@ blockquote {
 .circleNote text {
     font-size: 3em;
     stroke: none;
-}
-
-.circleGood {
-    stroke: #21BA45;
-}
-
-.circleNeutral{
-    stroke: #767676;
-}
-
-.circleBad {
-    stroke: #DB2828;
 }
 
 #ShowReviewCount p {
