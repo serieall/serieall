@@ -78,19 +78,19 @@ function formatRequestInVariableNoSpace($objects) {
 function formatDate($lenght, $date) {
     switch ($lenght){
         case 'short':
-            $format = 'd M Y';
+            $format = '%d %h %Y';
             break;
         case 'long':
-            $format = 'd F Y';
+            $format = '%d %B %Y';
             break;
         case 'full':
-            $format = 'd F Y \à G:i';
+            $format = '%d %B %Y à %H:%M';
             break;
         default:
-            $format = 'd M Y';
+            $format = '%d %M %Y';
             break;
     }
 
-   return date($format, strtotime($date ));
+   return strftime($format, strtotime($date ));
 }
 
