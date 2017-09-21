@@ -87,12 +87,12 @@
                 <div class="center aligned five wide column">
                     <svg class="circleNote">
                         <g>
-                            <circle cx="100" cy="100" r="90" fill="none" stroke="#ffffff" stroke-width="10" ></circle>
+                            <circle cx="100" cy="100" r="90" fill="none" stroke="#ffffff" stroke-width="20"></circle>
 
                             <defs>
                                 <linearGradient id="linear-good" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%"   stop-color="#21BA45"/>
-                                    <stop offset="100%" stop-color="#6CB27B"/>
+                                    <stop offset="100%" stop-color="#7CB78A"/>
                                 </linearGradient>
                                 <linearGradient id="linear-neutral" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%"   stop-color="#767676"/>
