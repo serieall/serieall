@@ -163,7 +163,7 @@
                             Avis neutre
                         </div>
                         <div class="item" data-value="3">
-                            <i class="red frownt large icon"></i>
+                            <i class="red frown large icon"></i>
                             Avis défavorable
                         </div>
                     </div>

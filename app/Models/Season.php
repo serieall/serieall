@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Episode_user[] $users
  */
 class Season extends Model {
 	protected $table = 'seasons';

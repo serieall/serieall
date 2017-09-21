@@ -78,4 +78,18 @@ class RateRepository
         return true;
     }
 
+    /**
+     * Get Rate of an episode by a user
+     *
+     * @param $user_id
+     * @param $episode_id
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public function getRateByUserIDEpisodeID($user_id, $episode_id) {
+        return Episode_user::whereEpisodeId($episode_id)
+            ->whereUserId($user_id)
+            ->pluck('rate')
+            ->first();
+    }
+
 }

@@ -275,11 +275,15 @@
                             <div class="ui field {{ $errors->has('note') ? ' error' : '' }}">
                                 <label for="note">Noter l'épisode</label>
                                 <select id="note" name="note" class="note ui compact search dropdown" required>
-                                    <option value="{{ old('note') }}">
-                                        @if(old('note'))
-                                            {{ old('note') }}
+                                    <option value="@if(isset($rateUser)) {{ $rateUser }} @else  {{ old('note') }} @endif">
+                                        @if(isset($rateUser))
+                                            {{ $rateUser }}
                                         @else
-                                            Note
+                                            @if(old('note'))
+                                                {{ old('note') }}
+                                            @else
+                                                Note
+                                            @endif
                                         @endif
                                     </option>
                                     @for($i = 20; $i >= 1; $i--)

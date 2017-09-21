@@ -5,24 +5,27 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
-        "laravel/framework": "5.4.*",
-        "laravelcollective/html": "~5.0",
-        "barryvdh/laravel-debugbar": "v2.3.*",
-        "guzzlehttp/guzzle": "6.2.1",
-        "pusher/pusher-php-server": "^2.6",
-        "barryvdh/laravel-ide-helper": "^2.2",
-        "doctrine/dbal": "^2.5",
+        "php": ">=7.0.0",
         "anhskohbo/no-captcha": "^2.3",
-        "thomaswelton/laravel-gravatar": "~1.0",
-        "dingo/api": "1.0.*@dev",
+        "barryvdh/laravel-debugbar": "~3.1",
+        "barryvdh/laravel-ide-helper": "^2.4",
+        "consoletvs/charts": "5.*",
+        "dingo/api": "v2.0.0-alpha1",
+        "doctrine/dbal": "^2.5",
+        "guzzlehttp/guzzle": "6.2.1",
+        "laravel/framework": "5.5.*",
+        "laravel/tinker": "~1.0",
+        "laravelcollective/html": "~5.0",
         "marcelgwerder/laravel-api-handler": "^0.7.0",
+        "pusher/pusher-php-server": "^3.0",
+        "thomaswelton/laravel-gravatar": "~1.0",
         "znck/belongs-to-through": "^2.3"
     },
     "require-dev": {
+        "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7",
+        "phpunit/phpunit": "~6.0",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*"
     },
@@ -53,18 +56,17 @@
             "php artisan key:generate"
         ],
         "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
-            "php artisan ide-helper:models -W",
-            "php artisan optimize"
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
         ]
     },
     "config": {
-        "preferred-install": "dist"
-    }
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

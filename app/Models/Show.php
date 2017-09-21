@@ -58,6 +58,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property string $particularite
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Show whereParticularite($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  */
 class Show extends Model {
 

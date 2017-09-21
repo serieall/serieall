@@ -93,10 +93,11 @@ class EpisodeController extends Controller
         $totalEpisodes = $seasonInfo->episodes_count - 1;
 
         $rates = $this->episodeRepository->getRatesByEpisodeID($episodeInfo->id);
+        $rateUser = $this->rateRepository->getRateByUserIDEpisodeID($user_id, $episodeInfo->id);
 
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        return view('episodes.fiche', compact('showInfo', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object'));
+        return view('episodes.fiche', compact('showInfo', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
     }
 }
