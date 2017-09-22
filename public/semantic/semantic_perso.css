@@ -662,6 +662,7 @@ blockquote {
 
 #ListAvis .AvisBox {
     padding: 0;
+    overflow: auto;
 }
 
 #ListAvis table {
