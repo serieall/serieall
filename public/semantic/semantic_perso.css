@@ -116,6 +116,17 @@
     border-top: 0 !important;
 }
 
+.ui.table tr.neutral,
+.ui.table td.neutral {
+    box-shadow: 0px 0px 0px #CCCCCC inset;
+}
+
+.ui.table tr.neutral,
+.ui.table td.neutral {
+    background: #e1e1e1 !important;
+    color: #777777 !important;
+}
+
 .ui.DarkBlueSerieAll.buttons .button,
 .ui.DarkBlueSerieAll.button {
     background-color: #213d64;
