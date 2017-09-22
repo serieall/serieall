@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('noteNeutral', $noteNeutral);
         View::share('noteBad', $noteBad);
 
+        Blade::setEchoFormat('e(utf8_encode(%s))');
     }
 
     /**

@@ -93,6 +93,8 @@ function formatDate($lenght, $date) {
             break;
     }
 
-   return strftime($format, strtotime($date ));
+    $date_format = strftime($format, strtotime($date));
+
+   return $date_format;
 }
 
