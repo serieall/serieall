@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('noteGood', $noteGood);
         View::share('noteNeutral', $noteNeutral);
         View::share('noteBad', $noteBad);
+
+        Blade::setEchoFormat('e(utf8_encode(%s))');
     }
 
     /**
