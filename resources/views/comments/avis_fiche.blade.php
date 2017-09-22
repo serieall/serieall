@@ -63,7 +63,7 @@
                     <table class="ui {!! affichageThumbBorder($comments['user_comment']['thumb']) !!} left border table">
                         <tr>
                             {!! affichageThumb($comments['user_comment']['thumb']) !!}
-                            <td class="right aligned">Déposé le {{ formatDate('full', $comments['user_comment']['created_at']) }}</td>
+                            <td class="right aligned">Déposé le {!! formatDate('full', $comments['user_comment']['created_at']) !!}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="AvisResume">

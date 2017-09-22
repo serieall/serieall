@@ -86,7 +86,7 @@ function formatDate($lenght, $date) {
             $format = '%d %B %Y';
             break;
         case 'full':
-            $format = '%d %B %Y à %H:%M';
+            $format = '%d %B %Y &agrave; %H:%M';
             break;
         default:
             $format = '%d %M %Y';
@@ -95,6 +95,6 @@ function formatDate($lenght, $date) {
 
     $date_format = strftime($format, strtotime($date));
 
-   return $date_format;
+   return utf8_encode($date_format);
 }
 

@@ -71,7 +71,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ formatDate('long', $episode->diffusion_us) }}
+                                    {!! formatDate('long', $episode->diffusion_us) !!}
                                 </td>
                                 <td>
                                     @if($episode->moyenne < 1)
@@ -150,7 +150,7 @@
                                     </a>
                                     a noté {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $rate['episode']['numero'], $rate['episode']['id'], true, false) !!} - {!! affichageNote($rate['rate']) !!}
 
-                                    <div class="date">{{ formatDate('short', $rate['updated_at']) }}</div>
+                                    <div class="date">{!! formatDate('short', $rate['updated_at']) !!}</div>
                                 </div>
                             </div>
                         </div>

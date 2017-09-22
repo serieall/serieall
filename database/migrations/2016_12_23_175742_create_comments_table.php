@@ -13,7 +13,7 @@ class CreateCommentsTable extends Migration {
 			$table->string('thumb')->nullable()->index();
 			$table->boolean('spoiler')->default(0);
 			$table->integer('user_id')->unsigned();
-			$table->integer('parent_id')->unsigned()->index();
+			$table->integer('parent_id')->unsigned()->index()->nullable();
 			$table->integer('commentable_id');
 			$table->integer('commentable_type');
 			$table->timestamps();

@@ -175,12 +175,12 @@
                         <tr>
                             @if($episodeInfo->diffusion_us != '0000-00-00')
                                 <td>
-                                    {{ formatDate('long', $episodeInfo->diffusion_us) }}
+                                    {!! formatDate('long', $episodeInfo->diffusion_us) !!}
                                 </td>
                             @endif
                             @if($episodeInfo->diffusion_fr != '0000-00-00')
                                 <td>
-                                    {{ formatDate('long', $episodeInfo->diffusion_fr) }}
+                                    {!! formatDate('long', $episodeInfo->diffusion_fr) !!}
                                 </td>
                             @endif
                         </tr>
@@ -313,7 +313,7 @@
                                             {{ $user->username }}
                                         </a>
                                         a noté cet épisode - {!! affichageNote($user->pivot->rate) !!}
-                                        <div class="date"> {{ formatDate('short', $user->pivot->updated_at) }}  </div>
+                                        <div class="date"> {!! formatDate('short', $user->pivot->updated_at) !!}  </div>
                                     </div>
                                 </div>
                             </div>
