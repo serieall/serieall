@@ -69,6 +69,26 @@ class ComposerServiceProvider extends ServiceProvider
             ['shows/*', 'seasons/*', 'episodes/*', 'layouts/errors'],
             'App\Http\ViewComposers\NavActiveShowsComposer'
         );
+
+
+        // FICHES
+        // FicheActive = home
+        View::composer(
+            ['shows/fiche'],
+            'App\Http\ViewComposers\FicheActiveHomeComposer'
+        );
+
+        // FicheActive = seasons
+        View::composer(
+            ['seasons/fiche', 'episodes/fiche'],
+            'App\Http\ViewComposers\FicheActiveSeasonsComposer'
+        );
+
+        // FicheActive = details
+        View::composer(
+            ['shows/details'],
+            'App\Http\ViewComposers\FicheActiveDetailsComposer'
+        );
     }
 
     /**

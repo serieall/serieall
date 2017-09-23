@@ -134,6 +134,38 @@
         </div>
     </div>
 
+    <div id="menuFiche" class="menuFiche row">
+        <div class="column">
+            <div class="ui fluid six item stackable menu ficheContainer">
+                <a class="@if($FicheActive == "home") active @endif item" href="{{ route('show.fiche', $showInfo['show']->show_url) }}">
+                    <i class="big home icon"></i>
+                    Présentation
+                </a>
+                <a class="@if($FicheActive == "seasons") active @endif item" href="{{ route('season.fiche', [$showInfo['show']->show_url, '1']) }}">
+                    <i class="big browser icon"></i>
+                    Saisons
+                </a>
+                <a class="@if($FicheActive == "details") active @endif item" href="{{ route('show.details', $showInfo['show']->show_url) }}">
+                    <i class="big list icon"></i>
+                    Détails
+                </a>
+                <a class="item">
+                    <i class="big comments icon"></i>
+                    Avis
+                </a>
+                <a class="item">
+                    <i class="big write icon"></i>
+                    Articles
+                </a>
+                <a class="item">
+                    <i class="big line chart icon"></i>
+                    Statistiques
+                </a>
+            </div>
+        </div>
+    </div>
+
+
     @yield('menu_fiche')
     <div class="row ui stackable grid ficheContainer">
         <div id="LeftBlockShow" class="ten wide column">
