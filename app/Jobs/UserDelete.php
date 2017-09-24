@@ -45,6 +45,22 @@ class UserDelete implements ShouldQueue
         $user = $userRepository->getUserByID($this->id);
 
         // TODO: Ajouter la suppression des notes etc...
+        $user->episodes()->detach();
+
+        $comments = $user->comments;
+
+        foreach($comments as $comment) {
+            $comment->user()->dissociate();
+        }
+
+        $logs = $user->logs;
+
+        foreach($logs as $log) {
+            $log->logs()->delete();
+        }
+
+        $user->logs()->delete();
+
         $logMessage = '>>> Suppression de l\'utilisateur : ' . $user->username ;
         saveLogMessage($idLog, $logMessage);
 

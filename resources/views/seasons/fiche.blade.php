@@ -41,7 +41,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {!! formatDate('long', $episode->diffusion_us) !!}
+                                    @if($episode->diffusion_us != "0000-00-00")
+                                        {!! formatDate('long', $episode->diffusion_us) !!}
+                                    @else
+                                        <span class="ui grey text">Pas de date</span>
+                                    @endif
                                 </td>
                                 <td>
                                     @if($episode->moyenne < 1)
@@ -65,6 +69,12 @@
                             </tr>
                         @endforeach
                     </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="graphSeason column">
+                {!! $chart->html() !!}
             </div>
         </div>
 
@@ -205,4 +215,7 @@
         });
     </script>
 @endsection
+
+{!! Charts::scripts() !!}
+{!! $chart->script() !!}
 

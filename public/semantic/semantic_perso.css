@@ -867,6 +867,11 @@ p.episodeResume {
     margin: 1em !important;
 }
 
+.graphSeason {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
 /*Correctifs elpio */
 
 /*Fiche série*/

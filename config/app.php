@@ -165,6 +165,7 @@ return [
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Marcelgwerder\ApiHandler\ApiHandlerServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -234,6 +235,7 @@ return [
         'DingoApi' => Dingo\Api\Facade\API::class,
         'DingoRoute' => Dingo\Api\Facade\Route::class,
         'ApiHandler' => Marcelgwerder\ApiHandler\Facades\ApiHandler::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
     ],
 
 ];

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Episode;
 use App\Models\Season;
 
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
-use App\Repositories\EpisodeRepository;
+use ConsoleTVs\Charts\Facades\Charts;
 
-use Illuminate\Support\Facades\Auth;
 
 class SeasonController extends Controller
 {
@@ -62,9 +62,23 @@ class SeasonController extends Controller
             ->first()
             ->toArray();
 
+
+        $arrayMoyenne = Episode::where('season_id', '=', $seasonInfo->id)
+            ->orderBy('numero');
+
+
+        $chart = Charts::create('area', 'highcharts')
+            ->title('Evolution des notes de la saison')
+            ->elementLabel('Notes')
+            ->xAxisTitle('Numéro de l\'épisode')
+            ->labels($arrayMoyenne->pluck('numero'))
+            ->values($arrayMoyenne->pluck('moyenne'))
+            ->dimensions(0, 0)
+            ->responsive(true);
+
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        return view('seasons.fiche', compact('showInfo', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
+        return view('seasons.fiche',['chart' => $chart], compact('showInfo', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
     }
 }

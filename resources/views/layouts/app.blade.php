@@ -13,6 +13,7 @@
     {{ Html::style('/semantic/semantic_perso.css') }}
     {{ Html::style('/js/jquery.css') }}
     {{ Html::style('/spoiler/spoiler.css') }}
+    {!! Charts::styles() !!}
 
     <!-- Javascript -->
     {{ Html::script('/js/jquery.js') }}
