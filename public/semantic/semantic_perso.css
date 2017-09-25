@@ -538,6 +538,7 @@ blockquote {
 
 #menuFiche a {
     height: 80px;
+    font-size: 1.2em;
 }
 
 #menuFiche a.active {
@@ -866,7 +867,7 @@ p.episodeResume {
     margin: 1em !important;
 }
 
-.graphSeason {
+.chartMean {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }

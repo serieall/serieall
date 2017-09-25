@@ -73,7 +73,7 @@
         </div>
 
         <div class="row">
-            <div class="graphSeason column">
+            <div class="chartMean column">
                 {!! $chart->html() !!}
             </div>
         </div>

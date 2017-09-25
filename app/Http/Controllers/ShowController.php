@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Season;
 
 use App\Repositories\CommentRepository;
@@ -10,7 +9,7 @@ use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\EpisodeRepository;
 
-use Illuminate\Support\Facades\Auth;
+use ConsoleTVs\Charts\Facades\Charts;
 
 class ShowController extends Controller
 {
@@ -51,13 +50,22 @@ class ShowController extends Controller
         # Get Show
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
+        # Generate Chart
+        $chart = Charts::create('area', 'highcharts')
+            ->title('Evolution des notes de la série')
+            ->elementLabel('Notes')
+            ->xAxisTitle('Numéro de la saison')
+            ->labels($showInfo['seasons']->pluck('name'))
+            ->values($showInfo['seasons']->pluck('moyenne'))
+            ->dimensions(0, 300);
+
         # Compile Object informations
         $object = compileObjectInfos('Show', $showInfo['show']->id);
 
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        return view('shows/fiche', compact('showInfo', 'comments', 'object'));
+        return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'comments', 'object'));
     }
 
     /**

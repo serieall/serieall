@@ -62,22 +62,17 @@ class SeasonController extends Controller
             ->first()
             ->toArray();
 
-        $arrayMoyenne = Episode::where('season_id', '=', $seasonInfo->id)
-            ->orderBy('diffusion_us')
-            ->orderBy('numero');
-
-
         $chart = Charts::create('area', 'highcharts')
             ->title('Evolution des notes de la saison')
             ->elementLabel('Notes')
             ->xAxisTitle('Numéro de l\'épisode')
-            ->labels($arrayMoyenne->pluck('numero'))
-            ->values($arrayMoyenne->pluck('moyenne'))
+            ->labels($seasonInfo->episodes->pluck('numero'))
+            ->values($seasonInfo->episodes->pluck('moyenne'))
             ->dimensions(0, 300);
 
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        return view('seasons.fiche',['chart' => $chart], compact('showInfo', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
+        return view('seasons.fiche', ['chart' => $chart], compact('showInfo', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
     }
 }

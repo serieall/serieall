@@ -54,6 +54,13 @@
                  </a>
              </div>
          </div>
+
+         <div class="row">
+             <div class="chartMean column">
+                 {!! $chart->html() !!}
+             </div>
+         </div>
+
          <div class="row">
              @include('comments.avis_fiche')
          </div>
@@ -156,3 +163,6 @@
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
     </script>
 @endsection
+
+{!! Charts::scripts() !!}
+{!! $chart->script() !!}
