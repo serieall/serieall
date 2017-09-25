@@ -31,7 +31,11 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="AvisResume">
-                                    {!! cutResume($avis['message']) !!}
+                                    @if(strstr($avis['message'], "<div class=\"spoiler\">"))
+                                        L'auteur de cet avis a indiqué qu'il contenait des spoilers. Cliquez sur "Lire l'avis" pour le consulter.
+                                    @else
+                                        {!! cutResume($avis['message']) !!}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -67,7 +71,11 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="AvisResume">
-                                {!! cutResume($comments['user_comment']['message']) !!}
+                                @if(strstr($comments['user_comment']['message'], "<div class=\"spoiler\">"))
+                                    L'auteur de cet avis a indiqué qu'il contenait des spoilers. Cliquez sur "Lire l'avis" pour le consulter.
+                                @else
+                                    {!! cutResume($comments['user_comment']['message']) !!}
+                                @endif
                             </td>
 
                         </tr>

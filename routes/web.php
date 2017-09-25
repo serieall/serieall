@@ -51,6 +51,7 @@ Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate
 /*
     Partie Commentaire
 */
+Route::get('avis/{show_url}/{season?}/{episode?}/{episode_id?}', 'CommentController@fiche')->name('comment.fiche');
 Route::post('comment', 'CommentController@store')->name('comment.store')->middleware('auth');
 
 /*

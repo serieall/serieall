@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Comment;
+use Illuminate\Support\Facades\Route;
 
 
 /**
@@ -81,8 +82,21 @@ class CommentRepository
             }
         }
 
-        $last_comment = $this->getLastTwoCommentsByTypeTypeID($object, $object_id, $user_comment_id);
+        if(Route::current()->getName() == "comments.fiche") {
+            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id, $user_comment_id);
+        }
+        else {
+            $last_comment = $this->getLastTwoCommentsByTypeTypeID($object, $object_id, $user_comment_id);
+        }
 
         return compact('user_comment', 'last_comment');
+    }
+
+    public function getAllCommentsByTypeTypeID($object, $object_id, $user_comment_id) {
+        return $this->comment->where('commentable_id', '=', $object_id)
+            ->where('commentable_type', '=', $object)
+            ->whereNotIn('id', [$user_comment_id])
+            ->with('user')
+            ->paginate(10);
     }
 }

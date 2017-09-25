@@ -40,6 +40,49 @@ class CommentController extends Controller
         $this->rateRepository = $rateRepository;
     }
 
+    public function fiche($show_url, $season_name = null, $episode_numero = null, $episode_id = null) {
+        # Get ID User if user authenticated
+        $user_id = getIDIfAuth();
+
+        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+
+        if(!is_null($season_name)) {
+            $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season_name);
+            if(!is_null($episode_numero)) {
+                if(!is_null($episode_id)) {
+                    $episodeInfo = $this->episodeRepository->getEpisodeByID($episode_id);
+                    $object = compileObjectInfos('Episode', $episodeInfo->id);
+                    $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+                }
+                else{
+                    $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroAndSeasonID($seasonInfo->id, $episode_numero);
+
+                    # Compile Object informations
+                    $object = compileObjectInfos('Episode', $episodeInfo->id);
+
+                    # Get Comments
+                    $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+                }
+            }
+            else {
+                # Compile Object informations
+                $object = compileObjectInfos('Season', $seasonInfo->id);
+
+                # Get Comments
+                $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+            }
+        }
+        else {
+            # Compile Object informations
+            $object = compileObjectInfos('Show', $showInfo['show']->id);
+
+            # Get Comments
+            $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+        }
+
+        return view('comments.fiche', compact('showInfo', 'seasonInfo', 'episodeInfo', 'object', 'comments'));
+    }
+
     /**
      * Store a new comment
      *

@@ -66,7 +66,7 @@ class ComposerServiceProvider extends ServiceProvider
 
         // NavActive = shows
         View::composer(
-            ['shows/*', 'seasons/*', 'episodes/*', 'layouts/errors'],
+            ['shows/*', 'seasons/*', 'episodes/*', 'comments/fiche', 'layouts/errors'],
             'App\Http\ViewComposers\NavActiveShowsComposer'
         );
 
@@ -88,6 +88,12 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             ['shows/details'],
             'App\Http\ViewComposers\FicheActiveDetailsComposer'
+        );
+
+        // FicheActive = comments
+        View::composer(
+            ['comments/fiche'],
+            'App\Http\ViewComposers\FicheActiveCommentsComposer'
         );
     }
 

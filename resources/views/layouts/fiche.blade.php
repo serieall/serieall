@@ -149,7 +149,7 @@
                     <i class="big list icon"></i>
                     Détails
                 </a>
-                <a class="item">
+                <a class="@if($FicheActive == "comments") active @endif item" href="{{ route('comment.fiche', $showInfo['show']->show_url) }}">
                     <i class="big comments icon"></i>
                     Avis
                 </a>

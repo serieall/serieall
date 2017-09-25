@@ -872,6 +872,11 @@ p.episodeResume {
     padding-right: 0 !important;
 }
 
+.reactions {
+    padding-left: 3em;
+    text-align: left;
+}
+
 /*Correctifs elpio */
 
 /*Fiche série*/

@@ -62,7 +62,12 @@ function ShowPicture($show){
  */
 function affichageNumeroEpisode($show_url, $season_number, $episode_number, $episode_id, $link_enabled, $episode_string) {
     if( $episode_string ) {
-        $text = "Episode " . $season_number . "." . sprintf("%02s", $episode_number);
+        if($episode_number == 0){
+            $text = "Episode spécial";
+        }
+        else {
+            $text = "Episode " . $season_number . "." . sprintf("%02s", $episode_number);
+        }
     }
     else {
         $text = $season_number . "." . sprintf("%02s", $episode_number);
