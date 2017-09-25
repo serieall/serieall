@@ -15,7 +15,7 @@ return [
         'empty_dataset_label' => 'No Data Set',
         'empty_dataset_value' => 0,
         'title' => 'My Cool Chart', // Default chart title.
-        'height' => 0, // 0 Means it will take 100% of the division height.
+        'height' => 300, // 0 Means it will take 100% of the division height.
         'width' => 0, // 0 Means it will take 100% of the division width.
         'responsive' => false, // Not recommended since all libraries have diferent sizes.
         'background_color' => 'inherit', // The chart division background color.

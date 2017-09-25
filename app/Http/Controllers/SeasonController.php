@@ -62,8 +62,8 @@ class SeasonController extends Controller
             ->first()
             ->toArray();
 
-
         $arrayMoyenne = Episode::where('season_id', '=', $seasonInfo->id)
+            ->orderBy('diffusion_us')
             ->orderBy('numero');
 
 
@@ -73,8 +73,7 @@ class SeasonController extends Controller
             ->xAxisTitle('Numéro de l\'épisode')
             ->labels($arrayMoyenne->pluck('numero'))
             ->values($arrayMoyenne->pluck('moyenne'))
-            ->dimensions(0, 0)
-            ->responsive(true);
+            ->dimensions(0, 300);
 
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
