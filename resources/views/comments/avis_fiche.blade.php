@@ -37,10 +37,24 @@
                             <tr>
                                 <td class="ui grey text">{{--Réponse--}}</td>
                                 <td class="LireAvis">
+                                    @if(Route::current()->getName() == 'shows.fiche')
+                                        <a href="{{ route('comment.fiche', [$showInfo['show']->show_url]) }}">
+                                    @elseif(Route::current()->getName() == 'seasons.fiche')
+                                        <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
+                                    @elseif(Route::current()->getName() == 'episodes.fiche')
+                                        @if($episodeInfo->numero != 0)
+                                            <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero]) }}">
+                                        @else
+                                            <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero, $episodeInfo->id]) }}">
+                                        @endif
+                                    @else
+                                        <a href="#">
+                                    @endif
                                     <button class="ui basic right floated button">
                                         Lire l'avis complet
                                         <i class="right arrow icon"></i>
                                     </button>
+                                        </a>
                                 </td>
                             </tr>
                         </table>
@@ -73,11 +87,25 @@
                         </tr>
                         <tr>
                             <td class="ui grey text">10 réponses</td>
-                            <td>
+                            <td class="LireAvis">
+                            @if(Route::current()->getName() == 'show.fiche')
+                                <a href="{{ route('comment.fiche', [$showInfo['show']->show_url]) }}">
+                            @elseif(Route::current()->getName() == 'season.fiche')
+                                <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
+                            @elseif(Route::current()->getName() == 'episode.fiche')
+                                @if($episodeInfo->numero != 0)
+                                    <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero]) }}">
+                                @else
+                                    <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero, $episodeInfo->id]) }}">
+                                @endif
+                            @else
+                                <a href="#">
+                            @endif
                                 <button class="ui basic right floated button">
                                     Lire l'avis complet
                                     <i class="right arrow icon"></i>
                                 </button>
+                            </a>
                             </td>
                         </tr>
                     </table>
