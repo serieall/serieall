@@ -31,11 +31,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="AvisResume">
-                                    @if(strstr($avis['message'], "<div class=\"spoiler\">"))
-                                        L'auteur de cet avis a indiqué qu'il contenait des spoilers. Cliquez sur "Lire l'avis" pour le consulter.
-                                    @else
-                                        {!! cutResume($avis['message']) !!}
-                                    @endif
+                                    {!! cutResume($avis['message']) !!}
                                 </td>
                             </tr>
                             <tr>
@@ -71,11 +67,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="AvisResume">
-                                @if(strstr($comments['user_comment']['message'], "<div class=\"spoiler\">"))
-                                    L'auteur de cet avis a indiqué qu'il contenait des spoilers. Cliquez sur "Lire l'avis" pour le consulter.
-                                @else
-                                    {!! cutResume($comments['user_comment']['message']) !!}
-                                @endif
+                                {!! cutResume($comments['user_comment']['message']) !!}
                             </td>
 
                         </tr>
@@ -104,12 +96,14 @@
                             Modifier mon avis
                         @endif
                     </button>
-                    @if($comments['last_comment'])
-                            <button class="ui right floated button">
-                                Tous les avis
-                                <i class="right arrow icon"></i>
-                            </button>
-                    @endif
+                @endif
+                @if($comments['last_comment'])
+                    <a href="{{route('comment.fiche', [$showInfo['show']->show_url])}}">
+                        <button class="ui right floated button">
+                            Tous les avis
+                            <i class="right arrow icon"></i>
+                        </button>
+                    </a>
                 @endif
             </div>
         </div>

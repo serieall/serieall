@@ -11,6 +11,10 @@ use App\Repositories\RateRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
 
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
+
 class CommentController extends Controller
 {
 
@@ -80,7 +84,12 @@ class CommentController extends Controller
             $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
         }
 
-        return view('comments.fiche', compact('showInfo', 'seasonInfo', 'episodeInfo', 'object', 'comments'));
+        if (Request::ajax()) {
+            return Response::json(View::make('comments.last_comments', array('comments' => $comments))->render());
+        }
+        else {
+            return view('comments.fiche', compact('showInfo', 'seasonInfo', 'episodeInfo', 'object', 'comments'));
+        }
     }
 
     /**

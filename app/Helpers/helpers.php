@@ -22,8 +22,20 @@ function cutResume($resume) {
         $part2 .= $tcut[$i].' ';
     }
 
-    // On retourne la partie 1 avec les points de suspension
-    return $part1 . " ...";
+    // On vérifie si il y a une balise spoiler dans le texte
+    if(strstr($part1, "<div class=\"spoiler\">")) {
+
+        // On vérifie qu'elle est fermée
+        if(strstr($part1, "</div></div>")) {
+            return $part1 . " ...";
+        }
+        else {
+            return "Le résumé de cet avis contient des spoilers, cliquez sur \"Lire l'avis complet\" pour le consulter.";
+        }
+    }
+    else {
+        return $part1 . " ...";
+    }
 }
 
 /**

@@ -47,6 +47,11 @@ class Comment extends Model {
 		return $this->belongsTo('App\Models\User');
 	}
 
+    public function reactions()
+    {
+        return $this->hasMany('App\Models\Comment', 'parent_id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */

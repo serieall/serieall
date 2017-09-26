@@ -32,107 +32,8 @@
         <div class="row">
             <div id="ListAvis" class="ui segment left aligned">
                 <h1>Avis</h1>
-                <div class="ui stackable grid">
-                    @if(!$comments['last_comment'])
-                        <div class="row">
-                            <div class="ui message">
-                                <p>
-                                    @if(isset($comments['user_comment']))
-                                        {!! messageComment($object['model'], $comments['user_comment']) !!}
-                                    @else
-                                        {!! messageComment($object['model'], null) !!}
-                                    @endif
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui divider"></div>
-                    @else
-                        @foreach($comments['last_comment'] as $avis)
-                            <div class="row">
-                                <div class="center aligned three wide column">
-                                    <a href="{{ route('user.profile', $avis['user']['username']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($avis['user']['email']) }}">
-                                        {{ $avis['user']['username'] }}</a>
-                                    <br />
-                                    {!! roleUser($avis['user']['role']) !!}
-                                </div>
-                                <div class="AvisBox center aligned twelve wide column">
-                                    <table class="ui {!! affichageThumbBorder($avis['thumb']) !!} left border table">
-                                        <tr>
-                                            {!! affichageThumb($avis['thumb']) !!}
-                                            <td class="right aligned">Déposé le {{ formatDate('full', $avis['created_at']) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="AvisResume">
-                                                @if(strstr($avis['message'], "<div class=\"spoiler\">"))
-                                                    L'auteur de cet avis a indiqué qu'il contenait des spoilers. Cliquez sur "Lire l'avis" pour le consulter.
-                                                @else
-                                                    {!! $avis['message'] !!}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="left aligned reactions">
-                                        <div class="ui threaded comments">
-                                            <div class="comments">
-                                                <div class="comment">
-                                                    <a class="avatar">
-                                                        <img src="/images/logo_v2.png">
-                                                    </a>
-                                                    <div class="content">
-                                                        <a class="author">Jenny Hess</a>
-                                                        <div class="metadata">
-                                                            <span class="date">Just now</span>
-                                                        </div>
-                                                        <div class="text">
-                                                            Elliot you are always so right :)
-                                                        </div>
-                                                        <div class="actions">
-                                                            <a class="reply">Reply</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="comment">
-                                                    <a class="avatar">
-                                                        <img src="/images/logo_v2.png">
-                                                    </a>
-                                                    <div class="content">
-                                                        <a class="author">Jenny Hess</a>
-                                                        <div class="metadata">
-                                                            <span class="date">Just now</span>
-                                                        </div>
-                                                        <div class="text">
-                                                            Elliot you are always so right :)
-                                                        </div>
-                                                        <div class="actions">
-                                                            <a class="reply">Reply</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="comment">
-                                                    <a class="avatar">
-                                                        <img src="/images/logo_v2.png">
-                                                    </a>
-                                                    <div class="content">
-                                                        <a class="author">Jenny Hess</a>
-                                                        <div class="metadata">
-                                                            <span class="date">Just now</span>
-                                                        </div>
-                                                        <div class="text">
-                                                            Elliot you are always so right :)
-                                                        </div>
-                                                        <div class="actions">
-                                                            <a class="reply">Reply</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
+                <div id="LastComments" class="ui stackable grid">
+                    @include('comments.last_comments')
                 </div>
             </div>
         </div>
@@ -154,17 +55,18 @@
                             item">
                                 <i class="tv icon"></i>
                                 <div class="content">
-                                @if($episode->numero == 0)
-                                    <a class="header" href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id]) }}">
-                                @else
-                                    <a class="header" href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero]) }}">
-                                @endif
-                                        {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id, false, true) !!}</a>
+                                    @if($episode->numero == 0)
+                                        <a class="header" href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id]) }}">
+                                    @else
+                                        <a class="header" href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episode->numero]) }}">
+                                    @endif
+                                            {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id, false, true) !!}</a>
                                             <div class="description">
                                                 {{ $episode->name }}
                                             </div>
-                                        </div>
-                                </a>
+                                    </a>
+                                </div>
+
                             </div>
                         @endforeach
                     </div>
@@ -185,4 +87,39 @@
     </div>
 @endsection
 
+@section('scripts')
+    <script>
+        $(window).on('hashchange', function() {
+            if (window.location.hash) {
+                var page = window.location.hash.replace('#', '');
+                if (page == Number.NaN || page <= 0) {
+                    return false;
+                } else {
+                    getComments(page);
+                }
+            }
+        });
 
+        $(document).ready(function() {
+            $(document).on('click', '.pagination a', function (e) {
+                getComments($(this).attr('href').split('page=')[1]);
+                e.preventDefault();
+                $('#ListAvis').addClass('loading');
+            });
+        });
+
+        function getComments(page) {
+            $.ajax({
+                url : '?page=' + page,
+                dataType: 'json',
+            }).done(function (data) {
+                $('#LastComments').html(data);
+                location.hash = page;
+                $('#ListAvis').removeClass('loading');
+            }).fail(function () {
+                alert('Les commentaires n\'ont pas été chargés.');
+                $('#ListAvis').removeClass('loading');
+            });
+        }
+    </script>
+@endsection

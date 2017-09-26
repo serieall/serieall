@@ -877,6 +877,12 @@ p.episodeResume {
     text-align: left;
 }
 
+.ui.pagination.menu .active.item:hover {
+    background-color: rgba(0,0,0,.05);
+    color: rgba(0,0,0,.95);
+}
+
+
 /*Correctifs elpio */
 
 /*Fiche série*/
