@@ -62,7 +62,7 @@
                                     @endif
                                             {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id, false, true) !!}</a>
                                             <div class="description">
-                                                {{ $episode->name }}
+                                                {{ $episode->name_fr }}
                                             </div>
                                     </a>
                                 </div>
