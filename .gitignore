@@ -3,5 +3,5 @@
 .idea
 vendor/
 .env
-
+!resources/views/vendor
 
