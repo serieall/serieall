@@ -113,7 +113,13 @@
                 url : '?page=' + page,
                 dataType: 'json',
             }).done(function (data) {
+                // On insére le HTML
                 $('#LastComments').html(data);
+
+                // On recharge les spoilers et on remonte en haut de la page.
+                $.getScript('/spoiler/spoiler.js');
+                $('html, body').animate({scrollTop:$('#ListAvis').offset().top}, 'slow');//return false;
+
                 location.hash = page;
                 $('#ListAvis').removeClass('loading');
             }).fail(function () {
