@@ -1,3 +1,8 @@
+.columnFooter {
+    display: flex;
+    justify-content: center;
+}
+
 /* TEXT */
 .ui.red.text {
     color: #DB2828 !important;
@@ -880,6 +885,11 @@ p.episodeResume {
 .ui.pagination.menu .active.item:hover {
     background-color: rgba(0,0,0,.05);
     color: rgba(0,0,0,.95);
+}
+
+/* ARTICLES*/
+.article {
+    text-align: justify;
 }
 
 

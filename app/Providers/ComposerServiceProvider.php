@@ -42,7 +42,7 @@ class ComposerServiceProvider extends ServiceProvider
         // SITE
         // NavActive = home
         View::composer(
-            ['home', 'errors/*'],
+            ['home', 'errors/*', 'pages/*'],
             'App\Http\ViewComposers\NavActiveHomeComposer'
         );
 

@@ -67,7 +67,7 @@
                 <div class="ui required field {{ $errors->has('cgu') ? ' error' : '' }}">
                     <div class="ui checkbox">
                         <input type="checkbox" name="cgu">
-                        <label for="cgu">J'ai lu et j'accepte les conditions générales d'utilisation</label>
+                        <label for="cgu">J'ai lu et j'accepte les <a href="{{ route('cgu') }}">conditions générales d'utilisation</a></label>
                     </div>
 
                     @if ($errors->has('cgu'))
