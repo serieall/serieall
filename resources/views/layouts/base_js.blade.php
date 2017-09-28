@@ -36,6 +36,13 @@
                 minCharacters: 1,
                 maxResults: 40
             });
+
+        $('.cookie.nag')
+            .nag({
+                key      : 'sui-accepts-cookies',
+                value    : true
+            })
+        ;
     })
 </script>
 

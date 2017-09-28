@@ -306,7 +306,6 @@ blockquote {
 
 /* FOOTER */
 #footer {
-    margin-top: 2rem;
     background: #213d64;
     padding: 4em 0 4em 0;
     width: 100%;
@@ -352,6 +351,7 @@ blockquote {
 
 #content {
     flex: 1 0 auto;
+    margin-bottom: 2rem;
 }
 
 #messageBox {
@@ -885,6 +885,13 @@ p.episodeResume {
 .ui.pagination.menu .active.item:hover {
     background-color: rgba(0,0,0,.05);
     color: rgba(0,0,0,.95);
+}
+
+.ui.nag {
+    min-height: inherit;
+    color: white;
+    background-color: #1074b2;
+    border-radius: inherit;
 }
 
 /* ARTICLES*/
