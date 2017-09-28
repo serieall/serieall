@@ -9,19 +9,12 @@
     <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
 
     <!-- CSS -->
-    {{ Html::style('/semantic/semantic.css') }}
+    {{ Html::style('https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.css') }}
     {{ Html::style('/semantic/semantic_perso.css') }}
     {{ Html::style('/js/jquery.css') }}
     {{ Html::style('/spoiler/spoiler.css') }}
-    {!! Charts::styles() !!}
 
-    <!-- Javascript -->
-    {{ Html::script('/js/jquery.js') }}
-    {{ Html::script('/js/jquery.ui.js') }}
-    {{ Html::script('/js/datatables.js') }}
-    {{ Html::script('/semantic/semantic.min.js') }}
-    {{ Html::script('/js/ckeditor/ckeditor.js') }}
-    {{ Html::script('/spoiler/spoiler.js') }}
+    {!! Charts::styles() !!}
 
     <!-- Piwik -->
     <script type="text/javascript">
@@ -174,7 +167,6 @@
         </div>
     @endif
 
-
     <div class="ui centered stackable grid" id="content">
         @yield('content')
     </div>
@@ -228,38 +220,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('#footer .icon').hover(function () {
-                $(this).transition('tada');
-            }, function () {
-            });
-
-            $('.dropdown')
-                .dropdown()
-            ;
-
-            $('.message .close')
-                .on('click', function () {
-                    $(this)
-                        .closest('.message')
-                        .transition('fade')
-                    ;
-                })
-            ;
-
-            $('#showDropdown')
-                .search({
-                    apiSettings: {
-                        url: '/api/shows/search?_q={query}'
-                    },
-                    fields: { results: "data", title: "name", url: "url" },
-                    selectFirstResult: true,
-                    minCharacters: 1,
-                    maxResults: 40
-                });
-        })
-    </script>
-    @yield('scripts')
 </body>
+@include('layouts.base_js')
 </html>

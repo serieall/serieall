@@ -18,7 +18,7 @@
         </div>
     </div>
     @foreach($comments['last_comment'] as $avis)
-        <div class="row">
+        <div id="{{ $avis->id }}" class="row">
             <div class="center aligned three wide column">
                 <a href="{{ route('user.profile', $avis['user']['username']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($avis['user']['email']) }}">
                     {{ $avis['user']['username'] }}</a>
