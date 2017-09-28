@@ -117,7 +117,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
     Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
     Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
-    Route::delete('admin/users/{user}', 'Admin\AdminUserController@destroy')->name('admin.users.destroy');
 
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');

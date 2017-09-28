@@ -132,21 +132,4 @@ class AdminUserController extends Controller
 
         return view('admin.users.edit', compact('user'));
     }
-
-    /**
-     * Supprime un utilisateur
-     *
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy($id)
-    {
-        $userID = Auth::user()->id;
-
-        dispatch(new UserDelete($id, $userID));
-
-        return redirect()->back()
-            ->with('status_header', 'Suppression d\'utilisateur')
-            ->with('status', 'La demande de suppression a été envoyée au serveur. Il la traitera dès que possible.');
-    }
 }
