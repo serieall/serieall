@@ -24,27 +24,6 @@
                 </span>
             </h1>
         </div>
-        <div class="ui height wide column">
-            @if($user->suspended == 0)
-                <form action="{{ route('admin.users.ban', $user->id) }}" method="post">
-                    {{ csrf_field() }}
-
-                    <button class="ui right floated red button">
-                        <i class="ui ban icon"></i>
-                        Bannir l'utilisateur
-                    </button>
-                </form>
-            @else
-                <form action="{{ route('admin.users.ban', $user->id) }}" method="post">
-                    {{ csrf_field() }}
-
-                    <button class="ui right floated green button">
-                        <i class="ui checkmark icon"></i>
-                        Autoriser l'utilisateur
-                    </button>
-                </form>
-            @endif
-        </div>
     </div>
 
     <div class="ui centered grid">
