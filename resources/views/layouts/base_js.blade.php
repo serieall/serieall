@@ -3,7 +3,7 @@
 <script src="//cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.js"></script>
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
-<script src="/js/ckeditor/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
 <script src="/spoiler/spoiler.js"></script>
 
 <script>
