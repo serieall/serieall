@@ -198,3 +198,14 @@ function compileObjectInfos($object, $object_id) {
     return $object;
 }
 
+function afficheEpisodeName($episode){
+    if(!empty($episode->name_fr)) {
+        $name = $episode->name_fr;
+    }
+    else {
+        $name = $episode->name;
+    }
+
+    return $name;
+}
+

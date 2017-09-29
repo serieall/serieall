@@ -34,11 +34,7 @@
                                     {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id, true, true) !!}
                                 </td>
                                 <td class="left aligned">
-                                    @if(!empty($episode->name_fr))
-                                        {{ $episode->name_fr }}
-                                    @else
-                                        {{ $episode->name }}
-                                    @endif
+                                    {{ afficheEpisodeName($episode) }}
                                 </td>
                                 <td>
                                     @if($episode->diffusion_us != "0000-00-00")

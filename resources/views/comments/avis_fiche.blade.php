@@ -81,7 +81,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="AvisResume">
-                                {!! cutResume($comments['user_comment']['message']) !!}
+                                {!! $comments['user_comment']['message'] !!}
                             </td>
 
                         </tr>
