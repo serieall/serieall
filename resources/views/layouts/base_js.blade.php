@@ -1,3 +1,4 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.js"></script>
@@ -37,7 +38,7 @@
                 maxResults: 40
             });
 
-        $('.cookie.nag')
+        $('.ui.inline.cookie.nag')
             .nag({
                 key      : 'sui-accepts-cookies',
                 value    : true

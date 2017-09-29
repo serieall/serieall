@@ -1,7 +1,4 @@
-.columnFooter {
-    display: flex;
-    justify-content: center;
-}
+
 
 /* TEXT */
 .ui.red.text {
@@ -331,6 +328,23 @@ blockquote {
 #footer ul.ui.list li:before, .ui.bulleted.list .list > .item:before, .ui.bulleted.list > .item:before {
     content: '■';
     color: #1074b2;
+}
+
+.columnFooter {
+    display: flex;
+    justify-content: center;
+}
+
+.columnFooter a {
+    color: white;
+}
+
+.columnFooter a:hover {
+    color: #1074b2;
+}
+
+.columnFooter .title:before {
+    content: inherit !important;
 }
 
 /* FIX FOOTER TO BOTTOM */

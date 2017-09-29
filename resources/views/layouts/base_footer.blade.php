@@ -9,9 +9,11 @@
     <div class="ui center aligned container">
         <div class="ui centered stackable grid">
             <div class="centered three wide column columnFooter">
-                <h3 class="div-center">Série-All</h3>
                 <div class="columnFooter">
                     <ul class="ui list">
+                        <li class="title">
+                            <h3>Série-All</h3>
+                        </li>
                         <li>À propos</li>
                         <li>Notre équipe</li>
                         <li><a href="{{ route('cgu') }}">Mentions légales</a></li>
@@ -20,9 +22,11 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h3 class="div-center">Communauté</h3>
                 <div class="columnFooter">
                     <ul class="ui list">
+                        <li class="title">
+                            <h3>Communauté</h3>
+                        </li>
                         <li>Inscription</li>
                         <li>Liste des membres</li>
                         <li>Forum</li>
@@ -42,9 +46,11 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h3 class="div-center">Séries</h3>
                 <div class="columnFooter">
                     <ul class="ui list">
+                        <li class="title">
+                            <h3>Séries</h3>
+                        </li>
                         <li>Liste des séries</li>
                         <li>Articles</li>
                         <li>Planning</li>
@@ -53,9 +59,11 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h3 class="div-center">Partenaires</h3>
                 <div class="columnFooter">
                     <ul class="ui list">
+                        <li class="title">
+                            <h3>Partenaires</h3>
+                        </li>
                         <li>VODD</li>
                     </ul>
                 </div>
