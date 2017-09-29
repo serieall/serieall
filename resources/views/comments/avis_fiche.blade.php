@@ -126,7 +126,19 @@
                     </button>
                 @endif
                 @if($comments['last_comment'])
-                    <a href="{{route('comment.fiche', [$showInfo['show']->show_url])}}">
+                    @if(Route::current()->getName() == 'show.fiche')
+                        <a href="{{ route('comment.fiche', [$showInfo['show']->show_url]) }}">
+                    @elseif(Route::current()->getName() == 'season.fiche')
+                        <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
+                    @elseif(Route::current()->getName() == 'episode.fiche')
+                        @if($episodeInfo->numero == 0)
+                            <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero, $episodeInfo->id]) }}">
+                        @else
+                            <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero]) }}">
+                        @endif
+                    @else
+
+                    @endif
                         <button class="ui right floated button">
                             Tous les avis
                             <i class="right arrow icon"></i>
@@ -205,49 +217,49 @@
 
             <button class="ui submit positive button">Envoyer</button>
         </form>
-        <script>
-            CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true, showWordCount: false, showParagraphs: false }} );
-        </script>
     </div>
 </div>
 
-<script>
-    $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
-    $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
+@section('scripts')
+    <script>
+        $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
+        $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
+        CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true, showWordCount: false, showParagraphs: false }} );
 
-    // Submission
-    $(document).on('submit', '#formAvis', function(e) {
-        e.preventDefault();
+        // Submission
+        $(document).on('submit', '#formAvis', function(e) {
+            e.preventDefault();
 
-        var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
-        var nombreCaracAvis = '{!! config('param.nombreCaracAvis') !!}';
+            var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
+            var nombreCaracAvis = '{!! config('param.nombreCaracAvis') !!}';
 
-        if(messageLength < nombreCaracAvis ) {
-            $('.nombreCarac').removeClass("hidden");
-        }
-        else {
-            $('.submit').addClass("loading");
+            if(messageLength < nombreCaracAvis ) {
+                $('.nombreCarac').removeClass("hidden");
+            }
+            else {
+                $('.submit').addClass("loading");
 
-            $.ajax({
-                method: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                dataType: "json"
-            })
-                .done(function () {
-                    window.location.reload(false);
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json"
                 })
-                .fail(function (data) {
-                    $('.submit').removeClass("loading");
+                    .done(function () {
+                        window.location.reload(false);
+                    })
+                    .fail(function (data) {
+                        $('.submit').removeClass("loading");
 
-                    $.each(data.responseJSON, function (key, value) {
-                        var input = 'input[class="' + key + '"]';
+                        $.each(data.responseJSON, function (key, value) {
+                            var input = 'input[class="' + key + '"]';
 
-                        $(input + '+div').text(value);
-                        $(input + '+div').removeClass("hidden");
-                        $(input).parent().addClass('error');
+                            $(input + '+div').text(value);
+                            $(input + '+div').removeClass("hidden");
+                            $(input).parent().addClass('error');
+                        });
                     });
-                });
-        }
-    });
-</script>
+            }
+        });
+    </script>
+@endsection
