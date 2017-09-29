@@ -9,6 +9,7 @@
         "anhskohbo/no-captcha": "^2.3",
         "barryvdh/laravel-debugbar": "~3.1",
         "barryvdh/laravel-ide-helper": "^2.4",
+        "caouecs/laravel-lang": "~3.0",
         "consoletvs/charts": "5.*",
         "dingo/api": "v2.0.0-alpha1",
         "doctrine/dbal": "^2.5",
@@ -18,6 +19,7 @@
         "laravelcollective/html": "~5.0",
         "marcelgwerder/laravel-api-handler": "^0.7.0",
         "pusher/pusher-php-server": "^3.0",
+        "spatie/laravel-cookie-consent": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
         "znck/belongs-to-through": "^2.3"
     },

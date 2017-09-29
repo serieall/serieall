@@ -901,11 +901,15 @@ p.episodeResume {
     color: rgba(0,0,0,.95);
 }
 
-.ui.nag {
+.ui.inline.cookie.nag {
     min-height: inherit;
     color: white;
     background-color: #1074b2;
     border-radius: inherit;
+}
+
+.ui.inline.cookie.nag:hover {
+    background-color: #1074b2;
 }
 
 /* ARTICLES*/

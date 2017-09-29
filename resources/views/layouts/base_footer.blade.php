@@ -1,9 +1,4 @@
-<div class="ui inline cookie nag">
-    <span class="title">
-        Ce site utilise des cookies pour assurer son bon fonctionnement. En poursuivant votre navigation, vous acceptez l'utilisation des cookies.
-    <span>
-    <i class="close icon"></i>
-</div>
+@include('cookieConsent::index')
 
 <div id="footer" class="ui vertical footer segment">
     <div class="ui center aligned container">

@@ -40,7 +40,7 @@
 
         $('.ui.inline.cookie.nag')
             .nag({
-                key      : 'sui-accepts-cookies',
+                key      : 'accepts-cookies',
                 value    : true
             })
         ;
