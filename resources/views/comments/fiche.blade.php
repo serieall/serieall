@@ -1,6 +1,7 @@
 @extends('layouts.fiche')
 
 @section('pageTitle', 'Avis ' . $showInfo['show']->name)
+@section('pageDescription', 'Tous les avis sur la série ' . $showInfo['show']->name)
 
 @section('menu_fiche')
     <div id="menuListSeasons" class="row">
