@@ -44,6 +44,19 @@
 @section('content_fiche_right')
     <div class="ui stackable grid">
         <div class="row">
+            <div class="ui segment center aligned">
+                <button class="ui fluid DarkBlueSerieAll button WriteAvis">
+                    <i class="write icon"></i>
+                    @if(isset($comments['user_comment']))
+                        Ecrire un avis
+                    @else
+                        Modifier mon avis
+                    @endif
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="ui segment left aligned">
                 @if(isset($seasonInfo))
                     <h1>Liste des épisodes</h1>
