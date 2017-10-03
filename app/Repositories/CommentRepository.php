@@ -83,7 +83,7 @@ class CommentRepository
         }
 
         if(Route::current()->getName() == "comment.fiche") {
-            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id, $user_comment_id);
+            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id);
         }
         else {
             $last_comment = $this->getLastTwoCommentsByTypeTypeID($object, $object_id, $user_comment_id);
@@ -92,10 +92,9 @@ class CommentRepository
         return compact('user_comment', 'last_comment');
     }
 
-    public function getAllCommentsByTypeTypeID($object, $object_id, $user_comment_id) {
+    public function getAllCommentsByTypeTypeID($object, $object_id) {
         return $this->comment->where('commentable_id', '=', $object_id)
             ->where('commentable_type', '=', $object)
-            ->whereNotIn('id', [$user_comment_id])
             ->with('user')
             ->paginate(10);
     }

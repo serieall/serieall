@@ -37,6 +37,10 @@ class SeasonRepository
     public function getSeasonsCountEpisodesForShowByID($id){
         return $this->season->where('show_id', '=', $id)
             ->withCount('episodes')
+            ->with(['comments' => function($q){
+                $q->select('id', 'thumb', 'commentable_id', 'commentable_type', \DB::Raw("count(*) as count_avis"));
+                $q->groupBy('thumb');
+            }])
             ->orderBy('seasons.name', 'asc')
             ->get();
     }

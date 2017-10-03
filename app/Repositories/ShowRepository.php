@@ -9,9 +9,11 @@ use App\Jobs\ShowUpdateManually;
 use App\Jobs\ShowDelete;
 
 use App\Models\Artist;
+use App\Models\Comment;
 use App\Models\Season;
 use App\Models\Show;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -137,6 +139,16 @@ class ShowRepository
         else {
             $show = $this->getShowByURL($show_url);
         }
+
+        $nbcomments = Comment::groupBy('thumb')
+            ->select('thumb', \DB::raw('count(*) as count_thumb'))
+            ->where('commentable_id', '=', $show->id)
+            ->where('commentable_type', '=', 'App\Models\Show')
+            ->get();
+
+        $positiveComments = $nbcomments->where('thumb', '=', '1')->first();
+        $neutralComments = $nbcomments->where('thumb', '=', '2')->first();
+        $negativeComments = $nbcomments->where('thumb', '=', '3')->first();
 
         // On récupère les saisons, genres, nationalités et chaines
 

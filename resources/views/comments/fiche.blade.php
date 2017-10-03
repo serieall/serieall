@@ -26,6 +26,7 @@
             </div>
         </div>
     </div>
+    @include('comments.form_avis')
 @endsection
 
 @section('content_fiche_left')
@@ -43,11 +44,12 @@
 
 @section('content_fiche_right')
     <div class="ui stackable grid">
+        @if(Auth::check())
         <div class="row">
             <div class="ui segment center aligned">
-                <button class="ui fluid DarkBlueSerieAll button WriteAvis">
+                <button class="ui DarkBlueSerieAll button fluid WriteAvis">
                     <i class="write icon"></i>
-                    @if(isset($comments['user_comment']))
+                    @if(!isset($comments['user_comment']))
                         Ecrire un avis
                     @else
                         Modifier mon avis
@@ -55,6 +57,7 @@
                 </button>
             </div>
         </div>
+        @endif
 
         <div class="row">
             <div class="ui segment left aligned">
@@ -141,5 +144,45 @@
                 $('#ListAvis').removeClass('loading');
             });
         }
+
+        $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
+        $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
+        CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true, showWordCount: false, showParagraphs: false }} );
+
+        // Submission
+        $(document).on('submit', '#formAvis', function(e) {
+            e.preventDefault();
+
+            var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
+            var nombreCaracAvis = '{!! config('param.nombreCaracAvis') !!}';
+
+            if(messageLength < nombreCaracAvis ) {
+                $('.nombreCarac').removeClass("hidden");
+            }
+            else {
+                $('.submit').addClass("loading");
+
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json"
+                })
+                    .done(function () {
+                        window.location.reload(false);
+                    })
+                    .fail(function (data) {
+                        $('.submit').removeClass("loading");
+
+                        $.each(data.responseJSON, function (key, value) {
+                            var input = 'input[class="' + key + '"]';
+
+                            $(input + '+div').text(value);
+                            $(input + '+div').removeClass("hidden");
+                            $(input).parent().addClass('error');
+                        });
+                    });
+            }
+        });
     </script>
 @endsection

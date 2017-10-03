@@ -118,7 +118,7 @@
                 @if(Auth::check())
                     <button class="ui DarkBlueSerieAll button WriteAvis">
                         <i class="write icon"></i>
-                        @if(is_null($comments['user_comment']))
+                        @if(!isset($comments['user_comment']))
                             Ecrire un avis
                         @else
                             Modifier mon avis
@@ -149,49 +149,3 @@
         </div>
     </div>
 </div>
-
-
-
-@section('scripts')
-    <script>
-        $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
-        $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
-        CKEDITOR.replace( 'avis' , {wordcount: { showCharCount: true, showWordCount: false, showParagraphs: false }} );
-
-        // Submission
-        $(document).on('submit', '#formAvis', function(e) {
-            e.preventDefault();
-
-            var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
-            var nombreCaracAvis = '{!! config('param.nombreCaracAvis') !!}';
-
-            if(messageLength < nombreCaracAvis ) {
-                $('.nombreCarac').removeClass("hidden");
-            }
-            else {
-                $('.submit').addClass("loading");
-
-                $.ajax({
-                    method: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    dataType: "json"
-                })
-                    .done(function () {
-                        window.location.reload(false);
-                    })
-                    .fail(function (data) {
-                        $('.submit').removeClass("loading");
-
-                        $.each(data.responseJSON, function (key, value) {
-                            var input = 'input[class="' + key + '"]';
-
-                            $(input + '+div').text(value);
-                            $(input + '+div').removeClass("hidden");
-                            $(input).parent().addClass('error');
-                        });
-                    });
-            }
-        });
-    </script>
-@endsection

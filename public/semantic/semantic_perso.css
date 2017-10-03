@@ -357,6 +357,7 @@ blockquote {
 #header {
     background-color: white;
     z-index: 1;
+    margin-top: inherit;
 }
 
 #footer,#header {
