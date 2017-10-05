@@ -85,6 +85,12 @@ class ShowDelete implements ShouldQueue
                 saveLogMessage($idLog, $logMessage);
                 $episode->artists()->detach();
 
+                // On détache les avis
+                $episode->comments()->delete();
+
+                // On détache les notes
+                $episode->users()->detach();
+
                 // On le supprime
                 $logMessage = '>>> Suppression de l\'épisode';
                 saveLogMessage($idLog, $logMessage);

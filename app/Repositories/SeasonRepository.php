@@ -3,6 +3,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Episode_user;
 use App\Models\Season;
 
 /**
@@ -36,6 +37,10 @@ class SeasonRepository
     public function getSeasonsCountEpisodesForShowByID($id){
         return $this->season->where('show_id', '=', $id)
             ->withCount('episodes')
+            ->with(['comments' => function($q){
+                $q->select('id', 'thumb', 'commentable_id', 'commentable_type', \DB::Raw("count(*) as count_thumb"));
+                $q->groupBy('thumb');
+            }])
             ->orderBy('seasons.name', 'asc')
             ->get();
     }
@@ -75,5 +80,41 @@ class SeasonRepository
         return $this->season
             ->with('show')
             ->findOrFail($id);
+    }
+
+    public function getSeasonsWithEpisodesForShowByID($id)
+    {
+        return $this->season->where('show_id', '=', $id)
+            ->with('episodes')
+            ->orderBy('seasons.name', 'asc')
+            ->get();
+    }
+
+    /**
+     * @param $showID
+     * @param $seasonName
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getSeasonEpisodesBySeasonNameAndShowID($showID, $seasonName)
+    {
+        return $this->season
+            ->with(['episodes' => function($q){
+                $q->with(['comments' => function($q){
+                    $q->select('id', 'thumb', 'commentable_id', 'commentable_type', \DB::Raw("count(*) as count_thumb"));
+                    $q->groupBy('thumb');
+                }]);
+            }])
+            ->withCount('episodes')
+            ->where('seasons.name', '=', $seasonName)
+            ->where('seasons.show_id', '=', $showID)
+            ->first();
+    }
+
+    public function getRatesBySeasonID($id)
+    {
+        return $this->season
+            ->where('seasons.id', '=', $id)
+            ->with('users')
+            ->first();
     }
 }

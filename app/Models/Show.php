@@ -58,6 +58,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property string $particularite
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Show whereParticularite($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  */
 class Show extends Model {
 
@@ -145,4 +146,11 @@ class Show extends Model {
 		return $this->morphToMany('App\Models\Artist', 'artistable')->orderBy('name')->wherePivot('profession', 'actor')->withPivot('role');
 	}
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'episode_user')->withPivot('rate', 'updated_at');
+    }
 }

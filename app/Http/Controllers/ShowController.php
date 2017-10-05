@@ -2,24 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Season;
+
+use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
+use App\Repositories\EpisodeRepository;
+
+use ConsoleTVs\Charts\Facades\Charts;
 
 class ShowController extends Controller
 {
     protected $showRepository;
     protected $seasonRepository;
+    protected $episodeRepository;
+    protected $commentRepository;
 
     /**
      * ShowController constructor.
      * @param ShowRepository $showRepository
      * @param SeasonRepository $seasonRepository
+     * @param EpisodeRepository $episodeRepository
+     * @param CommentRepository $commentRepository
      */
     public function __construct(ShowRepository $showRepository,
-                                SeasonRepository $seasonRepository)
+                                SeasonRepository $seasonRepository,
+                                EpisodeRepository $episodeRepository,
+                                CommentRepository $commentRepository)
     {
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
+        $this->episodeRepository = $episodeRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -28,11 +42,30 @@ class ShowController extends Controller
      * @param $show_url
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getShow($show_url)
+    public function getShowFiche($show_url)
     {
+        # Get ID User if user authenticated
+        $user_id = getIDIfAuth();
+
+        # Get Show
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        return view('shows/index', compact('showInfo'));
+        # Generate Chart
+        $chart = Charts::create('area', 'highcharts')
+            ->title('Evolution des notes de la série')
+            ->elementLabel('Notes')
+            ->xAxisTitle('Numéro de la saison')
+            ->labels($showInfo['seasons']->pluck('name'))
+            ->values($showInfo['seasons']->pluck('moyenne'))
+            ->dimensions(0, 300);
+
+        # Compile Object informations
+        $object = compileObjectInfos('Show', $showInfo['show']->id);
+
+        # Get Comments
+        $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+
+        return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'comments', 'object'));
     }
 
     /**
@@ -45,17 +78,5 @@ class ShowController extends Controller
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
         return view('shows/details', compact('showInfo'));
-    }
-
-    /**
-     * Envoi vers la page shows/seasons
-     *
-     * @param $show_url
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function getShowSeasons($show_url) {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
-
-        return view('shows/seasons', compact('showInfo'));
     }
 }

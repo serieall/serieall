@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Episode_user[] $users
  */
 class Season extends Model {
 	protected $table = 'seasons';
@@ -49,7 +50,9 @@ class Season extends Model {
      */
     public function episodes()
 	{
-		return $this->hasMany('App\Models\Episode')->orderBy('numero');
+		return $this->hasMany('App\Models\Episode')
+            ->orderBy('diffusion_us')
+            ->orderBy('numero');
 	}
 
     /**
@@ -68,4 +71,8 @@ class Season extends Model {
 		return $this->morphToMany('App\Models\Article', 'articlable');
 	}
 
+	public function users()
+    {
+        return $this->hasManyThrough('App\Models\Episode_user', 'App\Models\Episode');
+    }
 }

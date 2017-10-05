@@ -13,7 +13,11 @@
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
+
+Route::get('/cgu', function () {
+    return view('pages.cgu');
+})->name('cgu');
 
 /*
     Partie Authentification
@@ -21,21 +25,39 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');
 
 /*
     Partie Utilisateurs
 */
 Route::get('profil/{user}', 'UserController@getProfile')->name('user.profile');
-Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword');
-Route::resource('user', 'UserController');
+Route::get('profil/{user}/parametres', 'UserController@getParameters')->name('user.profile.parameters')->middleware('amithisuser');
+Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword')->middleware('auth');
+Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos')->middleware('auth');
 
 /*
     Partie Séries
 */
-Route::get('serie/{show_url}', 'ShowController@getShow')->name('show.fiche');
-Route::get('serie/{show_url}/seasons', 'ShowController@getShowSeasons')->name('show.seasons');
-Route::get('serie/{show_url}/details', 'ShowController@getShowDetails')->name('show.details');
+Route::get('serie/{show_url}', 'ShowController@getShowFiche')->name('show.fiche');
+Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.details');
+
+/*
+    Partie Saisons
+ */
+Route::get('saison/{show_url}/{season}', 'SeasonController@getSeasonFiche')->name('season.fiche');
+
+/*
+    Partie Episodes
+ */
+Route::get('episode/{show_url}/s{season}e{episode}/{id?}', 'EpisodeController@getEpisodeFiche')->name('episode.fiche');
+Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate')->middleware('auth');
+
+/*
+    Partie Commentaire
+*/
+Route::get('avis/{show_url}/{season?}/{episode?}/{episode_id?}', 'CommentController@fiche')->name('comment.fiche');
+Route::post('comment', 'CommentController@store')->name('comment.store')->middleware('auth');
 
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
@@ -86,6 +108,15 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('admin/episodes/update', 'Admin\AdminEpisodeController@update')->name('admin.episodes.update');
     Route::get('admin/episodes/{season}/redirect', 'Admin\AdminEpisodeController@redirect')->name('admin.episodes.redirect');
     Route::delete('admin/episodes/{episode}', 'Admin\AdminEpisodeController@destroy')->name('admin.episodes.destroy');
+
+    /* USERS */
+    Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');
+    Route::get('admin/users/create', 'Admin\AdminUserController@create')->name('admin.users.create');
+    Route::post('admin/users', 'Admin\AdminUserController@store')->name('admin.users.store');
+    Route::get('admin/users/{user}', 'Admin\AdminUserController@edit')->name('admin.users.edit');
+    Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
+    Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
+    Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
 
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');

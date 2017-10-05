@@ -1,62 +1,80 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Profil de ' . $user->username)
+
 @section('content')
-    <div class="row">
-        <div class="six wide column">
-            <div class="ui pilled segment">
-                <!-- Si je suis un invité -->
-                @if (Auth::guest())
-                    Voici le profil de {{ $user->username }}, mais étant invité, vous n'avez pas accès au contenu.
-                <!-- Si je suis connecté et que je suis l'utilisateur en question -->
-                @elseif(Auth::user()->id == $user->id)
-                    <h1 class="div-center">Modification de votre mot de passe</h1>
-                    <br />
+    <div class="ui ten wide column">
 
-                    <form class="ui form" method="POST" action="{{ route('user.changepassword') }}">
-                        {{ csrf_field() }}
-
-                        <div class="field {{ $errors->has('password') ? ' error' : '' }}">
-                            <label>Ancien mot de passe</label>
-                            <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
-
-                            @if ($errors->has('password'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="field {{ $errors->has('new_password') ? ' error' : '' }}">
-                            <label>Nouveau mot de passe</label>
-                            <input name="new_password" placeholder="Mot de passe" type="password" value="{{ old('new_password') }}">
-
-                            @if ($errors->has('new_password'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('new_password') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="field {{ $errors->has('new_password_confirmation') ? ' error' : '' }}">
-                            <label>Confirmer le nouveau mot de passe</label>
-                            <input name="new_password_confirmation" placeholder="Mot de passe" type="password" value="{{ old('new_password_confirmation') }}">
-
-                            @if ($errors->has('new_password_confirmation'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('new_password_confirmation') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="div-center">
-                            <button class="positive ui button" type="submit">Valider</button>
-                        </div>
-                    </form>
-                <!-- Si je suis connecté mais que je ne suis pas l'utilisateur -->
-                @else
-                    Mais vous n'êtes pas {{ $user->username }} ! Mais au moins vous êtes connecté. Bien.
+        <div class="ui center aligned">
+            <div class="ui stackable compact pointing menu">
+                <a class="active item">
+                    <i class="user icon"></i>
+                    Profil
+                </a>
+                <a class="item">
+                    <i class="star icon"></i>
+                    Notes
+                </a>
+                <a class="item">
+                    <i class="comment icon"></i>
+                    Avis
+                </a>
+                <a class="item">
+                    <i class="tv icon"></i>
+                    Séries
+                </a>
+                <a class="item">
+                    <i class="ordered list icon"></i>
+                    Classement
+                </a>
+                @if($user->username == Auth::user()->username)
+                    <a class="item" href="{{ route('user.profile.parameters', $user->username ) }}">
+                        <i class="settings icon"></i>
+                        Paramètres
+                    </a>
                 @endif
             </div>
+        </div>
+
+        <div class="ui segment">
+            <div class="ui items">
+                <div class="item">
+                    <span class="ui tiny image">
+                        <img src="{{ Gravatar::src($user->email) }}">
+                    </span>
+                    <div class="content">
+                        <a class="header">{{ $user->username }}</a><br />
+                        {!! roleUser($user->role) !!}
+                        <div class="description">
+                            <p>"<i>{{ $user->edito }}"</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if(!empty($user->facebook) || !empty($user->twitter) || !empty($user->website))
+                <h3>Ses liens :</h3>
+                @if(!empty($user->facebook))
+                    <button class="ui facebook button" onclick="window.location.href='https://www.facebook.com/{{ $user->facebook }}'">
+                        <i class="facebook icon"></i>
+                        Facebook
+                    </button>
+                @endif
+
+                @if(!empty($user->twitter))
+                    <button class="ui twitter button" onclick="window.location.href='https://www.twitter.com/{{ $user->twitter }}'">
+                        <i class="twitter icon"></i>
+                        Twitter
+                    </button>
+                @endif
+
+                @if(!empty($user->website))
+                    <button class="ui grey button" onclick="window.location.href='{{ $user->website }}'">
+                        <i class="at icon"></i>
+                        Site Internet
+                    </button>
+                @endif
+            @endif
         </div>
     </div>
 @endsection

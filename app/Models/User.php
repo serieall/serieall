@@ -81,7 +81,7 @@ class User extends Authenticatable {
      */
     public function episodes()
 	{
-		return $this->belongsToMany('App\Models\Episode');
+		return $this->belongsToMany('App\Models\Episode')->withPivot('rate', 'updated_at');
 	}
 
     /**

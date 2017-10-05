@@ -3,10 +3,14 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 class Authenticate
 {
+
+    use AuthenticatesUsers;
+
     /**
      * Handle an incoming request.
      *
@@ -24,7 +28,22 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
+        else
+        {
+            if ($request->user()->suspended == 1) {
+                $this->guard()->logout();
 
-        return $next($request);
+                $request->session()->flush();
+
+                $request->session()->regenerate();
+
+                return redirect()
+                    ->route('login')
+                    ->with('warning', 'Votre compte a été bloqué.');
+            }
+
+            return $next($request);
+
+        }
     }
 }

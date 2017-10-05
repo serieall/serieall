@@ -61,9 +61,9 @@ class LoginController extends Controller
      */
     protected function sendLoginResponse(Request $request)
     {
-        # Si le mot de passe n'st pas hashé avec Bcrypt
+        # Si le mot de passe n'est pas hashé avec Bcrypt
         if($this->hashingProvider->needsRehash(Auth::user()->password)){
-            # On regénre un mot de passe avevc Bcrypt
+            # On regénre un mot de passe avec Bcrypt
             Auth::user()->password = $this->hashingProvider->make($request->password);
             # On sauvegarde l'utilisateur
             Auth::user()->save();
@@ -98,6 +98,10 @@ class LoginController extends Controller
             $this->activationService->sendActivationMail($user);
             auth()->logout();
             return back()->with('warning', 'Vous devez valider votre adresse E-mail. Nous vous avons envoyé un code de validation.');
+        }
+        elseif ($user->suspended) {
+            auth()->logout();
+            return back()->with('warning', 'Votre compte a été bloqué.');
         }
         return redirect()->intended($this->redirectPath());
     }

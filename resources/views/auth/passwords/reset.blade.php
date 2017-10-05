@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Réinialisation du mot de passe')
+
 @section('content')
     <div class="row">
         <div class="six wide column">

@@ -20,4 +20,7 @@ return [
     /* Nombre de caractères max pour un résumé */
     'nombreCaracResume' => 320,
 
+    /* Nombre de caractères minimum pour un avis */
+    'nombreCaracAvis' => 100,
+
 ];

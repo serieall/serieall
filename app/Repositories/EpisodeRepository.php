@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Episode;
+use App\Models\Episode_user;
 use App\Models\Show;
 
 /**
@@ -45,5 +46,31 @@ class EpisodeRepository
         return $this->episode->with(['season', 'directors', 'writers', 'guests', 'show' => function($q){
             $q->with('seasons');
         }])->findOrFail($id);
+    }
+
+    public function getEpisodeByEpisodeNumeroAndSeasonID($seasonID, $episodeNumero)
+    {
+        return $this->episode
+            ->with('directors', 'writers', 'guests')
+            ->where('episodes.numero', '=', $episodeNumero)
+            ->where('episodes.season_id', '=', $seasonID)
+            ->first();
+    }
+
+    public function getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonID, $episodeNumero, $episodeID) {
+        return $this->episode
+            ->with('directors', 'writers', 'guests')
+            ->where('episodes.numero', '=', $episodeNumero)
+            ->where('episodes.id', '=',$episodeID)
+            ->where('episodes.season_id', '=', $seasonID)
+            ->first();
+    }
+
+    public function getRatesByEpisodeID($id)
+    {
+        return $this->episode
+            ->where('episodes.id', '=', $id)
+            ->with('users')
+            ->first();
     }
 }

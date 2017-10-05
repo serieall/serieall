@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+
+@section('pageTitle', 'Administration')
+
 @section('breadcrumbs')
     <div class="active section">
         Administration

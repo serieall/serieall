@@ -27,6 +27,12 @@ class ComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\NavActiveAdminShowsComposer'
         );
 
+        // NavActive = AdminUsers
+        View::composer(
+            ['admin/users/*'],
+            'App\Http\ViewComposers\NavActiveAdminUsersComposer'
+        );
+
         // NavActive = AdminSystem
         View::composer(
             ['admin/system/*'],
@@ -36,7 +42,7 @@ class ComposerServiceProvider extends ServiceProvider
         // SITE
         // NavActive = home
         View::composer(
-            ['home', 'errors/*'],
+            ['home', 'errors/*', 'pages/*'],
             'App\Http\ViewComposers\NavActiveHomeComposer'
         );
 
@@ -60,8 +66,34 @@ class ComposerServiceProvider extends ServiceProvider
 
         // NavActive = shows
         View::composer(
-            ['shows/*'],
+            ['shows/*', 'seasons/*', 'episodes/*', 'comments/fiche', 'layouts/errors'],
             'App\Http\ViewComposers\NavActiveShowsComposer'
+        );
+
+
+        // FICHES
+        // FicheActive = home
+        View::composer(
+            ['shows/fiche'],
+            'App\Http\ViewComposers\FicheActiveHomeComposer'
+        );
+
+        // FicheActive = seasons
+        View::composer(
+            ['seasons/fiche', 'episodes/fiche'],
+            'App\Http\ViewComposers\FicheActiveSeasonsComposer'
+        );
+
+        // FicheActive = details
+        View::composer(
+            ['shows/details'],
+            'App\Http\ViewComposers\FicheActiveDetailsComposer'
+        );
+
+        // FicheActive = comments
+        View::composer(
+            ['comments/fiche'],
+            'App\Http\ViewComposers\FicheActiveCommentsComposer'
         );
     }
 

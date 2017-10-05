@@ -49,6 +49,8 @@ use Znck\Eloquent\Traits\BelongsToThrough;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $picture
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode wherePicture($value)
  */
 class Episode extends Model {
     use BelongsToThrough;
@@ -94,7 +96,7 @@ class Episode extends Model {
      */
     public function users()
 	{
-		return $this->belongsToMany('App\Models\User');
+		return $this->belongsToMany('App\Models\User')->withPivot('rate', 'updated_at');
 	}
 
     /**

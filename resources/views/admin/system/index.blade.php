@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+
+@section('pageTitle', 'Admin - Système')
+
 @section('breadcrumbs')
     <a href="{{ route('admin') }}" class="section">
         Administration

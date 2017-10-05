@@ -9,7 +9,7 @@ return [
     |
     */
     'name' => 'Série-All',
-    'version' => '0.1.3',
+    'version' => '0.2.0',
     'id_piwik' => env('APP_IDPIWIK', '1'),
 
     /*
@@ -75,7 +75,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr_FR',
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -165,6 +165,7 @@ return [
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Marcelgwerder\ApiHandler\ApiHandlerServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -234,6 +235,7 @@ return [
         'DingoApi' => Dingo\Api\Facade\API::class,
         'DingoRoute' => Dingo\Api\Facade\Route::class,
         'ApiHandler' => Marcelgwerder\ApiHandler\Facades\ApiHandler::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
     ],
 
 ];

@@ -1,39 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>SérieAll BETA</title>
-    <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
-
-    <!-- CSS -->
-    {{ Html::style('/semantic/semantic.css') }}
-    {{ Html::style('/semantic/semantic_perso.css') }}
-    {{ Html::style('/js/jquery.css') }}
-
-    <!-- Javascript -->
-    {{ Html::script('/js/jquery.js') }}
-    {{ Html::script('/js/jquery.ui.js') }}
-    {{ Html::script('/js/datatables.js') }}
-    {{ Html::script('/semantic/semantic.min.js') }}
-
-    <!-- Piwik -->
-    <script type="text/javascript">
-        var _paq = _paq || [];
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function() {
-            var u="//analytics.journeytotheit.ovh/";
-            _paq.push(['setTrackerUrl', u+'piwik.php']);
-            _paq.push(['setSiteId', '1']);
-            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-        })();
-    </script>
-    <noscript><p><img src="//analytics.journeytotheit.ovh/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-    <!-- End Piwik Code -->
+    @include('layouts.base_head')
 </head>
 <body id="body">
     <div class="ui secondary pointing fluid stackable menu" id="header">
@@ -132,10 +100,24 @@
             @endif
         </div>
     </div>
-    <div class="ui stackable grid">
-        @if (session('status') || session('success'))
-            <div id="message-top" class="ui container centered grid">
-                <div class="ui success compact message">
+
+    @if (session('status') || session('success') || session('error') || session('warning'))
+        <div class="ui centered stackable grid" id="messageBox">
+            <div class="ten wide column center aligned">
+                <div class="ui
+                 @if (session('success'))
+                    success
+                 @endif
+                 @if (session('status'))
+                    success
+                 @endif
+                 @if (session('warning'))
+                    orange
+                 @endif
+                 @if (session('error'))
+                     red
+                 @endif
+                 compact message">
                     <i class="close icon"></i>
                     <div class="content">
                         @if (session('success'))
@@ -144,119 +126,23 @@
                         @if (session('status'))
                             <p>{{ session('status') }}</p>
                         @endif
+                        @if (session('warning'))
+                            <p>{{ session('warning') }}</p>
+                        @endif
+                        @if (session('error'))
+                            <p>{{ session('error') }}</p>
+                        @endif
                     </div>
                 </div>
             </div>
-        @endif
-
-        @if (session('warning'))
-            <div id="message-top" class="ui container centered grid">
-                <div class="ui orange compact message">
-                    <i class="close icon"></i>
-                    <div class="content">
-                        <p>{{ session('warning') }}</p>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div id="message-top" class="ui container centered grid">
-                <div class="ui error compact message">
-                    <i class="close icon"></i>
-                    <div class="content">
-                        <p>{{ session('error') }}</p>
-                    </div>
-                </div>
-            </div>
-        @endif
-    </div>
+        </div>
+    @endif
 
     <div class="ui centered stackable grid" id="content">
         @yield('content')
     </div>
-    <div id="footer" class="ui vertical footer segment">
-        <div class="ui center aligned container">
-            <div class="ui centered stackable grid">
-                <div class="centered three wide column">
-                    <h3>Série-All</h3>
-                    <ul class="ui list">
-                        <li>À propos</li>
-                        <li>Notre équipe</li>
-                        <li>Mentions légales</li>
-                        <li>Nous contacter</li>
-                    </ul>
-                </div>
-                <div class="three wide column">
-                    <h3>Communauté</h3>
-                    <ul class="ui list">
-                        <li>Inscription</li>
-                        <li>Liste des membres</li>
-                        <li>Forum</li>
-                        <li>Rejoindre l'équipe</li>
-                    </ul>
-                </div>
-                <div class="center aligned three wide column">
-                    <div class="row">
-                        <i class="circular facebook f big icon"></i>
-                        <i class="circular twitter big icon"></i>
-                    </div>
-                    <div class="row">
-                        <i class="circular mixcloud big icon"></i>
-                        <i class="circular rss big icon"></i>
-                        <i class="circular spotify big icon"></i>
-                    </div>
-                </div>
-                <div class="three wide column">
-                    <h3>Séries</h3>
-                    <ul class="ui list">
-                        <li>Liste des séries</li>
-                        <li>Articles</li>
-                        <li>Planning</li>
-                        <li>Classement</li>
-                    </ul>
-                </div>
-                <div class="three wide column">
-                    <h3>Partenaires</h3>
-                    <ul class="ui list">
-                        <li>VODD</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $('#footer .icon').hover(function () {
-                $(this).transition('tada');
-            }, function () {
-            });
 
-            $('.dropdown')
-                .dropdown()
-            ;
-
-            $('.message .close')
-                .on('click', function () {
-                    $(this)
-                        .closest('.message')
-                        .transition('fade')
-                    ;
-                })
-            ;
-
-            $('#showDropdown')
-                .search({
-                    apiSettings: {
-                        url: '/api/shows/search?_q={query}'
-                    },
-                    fields: { results: "data", title: "name", url: "url" },
-                    selectFirstResult: true,
-                    minCharacters: 1,
-                    maxResults: 40
-                });
-        })
-    </script>
-    @yield('scripts')
+    @include('layouts.base_footer')
 </body>
+@include('layouts.base_js')
 </html>

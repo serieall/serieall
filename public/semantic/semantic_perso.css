@@ -39,6 +39,10 @@
     color: #A5673F !important;
 }
 
+.ui.light.grey.text {
+    color: #cccccc !important;
+}
+
 .ui.grey.text {
     color: #767676 !important;
 }
@@ -112,10 +116,29 @@
     border-top: 0 !important;
 }
 
+.ui.table tr.neutral,
+.ui.table td.neutral {
+    box-shadow: 0px 0px 0px #CCCCCC inset;
+}
+
+.ui.table tr.neutral,
+.ui.table td.neutral {
+    background: #e1e1e1 !important;
+    color: #777777 !important;
+}
+
 .ui.DarkBlueSerieAll.buttons .button,
 .ui.DarkBlueSerieAll.button {
     background-color: #213d64;
     color: #FFFFFF;
+    text-shadow: none;
+    background-image: none;
+}
+
+.ui.LightBlueSerieAll.buttons .button,
+.ui.LightBlueSerieAll.button {
+background-color: #d4e4f0;
+    color: #000000;
     text-shadow: none;
     background-image: none;
 }
@@ -126,6 +149,21 @@
     color: #FFFFFF;
     text-shadow: none;
     background-image: none;
+}
+
+blockquote {
+    font-style: italic;
+    padding-left: 20px;
+    border-left: #ccc 4px solid;
+}
+
+/* DIMMER */
+.ui.dimmer:not(.tempDimmer) {
+    z-index: 101;
+}
+
+.tempDimmer {
+    z-index: 0;
 }
 
 /*ADMIN*/
@@ -195,20 +233,20 @@
     margin-left : 15rem;
 }
 
-.padding-article{
+.padding-article {
     padding: 2rem;
 }
 
-#message-top{
+#message-top {
     margin-top: 1rem;
     margin-bottom : 1rem;
 }
 
-.moveSeason:hover{
+.moveSeason:hover {
     cursor: grab;
 }
 
-.moveEpisode:hover{
+.moveEpisode:hover {
     cursor: grab;
 }
 
@@ -263,7 +301,6 @@
 
 /* FOOTER */
 #footer {
-    margin-top: 2rem;
     background: #213d64;
     padding: 4em 0 4em 0;
     width: 100%;
@@ -291,6 +328,23 @@
     color: #1074b2;
 }
 
+.columnFooter {
+    display: flex;
+    justify-content: center;
+}
+
+.columnFooter a {
+    color: white;
+}
+
+.columnFooter a:hover {
+    color: #1074b2;
+}
+
+.columnFooter .title:before {
+    content: inherit !important;
+}
+
 /* FIX FOOTER TO BOTTOM */
 #body {
     display: flex;
@@ -301,6 +355,7 @@
 #header {
     background-color: white;
     z-index: 1;
+    margin-top: inherit;
 }
 
 #footer,#header {
@@ -308,6 +363,11 @@
 }
 
 #content {
+    flex: 1 0 auto;
+    margin-bottom: 2rem;
+}
+
+#messageBox {
     flex: 1 0 auto;
 }
 
@@ -368,11 +428,10 @@
     transform: scale(1.1);
 }
 
-#topInfo {
+.topInfo {
     color: white;
     z-index: 10;
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     text-shadow: 1px 1px 2px black;
@@ -430,7 +489,7 @@
     font-size: 2.5em;
     margin-bottom: 0;
 }
-#topInfo h2 {
+#topInfo h2, .ui.episode.titreen {
     margin-top: 0;
     color: #b3b3b3;
     font-size: 1.2em;
@@ -474,18 +533,6 @@
     stroke: none;
 }
 
-.circleGood {
-    stroke: #21BA45;
-}
-
-.circleNeutral{
-    stroke: #767676;
-}
-
-.circleBad {
-    stroke: #DB2828;
-}
-
 #ShowReviewCount p {
     text-align: center;
 }
@@ -509,11 +556,55 @@
 
 #menuFiche a {
     height: 80px;
+    font-size: 1.2em;
 }
 
 #menuFiche a.active {
     color: white;
     background: #213d64;
+}
+
+#menuFiche {
+    padding-bottom: inherit;
+}
+
+#menuListSeasons {
+    padding-top: inherit;
+    padding-bottom: inherit;
+}
+
+#menuListSeasons .column {
+    padding-left: inherit;
+    padding-right: inherit;
+}
+
+#menuListSeasons .segment {
+    border-radius: inherit;
+    background: #213d64;
+}
+
+#menuListSeasons .ui.secondary.menu .item {
+    color: white;
+}
+
+#menuListSeasons .ui.secondary.menu .item:hover {
+    color: white;
+    background: rgba(0, 0, 0, 0.30);
+}
+
+#menuListSeasons .ui.secondary.menu .active.item {
+    color: black;
+    background-color: white;
+}
+
+#menuListSeasons .ui.secondary.menu .active.item:hover {
+    color: black;
+    background-color: white;
+}
+
+#seasonsLine {
+    margin-left: inherit;
+    margin-right: inherit;
 }
 
 #LeftBlockShow {
@@ -527,6 +618,24 @@
     box-shadow: none;
     padding: 2rem;
     width: 100%;
+}
+
+#LeftBlockShow .inverted.segment, #RightBlockShow .inverted.segment {
+    background-color: black;
+    padding: 1rem;
+}
+
+#MiddleBlockShow .segment {
+    border: none;
+    background-color: white;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 2rem;
+    width: 100%;
+}
+
+.marginTest {
+    margin-right: 2em;
 }
 
 #LeftBlockShow,#RightBlockShow h1 {
@@ -577,10 +686,12 @@
 
 #ListAvis .AvisResume {
     text-align: justify;
+    word-wrap: break-word;
 }
 
 #ListAvis .AvisBox {
     padding: 0;
+    overflow: auto;
 }
 
 #ListAvis table {
@@ -665,14 +776,175 @@
     margin: 0 auto;
 }
 
-.ui.dimmer:not(.tempDimmer) {
-    z-index: 101;
+#seasonTab {
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
-.tempDimmer {
-    z-index: 0;
+.ui.secondary.menu .active.item {
+    color: white;
+    background-color: #213d64;
 }
 
-.compact.message {
-    box-sizing: content-box;
+.ui.secondary.menu .active.item:hover {
+    color: white;
+    background-color: #213d64;
+}
+
+#episodeDetails p {
+    color: black;
+}
+
+#episodeDetails .ui.table thead th {
+    border-bottom: inherit;
+}
+
+#episodeDetails .segment {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    border-top: none;
+}
+
+#episodeDetails .active.item:hover {
+    color: black;
+    background-color: inherit;
+}
+
+/* PROFIL */
+.ui.menu .active.item {
+    color: white;
+    background-color: #1074b2;
+}
+
+.ui.pointing.menu .active.item::after {
+    background-color: #1074b2;
+}
+
+.ui.menu .active.item:hover {
+    color: white;
+    background-color: #1074b2;
+}
+
+.ui.pointing.menu .active.item:hover::after {
+    background-color: #1074b2;
+}
+
+.ui.center.aligned {
+    text-align: center;
+}
+
+.NoteSeason {
+    font-size: 4em;
+    margin-bottom: 1px;
+}
+
+p.episodeResume {
+    text-align: justify;
+}
+
+.ui.fluid.styled.accordion, .ui.fluid.styled.accordion .accordion {
+    margin-bottom: 1em;
+}
+
+.showMoreOrLess {
+    overflow: hidden;
+    height: 220px;
+}
+
+.cutAvis {
+    overflow: hidden;
+    max-height: 200px
+}
+
+.fadeShowMoreOrLess {
+    position: relative;
+    bottom: 2em;
+    height: 1em;
+    background: -webkit-linear-gradient(
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 100%
+    );
+    background-image: -moz-linear-gradient(
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 100%
+    );
+    background-image: -o-linear-gradient(
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 100%
+    );
+    background-image: linear-gradient(
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 100%
+    );
+    background-image: -ms-linear-gradient(
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 100%
+    );
+}
+
+.ListAll {
+    margin: 1em !important;
+}
+
+.chartMean {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.reactions {
+    padding-left: 3em;
+    text-align: left;
+}
+
+.ui.pagination.menu .active.item:hover {
+    background-color: rgba(0,0,0,.05);
+    color: rgba(0,0,0,.95);
+}
+
+
+
+.ui.inline.cookie.nag {
+    min-height: inherit;
+    color: white;
+    background-color: #1074b2;
+    border-radius: inherit;
+}
+
+.ui.inline.cookie.nag:hover {
+    background-color: #1074b2;
+}
+
+/* ARTICLES*/
+.article {
+    text-align: justify;
+}
+
+
+/*Correctifs elpio */
+
+/*Fiche série*/
+.topInfo.ficheContainer, .menuFiche .menu.ficheContainer, .ficheContainer {
+    max-width: 1280px;
+    
+}
+
+.topInfo.ficheContainer, .menuFiche .menu.ficheContainer {
+    margin: auto !important;
+}
+
+.menuFiche .column {
+    background: #fff;
+    box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+}
+
+.topImageBanniereContainer:after {
+    content:'\A';
+    position:absolute;
+    width:100%; height:100%;
+    top:0; left:0;
+    background:rgba(0,0,0,0.5);
+    opacity:1;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    margin-left: 0 !important;
 }

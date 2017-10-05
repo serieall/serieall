@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -28,7 +29,6 @@ class AppServiceProvider extends ServiceProvider
         View::share('noteGood', $noteGood);
         View::share('noteNeutral', $noteNeutral);
         View::share('noteBad', $noteBad);
-
     }
 
     /**

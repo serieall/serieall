@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('pageTitle', 'Admin - Séries')
+
 @section('breadcrumbs')
     <a href="{{ route('admin') }}" class="section">
         Administration
@@ -75,7 +77,7 @@
 
                                 <input type="hidden" name="_method" value="DELETE">
 
-                                <button class="circular ui red icon button" type="submit" value="Supprimer cette série ?" onclick="return confirm('Voulez-vous vraiment supprimer cette série ?')">
+                                <button class="circular ui red icon button" value="Supprimer cette série ?" onclick="return confirm('Voulez-vous vraiment supprimer cette série ?')">
                                     <i class="icon remove"></i>
                                 </button>
                             </form>
@@ -85,6 +87,9 @@
             @endforeach
         </table>
     </div>
+@endsection
+
+@section('scripts')
     <script>
         $('#tableAdmin').DataTable( {
             "order": [[ 0, "asc" ]],

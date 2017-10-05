@@ -9,9 +9,11 @@ use App\Jobs\ShowUpdateManually;
 use App\Jobs\ShowDelete;
 
 use App\Models\Artist;
+use App\Models\Comment;
 use App\Models\Season;
 use App\Models\Show;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -129,15 +131,27 @@ class ShowRepository
         // En fonction de la route, on récupère les informations sur la série différemment
         if (Route::current()->getName() == "show.fiche") {
             $show = $this->getShowByURL($show_url);
+            $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         } elseif (Route::current()->getName() == "show.details") {
             $show = $this->getShowDetailsByURL($show_url);
+            $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         }
         else {
             $show = $this->getShowByURL($show_url);
         }
 
+        $nbcomments = Comment::groupBy('thumb')
+            ->select('thumb', \DB::raw('count(*) as count_thumb'))
+            ->where('commentable_id', '=', $show->id)
+            ->where('commentable_type', '=', 'App\Models\Show')
+            ->get();
+
+        $showPositiveComments = $nbcomments->where('thumb', '=', '1')->first();
+        $showNeutralComments = $nbcomments->where('thumb', '=', '2')->first();
+        $showNegativeComments = $nbcomments->where('thumb', '=', '3')->first();
+
         // On récupère les saisons, genres, nationalités et chaines
-        $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
+
         $genres = formatRequestInVariable($show->genres);
         $nationalities = formatRequestInVariable($show->nationalities);
         $channels = formatRequestInVariable($show->channels);
@@ -164,7 +178,7 @@ class ShowRepository
             $fullSynopsis = true;
         }
 
-        return compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'synopsis', 'showSynopsis', 'fullSynopsis');
+        return compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'synopsis', 'showSynopsis', 'fullSynopsis', 'showPositiveComments', 'showNeutralComments', 'showNegativeComments');
     }
 
     /**
@@ -259,5 +273,15 @@ class ShowRepository
         return $this->show
             ->with('actors')
             ->findOrFail($id);
+    }
+
+    /**
+     * Get show by ID
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public function getShowByID($id) {
+        return $this->show->findOrFail($id);
     }
 }

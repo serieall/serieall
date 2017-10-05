@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserChangeInfosRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\UserRepository;
@@ -36,6 +37,40 @@ class UserController extends Controller
     }
 
     /**
+     * Affiche le formulaire de modification des paramètres
+     *
+     * @param $username
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getParameters($username){
+        $user = $this->userRepository->getUserByUsername($username);
+
+        return view('users.parameters', compact('user'));
+    }
+
+    /**
+     * L'utilisateur change lui-même ses informations personnelles
+     *
+     * @param UserChangeInfosRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function changeInfos(UserChangeInfosRequest $request)
+    {
+        $user = Auth::user();
+        $user->email = $request->email;
+        $user->antispoiler = $request->antispoiler;
+        $user->twitter = $request->twitter;
+        $user->facebook = $request->facebook;
+        $user->website = $request->website;
+        $user->edito = $request->edito;
+
+        $user->save();
+
+        return redirect()->back()
+            ->with('success', 'Vos informations personnelles ont été modifiées !');
+    }
+
+    /**
      * Changement du mot de passe de l'utilisateur
      *
      * @param changePasswordRequest $request
@@ -45,19 +80,14 @@ class UserController extends Controller
         $user = Auth::user();
         $password = $request->password;
 
-        Log::info($user . ' veut changer son mot de passe.');
-
         if (Hash::check($password, $user->password)) {
             $user->password = Hash::make($request->new_password);
             $user->save();
-
-            Log::info($user . ' a réussi à changer son mot de passe.');
 
             return redirect()->back()
                 ->with('success', 'Votre mot de passe a été modifié !');
         }
         else{
-            Log::info($user . ' n\'a pas réussi à changer son mot de passe.');
             return redirect()->back()
                 ->with('warning', 'Votre mot de passe actuel ne correspond pas à celui saisi.');
         }

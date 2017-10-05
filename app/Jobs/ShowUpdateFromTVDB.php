@@ -346,9 +346,19 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                         $logMessage = '>>>>>Résumé français : ' . $episodeResumeFR;
                         saveLogMessage($idLog, $logMessage);
 
+                        $episodeDiffusionFR = $getEpisode_fr->firstAired;
+                        # Diffusion française
+                        $logMessage = '>>>>>Diffusion française : ' . $episodeDiffusionFR;
+                        saveLogMessage($idLog, $logMessage);
+
                         $episodeDiffusionUS = $getEpisode_en->firstAired;
                         # Diffusion originale
                         $logMessage = '>>>>>Diffusion originale : ' . $episodeDiffusionUS;
+                        saveLogMessage($idLog, $logMessage);
+
+                        $episodePicture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                        # Image
+                        $logMessage = '>>>>>Image : ' . $episodePicture;
                         saveLogMessage($idLog, $logMessage);
 
                         # On prépare le nouvel épisode
@@ -360,6 +370,8 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             'resume' => $episodeResumeEN,
                             'resume_fr' => $episodeResumeFR,
                             'diffusion_us' => $episodeDiffusionUS,
+                            'diffusion_fr' => $episodeDiffusionFR,
+                            'picture' => $episodePicture,
                         ]);
                         # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                         $episode_ref->season()->associate($season_ref);
@@ -552,6 +564,29 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             $logMessage = '>>>>>Diffusion originale : ' . $episodeDiffusionUS;
                             saveLogMessage($idLog, $logMessage);
 
+                            /* Récupération de la photo de l'épisode */
+                            if(!empty($getEpisode_en->filenam)) {
+                                $file = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                                $file_headers = @get_headers($file);
+                                if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                    $episodePicture = null;
+
+                                    $logMessage = '>>>Pas d\'image pour l\'épisode.';
+                                    saveLogMessage($idLog, $logMessage);
+                                } else {
+                                    $episodePicture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                                    # Image
+                                    $logMessage = '>>>>>Image : ' . $episodePicture;
+                                    saveLogMessage($idLog, $logMessage);
+                                }
+                            }
+                            else {
+                                $episodePicture = null;
+
+                                $logMessage = '>>>Pas d\'image pour l\'épisode.';
+                                saveLogMessage($idLog, $logMessage);
+                            }
+
                             # On prépare le nouvel épisode
                             $episode_ref = new Episode([
                                 'numero' => $episodeNumero,
@@ -561,7 +596,9 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                 'resume' => $episodeResumeEN,
                                 'resume_fr' => $episodeResumeFR,
                                 'diffusion_us' => $episodeDiffusionUS,
+                                'picture' => $episodePicture,
                             ]);
+
                             # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                             $episode_ref->season()->associate($season_ref);
                             $episode_ref->save();
@@ -639,6 +676,23 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                 }
                             }
 
+                            /* Récupération de la photo de l'épisode */
+                            if(!empty($getEpisode_en->filenam)) {
+                                $file = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                                $file_headers = @get_headers($file);
+                                if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                    $logMessage = '>>>Pas d\'image pour l\'épisode.';
+                                    saveLogMessage($idLog, $logMessage);
+                                } else {
+                                    $episodePicture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                                    $episode_ref->picture = $episodePicture;
+
+                                    # Image
+                                    $logMessage = '>>>>>Image : ' . $episodePicture;
+                                    saveLogMessage($idLog, $logMessage);
+                                }
+                            }
+
                             # On sauvegarde les modifs
                             $episode_ref->save();
 
@@ -666,6 +720,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $idLog = initJob(null, 'Mise à jour via TVDB', 'Show', 0 );
+
         /*
         |--------------------------------------------------------------------------
         | Définition des variables
@@ -679,6 +734,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         $api_url = config('thetvdb.url');
         $api_version = config('thetvdb.version');
         $hours_duration_token = config('thetvdb.hoursduration');
+        $public = public_path();
 
         /*
         |--------------------------------------------------------------------------
@@ -974,6 +1030,19 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             saveLogMessage($idLog, $logMessage);
 
                             $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+
+                            /* Récupération de la photo de l'acteur */
+                            $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
+                            $file_headers = @get_headers($file);
+                            if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
+                                saveLogMessage($idLog, $logMessage);
+                            }
+                            else {
+                                copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
+                                $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
+                                saveLogMessage($idLog, $logMessage);
+                            }
                         }
                     }
                 }
