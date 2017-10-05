@@ -924,6 +924,10 @@ p.episodeResume {
 /*Fiche série*/
 .topInfo.ficheContainer, .menuFiche .menu.ficheContainer, .ficheContainer {
     max-width: 1280px;
+    
+}
+
+.topInfo.ficheContainer, .menuFiche .menu.ficheContainer {
     margin: auto !important;
 }
 
