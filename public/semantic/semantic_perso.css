@@ -1,5 +1,3 @@
-
-
 /* TEXT */
 .ui.red.text {
     color: #DB2828 !important;
@@ -902,6 +900,8 @@ p.episodeResume {
     color: rgba(0,0,0,.95);
 }
 
+
+
 .ui.inline.cookie.nag {
     min-height: inherit;
     color: white;
@@ -943,4 +943,8 @@ p.episodeResume {
     top:0; left:0;
     background:rgba(0,0,0,0.5);
     opacity:1;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    margin-left: 0 !important;
 }
