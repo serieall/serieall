@@ -124,9 +124,9 @@
                     </svg>
                     <div id="ShowReviewCount">
                         <p>
-                            245 avis <span class="ui green text">favorable <i class="green smile large icon"></i></span><br />
-                            42 avis <span class="ui light grey text">neutre <i class="ui text light grey meh large icon"></i></span><br />
-                            25 avis <span class="ui red text">défavorable <i class="red frown large icon"></i></span>
+                            {{ affichageCountThumb($showInfo['showPositiveComments']) }} avis <span class="ui green text">favorable <i class="green smile large icon"></i></span><br />
+                            {{ affichageCountThumb($showInfo['showNeutralComments']) }} avis <span class="ui light grey text">neutre <i class="ui text light grey meh large icon"></i></span><br />
+                            {{ affichageCountThumb($showInfo['showNegativeComments']) }} avis <span class="ui red text">défavorable <i class="red frown large icon"></i></span>
                         </p>
                     </div>
                 </div>

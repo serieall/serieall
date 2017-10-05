@@ -38,7 +38,7 @@ class SeasonRepository
         return $this->season->where('show_id', '=', $id)
             ->withCount('episodes')
             ->with(['comments' => function($q){
-                $q->select('id', 'thumb', 'commentable_id', 'commentable_type', \DB::Raw("count(*) as count_avis"));
+                $q->select('id', 'thumb', 'commentable_id', 'commentable_type', \DB::Raw("count(*) as count_thumb"));
                 $q->groupBy('thumb');
             }])
             ->orderBy('seasons.name', 'asc')
@@ -98,7 +98,12 @@ class SeasonRepository
     public function getSeasonEpisodesBySeasonNameAndShowID($showID, $seasonName)
     {
         return $this->season
-            ->with('episodes')
+            ->with(['episodes' => function($q){
+                $q->with(['comments' => function($q){
+                    $q->select('id', 'thumb', 'commentable_id', 'commentable_type', \DB::Raw("count(*) as count_thumb"));
+                    $q->groupBy('thumb');
+                }]);
+            }])
             ->withCount('episodes')
             ->where('seasons.name', '=', $seasonName)
             ->where('seasons.show_id', '=', $showID)

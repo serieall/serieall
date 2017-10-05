@@ -198,6 +198,12 @@ function compileObjectInfos($object, $object_id) {
     return $object;
 }
 
+/**
+ * Affichage du nom de l'épisode
+ *
+ * @param $episode
+ * @return mixed
+ */
 function afficheEpisodeName($episode){
     if(!empty($episode->name_fr)) {
         $name = $episode->name_fr;
@@ -207,5 +213,19 @@ function afficheEpisodeName($episode){
     }
 
     return $name;
+}
+
+/**
+ * Affichage du nombre de commentaires
+ *
+ * @param $thumb
+ * @return string
+ */
+function affichageCountThumb($thumb){
+    if(!is_null($thumb)){
+        return $thumb->count_thumb;
+    } else {
+        return '0';
+    }
 }
 

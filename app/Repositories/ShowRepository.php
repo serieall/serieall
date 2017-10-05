@@ -146,9 +146,9 @@ class ShowRepository
             ->where('commentable_type', '=', 'App\Models\Show')
             ->get();
 
-        $positiveComments = $nbcomments->where('thumb', '=', '1')->first();
-        $neutralComments = $nbcomments->where('thumb', '=', '2')->first();
-        $negativeComments = $nbcomments->where('thumb', '=', '3')->first();
+        $showPositiveComments = $nbcomments->where('thumb', '=', '1')->first();
+        $showNeutralComments = $nbcomments->where('thumb', '=', '2')->first();
+        $showNegativeComments = $nbcomments->where('thumb', '=', '3')->first();
 
         // On récupère les saisons, genres, nationalités et chaines
 
@@ -178,7 +178,7 @@ class ShowRepository
             $fullSynopsis = true;
         }
 
-        return compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'synopsis', 'showSynopsis', 'fullSynopsis');
+        return compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'synopsis', 'showSynopsis', 'fullSynopsis', 'showPositiveComments', 'showNeutralComments', 'showNegativeComments');
     }
 
     /**

@@ -149,3 +149,5 @@
         </div>
     </div>
 </div>
+
+@include('comments.form_avis')
