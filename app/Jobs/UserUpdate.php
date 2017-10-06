@@ -57,9 +57,9 @@ class UserUpdate implements ShouldQueue
             $user->password = bcrypt($this->inputs['password']);
         }
 
-        $message = 'E-Mail : ' . $this->inputs['email'];
-        saveLogMessage($idLog, $message);
-        $user->email = $this->inputs['email'];
+//        $message = 'E-Mail : ' . $this->inputs['email'];
+//        saveLogMessage($idLog, $message);
+//        $user->email = $this->inputs['email'];
 
         $message = 'Edito : ' . $this->inputs['edito'];
         saveLogMessage($idLog, $message);

@@ -110,17 +110,18 @@
                         </div>
                     </div>
 
-                    <div class="ui two fields">
-                        <div class="ui field {{ $errors->has('email') ? ' error' : '' }}">
-                            <label>Adresse E-mail</label>
-                            <input name="email" placeholder="Adresse e-mail" type="email" value="{{ $user->email }}">
+                    {{--<div class="ui two fields">--}}
+                        {{--TODO: Reactivate--}}
+                        {{--<div class="ui field {{ $errors->has('email') ? ' error' : '' }}">--}}
+                            {{--<label>Adresse E-mail</label>--}}
+                            {{--<input name="email" placeholder="Adresse e-mail" type="email" value="{{ $user->email }}">--}}
 
-                            @if ($errors->has('email'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </div>
-                            @endif
-                        </div>
+                            {{--@if ($errors->has('email'))--}}
+                                {{--<div class="ui red message">--}}
+                                    {{--<strong>{{ $errors->first('email') }}</strong>--}}
+                                {{--</div>--}}
+                            {{--@endif--}}
+                        {{--</div>--}}
 
                         <div class="ui field {{ $errors->has('edito') ? ' error' : '' }}">
                             <label for="edito">Edito</label>
@@ -131,7 +132,7 @@
                                 </div>
                             @endif
                         </div>
-                    </div>
+                    {{--</div>--}}
 
                     <div class="ui two fields">
                         <div class="ui field {{ $errors->has('antispoiler') ? ' error' : '' }}">
