@@ -26,7 +26,8 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'username' => 'required|max:255|unique:users,username,'. $this->get('id'),
-            'email' => 'required|email|max:255|unique:users,email,'. $this->get('id'),
+//            TODO: Reactivate
+//            'email' => 'required|email|max:255|unique:users,email,'. $this->get('id'),
             'role' => 'required|numeric',
             'password' => 'min:6|confirmed',
             'antispoiler' => 'boolean',
