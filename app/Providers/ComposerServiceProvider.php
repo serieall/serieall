@@ -27,6 +27,12 @@ class ComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\NavActiveAdminShowsComposer'
         );
 
+        // NavActive = AdminArticles
+        View::composer(
+            ['admin/articles/*'],
+            'App\Http\ViewComposers\NavActiveAdminArticlesComposer'
+        );
+
         // NavActive = AdminUsers
         View::composer(
             ['admin/users/*'],
