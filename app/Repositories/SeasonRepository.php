@@ -110,11 +110,24 @@ class SeasonRepository
             ->first();
     }
 
-    public function getRatesBySeasonID($id)
+    /**
+     * Récupère la note de la saison en cours
+     *
+     * @param $id
+     * @return array
+     */
+    public function getRateBySeasonID($id)
     {
-        return $this->season
-            ->where('seasons.id', '=', $id)
-            ->with('users')
-            ->first();
+        return $this->season->with(['users' => function($q){
+                $q->orderBy('updated_at', 'desc');
+                $q->limit(20);
+            }, 'users.episode' => function($q){
+                $q->select('id', 'numero');
+            }, 'users.user' => function($q){
+                $q->select('id', 'username', 'email');
+            }])
+            ->where('id', '=', $id)
+            ->first()
+            ->toArray();
     }
 }

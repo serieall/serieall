@@ -22,7 +22,10 @@
             <i class="tv icon"></i>
             Séries
         </a>
-        <a class="ui header item">
+        <a class="ui header item
+             @if($navActive == 'AdminArticles')
+                blue
+             @endif" href="{{ route('admin.articles.index') }}">
             <i class="file text outline icon"></i>
             Articles
         </a>

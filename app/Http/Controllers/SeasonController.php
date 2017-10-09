@@ -50,17 +50,7 @@ class SeasonController extends Controller
         # Compile Object informations
         $object = compileObjectInfos('Season', $seasonInfo->id);
 
-        $ratesSeason = Season::with(['users' => function($q){
-               $q->orderBy('updated_at', 'desc');
-               $q->limit(20);
-            }, 'users.episode' => function($q){
-                $q->select('id', 'numero');
-            }, 'users.user' => function($q){
-                $q->select('id', 'username', 'email');
-            }])
-            ->where('id', '=', $seasonInfo->id)
-            ->first()
-            ->toArray();
+        $ratesSeason = $this->seasonRepository->getRateBySeasonID($seasonInfo->id);
 
         $chart = Charts::create('area', 'highcharts')
             ->title('Evolution des notes de la saison')
