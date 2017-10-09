@@ -9,26 +9,43 @@
             <div class="ui segment">
                 <h1>Liste des séries</h1>
 
-                <div class="ui cards">
-                @foreach($shows as $show)
-                    <div class="card">
-                        <div class="blurring dimmable image">
-                            <img src="{{ ShowPicture($show->show_url) }}">
-                        </div>
-                        <div class="content">
-                            <a href="{{ route('show.fiche', $show->show_url) }}" class="header">{{ $show->name }}</a>
-                            <div class="meta">
-                                <span class="genres">{{ $genres }}</span>
+                <div class="row">
+                    <div class="ui four cards">
+                    @foreach($shows as $show)
+                        <div class="card">
+                            <a class="image" href="{{ route('show.fiche', $show->show_url) }}">
+                                <img src="{{ ShowPicture($show->show_url) }}">
+                            </a>
+                            <div class="content">
+                                <a href="{{ route('show.fiche', $show->show_url) }}" class="header">{{ $show->name }}</a>
+                                <div class="meta">
+                                    @foreach($show->genres as $genre)
+                                        {{ $genre->name }}
+                                        @if(!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <a>
+                                    <i class="calendar icon"></i>
+                                    {{ $show->annee }}
+                                </a>
+                                <a class="right floated">
+                                    <i class="heartbeat icon"></i>
+                                    {!! affichageNote($show->moyenne) !!}
+                                </a>
                             </div>
                         </div>
-                        <div class="extra content">
-                            <a>
-                                <i class="calendar icon"></i>
-                                {{ $show->annee }}
-                            </a>
-                        </div>
+                    @endforeach
                     </div>
-                @endforeach
+                </div>
+
+                <div class="PaginateRow row">
+                    <div class="column center aligned">
+                        {{ $shows->links() }}
+                    </div>
                 </div>
             </div>
         </div>

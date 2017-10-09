@@ -288,9 +288,9 @@ class ShowRepository
     /**
      * Récupère toutes les séries
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getAllShows() {
-        return $this->show->get();
+        return $this->show->with('genres')->paginate(20);
     }
 }

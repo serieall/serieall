@@ -948,3 +948,12 @@ p.episodeResume {
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     margin-left: 0 !important;
 }
+
+.PaginateRow .center.aligned {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.card img {
+    object-fit: cover;
+}
