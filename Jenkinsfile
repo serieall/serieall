@@ -14,7 +14,6 @@ pipeline {
                     sh 'php composer.phar update'
                     sh 'php artisan cache:clear'
                     sh 'php artisan queue:restart'
-                    echo 'test'
                 }
             }
         }
