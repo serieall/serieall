@@ -39,6 +39,7 @@ Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos
 /*
     Partie Séries
 */
+Route::get('series', 'ShowController@index')->name('show.index');
 Route::get('serie/{show_url}', 'ShowController@getShowFiche')->name('show.fiche');
 Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.details');
 

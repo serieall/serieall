@@ -36,6 +36,12 @@ class ShowController extends Controller
         $this->commentRepository = $commentRepository;
     }
 
+    public function index() {
+        $shows = $this->showRepository->getAllShows();
+
+        return view('shows.index', compact('shows'));
+    }
+
     /**
      * Envoi vers la page shows/index
      *
@@ -77,6 +83,6 @@ class ShowController extends Controller
     public function getShowDetails($show_url) {
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        return view('shows/details', compact('showInfo'));
+        return view('shows/details', compact('showInfo', 'genres'));
     }
 }

@@ -284,4 +284,13 @@ class ShowRepository
     public function getShowByID($id) {
         return $this->show->findOrFail($id);
     }
+
+    /**
+     * Récupère toutes les séries
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getAllShows() {
+        return $this->show->get();
+    }
 }

@@ -6,7 +6,7 @@
 <body id="body">
     <div class="ui secondary pointing fluid stackable menu" id="header">
         <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
-        <a class="item
+        <a href="{{ route('show.index') }}" class="item
             @if($navActive == 'shows')
                 active
             @endif">
