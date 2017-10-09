@@ -8,6 +8,7 @@ pipeline {
             }
             steps {
                 dir('/home/serieall/serieall-dev') {
+                    sh 'id'
                     sh 'git pull'
                     sh 'php composer.phar self-update'
                     sh 'php composer.phar update'
