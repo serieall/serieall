@@ -42,7 +42,7 @@
                 <div class="ui fluid selection dropdown">
                     <input name="thumb" id="thumb" class="thumb" type="hidden" value="@if(isset($comments['user_comment'])){{ $comments['user_comment']['thumb'] }}@endif">
                     <i class="dropdown icon"></i>
-                    <div class="default text">Choisissez un type</div>
+                    <div class="ui black text default text">Choisissez un type d'avis</div>
                     <div class="menu">
                         <div class="item" data-value="1">
                             <i class="green smile large icon"></i>
