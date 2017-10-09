@@ -37,11 +37,11 @@
                             <tr>
                                 <td class="ui grey text">{{--Réponse--}}</td>
                                 <td class="LireAvis">
-                                    @if(Route::current()->getName() == 'shows.fiche')
+                                    @if(Route::current()->getName() == 'show.fiche')
                                         <a href="{{ route('comment.fiche', [$showInfo['show']->show_url]) }}">
-                                    @elseif(Route::current()->getName() == 'seasons.fiche')
+                                    @elseif(Route::current()->getName() == 'season.fiche')
                                         <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
-                                    @elseif(Route::current()->getName() == 'episodes.fiche')
+                                    @elseif(Route::current()->getName() == 'episode.fiche')
                                         @if($episodeInfo->numero != 0)
                                             <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero]) }}">
                                         @else
@@ -88,11 +88,12 @@
                         <tr>
                             <td class="ui grey text">10 réponses</td>
                             <td class="LireAvis">
-                            @if(Route::current()->getName() == 'show.fiche')
+
+                            @if(Route::current()->getName() == "show.fiche")
                                 <a href="{{ route('comment.fiche', [$showInfo['show']->show_url]) }}">
-                            @elseif(Route::current()->getName() == 'season.fiche')
+                            @elseif(Route::current()->getName() == "season.fiche")
                                 <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name]) }}">
-                            @elseif(Route::current()->getName() == 'episode.fiche')
+                            @elseif(Route::current()->getName() == "episode.fiche")
                                 @if($episodeInfo->numero != 0)
                                     <a href="{{ route('comment.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero]) }}">
                                 @else
