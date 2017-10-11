@@ -18,64 +18,73 @@
                             @if($episode->id == $episodeInfo->id)
                                 @if($index == 0)
                                     <?php
-                                        $numeroEpisodeSuivant = $seasonInfo->episodes[$index + 1]->numero;
-                                        $IDEpisodeSuivant = $seasonInfo->episodes[$index + 1]->id;
-                                    ?>
-                                    <a class="item" href="
-                                        @if($numeroEpisodeSuivant == 0)
-                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant, $IDEpisodeSuivant]) }}
-                                        @else
-                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant]) }}
-                                        @endif
-                                    ">
-                                        Episode suivant
-                                        <i class="right chevron icon"></i>
-                                    </a>
+                                        if(isset($seasonInfo->episodes[$index + 1])) {
+                                            $numeroEpisodePrecedent = $seasonInfo->episodes[$index + 1]->numero;
+                                            $IDEpisodePrecedent = $seasonInfo->episodes[$index + 1]->id;
+                                        ?>
+                                            <a class="item" href="
+                                                @if($numeroEpisodeSuivant == 0)
+                                                    {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant, $IDEpisodeSuivant]) }}
+                                                @else
+                                                    {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant]) }}
+                                                @endif
+                                            ">
+                                                Episode suivant
+                                                <i class="right chevron icon"></i>
+                                            </a>
+                                        <?php } ?>
                                 @elseif($index == $totalEpisodes )
                                     <?php
-                                        $numeroEpisodePrecedent = $seasonInfo->episodes[$index - 1]->numero;
-                                         $IDEpisodePrecedent = $seasonInfo->episodes[$index - 1]->id;
-                                    ?>
-                                    <a class="item" href="
-                                        @if($numeroEpisodePrecedent == 0)
-                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent, $IDEpisodePrecedent]) }}
-                                        @else
-                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent]) }}
-                                        @endif
-                                    ">
-                                        <i class="left chevron icon"></i>
-                                        Episode précédent
-                                    </a>
+                                        if(isset($seasonInfo->episodes[$index - 1])) {
+                                            $numeroEpisodePrecedent = $seasonInfo->episodes[$index - 1]->numero;
+                                            $IDEpisodePrecedent = $seasonInfo->episodes[$index - 1]->id;
+                                        ?>
+                                        <a class="item" href="
+                                            @if($numeroEpisodePrecedent == 0)
+                                                {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent, $IDEpisodePrecedent]) }}
+                                            @else
+                                                {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent]) }}
+                                            @endif
+                                        ">
+                                            <i class="left chevron icon"></i>
+                                            Episode précédent
+                                        </a>
+                                    <?php } ?>
                                 @else
                                     <?php
-                                        $numeroEpisodePrecedent = $seasonInfo->episodes[$index - 1]->numero;
-                                        $IDEpisodePrecedent = $seasonInfo->episodes[$index - 1]->id;
-                                    ?>
-                                    <a class="item" href="
-                                        @if($numeroEpisodePrecedent == 0)
-                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent, $IDEpisodePrecedent]) }}
-                                        @else
-                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent]) }}
-                                        @endif
-                                    ">
-                                        <i class="left chevron icon"></i>
-                                        Episode précédent
-                                    </a>
+                                        if(isset($seasonInfo->episodes[$index - 1])) {
+                                            $numeroEpisodePrecedent = $seasonInfo->episodes[$index - 1]->numero;
+                                            $IDEpisodePrecedent = $seasonInfo->episodes[$index - 1]->id;
+                                        ?>
+                                            <a class="item" href="
+                                                @if($numeroEpisodePrecedent == 0)
+                                                    {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent, $IDEpisodePrecedent]) }}
+                                                @else
+                                                    {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodePrecedent]) }}
+                                                @endif
+                                            ">
+                                                <i class="left chevron icon"></i>
+                                                Episode précédent
+                                            </a>
+                                        <?php } ?>
 
                                     <?php
-                                        $numeroEpisodeSuivant = $seasonInfo->episodes[$index + 1]->numero;
-                                        $IDEpisodeSuivant = $seasonInfo->episodes[$index + 1]->id;
-                                    ?>
-                                    <a class="item" href="
-                                        @if($numeroEpisodeSuivant == 0)
-                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant, $IDEpisodeSuivant]) }}
-                                        @else
-                                            {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant]) }}
-                                        @endif
-                                    ">
-                                        Episode suivant
-                                        <i class="right chevron icon"></i>
-                                    </a>
+                                        if(isset($seasonInfo->episodes[$index + 1])) {
+                                            $numeroEpisodeSuivant = $seasonInfo->episodes[$index + 1]->numero;
+                                            $IDEpisodeSuivant = $seasonInfo->episodes[$index + 1]->id;
+                                        ?>
+                                            <a class="item" href="
+                                                @if($numeroEpisodeSuivant == 0)
+                                                    {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant, $IDEpisodeSuivant]) }}
+                                                @else
+                                                    {{ route('episode.fiche', [$showInfo['show']->show_url, $seasonInfo->name, $numeroEpisodeSuivant]) }}
+                                                @endif
+                                            ">
+                                                Episode suivant
+                                                <i class="right chevron icon"></i>
+                                            </a>
+
+                                        <?php } ?>
                                 @endif
                             @endif
                         @endforeach
