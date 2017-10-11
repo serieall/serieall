@@ -1,6 +1,6 @@
 $(function() {
     // Hide Spoiler by default
-    $('div.spoiler-title').children().first().attr('class', 'spoiler-toggle show-icon');
+    $('div.spoiler-title').children().attr('class', 'spoiler-toggle show-icon');
 
 	$('div.spoiler-title').click(function() {
 		$(this)

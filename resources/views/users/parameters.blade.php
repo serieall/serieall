@@ -45,7 +45,7 @@
                 <br/>
                 Ainsi sur n'importe quel site qui utilise <a href="https://fr.gravatar.com/">Gravatar</a>, il suffira de lui indiquer votre adresse mail afin qu'il affiche votre avatar. <br />
                 <ul class="list">
-                <li>Rendez-vous sur <a href="https://fr.gravatar.com/site/signup">cette page</a> pour créér votre compte Gravatar</li>
+                <li>Rendez-vous sur <a href="https://fr.gravatar.com/site/signup">cette page</a> pour crérr votre compte Gravatar</li>
                     <li>Complétez l'adresse mail associée à votre gravatar dans votre profil</li>
                     <li>C'est tout !</li>
                 </ul>
