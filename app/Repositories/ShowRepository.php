@@ -291,6 +291,6 @@ class ShowRepository
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getAllShows() {
-        return $this->show->with('genres')->paginate(20);
+        return $this->show->with('genres')->orderBy('name')->paginate(20);
     }
 }
