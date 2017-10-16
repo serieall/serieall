@@ -65,10 +65,10 @@
                 <div class="ui form">
                     <div class="field">
                         <label>Chaine(s)</label>
-                        <div class="ui fluid search selection dropdown channels">
-                            <input name="country" type="hidden">
+                        <div class="ui fluid search multiple selection dropdown channels">
+                            <input name="channels" type="hidden">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Select Country</div>
+                            <div class="default text">Chaine(s)</div>
                             <div class="menu">
                             </div>
                         </div>
@@ -78,10 +78,10 @@
 
                     <div class="field">
                         <label>Nationalité(s)</label>
-                        <div id="dropdown-nationalities" class="ui fluid multiple search selection dropdown">
-                            <input id="nationalities" name="nationalities" type="hidden" value="{{ old('nationalities') }}">
+                        <div class="ui fluid search multiple selection dropdown nationalities">
+                            <input name="channels" type="hidden">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Choisir</div>
+                            <div class="default text">Nationalité(s)</div>
                             <div class="menu">
                             </div>
                         </div>
@@ -101,26 +101,30 @@
             on: 'hover'
         });
 
-        $('.ui.fluid.dropdown.channels')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/channels/list?_q={query}'
-                },
-                fields: {
-                    remoteValues: "data",
-                    value: "name"
-                },
-                localSearch: false
-            })
-        ;
+        $(document).ready(function() {
+            $('.ui.fluid.search.selection.dropdown.channels')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/channels/list'
+                    },
+                    fields: {
+                        remoteValues: "data",
+                        value: "name"
+                    }
+                })
+            ;
 
-        $('#dropdown-nationalities')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/nationalities/list?_q={query}'
-                },
-                fields: {remoteValues: "data", value: "name"}
-            })
-        ;
+            $('.ui.fluid.search.selection.dropdown.nationalities')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/nationalities/list'
+                    },
+                    fields: {
+                        remoteValues: "data",
+                        value: "name"
+                    }
+                })
+            ;
+        });
     </script>
 @endsection
