@@ -62,17 +62,19 @@
 
 @section('scripts')
     <script>
-        $('#dropdown-artists')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/artists/list?name-lk=*{query}*'
-                },
-                fields: {remoteValues: "data", value: "name"},
-                allowAdditions: true,
-                forceSelection : false,
-                minCharacters: 2
-            })
-        ;
+        $(document).ready(function() {
+            $('#dropdown-artists')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/artists/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection: false,
+                    minCharacters: 2
+                })
+            ;
+        });
 
         // Fonction de création et de suppression des nouveau acteurs
         $(function(){
