@@ -276,7 +276,7 @@
                             </div>
                         </form>
                     @else
-                        Vous devez être connecté pour pouvoir noter l'épisode.
+                            <a href="{{ route('login') }}">Connectez-vous</a> pour noter cet épisode
                     @endif
 
                     <div class="ui divider"></div>
