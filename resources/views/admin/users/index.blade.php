@@ -78,6 +78,9 @@
             @endforeach
         </table>
     </div>
+@endsection
+
+@section('scripts')
     <script>
         $('#tableAdmin').DataTable( {
             "order": [[ 0, "asc" ]],
