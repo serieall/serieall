@@ -1,5 +1,3 @@
-@include('cookieConsent::index')
-
 <div id="footer" class="ui vertical footer segment">
     <div class="ui center aligned container">
         <div class="ui centered stackable grid">

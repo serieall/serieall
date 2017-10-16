@@ -15,8 +15,8 @@
 
         .background-error {
             height: 100%;
-
         }
+
         p.title {
             font-size: 72px;
             color: whitesmoke;

@@ -26,7 +26,6 @@
             font-family: 'Lato';
             text-shadow: 2px 2px 3px black;
         }
-
     </style>
 
     <div class="ui centered stackable grid">

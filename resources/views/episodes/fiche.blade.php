@@ -19,7 +19,7 @@
                                 @if($index == 0)
                                     <?php
                                         if(isset($seasonInfo->episodes[$index + 1])) {
-                                            $numeroEpisodePrecedent = $seasonInfo->episodes[$index + 1]->numero;
+                                            $numeroEpisodeSuivant = $seasonInfo->episodes[$index + 1]->numero;
                                             $IDEpisodePrecedent = $seasonInfo->episodes[$index + 1]->id;
                                         ?>
                                             <a class="item" href="
@@ -276,7 +276,7 @@
                             </div>
                         </form>
                     @else
-                        Vous devez être connecté pour pouvoir noter l'épisode.
+                            <a href="{{ route('login') }}">Connectez-vous</a> pour noter cet épisode
                     @endif
 
                     <div class="ui divider"></div>
