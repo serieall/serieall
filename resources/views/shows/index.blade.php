@@ -105,7 +105,7 @@
             $('.ui.fluid.search.selection.dropdown.channels')
                 .dropdown({
                     apiSettings: {
-                        url: '/api/channels/list'
+                        url: '/api/channels/list?name-lk=*{query}*'
                     },
                     fields: {
                         remoteValues: "data",
@@ -117,7 +117,7 @@
             $('.ui.fluid.search.selection.dropdown.nationalities')
                 .dropdown({
                     apiSettings: {
-                        url: '/api/nationalities/list'
+                        url: '/api/nationalities/list?name-lk=*{query}*'
                     },
                     fields: {
                         remoteValues: "data",
