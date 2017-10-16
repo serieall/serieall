@@ -19,7 +19,7 @@
                                 @if($index == 0)
                                     <?php
                                         if(isset($seasonInfo->episodes[$index + 1])) {
-                                            $numeroEpisodePrecedent = $seasonInfo->episodes[$index + 1]->numero;
+                                            $numeroEpisodeSuivant = $seasonInfo->episodes[$index + 1]->numero;
                                             $IDEpisodePrecedent = $seasonInfo->episodes[$index + 1]->id;
                                         ?>
                                             <a class="item" href="
