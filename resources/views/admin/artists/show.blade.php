@@ -92,19 +92,21 @@
 
 @section('scripts')
     <script>
-        $('.artistDropdown')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/artists/list?name-lk=*{query}*'
-                },
-                fields: {remoteValues: "data", value: "name"},
-                allowAdditions: true,
-                forceSelection : false,
-                minCharacters: 2
-            })
-        ;
-        $('.special.cards .image').dimmer({
-            on: 'hover'
+        $(document).ready(function() {
+            $('.artistDropdown')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/artists/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection: false,
+                    minCharacters: 2
+                })
+            ;
+            $('.special.cards .image').dimmer({
+                on: 'hover'
+            });
         });
     </script>
 @endsection
