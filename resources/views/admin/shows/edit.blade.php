@@ -274,60 +274,61 @@
 
 @section('scripts')
     <script>
-        $('#dropdown-creators')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/artists/list?name-lk=*{query}*'
-                },
-                fields: {remoteValues: "data", value: "name"},
-                allowAdditions: true,
-                forceSelection : false,
-                minCharacters: 2
-            })
-        ;
-        $('#dropdown-genres')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/genres/list?name-lk=*{query}*'
-                },
-                fields: {remoteValues: "data", value: "name"},
-                allowAdditions: true,
-                forceSelection : false
-            })
-        ;
-        $('#dropdown-chaines')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/channels/list?name-lk=*{query}*'
-                },
-                fields: {remoteValues: "data", value: "name"},
-                allowAdditions: true,
-                forceSelection : false
-            })
-        ;
+        $(document).ready(function() {
+            $('#dropdown-creators')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/artists/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection: false,
+                    minCharacters: 2
+                })
+            ;
+            $('#dropdown-genres')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/genres/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection: false
+                })
+            ;
+            $('#dropdown-chaines')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/channels/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection: false
+                })
+            ;
 
-        $('#dropdown-nationalities')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/nationalities/list?name-lk=*{query}*'
-                },
-                fields: {remoteValues: "data", value: "name"},
-                allowAdditions: true,
-                forceSelection : false
-            })
-        ;
+            $('#dropdown-nationalities')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/nationalities/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection: false
+                })
+            ;
 
-        $( '.date-picker' ).datepicker({
-            showAnim: "blind",
-            dateFormat: "yy-mm-dd",
-            yearRange: "-100:+10",
-            changeMonth: true,
-            changeYear: true
+            $('.date-picker').datepicker({
+                showAnim: "blind",
+                dateFormat: "yy-mm-dd",
+                yearRange: "-100:+10",
+                changeMonth: true,
+                changeYear: true
+            });
+
+            $('#dropdown-encours')
+                .dropdown({})
+            ;
         });
-
-        $('#dropdown-encours')
-            .dropdown({
-            })
-        ;
     </script>
 @endsection

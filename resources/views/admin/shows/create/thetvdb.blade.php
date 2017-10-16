@@ -159,45 +159,47 @@
 
 @section('scripts')
     <script>
-        $('#dropdown-creators')
+        $(document).ready(function() {
+            $('#dropdown-creators')
                 .dropdown({
                     apiSettings: {
                         url: '/api/artists/list?name-lk=*{query}*'
                     },
                     fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
-                    forceSelection : false,
+                    forceSelection: false,
                     minCharacters: 2
                 })
-        ;
-        $('#dropdown-chainefr')
+            ;
+            $('#dropdown-chainefr')
                 .dropdown({
                     apiSettings: {
                         url: '/api/channels/list?name-lk=*{query}*'
                     },
                     fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
-                    forceSelection : false,
-                    minCharacters : 1
+                    forceSelection: false,
+                    minCharacters: 1
                 })
-        ;
-        $('#dropdown-nationalities')
+            ;
+            $('#dropdown-nationalities')
                 .dropdown({
                     apiSettings: {
                         url: '/api/nationalities/list?name-lk=*{query}*'
                     },
                     fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
-                    forceSelection : false,
-                    minCharacters : 1
+                    forceSelection: false,
+                    minCharacters: 1
                 })
-        ;
-        $( '#datepicker' ).datepicker({
-            showAnim: "blind",
-            dateFormat: "yy-mm-dd",
-            yearRange: "-100:+10",
-            changeMonth: true,
-            changeYear: true
+            ;
+            $('#datepicker').datepicker({
+                showAnim: "blind",
+                dateFormat: "yy-mm-dd",
+                yearRange: "-100:+10",
+                changeMonth: true,
+                changeYear: true
+            });
         });
     </script>
 @endsection

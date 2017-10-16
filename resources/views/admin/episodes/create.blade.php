@@ -62,14 +62,16 @@
 
 @section('scripts')
 <script>
-    $('.ui.styled.fluid.accordion')
-        .accordion({
-            selector: {
-                trigger: '.expandableBlock'
-            },
-            exclusive: false
-        })
-    ;
+    $(document).ready(function() {
+        $('.ui.styled.fluid.accordion')
+            .accordion({
+                selector: {
+                    trigger: '.expandableBlock'
+                },
+                exclusive: false
+            })
+        ;
+    });
 
     $(function () {
         var episodeNumber  =  $('.div-episodes').length; // Nombre d'épisodes
