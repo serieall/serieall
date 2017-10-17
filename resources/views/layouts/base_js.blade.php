@@ -16,7 +16,9 @@
             messageTitle: 'Formulaire de Commentaire',
             messageSubmit: 'Envoyer',
             messageThankYou: 'Merci pour votre requête  (#%s) ! Nous vous recontacterons dans les meilleurs délais.',
-            modal: true
+            debug: true,
+            modal: true,
+            attachmentSupport: true
         });
     });
 </script>
