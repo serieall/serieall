@@ -6,6 +6,21 @@
 <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
 <script src="/spoiler/spoiler.js"></script>
 
+<button id="feedback-form">Feedback</button>
+
+<script id="zammad_form_script" src="https://sav.pingflow.fr/assets/form/form.js"></script>
+
+<script>
+    $(function() {
+        $('#feedback-form').ZammadForm({
+            messageTitle: 'Formulaire de Commentaire',
+            messageSubmit: 'Envoyer',
+            messageThankYou: 'Merci pour votre requête  (#%s) ! Nous vous recontacterons dans les meilleurs délais.',
+            modal: true
+        });
+    });
+</script>
+
 <script>
     $(document).ready(function() {
         $('#footer .icon').hover(function () {
