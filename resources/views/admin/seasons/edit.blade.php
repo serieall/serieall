@@ -109,12 +109,14 @@
 
 @section('scripts')
     <script>
-        $('.ui.styled.fluid.accordion')
-            .accordion({
-                selector: {
-                    trigger: '.expandableBlock'
-                }
-            })
-        ;
+        $(document).ready(function() {
+            $('.ui.styled.fluid.accordion')
+                .accordion({
+                    selector: {
+                        trigger: '.expandableBlock'
+                    }
+                })
+            ;
+        });
     </script>
 @endsection

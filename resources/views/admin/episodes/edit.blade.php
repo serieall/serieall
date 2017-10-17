@@ -239,29 +239,31 @@
 
 @section('scripts')
     <script>
-        $('.ui.styled.fluid.accordion')
-            .accordion({
-                selector: {
-                    trigger: '.expandableBlock'
-                }
-            })
-        ;
-        $( '.date-picker' ).datepicker({
-            showAnim: "blind",
-            dateFormat: "yy-mm-dd",
-            yearRange: "-100:+10",
-            changeMonth: true,
-            changeYear: true
-        });
-        $('.artistsDropdown')
-            .dropdown({
-                apiSettings: {
-                    url: '/api/artists/list?name-lk=*{query}*'
-                },
-                fields: {remoteValues: "data", value: "name"},
-                allowAdditions: true,
-                forceSelection: false,
-                minCharacters: 4
+        $(document).ready(function() {
+            $('.ui.styled.fluid.accordion')
+                .accordion({
+                    selector: {
+                        trigger: '.expandableBlock'
+                    }
+                })
+            ;
+            $('.date-picker').datepicker({
+                showAnim: "blind",
+                dateFormat: "yy-mm-dd",
+                yearRange: "-100:+10",
+                changeMonth: true,
+                changeYear: true
             });
+            $('.artistsDropdown')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/artists/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true,
+                    forceSelection: false,
+                    minCharacters: 4
+                });
+        });
     </script>
 @endsection

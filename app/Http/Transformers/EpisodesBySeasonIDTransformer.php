@@ -7,9 +7,9 @@ use League\Fractal\TransformerAbstract;
 class EpisodesBySeasonIDTransformer extends TransformerAbstract
 {
     /**
-     * @param $genre
+     * @param $episode
      * @return array
-     */
+*/
     public function transform($episode) : array
     {
         return [

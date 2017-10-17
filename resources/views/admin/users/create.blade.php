@@ -3,17 +3,17 @@
 @section('pageTitle', 'Admin - Utilisateurs')
 
 @section('breadcrumbs')
-<a href="{{ route('admin') }}" class="section">
-    Administration
-</a>
-<i class="right angle icon divider"></i>
-<a href="{{ route('admin.users.index') }}" class="section">
-    Utilisateurs
-</a>
-<i class="right angle icon divider"></i>
-<div class="active section">
-    Ajouter un nouvel utilisateur
-</div>
+    <a href="{{ route('admin') }}" class="section">
+        Administration
+    </a>
+    <i class="right angle icon divider"></i>
+    <a href="{{ route('admin.users.index') }}" class="section">
+        Utilisateurs
+    </a>
+    <i class="right angle icon divider"></i>
+    <div class="active section">
+        Ajouter un nouvel utilisateur
+    </div>
 @endsection
 
 @section('content')

@@ -249,74 +249,75 @@
 
 @section('scripts')
     <script>
-        $('#dropdown-creators')
+        $(document).ready(function() {
+            $('#dropdown-creators')
                 .dropdown({
                     apiSettings: {
                         url: '/api/artists/list?name-lk=*{query}*'
                     },
                     fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
-                    forceSelection : false,
+                    forceSelection: false,
                     minCharacters: 2
                 })
-        ;
-        $('#dropdown-genres')
+            ;
+            $('#dropdown-genres')
                 .dropdown({
                     apiSettings: {
                         url: '/api/genres/list?name-lk=*{query}*'
                     },
                     fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
-                    forceSelection : false
+                    forceSelection: false
                 })
-        ;
-        $('#dropdown-chaines')
+            ;
+            $('#dropdown-chaines')
                 .dropdown({
                     apiSettings: {
                         url: '/api/channels/list?name-lk=*{query}*'
                     },
                     fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
-                    forceSelection : false
+                    forceSelection: false
                 })
-        ;
+            ;
 
-        $('#dropdown-nationalities')
+            $('#dropdown-nationalities')
                 .dropdown({
                     apiSettings: {
                         url: '/api/nationalities/list?name-lk=*{query}*'
                     },
                     fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
-                    forceSelection : false
+                    forceSelection: false
                 })
-        ;
+            ;
 
-        $( '.date-picker' ).datepicker({
-            showAnim: "blind",
-            dateFormat: "yy-mm-dd",
-            yearRange: "-100:+10",
-            changeMonth: true,
-            changeYear: true
-        });
+            $('.date-picker').datepicker({
+                showAnim: "blind",
+                dateFormat: "yy-mm-dd",
+                yearRange: "-100:+10",
+                changeMonth: true,
+                changeYear: true
+            });
 
-        $('#dropdown-encours')
-                .dropdown({
-                })
-        ;
+            $('#dropdown-encours')
+                .dropdown({})
+            ;
 
-        $('.menu .item')
+            $('.menu .item')
                 .tab()
-        ;
+            ;
 
-        $('.ui.styled.fluid.accordion.seasonsBlock')
+            $('.ui.styled.fluid.accordion.seasonsBlock')
                 .accordion({
                     selector: {
                         trigger: '.expandableBlock'
                     },
                     exclusive: false
                 })
-        ;
+            ;
+        });
 
         // Fonction de création et de suppression des nouveau acteurs
         $(function(){
