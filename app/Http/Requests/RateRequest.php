@@ -25,7 +25,7 @@ class RateRequest extends Request
     {
         return [
             'episode_id' => 'required|exists:episodes,id',
-            'note' => 'required|numeric',
+            'note' => 'required|numeric|between:1,20',
         ];
     }
 }
