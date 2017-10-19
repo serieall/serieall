@@ -1,7 +1,7 @@
 <div class="ui modal">
     <div class="header">
         @if(!isset($comments['user_comment']))
-            Ecrire un avis
+            Écrire un avis
         @else
             Modifier mon avis
         @endif
@@ -25,7 +25,7 @@
 
             <div class="ui field">
                 <div class="textarea input">
-                         <textarea name="avis" id="avis" class="avis" placeholder="Ecrivez votre avis ici...">
+                         <textarea name="avis" id="avis" class="avis" placeholder="Écrivez votre avis ici...">
                              @if(isset($comments['user_comment']))
                                  {{ $comments['user_comment']['message'] }}
                              @endif
