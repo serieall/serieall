@@ -120,7 +120,7 @@
                     <button class="ui DarkBlueSerieAll button WriteAvis">
                         <i class="write icon"></i>
                         @if(!isset($comments['user_comment']))
-                            Ecrire un avis
+                            Écrire un avis
                         @else
                             Modifier mon avis
                         @endif
