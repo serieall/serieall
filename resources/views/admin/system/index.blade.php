@@ -36,6 +36,16 @@
                     </div>
                 </a>
             </div>
+            <div class="column">
+                <a class="ui card" href="{{ route('admin.contacts') }}">
+                    <div class="content">
+                        <div class="header"><i class="file text outline icon"></i>Contacts</div>
+                        <div class="description">
+                            <p>Accéder à toutes les demandes de contact de Série-All</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 @endsection

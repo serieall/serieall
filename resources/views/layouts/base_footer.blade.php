@@ -10,7 +10,7 @@
                         <li>À propos</li>
                         <li>Notre équipe</li>
                         <li><a href="{{ route('cgu') }}">Mentions légales</a></li>
-                        <li>Nous contacter</li>
+                        <li><a href="{{ route('contact') }}">Nous contacter</a></li>
                     </ul>
                 </div>
             </div>

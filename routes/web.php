@@ -19,6 +19,12 @@ Route::get('/cgu', function () {
     return view('pages.cgu');
 })->name('cgu');
 
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('contact');
+
+Route::post('sendContact', 'ContactController@sendContact')->name('contact.send');
+
 /*
     Partie Authentification
 */
@@ -126,4 +132,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');
     Route::get('admin/system/logs', 'Admin\System\AdminLogsController@index')->name('admin.logs');
     Route::get('admin/system/logs/view/{id}', 'Admin\System\AdminLogsController@view')->name('admin.logs.view');
+    Route::get('admin/system/contacts', 'Admin\System\AdminContactsController@index')->name('admin.contacts');
+    Route::get('admin/system/contacts/view/{id}', 'Admin\System\AdminContactsController@view')->name('admin.contacts.view');
 });

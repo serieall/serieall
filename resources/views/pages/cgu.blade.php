@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('pageTitle', 'Conditions Générales d\'Utilisation')
+@section('pageDescription', 'Lire les conditions générales d\'utilisation de Série-All')
 
 @section('content')
     <div class="ten wide column">
