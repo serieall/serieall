@@ -9,6 +9,17 @@
             <h1>Formulaire de contact</h1>
             <form class="ui form" action="{{ route('contact.send') }}" method="POST">
                 {{ csrf_field() }}
+                <div class="ui required field {{ $errors->has('name') ? ' error' : '' }}">
+                    <label>Prénom ou pseudo</label>
+                    <input name="name" placeholder="Votre prénom ou pseudo" value="{{ old('name') }}">
+
+                    @if ($errors->has('name'))
+                        <div class="ui red message">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </div>
+                    @endif
+                </div>
+
                 <div class="ui required field {{ $errors->has('email') ? ' error' : '' }}">
                     <label>E-Mail</label>
                     <input name="email" placeholder="Votre adresse E-Mail" type="email" value="{{ old('email') }}">

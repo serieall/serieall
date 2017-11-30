@@ -16,6 +16,7 @@ class ContactController extends Controller
     public function sendContact(ContactRequest $contactRequest) {
         // Stockage de la demande dans la BDD
         $contact = new Contact();
+        $contact->name = $contactRequest->email;
         $contact->email = $contactRequest->email;
         $contact->objet = $contactRequest->objet;
         $contact->message = $contactRequest->message;

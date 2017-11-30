@@ -23,17 +23,18 @@
 @section('content')
     <div>
         <h1 class="ui header">
-            {{ $contact->objet }} - {{ $contact->email }}
+            {{ $contact->objet }} - {{ $contact->name }}
         </h1>
     </div>
 
     <p></p>
 
+    <h2>Message de l'utilisateur :</h2>
     <div class="ui segment">
         {{ $contact->message }}
     </div>
 
-    <form class="ui form" action="{{route('admin.contacts.answer')}}" method="POST">
+    <form class="ui form" action="" method="POST">
         {{ csrf_field() }}
 
         <input name="admin_id" type="hidden" value="{{ Auth::user()->id }}">
@@ -41,5 +42,8 @@
         <textarea>
 
         </textarea>
+        <br />
+
+        <button class="ui disabled button">Envoyer le message</button>
     </form>
 @endsection

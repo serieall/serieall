@@ -22,6 +22,7 @@ class ContactRequest extends Request
     public function rules()
     {
         return [
+            'name' => 'required|max:255',
             'email' => 'required|email',
             'objet' => 'required|between:10,100'
         ];
