@@ -41,9 +41,11 @@ class ContactNotification extends Notification
     {
         return (new MailMessage)
             ->success()
+            ->greeting('Salut !')
             ->subject('Votre demande de contact')
             ->line('Votre demande de contact a bien été prise en compte.')
-            ->line('Une personne de l\'équipe reviendra vers vous dans les plus brefs délais.');
+            ->line('Une personne de l\'équipe reviendra vers vous dans les plus brefs délais.')
+            ->salutation('A bientôt');
     }
 
     /**

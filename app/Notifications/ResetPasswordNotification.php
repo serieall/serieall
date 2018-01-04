@@ -42,10 +42,12 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->greeting('Salut !')
             ->subject('Lien de réinitialisation de mot de passe')
             ->line('Vous recevez ce mail car vous avez demandé une réinitialisation de votre mot de passe.')
             ->action('Le lien est ici.', url('password/reset', $this->token))
-            ->line('Si vous n\'avez pas effectué cette demande, alors il n\'y a rien de plus à faire');
+            ->line('Si vous n\'avez pas effectué cette demande, alors il n\'y a rien de plus à faire')
+            ->salutation('A bientôt');
     }
 
     /**

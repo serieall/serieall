@@ -45,9 +45,11 @@ class ReplyContactNotification extends Notification
     {
         return (new MailMessage)
             ->success()
+            ->greeting('Salut !')
             ->subject('Votre demande de contact')
             ->line($this->contact . ' vous a répondu :')
-            ->line($this->message);
+            ->line($this->message)
+            ->salutation('A bientôt');
     }
 
     /**
