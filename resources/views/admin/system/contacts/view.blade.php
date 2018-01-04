@@ -34,16 +34,32 @@
         {{ $contact->message }}
     </div>
 
-    <form class="ui form" action="" method="POST">
+    <h2>Votre réponse :</h2>
+    <form class="ui form" action="{{ route('admin.contacts.reply') }}" method="POST">
         {{ csrf_field() }}
 
+        <input name="id" type="hidden" value="{{ $contact->id }}">
+        <input name="email" type="hidden" value="{{ $contact->email }}">
         <input name="admin_id" type="hidden" value="{{ Auth::user()->id }}">
 
-        <textarea>
+        <textarea name="admin_message"
+            @if(!is_null($contact->admin_id))
+                  disabled
+            @endif
+        >{{ $contact->admin_message }}</textarea>
 
-        </textarea>
+        <br />
         <br />
 
-        <button class="ui disabled button">Envoyer le message</button>
+
+        <button class="ui
+        @if(!is_null($contact->admin_id))
+                disabled
+        @endif
+        positive button">Envoyer le message</button>
     </form>
+
+    <p class="ui info message">
+        La suite de la conversation s'effectuera via le compte mail de l'association.
+    </p>
 @endsection

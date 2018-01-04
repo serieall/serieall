@@ -134,4 +134,5 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/system/logs/view/{id}', 'Admin\System\AdminLogsController@view')->name('admin.logs.view');
     Route::get('admin/system/contacts', 'Admin\System\AdminContactsController@index')->name('admin.contacts');
     Route::get('admin/system/contacts/view/{id}', 'Admin\System\AdminContactsController@view')->name('admin.contacts.view');
+    Route::post('admin/system/contacts/reply', 'Admin\System\AdminContactsController@replyContact')->name('admin.contacts.reply');
 });

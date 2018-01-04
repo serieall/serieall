@@ -34,6 +34,7 @@
             <tr>
                 <th>Objet</th>
                 <th>Email</th>
+                <th>Traité par</th>
                 <th>Date</th>
             </tr>
             </thead>
@@ -41,12 +42,21 @@
                 <tr>
                     <td><a href="{{ route('admin.contacts.view', $contact->id) }}">{{ $contact->objet }}</a></td>
                     <td>{{ $contact->email }}</td>
+                    <td>
+                        @if(is_null($contact->admin_id))
+                            -
+                        @else
+                            {{ $contact->user['username'] }}
+                        @endif
+                        </td>
                     <td>{{ $contact->created_at }}</td>
                 </tr>
             @endforeach
         </table>
     </div>
+@endsection
 
+@section('scripts')
     <script>
         $('#tableAdmin').DataTable( {
             "order": [[ 4, "desc" ]],

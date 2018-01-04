@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\FlushLogs1Week;
+use App\Notifications\ReplyContactNotification;
 use App\Repositories\ContactRepository;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ReplyContactRequest;
+use Illuminate\Support\Facades\Notification;
 
 class AdminContactsController extends Controller
 {
@@ -43,5 +46,25 @@ class AdminContactsController extends Controller
         $contact = $this->contactRepository->getContactByID($id);
 
         return view('admin/system/contacts/view', compact('contact'));
+    }
+
+    /**
+     * Reply to a contact request
+     *
+     * @param ReplyContactRequest $replyContactRequest
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function replyContact(ReplyContactRequest $replyContactRequest) {
+        $contact = $this->contactRepository->getContactByID($replyContactRequest->id);
+
+        $contact->admin_id = $replyContactRequest->admin_id;
+        $contact->admin_message = $replyContactRequest->admin_message;
+        $contact->save();
+
+        // Envoi de la notification
+        Notification::route('mail', $contact->email)
+            ->notify(new ReplyContactNotification($contact->user['username'], $contact->admin_message));
+
+        return redirect()->back();
     }
 }

@@ -25,8 +25,8 @@
     <p></p>
 
     <div class="ui stackable grid">
-        <div class="row">
-            <div class="column">
+        <div class="column">
+            <div class="row">
                 <a class="ui card" href="{{ route('admin.logs') }}">
                     <div class="content">
                         <div class="header"><i class="file text outline icon"></i>Logs</div>
@@ -35,8 +35,6 @@
                         </div>
                     </div>
                 </a>
-            </div>
-            <div class="column">
                 <a class="ui card" href="{{ route('admin.contacts') }}">
                     <div class="content">
                         <div class="header"><i class="file text outline icon"></i>Contacts</div>

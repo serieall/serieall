@@ -30,7 +30,7 @@ class ContactRepository
      */
     public function getAllContacts(){
         return $this->contact
-            ->select('id', 'objet', 'email', 'created_at')
+            ->with('user')
             ->orderBy('id', 'desc')
             ->get();
     }
@@ -39,9 +39,9 @@ class ContactRepository
      * On récupère un contact grâce à son ID
      *
      * @param $id
-     * @return Contact|\Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function getContactByID($id){
-        return $this->contact->find($id);
+        return $this->contact->findOrFail($id);
     }
 }
