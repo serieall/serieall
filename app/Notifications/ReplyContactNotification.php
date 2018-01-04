@@ -48,8 +48,8 @@ class ReplyContactNotification extends Notification
             ->greeting('Salut !')
             ->subject('Votre demande de contact')
             ->line($this->contact . ' vous a répondu :')
-            ->line($this->message)
-            ->salutation('A bientôt');
+            ->markdown("> " . $this->message)
+            ->salutation('A bientôt, l\'équipe Série-All.');
     }
 
     /**
