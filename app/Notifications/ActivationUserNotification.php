@@ -44,11 +44,9 @@ class ActivationUserNotification extends Notification
     {
         return (new MailMessage)
             ->success()
-            ->greeting('Salut !')
             ->subject('Activation de votre compte')
             ->line('Pour activer votre compte, veuillez cliquer sur le lien ci-dessous :')
-            ->action('Activer mon compte', url('user/activation', $this->token))
-            ->salutation('A bientôt, l\'équipe Série-All.');
+            ->action('Activer mon compte', url('user/activation', $this->token));
     }
 
     /**
