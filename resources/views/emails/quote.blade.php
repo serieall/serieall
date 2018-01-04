@@ -1,0 +1,3 @@
+<blockquote>
+    {{ $quote }}
+</blockquote>
