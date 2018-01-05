@@ -7,7 +7,7 @@
                         <li class="title">
                             <h3>Série-All</h3>
                         </li>
-                        <li>À propos</li>
+                        <li><a href="{{ route('about') }}">À propos</a></li>
                         <li><a href="{{ route('team') }}">Notre équipe</a></li>
                         <li><a href="{{ route('cgu') }}">Mentions légales</a></li>
                         <li><a href="{{ route('contact') }}">Nous contacter</a></li>

@@ -27,6 +27,10 @@ Route::get('/equipe', function () {
     return view('pages.team');
 })->name('team');
 
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
+
 Route::post('sendContact', 'ContactController@sendContact')->name('contact.send');
 
 /*
@@ -123,6 +127,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     /* ARTICLES */
     Route::get('admin/articles', 'Admin\AdminArticleController@index')->name('admin.articles.index');
+    Route::get('admin/articles/create', 'Admin\AdminArticleController@create')->name('admin.articles.create');
 
     /* USERS */
     Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');

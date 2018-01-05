@@ -30,4 +30,15 @@ class AdminArticleController extends Controller
         return view('admin/articles/index', compact('articles'));
     }
 
+    /**
+     * Affiche la page admin/articles/create
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create() {
+
+        return view('admin/articles/create');
+    }
+
+
 }

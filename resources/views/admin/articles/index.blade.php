@@ -25,7 +25,7 @@
             </div>
             <div class="ui height wide column">
                 <div class="ui height wide column">
-                    <form action="">
+                    <form action="{{ route('admin.articles.create') }}">
                         <button class="ui right floated green button">
                             <i class="ui add icon"></i>
                             Ajouter un nouvel article
