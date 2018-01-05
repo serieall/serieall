@@ -49,10 +49,10 @@
                 Forum
             </a>
             @if (Auth::guest())
-                <a class="item
+                <a id="click-login" class="item
                     @if($navActive == 'login')
                         active
-                    @endif" href="{{ url('/login') }}">
+                    @endif">
                     <div>
                         Connexion
                         <i class="sign in icon"></i>
@@ -142,6 +142,42 @@
 
     <div class="ui centered stackable grid" id="content">
         @yield('content')
+    </div>
+
+    <div id="login" class="ui modal">
+        <div class="header">
+            Connexion
+        </div>
+        <div class="content">
+            <form id="form-login" class="ui form" method="POST" action="{{ url('/login') }}">
+                {{ csrf_field() }}
+
+                <div class="ui required field {{ $errors->has('username') ? ' error' : '' }}">
+                    <label>Nom d'utilisateur</label>
+                    <input name="username" placeholder="Nom d'utilisateur" value="{{ old('username') }}">
+                </div>
+
+                <div class="ui required field {{ $errors->has('password') ? ' error' : '' }}">
+                    <label>Mot de passe</label>
+                    <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
+                </div>
+
+                <div class="field {{ $errors->has('remember') ? ' error' : '' }}">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Se souvenir de moi</label>
+                    </div>
+                </div>
+
+                <div class="div-center">
+                    <button class="ui positive button">Se connecter</button>
+                    <br />
+                    <br />
+                    <a href="{{ url('/password/reset') }}">Mot de passe oublié ?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     @include('layouts.base_footer')
