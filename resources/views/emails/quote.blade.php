@@ -55,7 +55,7 @@
     {{-- Subcopy --}}
     @isset($actionText)
         @component('vendor::mail::subcopy')
-            Si vous avez des soucis en cliquant sur le boutoun "{{ $actionText }}", copiez-collez l'URL ci-dessous dans votre navigateur web : [{{ $actionUrl }}]({{ $actionUrl }})
+            Si vous avez des soucis en cliquant sur le bouton "{{ $actionText }}", copiez-collez l'URL ci-dessous dans votre navigateur web : [{{ $actionUrl }}]({{ $actionUrl }})
         @endcomponent
     @endisset
 @endcomponent
