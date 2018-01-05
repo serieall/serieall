@@ -1,4 +1,4 @@
-@component('mail::message')
+@component('vendor::mail::message')
     {{-- Greeting --}}
     @if (! empty($greeting))
         # {{ $greeting }}
@@ -34,7 +34,7 @@
                 $color = 'blue';
         }
         ?>
-        @component('mail::button', ['url' => $actionUrl, 'color' => $color])
+        @component('vendor::mail::button', ['url' => $actionUrl, 'color' => $color])
             {{ $actionText }}
         @endcomponent
     @endisset
@@ -54,7 +54,7 @@
 
     {{-- Subcopy --}}
     @isset($actionText)
-        @component('mail::subcopy')
+        @component('vendor::mail::subcopy')
             Si vous avez des soucis en cliquant sur le boutoun "{{ $actionText }}", copiez-collez l'URL ci-dessous dans votre navigateur web : [{{ $actionUrl }}]({{ $actionUrl }})
         @endcomponent
     @endisset
