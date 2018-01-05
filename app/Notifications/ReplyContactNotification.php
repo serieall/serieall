@@ -48,7 +48,7 @@ class ReplyContactNotification extends Notification
             ->success()
             ->subject('Votre demande de contact')
             ->line($this->contact . ' vous a répondu :')
-            ->markdown('emails.quote', [ 'quote' => $this->message]);
+            ->view('emails.quote', [ 'quote' => $this->message]);
     }
 
     /**
