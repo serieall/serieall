@@ -25,6 +25,17 @@ class UserController extends Controller
     }
 
     /**
+     * Renvoi vers la page users/index
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index() {
+       $users = $this->userRepository->getAllUsers();
+
+       return view('users.index', compact('users'));
+    }
+
+    /**
      * Renvoi vers la page users/profile
      *
      * @param $username

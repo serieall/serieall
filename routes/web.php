@@ -23,6 +23,10 @@ Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
 
+Route::get('/equipe', function () {
+    return view('pages.team');
+})->name('team');
+
 Route::post('sendContact', 'ContactController@sendContact')->name('contact.send');
 
 /*
@@ -37,6 +41,7 @@ Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name
 /*
     Partie Utilisateurs
 */
+Route::get('utilisateurs', 'UserController@index')->name('users.index');
 Route::get('profil/{user}', 'UserController@getProfile')->name('user.profile');
 Route::get('profil/{user}/parametres', 'UserController@getParameters')->name('user.profile.parameters')->middleware('amithisuser');
 Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword')->middleware('auth');

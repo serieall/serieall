@@ -8,7 +8,7 @@
                             <h3>Série-All</h3>
                         </li>
                         <li>À propos</li>
-                        <li>Notre équipe</li>
+                        <li><a href="{{ route('team') }}">Notre équipe</a></li>
                         <li><a href="{{ route('cgu') }}">Mentions légales</a></li>
                         <li><a href="{{ route('contact') }}">Nous contacter</a></li>
                     </ul>
@@ -20,8 +20,8 @@
                         <li class="title">
                             <h3>Communauté</h3>
                         </li>
-                        <li>Inscription</li>
-                        <li>Liste des membres</li>
+                        <li><a href="{{ route('register') }}">Inscription</a></li>
+                        <li><a href="{{ route('users.index') }}">Liste des membres</a></li>
                         <li>Forum</li>
                         <li>Rejoindre l'équipe</li>
                     </ul>
@@ -44,7 +44,7 @@
                         <li class="title">
                             <h3>Séries</h3>
                         </li>
-                        <li>Liste des séries</li>
+                        <li><a href="{{ route('show.index') }}">Liste des séries</a></li>
                         <li>Articles</li>
                         <li>Planning</li>
                         <li>Classement</li>
