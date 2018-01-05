@@ -16,7 +16,7 @@
 
     @endforeach
 
-    <blockquote class="ui message">
+    <blockquote>
         {{ $quote }}
     </blockquote>
 

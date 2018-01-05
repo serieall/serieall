@@ -45,7 +45,10 @@ class ReplyContactNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->view('emails.quote', [ 'quote' => $this->message]);
+            ->success()
+            ->subject('Votre demande de contact')
+            ->line($this->contact . ' vous a répondu :')
+            ->view('vendor.notifications.quote', [ 'quote' => $this->message ]);
     }
 
     /**
