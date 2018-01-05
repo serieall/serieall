@@ -27,11 +27,13 @@
                     <i class="ordered list icon"></i>
                     Classement
                 </a>
-                @if($user->username == Auth::user()->username)
-                    <a class="item" href="{{ route('user.profile.parameters', $user->username ) }}">
-                        <i class="settings icon"></i>
-                        Paramètres
-                    </a>
+                @if(Auth::check())
+                    @if($user->username == Auth::user()->username)
+                        <a class="item" href="{{ route('user.profile.parameters', $user->username ) }}">
+                            <i class="settings icon"></i>
+                            Paramètres
+                        </a>
+                    @endif
                 @endif
             </div>
         </div>
