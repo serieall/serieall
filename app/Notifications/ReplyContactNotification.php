@@ -16,7 +16,8 @@ class ReplyContactNotification extends Notification
 
     /**
      * Create a new notification instance.
-     *
+     * @param $contact
+     * @param $message
      */
     public function __construct($contact, $message)
     {
