@@ -52,9 +52,9 @@
 
         $(document).on('submit', '#formLogin', function(e) {
             e.preventDefault();
+            var buttonSubmit = '#formLogin.submit';
 
-            $('input+small').text('');
-            $('input').parent().removeClass('has-error');
+            $(buttonSubmit).addClass("loading");
 
             $.ajax({
                 method: $(this).attr('method'),
@@ -63,14 +63,20 @@
                 dataType: "json"
             })
                 .done(function(data) {
-                    $('.alert-success').removeClass('hidden');
-                    $('#myModal').modal('hide');
+                    $('#login').modal('hide');
+                    window.location.reload(false);
                 })
                 .fail(function(data) {
-                    $.each(data.responseJSON, function (key, value) {
-                        var input = '#formRegister input[name=' + key + ']';
-                        $(input + '+small').text(value);
-                        $(input).parent().addClass('has-error');
+                    $(buttonSubmit).removeClass("loading");
+
+                    $.each(data.responseJSON.errors, function (key, value) {
+                        console.log("prout" + key + "=" + value);
+                        var input = '#formLogin input[name=' + key + ']';
+
+                        $(input + '+div').removeClass('hidden');
+                        $(input + '+div').text(value);
+
+                        $(input).parent().addClass('error');
                     });
                 });
         });

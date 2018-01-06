@@ -149,17 +149,19 @@
             Connexion
         </div>
         <div class="content">
-            <form id="form-login" class="ui form" method="POST" action="{{ url('/login') }}">
+            <form id="formLogin" class="ui form" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
 
                 <div class="ui required field {{ $errors->has('username') ? ' error' : '' }}">
                     <label>Nom d'utilisateur</label>
                     <input name="username" placeholder="Nom d'utilisateur" value="{{ old('username') }}">
+                    <div class="ui red hidden message"></div>
                 </div>
 
                 <div class="ui required field {{ $errors->has('password') ? ' error' : '' }}">
                     <label>Mot de passe</label>
                     <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
+                    <div class="ui red hidden message"></div>
                 </div>
 
                 <div class="field {{ $errors->has('remember') ? ' error' : '' }}">
@@ -167,10 +169,12 @@
                         <input type="checkbox" id="remember" name="remember">
                         <label for="remember">Se souvenir de moi</label>
                     </div>
+
+                    <div class="ui red hidden message"></div>
                 </div>
 
                 <div class="div-center">
-                    <button class="ui positive button">Se connecter</button>
+                    <button class="ui submit positive button">Se connecter</button>
                     <br />
                     <br />
                     <a href="{{ url('/password/reset') }}">Mot de passe oublié ?</a>

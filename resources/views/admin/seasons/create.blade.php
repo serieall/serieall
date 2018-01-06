@@ -142,7 +142,7 @@
                 .fail(function (data) {
                     $('.submit').removeClass("loading");
 
-                    $.each(data.responseJSON, function (key, value) {
+                    $.each(data.responseJSON.errors, function (key, value) {
                         var input = 'input[id="' + key + '"]';
 
                         $(input + '+div').text(value);

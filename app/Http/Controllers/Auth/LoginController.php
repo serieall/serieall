@@ -103,7 +103,7 @@ class LoginController extends Controller
             auth()->logout();
             return back()->with('warning', 'Votre compte a été bloqué.');
         }
-        return redirect()->intended($this->redirectPath());
+        return response()->json();
     }
 
     /**
