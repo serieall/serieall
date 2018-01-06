@@ -50,6 +50,12 @@
             })
         ;
 
+        $('.clickToConnect').click(function() {
+            $('#login')
+                .modal('show')
+            ;
+        });
+
         $(document).on('submit', '#formLogin', function(e) {
             e.preventDefault();
             var buttonSubmit = '#formLogin.submit';
