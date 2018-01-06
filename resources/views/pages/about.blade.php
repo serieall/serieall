@@ -8,7 +8,7 @@
         <div class="ui segment article">
             <h1>A propos de Série-All</h1>
             <p>
-                Salut à vous visiteurs, et bienvenue sur Série-All. Sur ce site, vous allez pouvoir vous tenir informés de l'actualité de vos séries préférées, parcourir nos dossiers, découvrir nos critiques ainsi que nos portraits, bilans et focus. Mais cela ne s'arrête pas là! Le but premier de Série-All est de <strong>VOUS</strong>strong donner la parole, et de vous permettre de <strong>noter les épisodes</strong> que vous regardez, de donner votre avis sur ces derniers, de commenter tous les articles du site, et enfin de venir discuter de vos séries préférées sur notre forum.
+                Salut à vous visiteurs, et bienvenue sur Série-All. Sur ce site, vous allez pouvoir vous tenir informés de l'actualité de vos séries préférées, parcourir nos dossiers, découvrir nos critiques ainsi que nos portraits, bilans et focus. Mais cela ne s'arrête pas là! Le but premier de Série-All est de <strong>VOUS</strong> donner la parole, et de vous permettre de <strong>noter les épisodes</strong> que vous regardez, de donner votre avis sur ces derniers, de commenter tous les articles du site, et enfin de venir discuter de vos séries préférées sur notre forum.
             </p>
 
             <p>
