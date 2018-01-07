@@ -104,7 +104,7 @@
         $(document).on('submit', '#formRegister', function(e) {
             e.preventDefault();
             var buttonSubmit = '#formRegister .submit';
-            var positiveMessage = '#formRegister .positive.message'
+            var positiveMessage = '#formRegister .positive.message';
 
             $(buttonSubmit).addClass("loading");
 
@@ -115,6 +115,7 @@
                 dataType: "json"
             })
                 .done(function(data) {
+                    $(buttonSubmit).removeClass("loading");
                     $(positiveMessage).removeClass('hidden');
                 })
                 .fail(function(data) {

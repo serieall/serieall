@@ -238,6 +238,8 @@
                 <div class="ui required field {{ $errors->has('g-recaptcha-response') ? ' error' : '' }}">
                     {!! app('captcha')->display($attributes = []) !!}
 
+                    <input name="g-recaptcha-response" type="hidden">
+
                     <div class="ui red hidden message"></div>
                 </div>
 
