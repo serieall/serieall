@@ -13,11 +13,26 @@
         }, function () {
         });
 
-        $('#click-login').on('click', function(){
-            $('#login')
+        $('.coupled.modal').modal({
+            allowMultiple: true
+        })
+        ;
+
+        $('#clickLogin').on('click', function(){
+            $('#loginModal')
                 .modal('show')
             ;
         });
+
+        $('#clickRegister').on('click', function(){
+            $('#registerModal')
+                .modal('show')
+            ;
+        });
+
+        $('.second.modal')
+            .modal('attach events', '#goToSecondModal')
+        ;
 
         $('.dropdown')
             .dropdown()
@@ -58,7 +73,7 @@
 
         $(document).on('submit', '#formLogin', function(e) {
             e.preventDefault();
-            var buttonSubmit = '#formLogin.submit';
+            var buttonSubmit = '#formLogin .submit';
 
             $(buttonSubmit).addClass("loading");
 
@@ -76,8 +91,37 @@
                     $(buttonSubmit).removeClass("loading");
 
                     $.each(data.responseJSON.errors, function (key, value) {
-                        console.log("prout" + key + "=" + value);
                         var input = '#formLogin input[name=' + key + ']';
+
+                        $(input + '+div').removeClass('hidden');
+                        $(input + '+div').text(value);
+
+                        $(input).parent().addClass('error');
+                    });
+                });
+        });
+
+        $(document).on('submit', '#formRegister', function(e) {
+            e.preventDefault();
+            var buttonSubmit = '#formRegister .submit';
+            var positiveMessage = '#formRegister .positive.message'
+
+            $(buttonSubmit).addClass("loading");
+
+            $.ajax({
+                method: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType: "json"
+            })
+                .done(function(data) {
+                    $(positiveMessage).removeClass('hidden');
+                })
+                .fail(function(data) {
+                    $(buttonSubmit).removeClass("loading");
+
+                    $.each(data.responseJSON.errors, function (key, value) {
+                        var input = '#formRegister input[name=' + key + ']';
 
                         $(input + '+div').removeClass('hidden');
                         $(input + '+div').text(value);

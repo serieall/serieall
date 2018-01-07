@@ -75,6 +75,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'username' => $data['username'],
+            'user_url' => trim($data['username']),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
@@ -94,6 +95,6 @@ class RegisterController extends Controller
 
         $this->activationService->sendActivationMail($user);
 
-        return redirect('/login')->with('status', 'Nous vous avons envoyé un e-mail de confirmation.');
+        return response()->json();
     }
 }

@@ -49,7 +49,7 @@
                 Forum
             </a>
             @if (Auth::guest())
-                <a id="click-login" class="item
+                <a id="clickLogin" class="item
                     @if($navActive == 'login')
                         active
                     @endif">
@@ -58,10 +58,10 @@
                         <i class="sign in icon"></i>
                     </div>
                 </a>
-                <a class="item
+                <a id="clickRegister" class="item
                     @if($navActive == 'register')
                         active
-                    @endif" href="{{ url('/register') }}">
+                    @endif">
                     <div>
                         Inscription
                         <i class="wizard icon"></i>
@@ -144,7 +144,8 @@
         @yield('content')
     </div>
 
-    <div id="login" class="ui modal">
+<div class="ui coupled modal">
+    <div id="loginModal" class="ui tiny first modal">
         <div class="header">
             Connexion
         </div>
@@ -176,13 +177,87 @@
                 <div class="div-center">
                     <button class="ui submit positive button">Se connecter</button>
                     <br />
-                    <br />
-                    <a href="{{ url('/password/reset') }}">Mot de passe oublié ?</a>
+                    <a class="ui" href="{{ url('/password/reset') }}">Mot de passe oublié ?</a>
+                </div>
+            </form>
+            <div class="ui tertiary inverted segment">
+                <button id="goToSecondModal" class="ui fluid right labeled icon button">
+                    <i class="right arrow icon"></i>
+                    Pas encore membre ? Créez un compte !
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="registerModal" class="ui tiny second modal">
+        <div class="header">
+            Inscription
+        </div>
+        <div class="content">
+
+            <div class="ui positive hidden message">
+                <div class="header">
+                    Inscription terminée
+                </div>
+                <p>Nous vous avons envoyé un e-mail de confirmation.</p>
+            </div>
+
+            <form id="formRegister" class="ui form" method="POST" action="{{ url('/register') }}">
+                {{ csrf_field() }}
+
+                <div class="ui required field {{ $errors->has('username') ? ' error' : '' }}">
+                    <label>Nom d'utilisateur</label>
+                    <input name="username" placeholder="Nom d'utilisateur" type="text" value="{{ old('username') }}">
+
+                    <div class="ui red hidden message"></div>
+                </div>
+
+                <div class="ui required field {{ $errors->has('email') ? ' error' : '' }}">
+                    <label>Adresse E-mail</label>
+                    <input name="email" placeholder="Adresse e-mail" type="email" value="{{ old('email') }}">
+
+                    <div class="ui red hidden message"></div>
+                </div>
+
+                <div class="ui required field {{ $errors->has('password') ? ' error' : '' }}">
+                    <label>Mot de passe</label>
+                    <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
+
+                    <div class="ui red hidden message"></div>
+                </div>
+
+                <div class="ui required field {{ $errors->has('password_confirmation') ? ' error' : '' }}">
+                    <label>Confirmer le mot de passe</label>
+                    <input name="password_confirmation" placeholder="Confirmer le mot de passe" type="password" value="{{ old('password_confirmation') }}">
+
+                    <div class="ui red hidden message"></div>
+                </div>
+
+                <div class="ui section divider"></div>
+
+                <div class="ui required field {{ $errors->has('g-recaptcha-response') ? ' error' : '' }}">
+                    {!! app('captcha')->display($attributes = []) !!}
+
+                    <div class="ui red hidden message"></div>
+                </div>
+
+                <div class="ui required field {{ $errors->has('cgu') ? ' error' : '' }}">
+                    <div class="ui checkbox">
+                        <input type="checkbox" name="cgu">
+                        <label for="cgu">J'ai lu et j'accepte les <a href="{{ route('cgu') }}">conditions générales d'utilisation</a></label>
                     </div>
+
+                    <div class="ui red hidden message"></div>
+                </div>
+
+                <div class="div-center">
+                    <button class="positive ui submit button">S'incrire !</button>
                 </div>
             </form>
         </div>
     </div>
+
+</div>
 
     @include('layouts.base_footer')
 </body>
