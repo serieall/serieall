@@ -105,6 +105,11 @@
             e.preventDefault();
             var buttonSubmit = '#formRegister .submit';
             var positiveMessage = '#formRegister .positive.message';
+            var captchaError = '#formRegister .captchaError';
+
+            // Reinitialiser tous les messages d'erreur
+            $('#formRegister input+div').addClass('hidden');
+            $('#formRegister input').parent().removeClass('error');
 
             $(buttonSubmit).addClass("loading");
 
@@ -128,6 +133,11 @@
                         $(input + '+div').text(value);
 
                         $(input).parent().addClass('error');
+
+                        if(key = 'g-recaptcha-response'){
+                            $(captchaError).text(value);
+                            $(captchaError).removeClass('hidden');
+                        }
                     });
                 });
         });

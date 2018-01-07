@@ -239,9 +239,7 @@
                     {!! NoCaptcha::renderJs('fr') !!}
                     {!! NoCaptcha::display() !!}
 
-                    <input name="g-recaptcha-response" type="hidden">
-
-                    <div class="ui red hidden message"></div>
+                    <div class="captchaError ui red hidden message"></div>
                 </div>
 
                 <div class="ui required field">
