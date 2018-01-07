@@ -153,19 +153,19 @@
             <form id="formLogin" class="ui form" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
 
-                <div class="ui required field {{ $errors->has('username') ? ' error' : '' }}">
+                <div class="ui required field">
                     <label>Nom d'utilisateur</label>
                     <input name="username" placeholder="Nom d'utilisateur" value="{{ old('username') }}">
                     <div class="ui red hidden message"></div>
                 </div>
 
-                <div class="ui required field {{ $errors->has('password') ? ' error' : '' }}">
+                <div class="ui required field">
                     <label>Mot de passe</label>
                     <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
                     <div class="ui red hidden message"></div>
                 </div>
 
-                <div class="field {{ $errors->has('remember') ? ' error' : '' }}">
+                <div class="field">
                     <div class="ui checkbox">
                         <input type="checkbox" id="remember" name="remember">
                         <label for="remember">Se souvenir de moi</label>
@@ -205,28 +205,28 @@
             <form id="formRegister" class="ui form" method="POST" action="{{ url('/register') }}">
                 {{ csrf_field() }}
 
-                <div class="ui required field {{ $errors->has('username') ? ' error' : '' }}">
+                <div class="ui required field">
                     <label>Nom d'utilisateur</label>
                     <input name="username" placeholder="Nom d'utilisateur" type="text" value="{{ old('username') }}">
 
                     <div class="ui red hidden message"></div>
                 </div>
 
-                <div class="ui required field {{ $errors->has('email') ? ' error' : '' }}">
+                <div class="ui required field">
                     <label>Adresse E-mail</label>
                     <input name="email" placeholder="Adresse e-mail" type="email" value="{{ old('email') }}">
 
                     <div class="ui red hidden message"></div>
                 </div>
 
-                <div class="ui required field {{ $errors->has('password') ? ' error' : '' }}">
+                <div class="ui required field">
                     <label>Mot de passe</label>
                     <input name="password" placeholder="Mot de passe" type="password" value="{{ old('password') }}">
 
                     <div class="ui red hidden message"></div>
                 </div>
 
-                <div class="ui required field {{ $errors->has('password_confirmation') ? ' error' : '' }}">
+                <div class="ui required field">
                     <label>Confirmer le mot de passe</label>
                     <input name="password_confirmation" placeholder="Confirmer le mot de passe" type="password" value="{{ old('password_confirmation') }}">
 
@@ -235,15 +235,16 @@
 
                 <div class="ui section divider"></div>
 
-                <div class="ui required field {{ $errors->has('g-recaptcha-response') ? ' error' : '' }}">
-                    {!! app('captcha')->display($attributes = []) !!}
+                <div class="ui required field">
+                    {!! NoCaptcha::renderJs('fr') !!}
+                    {!! NoCaptcha::display() !!}
 
                     <input name="g-recaptcha-response" type="hidden">
 
                     <div class="ui red hidden message"></div>
                 </div>
 
-                <div class="ui required field {{ $errors->has('cgu') ? ' error' : '' }}">
+                <div class="ui required field">
                     <div class="ui checkbox">
                         <input type="checkbox" name="cgu">
                         <label for="cgu">J'ai lu et j'accepte les <a href="{{ route('cgu') }}">conditions générales d'utilisation</a></label>

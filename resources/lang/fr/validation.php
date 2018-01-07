@@ -100,8 +100,9 @@ return [
     */
 
     'custom'               => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'g-recaptcha-response' => [
+            'required' => 'Veuillez cochez la case pour vérifier que vous n\'êtes pas un robot',
+            'captcha' => 'Erreur de captcha ! Essayez plus tard ou veuillez contacter un administrateur.',
         ],
     ],
 

@@ -4,26 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c3f210c80b8307c53c43df761049f6c",
+    "content-hash": "0e30c565c3623c55fb0e4b241b050152",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
-            "version": "2.4.0",
+            "version": "3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anhskohbo/no-captcha.git",
-                "reference": "cc0bacff1bb59f518af135ee3beae39bed079724"
+                "reference": "f78e1a0cb1864e97ace78b534ca8bc9ff466383f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/cc0bacff1bb59f518af135ee3beae39bed079724",
-                "reference": "cc0bacff1bb59f518af135ee3beae39bed079724",
+                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/f78e1a0cb1864e97ace78b534ca8bc9ff466383f",
+                "reference": "f78e1a0cb1864e97ace78b534ca8bc9ff466383f",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.2",
                 "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
                 "php": ">=5.5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
             },
             "type": "library",
             "extra": {
@@ -60,7 +63,7 @@
                 "no-captcha",
                 "recaptcha"
             ],
-            "time": "2017-08-30T18:36:57+00:00"
+            "time": "2017-10-31T15:09:11+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",

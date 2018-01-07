@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -57,6 +58,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        Log::info($data);
+
         return Validator::make($data, [
             'username' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
