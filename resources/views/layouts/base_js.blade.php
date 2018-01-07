@@ -19,19 +19,27 @@
         ;
 
         $('#clickLogin').on('click', function(){
-            $('#loginModal')
+            $('#loginModal').modal({
+                transition: 'drop down'
+            })
                 .modal('show')
             ;
         });
 
         $('#clickRegister').on('click', function(){
-            $('#registerModal')
+            $('#registerModal').modal({
+                transition: 'drop down'
+            })
                 .modal('show')
             ;
         });
 
         $('.second.modal')
+            .modal({
+                transition: 'fly left'
+            })
             .modal('attach events', '#goToSecondModal')
+
         ;
 
         $('.dropdown')
