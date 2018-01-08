@@ -11,17 +11,19 @@
 |
 */
 
+/*
+    Home
+*/
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
+/*
+    Pages
+*/
 Route::get('/cgu', function () {
     return view('pages.cgu');
 })->name('cgu');
-
-Route::get('/contact', function () {
-    return view('pages.contact');
-})->name('contact');
 
 Route::get('/equipe', function () {
     return view('pages.team');
@@ -31,8 +33,6 @@ Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
 
-Route::post('sendContact', 'ContactController@sendContact')->name('contact.send');
-
 /*
     Partie Authentification
 */
@@ -40,10 +40,23 @@ Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('register', 'Auth\RegisterController@register')->name('register');
 
-
-Route::get('/logout', 'Auth\LoginController@logout');
-
 Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');
+
+/*
+    Réinitialiser son mot de passe
+*/
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.form');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+/*
+    Formulaire de contact
+*/
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('contact');
+Route::post('sendContact', 'ContactController@sendContact')->name('contact.send');
 
 /*
     Partie Utilisateurs
