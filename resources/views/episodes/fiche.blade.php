@@ -20,7 +20,7 @@
                                     <?php
                                         if(isset($seasonInfo->episodes[$index + 1])) {
                                             $numeroEpisodeSuivant = $seasonInfo->episodes[$index + 1]->numero;
-                                            $IDEpisodePrecedent = $seasonInfo->episodes[$index + 1]->id;
+                                            $IDEpisodeSuivant = $seasonInfo->episodes[$index + 1]->id;
                                         ?>
                                             <a class="item" href="
                                                 @if($numeroEpisodeSuivant == 0)
@@ -363,7 +363,7 @@
                 <?php if (!isset($comments['user_comment'])){ ?>
                     var needComment = false;
                     $('.ecrireAvis').removeClass("hidden");
-                    $('.ui.modal').modal('show');
+                    $('.ui.modal.avis').modal('show');
 
                     $('#formAvis .note').val(rate);
                     $('#formAvis .episode_id').val(episode_id);
@@ -403,7 +403,7 @@
             }
         });
 
-        $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
+        $('.ui.modal.avis').modal('attach events', '.ui.button.WriteAvis', 'show');
         CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
         CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
         CKEDITOR.replace( 'avis' ,

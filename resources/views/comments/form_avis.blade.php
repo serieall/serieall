@@ -1,4 +1,4 @@
-<div class="ui modal">
+<div class="ui modal avis">
     <div class="header">
         @if(!isset($comments['user_comment']))
             Écrire un avis

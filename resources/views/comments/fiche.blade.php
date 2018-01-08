@@ -128,7 +128,7 @@
         function getComments(page) {
             $.ajax({
                 url : '?page=' + page,
-                dataType: 'json',
+                dataType: 'json'
             }).done(function (data) {
                 // On insére le HTML
                 $('#LastComments').html(data);
@@ -145,7 +145,7 @@
             });
         }
 
-        $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
+        $('.ui.modal.avis').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
         CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
         CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );

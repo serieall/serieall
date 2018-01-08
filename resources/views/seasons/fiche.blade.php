@@ -210,7 +210,7 @@
             });
         });
 
-        $('.ui.modal').modal('attach events', '.ui.button.WriteAvis', 'show');
+        $('.ui.modal.avis').modal('attach events', '.ui.button.WriteAvis', 'show');
         CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
         CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
         CKEDITOR.replace( 'avis' ,
