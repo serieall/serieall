@@ -49,7 +49,7 @@
                 Forum
             </a>
             @if (Auth::guest())
-                <a id="clickLogin" class="item
+                <a class="clickLogin item
                     @if($navActive == 'login')
                         active
                     @endif">
@@ -58,7 +58,7 @@
                         <i class="sign in icon"></i>
                     </div>
                 </a>
-                <a id="clickRegister" class="item
+                <a class="clickRegister item
                     @if($navActive == 'register')
                         active
                     @endif">

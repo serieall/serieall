@@ -20,7 +20,7 @@
                         <li class="title">
                             <h3>Communauté</h3>
                         </li>
-                        <li><a href="{{ route('register') }}">Inscription</a></li>
+                        <li><a href="#" class="clickRegister">Inscription</a></li>
                         <li><a href="{{ route('users.index') }}">Liste des membres</a></li>
                         <li>Forum</li>
                         <li>Rejoindre l'équipe</li>

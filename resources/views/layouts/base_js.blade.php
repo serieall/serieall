@@ -18,7 +18,7 @@
         })
         ;
 
-        $('#clickLogin').on('click', function(){
+        $('.clickLogin').on('click', function(){
             $('#loginModal').modal({
                 transition: 'drop down'
             })
@@ -26,7 +26,7 @@
             ;
         });
 
-        $('#clickRegister').on('click', function(){
+        $('.clickRegister').on('click', function(){
             $('#registerModal').modal({
                 transition: 'drop down'
             })
