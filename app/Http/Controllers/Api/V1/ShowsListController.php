@@ -26,7 +26,8 @@ class ShowsListController extends Controller
         $shows = $this->shows->with(['genres' => function ($q){
             $q->select('name');
         }])
-        ->select('id', 'name', 'name_fr');
+        ->select('id', 'name', 'name_fr')
+        ->orderBy('name');
 
         $shows = ApiHandler::parseMultiple($shows, array('name', 'name_fr'))->getResult();
 

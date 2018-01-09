@@ -37,17 +37,19 @@
                     </div>
                     <div class="ui field">
                         <label for="show">Choisir la série liée</label>
-                        <div id="dropdownShows" class="ui fluid search selection dropdown">
+                        <div id="dropdownShows" class="ui search selection dropdown">
                             <input id="inputShow" name="show" type="hidden">
                             <i class="dropdown icon"></i>
                             <div class="default text">Série</div>
                             <div class="menu">
                             </div>
                         </div>
+                        <div class="ui inline button clearShow">Effacer</div>
                     </div>
+
                     <div class="ui field">
                         <label for="show">Choisir la saison liée</label>
-                        <div id="dropdownSeasons" class="ui fluid search selection dropdown">
+                        <div id="dropdownSeasons" class="ui disabled fluid search selection dropdown">
                             <input id="inputSeason" name="season" type="hidden">
                             <i class="dropdown icon"></i>
                             <div class="default text">Saison</div>
@@ -57,8 +59,8 @@
                     </div>
                     <div class="ui field">
                         <label for="show">Choisir l'épisodes lié</label>
-                        <div id="dropdownEpisodes" class="ui fluid search selection dropdown">
-                            <input id="inputEpisode" name="season" type="hidden">
+                        <div id="dropdownEpisodes" class="ui disabled fluid search selection dropdown">
+                            <input id="inputEpisode" name="episode" type="hidden">
                             <i class="dropdown icon"></i>
                             <div class="default text">Episode</div>
                             <div class="menu">
@@ -90,9 +92,15 @@
                     fields: {
                         remoteValues: "data",
                         value: "id"
-                    }
+                    },
+                    saveRemoteData: false
                 })
             ;
+
+            $('.clearShow').click(function (e){
+                e.preventDefault();
+               $(dropdownShows).dropdown('restore defaults');
+            });
 
             // Init the dropdown Categories
             $(dropdownCategories)
@@ -123,6 +131,14 @@
                     })
                     .dropdown('clear')
                 ;
+
+                // If Show is not empty, we enabled the dropdown
+                if(!$(inputShow).val()) {
+                    $(dropdownSeasons).addClass('disabled');
+                }
+                else {
+                    $(dropdownSeasons).removeClass('disabled');
+                }
             });
 
             // On change on Season, we init the dropdown Episodes with the new value of season
@@ -142,6 +158,14 @@
                     })
                     .dropdown('clear')
                 ;
+
+                // If Season is not empty, we enabled the dropdown
+                if(!$(inputSeason).val()) {
+                    $(dropdownEpisodes).addClass('disabled');
+                }
+                else {
+                    $(dropdownEpisodes).removeClass('disabled');
+                }
             });
         });
     </script>
