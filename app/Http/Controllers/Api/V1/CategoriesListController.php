@@ -15,9 +15,9 @@ class CategoriesListController extends Controller
 
     public function index() : Response
     {
-        $categories = DB::table('categories')->select('name')->orderBy('name');
+        $categories = DB::table('categories')->select('id', 'name')->orderBy('name');
 
-        $categories = ApiHandler::parseMultiple($categories, array('name'))->getResult();
+        $categories = ApiHandler::parseMultiple($categories, array('id', 'name'))->getResult();
 
         return $this->response->collection($categories, new CategoriesListTransformer());
     }

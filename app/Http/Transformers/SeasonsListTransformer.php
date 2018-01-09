@@ -4,7 +4,7 @@ namespace App\Http\Transformers;
 
 use League\Fractal\TransformerAbstract;
 
-class CategoriesListTransformer extends TransformerAbstract
+class SeasonsListTransformer extends TransformerAbstract
 {
     /**
      * @param $category

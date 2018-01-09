@@ -16,6 +16,7 @@ class EpisodesBySeasonIDTransformer extends TransformerAbstract
             'numero' => $episode->numero,
             'name' => $episode->name,
             'name_fr' => $episode->name_fr,
+            'title' => $episode->numero . " - " . $episode->name
         ];
     }
 }
