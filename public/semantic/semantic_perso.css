@@ -1,3 +1,8 @@
+/* MARGIN */
+.margin1 {
+    margin: 1em;
+}
+
 /* TEXT */
 .ui.red.text {
     color: #DB2828 !important;
@@ -954,4 +959,12 @@ p.episodeResume {
 
 .card img {
     object-fit: cover;
+}
+
+.ui.grid > .column + .divider, .ui.grid > .row > .column + .divider {
+    left: 50%;
+}
+
+.verticalDivider {
+    position: relative;
 }
