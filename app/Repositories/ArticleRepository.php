@@ -27,7 +27,7 @@ class ArticleRepository
     }
 
     public function getArticleByID($id) {
-        return $this->article->findOrFail($id);
+        return $this->article->firstOrFail($id);
     }
 
 }

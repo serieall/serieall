@@ -38,11 +38,11 @@ class UserController extends Controller
     /**
      * Renvoi vers la page users/profile
      *
-     * @param $username
+     * @param $userURL
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getProfile($username){
-        $user = $this->userRepository->getUserByUsername($username);
+    public function getProfile($userURL){
+        $user = $this->userRepository->getUserByURL($userURL);
 
         return view('users.profile', compact('user'));
     }
@@ -50,11 +50,11 @@ class UserController extends Controller
     /**
      * Affiche le formulaire de modification des paramètres
      *
-     * @param $username
+     * @param $userURL
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getParameters($username){
-        $user = $this->userRepository->getUserByUsername($username);
+    public function getParameters($userURL){
+        $user = $this->userRepository->getUserByURL($userURL);
 
         return view('users.parameters', compact('user'));
     }
