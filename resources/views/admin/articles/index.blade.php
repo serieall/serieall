@@ -72,12 +72,12 @@
                     <td class="center aligned">
                         <div class="four wide column">
                             <!-- Formulaire de suppression -->
-                            <form action="" method="post" >
+                            <form action="{{ route('admin.articles.destroy', $article->id) }}" method="post" >
                                 {{ csrf_field() }}
 
                                 <input type="hidden" name="_method" value="DELETE">
 
-                                <button class="circular ui red icon button" value="Supprimer cette série ?" onclick="return confirm('Voulez-vous vraiment supprimer cette série ?')">
+                                <button class="circular ui red icon button" value="Supprimer cet article ?" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
                                     <i class="icon remove"></i>
                                 </button>
                             </form>

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $published_at
  * @property string $name
  * @property string $article_url
  * @property string $intro
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article wherePublishedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleUrl($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereIntro($value)

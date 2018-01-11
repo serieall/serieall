@@ -144,6 +144,8 @@ Route::group(['middleware' => 'admin'], function () {
     /* ARTICLES */
     Route::get('admin/articles', 'Admin\AdminArticleController@index')->name('admin.articles.index');
     Route::get('admin/articles/create', 'Admin\AdminArticleController@create')->name('admin.articles.create');
+    Route::post('admin/articles', 'Admin\AdminArticleController@store')->name('admin.articles.store');
+    Route::delete('admin/articles/{article}', 'Admin\AdminArticleController@destroy')->name('admin.articles.destroy');
 
     /* USERS */
     Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');

@@ -26,4 +26,8 @@ class ArticleRepository
         return $this->article->with('users', 'category')->get();
     }
 
+    public function getArticleByID($id) {
+        return $this->article->findOrFail($id);
+    }
+
 }
