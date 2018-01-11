@@ -25,6 +25,7 @@
         <div class="fifteen wide column segment">
             <div class="ui segment">
                 <form class="ui form" method="POST" action="">
+                    <h4 class="ui dividing header">Catégorie</h4>
                     <div class="ui required field">
                         <label for="categories">Choisir la catégorie de l'article</label>
                         <div class="ui fluid search selection dropdown dropdownCategory">
@@ -35,6 +36,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <h4 class="ui dividing header">Séries</h4>
 
                     <div class="div-center margin1">
                         <div id="oneShow" class="ui left attached BlueSerieAll button">Une série</div>
@@ -122,6 +125,8 @@
                         </div>
                     </div>
 
+                    <h4 class="ui dividing header">Article</h4>
+
                     <div class="ui required field {{ $errors->has('name') ? ' error' : '' }}">
                         <label for="nameInput">Titre de l'article</label>
                         <input id="nameInput" name="name" value="{{ old('name') }}">
@@ -144,19 +149,43 @@
                         @endif
                     </div>
 
+                    <textarea name="avis" id="avis" class="avis" placeholder="Écrivez votre article ici...">
+
+                    </textarea>
+
+                    <br />
+
+                    <div class="ui required field">
+                        <label for="shows">Choisir le ou les rédacteur(s)</label>
+                        <div class="ui grid">
+                            <div class="thirteen wide column">
+                                <div class="ui fluid search multiple selection dropdown dropdownUser">
+                                    <input id="inputUsers" name="users" type="hidden">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Rédacteur(s)</div>
+                                    <div class="menu">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="three wide column">
+                                <div class="ui inline button clearUser">Effacer</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="field">
                         <div class="ui toggle checkbox">
                             <input id="publishedInput" name="published" type="checkbox">
                             <label for="publishedInput">Publier l'article</label>
                         </div>
                     </div>
-
-                    <div class="ui toggle checkbox">
-                        <input id="uneInput" name="une" type="checkbox">
-                        <label for="uneInput">Mettre l'article en une</label>
+                    <div class="ui field">
+                        <div class="ui toggle checkbox">
+                            <input id="uneInput" name="une" type="checkbox">
+                            <label for="uneInput">Mettre l'article en une</label>
+                        </div>
                     </div>
-
-
+                    <button class="ui positive button">Envoyer</button>
                 </form>
             </div>
         </div>
@@ -166,18 +195,32 @@
 @section('scripts')
     <script>
 
+        CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
+        CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
+        CKEDITOR.replace( 'avis' ,
+            {
+                extraPlugins: 'spoiler,wordcount',
+                wordcount: {
+                    showCharCount: true,
+                    showWordCount: false,
+                    showParagraphs: false
+                }
+            });
+
         $('.ui.toggle.checkbox').checkbox();
 
         var dropdownCategory = '.dropdownCategory';
         var dropdownShow = '.dropdownShow';
         var dropdownSeason = '.dropdownSeason';
         var dropdownEpisode = '.dropdownEpisode';
+        var dropdownUser = '.dropdownUser';
 
         var inputShow = '#inputShow';
         var inputSeason = '#inputSeason';
 
         var clearSeasonButton = '.clearSeason';
         var clearEpisodeButton = '.clearEpisode';
+        var clearUserButton = '.clearUser';
 
         $(document).ready(function() {
 
@@ -250,6 +293,20 @@
                 })
             ;
 
+            // Init the dropdown Users
+            $(dropdownUser)
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/users/list?username-lk=*{query}*'
+                    },
+                    fields: {
+                        remoteValues: "data",
+                        value: "id",
+                        name: "username"
+                    }
+                })
+            ;
+
             // Clear buttons
             $('.clearShow').click(function () {
                 $(dropdownShow).dropdown('clear');
@@ -262,6 +319,9 @@
             });
             $('.clearShows').click(function (){
                $(dropdownShow + '.multipleShowsField').dropdown('clear');
+            });
+            $(clearUserButton).click(function (){
+                $(dropdownUser).dropdown('clear');
             });
 
             // Init the dropdown Show

@@ -25,4 +25,5 @@
         $api->get('genres/list', '\App\Http\Controllers\Api\V1\GenresController@index');
         $api->get('channels/list', '\App\Http\Controllers\Api\V1\ChannelsController@index');
         $api->get('categories/list', '\App\Http\Controllers\Api\V1\CategoriesListController@index');
+        $api->get('users/list', '\App\Http\Controllers\Api\V1\UsersListController@index');
     });
