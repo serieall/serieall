@@ -29,9 +29,9 @@
 
                     <h4 class="ui dividing header">Catégorie</h4>
                     <div class="ui required field {{ $errors->has('category') ? ' error' : '' }}">
-                        <label for="category">Choisir la catégorie de l'article</label>
+                        <label for="inputCategory">Choisir la catégorie de l'article</label>
                         <div class="ui fluid search selection dropdown dropdownCategory">
-                            <input name="category" type="hidden" value="{{ old('category') }}">
+                            <input id="inputCategory" name="category" type="hidden" value="{{ old('category') }}">
                             <i class="dropdown icon"></i>
                             <div class="default text">Catégorie</div>
                             <div class="menu">
@@ -171,8 +171,8 @@
                     <h4 class="ui dividing header">Article</h4>
 
                     <div class="ui required field {{ $errors->has('name') ? ' error' : '' }}">
-                        <label for="nameInput">Titre de l'article</label>
-                        <input id="nameInput" name="name" value="{{ old('name') }}">
+                        <label for="inputName">Titre de l'article</label>
+                        <input id="inputName" name="name" value="{{ old('name') }}">
 
                         @if ($errors->has('name'))
                             <div class="ui red message">
@@ -270,8 +270,11 @@
         var dropdownEpisode = '.dropdownEpisode';
         var dropdownUser = '.dropdownUser';
 
+        var inputCategory = '#inputCategory';
         var inputShow = '#inputShow';
         var inputSeason = '#inputSeason';
+        var inputEpisode = '#inputEpisode';
+        var inputTitle = '#inputName';
 
         var clearShowsButton = '.clearShows';
         var clearShowButton = '.clearShow';
@@ -282,6 +285,35 @@
         var multipleShowsButton = '#multipleShows';
 
         $(document).ready(function() {
+
+            $(inputShow).add(inputSeason).add(inputEpisode).add(inputCategory).change(function() {
+
+                if(!$(inputShow).val()) {
+                    var generatedTitle = $(inputCategory).siblings('.text').html();
+                }
+                else if(!$(inputSeason).val()) {
+                    var generatedTitle = $(inputCategory).siblings('.text').html()
+                        + ' : '
+                        + $(inputShow).siblings('.text').html();
+                }
+                else if(!$(inputEpisode).val()) {
+                    var generatedTitle = $(inputCategory).siblings('.text').html()
+                        + ' : '
+                        + $(inputShow).siblings('.text').html()
+                        + ' Saison '
+                        + $(inputSeason).siblings('.text').html();
+                }
+                else {
+                    var generatedTitle = $(inputCategory).siblings('.text').html()
+                        + ' : '
+                        + $(inputShow).siblings('.text').html()
+                        + ' '
+                        + $(inputSeason).siblings('.text').html()
+                        + '.'
+                        + $(inputEpisode).siblings('.text').html().split('-')[0].trim();
+                }
+                $(inputTitle).val(generatedTitle);
+            });
 
             function checkShowState() {
                 // If Show is not empty, we enabled the dropdown

@@ -13,6 +13,7 @@ class EpisodesBySeasonIDTransformer extends TransformerAbstract
     public function transform($episode) : array
     {
         return [
+            'id' => $episode->id,
             'numero' => $episode->numero,
             'name' => $episode->name,
             'name_fr' => $episode->name_fr,
