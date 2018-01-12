@@ -32,6 +32,16 @@ class UserRepository
     }
 
     /**
+     * Récupère l'utilisateur en fonction de son URL
+     *
+     * @param $user_url
+     * @return User
+     */
+    public function getUserByURL($user_url){
+        return $this->user->where('user_url', $user_url)->firstOrFail();
+    }
+
+    /**
      * Récupère tous les utilisateurs
      *
      * @return \Illuminate\Support\Collection

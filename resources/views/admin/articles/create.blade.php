@@ -106,7 +106,8 @@
 
                                         @if ($errors->has('season'))
                                             <div class="ui red message">
-                                                <strong>{{ $errors->first('season') }}</strong>                                        </div>
+                                                <strong>{{ $errors->first('season') }}</strong>
+                                            </div>
                                         @endif
                                     </div>
 
