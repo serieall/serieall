@@ -16,6 +16,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use Illuminate\Support\Facades\Log;
+
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 
@@ -689,7 +691,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
          */
         $file = 'http://www.thetvdb.com/banners/posters/'. $show_new->thetvdb_id . '-1.jpg';
         $file_headers = @get_headers($file);
-        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found' || $file_headers[8] == 'HTTP/1.1 404 Not Found') {
             $logMessage = '>>Pas d\'image pour la série.';
             saveLogMessage($idLog, $logMessage);
         }
