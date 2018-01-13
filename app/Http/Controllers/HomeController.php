@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 
+use App\Repositories\ArticleRepository;
+
 class HomeController extends Controller
 {
+
+    protected $articleRepository;
+
     /**
      * Create a new controller instance.
-     *
+     * @param ArticleRepository $articleRepository
      */
-    public function __construct()
+    public function __construct(ArticleRepository $articleRepository)
     {
         $this->middleware('auth');
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -21,7 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $navActive = 'home';
-        return view('home', compact('navActive'));
+        $articlesUne = $this->articleRepository->getArticleUne();
+
+        return view('pages.home', compact('articlesUne'));
     }
 }
