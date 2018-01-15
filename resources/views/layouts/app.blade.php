@@ -35,7 +35,7 @@
         <div class="right secondary pointing stackable menu">
             <div id="showDropdown" class="item ui search dropdown">
                 <div class="ui icon input">
-                    <input class="prompt" placeholder="Rechercher une série..." type="text">
+                    <input class="prompt" placeholder="Rechercher une série...">
                     <i class="search icon"></i>
                 </div>
                 <div class="results">

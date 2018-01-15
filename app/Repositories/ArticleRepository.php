@@ -36,8 +36,15 @@ class ArticleRepository
         return $this->article->firstOrFail($id);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function getArticleUne() {
-        dd($this->article->with('users')->limit(3)->orderBy('published_at')->get());
+        return $this->article
+            ->with('users')
+            ->limit(3)
+            ->orderBy('published_at')
+            ->get();
     }
 
 }

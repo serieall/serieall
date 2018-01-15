@@ -21,7 +21,7 @@
                         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-family: sans-serif; text-align: center; text-shadow: 0 0 20px rgba(0,0,0,0.5);">
                             <h1>{{ $article->name }}</h1>
                             <p>{{ $article->intro }}</p>
-                            <p>{{ $article->users->username }}</p>
+                            {{--<p>{{ $article->users->username }}</p>--}}
                         </div>
                     </div>
                 @endforeach
