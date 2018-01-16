@@ -12,6 +12,7 @@ use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 
 class AdminArticleController extends Controller
 {
@@ -101,6 +102,25 @@ class AdminArticleController extends Controller
             $article->frontpage = 0;
         }
 
+        if($inputs['one'] = 1) {
+            // We fetch the show and initiate image
+            $show = $this->showRepository->getShowByID($inputs['show']);
+            $article->image = config('directories.shows') . $show->show_url . ".jpg";
+        }
+
+        # Add the image
+        if (Input::hasfile('image')) {
+            if (Input::file('image')->isValid()) {
+                $destinationPath = public_path() . config('directories.articles');
+                $extension = "jpg";
+                $fileName = $article->article_url . '.' . $extension;
+
+                $article->image = config('directories.articles') . $fileName;
+
+                Input::file('image')->move($destinationPath, $fileName);
+            }
+        }
+
         // On lie les catégories et on sauvegarde l'article
         $article->category()->associate($inputs['category']);
         $article->save();
@@ -130,6 +150,7 @@ class AdminArticleController extends Controller
             else {
                 $article->shows()->attach($inputs['show']);
             }
+
         }
         else {
             // On gère l'ajout de plusieurs séries

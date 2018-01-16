@@ -24,7 +24,7 @@
     <div class="ui centered grid">
         <div class="fifteen wide column segment">
             <div class="ui segment">
-                <form class="ui form" method="POST" action="{{ route('admin.articles.store') }}">
+                <form class="ui form" method="POST" action="{{ route('admin.articles.store') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <h4 class="ui dividing header">Catégorie</h4>
@@ -204,6 +204,17 @@
                     </div>
 
                     <br />
+
+                    <div class="ui field {{ $errors->has('image') ? ' error' : '' }}">
+                        <label for="image">Image de l'article (par défaut image de la série quand il n'y en a qu'une)</label>
+                        <input id="image" name="image" type="file">
+
+                        @if ($errors->has('image'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('image') }}</strong>
+                            </div>
+                        @endif
+                    </div>
 
                     <div class="ui required field {{ $errors->has('users') ? ' error' : '' }}">
                         <label for="users">Choisir le ou les rédacteur(s)</label>
