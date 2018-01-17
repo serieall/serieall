@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'Séries TV')
+@section('pageTitle', 'Articles')
 @section('pageDescription', 'Webzine communautaire des séries TV - Critiques et actualité des séries tv, notez et laissez vos avis sur les derniers épisodes, créez votre planning ...')
 
 @section('content')
@@ -9,27 +9,29 @@
             <div class="ui segment">
                 <h1>Liste des articles</h1>
 
-
-                @foreach($articles as $article)
-                    <div class="ui raised link card">
-                        <div class="content">
-                            <div class="header">{{ $article->name }}</div>
-                            <div class="meta">
-                                <span class="category">{{ $article->category->name }}</span>
+                <div class="ui three stackable cards">
+                    @foreach($articles as $article)
+                        <div class="ui raised green link card">
+                            <img class="topImageAffiche" style="height:100px; " src="{{ $article->image }}">
+                            <div class="content">
+                                <div class="header">{{ $article->name }}</div>
+                                <div class="meta">
+                                    <span class="category">{{ $article->category->name }}</span>
+                                </div>
+                                <div class="description">
+                                    <p>{{ $article->intro }}</p>
+                                </div>
                             </div>
-                            <div class="description">
-                                <p>{{ $article->intro }}</p>
+                            <div class="extra content">
+                                <div class="right floated author">
+                                    @foreach($article->users as $redac)
+                                        <img class="ui avatar image" src="{{ Gravatar::src($redac->email) }}"> {{ $redac->username }}
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                        <div class="extra content">
-                            <div class="right floated author">
-                                @foreach($article->users as $redac)
-                                    <img class="ui avatar image" src="{{ Gravatar::src($redac->email) }}"> {{ $redac->username }}
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
