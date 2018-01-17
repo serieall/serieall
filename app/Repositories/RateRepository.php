@@ -92,4 +92,8 @@ class RateRepository
             ->first();
     }
 
+    public function getLast20Rates() {
+        return Episode_user::with('user', 'episode')->limit(20)->get();
+    }
+
 }

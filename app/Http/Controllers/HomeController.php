@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Repositories\ArticleRepository;
+use App\Repositories\RateRepository;
 
 class HomeController extends Controller
 {
 
-    protected $articleRepository;
+    protected $rateRepository;
 
     /**
      * Create a new controller instance.
-     * @param ArticleRepository $articleRepository
+     * @param RateRepository $rateRepository
+     * @internal param ArticleRepository $articleRepository
      */
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(RateRepository $rateRepository)
     {
-        $this->articleRepository = $articleRepository;
+        $this->rateRepository = $rateRepository;
     }
 
     /**
@@ -26,8 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articlesUne = $this->articleRepository->getArticleUne();
+        $lastRates = $this->rateRepository->getLast20Rates();
 
-        return view('pages.home', compact('articlesUne'));
+        return view('pages.home', compact('lastRates'));
     }
 }

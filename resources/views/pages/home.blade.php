@@ -5,4 +5,8 @@
 
 @section('content')
 
+    @foreach($lastRates as $rate)
+        {{ $rate->user->username }} a noté {{ afficheEpisodeName($rate->episode) }}<br />
+    @endforeach
+
 @endsection
