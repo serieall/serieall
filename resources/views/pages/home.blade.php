@@ -6,7 +6,7 @@
 @section('content')
 
     @foreach($lastRates as $rate)
-        {{ $rate->user->username }} a noté {{ afficheEpisodeName($rate->episode) }}<br />
+        {{ $rate->user->username }} a noté {!! affichageNumeroEpisode($rate->episode->show->show_url, $rate->episode->season->name, $rate->episode->numero, $rate->episode->id, true, true ) !!} <br />
     @endforeach
 
 @endsection

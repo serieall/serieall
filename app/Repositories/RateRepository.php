@@ -92,8 +92,17 @@ class RateRepository
             ->first();
     }
 
+    /**
+     * Get Last 20 Rates
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function getLast20Rates() {
-        return Episode_user::with('user', 'episode')->limit(20)->get();
+        return Episode_user::with(['user', 'episode' => function($q){
+            $q->with('season');
+            $q->with('show');
+        }])->limit(20)
+            ->get();
     }
 
 }
