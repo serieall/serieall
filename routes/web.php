@@ -84,6 +84,11 @@ Route::get('episode/{show_url}/s{season}e{episode}/{id?}', 'EpisodeController@ge
 Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate')->middleware('auth');
 
 /*
+    Partie Articles
+*/
+Route::get('articles', 'ArticleController@index')->name('article.index');
+
+/*
     Partie Commentaire
 */
 Route::get('avis/{show_url}/{season?}/{episode?}/{episode_id?}', 'CommentController@fiche')->name('comment.fiche');

@@ -14,7 +14,7 @@
             @endif">
             Séries TV
         </a>
-        <a class="item
+        <a href="{{ route('article.index') }}" class="item
            @if($navActive == 'articles')
                 active
             @endif">

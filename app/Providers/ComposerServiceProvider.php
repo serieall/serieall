@@ -76,6 +76,12 @@ class ComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\NavActiveShowsComposer'
         );
 
+        // NavActive = articles
+        View::composer(
+            ['articles/*'],
+            'App\Http\ViewComposers\NavActiveArticlesComposer'
+        );
+
 
         // FICHES
         // FicheActive = home
