@@ -6,22 +6,85 @@
 <body id="body">
 @include('cookieConsent::index')
 <div class="ui sidebar inverted vertical menu">
-    <a class="item">
-        1
+    <div class="item ui search dropdown showDropdown">
+        <div class="ui icon input">
+            <input class="prompt" placeholder="Rechercher une série...">
+            <i class="search icon"></i>
+        </div>
+        <div class="results">
+        </div>
+    </div>
+
+    <a href="{{ route('show.index') }}" class="item
+       @if($navActive == 'shows')
+           active
+        @endif">
+        <i class="tv icon"></i>
+        Séries TV
     </a>
-    <a class="item">
-        2
+    <a href="{{ route('article.index') }}" class="item
+        @if($navActive == 'articles')
+            active
+        @endif">
+        <i class="file text outline icon"></i>
+        Articles
     </a>
-    <a class="item">
-        3
+    <a href="" class="item
+        @if($navActive == 'planning')
+            active
+        @endif">
+        <i class="calendar icon"></i>
+        Planning
     </a>
+    <a href="" class="item
+        @if($navActive == 'classements')
+            active
+        @endif">
+        <i class="trophy icon"></i>
+        Classements
+    </a>
+    @if (Auth::guest())
+        <a class="clickLogin item">
+            Connexion
+            <i class="sign in icon"></i>
+        </a>
+        <a class="clickRegister item">
+            Inscription
+            <i class="wizard icon"></i>
+        </a>
+    @else
+        <a href="{{ route('user.profile', Auth::user()->username) }}" class="item">
+            <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
+            {{ Auth::user()->username }}
+        </a>
+        <div class="menu">
+            @if(Auth::user()->role < 4)
+                <a class="item" href="{{ route('admin')}}">
+                    <i class="lock icon"></i>
+                    Administration
+                </a>
+            @endif
+            <a class="item" href="">
+               <i class="alarm icon"></i>
+               Notifications
+            </a>
+            <a class="item" href="{{ route('user.profile', Auth::user()->username) }}">
+                <i class="user icon"></i>
+                Profil
+            </a>
+            <a class="item" href="{{ route('logout') }}">
+                <i class="sign out icon"></i>
+                Se déconnecter
+            </a>
+        </div>
+    @endif
 </div>
 <div class="pusher">
     <div class="ui tablet only mobile only grid header">
         <div class="ui  secondary pointing fluid menu">
             <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
             <div class="right secondary pointing stackable menu">
-                <a class="item"><i class="big sidebar icon"></i>Menu</a>
+                <a class="item sidebarIcon"><i class="big sidebar icon"></i>Menu</a>
             </div>
         </div>
     </div>
@@ -53,7 +116,7 @@
             Classements
         </a>
         <div class="right secondary pointing stackable menu">
-            <div id="showDropdown" class="item ui search dropdown">
+            <div class="item ui search dropdown showDropdown">
                 <div class="ui icon input">
                     <input class="prompt" placeholder="Rechercher une série...">
                     <i class="search icon"></i>

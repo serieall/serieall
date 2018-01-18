@@ -10,7 +10,7 @@
 
 <script>
     $(document).ready(function() {
-        $('.sidebar.icon').click(function() {
+        $('.sidebarIcon').click(function() {
            $('.sidebar.menu').sidebar('toggle');
         });
 
@@ -61,7 +61,7 @@
             })
         ;
 
-        $('#showDropdown')
+        $('.showDropdown')
             .search({
                 apiSettings: {
                     url: '/api/shows/search?_q={query}'

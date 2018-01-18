@@ -351,19 +351,19 @@ blockquote {
 }
 
 /* FIX FOOTER TO BOTTOM */
-#body {
+.pusher {
     display: flex;
     flex-direction: column;
     height: 100%;
     background-color: #f3f3f3;
 }
-#header {
+.header {
     background-color: white;
     z-index: 1;
     margin-top: inherit;
 }
 
-#footer,#header {
+#footer,.header {
     flex:none;
 }
 
@@ -400,13 +400,17 @@ blockquote {
     z-index: 0;
 }
 
-#showDropdown {
+.showDropdown {
     margin: auto 0;
     border: none;
 }
 
-#showDropdown div {
+.showDropdown div {
     text-align: left;
+}
+
+.ui.vertical.menu .item.showDropdown {
+    display: inline-block;
 }
 
 .ui.pointing.labeled.icon.dropdown .item {
@@ -970,5 +974,5 @@ p.episodeResume {
 }
 
 .grid.header {
-    margin-top: inherit;
+    margin-top: 0 !important;
 }
