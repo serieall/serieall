@@ -4,7 +4,6 @@
     @include('layouts.base_head')
 </head>
 <body id="body">
-@include('cookieConsent::index')
 <div class="ui sidebar inverted vertical menu">
     <div class="item ui search dropdown showDropdown">
         <div class="ui icon input">
@@ -80,6 +79,7 @@
     @endif
 </div>
 <div class="pusher">
+    @include('cookieConsent::index')
     <div class="ui tablet only mobile only grid header">
         <div class="ui  secondary pointing fluid menu">
             <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
