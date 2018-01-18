@@ -5,13 +5,6 @@
 </head>
 <body id="body">
 @include('cookieConsent::index')
-<div class="ui tablet only mobile only grid header">
-    <div class="ui  secondary pointing fluid stackable menu"
-        <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
-        <a><i class="big sidebar icon"></i></a>
-    </div>
-</div>
-
 <div class="ui sidebar inverted vertical menu">
     <a class="item">
         1
@@ -24,6 +17,14 @@
     </a>
 </div>
 <div class="pusher">
+    <div class="ui tablet only mobile only grid header">
+        <div class="ui  secondary pointing fluid menu">
+            <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
+            <div class="right secondary pointing stackable menu">
+                <a class="item"><i class="big sidebar icon"></i>Menu</a>
+            </div>
+        </div>
+    </div>
     <div class="ui computer only grid header">
     <div class="ui  secondary pointing fluid stackable menu" id="header">
         <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
