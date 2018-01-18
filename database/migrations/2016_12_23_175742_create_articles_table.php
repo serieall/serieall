@@ -19,6 +19,7 @@ class CreateArticlesTable extends Migration {
 			$table->tinyInteger('state')->default('0');
 			$table->boolean('frontpage')->default(0);
 			$table->integer('category_id')->unsigned();
+			$table->timestamp('punlished_at')->nullable();
 		});
 	}
 
