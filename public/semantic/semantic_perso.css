@@ -976,3 +976,7 @@ p.episodeResume {
 .grid.header {
     margin-top: 0 !important;
 }
+
+.ui.vertical.menu .active.item {
+    background-color: #1074b2;
+}
