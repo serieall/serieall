@@ -11,7 +11,7 @@
 
                 <div class="ui three stackable cards">
                     @foreach($articles as $article)
-                        <div class="ui raised green link card">
+                        <div class="ui raised green card">
                             <img class="topImageAffiche" style="height:100px; " src="{{ $article->image }}">
                             <div class="content">
                                 <div class="header">{{ $article->name }}</div>
@@ -29,6 +29,12 @@
                                     @endforeach
                                 </div>
                             </div>
+                            <a href="{{ route('article.view', $article->article_url) }}">
+                                <div class="ui bottom attached button">
+                                    <i class="eye icon"></i>
+                                    Lire l'article
+                                </div>
+                            </a>
                         </div>
                     @endforeach
                 </div>

@@ -87,6 +87,7 @@ Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate
     Partie Articles
 */
 Route::get('articles', 'ArticleController@index')->name('article.index');
+Route::get('articles/{article_url}', 'ArticleController@index')->name('article.view');
 
 /*
     Partie Commentaire

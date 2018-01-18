@@ -199,20 +199,40 @@ function compileObjectInfos($object, $object_id) {
 }
 
 /**
- * Affichage du nom de l'épisode
+ * Print the name of the episode, with or without link/number
  *
  * @param $episode
+ * @param $hasNumber
+ * @param $hasLink
  * @return mixed
  */
-function afficheEpisodeName($episode){
-    if(!empty($episode->name_fr)) {
+function afficheEpisodeName($episode, $hasNumber, $hasLink)
+{
+    // Choose the field we use for the name
+    if (!empty($episode->name_fr)) {
         $name = $episode->name_fr;
-    }
-    else {
+    } else {
         $name = $episode->name;
     }
 
-    return $name;
+    // If we want the number
+    if ($hasNumber) {
+        if ($episode->numero == 0) {
+            $text = "Episode spécial";
+        } else {
+            $text = "Episode " . $episode->season->name . "." . sprintf("%02s", $episode->numero);
+        }
+        $text = $text . ' - ' . $name;
+    } else {
+        $text = $name;
+    }
+
+    // If we want the link
+    if ($hasLink) {
+        $text = "<a href=\"" . route('episode.fiche', [$episode->show->show_url, $episode->season->name, $episode->numero, $episode->id]) . "\">" . $text . "</a>";
+    }
+
+    return $text;
 }
 
 /**

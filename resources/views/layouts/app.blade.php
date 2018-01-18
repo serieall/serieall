@@ -5,7 +5,6 @@
 </head>
 <body id="body">
 @include('cookieConsent::index')
-
     <div class="ui secondary pointing fluid stackable menu" id="header">
         <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
         <a href="{{ route('show.index') }}" class="item
