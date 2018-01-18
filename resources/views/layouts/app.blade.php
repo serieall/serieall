@@ -5,7 +5,27 @@
 </head>
 <body id="body">
 @include('cookieConsent::index')
-    <div class="ui secondary pointing fluid stackable menu" id="header">
+<div class="ui tablet only mobile only grid header">
+    <div class="ui  secondary pointing fluid stackable menu"
+        <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
+        <a><i class="big sidebar icon"></i></a>
+    </div>
+</div>
+
+<div class="ui sidebar inverted vertical menu">
+    <a class="item">
+        1
+    </a>
+    <a class="item">
+        2
+    </a>
+    <a class="item">
+        3
+    </a>
+</div>
+<div class="pusher">
+    <div class="ui computer only grid header">
+    <div class="ui  secondary pointing fluid stackable menu" id="header">
         <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
         <a href="{{ route('show.index') }}" class="item
             @if($navActive == 'shows')
@@ -100,6 +120,7 @@
                 </div>
             @endif
         </div>
+    </div>
     </div>
 
     @if (session('status') || session('success') || session('error') || session('warning'))
@@ -256,10 +277,10 @@
             </form>
         </div>
     </div>
-
 </div>
 
     @include('layouts.base_footer')
+</div>
 </body>
 @include('layouts.base_js')
 </html>

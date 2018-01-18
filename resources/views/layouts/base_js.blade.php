@@ -10,6 +10,10 @@
 
 <script>
     $(document).ready(function() {
+        $('.sidebar.icon').click(function() {
+           $('.sidebar.menu').sidebar('toggle');
+        });
+
         $('#footer .icon').hover(function () {
             $(this).transition('tada');
         }, function () {

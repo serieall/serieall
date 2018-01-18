@@ -968,3 +968,7 @@ p.episodeResume {
 .verticalDivider {
     position: relative;
 }
+
+.grid.header {
+    margin-top: inherit;
+}

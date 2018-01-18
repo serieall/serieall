@@ -45,7 +45,7 @@
                             <h3>Séries</h3>
                         </li>
                         <li><a href="{{ route('show.index') }}">Liste des séries</a></li>
-                        <li>Articles</li>
+                        <li><a href="{{ route('article.index') }}">Articles</a></li>
                         <li>Planning</li>
                         <li>Classement</li>
                     </ul>
