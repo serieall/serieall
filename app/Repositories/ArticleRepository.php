@@ -48,7 +48,6 @@ class ArticleRepository
     {
         return $this->article
             ->with('users', 'category')
-            ->whereFrontpage(1)
             ->whereState(1)
             ->orderBy('published_at')
             ->get();
