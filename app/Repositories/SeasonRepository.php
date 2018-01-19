@@ -82,14 +82,6 @@ class SeasonRepository
             ->findOrFail($id);
     }
 
-    public function getSeasonsWithEpisodesForShowByID($id)
-    {
-        return $this->season->where('show_id', '=', $id)
-            ->with('episodes')
-            ->orderBy('seasons.name', 'asc')
-            ->get();
-    }
-
     /**
      * @param $showID
      * @param $seasonName
