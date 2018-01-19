@@ -276,7 +276,7 @@
                             </div>
                         </form>
                     @else
-                            <a href="#" class="clickToConnect">Connectez-vous</a> pour noter cet épisode
+                            <a href="#" class="clickLogin">Connectez-vous</a> pour noter cet épisode
                     @endif
 
                     <div class="ui divider"></div>

@@ -28,17 +28,20 @@ class ShowRepository
      */
     protected $show;
     protected $seasonRepository;
+    protected $articleRepository;
 
     /**
      * ShowRepository constructor.
      *
      * @param Show $show
      * @param \App\Repositories\SeasonRepository $seasonRepository
+     * @param ArticleRepository $articleRepository
      */
-    public function __construct(Show $show, SeasonRepository $seasonRepository)
+    public function __construct(Show $show, SeasonRepository $seasonRepository, ArticleRepository $articleRepository)
     {
         $this->show = $show;
         $this->seasonRepository = $seasonRepository;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -131,6 +134,7 @@ class ShowRepository
         // En fonction de la route, on récupère les informations sur la série différemment
         if (Route::current()->getName() == "show.fiche") {
             $show = $this->getShowByURL($show_url);
+            $articles = $this->articleRepository->getPublishedArticleByShow($show);
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         } elseif (Route::current()->getName() == "show.details") {
             $show = $this->getShowDetailsByURL($show_url);
@@ -178,7 +182,7 @@ class ShowRepository
             $fullSynopsis = true;
         }
 
-        return compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'synopsis', 'showSynopsis', 'fullSynopsis', 'showPositiveComments', 'showNeutralComments', 'showNegativeComments');
+        return compact('show', 'seasons', 'genres', 'nationalities', 'channels', 'noteCircle', 'synopsis', 'showSynopsis', 'fullSynopsis', 'showPositiveComments', 'showNeutralComments', 'showNegativeComments', 'articles');
     }
 
     /**

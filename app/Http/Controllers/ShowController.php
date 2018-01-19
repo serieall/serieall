@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Season;
 
+use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;

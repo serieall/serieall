@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Article;
+use App\Models\Show;
 
 class ArticleRepository
 {
@@ -19,7 +20,7 @@ class ArticleRepository
     }
 
     /**
-     * Récupère un article en fonction de son ID
+     * Get article by its ID
      *
      * @param $id
      * @return \Illuminate\Database\Eloquent\Model|static
@@ -50,6 +51,18 @@ class ArticleRepository
             ->with('users', 'category')
             ->whereState(1)
             ->orderBy('published_at')
+            ->get();
+    }
+
+    /**
+     * Get published articles for a show
+     *
+     * @param Show $show
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getPublishedArticleByShow(Show $show) {
+        return $show->articles()
+            ->whereState(1)
             ->get();
     }
 }

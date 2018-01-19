@@ -34,7 +34,7 @@
                                     {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episode->numero, $episode->id, true, true) !!}
                                 </td>
                                 <td class="left aligned">
-                                    {{ afficheEpisodeName($episode) }}
+                                    {{ afficheEpisodeName($episode, false, false) }}
                                 </td>
                                 <td>
                                     @if($episode->diffusion_us != "0000-00-00")

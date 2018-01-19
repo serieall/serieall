@@ -27,6 +27,14 @@ class RateRepository
         $this->episodeRepository = $episodeRepository;
     }
 
+    /**
+     * Rate an episode
+     *
+     * @param $user_id
+     * @param $episode_id
+     * @param $rate
+     * @return bool
+     */
     public function RateEpisode($user_id, $episode_id, $rate) {
         // La note existe-elle ?
         $rate_ref = Episode_user::where('episode_id', '=', $episode_id)
