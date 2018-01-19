@@ -20,6 +20,15 @@ class ArticleRepository
     }
 
     /**
+     * Get all articles with autorsand category
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getAllArticlesWithAutorsCategory() {
+        return $this->article->with('users', 'category')->get();
+    }
+
+    /**
      * Get article by its ID
      *
      * @param $id

@@ -71,9 +71,9 @@ class Episode extends Model {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function season()
-	{
-		return $this->belongsTo('App\Models\Season');
-	}
+    {
+        return $this->belongsTo('App\Models\Season');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany

@@ -45,7 +45,7 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Affiche la page admin/articles/index
+     * Print vue admin/articles/index
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -56,7 +56,7 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Affiche la page admin/articles/create
+     * Print vue admin/articles/create
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -66,7 +66,7 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Enregistre un nouvel article
+     * Save a new article in database
      *
      * @param ArticleCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
@@ -140,17 +140,22 @@ class AdminArticleController extends Controller
         if($inputs['one'] = 1) {
             // Si episode est renseigné, on lie à l'épisode
             if(!empty($inputs['episode'])) {
-                $article->episodes()->attach($inputs['episode']);
+                $episode = $this->episodeRepository->getEpisodeByIDWithSeasonIDAndShowID($inputs['episode']);
+
+                $article->episodes()->attach($episode->id);
+                $article->seasons()->attach($episode->season->id);
+                $article->shows()->attach($episode->show->id);
             }
             // Si season est renseigné, on lie à la saison
             elseif(!empty($inputs['season'])) {
-                $article->seasons()->attach($inputs['season']);
+                $season = $this->seasonRepository->getSeasonWithShowByID($inputs['season']);
+                $article->seasons()->attach($season->id);
+                $article->shows()->attach($season->show->id);
             }
             // Sinon, on lie à la série
             else {
                 $article->shows()->attach($inputs['show']);
             }
-
         }
         else {
             // On gère l'ajout de plusieurs séries
@@ -172,7 +177,7 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Supprime un article
+     * Delete an article
      *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
