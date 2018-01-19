@@ -13,17 +13,9 @@ class ArticleRepository
      * ArticleRepository constructor.
      * @param Article $article
      */
-    public function __construct(Article $article) {
+    public function __construct(Article $article)
+    {
         $this->article = $article;
-    }
-
-    /**
-     * Récupère tous les articles
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function getAllArticlesWithAutorsCategory() {
-        return $this->article->with('users', 'category')->get();
     }
 
     /**
@@ -32,19 +24,33 @@ class ArticleRepository
      * @param $id
      * @return \Illuminate\Database\Eloquent\Model|static
      */
-    public function getArticleByID($id) {
+    public function getArticleByID($id)
+    {
         return $this->article->firstOrFail($id);
     }
 
     /**
+     * Get all published articles in une
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getArticleUne() {
+    public function getArticlesUne()
+    {
+        return $this->article->with('users')->whereFrontpage(1)->whereState(1)->orderBy('published_at')->get();
+    }
+
+    /**
+     * Get all published articles
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getPublishedArticlesWithAutorsAndCategory()
+    {
         return $this->article
-            ->with('users')
-            ->limit(3)
+            ->with('users', 'category')
+            ->whereFrontpage(1)
+            ->whereState(1)
             ->orderBy('published_at')
             ->get();
     }
-
 }
