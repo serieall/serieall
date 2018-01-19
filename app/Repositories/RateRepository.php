@@ -52,9 +52,9 @@ class RateRepository
             $episode_ref->users()->attach($user_id, ['rate' => $rate]);
 
             # On incrémente tous les nombres d'épisodes
-            $episode_ref->nbnotes += 1;
-            $season_ref->nbnotes += 1;
-            $show_ref->nbnotes += 1;
+            ++$episode_ref->nbnotes;
+            ++$season_ref->nbnotes;
+            ++$show_ref->nbnotes;
         }
         else {
             // On la met simplement à jour

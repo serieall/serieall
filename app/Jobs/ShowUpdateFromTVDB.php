@@ -356,7 +356,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                         $logMessage = '>>>>>Diffusion originale : ' . $episodeDiffusionUS;
                         saveLogMessage($idLog, $logMessage);
 
-                        $episodePicture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                        $episodePicture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                         # Image
                         $logMessage = '>>>>>Image : ' . $episodePicture;
                         saveLogMessage($idLog, $logMessage);
@@ -392,50 +392,38 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 
                         $nomENEpisode = $episode_ref->name;
                         # Si le nom FR est à TBA dans notre base
-                        if (is_null($nomENEpisode)) {
-                            # On vérifie si le nom est rempli en EN
-                            if (!is_null($getEpisode_en->episodeName)) {
-                                $episode_ref->name = $getEpisode_en->episodeName;
-                                # Nom original
-                                $logMessage = '>>>>>Nom original : ' . $episode_ref->name;
-                                saveLogMessage($idLog, $logMessage);
-                            }
+                        if (is_null($nomENEpisode) && !is_null($getEpisode_en->episodeName)) {
+                            $episode_ref->name = $getEpisode_en->episodeName;
+                            # Nom original
+                            $logMessage = '>>>>>Nom original : ' . $episode_ref->name;
+                            saveLogMessage($idLog, $logMessage);
                         }
 
                         $nomFREpisode = $episode_ref->name_fr;
                         # Si le nom FR est à TBA dans notre base
-                        if (is_null($nomFREpisode)) {
-                            # On vérifie si le nom est rempli en FR
-                            if (!is_null($getEpisode_fr->episodeName)) {
-                                $episode_ref->name_fr = $getEpisode_fr->episodeName;
-                                # On sauvegarde le nom en français
-                                $logMessage = '>>>>>Nom français : ' . $episode_ref->name_fr;
-                                saveLogMessage($idLog, $logMessage);
-                            }
+                        if (is_null($nomFREpisode) && !is_null($getEpisode_fr->episodeName)) {
+                            $episode_ref->name_fr = $getEpisode_fr->episodeName;
+                            # On sauvegarde le nom en français
+                            $logMessage = '>>>>>Nom français : ' . $episode_ref->name_fr;
+                            saveLogMessage($idLog, $logMessage);
                         }
 
                         $resumeEpisodeEN = $episode_ref->resume;
                         # Si le résumé est à TBA dans notre base
-                        if (is_null($resumeEpisodeEN)) {
-                            # On vérifie que le résumé est rempli en EN
-                            if (!is_null($getEpisode_fr->overview)) {
-                                # On sauvegarde le résumé en EN
-                                $episode_ref->resume = $getEpisode_en->overview;
-                                $logMessage = '>>>>>Résumé original : ' . $episode_ref->resume;
-                                saveLogMessage($idLog, $logMessage);
-                            }
+                        if (is_null($resumeEpisodeEN) && !is_null($getEpisode_fr->overview)) {
+                            # On sauvegarde le résumé en EN
+                            $episode_ref->resume = $getEpisode_en->overview;
+                            $logMessage = '>>>>>Résumé original : ' . $episode_ref->resume;
+                            saveLogMessage($idLog, $logMessage);
                         }
 
                         $resumeEpisodeFR = $episode_ref->resume_fr;
                         # Si le résumé est à TBA dans notre base
-                        if (is_null($resumeEpisodeFR)) {
-                            # On vérifie si le résumé est rempli en FR
-                            if (!is_null($getEpisode_fr->overview)) {
-                                $episode_ref->resume_fr = $getEpisode_fr->overview;
-                                # On sauvegarde le résumé en français
-                                $logMessage = '>>>>>Résumé Français : ' . $episode_ref->resume_fr;
-                                saveLogMessage($idLog, $logMessage);
-                            }
+                        if (is_null($resumeEpisodeFR) && !is_null($getEpisode_fr->overview)) {
+                            $episode_ref->resume_fr = $getEpisode_fr->overview;
+                            # On sauvegarde le résumé en français
+                            $logMessage = '>>>>>Résumé Français : ' . $episode_ref->resume_fr;
+                            saveLogMessage($idLog, $logMessage);
                         }
 
                         $diffusionEpisode = $episode_ref->diffusion_us;
@@ -566,7 +554,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 
                             /* Récupération de la photo de l'épisode */
                             if(!empty($getEpisode_en->filenam)) {
-                                $file = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                                $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                                 $file_headers = @get_headers($file);
                                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                                     $episodePicture = null;
@@ -574,7 +562,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                     $logMessage = '>>>Pas d\'image pour l\'épisode.';
                                     saveLogMessage($idLog, $logMessage);
                                 } else {
-                                    $episodePicture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                                    $episodePicture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                                     # Image
                                     $logMessage = '>>>>>Image : ' . $episodePicture;
                                     saveLogMessage($idLog, $logMessage);
@@ -618,50 +606,38 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 
                             $nomENEpisode = $episode_ref->name;
                             # Si le nom FR est à TBA dans notre base
-                            if (is_null($nomENEpisode)) {
-                                # On vérifie si le nom est rempli en EN
-                                if (!is_null($getEpisode_en->episodeName)) {
-                                    $episode_ref->name = $getEpisode_en->episodeName;
-                                    # Nom original
-                                    $logMessage = '>>>>>Nom original : ' . $episode_ref->name;
-                                    saveLogMessage($idLog, $logMessage);
-                                }
+                            if (is_null($nomENEpisode) && !is_null($getEpisode_en->episodeName)) {
+                                $episode_ref->name = $getEpisode_en->episodeName;
+                                # Nom original
+                                $logMessage = '>>>>>Nom original : ' . $episode_ref->name;
+                                saveLogMessage($idLog, $logMessage);
                             }
 
                             $nomFREpisode = $episode_ref->name_fr;
                             # Si le nom FR est à TBA dans notre base
-                            if (is_null($nomFREpisode)) {
-                                # On vérifie si le nom est rempli en FR
-                                if (!is_null($getEpisode_fr->episodeName)) {
-                                    $episode_ref->name_fr = $getEpisode_fr->episodeName;
-                                    # On sauvegarde le nom en français
-                                    $logMessage = '>>>>>Nom français : ' . $episode_ref->name_fr;
-                                    saveLogMessage($idLog, $logMessage);
-                                }
+                            if (is_null($nomFREpisode) && !is_null($getEpisode_fr->episodeName)) {
+                                $episode_ref->name_fr = $getEpisode_fr->episodeName;
+                                # On sauvegarde le nom en français
+                                $logMessage = '>>>>>Nom français : ' . $episode_ref->name_fr;
+                                saveLogMessage($idLog, $logMessage);
                             }
 
                             $resumeEpisodeEN = $episode_ref->resume;
                             # Si le résumé est à TBA dans notre base
-                            if (is_null($resumeEpisodeEN)) {
-                                # On vérifie que le résumé est rempli en EN
-                                if (!is_null($getEpisode_fr->overview)) {
-                                    # On sauvegarde le résumé en EN
-                                    $episode_ref->resume = $getEpisode_en->overview;
-                                    $logMessage = '>>>>>Résumé original : ' . $episode_ref->resume;
-                                    saveLogMessage($idLog, $logMessage);
-                                }
+                            if (is_null($resumeEpisodeEN) && !is_null($getEpisode_fr->overview)) {
+                                # On sauvegarde le résumé en EN
+                                $episode_ref->resume = $getEpisode_en->overview;
+                                $logMessage = '>>>>>Résumé original : ' . $episode_ref->resume;
+                                saveLogMessage($idLog, $logMessage);
                             }
 
                             $resumeEpisodeFR = $episode_ref->resume_fr;
                             # Si le résumé est à TBA dans notre base
-                            if (is_null($resumeEpisodeFR)) {
-                                # On vérifie si le résumé est rempli en FR
-                                if (!is_null($getEpisode_fr->overview)) {
-                                    $episode_ref->resume_fr = $getEpisode_fr->overview;
-                                    # On sauvegarde le résumé en français
-                                    $logMessage = '>>>>>Résumé Français : ' . $episode_ref->resume_fr;
-                                    saveLogMessage($idLog, $logMessage);
-                                }
+                            if (is_null($resumeEpisodeFR) && !is_null($getEpisode_fr->overview)) {
+                                $episode_ref->resume_fr = $getEpisode_fr->overview;
+                                # On sauvegarde le résumé en français
+                                $logMessage = '>>>>>Résumé Français : ' . $episode_ref->resume_fr;
+                                saveLogMessage($idLog, $logMessage);
                             }
 
                             $diffusionEpisode = $episode_ref->diffusion_us;
@@ -678,13 +654,13 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 
                             /* Récupération de la photo de l'épisode */
                             if(!empty($getEpisode_en->filenam)) {
-                                $file = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                                $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                                 $file_headers = @get_headers($file);
                                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                                     $logMessage = '>>>Pas d\'image pour l\'épisode.';
                                     saveLogMessage($idLog, $logMessage);
                                 } else {
-                                    $episodePicture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                                    $episodePicture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                                     $episode_ref->picture = $episodePicture;
 
                                     # Image
@@ -727,7 +703,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $secondsWeek = 604800;
-        $key_token = "token";
+        $key_token = 'token';
         $api_key = config('thetvdb.apikey');
         $api_username = config('thetvdb.username');
         $api_userkey = config('thetvdb.userkey');
@@ -873,38 +849,29 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 
                 $nomFRSerie = $serieInBDD->name_fr;
                 # Si le nom FR est à TBA dans notre base
-                if (is_null($nomFRSerie)) {
-                    # On vérifie si le nom est rempli en FR
-                    if (!is_null($show_fr->seriesName)) {
-                        $serieInBDD->name_fr = $show_fr->seriesName;
-                        # On sauvegarde le nom en français
-                        $logMessage = '>> Nom français : ' . $serieInBDD->name_fr;
-                        saveLogMessage($idLog, $logMessage);
-                    }
+                if (is_null($nomFRSerie) && !is_null($show_fr->seriesName)) {
+                    $serieInBDD->name_fr = $show_fr->seriesName;
+                    # On sauvegarde le nom en français
+                    $logMessage = '>> Nom français : ' . $serieInBDD->name_fr;
+                    saveLogMessage($idLog, $logMessage);
                 }
 
                 $resumeSerieEN = $serieInBDD->synopsis;
                 # Si le résumé est à TBA dans notre base
-                if (is_null($resumeSerieEN)) {
-                    # On vérifie si le résumé est rempli en EN
-                    if (!is_null($show_en->overview)) {
-                        $serieInBDD->synopsis = $show_en->overview;
-                        # On sauvegarde le résumé en anglais
-                        $logMessage = '>> Résumé original : ' . $serieInBDD->synopsis;
-                        saveLogMessage($idLog, $logMessage);
-                    }
+                if (is_null($resumeSerieEN) && !is_null($show_en->overview)) {
+                    $serieInBDD->synopsis = $show_en->overview;
+                    # On sauvegarde le résumé en anglais
+                    $logMessage = '>> Résumé original : ' . $serieInBDD->synopsis;
+                    saveLogMessage($idLog, $logMessage);
                 }
 
                 $resumeSerieFR = $serieInBDD->synopsis_fr;
                 # Si le résumé est à TBA dans notre base
-                if (is_null($resumeSerieFR)) {
-                    # On vérifie que le résumé est rempli en FR
-                    if (!is_null($show_fr->overview)) {
-                        $serieInBDD->synopsis_fr = $show_fr->overview;
-                        # On sauvegarde le résumé en français
-                        $logMessage = '>> Résumé français : ' . $serieInBDD->synopsis_fr;
-                        saveLogMessage($idLog, $logMessage);
-                    }
+                if (is_null($resumeSerieFR) && !is_null($show_fr->overview)) {
+                    $serieInBDD->synopsis_fr = $show_fr->overview;
+                    # On sauvegarde le résumé en français
+                    $logMessage = '>> Résumé français : ' . $serieInBDD->synopsis_fr;
+                    saveLogMessage($idLog, $logMessage);
                 }
 
                 $statutSerie = $serieInBDD->encours;
@@ -930,7 +897,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                         saveLogMessage($idLog, $logMessage);
 
                         $dateTemp = date_create($show_en->firstAired);
-                        $serieInBDD->annee = date_format($dateTemp, "Y");
+                        $serieInBDD->annee = date_format($dateTemp, 'Y');
                         # Année
                         $logMessage = '>> Année : ' . $serieInBDD->annee;
                         saveLogMessage($idLog, $logMessage);

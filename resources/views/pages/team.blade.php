@@ -20,7 +20,7 @@
                         'Username' => 'Galax',
                         'Email' => 'rikki-tikki@hotmail.fr',
                         'Role' => 'Rédacteur en chef',
-                        'Quote' => "Vous aimez <strong>Doctor Who</strong> ? Ne le dites pas à Galax, sinon il va vous en parler pendant des heures. Remarquez, quoi que vous fassiez, il va vous en parler pendant des heures."
+                        'Quote' => 'Vous aimez <strong>Doctor Who</strong> ? Ne le dites pas à Galax, sinon il va vous en parler pendant des heures. Remarquez, quoi que vous fassiez, il va vous en parler pendant des heures.'
                     ),
                     array(
                         'Username' => 'Youkoulayley',
@@ -86,7 +86,7 @@
                         'Username' => 'Jojo76',
                         'Email' => 'jojoenforce@hotmail.fr',
                         'Role' => 'Gestionnaire de la base',
-                        'Quote' => "Sa capacité à troller est devenue légendaire sur les internets. Chez nous, il se charge en plus de mettre à jour la base de données et les images de séries avec Cail1."
+                        'Quote' => 'Sa capacité à troller est devenue légendaire sur les internets. Chez nous, il se charge en plus de mettre à jour la base de données et les images de séries avec Cail1.'
                     ),
                     array(
                         'Username' => 'Koss',
@@ -199,7 +199,7 @@
                     'Username' => 'Funradiz',
                     'Email' => 'ludo_ajl@hotmail.fr',
                     'Role' => 'Rédacteur',
-                    'Quote' => "50% homme, 50% femme, 100% radis, le créateur de <em>Fringe, histoires parallèles</em> nous a proposé ses services de temps à autre, notamment sur <strong>Dexter</strong> et <strong>True Blood</strong>."
+                    'Quote' => '50% homme, 50% femme, 100% radis, le créateur de <em>Fringe, histoires parallèles</em> nous a proposé ses services de temps à autre, notamment sur <strong>Dexter</strong> et <strong>True Blood</strong>.'
                 ),
                 array(
                     'Username' => 'Gouloudrouioul',
@@ -211,7 +211,7 @@
                     'Username' => 'Hayiana',
                     'Email' => 'hayiana@hotmail.fr',
                     'Role' => 'Rédactrice',
-                    'Quote' => "Fan des beaux gosses vampires de <strong>The Vampire Diaries</strong>, elle a finalement succombé à leur charme et est partie les rejoindre."
+                    'Quote' => 'Fan des beaux gosses vampires de <strong>The Vampire Diaries</strong>, elle a finalement succombé à leur charme et est partie les rejoindre.'
                 ),
                 array(
                     'Username' => 'Leif',
@@ -229,7 +229,7 @@
                     'Username' => 'Marckoleptik',
                     'Email' => 'marckoleptik@gmail.com',
                     'Role' => 'Rédacteur d\'actualités',
-                    'Quote' => "Ancien chinois en chef, il gérait les ajouts de nouvelles séries au site ainsi que la rédaction des actualités. Trop de pressions auront eu raison de lui."
+                    'Quote' => 'Ancien chinois en chef, il gérait les ajouts de nouvelles séries au site ainsi que la rédaction des actualités. Trop de pressions auront eu raison de lui.'
                 ),
                 array(
                     'Username' => 'MoolFreet',
@@ -277,7 +277,7 @@
                     'Username' => 'Taoby',
                     'Email' => 'taoby1@hotmail.com',
                     'Role' => 'Rédacteur',
-                    'Quote' => "Son intérêt pour les critiques ayant diminué de concert avec la qualité des épisodes de <strong>Dexter</strong>, cet expert de <em>Paint</em> a préféré arrêter. Il tient néanmoins une chronique sur des actrices méconnues du circuit traditionnel, à découvrir sur le forum."
+                    'Quote' => 'Son intérêt pour les critiques ayant diminué de concert avec la qualité des épisodes de <strong>Dexter</strong>, cet expert de <em>Paint</em> a préféré arrêter. Il tient néanmoins une chronique sur des actrices méconnues du circuit traditionnel, à découvrir sur le forum.'
                 ),
             );
             ?>

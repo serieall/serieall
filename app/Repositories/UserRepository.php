@@ -26,9 +26,10 @@ class UserRepository
      *
      * @param $username
      * @return User
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getUserByUsername($username){
-        return $this->user->where('username', $username)->firstOrFail();
+        return $this->user::where('username', $username)->firstOrFail();
     }
 
     /**
@@ -36,9 +37,10 @@ class UserRepository
      *
      * @param $user_url
      * @return User
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getUserByURL($user_url){
-        return $this->user->where('user_url', $user_url)->firstOrFail();
+        return $this->user::where('user_url', $user_url)->firstOrFail();
     }
 
     /**
@@ -58,9 +60,10 @@ class UserRepository
      *
      * @param $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getUserByID($id)
     {
-        return $this->user->findOrFail($id);
+        return $this->user::findOrFail($id);
     }
 }

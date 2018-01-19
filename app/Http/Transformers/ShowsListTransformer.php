@@ -14,7 +14,7 @@ class ShowsListTransformer extends TransformerAbstract
     {
         return [
             'id' => $show->id,
-            'url' => "/serie/" . $show->show_url,
+            'url' => '/serie/' . $show->show_url,
             'name' => $show->name,
             'genres' => $show->genres,
         ];

@@ -27,9 +27,9 @@ function ActorPicture($actor){
     $folderActors = config('directories.actors');
 
     if(file_exists(public_path() . "$folderActors" . "$actor.jpg")) {
-        return $folderActors . $actor . ".jpg";
+        return $folderActors . $actor . '.jpg';
     } else {
-        return $folderActors . "default_empty.jpg";
+        return $folderActors . 'default_empty.jpg';
     }
 }
 
@@ -43,9 +43,9 @@ function ShowPicture($show){
     $folderShows = config('directories.shows');
 
     if(file_exists(public_path() . "$folderShows" . "$show.jpg")) {
-        return $folderShows . $show . ".jpg";
+        return $folderShows . $show . '.jpg';
     } else {
-        return $folderShows . "default_empty.jpg";
+        return $folderShows . 'default_empty.jpg';
     }
 }
 
@@ -63,21 +63,21 @@ function ShowPicture($show){
 function affichageNumeroEpisode($show_url, $season_number, $episode_number, $episode_id, $link_enabled, $episode_string) {
     if( $episode_string ) {
         if($episode_number == 0){
-            $text = "Episode spécial";
+            $text = 'Episode spécial';
         }
         else {
-            $text = "Episode " . $season_number . "." . sprintf("%02s", $episode_number);
+            $text = 'Episode ' . $season_number . '.' . sprintf('%02s', $episode_number);
         }
     }
     else {
-        $text = $season_number . "." . sprintf("%02s", $episode_number);
+        $text = $season_number . '.' . sprintf('%02s', $episode_number);
     }
 
     if($link_enabled) {
         if ($episode_number == 0) {
-            return "<a href=\"" . route('episode.fiche', [$show_url, $season_number, $episode_number, $episode_id]) . "\">" . $text . "</a>";
+            return '<a href="' . route('episode.fiche', [$show_url, $season_number, $episode_number, $episode_id]) . '">' . $text . '</a>';
         } else {
-            return "<a href=\"" . route('episode.fiche', [$show_url, $season_number, $episode_number]) . "\">" . $text . "</a>";
+            return '<a href="' . route('episode.fiche', [$show_url, $season_number, $episode_number]) . '">' . $text . '</a>';
         }
     }
     else {
@@ -115,13 +115,13 @@ function affichageNote($rate) {
 function affichageThumb($thumb) {
     switch ($thumb) {
         case 1:
-            return "<td class=\"ui green text AvisStatus\">Avis favorable</td>";
+            return '<td class="ui green text AvisStatus">Avis favorable</td>';
             break;
         case 2:
-            return "<td class=\"ui grey text AvisStatus\">Avis neutre</td>";
+            return '<td class="ui grey text AvisStatus">Avis neutre</td>';
             break;
         case 3:
-            return "<td class=\"ui red text AvisStatus\">Avis défavorable</td>";
+            return '<td class="ui red text AvisStatus">Avis défavorable</td>';
             break;
         default:
             return false;
@@ -136,13 +136,13 @@ function affichageThumb($thumb) {
 function affichageThumbBorder($thumb) {
     switch ($thumb) {
         case 1:
-            return "green";
+            return 'green';
             break;
         case 2:
-            return "grey";
+            return 'grey';
             break;
         case 3:
-            return "red";
+            return 'red';
             break;
         default:
             return false;
@@ -160,24 +160,24 @@ function affichageThumbBorder($thumb) {
 function messageComment($object, $user_comment = null) {
     switch($object){
         case 'Show':
-            $text = "cette série";
+            $text = 'cette série';
             break;
         case 'Season':
-            $text = "cette saison";
+            $text = 'cette saison';
             break;
         case 'Episode':
-            $text = "cet épisode";
+            $text = 'cet épisode';
             break;
         default:
-            $text = "cet objet";
+            $text = 'cet objet';
             break;
     }
 
     if(is_null($user_comment)) {
-        return "Aucun membre n'a donné son avis sur " . $text . ". Ecrivez un avis pour être le premier !";
+        return "Aucun membre n'a donné son avis sur " . $text . '. Ecrivez un avis pour être le premier !';
     }
     else {
-        return "Vous êtes le seul à avoir donné votre avis sur " . $text . ".";
+        return 'Vous êtes le seul à avoir donné votre avis sur ' . $text . '.';
     }
 }
 
@@ -218,9 +218,9 @@ function afficheEpisodeName($episode, $hasNumber, $hasLink)
     // If we want the number
     if ($hasNumber) {
         if ($episode->numero == 0) {
-            $text = "Episode spécial";
+            $text = 'Episode spécial';
         } else {
-            $text = "Episode " . $episode->season->name . "." . sprintf("%02s", $episode->numero);
+            $text = 'Episode ' . $episode->season->name . '.' . sprintf('%02s', $episode->numero);
         }
         $text = $text . ' - ' . $name;
     } else {
@@ -229,7 +229,7 @@ function afficheEpisodeName($episode, $hasNumber, $hasLink)
 
     // If we want the link
     if ($hasLink) {
-        $text = "<a href=\"" . route('episode.fiche', [$episode->show->show_url, $episode->season->name, $episode->numero, $episode->id]) . "\">" . $text . "</a>";
+        $text = '<a href="' . route('episode.fiche', [$episode->show->show_url, $episode->season->name, $episode->numero, $episode->id]) . '">' . $text . '</a>';
     }
 
     return $text;

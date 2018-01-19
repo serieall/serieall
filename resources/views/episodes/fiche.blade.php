@@ -360,7 +360,7 @@
             console.log(episode_id);
 
             if( rate < 10 || rate > 15) {
-                <?php if (!isset($comments['user_comment'])){ ?>
+                <?php if(!isset($comments['user_comment'])){ ?>
                     var needComment = false;
                     $('.ecrireAvis').removeClass("hidden");
                     $('.ui.modal.avis').modal('show');

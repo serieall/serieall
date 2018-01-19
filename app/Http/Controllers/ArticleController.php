@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Season;
-
 use App\Repositories\ArticleRepository;
-use App\Repositories\CommentRepository;
-use App\Repositories\ShowRepository;
-use App\Repositories\SeasonRepository;
-use App\Repositories\EpisodeRepository;
 
-use ConsoleTVs\Charts\Facades\Charts;
-
+/**
+ * Class ArticleController
+ * @package App\Http\Controllers
+ */
 class ArticleController extends Controller
 {
     protected $articleRepository;
@@ -26,6 +22,11 @@ class ArticleController extends Controller
         $this->articleRepository = $articleRepository;
     }
 
+    /**
+     * Print the articles/index vue
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index() {
         $articles = $this->articleRepository->getPublishedArticlesWithAutorsAndCategory();
 

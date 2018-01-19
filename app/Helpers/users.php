@@ -9,27 +9,27 @@
 function roleUser($id) {
     switch ($id) {
         case 1:
-            $role = "Administrateur";
-            $color = "red";
+            $role = 'Administrateur';
+            $color = 'red';
             break;
         case 2:
-            $role = "Rédacteur";
-            $color = "purple";
+            $role = 'Rédacteur';
+            $color = 'purple';
             break;
         case 3:
-            $role = "Membre VIP";
-            $color = "orange";
+            $role = 'Membre VIP';
+            $color = 'orange';
             break;
         case 4:
-            $role = "Membre";
-            $color = "black";
+            $role = 'Membre';
+            $color = 'black';
             break;
         default:
-            $role = "Inconnu";
-            $color = "grey";
+            $role = 'Inconnu';
+            $color = 'grey';
     }
 
-    $text = "<span class=\"ui " . $color . " text\">" . $role . "</span>";
+    $text = '<span class="ui ' . $color . ' text">' . $role . '</span>';
 
     return $text;
 }

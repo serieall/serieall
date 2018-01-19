@@ -82,7 +82,7 @@ class CommentRepository
             }
         }
 
-        if(Route::current()->getName() == "comment.fiche") {
+        if(Route::current()->getName() == 'comment.fiche') {
             $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id);
         }
         else {

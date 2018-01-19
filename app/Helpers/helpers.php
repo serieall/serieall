@@ -10,9 +10,9 @@ function cutResume($resume) {
     $nombreCaracResume = config('param.nombreCaracResume');
 
     // On insère des marqueurs "***" dans le texte
-    $text = wordwrap($resume, $nombreCaracResume, "***", true);
+    $text = wordwrap($resume, $nombreCaracResume, '***', true);
 
-    $tcut = explode("***", $text);
+    $tcut = explode('***', $text);
 
     // La première partie du tableau est celle qui nous intéresse
     $part1 = $tcut[0];
@@ -23,18 +23,18 @@ function cutResume($resume) {
     }
 
     // On vérifie si il y a une balise spoiler dans le texte
-    if(strstr($part1, "<div class=\"spoiler\">")) {
+    if(strstr($part1, '<div class="spoiler">')) {
 
         // On vérifie qu'elle est fermée
-        if(strstr($part1, "</div></div>")) {
-            return $part1 . " ...";
+        if(strstr($part1, '</div></div>')) {
+            return $part1 . ' ...';
         }
         else {
             return "Le résumé de cet avis contient des spoilers, cliquez sur \"Lire l'avis complet\" pour le consulter.";
         }
     }
     else {
-        return $part1 . " ...";
+        return $part1 . ' ...';
     }
 }
 

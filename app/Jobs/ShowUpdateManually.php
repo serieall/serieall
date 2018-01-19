@@ -88,7 +88,7 @@ class ShowUpdateManually implements ShouldQueue
         saveLogMessage($idLog, $logMessage);
 
         $dateTemp = date_create($show->diffusion_us);
-        $show->annee = date_format($dateTemp, "Y");
+        $show->annee = date_format($dateTemp, 'Y');
         # Année de diffusion de la série
         $logMessage = '>>Année : ' . $show->annee;
         saveLogMessage($idLog, $logMessage);

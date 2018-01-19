@@ -25,7 +25,7 @@ class ArticleRepository
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getAllArticlesWithAutorsCategory() {
-        return $this->article->with('users', 'category')->get();
+        return $this->article::with('users', 'category')->get();
     }
 
     /**
@@ -36,7 +36,7 @@ class ArticleRepository
      */
     public function getArticleByID($id)
     {
-        return $this->article->firstOrFail($id);
+        return $this->article::firstOrFail($id);
     }
 
     /**
@@ -56,8 +56,7 @@ class ArticleRepository
      */
     public function getPublishedArticlesWithAutorsAndCategory()
     {
-        return $this->article
-            ->with('users', 'category')
+        return $this->article::with('users', 'category')
             ->whereState(1)
             ->orderBy('published_at')
             ->get();
@@ -70,8 +69,7 @@ class ArticleRepository
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getPublishedArticleByShow(Show $show) {
-        return $show->articles()
-            ->whereState(1)
+        return $show->articles()::whereState(1)
             ->get();
     }
 }

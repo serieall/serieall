@@ -11,7 +11,7 @@ class ActivationService
 {
     protected $mailer;
     protected $activationRepo;
-    protected $resendAfter = 24;
+    private $resendAfter = 24;
 
     /**
      * ActivationService constructor.

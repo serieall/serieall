@@ -35,7 +35,7 @@ class LogRepository
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getTenDistinctLogs(){
-        return $this->list_log->with('user')
+        return $this->list_log::with('user')
             ->select('id', 'job', 'object', 'object_id', 'user_id', 'created_at')
             ->limit(10)
             ->orderBy('id', 'desc')
@@ -49,7 +49,7 @@ class LogRepository
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getAllDistinctLogs(){
-        return $this->list_log->with('user')
+        return $this->list_log::with('user')
             ->select('id', 'job', 'object', 'object_id', 'user_id', 'created_at')
             ->orderBy('id', 'desc')
             ->distinct()
@@ -63,7 +63,7 @@ class LogRepository
      * @return List_log|\Illuminate\Database\Eloquent\Builder
      */
     public function getLogByID($id){
-        return $this->list_log->with('logs','user')->find($id);
+        return $this->list_log::with('logs','user')->find($id);
     }
 
     /**
@@ -75,6 +75,6 @@ class LogRepository
     {
         $oneWeekAgo = Carbon::today()->subWeek()->toDateString();
 
-        return $this->list_log->where('created_at', '<', $oneWeekAgo)->get();
+        return $this->list_log::where('created_at', '<', $oneWeekAgo)->get();
     }
 }

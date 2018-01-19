@@ -13,6 +13,7 @@ use App\Models\Comment;
 use App\Models\Season;
 use App\Models\Show;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -57,7 +58,7 @@ class ShowRepository
      * @return bool
      */
     public function createShowJob($inputs){
-        $checkIDTheTVDB = $this->show->where('thetvdb_id', $inputs['thetvdb_id'])->first();
+        $checkIDTheTVDB = $this->show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
 
         if(is_null($checkIDTheTVDB)){
             dispatch(new ShowAddFromTVDB($inputs));
@@ -79,16 +80,14 @@ class ShowRepository
      */
     public function createManuallyShowJob($inputs){
         $URLShow = Str::slug($inputs['name']);
-        $verifURLShow = $this->show->where('show_url', $URLShow)->first();
+        $verifURLShow = $this->show::where('show_url', $URLShow)->first();
 
-        if(is_null($verifURLShow)){
+        if(null === $verifURLShow){
             dispatch(new ShowAddManually($inputs));
             return $createOK = true;
         }
-        else
-        {
-            return $createOK = false;
-        }
+
+        return $createOK = false;
     }
 
     /**
@@ -132,11 +131,11 @@ class ShowRepository
     public function getInfoShowFiche($show_url)
     {
         // En fonction de la route, on récupère les informations sur la série différemment
-        if (Route::current()->getName() == "show.fiche") {
+        if (Route::current()->getName() == 'show.fiche') {
             $show = $this->getShowByURL($show_url);
             $articles = $this->articleRepository->getPublishedArticleByShow($show);
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
-        } elseif (Route::current()->getName() == "show.details") {
+        } elseif (Route::current()->getName() == 'show.details') {
             $show = $this->getShowDetailsByURL($show_url);
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         }
@@ -196,7 +195,7 @@ class ShowRepository
      *
      */
     public function getAllShowsWithCountSeasonsAndEpisodes(){
-        return $this->show->with('nationalities', 'channels')
+        return $this->show::with('nationalities', 'channels')
             ->withCount('episodes')
             ->withCount('seasons')
             ->get();
@@ -209,7 +208,7 @@ class ShowRepository
      * @return mixed
      */
     public function getShowByURL($show_url){
-        return $this->show->where('show_url', $show_url)
+        return $this->show::where('show_url', $show_url)
             ->with('seasons', 'episodes', 'genres', 'nationalities', 'channels')
             ->first();
     }
@@ -222,7 +221,7 @@ class ShowRepository
      * @return mixed
      */
     public function getShowDetailsByURL($show_url){
-        return $this->show->where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function($q)
+        return $this->show::where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function($q)
         {
             $q->select('artists.id', 'artists.name', 'artists.artist_url', 'artistables.role')
                 ->orderBy('artists.name', 'asc');
@@ -234,9 +233,10 @@ class ShowRepository
      *
      * @param $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Show
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getByID($id){
-        return $this->show->findOrFail($id);
+        return $this->show::findOrFail($id);
     }
 
     /**
@@ -245,8 +245,7 @@ class ShowRepository
      * @return Show|\Illuminate\Database\Eloquent\Builder|Show
      */
     public function getInfoShowByID($id){
-        return $this->show
-            ->where('shows.id', '=', $id)
+        return $this->show::where('shows.id', '=', $id)
             ->with(['channels', 'nationalities', 'creators', 'genres'])
             ->first();
     }
@@ -259,8 +258,7 @@ class ShowRepository
      */
     public function getShowSeasonsEpisodesByShowID($id)
     {
-        return $this->show
-            ->with(['seasons' => function($q){
+        return $this->show::with(['seasons' => function($q){
                 $q->with('episodes');
             }])
             ->findOrFail($id);
@@ -274,8 +272,7 @@ class ShowRepository
      */
     public function getShowActorsByID($id)
     {
-        return $this->show
-            ->with('actors')
+        return $this->show::with('actors')
             ->findOrFail($id);
     }
 
@@ -284,17 +281,18 @@ class ShowRepository
      *
      * @param $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getShowByID($id) {
-        return $this->show->findOrFail($id);
+        return $this->show::findOrFail($id);
     }
 
     /**
      * Récupère toutes les séries
-     *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllShows() {
-        return $this->show->with('genres')->orderBy('name')->paginate(20);
+    public function getAllShows(): LengthAwarePaginator
+    {
+        return $this->show::with('genres')->orderBy('name')->paginate(20);
     }
 }

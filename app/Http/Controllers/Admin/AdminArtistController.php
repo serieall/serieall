@@ -78,7 +78,7 @@ class AdminArtistController extends Controller
             # Ajout de l'image
             if (Input::hasFile($photo) && Input::file($photo)->isValid()) {
                 $destinationPath = public_path() . config('directories.actors');
-                $extension = "jpg";
+                $extension = 'jpg';
                 $fileName = $actor_url . '.' . $extension;
                 Input::file($photo)->move($destinationPath, $fileName);
 
@@ -139,16 +139,14 @@ class AdminArtistController extends Controller
         $idLog = initJob($inputs['user_id'], 'Edition', 'Artist', $artist->id);
 
         # Ajout de l'image
-        if( Input::hasfile('image')) {
-            if (Input::file('image')->isValid()) {
-                $destinationPath = public_path() . config('directories.actors') ;
-                $extension = "jpg";
-                $fileName = $artist->artist_url . '.' . $extension;
-                Input::file('image')->move($destinationPath, $fileName);
+        if(Input::hasfile('image') && Input::file('image')->isValid()) {
+            $destinationPath = public_path() . config('directories.actors') ;
+            $extension = 'jpg';
+            $fileName = $artist->artist_url . '.' . $extension;
+            Input::file('image')->move($destinationPath, $fileName);
 
-                $logMessage = '> Ajout de l\'image ' . $fileName;
-                saveLogMessage($idLog, $logMessage);
-            }
+            $logMessage = '> Ajout de l\'image ' . $fileName;
+            saveLogMessage($idLog, $logMessage);
         }
 
         # Modification du rôle

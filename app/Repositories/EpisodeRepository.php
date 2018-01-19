@@ -31,10 +31,11 @@ class EpisodeRepository
      *
      * @param $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Episode
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getEpisodeByID($id)
     {
-        return $this->episode->findOrFail($id);
+        return $this->episode::findOrFail($id);
     }
 
     /**
@@ -45,7 +46,7 @@ class EpisodeRepository
      */
     public function getEpisodeWithSeasonShowByID($id)
     {
-        return $this->episode->with(['season', 'directors', 'writers', 'guests', 'show' => function($q){
+        return $this->episode::with(['season', 'directors', 'writers', 'guests', 'show' => function($q){
             $q->with('seasons');
         }])->findOrFail($id);
     }
@@ -59,8 +60,7 @@ class EpisodeRepository
      */
     public function getEpisodeByEpisodeNumeroAndSeasonID($seasonID, $episodeNumero)
     {
-        return $this->episode
-            ->with('directors', 'writers', 'guests')
+        return $this->episode::with('directors', 'writers', 'guests')
             ->where('episodes.numero', '=', $episodeNumero)
             ->where('episodes.season_id', '=', $seasonID)
             ->first();
@@ -75,8 +75,7 @@ class EpisodeRepository
      * @return \Illuminate\Database\Eloquent\Model|mixed|null|static
      */
     public function getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonID, $episodeNumero, $episodeID) {
-        return $this->episode
-            ->with('directors', 'writers', 'guests')
+        return $this->episode::with('directors', 'writers', 'guests')
             ->where('episodes.numero', '=', $episodeNumero)
             ->where('episodes.id', '=',$episodeID)
             ->where('episodes.season_id', '=', $seasonID)
@@ -91,8 +90,7 @@ class EpisodeRepository
      */
     public function getRatesByEpisodeID($id)
     {
-        return $this->episode
-            ->where('episodes.id', '=', $id)
+        return $this->episode::where('episodes.id', '=', $id)
             ->with('users')
             ->first();
     }
@@ -104,8 +102,7 @@ class EpisodeRepository
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static[]
      */
     public function getEpisodeByIDWithSeasonIDAndShowID($episode_id) {
-        return $this->episode
-            ->whereId($episode_id)
+        return $this->episode::whereId($episode_id)
             ->with('season:seasons.id', 'show')
             ->select('episodes.id', 'episodes.season_id')
             ->first();

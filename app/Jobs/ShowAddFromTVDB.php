@@ -326,13 +326,13 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
                 /* Récupération de la photo de l'épisode */
                 if(!empty($getEpisode_en->filenam)) {
-                    $file = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                    $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                     $file_headers = @get_headers($file);
                     if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                         $logMessage = '>>>Pas d\'image pour l\'épisode.';
                         saveLogMessage($idLog, $logMessage);
                     } else {
-                        $episode_new->picture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                        $episode_new->picture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                         # Image
                         $logMessage = '>>>>>Image : ' . $episode_new->name_fr;
                         saveLogMessage($idLog, $logMessage);
@@ -455,7 +455,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $logMessage = '>>>>>Diffusion originale : ' . $episode_new->diffusion_us;
                     saveLogMessage($idLog, $logMessage);
 
-                    $episode_new->picture = "https://www.thetvdb.com/banners/" . $getEpisode_en->filename;
+                    $episode_new->picture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                     # Image
                     $logMessage = '>>>>>Image : ' . $episode_new->name_fr;
                     saveLogMessage($idLog, $logMessage);
@@ -492,7 +492,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $theTVDBID = $this->inputs['thetvdb_id'];
-        $key_token = "token";
+        $key_token = 'token';
         $api_key = config('thetvdb.apikey');
         $api_username = config('thetvdb.username');
         $api_userkey = config('thetvdb.userkey');
@@ -675,7 +675,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         saveLogMessage($idLog, $logMessage);
 
         $dateTemp = date_create($show_en->firstAired);
-        $show_new->annee = date_format($dateTemp, "Y");
+        $show_new->annee = date_format($dateTemp, 'Y');
         # Année
         $logMessage = '>>Année : ' . $show_new->annee;
         saveLogMessage($idLog, $logMessage);
