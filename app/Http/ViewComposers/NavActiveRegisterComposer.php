@@ -11,6 +11,7 @@ use Illuminate\View\View;
  */
 class NavActiveRegisterComposer
 {
+    private $navActive;
 
     /**
      * AdminViewComposer constructor.

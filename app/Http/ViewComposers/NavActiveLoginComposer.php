@@ -11,6 +11,7 @@ use Illuminate\View\View;
  */
 class NavActiveLoginComposer
 {
+    private $navActive;
 
     /**
      * AdminViewComposer constructor.

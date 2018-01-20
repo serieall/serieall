@@ -11,6 +11,7 @@ use Illuminate\View\View;
  */
 class FicheActiveSeasonsComposer
 {
+    private $FicheActive;
 
     /**
      * AdminViewComposer constructor.

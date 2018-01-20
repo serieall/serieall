@@ -11,6 +11,7 @@ use Illuminate\View\View;
  */
 class FicheActiveDetailsComposer
 {
+    private $FicheActive;
 
     /**
      * AdminViewComposer constructor.
