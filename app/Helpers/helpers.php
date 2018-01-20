@@ -105,9 +105,9 @@ function formatDate($lenght, $date) {
             $format = '%d %M %Y';
             break;
     }
-
+    $date = (string) $date;
     $date_format = strftime($format, strtotime($date));
 
-   return utf8_encode($date_format);
+    return utf8_encode($date_format);
 }
 
