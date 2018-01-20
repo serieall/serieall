@@ -34,7 +34,7 @@
                     </div>
                     <div class="content">
                         <div class="date">
-                            {{ formatDate('full', $rate->updated_at) }}
+                            {{ formatDate("full", $rate->updated_at) }}
                         </div>
                         <div class="summary">
                             {{ $rate->user->username }} a noté {!! afficheEpisodeName($rate->episode, true, true) !!}
