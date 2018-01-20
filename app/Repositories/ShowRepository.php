@@ -145,10 +145,10 @@ class ShowRepository
         }
 
         $nbcomments = Comment::groupBy('thumb')
-            ::select('thumb', \DB::raw('count(*) as count_thumb'))
-            ::where('commentable_id', '=', $show->id)
-            ::where('commentable_type', '=', 'App\Models\Show')
-            ::get();
+            ->select('thumb', \DB::raw('count(*) as count_thumb'))
+            ->where('commentable_id', '=', $show->id)
+            ->where('commentable_type', '=', 'App\Models\Show')
+            ->get();
 
         $showPositiveComments = $nbcomments->where('thumb', '=', '1')->first();
         $showNeutralComments = $nbcomments->where('thumb', '=', '2')->first();
