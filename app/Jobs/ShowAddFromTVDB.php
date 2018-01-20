@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -49,7 +48,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
      * @internal param $jobName
      */
     private function AddWritersDirectorsGuests($getEpisode_en, $idLog, $episodeID){
-        $episode_new = Episode::where('thetvdb_id', $episodeID)::first();
+        $episode_new = Episode::where('thetvdb_id', $episodeID)->first();
 
         /*
         |--------------------------------------------------------------------------
@@ -69,7 +68,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # On met en forme l'URL
                 $guestStar_url = Str::slug($guestStar);
                 # On vérifie si le guest existe déjà en base
-                $guestStar_ref = Artist::where('artist_url', $guestStar_url)::first();
+                $guestStar_ref = Artist::where('artist_url', $guestStar_url)->first();
 
                 # Si il n'existe pas
                 if (is_null($guestStar_ref)) {
@@ -111,7 +110,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # On met en forme l'URL
                 $director_url = Str::slug($director);
                 # On vérifie si le réal existe déjà en base
-                $director_ref = Artist::where('artist_url', $director_url)::first();
+                $director_ref = Artist::where('artist_url', $director_url)->first();
 
                 # Si il n'existe pas
                 if (is_null($director_ref)) {
@@ -153,7 +152,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # On met en forme l'URL
                 $writer_url = Str::slug($writer);
                 # On vérifie si le scénariste existe déjà en base
-                $writer_ref = Artist::where('artist_url', $writer_url)::first();
+                $writer_ref = Artist::where('artist_url', $writer_url)->first();
 
                 # Si il n'existe pas
                 if (is_null($writer_ref)) {
@@ -246,7 +245,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 $seasonName = $getEpisode_en->airedSeason;
 
                 # Vérification de la présence de la saison dans la BDD
-                $season_ref = Season::where('thetvdb_id', $seasonID)::first();
+                $season_ref = Season::where('thetvdb_id', $seasonID)->first();
 
                 # Si elle n'existe pas
                 if (is_null($season_ref)) {
@@ -372,12 +371,12 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
                     # On récupère l'ID de la saison en question
                     $seasonID = Season::where('name', $seasonName)
-                        ::where('show_id', $show_new->id)
+                        ->where('show_id', $show_new->id)
                         ->first();
                     $seasonID = $seasonID->thetvdb_id;
 
                     # Vérification de la présence de la saison dans la BDD
-                    $season_ref = Season::where('thetvdb_id', $seasonID)::first();
+                    $season_ref = Season::where('thetvdb_id', $seasonID)->first();
 
                     # Si elle n'existe pas
                     if (is_null($season_ref)) {
@@ -525,7 +524,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         */
 
         # Vérification de la présence de la clé token
-        $keyToken = Temp::where('key', $key_token)::first();
+        $keyToken = Temp::where('key', $key_token)->first();
         # Date actuelle en UTC
         $dateNow = Carbon::now();
         # Date de la dernière modification du token
@@ -544,7 +543,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 'json' => [
                     'apikey' => $api_key,
                     'username' => $api_username,
-                    'userkey' => $api_userkey,
+                    'userkey' => $api_userkey
                 ]
             ])->getBody();
 
@@ -693,7 +692,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
         /* Récupération de l'affiche de la série
          */
-        $file = 'http://www.thetvdb.com/banners/posters/'. $show_new->thetvdb_id . '-1.jpg';
+        $file = 'https://www.thetvdb.com/banners/posters/'. $show_new->thetvdb_id . '-1.jpg';
         $file_headers = get_headers($file);
         if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found' || $file_headers[8] == 'HTTP/1.1 404 Not Found') {
             $logMessage = '>>Pas d\'image pour la série.';
@@ -701,6 +700,20 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         }
         else {
             copy($file, $public . '/images/shows/' . $show_new->show_url . '.jpg');
+            $logMessage = '>>Image pour la série récupérée.';
+            saveLogMessage($idLog, $logMessage);
+        }
+
+        /* Récupération de la bannière
+         */
+        $file = 'https://www.thetvdb.com/banners/graphical/' . $show_new->thetvdb_id . '-g.jpg';
+        $file_headers = get_headers($file);
+        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found' || $file_headers[8] == 'HTTP/1.1 404 Not Found') {
+            $logMessage = '>>Pas d\'image pour la série.';
+            saveLogMessage($idLog, $logMessage);
+        }
+        else {
+            copy($file, $public . '/images/shows/' . $show_new->show_url . '-banner.jpg');
             $logMessage = '>>Image pour la série récupérée.';
             saveLogMessage($idLog, $logMessage);
         }
@@ -726,7 +739,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # On met en forme l'URL
                 $genre_url = Str::slug($genre);
                 # On vérifie si le genre existe déjà en base
-                $genre_ref = Genre::where('genre_url', $genre_url)::first();
+                $genre_ref = Genre::where('genre_url', $genre_url)->first();
 
                 # Si il n'existe pas
                 if (is_null($genre_ref)) {
@@ -771,7 +784,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # On met en forme l'URL
                 $creator_url = Str::slug($creator);
                 # On vérifie si le genre existe déjà en base
-                $creator_ref = Artist::where('artist_url', $creator_url)::first();
+                $creator_ref = Artist::where('artist_url', $creator_url)->first();
 
                 # Si il n'existe pas
                 if (is_null($creator_ref)) {
@@ -815,7 +828,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # On met en forme l'URL
                 $nationality_url = Str::slug($nationality);
                 # On vérifie si la nationalité existe déjà en base
-                $nationality_ref = Nationality::where('nationality_url', $nationality_url)::first();
+                $nationality_ref = Nationality::where('nationality_url', $nationality_url)->first();
 
                 # Si elle n'existe pas
                 if (is_null($nationality_ref)) {
@@ -865,7 +878,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # On met en forme l'URL
                 $channel_url = Str::slug($channel);
                 # On vérifie si la nationalité existe déjà en base
-                $channel_ref = Channel::where('channel_url', $channel_url)::first();
+                $channel_ref = Channel::where('channel_url', $channel_url)->first();
 
                 # Si elle n'existe pas
                 if (is_null($channel_ref)) {
@@ -930,7 +943,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 # On met en forme l'URL
                 $actor_url = Str::slug($actor);
                 # Vérification de la présence de l'acteur
-                $actor_ref = Artist::where('artist_url', $actor_url)::first();
+                $actor_ref = Artist::where('artist_url', $actor_url)->first();
 
                 # Si elle n'existe pas
                 if (is_null($actor_ref)) {
