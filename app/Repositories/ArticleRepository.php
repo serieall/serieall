@@ -51,7 +51,7 @@ class ArticleRepository
      */
     public function getArticlesUne()
     {
-        return $this->article::with('users')->whereFrontpage(1)->whereState(1)->orderBy('published_at')->get();
+        return $this->article->with('users')->whereFrontpage(1)->whereState(1)->orderBy('published_at')->get();
     }
 
     /**
