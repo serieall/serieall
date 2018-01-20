@@ -1,5 +1,9 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Class TestCase
+ */
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**

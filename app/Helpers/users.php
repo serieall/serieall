@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Get user's role and color
@@ -34,6 +35,9 @@ function roleUser($id) {
     return $text;
 }
 
+/**
+ * @return int|null
+ */
 function getIDIfAuth() {
     # Define variables
     if(Auth::check()) {

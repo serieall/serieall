@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -10,6 +11,10 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 use App\Repositories\ShowRepository;
 
+/**
+ * Class ShowDelete
+ * @package App\Jobs
+ */
 class ShowDelete implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -36,6 +41,8 @@ class ShowDelete implements ShouldQueue
      *
      * @param ShowRepository $showRepository
      * @return void
+     * @throws \Exception
+     * @throws \Exception
      */
     public function handle(ShowRepository $showRepository)
     {

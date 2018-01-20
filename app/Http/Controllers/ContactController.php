@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -8,10 +9,18 @@ use App\Notifications\ContactNotification;
 use App\Repositories\ContactRepository;
 use Illuminate\Support\Facades\Notification;
 
+/**
+ * Class ContactController
+ * @package App\Http\Controllers
+ */
 class ContactController extends Controller
 {
     protected $contactRepository;
 
+    /**
+     * ContactController constructor.
+     * @param ContactRepository $contactRepository
+     */
     public function __construct(ContactRepository $contactRepository) {
       $this->contactRepository = $contactRepository;
     }

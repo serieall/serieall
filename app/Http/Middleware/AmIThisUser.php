@@ -1,10 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
 use Auth;
 use Closure;
 
+/**
+ * Class AmIThisUser
+ * @package App\Http\Middleware
+ */
 class AmIThisUser
 {
     /**

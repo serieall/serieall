@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Input;
 use App\Repositories\ArtistRepository;
 use App\Repositories\ShowRepository;
 
+/**
+ * Class AdminArtistController
+ * @package App\Http\Controllers\Admin
+ */
 class AdminArtistController extends Controller
 {
 

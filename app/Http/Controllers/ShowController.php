@@ -1,10 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Season;
 
-use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
@@ -12,6 +11,10 @@ use App\Repositories\EpisodeRepository;
 
 use ConsoleTVs\Charts\Facades\Charts;
 
+/**
+ * Class ShowController
+ * @package App\Http\Controllers
+ */
 class ShowController extends Controller
 {
     protected $showRepository;
@@ -37,6 +40,11 @@ class ShowController extends Controller
         $this->commentRepository = $commentRepository;
     }
 
+    /**
+     * Print vue shows.index
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index() {
         $shows = $this->showRepository->getAllShows();
 

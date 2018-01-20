@@ -1,6 +1,8 @@
 <?php
-    use Illuminate\Http\Request;
-    use Dingo\Api\Routing\Router;
+declare(strict_types=1);
+
+
+use Dingo\Api\Routing\Router;
     /*
     |--------------------------------------------------------------------------
     | API Routes

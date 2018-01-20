@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin\System;
 
@@ -6,6 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Jobs\FlushLogs1Week;
 use App\Repositories\LogRepository;
 
+/**
+ * Class AdminLogsController
+ * @package App\Http\Controllers\Admin\System
+ */
 class AdminLogsController extends Controller
 {
     protected $nbPerPage = 20;

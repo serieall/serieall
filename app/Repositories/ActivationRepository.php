@@ -1,10 +1,16 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 
 use Carbon\Carbon;
 use Illuminate\Database\Connection;
 
+/**
+ * Class ActivationRepository
+ * @package App\Repositories
+ */
 class ActivationRepository
 {
 

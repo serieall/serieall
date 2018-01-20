@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -32,7 +33,7 @@ class Contact extends Model {
 
     protected $table = 'contacts';
     public $timestamps = true;
-    protected $fillable = array('name', 'email', 'objet', 'message', 'admin_id', 'admin_message');
+    protected $fillable = ['name', 'email', 'objet', 'message', 'admin_id', 'admin_message'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

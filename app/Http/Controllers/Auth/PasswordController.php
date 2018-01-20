@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
@@ -6,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 
+/**
+ * Class PasswordController
+ * @package App\Http\Controllers\Auth
+ */
 class PasswordController extends Controller
 {
     /*
@@ -31,6 +36,9 @@ class PasswordController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * @return string
+     */
     protected function getEmailSubject()
     {
         return property_exists($this, 'subject') ? $this->subject : 'Votre lien de réinitialisation de mot de passe';

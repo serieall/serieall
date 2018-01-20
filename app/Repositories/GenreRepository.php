@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace App\Repositories;
@@ -6,6 +7,10 @@ namespace App\Repositories;
 use App\Models\Genre;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class GenreRepository
+ * @package App\Repositories
+ */
 class GenreRepository
 {
     protected $genre;

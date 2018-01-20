@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Repositories\UserRepository;
 use App\Jobs\UserDelete;
 
+/**
+ * Class AdminUserController
+ * @package App\Http\Controllers\Admin
+ */
 class AdminUserController extends Controller
 {
     protected $userRepository;

@@ -188,8 +188,8 @@ is its visual representation:
 .cke_panel_listItem h6,
 .cke_panel_listItem pre
 {
-	margin-top: 0px;
-	margin-bottom: 0px;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 /* The title of the entire panel which is visible on top of the list. */

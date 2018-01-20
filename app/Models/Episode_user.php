@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $season_id
  * @property int|null $show_id
  * @property \Carbon\Carbon $updated_at
+ * @property int $id
+ * @property \Carbon\Carbon $created_at
  * @property-read \App\Models\Episode $episode
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode_user whereSeasonId($value)
@@ -27,14 +30,20 @@ class Episode_user extends Model {
 
 	protected $table = 'episode_user';
 	public $timestamps = true;
-	protected $fillable = array('episode_id', 'user_id', 'rate');
+	protected $fillable = ['episode_id', 'user_id', 'rate'];
     protected $dates = ['created_at', 'updated_at'];
 
-	public function episode()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function episode()
     {
         return $this->belongsTo('App\Models\Episode', 'episode_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');

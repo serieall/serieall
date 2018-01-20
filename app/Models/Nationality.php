@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -24,7 +25,7 @@ class Nationality extends Model {
 
 	protected $table = 'nationalities';
 	public $timestamps = true;
-	protected $fillable = array('name', 'nationality_url');
+	protected $fillable = ['name', 'nationality_url'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

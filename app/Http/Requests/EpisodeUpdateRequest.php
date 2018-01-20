@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class EpisodeUpdateRequest
+ * @package App\Http\Requests
+ */
 class EpisodeUpdateRequest extends FormRequest
 {
     /**

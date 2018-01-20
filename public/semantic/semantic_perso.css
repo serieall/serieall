@@ -123,7 +123,7 @@
 
 .ui.table tr.neutral,
 .ui.table td.neutral {
-    box-shadow: 0px 0px 0px #CCCCCC inset;
+    box-shadow: 0 0 0 #CCCCCC inset;
 }
 
 .ui.table tr.neutral,
@@ -134,26 +134,23 @@
 
 .ui.DarkBlueSerieAll.buttons .button,
 .ui.DarkBlueSerieAll.button {
-    background-color: #213d64;
     color: #FFFFFF;
     text-shadow: none;
-    background-image: none;
+    background: #213d64 none;
 }
 
 .ui.LightBlueSerieAll.buttons .button,
 .ui.LightBlueSerieAll.button {
-background-color: #d4e4f0;
     color: #000000;
     text-shadow: none;
-    background-image: none;
+    background: #d4e4f0 none;
 }
 
 .ui.BlueSerieAll.buttons .button,
 .ui.BlueSerieAll.button {
-    background-color: #1074b2;
     color: #FFFFFF;
     text-shadow: none;
-    background-image: none;
+    background: #1074b2 none;
 }
 
 blockquote {
@@ -940,7 +937,7 @@ p.episodeResume {
 
 .menuFiche .column {
     background: #fff;
-    box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
 }
 
 .topImageBanniereContainer:after {

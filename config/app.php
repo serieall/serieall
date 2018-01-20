@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 return [
 
@@ -131,7 +132,7 @@ return [
     |
     */
 
-    'providers' => array(
+    'providers' => [
 
         /*
          * Laravel Framework Service Providers...
@@ -182,7 +183,7 @@ return [
         App\Packages\Hashing\YourHashingServiceProvider::class,
         App\Providers\PasswordResetServiceProvider::class,
 
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------

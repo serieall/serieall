@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Transformers;
 
 use League\Fractal\TransformerAbstract;
 
+/**
+ * Class ShowSearchTransformer
+ * @package App\Http\Transformers
+ */
 class ShowSearchTransformer extends TransformerAbstract
 {
     /**

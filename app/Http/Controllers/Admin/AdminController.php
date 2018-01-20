@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
@@ -7,6 +8,10 @@ use App\Repositories\LogRepository;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class AdminController
+ * @package App\Http\Controllers\Admin
+ */
 class AdminController extends Controller
 {
     protected $nbPerPage = 20;

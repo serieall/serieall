@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -20,6 +21,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $state
  * @property bool $frontpage
  * @property int $category_id
+ * @property mixed $episodes
+ * @property mixed $seasons
+ * @property mixed $artists
+ * @property mixed $shows
+ * @property mixed $channels
  * @property-read \App\Models\Category $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
@@ -42,7 +48,7 @@ class Article extends Model {
 
 	protected $table = 'articles';
 	public $timestamps = true;
-	protected $fillable = array('name', 'article_url', 'intro', 'content', 'image', 'source', 'state', 'frontpage', 'category_id');
+	protected $fillable = ['name', 'article_url', 'intro', 'content', 'image', 'source', 'state', 'frontpage', 'category_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

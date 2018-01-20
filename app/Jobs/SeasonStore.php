@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -11,6 +12,10 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 use App\Models\Season;
 
+/**
+ * Class SeasonStore
+ * @package App\Jobs
+ */
 class SeasonStore implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;

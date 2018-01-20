@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -12,6 +13,10 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Str;
 use App\Models\Artist;
 
+/**
+ * Class ArtistStore
+ * @package App\Jobs
+ */
 class ArtistStore implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -50,7 +55,7 @@ class ArtistStore implements ShouldQueue
         $actor_url = Str::slug($actor_url);
 
         # Vérification de la présence de l'acteur
-        $actor_ref = Artist::where('artist_url', $actor_url)->first();
+        $actor_ref = Artist::where('artist_url', $actor_url)::first();
 
         # Si elle n'existe pas
         if (is_null($actor_ref)) {

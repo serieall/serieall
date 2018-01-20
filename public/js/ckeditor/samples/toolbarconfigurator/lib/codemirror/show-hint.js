@@ -193,7 +193,10 @@
     }
   }
 
-  function Widget(completion, data) {
+    /**
+     * @return {boolean}
+     */
+    function Widget(completion, data) {
     this.completion = completion;
     this.data = data;
     this.picked = false;

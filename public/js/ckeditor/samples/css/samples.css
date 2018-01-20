@@ -274,7 +274,7 @@ html {
 .footer-a {
   font-size: 13px;
   font-size: 0.8125rem;
-  line-height: 23.4px;
+  line-height: 23px;
   line-height: 1.46rem;
   padding-top: 2.25em;
   padding-bottom: 2.25em;
@@ -297,7 +297,7 @@ html {
 .content {
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 25.2px;
+  line-height: 25px;
   line-height: 1.57rem;
   overflow: hidden;
   padding-top: 1.5em;
@@ -443,7 +443,7 @@ html {
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 16px;
   font-size: 1rem;
-  line-height: 28.8px;
+  line-height: 29px;
   line-height: 1.8rem;
 }
 .content em {
@@ -452,37 +452,37 @@ html {
 .content h1 {
   font-size: 36px;
   font-size: 2.25rem;
-  line-height: 64.8px;
+  line-height: 65px;
   line-height: 4.05rem;
   margin: 1.125em 0 0;
 }
 .content h2 {
-  font-size: 27.2px;
+  font-size: 27px;
   font-size: 1.7rem;
-  line-height: 48.96px;
+  line-height: 49px;
   line-height: 3.06rem;
   margin: 0.9em 0 0;
 }
 .content h3 {
   font-size: 24px;
   font-size: 1.5rem;
-  line-height: 43.2px;
+  line-height: 43px;
   line-height: 2.7rem;
   font-weight: 500;
   margin: 0.75em 0 0;
 }
 .content h4 {
-  font-size: 19.2px;
+  font-size: 19px;
   font-size: 1.2rem;
-  line-height: 34.56px;
+  line-height: 35px;
   line-height: 2.16rem;
   font-weight: 500;
   margin: 0.75em 0 0;
 }
 .content h5 {
-  font-size: 17.6px;
+  font-size: 18px;
   font-size: 1.1rem;
-  line-height: 31.68px;
+  line-height: 32px;
   line-height: 1.98rem;
   font-weight: 500;
   margin: 0.75em 0 0;
@@ -504,7 +504,7 @@ html {
 .content kbd {
   font-size: 12px;
   font-size: 0.75rem;
-  line-height: 21.6px;
+  line-height: 22px;
   line-height: 1.35rem;
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
   padding: 2px 6px;
@@ -527,9 +527,9 @@ html {
 }
 .content pre,
 .content code {
-  font-size: 11.89px;
+  font-size: 12px;
   font-size: 0.743rem;
-  line-height: 21.4px;
+  line-height: 21px;
   line-height: 1.34rem;
   font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }
@@ -554,7 +554,7 @@ html {
 .content ol li {
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 30.24px;
+  line-height: 30px;
   line-height: 1.89rem;
 }
 .content textarea:not([class^="cke"]) {
@@ -581,7 +581,7 @@ body input.button-a {
   background-clip: padding-box;
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 25.2px;
+  line-height: 25px;
   line-height: 1.57rem;
   height: 36px;
   line-height: 36px;
@@ -724,7 +724,7 @@ body input.navigation-b ul li a:hover:hover {
 .balloon-a {
   font-size: 12px;
   font-size: 0.75rem;
-  line-height: 21.6px;
+  line-height: 22px;
   line-height: 1.35rem;
   -webkit-border-radius: 3px;
   -webkit-background-clip: padding-box;
@@ -756,13 +756,13 @@ body input.navigation-b ul li a:hover:hover {
 .balloon-a-ne:before,
 .balloon-a-nw:before {
   top: -13px;
-  border-width: 0 9px 15.6px 9px;
+  border-width: 0 9px 16px 9px;
   border-color: transparent transparent #ebebeb transparent;
 }
 .balloon-a-se:before,
 .balloon-a-sw:before {
   bottom: -13px;
-  border-width: 15.6px 9px 0 9px;
+  border-width: 16px 9px 0 9px;
   border-color: #ebebeb transparent transparent transparent;
 }
 .balloon-a-nw:before,
@@ -823,7 +823,7 @@ body input.navigation-b ul li a:hover:hover {
 .switch {
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 25.2px;
+  line-height: 25px;
   line-height: 1.57rem;
   font-weight: bold;
   background-color: #27C0D8;
@@ -859,11 +859,11 @@ body input.navigation-b ul li a:hover:hover {
   width: 4.125em;
   padding: 2px;
   margin: 0 0.25em;
-  -webkit-border-radius: 5.5px;
+  -webkit-border-radius: 6px;
   -webkit-background-clip: padding-box;
-  -moz-border-radius: 5.5px;
+  -moz-border-radius: 6px;
   -moz-background-clip: padding;
-  border-radius: 5.5px;
+  border-radius: 6px;
   background-clip: padding-box;
 }
 .switch .switch-inner .handler {
@@ -873,11 +873,11 @@ body input.navigation-b ul li a:hover:hover {
   height: 1.5em;
   width: 1.5em;
   background: #25b4cb;
-  -webkit-border-radius: 4.5px;
+  -webkit-border-radius: 5px;
   -webkit-background-clip: padding-box;
-  -moz-border-radius: 4.5px;
+  -moz-border-radius: 5px;
   -moz-background-clip: padding;
-  border-radius: 4.5px;
+  border-radius: 5px;
   background-clip: padding-box;
 }
 .switch .switch-inner .handler:before {
@@ -889,14 +889,14 @@ body input.navigation-b ul li a:hover:hover {
   bottom: 3px;
   left: 0;
   background-color: #34c4da;
-  -webkit-border-bottom-left-radius: 4.5px;
-  -moz-border-radius-bottomleft: 4.5px;
-  border-bottom-left-radius: 4.5px;
-  -webkit-border-bottom-right-radius: 4.5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
   -webkit-background-clip: padding-box;
-  -moz-border-radius-bottomright: 4.5px;
+  -moz-border-radius-bottomright: 5px;
   -moz-background-clip: padding;
-  border-bottom-right-radius: 4.5px;
+  border-bottom-right-radius: 5px;
   background-clip: padding-box;
 }
 .switch:hover .switch-inner .handler:before {
@@ -1020,7 +1020,7 @@ footer > div {
 .adjoined-top .content p {
   font-size: 18px;
   font-size: 1.125rem;
-  line-height: 32.4px;
+  line-height: 32px;
   line-height: 2.02rem;
   font-weight: 100;
 }
@@ -1214,9 +1214,9 @@ header .balloon-a {
   -moz-background-clip: padding;
   border-radius: 5px;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 15px 3px #fff4b0;
-  -moz-box-shadow: 0px 0px 15px 3px #fff4b0;
-  box-shadow: 0px 0px 15px 3px #fff4b0;
+  -webkit-box-shadow: 0 0 15px 3px #fff4b0;
+  -moz-box-shadow: 0 0 15px 3px #fff4b0;
+  box-shadow: 0 0 15px 3px #fff4b0;
 }
 .cke_toolbar.active .cke_toolgroup {
   -webkit-box-shadow: none;
@@ -1377,7 +1377,7 @@ div.toolbarModifier > ul > li p span {
   cursor: default;
 }
 div.toolbarModifier > ul > li p span button {
-  font-size: 12.666px;
+  font-size: 13px;
   margin-right: 5px;
   cursor: pointer;
   background: #fff;
@@ -1461,9 +1461,9 @@ div.toolbarModifier > ul > li ul li ul li .cke_combo_button {
   margin: 0;
   vertical-align: middle;
   border: 1px solid #ddd;
-  font-size: 11.41px;
+  font-size: 11px;
   font-size: 0.713rem;
-  line-height: 20.54px;
+  line-height: 21px;
   line-height: 1.28rem;
 }
 div.toolbarModifier > .codemirror-wrapper {
@@ -1477,9 +1477,9 @@ div.toolbarModifier-hints {
   margin-left: 1.5em;
 }
 div.toolbarModifier-hints h3 {
-  font-size: 18.08px;
+  font-size: 18px;
   font-size: 1.13rem;
-  line-height: 32.54px;
+  line-height: 33px;
   line-height: 2.03rem;
   padding: 0.36em 1.5em;
   background: #f5f5f5;
@@ -1542,17 +1542,17 @@ div.toolbarModifier-hints dl dd:after {
   border-radius: 3px;
   background-clip: padding-box;
   border: 1px solid #ccc;
-  font-size: 13.01px;
+  font-size: 13px;
   font-size: 0.813rem;
-  line-height: 23.42px;
+  line-height: 23px;
   line-height: 1.46rem;
 }
 .configContainer textarea.configCode,
 .CodeMirror pre,
 .CodeMirror-linenumber {
-  font-size: 13.01px;
+  font-size: 13px;
   font-size: 0.813rem;
-  line-height: 23.42px;
+  line-height: 23px;
   line-height: 1.46rem;
   font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }
@@ -1583,7 +1583,7 @@ div.toolbarModifier-hints dl dd:after {
   color: #575757;
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 25.2px;
+  line-height: 25px;
   line-height: 1.57rem;
   font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }

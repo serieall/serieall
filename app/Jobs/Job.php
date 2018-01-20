@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
 
+/**
+ * Class Job
+ * @package App\Jobs
+ */
 abstract class Job
 {
     /*

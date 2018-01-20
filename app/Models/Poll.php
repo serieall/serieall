@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -25,7 +26,7 @@ class Poll extends Model {
 
 	protected $table = 'polls';
 	public $timestamps = true;
-	protected $fillable = array('name', 'poll_url');
+	protected $fillable = ['name', 'poll_url'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

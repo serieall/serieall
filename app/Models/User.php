@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -57,8 +58,8 @@ class User extends Authenticatable {
 
 	protected $table = 'users';
 	public $timestamps = true;
-	protected $fillable = array('username', 'user_url', 'email', 'password', 'role', 'suspended', 'activated', 'edito', 'antispoiler', 'website', 'twitter', 'facebook', 'ip', 'rememberToken');
-	protected $hidden = array('password', 'rememberToken');
+	protected $fillable = ['username', 'user_url', 'email', 'password', 'role', 'suspended', 'activated', 'edito', 'antispoiler', 'website', 'twitter', 'facebook', 'ip', 'rememberToken'];
+	protected $hidden = ['password', 'rememberToken'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -1,7 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+/**
+ * Class ContactRequest
+ * @package App\Http\Requests
+ */
 class ContactRequest extends Request
 {
     /**

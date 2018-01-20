@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -14,7 +15,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Log;
+
 use \Illuminate\Support\Str;
 
 /**
@@ -555,7 +556,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             /* Récupération de la photo de l'épisode */
                             if(!empty($getEpisode_en->filenam)) {
                                 $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
-                                $file_headers = @get_headers($file);
+                                $file_headers = get_headers($file);
                                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                                     $episodePicture = null;
 
@@ -655,7 +656,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             /* Récupération de la photo de l'épisode */
                             if(!empty($getEpisode_en->filenam)) {
                                 $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
-                                $file_headers = @get_headers($file);
+                                $file_headers = get_headers($file);
                                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                                     $logMessage = '>>>Pas d\'image pour l\'épisode.';
                                     saveLogMessage($idLog, $logMessage);
@@ -1000,7 +1001,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 
                             /* Récupération de la photo de l'acteur */
                             $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
-                            $file_headers = @get_headers($file);
+                            $file_headers = get_headers($file);
                             if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                                 $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
                                 saveLogMessage($idLog, $logMessage);

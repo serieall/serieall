@@ -1,10 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Repositories\Auth;
 
 use \Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Auth\Passwords\PasswordBroker as IlluminatePasswordBroker;
 
+/**
+ * Class PasswordRepository
+ * @package App\Repositories\Auth
+ */
 class PasswordRepository extends IlluminatePasswordBroker
 {
     /**

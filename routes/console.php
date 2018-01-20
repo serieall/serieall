@@ -1,5 +1,7 @@
 <?php
-    use Illuminate\Foundation\Inspiring;
+declare(strict_types=1);
+
+use Illuminate\Foundation\Inspiring;
 
     /*
     |--------------------------------------------------------------------------

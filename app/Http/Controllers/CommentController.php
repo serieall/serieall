@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentCreateRequest;
 
 use App\Models\Comment;
+
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
 use App\Repositories\RateRepository;
@@ -15,6 +17,10 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 
+/**
+ * Class CommentController
+ * @package App\Http\Controllers
+ */
 class CommentController extends Controller
 {
 
@@ -44,6 +50,15 @@ class CommentController extends Controller
         $this->rateRepository = $rateRepository;
     }
 
+    /**
+     * Print vuecomments.fiche
+     *
+     * @param $show_url
+     * @param null $season_name
+     * @param null $episode_numero
+     * @param null $episode_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function fiche($show_url, $season_name = null, $episode_numero = null, $episode_id = null) {
         # Get ID User if user authenticated
         $user_id = getIDIfAuth();
@@ -85,7 +100,7 @@ class CommentController extends Controller
         }
 
         if (Request::ajax()) {
-            return Response::json(View::make('comments.last_comments', array('comments' => $comments))->render());
+            return Response::json(View::make('comments.last_comments', ['comments' => $comments])->render());
         }
         else {
             return view('comments.fiche', compact('showInfo', 'seasonInfo', 'episodeInfo', 'object', 'comments'));

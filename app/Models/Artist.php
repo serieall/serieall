@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $artist_url
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property mixed $episodes
+ * @property mixed $shows
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereName($value)
@@ -24,7 +27,7 @@ class Artist extends Model {
 
 	protected $table = 'artists';
 	public $timestamps = true;
-	protected $fillable = array('name', 'artist_url');
+	protected $fillable = ['name', 'artist_url'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany

@@ -1,10 +1,7 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
-
-
-use App\Models\Episode;
-use App\Models\Season;
 
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
@@ -12,6 +9,10 @@ use App\Repositories\SeasonRepository;
 use ConsoleTVs\Charts\Facades\Charts;
 
 
+/**
+ * Class SeasonController
+ * @package App\Http\Controllers
+ */
 class SeasonController extends Controller
 {
     protected $showRepository;

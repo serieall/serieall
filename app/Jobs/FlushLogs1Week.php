@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -10,6 +11,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
+/**
+ * Class FlushLogs1Week
+ * @package App\Jobs
+ */
 class FlushLogs1Week implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -28,6 +33,8 @@ class FlushLogs1Week implements ShouldQueue
      *
      * @param LogRepository $logRepository
      * @return void
+     * @throws \Exception
+     * @throws \Exception
      */
     public function handle(LogRepository $logRepository)
     {

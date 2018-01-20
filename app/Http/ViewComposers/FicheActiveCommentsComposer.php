@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 
+/**
+ * Class FicheActiveCommentsComposer
+ * @package App\Http\ViewComposers
+ */
 class FicheActiveCommentsComposer
 {
 

@@ -74,7 +74,7 @@ Comments in this file will give more details about each of the above blocks.
 	padding: 12px 19px 12px 12px;
 
 	background: #f8f8f8;
-	letter-spacing: 0.3px;
+	letter-spacing: 0px;
 }
 
 .cke_dialog_spinner
@@ -240,7 +240,7 @@ a.cke_dialog_tab
 	text-align: center;
 
 	margin-left: -1px; /* Use negative margin to create 1px border between tabs. */
-	letter-spacing: 0.3px;
+	letter-spacing: 0px;
 }
 
 /* A hover state of a regular inactive tab. */
@@ -305,9 +305,7 @@ a.cke_dialog_tab_disabled
 /* The close button at the top of the dialog. */
 a.cke_dialog_close_button
 {
-	background-image: url(images/close.png);
-	background-repeat: no-repeat;
-	background-position: 50%;
+	background: url(images/close.png) no-repeat 50%;
 	position: absolute;
 	cursor: pointer;
 	text-align: center;
@@ -407,7 +405,7 @@ It is possible to have nested V/H-Boxes.
 
 .cke_dialog_ui_vbox_child
 {
-	padding: 5px 0px;
+	padding: 5px 0;
 }
 
 .cke_dialog_ui_hbox
@@ -603,7 +601,7 @@ a.cke_dialog_ui_button
 	border-radius: 2px;
 
 	background: #f8f8f8;
-	letter-spacing: 0.3px;
+	letter-spacing: 0px;
 	line-height: 18px;
 	box-sizing: border-box;
 
@@ -973,7 +971,7 @@ tendency that these will be moved to the plugins code in the future.
 {
 	display: inline;
 	cursor: default;
-	letter-spacing: 0.3px;
+	letter-spacing: 0px;
 }
 
 .cke_dialog_body label + .cke_dialog_ui_labeled_content

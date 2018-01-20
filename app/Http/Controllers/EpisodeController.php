@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\Repositories\CommentRepository;
 use App\Repositories\RateRepository;
-use GuzzleHttp\Client;
 
 use App\Repositories\EpisodeRepository;
 use App\Repositories\SeasonRepository;
@@ -12,10 +12,10 @@ use App\Repositories\ShowRepository;
 
 use App\Http\Requests\RateRequest;
 
-use App\Models\Episode;
-use App\Models\Episode_user;
-use App\Models\Season;
-
+/**
+ * Class EpisodeController
+ * @package App\Http\Controllers
+ */
 class EpisodeController extends Controller
 {
     protected $episodeRepository;

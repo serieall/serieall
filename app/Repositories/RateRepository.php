@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace App\Repositories;
@@ -7,6 +8,10 @@ use App\Models\Episode_user;
 use App\Models\Episode;
 use App\Models\Season;
 
+/**
+ * Class RateRepository
+ * @package App\Repositories
+ */
 class RateRepository
 {
     protected $showRepository;

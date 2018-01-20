@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 
+
+/**
+ * Class changePasswordRequest
+ * @package App\Http\Requests
+ */
 class changePasswordRequest extends Request
 {
     /**

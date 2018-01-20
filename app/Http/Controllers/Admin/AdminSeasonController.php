@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
@@ -14,6 +15,10 @@ use App\Repositories\SeasonRepository;
 
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class AdminSeasonController
+ * @package App\Http\Controllers\Admin
+ */
 class AdminSeasonController extends Controller
 {
     protected $seasonRepository;
@@ -59,6 +64,10 @@ class AdminSeasonController extends Controller
         return view('admin.seasons.create', compact('show'));
     }
 
+    /**
+     * @param SeasonCreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(SeasonCreateRequest $request)
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);

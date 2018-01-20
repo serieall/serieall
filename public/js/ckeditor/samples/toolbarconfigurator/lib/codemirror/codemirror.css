@@ -309,7 +309,7 @@ div.CodeMirror-cursors {
 .CodeMirror span { *vertical-align: text-bottom; }
 
 /* Used to force a border model for a node */
-.cm-force-border { padding-right: .1px; }
+.cm-force-border { padding-right: 0px; }
 
 @media print {
   /* Hide the cursor when printing */

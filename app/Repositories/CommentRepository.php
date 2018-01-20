@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace App\Repositories;
@@ -92,6 +93,11 @@ class CommentRepository
         return compact('user_comment', 'last_comment');
     }
 
+    /**
+     * @param $object
+     * @param $object_id
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getAllCommentsByTypeTypeID($object, $object_id) {
         return $this->comment->where('commentable_id', '=', $object_id)
             ->where('commentable_type', '=', $object)

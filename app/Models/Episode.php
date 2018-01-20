@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -57,10 +58,12 @@ class Episode extends Model {
 
 	protected $table = 'episodes';
 	public $timestamps = true;
-	protected $fillable = array('thetvdb_id', 'numero', 'name', 'name_fr', 'resume', 'resume_fr', 'diffusion_us', 'diffusion_fr', 'ba', 'moyenne', 'nbnotes');
+	protected $fillable = ['thetvdb_id', 'numero', 'name', 'name_fr', 'resume', 'resume_fr', 'diffusion_us', 'diffusion_fr', 'ba', 'moyenne', 'nbnotes'];
 
     /**
      * @return \Znck\Eloquent\Relations\BelongsToThrough
+     * @throws \Exception
+     * @throws \Exception
      */
     public function show()
     {

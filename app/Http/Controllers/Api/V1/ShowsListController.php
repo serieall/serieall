@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
@@ -38,7 +39,7 @@ class ShowsListController extends Controller
         ->select('id', 'name', 'name_fr')
         ->orderBy('name');
 
-        $shows = ApiHandler::parseMultiple($shows, array('name', 'name_fr'))->getResult();
+        $shows = ApiHandler::parseMultiple($shows, ['name', 'name_fr'])->getResult();
 
         return $this->response->collection($shows, new ShowsListTransformer());
     }

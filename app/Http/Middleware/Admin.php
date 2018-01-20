@@ -1,10 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+/**
+ * Class Admin
+ * @package App\Http\Middleware
+ */
 class Admin
 {
     use AuthenticatesUsers;

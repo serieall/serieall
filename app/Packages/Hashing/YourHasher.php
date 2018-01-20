@@ -1,9 +1,16 @@
-<?php namespace App\Packages\Hashing;
+<?php
+declare(strict_types=1);
+
+namespace App\Packages\Hashing;
 
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Hashing\BcryptHasher;
-use Auth;
 
+
+/**
+ * Class YourHasher
+ * @package App\Packages\Hashing
+ */
 class YourHasher implements HasherContract
 {
 

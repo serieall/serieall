@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 
+/**
+ * Class NavActiveShowsComposer
+ * @package App\Http\ViewComposers
+ */
 class NavActiveShowsComposer
 {
 

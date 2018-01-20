@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -25,6 +26,6 @@ class Slogan extends Model {
 
 	protected $table = 'slogans';
 	public $timestamps = true;
-	protected $fillable = array('message', 'source');
+	protected $fillable = ['message', 'source'];
 
 }

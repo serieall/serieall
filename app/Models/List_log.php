@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -29,7 +30,7 @@ class List_log extends Model {
 
 	protected $table = 'list_logs';
 	public $timestamps = true;
-	protected $fillable = array('job', 'object', 'object_id', 'user_id');
+	protected $fillable = ['job', 'object', 'object_id', 'user_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

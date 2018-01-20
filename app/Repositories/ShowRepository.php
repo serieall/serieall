@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace App\Repositories;
@@ -8,13 +9,13 @@ use App\Jobs\ShowAddFromTVDB;
 use App\Jobs\ShowUpdateManually;
 use App\Jobs\ShowDelete;
 
-use App\Models\Artist;
+
 use App\Models\Comment;
-use App\Models\Season;
+
 use App\Models\Show;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -144,10 +145,10 @@ class ShowRepository
         }
 
         $nbcomments = Comment::groupBy('thumb')
-            ->select('thumb', \DB::raw('count(*) as count_thumb'))
-            ->where('commentable_id', '=', $show->id)
-            ->where('commentable_type', '=', 'App\Models\Show')
-            ->get();
+            ::select('thumb', \DB::raw('count(*) as count_thumb'))
+            ::where('commentable_id', '=', $show->id)
+            ::where('commentable_type', '=', 'App\Models\Show')
+            ::get();
 
         $showPositiveComments = $nbcomments->where('thumb', '=', '1')->first();
         $showNeutralComments = $nbcomments->where('thumb', '=', '2')->first();

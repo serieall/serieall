@@ -1,10 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Requests\Request;
 
+
+/**
+ * Class UserUpdateRequest
+ * @package App\Http\Requests
+ */
 class UserUpdateRequest extends FormRequest
 {
     /**

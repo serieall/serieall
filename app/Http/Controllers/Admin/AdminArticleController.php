@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleCreateRequest;
 use App\Models\Article;
-use App\Models\User;
+
 use App\Repositories\ArticleRepository;
 use App\Repositories\EpisodeRepository;
 use App\Repositories\SeasonRepository;
@@ -14,6 +15,10 @@ use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 
+/**
+ * Class AdminArticleController
+ * @package App\Http\Controllers\Admin
+ */
 class AdminArticleController extends Controller
 {
 
@@ -102,7 +107,7 @@ class AdminArticleController extends Controller
             $article->frontpage = 0;
         }
 
-        if($inputs['one'] = 1) {
+        if($inputs['one'] == 1) {
             // We fetch the show and initiate image
             $show = $this->showRepository->getShowByID($inputs['show']);
             $article->image = config('directories.shows') . $show->show_url . '.jpg';
@@ -135,7 +140,7 @@ class AdminArticleController extends Controller
         }
 
         // Si le champ one est à 1 c'est qu'on lie qu'une seule série
-        if($inputs['one'] = 1) {
+        if($inputs['one'] == 1) {
             // Si episode est renseigné, on lie à l'épisode
             if(!empty($inputs['episode'])) {
                 $episode = $this->episodeRepository->getEpisodeByIDWithSeasonIDAndShowID($inputs['episode']);
@@ -179,6 +184,7 @@ class AdminArticleController extends Controller
      *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id) {
         $article = $this->articleRepository->getArticleByID($id);

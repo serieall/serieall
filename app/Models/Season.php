@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -35,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
 class Season extends Model {
 	protected $table = 'seasons';
 	public $timestamps = true;
-	protected $fillable = array('thetvdb_id', 'name', 'ba', 'moyenne', 'nbnotes');
+	protected $fillable = ['thetvdb_id', 'name', 'ba', 'moyenne', 'nbnotes'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -71,7 +72,10 @@ class Season extends Model {
 		return $this->morphToMany('App\Models\Article', 'articlable');
 	}
 
-	public function users()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function users()
     {
         return $this->hasManyThrough('App\Models\Episode_user', 'App\Models\Episode');
     }

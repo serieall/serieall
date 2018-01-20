@@ -867,7 +867,7 @@
 			return function( cssLength ) {
 				if ( !calculator ) {
 					calculator = CKEDITOR.dom.element.createFromHtml( '<div style="position:absolute;left:-9999px;' +
-						'top:-9999px;margin:0px;padding:0px;border:0px;"' +
+						'top:-9999px;margin:0;padding:0;border:0;"' +
 						'></div>', CKEDITOR.document );
 					CKEDITOR.document.getBody().append( calculator );
 				}

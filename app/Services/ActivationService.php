@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services;
 
@@ -7,6 +8,10 @@ use App\Repositories\ActivationRepository;
 use App\Models\User;
 use App\Notifications\ActivationUserNotification;
 
+/**
+ * Class ActivationService
+ * @package App\Services
+ */
 class ActivationService
 {
     protected $mailer;

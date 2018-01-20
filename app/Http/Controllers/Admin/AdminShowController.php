@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
@@ -20,6 +21,10 @@ use App\Repositories\GenreRepository;
 use App\Repositories\NationalityRepository;
 use App\Repositories\SeasonRepository;
 
+/**
+ * Class AdminShowController
+ * @package App\Http\Controllers\Admin
+ */
 class AdminShowController extends Controller
 {
 
@@ -31,6 +36,16 @@ class AdminShowController extends Controller
     protected $seasonRepository;
     protected $logRepository;
 
+    /**
+     * AdminShowController constructor.
+     * @param ShowRepository $showRepository
+     * @param ArtistRepository $artistRepository
+     * @param ChannelRepository $channelRepository
+     * @param GenreRepository $genreRepository
+     * @param NationalityRepository $nationalityRepository
+     * @param SeasonRepository $seasonRepository
+     * @param LogRepository $logRepository
+     */
     public function __construct(ShowRepository $showRepository,
                                 ArtistRepository $artistRepository,
                                 ChannelRepository $channelRepository,

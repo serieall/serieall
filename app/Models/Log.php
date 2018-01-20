@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -24,7 +25,7 @@ class Log extends Model {
 
 	protected $table = 'logs';
 	public $timestamps = true;
-	protected $fillable = array('list_log_id', 'message');
+	protected $fillable = ['list_log_id', 'message'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

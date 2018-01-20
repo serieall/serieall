@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace App\Repositories;
@@ -6,6 +7,10 @@ namespace App\Repositories;
 use App\Models\Article;
 use App\Models\Show;
 
+/**
+ * Class ArticleRepository
+ * @package App\Repositories
+ */
 class ArticleRepository
 {
     protected $article;

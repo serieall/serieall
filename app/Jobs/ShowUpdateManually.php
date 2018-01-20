@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -15,6 +16,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Str;
 
 
+/**
+ * Class ShowUpdateManually
+ * @package App\Jobs
+ */
 class ShowUpdateManually implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;

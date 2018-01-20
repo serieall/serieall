@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -24,7 +25,7 @@ class Answer extends Model {
 
 	protected $table = 'answers';
 	public $timestamps = true;
-	protected $fillable = array('name', 'question_id');
+	protected $fillable = ['name', 'question_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

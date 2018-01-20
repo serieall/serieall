@@ -200,8 +200,7 @@ Special outer level classes used in this file:
 
 .cke_rtl .cke_menuarrow
 {
-	background-position: 5px -13px;
-	background-repeat: no-repeat;
+    background: no-repeat 5px -13px;
 }
 
 .cke_hc .cke_menuarrow

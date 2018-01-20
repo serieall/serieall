@@ -243,7 +243,7 @@ label
    added to it, so we can style it differently. */
 .cke_editable.cke_editable_inline.cke_focus
 {
-	box-shadow: inset 0px 0px 20px 3px #ddd, inset 0 0 1px #000;
+	box-shadow: inset 0 0 20px 3px #ddd, inset 0 0 1px #000;
 	outline: none;
 	background: #eee;
 	cursor: text;
@@ -290,8 +290,7 @@ dl.samples
 dl.samples > dt
 {
 	display: list-item;
-	list-style-type: disc;
-	list-style-position: outside;
+	list-style: disc outside;
 	margin: 0 0 3px;
 }
 dl.samples > dd
@@ -318,9 +317,7 @@ blockquote
 	font-style: italic;
 	font-family: Georgia, Times, "Times New Roman", serif;
 	padding: 2px 0;
-	border-style: solid;
-	border-color: #ccc;
-	border-width: 0;
+	border: 0 solid #ccc;
 }
 
 .cke_contents_ltr blockquote

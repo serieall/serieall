@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -14,6 +15,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
+/**
+ * Class EpisodeStore
+ * @package App\Jobs
+ */
 class EpisodeStore implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -109,7 +114,7 @@ class EpisodeStore implements ShouldQueue
                     # On met en forme l'URL
                     $director_url = Str::slug($director);
                     # On vérifie si le réalisateur existe déjà en base
-                    $director_ref = Artist::where('artist_url', $director_url)->first();
+                    $director_ref = Artist::where('artist_url', $director_url)::first();
 
                     # Si il n'existe pas
                     if (is_null($director_ref)) {
@@ -160,7 +165,7 @@ class EpisodeStore implements ShouldQueue
                     # On met en forme l'URL
                     $writer_url = Str::slug($writer);
                     # On vérifie si le genre existe déjà en base
-                    $writer_ref = Artist::where('artist_url', $writer_url)->first();
+                    $writer_ref = Artist::where('artist_url', $writer_url)::first();
 
                     # Si il n'existe pas
                     if (is_null($writer_ref)) {
@@ -210,7 +215,7 @@ class EpisodeStore implements ShouldQueue
                     # On met en forme l'URL
                     $guest_url = Str::slug($guest);
                     # On vérifie si le genre existe déjà en base
-                    $guest_ref = Artist::where('artist_url', $guest_url)->first();
+                    $guest_ref = Artist::where('artist_url', $guest_url)::first();
 
                     # Si il n'existe pas
                     if (is_null($guest_ref)) {

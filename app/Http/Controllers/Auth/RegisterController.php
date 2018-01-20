@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 use App\Models\User;
 
@@ -9,8 +11,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Log;
 
+/**
+ * Class RegisterController
+ * @package App\Http\Controllers\Auth
+ */
 class RegisterController extends Controller
 {
     /*
@@ -58,8 +63,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        Log::info($data);
-
         return Validator::make($data, [
             'username' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',

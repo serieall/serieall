@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -9,6 +10,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
+/**
+ * Class EpisodeDelete
+ * @package App\Jobs
+ */
 class EpisodeDelete implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -33,6 +38,8 @@ class EpisodeDelete implements ShouldQueue
      *
      * @param EpisodeRepository $episodeRepository
      * @return void
+     * @throws \Exception
+     * @throws \Exception
      */
     public function handle(EpisodeRepository $episodeRepository)
     {

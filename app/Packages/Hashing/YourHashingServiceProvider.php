@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Packages\Hashing;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class YourHashingServiceProvider
+ * @package App\Packages\Hashing
+ */
 class YourHashingServiceProvider extends ServiceProvider {
 
     /**

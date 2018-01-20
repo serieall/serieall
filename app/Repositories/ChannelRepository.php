@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace App\Repositories;
@@ -6,6 +7,10 @@ namespace App\Repositories;
 use App\Models\Channel;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class ChannelRepository
+ * @package App\Repositories
+ */
 class ChannelRepository
 {
     protected $channel;

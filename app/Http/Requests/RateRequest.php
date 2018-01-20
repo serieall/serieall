@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 
+
+/**
+ * Class RateRequest
+ * @package App\Http\Requests
+ */
 class RateRequest extends Request
 {
     /**

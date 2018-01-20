@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
@@ -16,6 +17,10 @@ use App\Repositories\SeasonRepository;
 
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class AdminEpisodeController
+ * @package App\Http\Controllers\Admin
+ */
 class AdminEpisodeController extends Controller
 {
     protected $episodeRepository;

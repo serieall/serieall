@@ -1,14 +1,19 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
 use App\Notifications\ReplyContactNotification;
 use App\Repositories\ContactRepository;
-use Illuminate\Support\Facades\Mail;
+
 use App\Http\Requests\ReplyContactRequest;
 use Illuminate\Support\Facades\Notification;
 
+/**
+ * Class AdminContactsController
+ * @package App\Http\Controllers\Admin\System
+ */
 class AdminContactsController extends Controller
 {
     protected $nbPerPage = 20;

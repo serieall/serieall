@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -17,6 +18,10 @@ use App\Models\Nationality;
 use App\Models\Artist;
 
 
+/**
+ * Class ShowAddManually
+ * @package App\Jobs
+ */
 class ShowAddManually implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;

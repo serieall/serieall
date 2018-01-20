@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $commentable_type
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property mixed $reactions
  * @property-read \App\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereId($value)
@@ -37,7 +39,7 @@ class Comment extends Model {
 
 	protected $table = 'comments';
 	public $timestamps = true;
-	protected $fillable = array('message', 'thumb', 'spoiler', 'parent_id', 'commentable_id', 'commentable_type');
+	protected $fillable = ['message', 'thumb', 'spoiler', 'parent_id', 'commentable_id', 'commentable_type'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -47,6 +49,9 @@ class Comment extends Model {
 		return $this->belongsTo('App\Models\User');
 	}
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function reactions()
     {
         return $this->hasMany('App\Models\Comment', 'parent_id');

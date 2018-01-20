@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
@@ -28,13 +29,13 @@ class SeasonsByShowIDController extends Controller
 
     /**
      * @param $showID
-     * @return \Dingo\Api\Http\Response
+     * @return Response
      */
-    public function index($showID) : \Dingo\Api\Http\Response
+    public function index($showID) : Response
     {
-        $seasons = $this->seasons::select('id', 'name')->where('show_id', '=', $showID)->orderBy('name');
+        $seasons = $this->seasons::select('id', 'name')::where('show_id', '=', $showID)::orderBy('name');
 
-        $seasons = ApiHandler::parseMultiple($seasons, array('name'))->getResult();
+        $seasons = ApiHandler::parseMultiple($seasons, ['name'])->getResult();
 
         return $this->response->collection($seasons, new SeasonsListTransformer());
     }

@@ -125,10 +125,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 .cke_notification_close
 {
-	background-image: url(images/close.png);
-	background-repeat: no-repeat;
-	background-position: 50%;
-	position: absolute;
+    background: url(images/close.png) no-repeat 50%;
+    position: absolute;
 	cursor: pointer;
 	text-align: center;
 	height: 20px;

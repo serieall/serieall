@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Generate rate on its circle
@@ -189,11 +190,11 @@ function messageComment($object, $user_comment = null) {
  * @return array
  */
 function compileObjectInfos($object, $object_id) {
-    $object = array(
+    $object = [
         'id' => $object_id,
         'model' => $object,
         'fq_model' => 'App\Models\\' . $object
-    );
+    ];
 
     return $object;
 }
