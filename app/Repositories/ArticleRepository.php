@@ -74,7 +74,7 @@ class ArticleRepository
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getPublishedArticleByShow(Show $show) {
-        return $show->articles()::whereState(1)
+        return $show->articles()->whereState(1)
             ->get();
     }
 }
