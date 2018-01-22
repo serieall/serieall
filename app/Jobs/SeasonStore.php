@@ -36,6 +36,7 @@ class SeasonStore implements ShouldQueue
      *
      * @param ShowRepository $showRepository
      * @return void
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function handle(ShowRepository $showRepository)
     {

@@ -32,7 +32,7 @@ class ActivationRepository
      *
      * @return string
      */
-    protected function getToken()
+    protected function getToken(): string
     {
         return hash_hmac('sha256', str_random(40), config('app.key'));
     }
@@ -43,15 +43,18 @@ class ActivationRepository
      * @param $user
      * @return string
      */
-    public function createActivation($user)
+    public function createActivation($user): string
     {
         $activation = $this->getActivation($user);
 
-        if (!$activation) {
-            return $this->createToken($user);
+        if ($activation) {
+            $return = $this->regenerateToken($user);
         }
-        return $this->regenerateToken($user);
+        else {
+            $return = $this->createToken($user);
+        }
 
+        return $return;
     }
 
     /**
@@ -60,7 +63,7 @@ class ActivationRepository
      * @param $user
      * @return string
      */
-    private function regenerateToken($user)
+    private function regenerateToken($user): string
     {
         $token = $this->getToken();
         $this->db->table($this->table)->where('user_id', $user->id)->update([
@@ -76,7 +79,7 @@ class ActivationRepository
      * @param $user
      * @return string
      */
-    private function createToken($user)
+    private function createToken($user): string
     {
         $token = $this->getToken();
         $this->db->table($this->table)->insert([

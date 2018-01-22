@@ -36,6 +36,7 @@ class SeasonUpdate implements ShouldQueue
      *
      * @param SeasonRepository $seasonRepository
      * @return void
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function handle(SeasonRepository $seasonRepository)
     {

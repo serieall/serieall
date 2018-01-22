@@ -36,6 +36,7 @@ class UserUpdate implements ShouldQueue
      *
      * @param UserRepository $userRepository
      * @return void
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function handle(UserRepository $userRepository)
     {

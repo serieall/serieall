@@ -75,6 +75,7 @@ class AdminArticleController extends Controller
      *
      * @param ArticleCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function store(ArticleCreateRequest $request) {
         // On stocke la requête dans une variable
@@ -85,7 +86,7 @@ class AdminArticleController extends Controller
 
         // On renseigne les champs
         $article->name = $inputs['name'];
-        $article->article_url = str_slug($inputs['name']) . '-' . uniqid();
+        $article->article_url = str_slug($inputs['name']) . '-' . uniqid('article', true);
         $article->intro = $inputs['intro'];
         $article->content = $inputs['article'];
 
@@ -150,14 +151,14 @@ class AdminArticleController extends Controller
                 $article->shows()->attach($episode->show->id);
             }
             // Si season est renseigné, on lie à la saison
-            elseif(!empty($inputs['season'])) {
-                $season = $this->seasonRepository->getSeasonWithShowByID($inputs['season']);
-                $article->seasons()->attach($season->id);
-                $article->shows()->attach($season->show->id);
+            elseif(empty($inputs['season'])) {
+                $article->shows()->attach($inputs['show']);
             }
             // Sinon, on lie à la série
             else {
-                $article->shows()->attach($inputs['show']);
+                $season = $this->seasonRepository->getSeasonWithShowByID($inputs['season']);
+                $article->seasons()->attach($season->id);
+                $article->shows()->attach($season->show->id);
             }
         }
         else {

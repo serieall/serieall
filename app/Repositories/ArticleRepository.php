@@ -38,6 +38,7 @@ class ArticleRepository
      *
      * @param $id
      * @return \Illuminate\Database\Eloquent\Model|static
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getArticleByID($id)
     {

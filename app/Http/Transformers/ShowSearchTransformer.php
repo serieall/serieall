@@ -20,7 +20,6 @@ class ShowSearchTransformer extends TransformerAbstract
         return [
             'id' => $show->id,
             'url' => '/serie/' . $show->show_url,
-            'name' => $show->name,
-        ];
+            'name' => $show->name];
     }
 }

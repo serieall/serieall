@@ -29,7 +29,6 @@ class SeasonUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|numeric',
-        ];
+            'name' => 'required|numeric'];
     }
 }

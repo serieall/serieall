@@ -46,6 +46,7 @@ class AdminArtistController extends Controller
      *
      * @param $show_id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function create($show_id)
     {
@@ -61,6 +62,7 @@ class AdminArtistController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param $show_id
      * @internal param ShowCreateRequest|Request $request
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function store(ArtistCreateRequest $request)
     {
@@ -117,6 +119,7 @@ class AdminArtistController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param $actor_id
      * @internal param int $id
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function edit($show_id, $artist_id)
     {
@@ -134,6 +137,7 @@ class AdminArtistController extends Controller
      * @return mixed
      * @internal param $show_id
      * @internal param $artist_id
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function update(ArtistUpdateRequest $request) {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
@@ -170,6 +174,7 @@ class AdminArtistController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param $actor_id
      * @internal param int $id
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function unlinkShow($show_id, $artist_id)
     {

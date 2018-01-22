@@ -6,8 +6,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ShowUpdateManuallyRequest;
-use App\Jobs\ShowUpdateFromTVDB;
 use App\Repositories\LogRepository;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -68,7 +69,7 @@ class AdminShowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Response
     {
         // On récupère la liste des séries
         $shows = $this->showRepository->getAllShowsWithCountSeasonsAndEpisodes();
@@ -82,7 +83,7 @@ class AdminShowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Response
     {
         // On retourne la vue
         return view('admin/shows/create/thetvdb');
@@ -93,7 +94,7 @@ class AdminShowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createManually()
+    public function createManually(): Response
     {
         // On retourne la vue
         return view('admin/shows/create/manually');
@@ -105,22 +106,29 @@ class AdminShowController extends Controller
      * @param ShowUpdateManuallyRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateManually(ShowUpdateManuallyRequest $request)
+    public function updateManually(ShowUpdateManuallyRequest $request): RedirectResponse
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
-
         $dispatchOK = $this->showRepository->updateManuallyShowJob($inputs);
 
         if($dispatchOK) {
-            return redirect(route('admin.shows.index'))
-                ->with('status_header', 'Série en cours de modification')
-                ->with('status', 'La demande de modification de la série a été effectuée. Le serveur la traitera dès que possible.');
+            $state_header = 'status_header';
+            $state = 'status';
+
+            $message_header= 'Série en cours de modification';
+            $message = 'La demande de modification de la série a été effectuée. Le serveur la traitera dès que possible.';
         }
         else {
-            return redirect()->back()
-                ->with('warning_header', 'Erreur')
-                ->with('warning', 'Problème lors de la mise à jour de la série');
+            $state_header = 'wanring_header';
+            $state = 'warning';
+
+            $message_header= 'Erreur';
+            $message = 'Problème lors de la mise à jour de la série !';
         }
+
+        return redirect()->back()
+            ->with($state_header, $message_header)
+            ->with($state, $message);
     }
 
     /**
@@ -129,7 +137,7 @@ class AdminShowController extends Controller
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): Response
     {
         $show = $this->showRepository->getInfoShowByID($id);
         $genres = formatRequestInVariable($show->genres);
@@ -148,22 +156,30 @@ class AdminShowController extends Controller
      * @param ShowCreateRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ShowCreateRequest $request)
+    public function store(ShowCreateRequest $request): Response
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         $dispatchOK = $this->showRepository->createShowJob($inputs);
 
         if($dispatchOK) {
-            return redirect(route('admin.shows.index'))
-                ->with('status_header', 'Série en cours d\'ajout')
-                ->with('status', 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.');
+            $state_header = 'status_header';
+            $state = 'status';
+
+            $message_header= 'Série en cours d\'ajout';
+            $message = 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.';
         }
         else {
-            return redirect()->back()
-                ->with('warning_header', 'Série déjà ajoutée')
-                ->with('warning', 'La série que vous voulez créer existe déjà chez Série-All.');
+            $state_header = 'wanring_header';
+            $state = 'warning';
+
+            $message_header= 'Série déjà ajoutée';
+            $message = 'La série que vous voulez créer existe déjà chez Série-All.';
         }
+
+        return redirect()->back()
+            ->with($state_header, $message_header)
+            ->with($state, $message);
     }
 
     /**
@@ -173,19 +189,13 @@ class AdminShowController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function storeManually(ShowCreateManuallyRequest $request)
+    public function storeManually(ShowCreateManuallyRequest $request): Response
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
-        $createOK = $this->showRepository->createManuallyShowJob($inputs);
+        $this->showRepository->createManuallyShowJob($inputs);
 
-        if($createOK) {
-            return response()->json();
-        }
-        else
-        {
-            return response()->json();
-        }
+        return response()->json();
     }
 
     /**
@@ -193,7 +203,7 @@ class AdminShowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectJSON()
+    public function redirectJSON(): Response
     {
         return redirect()->route('admin.shows.index')
             ->with('status_header', 'Série en cours d\'ajout')
@@ -206,26 +216,30 @@ class AdminShowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): Response
     {
         $userID = Auth::user()->id;
 
         $dispatchOK = $this->showRepository->deleteJob($id, $userID);
 
         if($dispatchOK) {
-            return redirect()->back()
-                ->with('status_header', 'Suppression')
-                ->with('status', 'La série est en cours de suppression.');
+            $state_header = 'status_header';
+            $state = 'status';
+
+            $message_header= 'Suppression';
+            $message = 'La série est en cours de suppression.';
         }
         else {
-            return redirect()->back()
-                ->with('warning_header', 'Erreur')
-                ->with('warning', 'Ca marche pô.');
-        }
-    }
+            $state_header = 'warning_header';
+            $state = 'warning';
 
-    public function UpdateTVDB()
-    {
-        $this->dispatch(new ShowUpdateFromTVDB());
+            $message_header= 'Erreur';
+            $message = 'Problème lors de la suppression de la série !';
+        }
+
+        return redirect()->back()
+            ->with($state_header, $message_header)
+            ->with($state, $message);
+
     }
 }

@@ -52,23 +52,25 @@ class ActivationService
      * @param $token
      * @return User
      */
-    public function activateUser($token)
+    public function activateUser($token): User
     {
         $activation = $this->activationRepo->getActivationByToken($token);
 
         if ($activation === null) {
-            return null;
+            $return = null;
+        }
+        else {
+            $user = User::find($activation->user_id);
+
+            $user->activated = true;
+
+            $user->save();
+
+            $this->activationRepo->deleteActivation($token);
+            $return = $user;
         }
 
-        $user = User::find($activation->user_id);
-
-        $user->activated = true;
-
-        $user->save();
-
-        $this->activationRepo->deleteActivation($token);
-
-        return $user;
+        return $return;
     }
 
     /**
@@ -77,7 +79,7 @@ class ActivationService
      * @param $user
      * @return bool
      */
-    private function shouldSend($user)
+    private function shouldSend($user): bool
     {
         $activation = $this->activationRepo->getActivation($user);
         return $activation === null || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();

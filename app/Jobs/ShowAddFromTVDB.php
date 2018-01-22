@@ -211,16 +211,14 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 'headers' => [
                     'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                     'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'fr',
-                ]
+                    'Accept-Language' => 'fr']
             ])->getBody();
 
             $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
                 'headers' => [
                     'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                     'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'en',
-                ]
+                    'Accept-Language' => 'en']
             ])->getBody();
 
             # On décode le JSON
@@ -538,8 +536,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
             #On récupère un nouveau token et on l'enregistre en base
             $getToken = $client->request('POST', '/login', [
                 'header' => [
-                    'Accept' => 'application/vnd.thetvdb.v' . $api_version,
-                ],
+                    'Accept' => 'application/vnd.thetvdb.v' . $api_version],
                 'json' => [
                     'apikey' => $api_key,
                     'username' => $api_username,
@@ -575,16 +572,14 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                 'Authorization' => 'Bearer ' . $token,
-                'Accept-Language' => 'fr',
-            ]
+                'Accept-Language' => 'fr']
         ])->getBody();
 
         $getShow_en = $client->request('GET', '/series/'. $theTVDBID, [
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                 'Authorization' => 'Bearer ' . $token,
-                'Accept-Language' => 'en',
-            ]
+                'Accept-Language' => 'en']
         ])->getBody();
 
         /*
@@ -910,8 +905,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         $getActors = $client->request('GET', '/series/'. $theTVDBID . '/actors', [
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                'Authorization' => 'Bearer ' . $token,
-            ]
+                'Authorization' => 'Bearer ' . $token]
         ])->getBody();
 
         /*
@@ -992,8 +986,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                 'Authorization' => 'Bearer ' . $token,
-                'Accept-Language' => 'en',
-            ]
+                'Accept-Language' => 'en']
         ])->getBody();
 
         /*
@@ -1038,8 +1031,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                         'Authorization' => 'Bearer ' . $token,
-                        'Accept-Language' => 'en',
-                    ]
+                        'Accept-Language' => 'en']
                 ])->getBody();
 
                 $getEpisodes_en = json_decode($getEpisodes_en);

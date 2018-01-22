@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Season;
+use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use Marcelgwerder\ApiHandler\Facades\ApiHandler;
@@ -29,7 +30,7 @@ class SeasonsByShowIDController extends Controller
 
     /**
      * @param $showID
-     * @return Response
+     * @return \Dingo\Api\Http\Response
      */
     public function index($showID) : Response
     {

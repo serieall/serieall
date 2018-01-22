@@ -37,7 +37,6 @@ class UserStoreRequest extends FormRequest
             'antispoiler' => 'boolean',
             'website' => 'max:255',
             'twitter' => 'max:255',
-            'facebook' => 'max:255',
-        ];
+            'facebook' => 'max:255'];
     }
 }

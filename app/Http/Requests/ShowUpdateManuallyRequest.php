@@ -37,7 +37,6 @@ class ShowUpdateManuallyRequest extends FormRequest
             'diffusion_us' => 'date',
             'diffusion_fr' => 'date',
             'particularite' => 'max:255',
-            'taux_erectile' => 'numeric|between:0,100',
-        ];
+            'taux_erectile' => 'numeric|between:0,100'];
     }
 }

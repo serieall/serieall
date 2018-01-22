@@ -39,6 +39,7 @@ class RateRepository
      * @param $episode_id
      * @param $rate
      * @return bool
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function RateEpisode($user_id, $episode_id, $rate) {
         // La note existe-elle ?

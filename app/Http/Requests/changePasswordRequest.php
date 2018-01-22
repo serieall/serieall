@@ -4,9 +4,10 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 
-
 /**
  * Class changePasswordRequest
+ * @property mixed new_password
+ * @property mixed password
  * @package App\Http\Requests
  */
 class changePasswordRequest extends Request

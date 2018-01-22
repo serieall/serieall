@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Services\ActivationService;
 use App\Packages\Hashing\YourHasher;
@@ -62,8 +64,9 @@ class LoginController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request $request
+     * @return RedirectResponse|JsonResponse
+     * @throws \RuntimeException
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -88,14 +91,14 @@ class LoginController extends Controller
      *
      * @return string
      */
-    public function username()
+    public function username(): string
     {
         return 'username';
     }
 
     /**
      * @param $user
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|RedirectResponse
      */
     public function authenticated($user)
     {
@@ -104,7 +107,8 @@ class LoginController extends Controller
             auth()->logout();
             return back()->with('warning', 'Vous devez valider votre adresse E-mail. Nous vous avons envoyé un code de validation.');
         }
-        elseif ($user->suspended) {
+
+        if ($user->suspended) {
             auth()->logout();
             return back()->with('warning', 'Votre compte a été bloqué.');
         }
@@ -113,10 +117,11 @@ class LoginController extends Controller
 
     /**
      * @param $token
-     * @return \Illuminate\Http\RedirectResponse
+     * @return bool
      */
-    public function activateUser($token)
+    public function activateUser($token): bool
     {
-        return $user = $this->activationService->activateUser($token) ? redirect()->route('login')->with('success', 'Votre adresse E-Mail a été validée. Vous pouvez maintenant vous connecter.') : redirect()->route('login')->with('error', 'Erreur lors de la validation de votre adresse mail. Vous l\'avez peut être déjà validée. En cas de problèmes, n\'hésitez pas à nous contacter à l\'adresse : serieall.fr@gmail.com');
+        $this->activationService->activateUser($token) ? redirect()->route('login')->with('success', 'Votre adresse E-Mail a été validée. Vous pouvez maintenant vous connecter.') : redirect()->route('login')->with('error', 'Erreur lors de la validation de votre adresse mail. Vous l\'avez peut être déjà validée. En cas de problèmes, n\'hésitez pas à nous contacter à l\'adresse : serieall.fr@gmail.com');
+        return true;
     }
 }

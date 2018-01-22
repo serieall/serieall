@@ -18,7 +18,6 @@ class ChannelsTransformer extends TransformerAbstract
     public function transform($channel) : array
     {
         return [
-            'name' => $channel->name,
-        ];
+            'name' => $channel->name];
     }
 }

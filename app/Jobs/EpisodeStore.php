@@ -39,6 +39,7 @@ class EpisodeStore implements ShouldQueue
      *
      * @param SeasonRepository $seasonRepository
      * @return void
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function handle(SeasonRepository $seasonRepository)
     {
@@ -101,7 +102,10 @@ class EpisodeStore implements ShouldQueue
             $directors = $episode['directors'];
             $listDirectors = null;
 
-            if (!empty($directors)) {
+            if (empty($directors)) {
+                $episodeNew->directors()->sync([]);
+            }
+            else {
                 $logMessage = '>>REALISATEURS';
                 saveLogMessage($idLog, $logMessage);
                 $directors = explode(',', $directors);
@@ -136,10 +140,6 @@ class EpisodeStore implements ShouldQueue
 
                 $episodeNew->directors()->sync($syncData);
             }
-            else
-            {
-                $episodeNew->directors()->sync([]);
-            }
 
             $logMessage = '>>>Synchronisation des réalisateurs.';
             saveLogMessage($idLog, $logMessage);
@@ -152,7 +152,10 @@ class EpisodeStore implements ShouldQueue
             $writers = $episode['writers'];
             $listWriters = null;
 
-            if (!empty($writers)) {
+            if (empty($writers)) {
+                $episodeNew->writers()->sync([]);
+            }
+            else {
                 $logMessage = '>>SCENARISTES';
                 saveLogMessage($idLog, $logMessage);
                 $writers = explode(',', $writers);
@@ -186,10 +189,6 @@ class EpisodeStore implements ShouldQueue
 
                 $episodeNew->writers()->sync($syncData);
             }
-            else
-            {
-                $episodeNew->writers()->sync([]);
-            }
 
             $logMessage = '>>>Synchronisation des scénaristes.';
             saveLogMessage($idLog, $logMessage);
@@ -202,7 +201,10 @@ class EpisodeStore implements ShouldQueue
             $guests = $episode['guests'];
             $listGuests = null;
 
-            if (!empty($guests)) {
+            if (empty($guests)) {
+                $episodeNew->guests()->sync([]);
+            }
+            else {
                 $logMessage = '>>GUESTS';
                 saveLogMessage($idLog, $logMessage);
                 $guests = explode(',', $guests);
@@ -235,10 +237,6 @@ class EpisodeStore implements ShouldQueue
                 $syncData  = array_combine($listGuests, $pivotData);
 
                 $episodeNew->guests()->sync($syncData);
-            }
-            else
-            {
-                $episodeNew->guests()->sync([]);
             }
 
             $logMessage = '>>>Synchronisation des guests.';

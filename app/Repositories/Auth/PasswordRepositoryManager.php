@@ -24,7 +24,7 @@ class PasswordRepositoryManager extends IlluminatePasswordBrokerManager
     protected function resolve($name)
     {
         $config = $this->getConfig($name);
-        if (is_null($config)) {
+        if ($config === null) {
             throw new InvalidArgumentException("Password resetter [{$name}] is not defined.");
         }
         // The password broker uses a token repository to validate tokens and send user

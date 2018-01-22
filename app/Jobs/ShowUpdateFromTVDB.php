@@ -233,16 +233,14 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                 'headers' => [
                     'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                     'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'fr',
-                ]
+                    'Accept-Language' => 'fr']
                 ])->getBody();
 
             $getEpisode_en = $client->request('GET', '/episodes/' . $episodeID, [
                 'headers' => [
                     'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                     'Authorization' => 'Bearer ' . $token,
-                    'Accept-Language' => 'en',
-                ]
+                    'Accept-Language' => 'en']
             ])->getBody();
 
             # On décode le JSON
@@ -371,8 +369,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             'resume_fr' => $episodeResumeFR,
                             'diffusion_us' => $episodeDiffusionUS,
                             'diffusion_fr' => $episodeDiffusionFR,
-                            'picture' => $episodePicture,
-                        ]);
+                            'picture' => $episodePicture]);
                         # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                         $episode_ref->season()->associate($season_ref);
                         $episode_ref->save();
@@ -553,7 +550,13 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             saveLogMessage($idLog, $logMessage);
 
                             /* Récupération de la photo de l'épisode */
-                            if(!empty($getEpisode_en->filenam)) {
+                            if(empty($getEpisode_en->filenam)) {
+                                $episodePicture = null;
+
+                                $logMessage = '>>>Pas d\'image pour l\'épisode.';
+                                saveLogMessage($idLog, $logMessage);
+                            }
+                            else {
                                 $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                                 $file_headers = get_headers($file);
                                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
@@ -568,12 +571,6 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                     saveLogMessage($idLog, $logMessage);
                                 }
                             }
-                            else {
-                                $episodePicture = null;
-
-                                $logMessage = '>>>Pas d\'image pour l\'épisode.';
-                                saveLogMessage($idLog, $logMessage);
-                            }
 
                             # On prépare le nouvel épisode
                             $episode_ref = new Episode([
@@ -584,8 +581,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                 'resume' => $episodeResumeEN,
                                 'resume_fr' => $episodeResumeFR,
                                 'diffusion_us' => $episodeDiffusionUS,
-                                'picture' => $episodePicture,
-                            ]);
+                                'picture' => $episodePicture]);
 
                             # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
                             $episode_ref->season()->associate($season_ref);
@@ -746,13 +742,11 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
             #On récupère un nouveau token et on l'enregistre en base
             $getToken = $client->request('POST', '/login', [
                 'header' => [
-                    'Accept' => 'application/vnd.thetvdb.v' . $api_version,
-                ],
+                    'Accept' => 'application/vnd.thetvdb.v' . $api_version],
                 'json' => [
                     'apikey' => $api_key,
                     'username' => $api_username,
-                    'userkey' => $api_userkey,
-                ]
+                    'userkey' => $api_userkey]
             ])->getBody();
 
             /*
@@ -784,8 +778,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         $getUpdate = $client->request('GET', 'updated/query?fromTime=' . $lastUpdate, [
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                'Authorization' => 'Bearer ' . $token,
-            ]
+                'Authorization' => 'Bearer ' . $token]
         ])->getBody();
 
         $getUpdate = json_decode($getUpdate);
@@ -820,16 +813,14 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                         'Authorization' => 'Bearer ' . $token,
-                        'Accept-Language' => 'fr',
-                    ]
+                        'Accept-Language' => 'fr']
                 ])->getBody();
 
                 $getShow_en = $client->request('GET', '/series/' . $idSerie, [
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                         'Authorization' => 'Bearer ' . $token,
-                        'Accept-Language' => 'en',
-                    ]
+                        'Accept-Language' => 'en']
                 ])->getBody();
 
                 /*
@@ -915,8 +906,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                 $getActors = $client->request('GET', '/series/'. $idSerie . '/actors', [
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                        'Authorization' => 'Bearer ' . $token,
-                    ]
+                        'Authorization' => 'Bearer ' . $token]
                 ])->getBody();
 
                 /*
@@ -948,7 +938,33 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                         # Vérification de la présence de l'acteur
                         $actor_ref = Artist::where('artist_url', $actor_url)->first();
 
-                        if(!is_null($actor_ref)) {
+                        if(is_null($actor_ref)) {
+                            # On prépare le nouvel acteur
+                            $actor_ref = new Artist([
+                                'name' => $actor,
+                                'artist_url' => $actor_url
+                            ]);
+
+                            # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                            $logMessage = '>>>Création de l\'acteur ' . $actorName . '.';
+                            saveLogMessage($idLog, $logMessage);
+
+                            $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+
+                            /* Récupération de la photo de l'acteur */
+                            $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
+                            $file_headers = get_headers($file);
+                            if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
+                                saveLogMessage($idLog, $logMessage);
+                            }
+                            else {
+                                copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
+                                $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
+                                saveLogMessage($idLog, $logMessage);
+                            }
+                        }
+                        else {
                             # On vérifie s'il est déjà lié à la série
 
                             $actor_liaison = $actor_ref->shows()
@@ -985,32 +1001,6 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                 }
                             }
                         }
-                        else{
-                            # On prépare le nouvel acteur
-                            $actor_ref = new Artist([
-                                'name' => $actor,
-                                'artist_url' => $actor_url
-                            ]);
-
-                            # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                            $logMessage = '>>>Création de l\'acteur ' . $actorName . '.';
-                            saveLogMessage($idLog, $logMessage);
-
-                            $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
-
-                            /* Récupération de la photo de l'acteur */
-                            $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
-                            $file_headers = get_headers($file);
-                            if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                                $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
-                                saveLogMessage($idLog, $logMessage);
-                            }
-                            else {
-                                copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
-                                $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
-                                saveLogMessage($idLog, $logMessage);
-                            }
-                        }
                     }
                 }
 
@@ -1025,8 +1015,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                     'headers' => [
                         'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                         'Authorization' => 'Bearer ' . $token,
-                        'Accept-Language' => 'en',
-                    ]
+                        'Accept-Language' => 'en']
                 ])->getBody();
 
                 /*
@@ -1071,8 +1060,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             'headers' => [
                                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                                 'Authorization' => 'Bearer ' . $token,
-                                'Accept-Language' => 'en',
-                            ]
+                                'Accept-Language' => 'en']
                         ])->getBody();
 
                         $getEpisodes_en = json_decode($getEpisodes_en);

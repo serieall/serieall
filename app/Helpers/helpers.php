@@ -19,15 +19,15 @@ function cutResume($resume) {
     $part1 = $tcut[0];
     $part2 = '';
 
-    for($i=1; $i<count($tcut); $i++) {
+    for($i=1, $iMax = count($tcut); $i< $iMax; $i++) {
         $part2 .= $tcut[$i].' ';
     }
 
     // On vérifie si il y a une balise spoiler dans le texte
-    if(strstr($part1, '<div class="spoiler">')) {
+    if(strpos($part1, '<div class="spoiler">') !== false) {
 
         // On vérifie qu'elle est fermée
-        if(strstr($part1, '</div></div>')) {
+        if(strpos($part1, '</div></div>') !== false) {
             return $part1 . ' ...';
         }
         else {

@@ -28,11 +28,12 @@ class YourHasher implements HasherContract
      * Hash the given value.
      *
      * @param string $value
-     * @param array  $options
+     * @param array $options
      *
      * @return string
+     * @throws \RuntimeException
      */
-    public function make($value, array $options = [])
+    public function make($value, array $options = []): string
     {
         return $this->hasher->make($value, $options);
     }
@@ -46,9 +47,9 @@ class YourHasher implements HasherContract
      *
      * @return bool
      */
-    public function check($value, $hashedValue, array $options = [])
+    public function check($value, $hashedValue, array $options = []): bool
     {
-        return md5($value) == $hashedValue || $this->hasher->check($value, $hashedValue, $options);
+        return $hashedValue === md5($value) || $this->hasher->check($value, $hashedValue, $options);
     }
 
     /**
@@ -59,8 +60,8 @@ class YourHasher implements HasherContract
      *
      * @return bool
      */
-    public function needsRehash($hashedValue, array $options = [])
+    public function needsRehash($hashedValue, array $options = []): bool
     {
-        return substr($hashedValue, 0, 4) != '$2y$';
+        return strncmp($hashedValue, '$2y$', 4) !== 0;
     }
 }

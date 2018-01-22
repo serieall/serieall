@@ -56,6 +56,7 @@ class AdminSeasonController extends Controller
      *
      * @param $show_id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function create($show_id)
     {

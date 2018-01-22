@@ -92,6 +92,6 @@ class ShowController extends Controller
     public function getShowDetails($show_url) {
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        return view('shows/details', compact('showInfo', 'genres'));
+        return view('shows/details', compact('showInfo'));
     }
 }

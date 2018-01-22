@@ -30,9 +30,7 @@ function roleUser($id) {
             $color = 'grey';
     }
 
-    $text = '<span class="ui ' . $color . ' text">' . $role . '</span>';
-
-    return $text;
+    return '<span class="ui ' . $color . ' text">' . $role . '</span>';
 }
 
 /**

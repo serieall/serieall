@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\User;
+use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use Marcelgwerder\ApiHandler\Facades\ApiHandler;
@@ -28,7 +29,7 @@ class UsersListController extends Controller
     }
 
     /**
-     * @return Response
+     * @return \Dingo\Api\Http\Response
      */
     public function index() : Response
     {

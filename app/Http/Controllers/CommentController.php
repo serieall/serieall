@@ -13,6 +13,7 @@ use App\Repositories\RateRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
@@ -58,6 +59,7 @@ class CommentController extends Controller
      * @param null $episode_numero
      * @param null $episode_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function fiche($show_url, $season_name = null, $episode_numero = null, $episode_id = null) {
         # Get ID User if user authenticated
@@ -65,10 +67,10 @@ class CommentController extends Controller
 
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        if(!is_null($season_name)) {
+        if($season_name !== null) {
             $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season_name);
-            if(!is_null($episode_numero)) {
-                if(!is_null($episode_id)) {
+            if($episode_numero !== null) {
+                if($episode_id !== null) {
                     $episodeInfo = $this->episodeRepository->getEpisodeByID($episode_id);
                     $object = compileObjectInfos('Episode', $episodeInfo->id);
                     $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
@@ -112,8 +114,10 @@ class CommentController extends Controller
      *
      * @param CommentCreateRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function store(CommentCreateRequest $request) {
+    public function store(CommentCreateRequest $request): JsonResponse
+    {
         # Define variables by request
         $inputs = $request->all();
         $user_id = $request->user()->id;
@@ -133,7 +137,6 @@ class CommentController extends Controller
                 $object = $this->episodeRepository->getEpisodeByID($object_id);
                 break;
             default:
-                return response()->json();
                 break;
         }
 
@@ -141,7 +144,7 @@ class CommentController extends Controller
         $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $objectFQ, $object_id );
 
         # If not, we create it
-        if(is_null($comment_ref)) {
+        if($comment_ref === null) {
             # Initialize
             $comment = new Comment();
 
@@ -169,7 +172,7 @@ class CommentController extends Controller
             $object->comments()->save($comment_ref);
         }
 
-        if(isset($inputs['episode_id']) && isset($inputs['note']))
+        if(isset($inputs['episode_id'], $inputs['note']))
         {
             $this->rateRepository->RateEpisode($user_id, $inputs['episode_id'], $inputs['note']);
         }

@@ -18,7 +18,6 @@ class ArtistsTransformer extends TransformerAbstract
     public function transform($artist) : array
     {
         return [
-            'name' => $artist->name,
-        ];
+            'name' => $artist->name];
     }
 }

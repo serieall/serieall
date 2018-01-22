@@ -80,6 +80,7 @@ class AdminUserController extends Controller
      *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function edit($id)
     {
@@ -111,6 +112,7 @@ class AdminUserController extends Controller
      *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function ban($id)
     {

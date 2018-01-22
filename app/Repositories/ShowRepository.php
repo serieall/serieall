@@ -9,13 +9,10 @@ use App\Jobs\ShowAddFromTVDB;
 use App\Jobs\ShowUpdateManually;
 use App\Jobs\ShowDelete;
 
-
 use App\Models\Comment;
-
 use App\Models\Show;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -25,9 +22,6 @@ use Illuminate\Support\Str;
  */
 class ShowRepository
 {
-    /**
-     * @var Show
-     */
     protected $show;
     protected $seasonRepository;
     protected $articleRepository;
@@ -39,16 +33,14 @@ class ShowRepository
      * @param \App\Repositories\SeasonRepository $seasonRepository
      * @param ArticleRepository $articleRepository
      */
-    public function __construct(Show $show, SeasonRepository $seasonRepository, ArticleRepository $articleRepository)
+    public function __construct(Show $show,
+                                SeasonRepository $seasonRepository,
+                                ArticleRepository $articleRepository)
     {
         $this->show = $show;
         $this->seasonRepository = $seasonRepository;
         $this->articleRepository = $articleRepository;
     }
-
-    /**
-     * ADMIN
-     */
 
     /**
      * On vérifie si la série n'a pas déjà été récupérée.
@@ -58,17 +50,19 @@ class ShowRepository
      * @param $inputs
      * @return bool
      */
-    public function createShowJob($inputs){
+    public function createShowJob($inputs): bool
+    {
         $checkIDTheTVDB = $this->show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
 
-        if(is_null($checkIDTheTVDB)){
+        if($checkIDTheTVDB === null){
             dispatch(new ShowAddFromTVDB($inputs));
-            return $dispatchOK = true;
+            $dispatchOK = true;
         }
-        else
-        {
-            return $dispatchOK = false;
+        else {
+            $dispatchOK = false;
         }
+
+        return $dispatchOK;
     }
 
     /**
@@ -79,16 +73,20 @@ class ShowRepository
      * @param $inputs
      * @return bool
      */
-    public function createManuallyShowJob($inputs){
+    public function createManuallyShowJob($inputs): bool
+    {
         $URLShow = Str::slug($inputs['name']);
         $verifURLShow = $this->show::where('show_url', $URLShow)->first();
 
-        if(null === $verifURLShow){
+        if($verifURLShow === null){
             dispatch(new ShowAddManually($inputs));
-            return $createOK = true;
+            $createOK = true;
+        }
+        else {
+            $createOK = false;
         }
 
-        return $createOK = false;
+        return $createOK;
     }
 
     /**
@@ -97,7 +95,8 @@ class ShowRepository
      * @param $inputs
      * @return bool
      */
-    public function updateManuallyShowJob($inputs){
+    public function updateManuallyShowJob($inputs): bool
+    {
         dispatch(new ShowUpdateManually($inputs));
 
         return true;
@@ -111,7 +110,8 @@ class ShowRepository
      * @return bool
      * @internal param $inputs
      */
-    public function deleteJob($id, $userID){
+    public function deleteJob($id, $userID): bool
+    {
         dispatch(new ShowDelete($id, $userID));
 
         return true;
@@ -129,14 +129,14 @@ class ShowRepository
      * @return array
      */
 
-    public function getInfoShowFiche($show_url)
+    public function getInfoShowFiche($show_url): array
     {
         // En fonction de la route, on récupère les informations sur la série différemment
-        if (Route::current()->getName() == 'show.fiche') {
+        if (Route::current()->getName() === 'show.fiche') {
             $show = $this->getShowByURL($show_url);
             $articles = $this->articleRepository->getPublishedArticleByShow($show);
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
-        } elseif (Route::current()->getName() == 'show.details') {
+        } elseif (Route::current()->getName() === 'show.details') {
             $show = $this->getShowDetailsByURL($show_url);
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         }

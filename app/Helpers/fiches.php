@@ -210,10 +210,10 @@ function compileObjectInfos($object, $object_id) {
 function afficheEpisodeName($episode, $hasNumber, $hasLink)
 {
     // Choose the field we use for the name
-    if (!empty($episode->name_fr)) {
-        $name = $episode->name_fr;
-    } else {
+    if (empty($episode->name_fr)) {
         $name = $episode->name;
+    } else {
+        $name = $episode->name_fr;
     }
 
     // If we want the number
@@ -243,10 +243,10 @@ function afficheEpisodeName($episode, $hasNumber, $hasLink)
  * @return string
  */
 function affichageCountThumb($thumb){
-    if(!is_null($thumb)){
-        return $thumb->count_thumb;
-    } else {
+    if(is_null($thumb)) {
         return '0';
+    } else {
+        return $thumb->count_thumb;
     }
 }
 

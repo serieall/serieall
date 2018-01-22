@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserChangeInfosRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\UserRepository;
@@ -44,6 +45,7 @@ class UserController extends Controller
      *
      * @param $userURL
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getProfile($userURL){
         $user = $this->userRepository->getUserByURL($userURL);
@@ -56,6 +58,7 @@ class UserController extends Controller
      *
      * @param $userURL
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getParameters($userURL){
         $user = $this->userRepository->getUserByURL($userURL);
@@ -69,20 +72,28 @@ class UserController extends Controller
      * @param UserChangeInfosRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function changeInfos(UserChangeInfosRequest $request)
+    public function changeInfos(UserChangeInfosRequest $request): RedirectResponse
     {
         $user = Auth::user();
-        $user->email = $request->email;
-        $user->antispoiler = $request->antispoiler;
-        $user->twitter = $request->twitter;
-        $user->facebook = $request->facebook;
-        $user->website = $request->website;
-        $user->edito = $request->edito;
+        if ($user !== null) {
+            $user->email = $request->email;
+            $user->antispoiler = $request->antispoiler;
+            $user->twitter = $request->twitter;
+            $user->facebook = $request->facebook;
+            $user->website = $request->website;
+            $user->edito = $request->edito;
 
-        $user->save();
+            $user->save();
 
-        return redirect()->back()
-            ->with('success', 'Vos informations personnelles ont été modifiées !');
+            $state = 'success';
+            $message = 'Vos informations personnelles ont été modifiées !';
+        }
+        else {
+            $state = 'error';
+            $message = 'Vous devez vous connecter pour pouvoir modifier vos informations personnelles.';
+        }
+
+        return redirect()->back()->with($state, $message);
     }
 
     /**
@@ -91,20 +102,29 @@ class UserController extends Controller
      * @param changePasswordRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function changePassword(changePasswordRequest $request){
+    public function changePassword(changePasswordRequest $request): RedirectResponse
+    {
         $user = Auth::user();
         $password = $request->password;
 
-        if (Hash::check($password, $user->password)) {
-            $user->password = Hash::make($request->new_password);
-            $user->save();
+        if ($user !== null) {
+            if (Hash::check($password, $user->password)) {
+                $user->password = Hash::make($request->new_password);
+                $user->save();
 
-            return redirect()->back()
-                ->with('success', 'Votre mot de passe a été modifié !');
+                $state = 'success';
+                $message = 'Votre mot de passe a bien été modifié !';
+            }
+            else {
+                $state = 'warning';
+                $message = 'Votre mot de passe actuel ne correspond pas à celui saisi.';
+            }
         }
-        else{
-            return redirect()->back()
-                ->with('warning', 'Votre mot de passe actuel ne correspond pas à celui saisi.');
+        else {
+            $state = 'error';
+            $message = 'Vous devez être connecté pour pouvoir changer votre mot de passe.';
         }
+
+        return redirect()->back()->with($state, $message);
     }
 }

@@ -68,8 +68,7 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'g-recaptcha-response' => 'required|captcha',
-            'cgu' => 'required',
-        ]);
+            'cgu' => 'required']);
     }
     /**
      * Create a new user instance after a valid registration.
@@ -83,8 +82,7 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'user_url' => trim($data['username']),
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+            'password' => bcrypt($data['password'])]);
     }
 
     /**

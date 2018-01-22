@@ -20,8 +20,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-    ];
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class];
 
     /**
      * The application's route middleware groups.
@@ -34,13 +33,10 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-        ],
+            \App\Http\Middleware\VerifyCsrfToken::class],
 
         'api' => [
-            'throttle:60,1',
-        ],
-    ];
+            'throttle:60,1']];
 
     /**
      * The application's route middleware.
@@ -56,6 +52,5 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\Admin::class,
-        'amithisuser' => AmIThisUser::class,
-    ];
+        'amithisuser' => AmIThisUser::class];
 }

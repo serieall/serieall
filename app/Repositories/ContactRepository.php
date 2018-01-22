@@ -30,8 +30,7 @@ class ContactRepository
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getAllContacts(){
-        return $this->contact
-            ->with('user')
+        return $this->contact::with('user')
             ->orderBy('id', 'desc')
             ->get();
     }
@@ -41,8 +40,9 @@ class ContactRepository
      *
      * @param $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getContactByID($id){
-        return $this->contact->findOrFail($id);
+        return $this->contact::findOrFail($id);
     }
 }

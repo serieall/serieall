@@ -39,7 +39,7 @@ class CommentRepository
      * @internal param $typeID
      */
     public function getCommentByUserIDTypeTypeID($user_id, $type, $type_id) {
-        return $this->comment->where('commentable_id', '=', $type_id)
+        return $this->comment::where('commentable_id', '=', $type_id)
             ->where('user_id', '=', $user_id)
             ->where('commentable_type', '=', $type)
             ->first();
@@ -54,7 +54,7 @@ class CommentRepository
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getLastTwoCommentsByTypeTypeID($type, $type_id, $user_comment_id) {
-        return $this->comment->where('commentable_id', '=', $type_id)
+        return $this->comment::where('commentable_id', '=', $type_id)
             ->where('commentable_type', '=', $type)
             ->whereNotIn('id', [$user_comment_id])
             ->with('user')
@@ -99,7 +99,7 @@ class CommentRepository
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getAllCommentsByTypeTypeID($object, $object_id) {
-        return $this->comment->where('commentable_id', '=', $object_id)
+        return $this->comment::where('commentable_id', '=', $object_id)
             ->where('commentable_type', '=', $object)
             ->with('user')
             ->paginate(10);

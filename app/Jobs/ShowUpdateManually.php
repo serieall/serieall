@@ -128,7 +128,10 @@ class ShowUpdateManually implements ShouldQueue
         $genres = $this->inputs['genres'];
         $listGenres = null;
 
-        if (!empty($genres)) {
+        if (empty($genres)) {
+            $show->genres()->sync([]);
+        }
+        else {
             $logMessage = '>>GENRES';
             saveLogMessage($idLog, $logMessage);
             $genres = explode(',', $genres);
@@ -159,10 +162,6 @@ class ShowUpdateManually implements ShouldQueue
             }
             $show->genres()->sync($listGenres);
         }
-        else
-        {
-            $show->genres()->sync([]);
-        }
 
         /*
         |--------------------------------------------------------------------------
@@ -173,7 +172,10 @@ class ShowUpdateManually implements ShouldQueue
         $channels = $this->inputs['channels'];
         $listChannels = null;
 
-        if (!empty($channels)) {
+        if (empty($channels)) {
+            $show->channels()->sync([]);
+        }
+        else {
             $logMessage = '>>CHAINES';
             saveLogMessage($idLog, $logMessage);
             $channels = explode(',', $channels);
@@ -204,10 +206,6 @@ class ShowUpdateManually implements ShouldQueue
             }
             $show->channels()->sync($listChannels);
         }
-        else
-        {
-            $show->channels()->sync([]);
-        }
 
         /*
         |--------------------------------------------------------------------------
@@ -218,7 +216,10 @@ class ShowUpdateManually implements ShouldQueue
         $nationalities = $this->inputs['nationalities'];
         $listNationalities = null;
 
-        if (!empty($nationalities)) {
+        if (empty($nationalities)) {
+            $show->nationalities()->sync([]);
+        }
+        else {
             $logMessage = '>>NATIONALITES';
             saveLogMessage($idLog, $logMessage);
             $nationalities = explode(',', $nationalities);
@@ -249,10 +250,6 @@ class ShowUpdateManually implements ShouldQueue
             }
             $show->nationalities()->sync($listNationalities);
         }
-        else
-        {
-            $show->nationalities()->sync([]);
-        }
 
         /*
         |--------------------------------------------------------------------------
@@ -263,7 +260,10 @@ class ShowUpdateManually implements ShouldQueue
         $creators = $this->inputs['creators'];
         $listCreators = null;
 
-        if (!empty($creators)) {
+        if (empty($creators)) {
+            $show->creators()->sync([]);
+        }
+        else {
             $logMessage = '>>CREATEURS';
             saveLogMessage($idLog, $logMessage);
             $creators = explode(',', $creators);
@@ -293,10 +293,6 @@ class ShowUpdateManually implements ShouldQueue
                 $listCreators[] = $creator_ref->id;
             }
             $show->creators()->sync($listCreators, ['profession' => 'creator']);
-        }
-        else
-        {
-            $show->creators()->sync([]);
         }
 
         endJob($idLog);
