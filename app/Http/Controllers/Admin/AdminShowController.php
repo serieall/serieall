@@ -65,11 +65,11 @@ class AdminShowController extends Controller
     }
 
     /**
-     * Affiche l'index de l'administation des séries
+     * Return the nidex of the show administration
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(): Response
+    public function index()
     {
         // On récupère la liste des séries
         $shows = $this->showRepository->getAllShowsWithCountSeasonsAndEpisodes();
@@ -81,9 +81,9 @@ class AdminShowController extends Controller
     /**
      * Affiche le formulaire de création via theTVDB
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(): Response
+    public function create()
     {
         // On retourne la vue
         return view('admin/shows/create/thetvdb');
@@ -92,9 +92,9 @@ class AdminShowController extends Controller
     /**
      * Affiche le formulaire de création manuelle
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function createManually(): Response
+    public function createManually()
     {
         // On retourne la vue
         return view('admin/shows/create/manually');

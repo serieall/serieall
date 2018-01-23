@@ -35,7 +35,7 @@ class UsersListController extends Controller
     {
         $users = $this->users
             ::select('id', 'username')
-            ::orderBy('username');
+            ->orderBy('username');
 
         $users = ApiHandler::parseMultiple($users, ['username'])->getResult();
 

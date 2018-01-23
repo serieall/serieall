@@ -4,37 +4,38 @@
 @section('pageDescription', 'Webzine communautaire des séries TV - Critiques et actualité des séries tv, notez et laissez vos avis sur les derniers épisodes, créez votre planning ...')
 
 @section('content')
-    <div class="row ui stackable grid ficheContainer">
-        <div id="LeftBlockShow" class="eleven wide column">
+    <div class="ui row stackable grid">
+        <div id="LeftBlockArticle" class="eleven wide column">
             <div class="ui segment">
                 <h1>Liste des articles</h1>
-
-                <div class="ui three stackable cards">
+                <div class="ui items">
                     @foreach($articles as $article)
-                        <div class="ui raised green card">
-                            <img class="topImageAffiche" style="height:100px; " src="{{ $article->image }}">
+                        <div class="article item">
+                            <div class="{{ colorCategory($article->category_id) }} image article">
+                                <img src="{{ $article->image }}">
+                                <p>{{ $article->category->name }}</p>
+                            </div>
                             <div class="content">
-                                <div class="header">{{ $article->name }}</div>
+                                <a href="{{  route('article.show', $article->article_url) }}" class="header">{{ $article->name }}</a>
                                 <div class="meta">
-                                    <span class="category">{{ $article->category->name }}</span>
+                                    <span>Le {{ formatDate('full', $article->published_at) }}</span>
                                 </div>
                                 <div class="description">
                                     <p>{{ $article->intro }}</p>
                                 </div>
-                            </div>
-                            <div class="extra content">
-                                <div class="right floated author">
-                                    @foreach($article->users as $redac)
-                                        <img class="ui avatar image" src="{{ Gravatar::src($redac->email) }}"> {{ $redac->username }}
+                                <div class="extra">
+                                    Par
+                                    @foreach($article->users as $user)
+                                        @if($loop->last)
+                                             <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
+                                            <span>{{ $user->username }}</span>
+                                        @else
+                                            <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
+                                            <span>{{ $user->username }}</span>, 
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
-                            <a href="{{ route('article.view', $article->article_url) }}">
-                                <div class="ui bottom attached button">
-                                    <i class="eye icon"></i>
-                                    Lire l'article
-                                </div>
-                            </a>
                         </div>
                     @endforeach
                 </div>

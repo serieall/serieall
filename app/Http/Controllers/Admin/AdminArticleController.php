@@ -13,6 +13,7 @@ use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Input;
 
 /**
@@ -187,7 +188,8 @@ class AdminArticleController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id) {
+    public function destroy($id): RedirectResponse
+    {
         $article = $this->articleRepository->getArticleByID($id);
 
         $article->category()->dissociate();

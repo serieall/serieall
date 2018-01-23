@@ -977,3 +977,73 @@ p.episodeResume {
 .ui.vertical.menu .active.item {
     background-color: #1074b2;
 }
+
+/*
+ * ARTICLES
+*/
+
+#LeftBlockArticle {
+    margin-right: 2em;
+}
+
+#LeftBlockArticle .segment, #RightBlockArticle .segment {
+    border: none;
+    background-color: white;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 2rem;
+    width: 100%;
+}
+
+#LeftBlockArticle .inverted.segment, #RightBlockArticle .inverted.segment {
+    background-color: black;
+    padding: 1rem;
+}
+
+#LeftBlockArticle .article.item .image.article {
+    height: 120px;
+    width: 120px;
+}
+
+#LeftBlockArticle .article.item .image.article img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#LeftBlockArticle .article.item .image.article p {
+    width: 100%;
+    position: absolute;
+    top: 72%;
+    text-align: center;
+    color: white;
+    z-index: 2;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#LeftBlockArticle .article.item .image:after {
+    content: '\A';
+    position: absolute;
+    width: 100%;
+    height: 33.3%;
+    top:66.6%; left:0;
+    opacity:1;
+    z-index: 1;
+}
+
+#LeftBlockArticle .article.item .image.green:after {
+    background: rgba(33, 186, 69, 0.7);
+}
+#LeftBlockArticle .article.item .image.red:after {
+    background: rgba(219, 40, 40, 0.7);
+}
+#LeftBlockArticle .article.item .image.blueSerieAll:after {
+    background: rgba(16, 116, 178, 0.7);
+}
+#LeftBlockArticle .article.item .image.yellow:after {
+    background: rgba(251, 189, 8, 0.7);
+}
+#LeftBlockArticle .article.item .image.orange:after {
+    background: rgba(242, 113, 28, 0.7);
+}

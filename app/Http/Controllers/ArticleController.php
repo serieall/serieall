@@ -33,4 +33,17 @@ class ArticleController extends Controller
 
         return view('articles.index', compact('articles'));
     }
+
+    /**
+     * Print the article by its URL
+     *
+     * @param $articleURL
+     * @internal param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($articleURL) {
+        $article = $this->articleRepository->getArticleByURL($articleURL);
+
+        return response()->view('articles.show', compact('article'));
+    }
 }

@@ -34,7 +34,7 @@ class SeasonsByShowIDController extends Controller
      */
     public function index($showID) : Response
     {
-        $seasons = $this->seasons::select('id', 'name')::where('show_id', '=', $showID)::orderBy('name');
+        $seasons = $this->seasons::select('id', 'name')->where('show_id', '=', $showID)->orderBy('name');
 
         $seasons = ApiHandler::parseMultiple($seasons, ['name'])->getResult();
 
