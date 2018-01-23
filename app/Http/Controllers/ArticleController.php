@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Repositories\ArticleRepository;
+use App\Repositories\categoryRepository;
 
 /**
  * Class ArticleController
@@ -12,15 +13,19 @@ use App\Repositories\ArticleRepository;
 class ArticleController extends Controller
 {
     protected $articleRepository;
+    protected $categoryRepository;
 
     /**
      * ArticleController constructor.
      * @param ArticleRepository $articleRepository
+     * @param CategoryRepository $categoryRepository
      * @internal param ShowRepository $showRepository
      */
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(ArticleRepository $articleRepository,
+                                CategoryRepository $categoryRepository)
     {
         $this->articleRepository = $articleRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -29,9 +34,10 @@ class ArticleController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $articles = $this->articleRepository->getPublishedArticlesWithAutorsAndCategory();
+        $articles = $this->articleRepository->getPublishedArticlesWithAutorsCommentsAndCategory();
+        $categories = $this->categoryRepository->getAllCategories();
 
-        return view('articles.index', compact('articles'));
+        return view('articles.index', compact('articles', 'categories'));
     }
 
     /**

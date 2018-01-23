@@ -62,9 +62,10 @@ class ArticleRepository
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getPublishedArticlesWithAutorsAndCategory()
+    public function getPublishedArticlesWithAutorsCommentsAndCategory()
     {
         return $this->article::with('users', 'category')
+            ->withCount('comments')
             ->whereState(1)
             ->orderBy('published_at', 'desc')
             ->get();

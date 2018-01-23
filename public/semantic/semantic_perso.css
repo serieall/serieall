@@ -153,6 +153,13 @@
     background: #1074b2 none;
 }
 
+.ui.blueSerieAll.buttons .button,
+.ui.blueSerieAll.button {
+    color: #FFFFFF;
+    text-shadow: none;
+    background: #1074b2 none;
+}
+
 blockquote {
     font-style: italic;
     padding-left: 20px;
@@ -982,6 +989,21 @@ p.episodeResume {
  * ARTICLES
 */
 
+.header.row {
+    background:
+            radial-gradient(black 15%, transparent 16%) 0 0,
+            radial-gradient(black 15%, transparent 16%) 8px 8px,
+            radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+            radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+    background-color:#282828;
+    background-size:16px 16px;
+    padding: 2em;
+    width: 100%;
+    margin-top: -1rem;
+    color: white;
+    display: block !important;
+}
+
 #LeftBlockArticle {
     margin-right: 2em;
 }
@@ -998,6 +1020,18 @@ p.episodeResume {
 #LeftBlockArticle .inverted.segment, #RightBlockArticle .inverted.segment {
     background-color: black;
     padding: 1rem;
+}
+
+#LeftBlockArticle .article.item {
+    padding: 1em;
+}
+
+#LeftBlockArticle .article.item .header {
+    background-color: inherit;
+}
+
+#LeftBlockArticle .article.item:hover {
+    background: #d4e4f0 none;
 }
 
 #LeftBlockArticle .article.item .image.article {
