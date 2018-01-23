@@ -4,6 +4,10 @@
 }
 
 /* TEXT */
+.ui.LightBlueSerieAll.text {
+    color: #d4e4f0;
+}
+
 .ui.red.text {
     color: #DB2828 !important;
 }

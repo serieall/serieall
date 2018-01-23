@@ -7,7 +7,7 @@
     <div class="ui row stackable grid">
         <div class="header row">
             <h1>Tous les articles</h1>
-            <p>Liste de tous les articles de Série-All. Vous pouvez filtrer les articles en cliquant sur un des boutons ci-dessous</p>
+            <p class="ui LightBlueSerieAll text">Liste de tous les articles de Série-All. Vous pouvez filtrer les articles en cliquant sur un des boutons ci-dessous</p>
 
             <div class="ui divider"></div>
 
