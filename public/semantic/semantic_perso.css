@@ -994,18 +994,31 @@ p.episodeResume {
 */
 
 .header.row {
+    margin-top: -1em;
+    padding-top:0 !important;
+    padding-bottom:0 !important;
+    z-index: 0;
+}
+
+.header.row .background {
     background:
-            radial-gradient(#213d64 15%, transparent 16%) 0 0,
-            radial-gradient(#213d64 15%, transparent 16%) 8px 8px,
+            radial-gradient(#1b2e47 15%, transparent 16%) 0 0,
+            radial-gradient(#1b2e47 15%, transparent 16%) 8px 8px,
             radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
             radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-    background-color:#213d64;
+    background-color:#1b2e47;
     background-size:16px 16px;
-    padding: 2em;
     width: 100%;
-    margin-top: -1rem;
+    height: 100%;
     color: white;
-    display: block !important;
+    position: absolute;
+    filter: blur(1px) opacity(1);
+    z-index: -100;
+}
+
+.header.row .content {
+    color: white;
+    padding: 1em;
 }
 
 #LeftBlockArticle {
@@ -1082,6 +1095,16 @@ p.episodeResume {
 #LeftBlockArticle .article.item .image.yellow:after {
     background: rgba(251, 189, 8, 0.7);
 }
-#LeftBlockArticle .article.item .image.orange:after {
-    background: rgba(242, 113, 28, 0.7);
+#LeftBlockArticle .article.item .image.pink:after {
+    background: rgba(224, 57, 151, 0.7);
+}
+#LeftBlockArticle .article.item .image.purple:after {
+    background: rgba(163, 51, 200, 0.7);
+}
+#LeftBlockArticle .article.item .image.olive:after {
+    background: rgba(181, 204, 24, 0.7);
+}
+
+.chooseCategory {
+    margin: 2em;
 }

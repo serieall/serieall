@@ -6,7 +6,6 @@
 <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
 <script src="/spoiler/spoiler.js"></script>
-<script src="/js/slider/index.js"></script>
 
 <script>
     $(document).ready(function() {

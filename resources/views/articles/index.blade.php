@@ -6,26 +6,25 @@
 @section('content')
     <div class="ui row stackable grid">
         <div class="header row">
+            <div class="background"></div>
+            <div class="content">
             <h1>Tous les articles</h1>
-            <p class="ui LightBlueSerieAll text">Liste de tous les articles de Série-All. Vous pouvez filtrer les articles en cliquant sur un des boutons ci-dessous</p>
+            <p class="ui LightBlueSerieAll text">
+                Liste de tous les articles de Série-All. <br />
+                Vous pouvez filtrer les articles en cliquant sur un des boutons ci-dessous
+            </p>
 
-            <div class="ui divider"></div>
-
-            <button class="ui button">Tous les articles</button>
-            <span class="ui hidden message">
-                Afficher tous les types d'articles.
-            </span>
-
-            @foreach($categories as $category)
-                <button class="ui button {{ colorCategory($category->id) }}">{{ $category->name }}</button>
-                <span class="ui hidden message">
-                    {{ $category->description }}
-                </span>
-            @endforeach
-
-            <div class="ui divider"></div>
+            <div class="chooseCategory">
+                <button class="ui disabled button">Tous les articles</button>
+                <span class="ui hidden message">Afficher tous les types d'articles.</span>
+                @foreach($categories as $category)
+                    <button class="ui button {{ colorCategory($category->id) }}">{{ $category->name }}</button>
+                    <span class="ui hidden message">{{ $category->description }}</span>
+                @endforeach
+            </div>
 
             <p class="ui LightBlueSerieAll text description category help">Survolez un bouton pour avoir une description du type d'article.</p>
+            </div>
         </div>
 
         <div class="row ficheContainer">
@@ -78,12 +77,22 @@
     <script>
         var categoryHelp = '.description.category.help';
 
+        // Change description button for category
         $('.header.row .ui.button').hover(function() {
             var text = $(this).next('span').text();
            $(categoryHelp).text(text);
-           $('')
         }, function() {
             $(categoryHelp).text('Survolez un bouton pour avoir une description du type d\'article.');
         });
+
+        $.ajax({
+            url: "/api/v1/articles/list",
+            type: 'GET',
+            dataType: 'json',
+            success: function(res) {
+                $('#result').html(res)
+            }
+        });
+
     </script>
 @endsection

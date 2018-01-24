@@ -35,6 +35,7 @@ class ArticleController extends Controller
      */
     public function index() {
         $articles = $this->articleRepository->getPublishedArticlesWithAutorsCommentsAndCategory();
+
         $categories = $this->categoryRepository->getAllCategories();
 
         return view('articles.index', compact('articles', 'categories'));

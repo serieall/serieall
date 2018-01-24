@@ -268,10 +268,10 @@ function colorCategory($id) {
             $color = 'yellow';
             break;
         case 4:
-            $color = 'orange';
+            $color = 'red';
             break;
         case 5:
-            $color = 'red';
+            $color = 'pink';
             break;
         case 6:
             $color = 'purple';
