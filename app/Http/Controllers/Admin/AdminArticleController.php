@@ -87,7 +87,7 @@ class AdminArticleController extends Controller
 
         // On renseigne les champs
         $article->name = $inputs['name'];
-        $article->article_url = str_slug($inputs['name']) . '-' . uniqid('article', true);
+        $article->article_url = str_slug($inputs['name']) . '-' . uniqid('3q2bx', true);
         $article->intro = $inputs['intro'];
         $article->content = $inputs['article'];
 

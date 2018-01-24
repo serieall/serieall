@@ -265,10 +265,10 @@ function colorCategory($id) {
             $color = 'olive';
             break;
         case 3:
-            $color = 'yellow';
+            $color = 'red';
             break;
         case 4:
-            $color = 'red';
+            $color = 'yellow';
             break;
         case 5:
             $color = 'pink';
