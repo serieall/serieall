@@ -11,9 +11,21 @@
 
             <div class="ui divider"></div>
 
+            <button class="ui button">Tous les articles</button>
+            <span class="ui hidden message">
+                Afficher tous les types d'articles.
+            </span>
+
             @foreach($categories as $category)
                 <button class="ui button {{ colorCategory($category->id) }}">{{ $category->name }}</button>
+                <span class="ui hidden message">
+                    {{ $category->description }}
+                </span>
             @endforeach
+
+            <div class="ui divider"></div>
+
+            <p class="ui LightBlueSerieAll text description category help">Survolez un bouton pour avoir une description du type d'article.</p>
         </div>
 
         <div class="row ficheContainer">
@@ -64,5 +76,14 @@
 
 @section('scripts')
     <script>
+        var categoryHelp = '.description.category.help';
+
+        $('.header.row .ui.button').hover(function() {
+            var text = $(this).next('span').text();
+           $(categoryHelp).text(text);
+           $('')
+        }, function() {
+            $(categoryHelp).text('Survolez un bouton pour avoir une description du type d\'article.');
+        });
     </script>
 @endsection

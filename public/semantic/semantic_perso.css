@@ -995,11 +995,11 @@ p.episodeResume {
 
 .header.row {
     background:
-            radial-gradient(black 15%, transparent 16%) 0 0,
-            radial-gradient(black 15%, transparent 16%) 8px 8px,
+            radial-gradient(#213d64 15%, transparent 16%) 0 0,
+            radial-gradient(#213d64 15%, transparent 16%) 8px 8px,
             radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
             radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-    background-color:#282828;
+    background-color:#213d64;
     background-size:16px 16px;
     padding: 2em;
     width: 100%;

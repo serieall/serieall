@@ -262,16 +262,22 @@ function colorCategory($id) {
             $color = 'green';
             break;
         case 2:
-            $color = 'red';
+            $color = 'olive';
             break;
         case 3:
             $color = 'yellow';
             break;
         case 4:
-            $color = 'blueSerieAll';
+            $color = 'orange';
             break;
         case 5:
-            $color = 'orange';
+            $color = 'red';
+            break;
+        case 6:
+            $color = 'purple';
+            break;
+        case 7:
+            $color = 'blueSerieAll';
             break;
         default:
             $color = 'blueSerieall';
