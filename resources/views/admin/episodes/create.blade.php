@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
+    <h1 class="ui header" id="adminTitre">
         Ajouter de nouveaux épisodes
         <span class="sub header">
             Ajouter de nouveaux épisodes dans la saison {{ $season->name }} de "{{ $season->show->name }}"

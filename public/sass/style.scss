@@ -1,0 +1,187 @@
+@import "./colors";
+@import "./mixins.scss";
+
+@import "./admin.scss";
+@import "./header.scss";
+@import "./footer.scss";
+@import "./base_fiche.scss";
+@import "./header_list.scss";
+
+/* TEXT COLORS AND FONT WEIGHT */
+@include color("t-veryDarkBlueSA", $veryDarkBlueSA);
+@include color("t-darkBlueSA", $darkBlueSA);
+@include color("t-blueSA", $blueSA);
+@include color("t-lightBlueSA", $lightBlueSA);
+@include color("t-red", $red);
+@include color("t-orange", $orange);
+@include color("t-yellow", $yellow);
+@include color("t-green", $green);
+@include color("t-cyan", $cyan);
+@include color("t-blue", $blue);
+@include color("t-purple", $purple);
+@include color("t-violet", $violet);
+@include color("t-pink", $pink);
+@include color("t-brown", $brown);
+@include color("t-white", $white);
+@include color("t-grey", $grey);
+@include color("t-black", $black);
+
+.t-bold { @include bold() }
+
+/* LEFT BORDER COLOR */
+@include leftBorderColor("lb-veryDarkBlueSA", $veryDarkBlueSA);
+@include leftBorderColor("lb-darkBlueSA", $darkBlueSA);
+@include leftBorderColor("lb-blueSA", $blueSA);
+@include leftBorderColor("lb-lightBlueSA", $lightBlueSA);
+@include leftBorderColor("lb-red", $red);
+@include leftBorderColor("lb-orange", $orange);
+@include leftBorderColor("lb-yellow", $yellow);
+@include leftBorderColor("lb-green", $green);
+@include leftBorderColor("lb-cyan", $cyan);
+@include leftBorderColor("lb-blue", $blue);
+@include leftBorderColor("lb-purple", $purple);
+@include leftBorderColor("lb-violet", $violet);
+@include leftBorderColor("lb-pink", $pink);
+@include leftBorderColor("lb-brown", $brown);
+@include leftBorderColor("lb-white", $white);
+@include leftBorderColor("lb-grey", $grey);
+@include leftBorderColor("lb-black", $black);
+
+/* BUTTONS SA COLORS */
+@include buttonColor("ui.button.blueSA", $blueSA, $white);
+@include buttonColor("ui.button.darkBlueSA", $darkBlueSA, $white);
+@include buttonColor("ui.button.lightBlueSA", $lightBlueSA, $black);
+
+/* OVERLAYS */
+@include overlay33Color("ol-veryDarkBlueSA", $veryDarkBlueSA);
+@include overlay33Color("ol-darkBlueSA", $darkBlueSA);
+@include overlay33Color("ol-blueSA", $blueSA);
+@include overlay33Color("ol-lightBlueSA", $lightBlueSA);
+@include overlay33Color("ol-red", $red);
+@include overlay33Color("ol-orange", $orange);
+@include overlay33Color("ol-yellow", $yellow);
+@include overlay33Color("ol-green", $green);
+@include overlay33Color("ol-cyan", $cyan);
+@include overlay33Color("ol-blue", $blue);
+@include overlay33Color("ol-purple", $purple);
+@include overlay33Color("ol-violet", $violet);
+@include overlay33Color("ol-pink", $pink);
+@include overlay33Color("ol-brown", $brown);
+@include overlay33Color("ol-white", $white);
+@include overlay33Color("ol-grey", $grey);
+@include overlay33Color("ol-black", $black);
+
+/* MARGINS */
+@for $i from 1 through 4 {
+  @include margin($i);
+  @include padding($i);
+}
+
+/* BLOCKQUOTE */
+blockquote {
+  font-style: italic;
+  padding-left: 20px;
+  border-left: #ccc 4px solid;
+}
+
+/* TABLE */
+// Remove border for basic table
+.ui.basic.table {
+  border: 0;
+}
+
+// Remove border top for some tables
+.ui.basic.table tr td,
+#topInfo table tr td,
+#ListSeasons table tr td,
+#ListAvis table tr td {
+  border-top: 0;
+}
+
+/*
+ *****
+ * APPLICATION
+ *****
+ */
+/*
+ Menu list seasons
+ */
+#menuListSeasons {
+  padding-top: inherit;
+  padding-bottom: inherit;
+  .column {
+    padding-left: inherit;
+    padding-right: inherit;
+  }
+  .segment {
+    border-radius: inherit;
+    background: $darkBlueSA;
+  }
+  .ui.secondary.menu {
+    .item {
+      color: $white;
+    }
+    .item:hover {
+      background: rgba(0, 0, 0, 0.30);
+      color: $white;
+    }
+    .active.item {
+      color: $black;
+      background-color: $white;
+      &:hover {
+        color: $black;
+        background-color: $white;
+      }
+    }
+  }
+}
+
+/*
+ LIST ARTICLES
+ */
+#LeftBlockArticle {
+  margin-right: 2em;
+  .article.item {
+    padding: 1em;
+    .header {
+      background-color: inherit;
+    }
+    &:hover {
+      background: $lightBlueSA none;
+    }
+    .image.article {
+      height: 120px;
+      width: 120px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+      p {
+        color: $white;
+        width: 100%;
+        position: absolute;
+        top: 72%;
+        text-align: center;
+        z-index: 2;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+#LeftBlockArticle, #RightBlockArticle {
+  .segment {
+    border: none;
+    background-color: $white;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 2rem;
+    width: 100%;
+  }
+  .inverted.segment {
+    background-color: $black;
+    padding: 1rem;
+  }
+}

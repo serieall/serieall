@@ -1,0 +1,84 @@
+/*
+ FOOTER
+ */
+// Change style of the footer
+#footer {
+  background: $darkBlueSA;
+  padding: 4em 0 4em 0;
+  width: 100%;
+  flex:none;
+  // Change color of lists and titles
+  ul, h3 {
+    color: $white;
+  }
+  // Change color of icons
+  i {
+    &.icon {
+      color: $darkBlueSA;
+      background-color: $white;
+    }
+    &.circular.icon {
+      box-shadow: none; // Remove shadow for circular icons
+    }
+  }
+  // Set each column of footer in flex display and align content to middle
+  .columnFooter {
+    display: flex;
+    justify-content: center;
+    .title:before {
+      content: inherit !important; // Don't set content to title in footer
+    }
+    a {
+      color: $white;
+    }
+    a:hover {
+      color: $blueSA !important; // Set color of hover links
+    }
+  }
+  // Set bullet list to SA style
+  ul.ui.list li:before,
+  .ui.bulleted.list .list > .item:before,
+  .ui.bulleted.list > .item:before {
+    content: '\2022';
+    color: $blueSA;
+  }
+}
+
+// Set color white for severals items
+.ui.secondary.menu .active.item,
+.ui.secondary.menu .active.item:hover,
+.ui.menu .active.item,
+.ui.menu .active.item:hover,
+.ui.inline.cookie.nag
+{
+  color: $white;
+}
+
+// FIX FOOTER TO BOTTOM
+.pushable {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $almostWhite;
+}
+
+.header {
+  background-color: $white;
+  z-index: 1;
+  margin-top: inherit;
+  flex:none;
+}
+
+#content {
+  flex: 1 0 auto;
+  margin-bottom: 2rem;
+}
+
+#messageBox {
+  flex: 1 0 auto;
+}
+
+// Align div center
+.d-center {
+  text-align: center;
+}

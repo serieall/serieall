@@ -40,12 +40,12 @@
                                     @if($episode->diffusion_us != "0000-00-00")
                                         {!! formatDate('long', $episode->diffusion_us) !!}
                                     @else
-                                        <span class="ui grey text">Pas de date</span>
+                                        <span class="t-grey">Pas de date</span>
                                     @endif
                                 </td>
                                 <td>
                                     @if($episode->moyenne < 1)
-                                        <p class="ui black text">
+                                        <p class="t-black">
                                             -
                                         </p>
                                     @else
@@ -93,11 +93,11 @@
                     </p>
                 @else
                     @if($seasonInfo->moyenne >= $noteGood)
-                        <p class="NoteSeason ui green text">
+                        <p class="NoteSeason t-green">
                     @elseif($seasonInfo->moyenne >= $noteNeutral && $seasonInfo->moyenne < $noteGood)
-                        <p class="NoteSeason ui gray text">
+                        <p class="NoteSeason t-grey">
                     @else
-                        <p class="NoteSeason ui red text">
+                        <p class="NoteSeason t-red">
                     @endif
                             {{ $seasonInfo->moyenne }}
                     </p>

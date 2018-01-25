@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
+    <h1 class="ui header" id="adminTitre">
         Ajouter un nouvel acteur
         <span class="sub header">
             Ajouter un nouveau rôle dans {{ $show->name }}

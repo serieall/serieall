@@ -1,0 +1,30 @@
+/*
+ * ADMINISTRATION PANEL
+ */
+// Change color of the tables in administration
+#tableAdmin thead th {
+  background: $blueSA;
+  color: $white;
+}
+
+// Add margin bottom to all titles in admin
+.admin h1 {
+  margin-bottom: 2em !important;
+}
+
+// Add margin left for the block pushed in admin
+.pushed {
+  margin-left : 15rem;
+}
+
+// Change cursor for grabing seasons and episodes
+.moveSeason:hover,
+.moveEpisode:hover {
+  cursor: grab;
+}
+
+// Add margin to success/warning messages
+#messageTop {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

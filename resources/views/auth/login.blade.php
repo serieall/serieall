@@ -43,7 +43,7 @@
                     @endif
                 </div>
 
-                <div class="div-center">
+                <div class="d-center">
                     <div class="ui large buttons">
                         <button class="ui positive button">Se connecter</button>
                         <div class="or"></div>

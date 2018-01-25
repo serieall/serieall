@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
+    <h1 class="ui header" id="adminTitre">
         Editer une série manuellement
         <span class="sub header">
             Remplir le formulaire ci-dessous pour modifier la série. Attention, une modification manuelle pourrait être écrasée par la mise à jour quotidienne en provenance de TheTVDB.

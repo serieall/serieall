@@ -7,7 +7,7 @@
     <div class="row">
         <div class="six wide column">
             <div class="ui pilled segment">
-                <h1 class="div-center">Réinitialiser le mot de passe</h1>
+                <h1 class="d-center">Réinitialiser le mot de passe</h1>
                 <form class="ui form" role="form" method="POST" action="{{ url('/password/email') }}">
                     {{ csrf_field() }}
 
@@ -22,7 +22,7 @@
                         @endif
                     </div>
 
-                    <div class="div-center">
+                    <div class="d-center">
                         <button class="positive ui button" type="submit">Valider</button>
                     </div>
                 </form>

@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
+    <h1 class="ui header" id="adminTitre">
         Ajouter une série
         <span class="sub header">
             Remplir le formulaire ci-dessous pour ajouter une nouvelle série

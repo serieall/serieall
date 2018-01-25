@@ -6,7 +6,7 @@
             <div class="topImageBanniereContainer">
                 <img class="topImageBanniere" src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
             </div>
-            <div id="topInfo" class="ui stackable grid topInfo ficheContainer">
+            <div id="topInfo" class="ui stackable grid ficheContainer">
                 <div class="center aligned ten wide column">
                     <div class="ui centered stackable grid">
                         <div id="midaligned" class="four wide column">
@@ -34,12 +34,12 @@
                                 <tr>
                                     <td>
                                         @if( $showInfo['show']->encours == 1)
-                                            <span class="ui green text">
+                                            <span class="t-green">
                                                 <i class="checkmark icon"></i>
                                                 En cours
                                             </span>
                                         @else
-                                            <span class="ui red text">
+                                            <span class="t-red">
                                                 <i class="remove icon"></i>
                                                 Terminée
                                             </span>
@@ -47,14 +47,14 @@
                                     </td>
                                     <td>
                                         @if(empty($showInfo['nationalities']))
-                                            <span class="ui grey text">Pas de nationalité</span>
+                                            <span class="t-grey">Pas de nationalité</span>
                                         @else
                                             {{ $showInfo['nationalities'] }}
                                         @endif
                                     </td>
                                     <td>
                                         @if(empty($showInfo['show']->format))
-                                            <span class="ui grey text">Pas de durée</span>
+                                            <span class="t-grey">Pas de durée</span>
                                         @else
                                             {{ $showInfo['show']->format }} minutes
                                         @endif
@@ -63,14 +63,14 @@
                                 <tr>
                                     <td>
                                         @if(empty($showInfo['genres']))
-                                            <span class="ui grey text">Pas de genre</span>
+                                            <span class="t-grey">Pas de genre</span>
                                         @else
                                             {{ $showInfo['genres'] }}
                                         @endif
                                     </td>
                                     <td>
                                         @if(empty($showInfo['channels']))
-                                            <span class="ui grey text">Pas de chaîne</span>
+                                            <span class="t-grey">Pas de chaîne</span>
                                         @else
                                             {{ $showInfo['channels'] }}
                                         @endif
@@ -134,7 +134,7 @@
         </div>
     </div>
 
-    <div id="menuFiche" class="menuFiche row">
+    <div id="menuFiche" class="row">
         <div class="column">
             <div class="ui fluid six item stackable menu ficheContainer">
                 <a class="@if($FicheActive == "home") active @endif item" href="{{ route('show.fiche', $showInfo['show']->show_url) }}">

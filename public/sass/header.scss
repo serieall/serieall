@@ -1,0 +1,61 @@
+/*
+ HEADER
+ */
+.ui.secondary.pointing.menu{ // Remove the fine border at the bottom of the header
+  border-bottom: 0 solid rgba(34, 36, 38, 0.15);
+  .item,
+  .item:hover { // Change border width in header
+    border-bottom-width: 4px;
+  }
+  .item { // Change item style in header
+    color: $black;
+    margin: 2px 0 0;
+    height: 50px;
+    text-align: center;
+  }
+  img { // Add margin to header image
+    margin: 2px 10px 2px;
+  }
+  .item.active { // Don't bold font when item active in header
+    font-weight: normal;
+  }
+  .active.item,
+  .item:hover,
+  .active.item:hover { // Add color to border when selected
+    border-color: $blueSA;
+  }
+}
+
+.ui.pointing.dropdown.link {
+  .item { // Set colors to dropdown items in header
+    border-bottom: none;
+    margin: inherit;
+    height: inherit;
+  }
+  .item:hover { // Set inherit when item selected in dropdown header
+    background-color: $almostWhite;
+    border-bottom: none;
+  }
+}
+
+#profilActif
+{
+  border-color: $blueSA;
+}
+
+// Align tect to left in dropdown header
+.ui.pointing.labeled.icon.dropdown .item {
+  text-align: left;
+}
+
+// Center the search bar for show
+.showDropdown {
+  margin: auto 0;
+  border: none;
+  &:hover {
+    border-color: transparent !important;
+  }
+  div {
+    text-align: left;
+  }
+}

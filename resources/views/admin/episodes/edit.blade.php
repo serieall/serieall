@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
+    <h1 class="ui header" id="adminTitre">
         Episode {{ $episode->season->name }} x {{ $episode->numero }} : "{{ $episode->name }}"
         <span class="sub header">
             Modifier l'épisode {{ $episode->season->name }} x {{ $episode->numero }} de "{{ $episode->show->name }}"

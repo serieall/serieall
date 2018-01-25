@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
+    <h1 class="ui header" id="adminTitre">
         {{ $artist->name }}
         <span class="sub header">
             Modifier le rôle de {{ $artist->name }} dans {{ $show->name }}

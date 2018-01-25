@@ -8,7 +8,7 @@
         <table class="ui basic table">
             <tr>
                 <td>
-                    <span class="ui bold text">Titre original</span>
+                    <span class="t-bold">Titre original</span>
                 </td>
                 <td>
                     {{ $showInfo['show']->name }}
@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <td>
-                    <span class="ui bold text">Titre français</span>
+                    <span class="t-bold">Titre français</span>
                 </td>
                 <td>
                     {{ $showInfo['show']->name_fr }}
@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <td>
-                    <span class="ui bold text">Année de création</span>
+                    <span class="t-bold">Année de création</span>
                 </td>
                 <td>
                     {{ $showInfo['show']->annee }}
@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td>
-                    <span class="ui bold text">Chaîne(s) de diffusion</span>
+                    <span class="t-bold">Chaîne(s) de diffusion</span>
                 </td>
                 <td>
                     {{ $showInfo['channels'] }}
@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td>
-                    <span class="ui bold text">Format</span>
+                    <span class="t-bold">Format</span>
                 </td>
                 <td>
                     {{ $showInfo['show']->format }}
@@ -48,7 +48,7 @@
             </tr>
             <tr>
                 <td>
-                    <span class="ui bold text">Nationalité(s)</span>
+                    <span class="t-bold">Nationalité(s)</span>
                 </td>
                 <td>
                     {{ $showInfo['nationalities'] }}
@@ -56,7 +56,7 @@
             </tr>
             <tr>
                 <td>
-                    <span class="ui bold text">Genre(s)</span>
+                    <span class="t-bold">Genre(s)</span>
                 </td>
                 <td>
                     {{ $showInfo['genres'] }}
@@ -64,7 +64,7 @@
             </tr>
             <tr>
                 <td>
-                    <span class="ui bold text">Résumé complet</span>
+                    <span class="t-bold">Résumé complet</span>
                 </td>
                 <td>
                     {{ $showInfo['synopsis'] }}
@@ -89,7 +89,7 @@
                 <div class="ui center aligned four wide column">
                     <img class=" ui tiny image" src="{!! ActorPicture($actor->artist_url) !!}" />
 
-                    <span class="ui bold text">{{ $actor->name }}</span>
+                    <span class="t-bold">{{ $actor->name }}</span>
                     <br />
                     {{ $actor->role }}
                 </div>

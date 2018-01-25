@@ -28,7 +28,7 @@
 
     <div class="ui grid">
         <div class="ui height wide column">
-            <h1 class="ui header" id="admin-titre">
+            <h1 class="ui header" id="adminTitre">
                 Saison {{ $season->name }}
                 <span class="sub header">
                     Modifier la saison {{ $season->name }} de "{{ $season->show->name }}"

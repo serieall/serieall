@@ -1,0 +1,24 @@
+.header.row {
+  color: $white;
+  margin-top: -1em;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  z-index: 0;
+  .background {
+    background:
+            radial-gradient($veryDarkBlueSA 15%, transparent 16%) 0 0,
+            radial-gradient($veryDarkBlueSA 15%, transparent 16%) 8px 8px,
+            radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+            radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+    background-color: $veryDarkBlueSA;
+    background-size:16px 16px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    filter: blur(1px) opacity(1);
+    z-index: -100;
+  }
+  .content {
+    padding: 1em;
+  }
+}

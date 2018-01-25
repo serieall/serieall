@@ -28,7 +28,7 @@
                     {!! roleUser($avis['user']['role']) !!}
                 </div>
                 <div class="AvisBox center aligned twelve wide column">
-                    <table class="ui {!! affichageThumbBorder($avis['thumb']) !!} left border table">
+                    <table class="ui {!! affichageThumbBorder($avis['thumb']) !!} table">
                         <tr>
                             {!! affichageThumb($avis['thumb']) !!}
                             <td class="right aligned">Déposé le {{ formatDate('full', $avis['created_at']) }}</td>

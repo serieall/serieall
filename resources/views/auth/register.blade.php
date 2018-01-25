@@ -77,7 +77,7 @@
                     @endif
                 </div>
 
-                <div class="div-center">
+                <div class="d-center">
                     <button class="positive ui button" type="submit">S'incrire !</button>
                 </div>
             </form>

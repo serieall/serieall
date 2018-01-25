@@ -137,13 +137,13 @@ function affichageThumb($thumb) {
 function affichageThumbBorder($thumb) {
     switch ($thumb) {
         case 1:
-            return 'green';
+            return 'lb-green';
             break;
         case 2:
-            return 'grey';
+            return 'lb-grey';
             break;
         case 3:
-            return 'red';
+            return 'lb-red';
             break;
         default:
             return false;
@@ -243,11 +243,11 @@ function afficheEpisodeName($episode, $hasNumber, $hasLink)
  * @return string
  */
 function affichageCountThumb($thumb){
-    if(is_null($thumb)) {
+    if($thumb === null) {
         return '0';
-    } else {
-        return $thumb->count_thumb;
     }
+
+    return $thumb->count_thumb;
 }
 
 /**
@@ -277,10 +277,10 @@ function colorCategory($id) {
             $color = 'purple';
             break;
         case 7:
-            $color = 'blueSerieAll';
+            $color = 'blueSA';
             break;
         default:
-            $color = 'blueSerieall';
+            $color = 'blueSA';
             break;
     }
 

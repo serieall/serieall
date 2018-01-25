@@ -37,7 +37,7 @@
                              </td>
                              <td>
                                  {{ $season->episodes_count }}
-                                 @if($season->episodes_count == 1)
+                                 @if($season->episodes_count === 1)
                                      épisode
                                  @else
                                      épisodes
@@ -72,7 +72,7 @@
          <div class="row">
              <div id="ButtonsActions">
                  <div class="ui segment">
-                     <div class="ui fluid icon dropdown DarkBlueSerieAll button">
+                     <div class="ui fluid icon dropdown darkBlueSA button">
                          <span class="text"><i class="tv icon"></i>Actions sur la série</span>
                          <div class="menu">
                              <div class="item">

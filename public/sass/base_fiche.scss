@@ -1,0 +1,148 @@
+/*
+ FICHE
+ */
+#topImageShow { // Set padding top, bottom and z-index to 0
+  padding-top: 0;
+  padding-bottom: 0;
+  z-index: 0;
+  .column { // Set min-height to 300px
+    min-height: 300px;
+  }
+  .topImageBanniere { // Set image background style
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-filter: blur(10px) opacity(1);
+    filter: blur(10px) opacity(1);
+    transform: scale(1.1);
+  }
+}
+
+#topInfo { // Set the information text front to the background and the text in shadow
+  color: $white;
+  z-index: 10;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-shadow: 1px 1px 2px $black;
+  .grid { // Set the padding to 0 for the grid
+    padding: 0;
+  }
+  .column { // Set margin auto for the column
+    margin: 0 auto;
+  }
+  p { // Justify the text
+    text-align: justify;
+    &.AllSynopsis { // Set the style of the link to all synopsis
+      text-align: right;
+      text-decoration: underline;
+      margin-bottom: 1em;
+    }
+    &.showResume { // Set the style of the synopsis
+      margin-bottom: 0;
+    }
+  }
+  .topImageAffiche { // Set the size of the image of the show
+    max-height: 250px;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+  table { // Set border to none
+    border: none;
+    margin: 0;
+    color: $white;
+    tr td a { // Set color to black and a solid bottom border
+      color: $black;
+      border-bottom: 1px solid $black ;
+    }
+  }
+  img { // Set the size of the image
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 250px;
+    max-width: 250px;
+    box-shadow: 1px 1px 2px $black;
+  }
+  h1 { // Set the size of the title
+    font-size: 2.5em;
+    margin-bottom: 0;
+  }
+  h2 { // Set h2 style
+    margin-top: 0;
+    color: $lightGrey;
+    font-size: 1.2em;
+    font-style: italic;
+  }
+}
+
+.ui.episode.titreen { // Set style for secondary episode title
+  margin-top: 0;
+  color: $lightGrey;
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+.ficheContainer { // Set size max and margin auto to ficheContainer
+  max-width: 1280px;
+  margin: 0 auto !important;
+}
+
+#menuFiche {
+  padding-top: 0;
+  padding-bottom: inherit;
+  .menu {
+    &.ficheContainer { // Set size max and margin auto to menu
+      margin: auto !important;
+      .ficheContainer {
+        max-width: 1280px;
+      }
+    }
+    &:last-child {
+      border: none;
+      border-radius: 0;
+    }
+    & > .item:first-child,.item:last-child {
+      border: none;
+    }
+    .item {
+      border-radius: 0;
+    }
+  }
+  .column { // Set color to the column
+    background: $white;
+    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+  }
+  a {
+    height: 80px;
+    font-size: 1.2em;
+    &.active {
+      background: $darkBlueSA;
+      color: $white;
+    }
+  }
+}
+
+.circleNote{ // Define the circle for the note
+  width: 200px;
+  height: 200px;
+  stroke: $blueSA;
+  drop-shadow: 1px 1px 2px $black;
+  text {
+    font-size: 3em;
+    stroke: none;
+  }
+}
+
+#rotate90 { // Rotate the strokes
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+#ShowReviewCount p { // Center the global reviews of users
+  text-align: center;
+}

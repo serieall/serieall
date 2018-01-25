@@ -19,7 +19,7 @@
 @section('content')
 <div class="ui grid">
     <div class="ui height wide column">
-        <h1 class="ui header" id="admin-titre">
+        <h1 class="ui header" id="adminTitre">
             Ajouter un utilisateur
         </h1>
     </div>

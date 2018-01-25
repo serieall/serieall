@@ -20,7 +20,7 @@
     <div>
         <div class="ui grid">
             <div class="ui height wide column">
-                <h1 class="ui header" id="admin-titre">
+                <h1 class="ui header" id="adminTitre">
                     Logs
                     <span class="sub header">
                         Liste de toutes les demandes de contact

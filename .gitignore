@@ -6,3 +6,7 @@ vendor/
 !resources/views/vendor
 !resources/lang/vendor
 
+public/.sass-cache
+public/css
+!public/css/semantic_perso.css
+!public/css/style.css

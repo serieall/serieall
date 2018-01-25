@@ -74,7 +74,7 @@
                     {!! roleUser($comments['user_comment']['user']['role']) !!}
                 </div>
                 <div class="AvisBox center aligned twelve wide column">
-                    <table class="ui {!! affichageThumbBorder($comments['user_comment']['thumb']) !!} left border table">
+                    <table class="ui {!! affichageThumbBorder($comments['user_comment']['thumb']) !!} table">
                         <tr>
                             {!! affichageThumb($comments['user_comment']['thumb']) !!}
                             <td class="right aligned">Déposé le {!! formatDate('full', $comments['user_comment']['created_at']) !!}</td>

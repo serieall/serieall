@@ -224,11 +224,11 @@
                     </p>
                 @else
                     @if($episodeInfo->moyenne >= $noteGood)
-                        <p class="NoteSeason ui green text">
+                        <p class="NoteSeason t-green">
                     @elseif($episodeInfo->moyenne >= $noteNeutral && $episodeInfo->moyenne < $noteGood)
-                        <p class="NoteSeason ui gray text">
+                        <p class="NoteSeason ui t-grey">
                     @else
-                        <p class="NoteSeason ui red text">
+                        <p class="NoteSeason ui t-red">
                     @endif
                             {{ $episodeInfo->moyenne }}
                         </p>

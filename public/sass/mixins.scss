@@ -1,0 +1,57 @@
+@import "./colors";
+
+/* COLORS */
+@mixin color($nameElement, $color) {
+  .#{$nameElement} {
+    color: $color;
+  }
+}
+
+@mixin buttonColor($nameElement, $colorBackground, $colorText){
+  .#{$nameElement} {
+    color: $colorText;
+    text-shadow: none;
+    background: $colorBackground none;
+  }
+}
+
+@mixin leftBorderColor($nameElement, $color) {
+  .#{$nameElement} {
+    border-left: 5px solid $color;
+  }
+}
+
+@mixin overlay33Color($nameElement, $color) {
+  .#{$nameElement}:after {
+    background: $color;
+    opacity: 0.7;
+    content: '\A';
+    position: absolute;
+    width: 100%;
+    height: 33.3%;
+    top:66.6%; left:0;
+    z-index: 1;  }
+}
+
+/* OTHERS */
+@mixin bold() {
+  font-weight: bold;
+}
+
+@mixin margin($size) {
+  .m-#{$size} {
+    margin: #{$size}em;
+  }
+}
+
+@mixin padding($size) {
+  .p-#{$size} {
+    padding: #{$size}em;
+  }
+}
+
+@mixin borderRadius($size) {
+  -webkit-border-radius: $size;
+  -moz-border-radius: $size;
+  border-radius: $size;
+}

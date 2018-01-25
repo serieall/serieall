@@ -22,16 +22,16 @@
             <h2>Définitions</h2>
             <ul>
                 <li>
-                    <span class="ui bold text">Utilisateur</span> : ce terme désigne toute personne qui utilise le site.
+                    <span class="t-bold">Utilisateur</span> : ce terme désigne toute personne qui utilise le site.
                 </li>
                 <li>
-                    <span class="ui bold text">Contenu utilisateur</span> : ce sont les données transmises par l'Utilisateur au sein du site. Ces données sont : le nom, le prénom et le pseudonyme de l’Utilisateur, son adresse e-mail, son mot de passe, ses avis, ses notes et son adresse IP.
+                    <span class="t-bold">Contenu utilisateur</span> : ce sont les données transmises par l'Utilisateur au sein du site. Ces données sont : le nom, le prénom et le pseudonyme de l’Utilisateur, son adresse e-mail, son mot de passe, ses avis, ses notes et son adresse IP.
                 </li>
                 <li>
-                    <span class="ui bold text">Membre</span> : l'Utilisateur devient Membre lorsqu'il est inscrit et connecté sur le site.
+                    <span class="t-bold">Membre</span> : l'Utilisateur devient Membre lorsqu'il est inscrit et connecté sur le site.
                 </li>
                 <li>
-                    <span class="ui bold text">Identifiant et mot de passe</span> : l'identifiant et le mot de passe permettent à l'Utilisateur d'accéder à des services réservés aux Membres du site. Le mot de passe est confidentiel.
+                    <span class="t-bold">Identifiant et mot de passe</span> : l'identifiant et le mot de passe permettent à l'Utilisateur d'accéder à des services réservés aux Membres du site. Le mot de passe est confidentiel.
                 </li>
             </ul>
 
@@ -41,11 +41,11 @@
                 Le site web Série-All, accessible notamment à l’adresse <a href="https://serieall.fr">serieall.fr</a>, est édité par l’Association Série-All, soumise à la loi du 1er juillet 1901 et au décret du 16 août 1901, déclaration au Journal Officiel du 18 mars 2017 n°2371.
             </p>
             <p>
-                <span class="ui bold text">Directeur de la publication</span> : M. Quentin FUSEAU, Président de l’association.
+                <span class="t-bold">Directeur de la publication</span> : M. Quentin FUSEAU, Président de l’association.
                 <br />
-                <span class="ui bold text">Siège social</span> : Mairie de Bièvre, Place de la Mairie, 91570 Bièvres
+                <span class="t-bold">Siège social</span> : Mairie de Bièvre, Place de la Mairie, 91570 Bièvres
                 <br />
-                <span class="ui bold text">Email</span> : association.serieall@gmail.com
+                <span class="t-bold">Email</span> : association.serieall@gmail.com
             </p>
 
             <h3>Hébergeur</h3>
@@ -143,10 +143,10 @@
             </p>
             <ul>
                 <li>
-                    <span class="ui bold text">Les cookies dits "de fonctionnement"</span> : ils permettent le bon fonctionnement du site, par exemple de ne pas avoir à se reconnecter à chaque changement de page. Interdire ces cookies n'est pas recommandé, le site pouvant ne plus fonctionner correctement.
+                    <span class="t-bold">Les cookies dits "de fonctionnement"</span> : ils permettent le bon fonctionnement du site, par exemple de ne pas avoir à se reconnecter à chaque changement de page. Interdire ces cookies n'est pas recommandé, le site pouvant ne plus fonctionner correctement.
                 </li>
                 <li>
-                    <span class="ui bold text">Les cookies dits "de traçage"</span> : ils sont issus de l'outil Google Analytics. Ils permettent au site de mesurer sa popularité, son nombre de visiteurs, de pages vues, etc. Les données récupérées via ces cookies sont anonymisées et utilisées uniquement à des fins statistiques. Ces données ne sont pas recoupées avec d'autres données. Ces cookies ne sont pas essentiels au bon fonctionnement du site, et peuvent être bloqués sans conséquence sur la navigation. Néanmoins, les bloquer prive le site de certaines informations importantes permettant d'améliorer sa qualité.
+                    <span class="t-bold">Les cookies dits "de traçage"</span> : ils sont issus de l'outil Google Analytics. Ils permettent au site de mesurer sa popularité, son nombre de visiteurs, de pages vues, etc. Les données récupérées via ces cookies sont anonymisées et utilisées uniquement à des fins statistiques. Ces données ne sont pas recoupées avec d'autres données. Ces cookies ne sont pas essentiels au bon fonctionnement du site, et peuvent être bloqués sans conséquence sur la navigation. Néanmoins, les bloquer prive le site de certaines informations importantes permettant d'améliorer sa qualité.
                 </li>
             </ul>
             <p>

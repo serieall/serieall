@@ -163,7 +163,7 @@
                     <div class="icon item">
                         <i class="large alarm icon"></i>
                     </div>
-                    <div class="ui pointing labeled icon dropdown link item" @if($navActive == 'profil')id="profil-actif"@endif>
+                    <div class="ui pointing labeled icon dropdown link item" @if($navActive == 'profil')id="profilActif"@endif>
                         <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
                         <span>{{ Auth::user()->username }}</span> <i class="dropdown icon"></i>
                         <div class="menu">
@@ -266,7 +266,7 @@
                         <div class="ui red hidden message"></div>
                     </div>
 
-                    <div class="div-center">
+                    <div class="d-center">
                         <button class="ui submit positive button">Se connecter</button>
                         <br />
                         <a class="ui" href="{{ url('/password/reset') }}">Mot de passe oublié ?</a>
@@ -343,7 +343,7 @@
                         <div class="ui red hidden message"></div>
                     </div>
 
-                    <div class="div-center">
+                    <div class="d-center">
                         <button class="positive ui submit button">S'incrire !</button>
                     </div>
                 </form>

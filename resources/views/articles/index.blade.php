@@ -9,12 +9,12 @@
             <div class="background"></div>
             <div class="content">
             <h1>Tous les articles</h1>
-            <p class="ui LightBlueSerieAll text">
+            <p class="t-lightBlueSA">
                 Liste de tous les articles de Série-All. <br />
                 Vous pouvez filtrer les articles en cliquant sur un des boutons ci-dessous
             </p>
 
-            <div class="chooseCategory">
+            <div class="m-2">
                 <button class="ui disabled button">Tous les articles</button>
                 <span class="ui hidden message">Afficher tous les types d'articles.</span>
                 @foreach($categories as $category)
@@ -33,7 +33,7 @@
                     <div class="ui items">
                         @foreach($articles as $article)
                             <div class="article item">
-                                <div class="{{ colorCategory($article->category_id) }} image article">
+                                <div class="ol-{{ colorCategory($article->category_id) }} image article">
                                     <img src="{{ $article->image }}">
                                     <p>{{ $article->category->name }}</p>
                                 </div>

@@ -53,7 +53,7 @@
         </div>
 
         <div class="ui segment">
-            <h1 class="div-center">Modification de vos informations personnelles</h1>
+            <h1 class="d-center">Modification de vos informations personnelles</h1>
             <br />
 
             <form class="ui form" method="POST" action="{{ route('user.changeinfos') }}">
@@ -143,14 +143,14 @@
                     @endif
                 </div>
 
-                <div class="div-center">
+                <div class="d-center">
                     <button class="positive ui button">Valider</button>
                 </div>
             </form>
         </div>
 
         <div class="ui segment">
-            <h1 class="div-center">Modification de votre mot de passe</h1>
+            <h1 class="d-center">Modification de votre mot de passe</h1>
             <br />
 
             <form class="ui form" method="POST" action="{{ route('user.changepassword') }}">
@@ -191,7 +191,7 @@
                     </div>
                 </div>
 
-                <div class="div-center">
+                <div class="d-center">
                     <button class="positive ui button">Valider</button>
                 </div>
             </form>

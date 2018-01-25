@@ -9,35 +9,35 @@
             <img class="ui centered image" src="{{ $folderImages }}logo_v2.png">
         </div>
         <a class="ui header item
-            @if($navActive == 'AdminHome')
+            @if($navActive === 'AdminHome')
                 blue
             @endif" href="{{ route('admin') }}">
             <i class="home icon"></i>
             Accueil
         </a>
         <a class="ui header item
-             @if($navActive == 'AdminShows')
+             @if($navActive === 'AdminShows')
                 blue
              @endif" href="{{ route('admin.shows.index') }}">
             <i class="tv icon"></i>
             Séries
         </a>
         <a class="ui header item
-             @if($navActive == 'AdminArticles')
+             @if($navActive === 'AdminArticles')
                 blue
              @endif" href="{{ route('admin.articles.index') }}">
             <i class="file text outline icon"></i>
             Articles
         </a>
         <a class="ui header item
-            @if($navActive == 'AdminUsers')
+            @if($navActive === 'AdminUsers')
                 blue
             @endif" href="{{ route('admin.users.index') }}">
             <i class="users icon"></i>
             Utilisateurs
         </a>
         <a class="ui header item
-            @if($navActive == 'AdminSystem')
+            @if($navActive === 'AdminSystem')
                 blue
              @endif" href="{{ route('admin.system') }}">
             <i class="settings icon"></i>
@@ -51,7 +51,7 @@
     </div>
 
     <div class="pushed">
-        <div class="ui stackable menu" id="menu-admin">
+        <div class="ui stackable menu" id="menuAdmin">
             <div class="ui breadcrumb item">
                 @yield('breadcrumbs')
             </div>
@@ -75,9 +75,9 @@
                 </div>
             </div>
         </div>
-        <div class="ui padding-article">
+        <div class="p-2">
             @if (session('status'))
-                <div id="message-top" class="ui container centered grid">
+                <div id="messageTop" class="ui container centered grid">
                     <div class="ui success compact message">
                         <i class="close icon"></i>
                         <div class="content">
@@ -90,7 +90,7 @@
                 </div>
             @endif
             @if (session('warning'))
-                <div id="message-top" class="ui container centered grid">
+                <div id="messageTop" class="ui container centered grid">
                     <div class="ui warning compact message">
                         <i class="close icon"></i>
                         <div class="content">
@@ -103,7 +103,9 @@
                 </div>
             @endif
 
-            @yield('content')
+            <div class="admin">
+                @yield('content')
+            </div>
         </div>
     </div>
 </body>

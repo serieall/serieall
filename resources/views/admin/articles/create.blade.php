@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="admin-titre">
+    <h1 class="ui header" id="adminTitre">
         Ajouter un nouvel article
     </h1>
 
@@ -47,18 +47,18 @@
 
                     <h4 class="ui dividing header">Séries</h4>
 
-                    <div class="div-center margin1">
+                    <div class="d-center m-1">
                         @if(is_null(old('one')))
-                            <div id="oneShow" class="ui left attached BlueSerieAll button">Une série</div>
+                            <div id="oneShow" class="ui left attached blueSA button">Une série</div>
                             <div id="multipleShows" class="ui right attached ui button">Plusieurs séries</div>
                             <input type="hidden" name="one" value=1>
                         @else
                             @if(old('one') == 0)
                                 <div id="oneShow" class="ui left attached button">Une série</div>
-                                <div id="multipleShows" class="ui right attached ui BlueSerieAll button">Plusieurs séries</div>
+                                <div id="multipleShows" class="ui right attached ui blueSA button">Plusieurs séries</div>
                                 <input type="hidden" name="one" value=0>
                             @else
-                                <div id="oneShow" class="ui left attached BlueSerieAll button">Une série</div>
+                                <div id="oneShow" class="ui left attached blueSA button">Une série</div>
                                 <div id="multipleShows" class="ui right attached ui button">Plusieurs séries</div>
                                 <input type="hidden" name="one" value=1>
                             @endif
