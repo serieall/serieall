@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Models\Article;
 use App\Models\Show;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -60,15 +61,15 @@ class ArticleRepository
     /**
      * Get all published articles
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getPublishedArticlesWithAutorsCommentsAndCategory()
+    public function getPublishedArticlesWithAutorsCommentsAndCategory(): LengthAwarePaginator
     {
         return $this->article::with('users', 'category')
             ->withCount('comments')
             ->whereState(1)
             ->orderBy('published_at', 'desc')
-            ->get();
+            ->paginate(10);
     }
 
     /**
