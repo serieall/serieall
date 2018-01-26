@@ -473,6 +473,9 @@
 .card img {
   object-fit: cover; }
 
+.article {
+  text-align: justify; }
+
 .ui.menu .active.item {
   background-color: #1074b2; }
   .ui.menu .active.item:hover {
