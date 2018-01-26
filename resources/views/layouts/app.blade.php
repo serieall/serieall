@@ -90,9 +90,9 @@
         @include('cookieConsent::index')
         <div class="ui tablet only mobile only grid header">
             <div class="ui  secondary pointing fluid menu">
-                <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
+                <a class="item sidebarIcon"><i class="big sidebar icon"></i>Menu</a>
                 <div class="right secondary pointing stackable menu">
-                    <a class="item sidebarIcon"><i class="big sidebar icon"></i>Menu</a>
+                    <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
                 </div>
             </div>
         </div>
