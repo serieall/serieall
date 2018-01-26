@@ -2,10 +2,12 @@
 @import "./mixins.scss";
 
 @import "./admin.scss";
-@import "./header.scss";
-@import "./footer.scss";
 @import "./base_fiche.scss";
+@import "./footer.scss";
+@import "./header.scss";
 @import "./header_list.scss";
+@import "./profil.scss";
+@import "./spoiler.scss";
 
 /* TEXT COLORS AND FONT WEIGHT */
 @include color("t-veryDarkBlueSA", $veryDarkBlueSA);
@@ -98,90 +100,45 @@ blockquote {
   border-top: 0;
 }
 
-/*
- *****
- * APPLICATION
- *****
- */
-/*
- Menu list seasons
- */
-#menuListSeasons {
-  padding-top: inherit;
-  padding-bottom: inherit;
-  .column {
-    padding-left: inherit;
-    padding-right: inherit;
-  }
-  .segment {
-    border-radius: inherit;
-    background: $darkBlueSA;
-  }
-  .ui.secondary.menu {
-    .item {
-      color: $white;
-    }
-    .item:hover {
-      background: rgba(0, 0, 0, 0.30);
-      color: $white;
-    }
-    .active.item {
-      color: $black;
-      background-color: $white;
-      &:hover {
-        color: $black;
-        background-color: $white;
-      }
-    }
-  }
+// Center the content
+.ui.center.aligned {
+  text-align: center;
+}
+
+// Add margin to the accordion
+.ui.fluid.styled.accordion, .ui.fluid.styled.accordion .accordion {
+  margin-bottom: 1em;
+}
+
+// Change style of pagination
+.ui.pagination.menu .active.item:hover {
+  background-color: rgba(0,0,0,.05);
+  color: rgba(0,0,0,.95);
 }
 
 /*
- LIST ARTICLES
+ COOKIES
  */
-#LeftBlockArticle {
-  margin-right: 2em;
-  .article.item {
-    padding: 1em;
-    .header {
-      background-color: inherit;
-    }
-    &:hover {
-      background: $lightBlueSA none;
-    }
-    .image.article {
-      height: 120px;
-      width: 120px;
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
-      p {
-        color: $white;
-        width: 100%;
-        position: absolute;
-        top: 72%;
-        text-align: center;
-        z-index: 2;
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-    }
+.ui.inline.cookie.nag { // Change style of the cookie nag
+  min-height: inherit;
+  background-color: $blueSA;
+  border-radius: inherit;
+  &:hover {
+    background-color: $blueSA;
   }
 }
 
-#LeftBlockArticle, #RightBlockArticle {
-  .segment {
-    border: none;
-    background-color: $white;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 2rem;
-    width: 100%;
-  }
-  .inverted.segment {
-    background-color: $black;
-    padding: 1rem;
-  }
+// FIX FOR SEMANTIC UI VERTICAL DIVIDER
+.ui.grid > .column + .divider, .ui.grid > .row > .column + .divider {
+  left: 50%;
+}
+
+// Remove margin top for header in grid
+.grid.header {
+  margin-top: 0 !important;
+}
+
+// Remove margin-top for datatables
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+  margin-left: 0 !important;
 }

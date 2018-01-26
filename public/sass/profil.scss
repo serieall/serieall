@@ -1,0 +1,17 @@
+@import "./colors";
+
+.ui.menu .active.item {
+  background-color: $blueSA;
+  &:hover {
+    background-color: $blueSA;
+  }
+}
+
+.ui.pointing.menu .active.item {
+  &::after {
+    background-color: $blueSA;
+  }
+  &:hover::after {
+    background-color: $blueSA;
+  }
+}

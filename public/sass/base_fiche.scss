@@ -1,3 +1,5 @@
+@import "./colors";
+
 /*
  FICHE
  */
@@ -7,6 +9,16 @@
   z-index: 0;
   .column { // Set min-height to 300px
     min-height: 300px;
+  }
+  .topImageBanniereContainer:after {
+    content: '\A';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 1;
   }
   .topImageBanniere { // Set image background style
     position: absolute;
@@ -144,5 +156,291 @@
 }
 
 #ShowReviewCount p { // Center the global reviews of users
+  text-align: center;
+}
+
+#seasonsLine { // The season line in fiche doesn't need variables
+  margin-left: inherit;
+  margin-right: inherit;
+}
+
+/*
+ Menu list seasons
+ */
+#menuListSeasons { // Remove padding top and bottom
+  padding-top: inherit;
+  padding-bottom: inherit;
+  .column { // Remove padding top and bottom
+    padding-left: inherit;
+    padding-right: inherit;
+  }
+  .segment { // remove border radius and set background
+    border-radius: inherit;
+    background: $darkBlueSA;
+  }
+  .ui.secondary.menu { // Format the secondary menu
+    .item {
+      color: $white;
+    }
+    .item:hover {
+      background: rgba(0, 0, 0, 0.30);
+      color: $white;
+    }
+    .active.item {
+      color: $black;
+      background-color: $white;
+      &:hover {
+        color: $black;
+        background-color: $white;
+      }
+    }
+  }
+}
+
+/*
+ LIST ARTICLES
+ */
+#LeftBlock { // Format the left block article in index article
+  margin-right: 2em;
+  .article.item {
+    padding: 1em;
+    .header {
+      background-color: inherit;
+    }
+    &:hover {
+      background: $lightBlueSA none;
+    }
+    .image.article {
+      height: 120px;
+      width: 120px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+      p {
+        color: $white;
+        width: 100%;
+        position: absolute;
+        top: 72%;
+        text-align: center;
+        z-index: 2;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+#LeftBlock, #RightBlock { // Format the segments
+  .segment {
+    border: none;
+    background-color: $white;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 2rem;
+    width: 100%;
+  }
+  .inverted.segment {
+    background-color: $black;
+    padding: 1rem;
+  }
+  h1 {
+    color: $darkBlueSA;
+    margin-bottom: 1rem;
+  }
+}
+
+.segment#ListSeasons { // Format the segment for listing of the seasons
+  padding: 0;
+  h1 {
+    padding: 2rem;
+    margin-bottom: 0;
+  }
+}
+
+#ListSeasons { // Format the list of seasons
+  table { // Remove border and margin from the table
+    border: none;
+    margin: 0;
+    tr {
+      td a { // Change the color of the text
+        color: black;
+        border-bottom: 1px solid $black;
+      }
+      &:nth-child(odd) { // Change the color of the background one in two lines
+        background-color: $lightBlueSA;
+      }
+    }
+  }
+  .AllSeasons { // Change the style of the button
+    padding: 2rem;
+    text-align: right;
+    text-decoration: underline;
+  }
+}
+
+#ListAvis { // Format the section list avis in fiche
+  .grid { // Remove margin left for grid
+    margin-left: 0;
+  }
+  img { // Auto center the img
+    margin: 0 auto;
+  }
+  .AvisResume { // Justify the text
+    text-align: justify;
+    word-wrap: break-word;
+  }
+  .AvisBox { // Set the overflow policy and the padding to 0
+    padding: 0;
+    overflow: auto;
+  }
+  table { // Format the table
+    border-radius: inherit;
+    border: none;
+    border-left: 5px solid $grey;
+    tr:first-child td {
+      border-bottom: 1px solid $grey;
+    }
+    td {
+      &.AvisStatus {
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+      &.LireAvis {
+        text-align: right;
+      }
+      &.LireAvis a {
+        text-decoration: underline;
+      }
+    }
+  }
+  .AllAvis { // Format the buttons for all comments
+    float: right;
+  }
+}
+
+#ButtonsActions { // Format the actions buttons in fiche
+  width: 100%;
+  .dropdown {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
+
+#LastArticles { // Format the last articles section in fiche
+  .row {
+    padding-bottom: 0;
+  }
+  .column {
+    padding: 0;
+  }
+  img { // Set a max size to the img
+    max-height: 100px;
+  }
+  h2 { // Change the title format
+    color: $blueSA;
+    text-decoration: underline;
+    font-size: 1.2em;
+    font-style: italic;
+    text-shadow: none;
+  }
+  p.ResumeArticle {
+    text-shadow: none;
+    color: $black;
+  }
+  .AllArticles {
+    padding-top: 2rem;
+    text-align: right;
+    text-decoration: underline;
+  }
+}
+
+.ui.secondary.menu .active.item { // Format the menu for the fiche
+  color: $white;
+  background-color: $darkBlueSA;
+  &:hover {
+    color: $white;
+    background-color: $darkBlueSA;
+  }
+}
+
+#episodeDetails { // Format the episode details in episode fiche
+  p {
+    color: $black;
+    &.episodeResume {
+      text-align: justify;
+    }
+  }
+  .ui.table thead th {
+    border-bottom: inherit;
+  }
+  .segment {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    border-top: none;
+  }
+  .active.item:hover {
+    color: $black;
+    background-color: inherit;
+  }
+}
+
+.NoteSeason { // Format the text for the season note
+  font-size: 4em;
+  margin-bottom: 1px;
+}
+
+.showMoreOrLess { // Hide the overflow in the list of notes
+  overflow: hidden;
+  height: 220px;
+}
+
+.cutAvis { // Cut the comment
+  overflow: hidden;
+  max-height: 200px
+}
+
+.fadeShowMoreOrLess { // Add transition when show all the notes
+  position: relative;
+  bottom: 2em;
+  height: 1em;
+  background: -webkit-linear-gradient(
+                  rgba(255, 255, 255, 0) 0%,
+                  rgba(255, 255, 255, 1) 100%
+  );
+  background-image: -moz-linear-gradient(
+                  rgba(255, 255, 255, 0) 0%,
+                  rgba(255, 255, 255, 1) 100%
+  );
+  background-image: -o-linear-gradient(
+                  rgba(255, 255, 255, 0) 0%,
+                  rgba(255, 255, 255, 1) 100%
+  );
+  background-image: linear-gradient(
+                  rgba(255, 255, 255, 0) 0%,
+                  rgba(255, 255, 255, 1) 100%
+  );
+  background-image: -ms-linear-gradient(
+                  rgba(255, 255, 255, 0) 0%,
+                  rgba(255, 255, 255, 1) 100%
+  );
+}
+
+.ListAll { // List All buttons
+  margin: 1em !important;
+}
+
+.chartMean { // Remove padding for charts
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.reactions { // Add padding and align text to left for reactions
+  padding-left: 3em;
+  text-align: left;
+}
+
+.PaginateRow .center.aligned { // Center aligned the pagination menu
+  margin-top: 2em;
   text-align: center;
 }

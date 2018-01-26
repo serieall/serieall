@@ -1,3 +1,5 @@
+@import "./colors";
+
 /*
  FOOTER
  */
@@ -45,8 +47,6 @@
 }
 
 // Set color white for severals items
-.ui.secondary.menu .active.item,
-.ui.secondary.menu .active.item:hover,
 .ui.menu .active.item,
 .ui.menu .active.item:hover,
 .ui.inline.cookie.nag

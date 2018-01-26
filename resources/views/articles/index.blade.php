@@ -28,7 +28,7 @@
         </div>
 
         <div class="row ficheContainer">
-            <div id="LeftBlockArticle" class="eleven wide column">
+            <div id="LeftBlock" class="eleven wide column">
                 <div class="ui segment">
                     <div class="ui items">
                         @foreach($articles as $article)

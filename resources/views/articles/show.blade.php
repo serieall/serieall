@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="row ui stackable grid ficheContainer">
-        <div id="LeftBlockShow" class="eleven wide column">
+        <div id="LeftBlock" class="eleven wide column">
             <div class="ui segment">
                 <h1>{{ $article->name }}</h1>
 
@@ -14,7 +14,7 @@
                 {!! $article->content !!}
             </div>
         </div>
-        <div id="RightBlockShow">
+        <div id="RightBlock">
 
         </div>
     </div>

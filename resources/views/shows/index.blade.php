@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="row ui stackable grid ficheContainer">
-        <div id="LeftBlockShow" class="eleven wide column">
+        <div id="LeftBlock" class="eleven wide column">
             <div class="ui segment">
                 <h1>Liste des séries</h1>
 
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div id="RightBlockShow" class="four wide column">
+        <div id="RightBlock" class="four wide column">
             <div class="ui segment">
                 <h1>Filtres</h1>
 

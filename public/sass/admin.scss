@@ -1,3 +1,5 @@
+@import "./colors";
+
 /*
  * ADMINISTRATION PANEL
  */
@@ -27,4 +29,8 @@
 #messageTop {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.verticalDivider {
+  position: relative;
 }

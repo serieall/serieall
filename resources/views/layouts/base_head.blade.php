@@ -11,9 +11,6 @@
 {{ Html::style('https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css') }}
 {{ Html::style('//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css') }}
 {{ Html::style('/css/style.css') }}
-{{ Html::style('/css/semantic_perso.css') }}
-{{ Html::style('/css/slider/style.css') }}
-{{ Html::style('/spoiler/spoiler.css') }}
 {!! Charts::styles() !!}
 
 <!-- Piwik -->

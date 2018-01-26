@@ -168,10 +168,10 @@
     @yield('menu_fiche')
 
     <div class="row ui stackable grid ficheContainer">
-        <div id="LeftBlockShow" class="ten wide column">
+        <div id="LeftBlock" class="ten wide column">
             @yield('content_fiche_left')
         </div>
-        <div id="RightBlockShow" class="five wide column">
+        <div id="RightBlock" class="five wide column">
             @yield('content_fiche_right')
         </div>
     </div>
