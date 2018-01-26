@@ -15,7 +15,7 @@
         </div>
 
         <a href="{{ route('home') }}" class="item
-           @if($navActive == 'home')
+           @if($navActive === 'home')
                 active
             @endif
         ">
@@ -23,28 +23,28 @@
             Accueil
         </a>
         <a href="{{ route('show.index') }}" class="item
-           @if($navActive == 'shows')
+           @if($navActive === 'shows')
                active
             @endif">
             <i class="tv icon"></i>
             Séries TV
         </a>
         <a href="{{ route('article.index') }}" class="item
-            @if($navActive == 'articles')
+            @if($navActive === 'articles')
                 active
             @endif">
             <i class="file text outline icon"></i>
             Articles
         </a>
         <a href="" class="item
-            @if($navActive == 'planning')
+            @if($navActive === 'planning')
                 active
             @endif">
             <i class="calendar icon"></i>
             Planning
         </a>
         <a href="" class="item
-            @if($navActive == 'classements')
+            @if($navActive === 'classements')
                 active
             @endif">
             <i class="trophy icon"></i>
@@ -100,25 +100,25 @@
         <div class="ui  secondary pointing fluid stackable menu" id="header">
             <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
             <a href="{{ route('show.index') }}" class="item
-                @if($navActive == 'shows')
+                @if($navActive === 'shows')
                     active
                 @endif">
                 Séries TV
             </a>
             <a href="{{ route('article.index') }}" class="item
-               @if($navActive == 'articles')
+               @if($navActive === 'articles')
                     active
                 @endif">
                 Articles
             </a>
             <a class="item
-               @if($navActive == 'planning')
+               @if($navActive === 'planning')
                     active
                 @endif">
                 Planning
             </a>
             <a class="item
-                @if($navActive == 'classements')
+                @if($navActive === 'classements')
                     active
                 @endif">
                 Classements
@@ -134,14 +134,14 @@
                 </div>
 
                 <a class="item
-                    @if($navActive == 'forum')
+                    @if($navActive === 'forum')
                         active
                     @endif">
                     Forum
                 </a>
                 @if (Auth::guest())
                     <a class="clickLogin item
-                        @if($navActive == 'login')
+                        @if($navActive === 'login')
                             active
                         @endif">
                         <div>
@@ -150,7 +150,7 @@
                         </div>
                     </a>
                     <a class="clickRegister item
-                        @if($navActive == 'register')
+                        @if($navActive === 'register')
                             active
                         @endif">
                         <div>
@@ -163,7 +163,7 @@
                     <div class="icon item">
                         <i class="large alarm icon"></i>
                     </div>
-                    <div class="ui pointing labeled icon dropdown link item" @if($navActive == 'profil')id="profilActif"@endif>
+                    <div class="ui pointing labeled icon dropdown link item" @if($navActive === 'profil')id="profilActif"@endif>
                         <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
                         <span>{{ Auth::user()->username }}</span> <i class="dropdown icon"></i>
                         <div class="menu">
@@ -299,7 +299,7 @@
 
                     <div class="ui required field">
                         <label>Nom d'utilisateur</label>
-                        <input name="username" placeholder="Nom d'utilisateur" type="text" value="{{ old('username') }}">
+                        <input name="username" placeholder="Nom d'utilisateur" value="{{ old('username') }}">
 
                         <div class="ui red hidden message"></div>
                     </div>
@@ -336,7 +336,7 @@
 
                     <div class="ui required field">
                         <div class="ui checkbox">
-                            <input type="checkbox" name="cgu">
+                            <input id="cgu" type="checkbox" name="cgu">
                             <label for="cgu">J'ai lu et j'accepte les <a href="{{ route('cgu') }}">conditions générales d'utilisation</a></label>
                         </div>
 
