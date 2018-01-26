@@ -86,14 +86,5 @@
             $(categoryHelp).text('Survolez un bouton pour avoir une description du type d\'article.');
         });
 
-        $.ajax({
-            url: "/api/v1/articles/list",
-            type: 'GET',
-            dataType: 'json',
-            success: function(res) {
-                $('#result').html(res)
-            }
-        });
-
     </script>
 @endsection

@@ -73,6 +73,22 @@ class ArticleRepository
     }
 
     /**
+     * Get all published articles by categories
+     *
+     * @param $categoryId
+     * @return LengthAwarePaginator
+     */
+    public function getPublishedArticlesByCategoriesWithAutorsCommentsAndCategory($categoryId): LengthAwarePaginator
+    {
+        return $this->article::with('users', 'category')
+            ->withCount('comments')
+            ->whereState(1)
+            ->whereCategoryId($categoryId)
+            ->orderBy('published_at', 'desc')
+            ->paginate(10);
+    }
+
+    /**
      * Get published articles for a show
      *
      * @param Show $show
