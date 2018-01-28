@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.5.32 on 2018-01-20.
+ * Generated for Laravel 5.5.32 on 2018-01-24.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -5046,6 +5046,7 @@ namespace Illuminate\Support\Facades {
          * @param string $value
          * @param array $options
          * @return string 
+         * @throws \RuntimeException
          * @static 
          */ 
         public static function make($value, $options = array())
@@ -5915,6 +5916,55 @@ namespace Illuminate\Support\Facades {
     }
 
     class Password {
+        
+        /**
+         * Send a password reset link to a user.
+         *
+         * @param array $credentials
+         * @return string 
+         * @static 
+         */ 
+        public static function sendResetLink($credentials)
+        {
+            return \App\Repositories\Auth\PasswordRepositoryManager::sendResetLink($credentials);
+        }
+        
+        /**
+         * Reset the password for the given token.
+         *
+         * @param array $credentials
+         * @param \Closure $callback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function reset($credentials, $callback)
+        {
+            return \App\Repositories\Auth\PasswordRepositoryManager::reset($credentials, $callback);
+        }
+        
+        /**
+         * Set a custom password validator.
+         *
+         * @param \Closure $callback
+         * @return void 
+         * @static 
+         */ 
+        public static function validator($callback)
+        {
+            \App\Repositories\Auth\PasswordRepositoryManager::validator($callback);
+        }
+        
+        /**
+         * Determine if the passwords match for the request.
+         *
+         * @param array $credentials
+         * @return void 
+         * @static 
+         */ 
+        public static function validateNewPassword($credentials)
+        {
+            \App\Repositories\Auth\PasswordRepositoryManager::validateNewPassword($credentials);
+        }
         
         /**
          * Attempt to get the broker from the local cache.

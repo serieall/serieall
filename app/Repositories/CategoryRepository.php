@@ -31,4 +31,14 @@ class CategoryRepository
     {
         return $this->category::orderBy('name')->get();
     }
+
+    /**
+     * Get category by ID
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
+    public function getCategoryByID($id) {
+        return $this->category::where('id', '=', $id)->first();
+    }
 }

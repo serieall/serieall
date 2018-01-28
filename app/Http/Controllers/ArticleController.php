@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\ArticleRepository;
 use App\Repositories\CategoryRepository;
+use Illuminate\View\View;
 
 /**
  * Class ArticleController
@@ -33,12 +34,30 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index() {
+    public function index() : View
+    {
         $articles = $this->articleRepository->getPublishedArticlesWithAutorsCommentsAndCategory();
 
         $categories = $this->categoryRepository->getAllCategories();
 
         return view('articles.index', compact('articles', 'categories'));
+    }
+
+    /**
+     * Print the articles/indexCategory vue
+     *
+     * @param $idCategory
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexByCategory($idCategory) : View
+    {
+        $categories = $this->categoryRepository->getAllCategories();
+        $category = $this->categoryRepository->getCategoryByID($idCategory);
+        $articles = $this->articleRepository->getPublishedArticlesByCategoriesWithAutorsCommentsAndCategory($idCategory);
+
+        $articles_count = count($articles);
+
+        return view('articles.indexCategory', compact('categories', 'category', 'articles', 'articles_count'));
     }
 
     /**

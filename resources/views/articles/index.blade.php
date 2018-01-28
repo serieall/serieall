@@ -18,8 +18,10 @@
                 <button class="ui disabled button">Tous les articles</button>
                 <span class="ui hidden message">Afficher tous les types d'articles.</span>
                 @foreach($categories as $category)
-                    <button class="ui button {{ colorCategory($category->id) }}">{{ $category->name }}</button>
-                    <span class="ui hidden message">{{ $category->description }}</span>
+                    <a href="{{ route('article.indexCategory', $category->id) }}">
+                        <button class="ui button {{ colorCategory($category->id) }}">{{ $category->name }}</button>
+                        <span class="ui hidden message">{{ $category->description }}</span>
+                    </a>
                 @endforeach
             </div>
 
