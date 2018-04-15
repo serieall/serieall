@@ -182,6 +182,7 @@ return [
          */
         App\Packages\Hashing\YourHashingServiceProvider::class,
         App\Providers\PasswordResetServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
 
     ],
 
@@ -237,6 +238,7 @@ return [
         'DingoRoute' => Dingo\Api\Facade\Route::class,
         'ApiHandler' => Marcelgwerder\ApiHandler\Facades\ApiHandler::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ],
 
 ];

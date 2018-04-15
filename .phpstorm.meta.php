@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2018-01-24.
+    * Generated on 2018-04-15.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -64,6 +64,7 @@ namespace PHPSTORM_META {
         'Dingo\Api\Console\Command\Docs' => \Dingo\Api\Console\Command\Docs::class,
         'api.router.adapter' => \Dingo\Api\Routing\Adapter\Laravel::class,
         'image' => \Intervention\Image\ImageManager::class,
+        'share' => \Jorenvh\Share\Share::class,
         'gravatar' => \Thomaswelton\LaravelGravatar\Gravatar::class,
         'ApiHandler' => \Marcelgwerder\ApiHandler\ApiHandler::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
@@ -222,6 +223,7 @@ namespace PHPSTORM_META {
         'Dingo\Api\Console\Command\Docs' => \Dingo\Api\Console\Command\Docs::class,
         'api.router.adapter' => \Dingo\Api\Routing\Adapter\Laravel::class,
         'image' => \Intervention\Image\ImageManager::class,
+        'share' => \Jorenvh\Share\Share::class,
         'gravatar' => \Thomaswelton\LaravelGravatar\Gravatar::class,
         'ApiHandler' => \Marcelgwerder\ApiHandler\ApiHandler::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
@@ -380,6 +382,7 @@ namespace PHPSTORM_META {
         'Dingo\Api\Console\Command\Docs' => \Dingo\Api\Console\Command\Docs::class,
         'api.router.adapter' => \Dingo\Api\Routing\Adapter\Laravel::class,
         'image' => \Intervention\Image\ImageManager::class,
+        'share' => \Jorenvh\Share\Share::class,
         'gravatar' => \Thomaswelton\LaravelGravatar\Gravatar::class,
         'ApiHandler' => \Marcelgwerder\ApiHandler\ApiHandler::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
@@ -538,6 +541,7 @@ namespace PHPSTORM_META {
         'Dingo\Api\Console\Command\Docs' => \Dingo\Api\Console\Command\Docs::class,
         'api.router.adapter' => \Dingo\Api\Routing\Adapter\Laravel::class,
         'image' => \Intervention\Image\ImageManager::class,
+        'share' => \Jorenvh\Share\Share::class,
         'gravatar' => \Thomaswelton\LaravelGravatar\Gravatar::class,
         'ApiHandler' => \Marcelgwerder\ApiHandler\ApiHandler::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
@@ -696,6 +700,7 @@ namespace PHPSTORM_META {
         'Dingo\Api\Console\Command\Docs' => \Dingo\Api\Console\Command\Docs::class,
         'api.router.adapter' => \Dingo\Api\Routing\Adapter\Laravel::class,
         'image' => \Intervention\Image\ImageManager::class,
+        'share' => \Jorenvh\Share\Share::class,
         'gravatar' => \Thomaswelton\LaravelGravatar\Gravatar::class,
         'ApiHandler' => \Marcelgwerder\ApiHandler\ApiHandler::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
@@ -854,6 +859,7 @@ namespace PHPSTORM_META {
         'Dingo\Api\Console\Command\Docs' => \Dingo\Api\Console\Command\Docs::class,
         'api.router.adapter' => \Dingo\Api\Routing\Adapter\Laravel::class,
         'image' => \Intervention\Image\ImageManager::class,
+        'share' => \Jorenvh\Share\Share::class,
         'gravatar' => \Thomaswelton\LaravelGravatar\Gravatar::class,
         'ApiHandler' => \Marcelgwerder\ApiHandler\ApiHandler::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
@@ -1012,6 +1018,7 @@ namespace PHPSTORM_META {
         'Dingo\Api\Console\Command\Docs' => \Dingo\Api\Console\Command\Docs::class,
         'api.router.adapter' => \Dingo\Api\Routing\Adapter\Laravel::class,
         'image' => \Intervention\Image\ImageManager::class,
+        'share' => \Jorenvh\Share\Share::class,
         'gravatar' => \Thomaswelton\LaravelGravatar\Gravatar::class,
         'ApiHandler' => \Marcelgwerder\ApiHandler\ApiHandler::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,

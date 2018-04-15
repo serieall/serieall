@@ -1,0 +1,25 @@
+/*
+ * ADMINISTRATION PANEL
+ */
+#tableAdmin thead th {
+  background: #1074b2;
+  color: #FFFFFF; }
+
+.admin h1 {
+  margin-bottom: 2em !important; }
+
+.pushed {
+  margin-left: 15rem; }
+
+.moveSeason:hover,
+.moveEpisode:hover {
+  cursor: grab; }
+
+#messageTop {
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+
+.verticalDivider {
+  position: relative; }
+
+/*# sourceMappingURL=admin.css.map */

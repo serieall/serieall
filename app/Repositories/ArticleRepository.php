@@ -49,6 +49,18 @@ class ArticleRepository
     }
 
     /**
+     * Get the article with author and linked objects by its ID
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public function getArticleWithAllInformationsByID($id) {
+        return $this->article::with('users', 'shows', 'seasons', 'episodes')
+            ->whereId($id)
+            ->first();
+    }
+
+    /**
      * Get all published articles in une
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
@@ -108,6 +120,7 @@ class ArticleRepository
      */
     public function getArticleByURL($articleURL) {
         return $this->article::with('users', 'shows', 'seasons', 'episodes')
+            ->withCount('users')
             ->where('article_url', '=', $articleURL)
             ->first();
     }

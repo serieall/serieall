@@ -15,6 +15,7 @@ use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Input;
+use Illuminate\View\View;
 
 /**
  * Class AdminArticleController
@@ -55,7 +56,8 @@ class AdminArticleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index() {
+    public function index() : View
+    {
         $articles = $this->articleRepository->getAllArticlesWithAutorsCategory();
 
         return view('admin/articles/index', compact('articles'));
@@ -66,9 +68,23 @@ class AdminArticleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create() {
+    public function create() : View
+    {
 
         return view('admin/articles/create');
+    }
+
+    /**
+     * Print vue admin/articles/edit
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id) : View
+    {
+        $article = $this->articleRepository->getArticleWithAllInformationsByID($id);
+
+        return view('admin/articles/edit', compact('article'));
     }
 
     /**

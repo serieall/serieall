@@ -50,7 +50,7 @@
             @foreach($articles as $article)
                 <tr class="line">
                     <td>
-                        <a href="">{{ $article->name }}</a>
+                        <a href="{{ route('admin.articles.edit', $article->id) }}">{{ $article->name }}</a>
                     </td>
                     <td>
                         {{ $article->intro }}

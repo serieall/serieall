@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA;;GAEG;AAEH,oBAAqB;EACnB,UAAU,ECJH,OAAO;EDKd,KAAK,ECWC,OAAO;;ADPf,SAAU;EACR,aAAa,EAAE,cAAc;;AAI/B,OAAQ;EACN,WAAW,EAAG,KAAK;;AAIrB;kBACmB;EACjB,MAAM,EAAE,IAAI;;AAId,WAAY;EACV,UAAU,EAAE,IAAI;EAChB,aAAa,EAAE,IAAI;;AAGrB,gBAAiB;EACf,QAAQ,EAAE,QAAQ",
+"sources": ["admin.scss","colors.scss"],
+"names": [],
+"file": "admin.css"
+}

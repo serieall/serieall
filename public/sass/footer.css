@@ -1,0 +1,58 @@
+/*
+ FOOTER
+ */
+#footer {
+  background: #213d64;
+  padding: 4em 0 4em 0;
+  width: 100%;
+  flex: none; }
+  #footer ul, #footer h3 {
+    color: #FFFFFF; }
+  #footer i.icon {
+    color: #213d64;
+    background-color: #FFFFFF; }
+  #footer i.circular.icon {
+    box-shadow: none; }
+  #footer .columnFooter {
+    display: flex;
+    justify-content: center; }
+    #footer .columnFooter .title:before {
+      content: inherit !important; }
+    #footer .columnFooter a {
+      color: #FFFFFF; }
+    #footer .columnFooter a:hover {
+      color: #1074b2 !important; }
+  #footer ul.ui.list li:before,
+  #footer .ui.bulleted.list .list > .item:before,
+  #footer .ui.bulleted.list > .item:before {
+    content: '\2022';
+    color: #1074b2; }
+
+.ui.menu .active.item,
+.ui.menu .active.item:hover,
+.ui.inline.cookie.nag {
+  color: #FFFFFF; }
+
+.pushable {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f3f3f3; }
+
+.header {
+  background-color: #FFFFFF;
+  z-index: 1;
+  margin-top: inherit;
+  flex: none; }
+
+#content {
+  flex: 1 0 auto;
+  margin-bottom: 2rem; }
+
+#messageBox {
+  flex: 1 0 auto; }
+
+.d-center {
+  text-align: center; }
+
+/*# sourceMappingURL=footer.css.map */

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,qBAAsB;EACpB,gBAAgB,ECAT,OAAO;EDCd,2BAAQ;IACN,gBAAgB,ECFX,OAAO;;ADOd,qCAAS;EACP,gBAAgB,ECRX,OAAO;ADUd,2CAAe;EACb,gBAAgB,ECXX,OAAO",
+"sources": ["profil.scss","colors.scss"],
+"names": [],
+"file": "profil.css"
+}

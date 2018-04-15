@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e30c565c3623c55fb0e4b241b050152",
+    "content-hash": "3b8023c4e420909c73f161d28a962041",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -1584,6 +1584,65 @@
                 "solve"
             ],
             "time": "2016-03-02T22:35:41+00:00"
+        },
+        {
+            "name": "jorenvanhocht/laravel-share",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jorenvh/laravel-share.git",
+                "reference": "eccc0e368078c463b0910768a763ac7baf61fe58"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jorenvh/laravel-share/zipball/eccc0e368078c463b0910768a763ac7baf61fe58",
+                "reference": "eccc0e368078c463b0910768a763ac7baf61fe58",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.1.0|3.2.0|3.3.0",
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jorenvh\\Share\\Providers\\ShareServiceProvider"
+                    ],
+                    "aliases": {
+                        "Share": "Jorenvh\\Share\\ShareFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jorenvh\\Share\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joren Van Hocht",
+                    "email": "joren@codeswitch.be",
+                    "homepage": "https://codeswitch.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Optional package for Laravel to generate social share links.",
+            "homepage": "https://github.com/jorenvh/laravel-share",
+            "keywords": [
+                "laravel",
+                "share",
+                "social links",
+                "social share links"
+            ],
+            "time": "2018-01-20T21:57:48+00:00"
         },
         {
             "name": "laravel/framework",

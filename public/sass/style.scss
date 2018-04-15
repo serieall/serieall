@@ -142,3 +142,69 @@ blockquote {
 .dataTables_wrapper .dataTables_paginate .paginate_button{
   margin-left: 0 !important;
 }
+
+#LeftBlock.article {
+  .segment {
+    padding: 0;
+    .title, .chapo {
+      h1 {
+        color: white;
+        font-size: 3em;
+        text-shadow: 1px 1px 2px $black;
+      }
+      color: white;
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+      text-align: center;
+      text-shadow: 1px 1px 2px $black;
+    }
+  }
+  .article.content {
+    padding: 2em;
+    text-align: justify;
+  }
+  .imageArticle {
+      height: 100%;
+      width: 100%;
+      -webkit-filter: blur(2px) opacity(1);
+      filter: blur(2px) opacity(1);
+      transform: scale(1);
+    img {
+      height: 250px !important;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .imageArticle:after {
+    content: '\A';
+    position: absolute;
+    width: 100%;
+    height: 250px;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+  }
+  #social-links {
+    display: inline-block;
+    text-align: right;
+    ul {
+      padding-left: 2px;
+    }
+    li {
+      display: inline;
+      list-style: none; /* pour enlever les puces sur IE7 */
+      margin: 2px;
+      font-size: 3em;
+    }
+  }
+  .description {
+    font-style: italic;
+  }
+}
+
+.ui.comments {
+  padding: 2rem;
+  max-width: 100%;
+}

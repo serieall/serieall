@@ -89,7 +89,7 @@ Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate
 */
 Route::get('articles', 'ArticleController@index')->name('article.index');
 Route::get('articles/{id}', 'ArticleController@indexByCategory')->name('article.indexCategory');
-Route::get('articles/{article_url}', 'ArticleController@show')->name('article.show');
+Route::get('article/{article_url}', 'ArticleController@show')->name('article.show');
 
 /*
     Partie Commentaire
@@ -150,6 +150,8 @@ Route::group(['middleware' => 'admin'], function () {
     /* ARTICLES */
     Route::get('admin/articles', 'Admin\AdminArticleController@index')->name('admin.articles.index');
     Route::get('admin/articles/create', 'Admin\AdminArticleController@create')->name('admin.articles.create');
+    Route::get('admin/articles/{article}', 'Admin\AdminArticleController@edit')->name('admin.articles.edit');
+    Route::put('admin/articles/update', 'Admin\AdminArticleController@update')->name('admin.articles.update');
     Route::post('admin/articles', 'Admin\AdminArticleController@store')->name('admin.articles.store');
     Route::delete('admin/articles/{article}', 'Admin\AdminArticleController@destroy')->name('admin.articles.destroy');
 

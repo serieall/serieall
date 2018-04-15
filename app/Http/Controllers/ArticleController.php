@@ -3,9 +3,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CategoryRepository;
+use App\Repositories\CommentRepository;
 use Illuminate\View\View;
+
 
 /**
  * Class ArticleController
@@ -15,18 +19,22 @@ class ArticleController extends Controller
 {
     protected $articleRepository;
     protected $categoryRepository;
+    protected $commentRepository;
 
     /**
      * ArticleController constructor.
      * @param ArticleRepository $articleRepository
      * @param CategoryRepository $categoryRepository
+     * @param CommentRepository $commentRepository
      * @internal param ShowRepository $showRepository
      */
     public function __construct(ArticleRepository $articleRepository,
-                                CategoryRepository $categoryRepository)
+                                CategoryRepository $categoryRepository,
+                                CommentRepository  $commentRepository)
     {
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -65,11 +73,20 @@ class ArticleController extends Controller
      *
      * @param $articleURL
      * @internal param $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function show($articleURL) {
+        $user_id = getIDIfAuth();
         $article = $this->articleRepository->getArticleByURL($articleURL);
+        $object = compileObjectInfos('Article', $article->id);
+        $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        return response()->view('articles.show', compact('article'));
+        if (Request::ajax()) {
+            return Response::json(View::make('comments.comment_article', ['comments' => $comments])->render());
+        }
+        else {
+            return view('articles.show', compact('article', 'comments', 'object'));
+        }
+
     }
 }

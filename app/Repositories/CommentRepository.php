@@ -86,6 +86,9 @@ class CommentRepository
         if(Route::current()->getName() == 'comment.fiche') {
             $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id);
         }
+        else if(Route::current()->getName() == 'article.show') {
+            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id);
+        }
         else {
             $last_comment = $this->getLastTwoCommentsByTypeTypeID($object, $object_id, $user_comment_id);
         }

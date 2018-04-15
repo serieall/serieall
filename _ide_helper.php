@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.5.32 on 2018-01-24.
+ * Generated for Laravel 5.5.32 on 2018-04-15.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -15383,6 +15383,90 @@ namespace ConsoleTVs\Charts\Facades {
  
 }
 
+namespace Jorenvh\Share { 
+
+    class ShareFacade {
+        
+        /**
+         * 
+         *
+         * @param $url
+         * @param null $title
+         * @param array $options
+         * @param null $prefix
+         * @param null $suffix
+         * @return $this 
+         * @static 
+         */ 
+        public static function page($url, $title = null, $options = array(), $prefix = null, $suffix = null)
+        {
+            return \Jorenvh\Share\Share::page($url, $title, $options, $prefix, $suffix);
+        }
+        
+        /**
+         * 
+         *
+         * @param null $title
+         * @param array $options
+         * @param null $prefix
+         * @param null $suffix
+         * @return $this 
+         * @static 
+         */ 
+        public static function currentPage($title = null, $options = array(), $prefix = null, $suffix = null)
+        {
+            return \Jorenvh\Share\Share::currentPage($title, $options, $prefix, $suffix);
+        }
+        
+        /**
+         * Facebook share link
+         *
+         * @return $this 
+         * @static 
+         */ 
+        public static function facebook()
+        {
+            return \Jorenvh\Share\Share::facebook();
+        }
+        
+        /**
+         * Twitter share link
+         *
+         * @return $this 
+         * @static 
+         */ 
+        public static function twitter()
+        {
+            return \Jorenvh\Share\Share::twitter();
+        }
+        
+        /**
+         * Google Plus share link
+         *
+         * @return $this 
+         * @static 
+         */ 
+        public static function googlePlus()
+        {
+            return \Jorenvh\Share\Share::googlePlus();
+        }
+        
+        /**
+         * Linked in share link
+         *
+         * @param string $summary
+         * @return $this 
+         * @static 
+         */ 
+        public static function linkedin($summary = '')
+        {
+            return \Jorenvh\Share\Share::linkedin($summary);
+        }
+         
+    }
+ 
+}
+
 namespace Anhskohbo\NoCaptcha\Facades { 
 
     class NoCaptcha {
@@ -17648,6 +17732,8 @@ namespace  {
     class ApiHandler extends \Marcelgwerder\ApiHandler\Facades\ApiHandler {}
 
     class Charts extends \ConsoleTVs\Charts\Facades\Charts {}
+
+    class Share extends \Jorenvh\Share\ShareFacade {}
 
     class NoCaptcha extends \Anhskohbo\NoCaptcha\Facades\NoCaptcha {}
 

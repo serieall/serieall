@@ -1,0 +1,11 @@
+.ui.menu .active.item {
+  background-color: #1074b2; }
+  .ui.menu .active.item:hover {
+    background-color: #1074b2; }
+
+.ui.pointing.menu .active.item::after {
+  background-color: #1074b2; }
+.ui.pointing.menu .active.item:hover::after {
+  background-color: #1074b2; }
+
+/*# sourceMappingURL=profil.css.map */
