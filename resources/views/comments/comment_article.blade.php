@@ -35,10 +35,10 @@
             </div>
             <br>
             <div class="actions">
-                <button class="ui button">Répondre</button>
+                <button id="{{ $comment->id }}" class="ui button writeReaction">Répondre</button>
             </div>
         </div>
     @endforeach
     {{ $comments['last_comment']->links() }}
+    @include('comments.form_reaction')
 </div>
-

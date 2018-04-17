@@ -159,7 +159,63 @@
             e.preventDefault();
 
             var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
-            var nombreCaracAvis = '{!! config('param.nombreCaracAvis') !!}';
+            var nombreCaracAvis = '20';
+
+            if(messageLength < nombreCaracAvis ) {
+                $('.nombreCarac').removeClass("hidden");
+            }
+            else {
+                $('.submit').addClass("loading");
+
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json"
+                })
+                    .done(function () {
+                        window.location.reload(false);
+                    })
+                    .fail(function (data) {
+                        $('.submit').removeClass("loading");
+
+                        $.each(data.responseJSON.errors, function (key, value) {
+                            var input = 'input[class="' + key + '"]';
+
+                            $(input + '+div').text(value);
+                            $(input + '+div').removeClass("hidden");
+                            $(input).parent().addClass('error');
+                        });
+                    });
+            }
+        });
+
+        $('.ui.modal.reaction').modal('attach events', '.writeReaction', 'show');
+        CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
+        CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
+        CKEDITOR.replace( 'avis' ,
+            {
+                extraPlugins: 'spoiler,wordcount',
+                customConfig:'/js/ckeditor/config.js',
+                wordcount: {
+                    showCharCount: true,
+                    showWordCount: false,
+                    showParagraphs: false
+                }
+            });
+
+        $('.ui.button.writeReaction').click(function(e) {
+            e.preventDefault();
+            IDButton = $(this).attr('id');
+            $('.object_parent_id').val(IDButton);
+        });
+
+        // Submission
+        $(document).on('submit', '#formReaction', function(e) {
+            e.preventDefault();
+
+            var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
+            var nombreCaracAvis = '20';
 
             if(messageLength < nombreCaracAvis ) {
                 $('.nombreCarac').removeClass("hidden");
