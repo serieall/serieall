@@ -54,7 +54,7 @@
                                     <div class="content">
                                         <a href="{{  route('article.show', $article->article_url) }}" class="header">{{ $article->name }}</a>
                                         <div class="meta">
-                                            <span>Le {{ formatDate('full', $article->published_at) }}</span>
+                                            <span>Le {!! formatDate('full', $article->published_at) !!}</span>
                                         </div>
                                         <div class="description">
                                             <p>{{ $article->intro }}</p>

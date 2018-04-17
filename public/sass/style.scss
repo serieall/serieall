@@ -160,9 +160,35 @@ blockquote {
       text-shadow: 1px 1px 2px $black;
     }
   }
-  .article.content {
+  .article.content, #LastComments  {
     padding: 2em;
     text-align: justify;
+  }
+  .noComment {
+    padding: 1em;
+  }
+  #LastComments {
+    background: none;
+    padding: 0;
+    .comment:nth-child(odd) {
+      background: $lightBlueSA;
+    }
+    .comment .comments .comment {
+      background: none;
+    }
+    .comment {
+      padding: 1em;
+    }
+  }
+  #ListAvis {
+    padding: 1em;
+    background: $veryDarkBlueSA;
+    .header {
+      background: none;
+    }
+    h2 {
+      color: $white;
+    }
   }
   .imageArticle {
       height: 100%;

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentCreateRequest;
 
+use App\Http\Requests\CommentWTNCreateRequest;
 use App\Models\Comment;
 
+use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
 use App\Repositories\RateRepository;
@@ -30,6 +32,7 @@ class CommentController extends Controller
     protected $seasonRepository;
     protected $episodeRepository;
     protected $rateRepository;
+    protected $articleRepository;
 
     /**
      * CommentController constructor.
@@ -38,17 +41,20 @@ class CommentController extends Controller
      * @param SeasonRepository $seasonRepository
      * @param EpisodeRepository $episodeRepository
      * @param RateRepository $rateRepository
+     * @param ArticleRepository $articleRepository
      */
     public function __construct(CommentRepository $commentRepository,
                                 ShowRepository $showRepository,
                                 SeasonRepository $seasonRepository,
                                 EpisodeRepository $episodeRepository,
-                                RateRepository $rateRepository){
+                                RateRepository $rateRepository,
+                                ArticleRepository $articleRepository){
         $this->commentRepository = $commentRepository;
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
         $this->episodeRepository = $episodeRepository;
         $this->rateRepository = $rateRepository;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -136,6 +142,9 @@ class CommentController extends Controller
             case 'Episode':
                 $object = $this->episodeRepository->getEpisodeByID($object_id);
                 break;
+            case 'Article':
+                $object = $this->articleRepository->getArticleByID($object_id);
+                break;
             default:
                 break;
         }
@@ -177,5 +186,62 @@ class CommentController extends Controller
             $this->rateRepository->RateEpisode($user_id, $inputs['episode_id'], $inputs['note']);
         }
             return response()->json();
+    }
+
+    /**
+     * Store a new comment
+     *
+     * @param CommentWTNCreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function storeWithoutThumbAndNote(CommentWTNCreateRequest $request): JsonResponse
+    {
+        # Define variables by request
+        $inputs = $request->all();
+        $user_id = $request->user()->id;
+        $object_id = $inputs['object_id'];
+        $object = $inputs['object'];
+        $objectFQ = 'App\Models\\' . $object;
+
+        # Get Object
+        switch ($object){
+            case 'Article':
+                $object = $this->articleRepository->getArticleByID($object_id);
+                break;
+            default:
+                break;
+        }
+
+        # Check id comment exist
+        $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $objectFQ, $object_id );
+
+        # If not, we create it
+        if($comment_ref === null) {
+            # Initialize
+            $comment = new Comment();
+
+            # Define fields
+            $comment->message = $inputs['avis'];
+
+            # Attach to user and save
+            $comment->user()->associate($user_id);
+            $comment->save();
+
+            # Attach to show and save
+            $object->comments()->save($comment);
+        }
+        else {
+            # Redefine fields
+            $comment_ref->message = $inputs['avis'];
+
+            # Attach to user and save
+            $comment_ref->user()->associate($user_id);
+            $comment_ref->save();
+
+            # Attach to show and save
+            $object->comments()->save($comment_ref);
+        }
+
+        return response()->json();
     }
 }

@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="row ui stackable grid">
-        <div id="LeftBlock" class="ten wide column article">
+        <div id="LeftBlock" class="eight wide column article">
             <div class="ui segment">
                 <div class="title">
                     <h1>{{ $article->name }}</h1>
@@ -52,14 +52,45 @@
                 </div>
             </div>
 
-            <div id="ListAvis" class="ui segment left aligned">
-                <h1>Avis</h1>
-                <div id="LastComments" class="ui stackable grid">
-                    @include('comments.comment_article')
+            <div class="ui segment">
+                <div id="ListAvis">
+                    <h2 class="ui center aligned header">
+                        <div class="ui grid">
+                            <div class="eight wide column left aligned">
+                                <i class="comments icon"></i>
+                                <div class="content">
+                                    Commentaires
+                                </div>
+                            </div>
+                            <div class="eight wide column right aligned">
+                                @if(Auth::check())
+                                    <button class="ui button WriteAvis">
+                                        <i class="write icon"></i>
+                                        @if(!isset($comments['user_comment']))
+                                            Écrire un commentaire
+                                        @else
+                                            Modifier mon commentaire
+                                        @endif
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    </h2>
                 </div>
+
+                <div>
+                    @if(count($comments['last_comment']) != 0)
+                        @include('comments.comment_article')
+                    @else
+                        <div class="ui segment noComment">
+                            Pas de commentaires pour l'instant...
+                        </div>
+                    @endif
+                </div>
+                @include('comments.form_comment')
             </div>
 
-            {{ $comments['last_comment']->links() }}
+
         </div>
 
         <div id="RightBlock">
@@ -85,7 +116,7 @@
             $(document).on('click', '.pagination a', function (e) {
                 getComments($(this).attr('href').split('page=')[1]);
                 e.preventDefault();
-                $('#ListAvis').addClass('loading');
+                $('#LastComments').addClass('loading');
             });
         });
 
@@ -102,11 +133,61 @@
                 $('html, body').animate({scrollTop:$('#ListAvis').offset().top}, 'slow');//return false;
 
                 location.hash = page;
-                $('#ListAvis').removeClass('loading');
+                $('#LastComments').removeClass('loading');
             }).fail(function () {
                 alert('Les commentaires n\'ont pas été chargés.');
-                $('#ListAvis').removeClass('loading');
+                $('#LastComments').removeClass('loading');
             });
         }
+
+        $('.ui.modal.avis').modal('attach events', '.ui.button.WriteAvis', 'show');
+        $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
+        CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
+        CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
+        CKEDITOR.replace( 'avis' ,
+            {
+                extraPlugins: 'spoiler,wordcount',
+                customConfig:'/js/ckeditor/config.js',
+                wordcount: {
+                    showCharCount: true,
+                    showWordCount: false,
+                    showParagraphs: false
+                }
+            });
+        // Submission
+        $(document).on('submit', '#formAvis', function(e) {
+            e.preventDefault();
+
+            var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
+            var nombreCaracAvis = '{!! config('param.nombreCaracAvis') !!}';
+
+            if(messageLength < nombreCaracAvis ) {
+                $('.nombreCarac').removeClass("hidden");
+            }
+            else {
+                $('.submit').addClass("loading");
+
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json"
+                })
+                    .done(function () {
+                        window.location.reload(false);
+                    })
+                    .fail(function (data) {
+                        $('.submit').removeClass("loading");
+
+                        $.each(data.responseJSON.errors, function (key, value) {
+                            var input = 'input[class="' + key + '"]';
+
+                            $(input + '+div').text(value);
+                            $(input + '+div').removeClass("hidden");
+                            $(input).parent().addClass('error');
+                        });
+                    });
+            }
+        });
     </script>
 @endsection

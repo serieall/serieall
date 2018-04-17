@@ -924,9 +924,27 @@ blockquote {
       color: white;
       font-size: 3em;
       text-shadow: 1px 1px 2px #1B1C1D; }
-#LeftBlock.article .article.content {
+#LeftBlock.article .article.content, #LeftBlock.article #LastComments {
   padding: 2em;
   text-align: justify; }
+#LeftBlock.article .noComment {
+  padding: 1em; }
+#LeftBlock.article #LastComments {
+  background: none;
+  padding: 0; }
+  #LeftBlock.article #LastComments .comment:nth-child(odd) {
+    background: #d4e4f0; }
+  #LeftBlock.article #LastComments .comment .comments .comment {
+    background: none; }
+  #LeftBlock.article #LastComments .comment {
+    padding: 1em; }
+#LeftBlock.article #ListAvis {
+  padding: 1em;
+  background: #1b2e47; }
+  #LeftBlock.article #ListAvis .header {
+    background: none; }
+  #LeftBlock.article #ListAvis h2 {
+    color: #FFFFFF; }
 #LeftBlock.article .imageArticle {
   height: 100%;
   width: 100%;

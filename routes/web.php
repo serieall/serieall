@@ -96,6 +96,7 @@ Route::get('article/{article_url}', 'ArticleController@show')->name('article.sho
 */
 Route::get('avis/{show_url}/{season?}/{episode?}/{episode_id?}', 'CommentController@fiche')->name('comment.fiche');
 Route::post('comment', 'CommentController@store')->name('comment.store')->middleware('auth');
+Route::post('commentWTN', 'CommentController@storeWithoutThumbAndNote')->name('comment.storewtn')->middleware('auth');
 
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)

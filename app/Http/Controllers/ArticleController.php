@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Response;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CommentRepository;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\View;
 
 
 /**
@@ -40,9 +40,9 @@ class ArticleController extends Controller
     /**
      * Print the articles/index vue
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      */
-    public function index() : View
+    public function index()
     {
         $articles = $this->articleRepository->getPublishedArticlesWithAutorsCommentsAndCategory();
 
@@ -55,9 +55,9 @@ class ArticleController extends Controller
      * Print the articles/indexCategory vue
      *
      * @param $idCategory
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      */
-    public function indexByCategory($idCategory) : View
+    public function indexByCategory($idCategory)
     {
         $categories = $this->categoryRepository->getAllCategories();
         $category = $this->categoryRepository->getCategoryByID($idCategory);
