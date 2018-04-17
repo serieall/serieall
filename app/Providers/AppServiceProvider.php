@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
 
 
 /**
@@ -20,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot() {
+        Schema::defaultStringLength(191); //Solved by increasing StringLength
+
         $folderImages = config('directories.images');
         $folderShows = config('directories.shows');
         $folderActors = config('directories.actors');

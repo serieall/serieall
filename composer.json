@@ -13,7 +13,8 @@
         "consoletvs/charts": "5.*",
         "dingo/api": "v2.0.0-alpha1",
         "doctrine/dbal": "^2.5",
-        "guzzlehttp/guzzle": "6.2.1",
+        "fideloper/proxy": "~4.0",
+        "guzzlehttp/guzzle": "6.3.2",
         "jorenvanhocht/laravel-share": "^2.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
@@ -28,7 +29,7 @@
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0",
+        "phpunit/phpunit": "~7.0",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*"
     },
@@ -68,8 +69,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
-            "php artisan ide-helper:models --dir='app/Models'",
-            "php artisan optimize"
+            "php artisan ide-helper:models --dir='app/Models'"
         ]
     },
     "config": {

@@ -186,6 +186,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
      * @param $api_url
      * @internal param $jobName
      * @internal param $client
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url)
     {
@@ -476,6 +477,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
 
     public function handle()

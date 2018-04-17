@@ -11,7 +11,7 @@ use Illuminate\Hashing\BcryptHasher;
  * Class YourHasher
  * @package App\Packages\Hashing
  */
-class YourHasher //implements HasherContract
+class YourHasher implements HasherContract
 {
 
     protected $hasher;
@@ -22,6 +22,16 @@ class YourHasher //implements HasherContract
     public function __construct()
     {
         $this->hasher = new BcryptHasher;
+    }
+
+    /**
+     * Add Info method to implement HasherContract
+     *
+     * @param string $hashedValue
+     * @return string
+     */
+    public function info($hashedValue) : string {
+        return $hashedValue;
     }
 
     /**

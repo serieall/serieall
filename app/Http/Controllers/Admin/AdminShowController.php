@@ -135,9 +135,9 @@ class AdminShowController extends Controller
      * Mettre à jour les informations sur la série
      *
      * @param $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function edit($id): Response
+    public function edit($id)
     {
         $show = $this->showRepository->getInfoShowByID($id);
         $genres = formatRequestInVariable($show->genres);
@@ -154,9 +154,9 @@ class AdminShowController extends Controller
      * Enregistre une nouvelle série via theTVDB
      *
      * @param ShowCreateRequest|Request $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function store(ShowCreateRequest $request): Response
+    public function store(ShowCreateRequest $request)
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
@@ -186,10 +186,10 @@ class AdminShowController extends Controller
      * Enregistre une nouvelle série créée manuellement
      *
      * @param ShowCreateManuallyRequest|Request $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
 
-    public function storeManually(ShowCreateManuallyRequest $request): Response
+    public function storeManually(ShowCreateManuallyRequest $request)
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
@@ -201,9 +201,9 @@ class AdminShowController extends Controller
     /**
      * Redirection JSON
      *
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function redirectJSON(): Response
+    public function redirectJSON()
     {
         return redirect()->route('admin.shows.index')
             ->with('status_header', 'Série en cours d\'ajout')
@@ -214,9 +214,9 @@ class AdminShowController extends Controller
      * Supprime une série ainsi que tous les éléments qui lui sont rattachés
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function destroy($id): Response
+    public function destroy($id)
     {
         $userID = Auth::user()->id;
 
