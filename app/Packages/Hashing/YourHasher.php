@@ -11,7 +11,7 @@ use Illuminate\Hashing\BcryptHasher;
  * Class YourHasher
  * @package App\Packages\Hashing
  */
-class YourHasher implements HasherContract
+class YourHasher //implements HasherContract
 {
 
     protected $hasher;

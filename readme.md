@@ -5,7 +5,7 @@
 Pour installer la V2 : 
 
 ```
-apt-get install php php-curl php-mbstring php-dom php-mysql php-bcmath composer
+apt-get install php php-curl php-mbstring php-xml php-mysql php-bcmath composer
 git clone https://github.com/Youkoulayley/AveDeux.git
 cd AveDeux
 composer install
