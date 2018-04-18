@@ -13,9 +13,7 @@
             <div class="ui field">
                 <div class="textarea input">
                          <textarea name="reaction" id="reaction" class="reaction" placeholder="Écrivez votre réponse ici...">
-                             @if(isset($comments['user_comment']))
-                                 {{ $comments['user_comment']['message'] }}
-                             @endif
+
                          </textarea>
 
                     <div class="nombreCarac ui red hidden message">

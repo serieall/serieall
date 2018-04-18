@@ -260,5 +260,6 @@ class CommentController extends Controller
         $comment_ref->parent()->associate($object_parent_id);
         $comment_ref->save();
 
+        return response()->json();
     }
 }
