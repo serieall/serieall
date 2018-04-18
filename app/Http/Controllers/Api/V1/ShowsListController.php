@@ -31,7 +31,7 @@ class ShowsListController extends Controller
     /**
      * @return \Dingo\Api\Http\Response
      */
-    public function index() : Response
+    public function index()
     {
         $shows = $this->shows::with(['genres' => function ($q){
             $q->select('name');

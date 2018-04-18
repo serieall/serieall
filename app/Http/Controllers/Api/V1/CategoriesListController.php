@@ -21,7 +21,7 @@ class CategoriesListController extends Controller
     /**
      * @return Response
      */
-    public function index() : Response
+    public function index()
     {
         $categories = DB::table('categories')->select('id', 'name')->orderBy('name');
 

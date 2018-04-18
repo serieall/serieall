@@ -6,10 +6,10 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class CommentWTNCreateRequest
+ * Class ReactionCreateRequest
  * @package App\Http\Requests
  */
-class CommentWTNCreateRequest extends FormRequest
+class ReactionCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,8 +29,7 @@ class CommentWTNCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'object_id' => 'required|numeric',
-            'object' => 'required|in:Show,Season,Episode,Article',
-            'avis' => 'required|min:20'];
+            'object_parent_id' => 'required|numeric',
+            'reaction' => 'required|min:20'];
     }
 }

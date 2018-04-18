@@ -22,7 +22,7 @@ class EpisodesBySeasonIDController extends Controller
      * @param $season_id
      * @return Response
      */
-    public function index($season_id) : Response
+    public function index($season_id)
     {
         $episodes = DB::table('episodes')->select('id', 'numero', 'name', 'name_fr', 'diffusion_us')->where('season_id', '=', $season_id)->orderBy('diffusion_us');
 

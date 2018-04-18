@@ -104,7 +104,17 @@ class CommentRepository
     public function getAllCommentsByTypeTypeID($object, $object_id) {
         return $this->comment::where('commentable_id', '=', $object_id)
             ->where('commentable_type', '=', $object)
-            ->with('user')
+            ->with(['user', 'children' => function($q) {
+                $q->with('user');
+            }])
             ->paginate(10);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
+    public function getCommentByID($id) {
+        return $this->comment::firstOrFail($id);
     }
 }

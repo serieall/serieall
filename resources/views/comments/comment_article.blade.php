@@ -18,20 +18,25 @@
                 </div>
             </div>
             <div class="comments">
-                <div class="comment">
-                    <a class="avatar">
-                        <img src="https://framasoft.org/nav/img/logo.png">
-                    </a>
-                    <div class="content">
-                        <a class="author">Jenny Hess</a>
-                        <div class="metadata">
-                            <span class="date">Just now</span>
-                        </div>
-                        <div class="text">
-                            Elliot you are always so right :)
+                @foreach($comment['children'] as $reaction)
+                    <div class="comment">
+                        <a class="avatar">
+                            <img src="{{ Gravatar::src($reaction->user->email) }}">
+                        </a>
+                        <div class="content">
+                            <a class="author">{{ $reaction->user->username }}</a>
+                            <div class="metadata">
+                                <span class="date">{!! formatDate('full', $reaction->created_at) !!}
+                                    @if($reaction->created_at != $reaction->updated_at)
+                                        (modifié le {!! formatDate('full', $reaction->updated_at) !!})
+                                    @endif</span>
+                            </div>
+                            <div class="text">
+                                {!! $reaction->message !!}
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
             <br>
             <div class="actions">

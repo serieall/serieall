@@ -52,9 +52,17 @@ class Comment extends Model {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function reactions()
+    public function children()
     {
         return $this->hasMany('App\Models\Comment', 'parent_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Comment', 'parent_id');
     }
 
     /**

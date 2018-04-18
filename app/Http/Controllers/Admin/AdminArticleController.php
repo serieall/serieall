@@ -54,9 +54,8 @@ class AdminArticleController extends Controller
     /**
      * Print vue admin/articles/index
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index() : View
+    public function index()
     {
         $articles = $this->articleRepository->getAllArticlesWithAutorsCategory();
 
@@ -66,9 +65,8 @@ class AdminArticleController extends Controller
     /**
      * Print vue admin/articles/create
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create() : View
+    public function create()
     {
 
         return view('admin/articles/create');
@@ -80,7 +78,7 @@ class AdminArticleController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id) : View
+    public function edit($id)
     {
         $article = $this->articleRepository->getArticleWithAllInformationsByID($id);
 
@@ -91,7 +89,7 @@ class AdminArticleController extends Controller
      * Save a new article in database
      *
      * @param ArticleCreateRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function store(ArticleCreateRequest $request) {
@@ -192,7 +190,7 @@ class AdminArticleController extends Controller
         }
 
         // On redirige l'utilisateur
-        return redirect(route('admin.articles.index'))
+        return redirect()->route('admin.articles.index')
             ->with('status_header', 'Ajout d\'un article')
             ->with('status', 'Votre article a été ajouté.');
     }
@@ -201,10 +199,10 @@ class AdminArticleController extends Controller
      * Delete an article
      *
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id): RedirectResponse
+    public function destroy($id)
     {
         $article = $this->articleRepository->getArticleByID($id);
 

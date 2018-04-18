@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentCreateRequest;
 
 use App\Http\Requests\CommentWTNCreateRequest;
+use App\Http\Requests\ReactionCreateRequest;
 use App\Models\Comment;
 
 use App\Repositories\ArticleRepository;
@@ -16,6 +17,7 @@ use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
@@ -243,5 +245,20 @@ class CommentController extends Controller
         }
 
         return response()->json();
+    }
+
+    public function storeReaction(ReactionCreateRequest $request)
+    {
+        # Define variables by request
+        $inputs = $request->all();
+        $user_id = $request->user()->id;
+        $object_parent_id = $inputs['object_parent_id'];
+
+        $comment_ref = new Comment();
+        $comment_ref->message = $inputs['reaction'];
+        $comment_ref->user()->associate($user_id);
+        $comment_ref->parent()->associate($object_parent_id);
+        $comment_ref->save();
+
     }
 }

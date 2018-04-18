@@ -159,7 +159,7 @@
             e.preventDefault();
 
             var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
-            var nombreCaracAvis = '20';
+            var nombreCaracAvis = 20;
 
             if(messageLength < nombreCaracAvis ) {
                 $('.nombreCarac').removeClass("hidden");
@@ -193,7 +193,7 @@
         $('.ui.modal.reaction').modal('attach events', '.writeReaction', 'show');
         CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
         CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
-        CKEDITOR.replace( 'avis' ,
+        CKEDITOR.replace( 'reaction' ,
             {
                 extraPlugins: 'spoiler,wordcount',
                 customConfig:'/js/ckeditor/config.js',
