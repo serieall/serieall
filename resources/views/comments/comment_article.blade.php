@@ -18,10 +18,10 @@
                 </div>
             </div>
             <div class="actions">
-                <button id="showReactions" class="slideShowMoreOrLess ui button">Voir les réponses</button>
+                <button id="showReactions" class="ui button">Voir les réponses</button>
                 <button id="{{ $comment->id }}" class="ui button writeReaction">Répondre</button>
             </div>
-            <div class="showMoreOrLess comments">
+            <div class="divReactions comments" style="display: none;">
                 @foreach($comment['children'] as $reaction)
                     <div class="comment">
                         <a class="avatar">

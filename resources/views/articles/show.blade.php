@@ -113,32 +113,12 @@
         });
 
         $(document).ready(function() {
-            var $divView = $('.showMoreOrLess');
-            var innerHeight = $divView.removeClass('showMoreOrLess').height();
-            $divView.addClass('showMoreOrLess');
-
-            if(innerHeight < 0) {
-                $('.fadeShowMoreOrLess').remove();
-                $('.slideShowMoreOrLess').remove();
-                $divView.removeClass('showMoreOrLess');
-            }
-
-            $('.slideShowMoreOrLess').click(function() {
-                $('.showMoreOrLess').animate({
-                    height: (($divView.height() == 0)? innerHeight  : "0px")
-                }, 500);
-
-                if($divView.height() == 0) {
-                    $('.slideShowMoreOrLess').text('Cacher les réponses');
-                    $('.fadeDiv').removeClass('fadeShowMoreOrLess');
-                }
-                else {
-                    $('.slideShowMoreOrLess').text('Voir les réponses');
-                    $('.fadeDiv').addClass('fadeShowMoreOrLess');
-                }
-                return false;
+            $('#showReactions').click(function() {
+                console.log($(this).next('.divReactions'));
+                $(this).parent().next('.divReactions').slideToggle("fast");
             });
         });
+
 
         $(document).ready(function() {
             $(document).on('click', '.pagination a', function (e) {
