@@ -932,12 +932,19 @@ blockquote {
 #LeftBlock.article #LastComments {
   background: none;
   padding: 0; }
+  #LeftBlock.article #LastComments .column.center.aligned {
+    text-align: center;
+    padding: 2em; }
   #LeftBlock.article #LastComments .comment:nth-child(odd) {
     background: #d4e4f0; }
   #LeftBlock.article #LastComments .comment .comments .comment {
     background: none; }
   #LeftBlock.article #LastComments .comment {
     padding: 1em; }
+    #LeftBlock.article #LastComments .comment .actions {
+      margin-left: 3.9em; }
+    #LeftBlock.article #LastComments .comment .showReactions {
+      margin-left: 1em; }
 #LeftBlock.article #ListAvis {
   padding: 1em;
   background: #1b2e47; }
@@ -977,6 +984,22 @@ blockquote {
     font-size: 3em; }
 #LeftBlock.article .description {
   font-style: italic; }
+
+#RightBlock .segment {
+  padding: 0; }
+  #RightBlock .segment .articleShowImage {
+    height: 100px;
+    width: 100%;
+    object-fit: cover; }
+    #RightBlock .segment .articleShowImage:after {
+      content: '\A';
+      position: absolute;
+      width: 100%;
+      height: 100px;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 1; }
 
 .ui.comments {
   padding: 2rem;

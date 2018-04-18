@@ -87,14 +87,18 @@
                         </div>
                     @endif
                 </div>
-                @include('comments.form_comment')
+                @if(Auth::check())
+                    @include('comments.form_comment')
+                @endif
             </div>
-
-
         </div>
 
-        <div id="RightBlock">
-
+        <div id="RightBlock" class="three wide column article">
+            <div class="ui segment">
+                @foreach($article->shows as $show)
+                    <img class="articleShowImage" src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection
@@ -113,7 +117,7 @@
         });
 
         $(document).ready(function() {
-            $('#showReactions').click(function() {
+            $('.showReactions').click(function() {
                 console.log($(this).next('.divReactions'));
                 $(this).parent().next('.divReactions').slideToggle("fast");
             });

@@ -18,8 +18,24 @@
                 </div>
             </div>
             <div class="actions">
-                <button id="showReactions" class="ui button">Voir les réponses</button>
-                <button id="{{ $comment->id }}" class="ui button writeReaction">Répondre</button>
+                <?php $count_reactions = count($comment['children']) ?>
+                @if($count_reactions)
+                    <span class="t-grey">{{ $count_reactions }}
+                        @if($count_reactions > 1)
+                            réponses
+                        @else
+                            réponse
+                        @endif </span>
+                        <div class="ui vertical animated button showReactions" tabindex="0">
+                            <div class="visible content">Voir les réponses</div>
+                            <div class="hidden content">
+                                <i class="down arrow icon"></i>
+                            </div>
+                        </div>
+                @endif
+                @if(Auth::check())
+                    <button id="{{ $comment->id }}" class="ui darkBlueSA button writeReaction">Répondre</button>
+                @endif
             </div>
             <div class="divReactions comments" style="display: none;">
                 @foreach($comment['children'] as $reaction)
@@ -45,6 +61,12 @@
             <br>
         </div>
     @endforeach
-    {{ $comments['last_comment']->links() }}
-    @include('comments.form_reaction')
+    <div class="row">
+        <div class="column center aligned">
+            {{ $comments['last_comment']->links() }}
+        </div>
+    </div>
+    @if(Auth::check())
+        @include('comments.form_reaction')
+    @endif
 </div>
