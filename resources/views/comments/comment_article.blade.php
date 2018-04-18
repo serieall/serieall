@@ -17,7 +17,11 @@
                     {!! $comment->message !!}
                 </div>
             </div>
-            <div class="comments">
+            <div class="actions">
+                <button id="showReactions" class="slideShowMoreOrLess ui button">Voir les réponses</button>
+                <button id="{{ $comment->id }}" class="ui button writeReaction">Répondre</button>
+            </div>
+            <div class="showMoreOrLess comments">
                 @foreach($comment['children'] as $reaction)
                     <div class="comment">
                         <a class="avatar">
@@ -39,9 +43,6 @@
                 @endforeach
             </div>
             <br>
-            <div class="actions">
-                <button id="{{ $comment->id }}" class="ui button writeReaction">Répondre</button>
-            </div>
         </div>
     @endforeach
     {{ $comments['last_comment']->links() }}

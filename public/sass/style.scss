@@ -144,6 +144,9 @@ blockquote {
 }
 
 #LeftBlock.article {
+  .showMoreOrLess {
+    padding: 0;
+  }
   .segment {
     padding: 0;
     .title, .chapo {
