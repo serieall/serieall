@@ -242,19 +242,41 @@ blockquote {
 
 #RightBlock {
   .segment {
+    background: none;
+    .articleShow {
+      margin-left: 1em;
+      position: relative;
+      top: -100px;
+      color: white;
+      z-index: 2;
+      text-shadow: 1px 1px 2px $black;
+      .title {
+        font-size: 2em;
+      }
+      .rate {
+        font-size: 2em;
+      }
+    }
     .articleShowImage {
       height: 100px;
       width: 100%;
-      object-fit: cover;
-      &:after {
+      position: relative;
+      margin-bottom: 2px;
+      img {
+        height: 100px !important;
+        width: 100%;
+        object-fit: cover;
+      }
+      .after {
         content: '\A';
         position: absolute;
-        width: 100%;
-        height: 100px;
         top: 0;
         left: 0;
+        width: 100%;
+        height: 100%;
         background: rgba(0, 0, 0, 0.5);
         opacity: 1;
+        z-index: 1;
       }
     }
     padding: 0;
@@ -265,4 +287,8 @@ blockquote {
 .ui.comments {
   padding: 2rem;
   max-width: 100%;
+}
+
+.ui.right.floated {
+  float: right;
 }

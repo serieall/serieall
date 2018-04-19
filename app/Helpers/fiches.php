@@ -102,6 +102,9 @@ function affichageNote($rate) {
     elseif($rate >= $noteNeutral && $rate < $noteGood) {
         return "<span class=\"ui gray text\">$rate</span>";
     }
+    elseif($rate < 1) {
+        return "<span class=\"ui gray text\">-</span>";
+    }
     else {
         return "<span class=\"ui red text\">$rate</span>";
     }

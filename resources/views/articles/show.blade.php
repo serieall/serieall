@@ -95,8 +95,26 @@
 
         <div id="RightBlock" class="three wide column article">
             <div class="ui segment">
+                {{ dd($article) }}
                 @foreach($article->shows as $show)
-                    <img class="articleShowImage" src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
+                    <div>
+                    <div class="articleShowImage">
+                        <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
+                        <div class="after"></div>
+                        <div class="articleShow">
+                            <div class="ui grid">
+                                <div class="row">
+                                    <div class="eleven wide column">
+                                        <span class="title">{{ $show->name }}</span>
+                                    </div>
+                                    <div class="four wide column rate right aligned">
+                                        {!! affichageNote($show->moyenne) !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 @endforeach
             </div>
         </div>
