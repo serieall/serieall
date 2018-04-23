@@ -9,6 +9,7 @@
             <div class="ui segment">
                 <div class="title">
                     <h1>{{ $article->name }}</h1>
+                    <i class="time icon"></i> ~ {!! calculateReadingTime($article->content) !!} <br />
                     {{ $article->intro }}
                     <br />
                     {!! Share::currentPage()->facebook()
@@ -95,7 +96,6 @@
 
         <div id="RightBlock" class="three wide column article">
             <div class="ui segment">
-                {{ dd($article) }}
                 @foreach($article->shows as $show)
                     <div>
                     <div class="articleShowImage">

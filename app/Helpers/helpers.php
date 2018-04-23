@@ -111,3 +111,17 @@ function formatDate($lenght, $date) {
     return utf8_encode($date_format);
 }
 
+/**
+ * Calculate the reading time fo a content
+ *
+ * @param $content
+ * @return string
+ */
+function calculateReadingTime($content) {
+    $word = str_word_count(strip_tags($content));
+    $m = floor($word / 200);
+//    $s = floor($word % 200 / (200 / 60));
+    $est = $m . ' minute' . ($m == 1 ? '' : 's');
+
+    return $est;
+}
