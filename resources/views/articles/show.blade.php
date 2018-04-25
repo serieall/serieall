@@ -96,26 +96,36 @@
 
         <div id="RightBlock" class="three wide column article">
             <div class="ui segment">
-                @foreach($article->shows as $show)
-                    <div>
-                    <div class="articleShowImage">
-                        <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
-                        <div class="after"></div>
-                        <div class="articleShow">
-                            <div class="ui grid">
-                                <div class="row">
-                                    <div class="eleven wide column">
-                                        <span class="title">{{ $show->name }}</span>
-                                    </div>
-                                    <div class="four wide column rate right aligned">
-                                        {!! affichageNote($show->moyenne) !!}
+                @if($article->shows_count == 1)
+                    C'est un article sur une seule série
+                    @if($article->seasons_count == 1)
+                        C'est un article sur une saison
+                        @if($article->episodes_count == 1)
+                            C'est un article sur un épisode
+                        @endif
+                    @endif
+                @else
+                    @foreach($article->shows as $show)
+                        <div>
+                            <div class="articleShowImage">
+                                <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
+                                <div class="after"></div>
+                                <div class="articleShow">
+                                    <div class="ui grid">
+                                        <div class="row">
+                                            <div class="eleven wide column">
+                                                <span class="title">{{ $show->name }}</span>
+                                            </div>
+                                            <div class="four wide column rate right aligned">
+                                                {!! affichageNote($show->moyenne) !!}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

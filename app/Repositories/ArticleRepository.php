@@ -120,7 +120,7 @@ class ArticleRepository
      */
     public function getArticleByURL($articleURL) {
         return $this->article::with('users', 'shows', 'seasons', 'episodes')
-            ->withCount('users')
+            ->withCount('users', 'shows', 'seasons', 'episodes')
             ->where('article_url', '=', $articleURL)
             ->first();
     }
