@@ -27,14 +27,11 @@
                             réponse
                         @endif </span>
                         <div class="ui vertical animated button showReactions" tabindex="0">
-                            <div class="visible content">Voir les réponses</div>
-                            <div class="hidden content">
-                                <i class="down arrow icon"></i>
-                            </div>
+                            <div class="visible content">Voir les réponses</div><div class="hidden content"><i class="down arrow icon"></i></div>
                         </div>
                 @endif
                 @if(Auth::check())
-                    <button id="{{ $comment->id }}" class="ui darkBlueSA button writeReaction">Répondre</button>
+                    <button id="{{ $comment->id }}" username="{{ $comment->user->username }}" class="ui darkBlueSA button writeReaction">Répondre</button>
                 @endif
             </div>
             <div class="divReactions comments" style="display: none;">
@@ -66,7 +63,4 @@
             {{ $comments['last_comment']->links() }}
         </div>
     </div>
-    @if(Auth::check())
-        @include('comments.form_reaction')
-    @endif
 </div>

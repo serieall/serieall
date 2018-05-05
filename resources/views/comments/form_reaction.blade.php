@@ -1,6 +1,6 @@
 <div class="ui modal reaction">
     <div class="header">
-            Répondre au commentaire de {{ $comment->user->username }}
+            Répondre au commentaire de <span class="answerUsername"></span>
     </div>
     <div class="content">
         <form id="formReaction" class="ui form" method="post" action="{{ route('comment.storereaction') }}">
