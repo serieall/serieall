@@ -924,6 +924,14 @@ blockquote {
       color: white;
       font-size: 3em;
       text-shadow: 1px 1px 2px #1B1C1D; }
+    #LeftBlock.article .segment .title .row.readingTime, #LeftBlock.article .segment .chapo .row.readingTime {
+      padding-top: 0; }
+    #LeftBlock.article .segment .title .row.bottom, #LeftBlock.article .segment .chapo .row.bottom {
+      margin-left: 1em;
+      margin-right: 1em; }
+      #LeftBlock.article .segment .title .row.bottom .column.authors, #LeftBlock.article .segment .chapo .row.bottom .column.authors {
+        display: block;
+        top: 50%; }
 #LeftBlock.article .article.content, #LeftBlock.article #LastComments {
   padding: 2em;
   text-align: justify; }
@@ -953,20 +961,21 @@ blockquote {
   #LeftBlock.article #ListAvis h2 {
     color: #FFFFFF; }
 #LeftBlock.article .imageArticle {
-  height: 100%;
+  min-height: 250px;
   width: 100%;
   -webkit-filter: blur(2px) opacity(1);
   filter: blur(2px) opacity(1);
   transform: scale(1); }
   #LeftBlock.article .imageArticle img {
-    height: 250px !important;
+    height: 100%;
     width: 100%;
+    position: absolute;
     object-fit: cover; }
 #LeftBlock.article .imageArticle:after {
   content: '\A';
   position: absolute;
   width: 100%;
-  height: 250px;
+  height: 100%;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -985,39 +994,27 @@ blockquote {
 #LeftBlock.article .description {
   font-style: italic; }
 
-#RightBlock .segment {
+#RightBlock.article .segment {
   background: none;
   padding: 0; }
-  #RightBlock .segment .articleShow {
-    margin-left: 1em;
-    position: relative;
-    top: -100px;
-    color: white;
-    z-index: 2;
-    text-shadow: 1px 1px 2px #1B1C1D; }
-    #RightBlock .segment .articleShow .title {
-      font-size: 2em; }
-    #RightBlock .segment .articleShow .rate {
-      font-size: 2em; }
-  #RightBlock .segment .articleShowImage {
+  #RightBlock.article .segment .articleShow {
+    margin-top: 1rem;
+    margin-left: 1em; }
+  #RightBlock.article .segment .articleShowImage {
     height: 100px;
     width: 100%;
-    position: relative;
-    margin-bottom: 2px; }
-    #RightBlock .segment .articleShowImage img {
+    padding: 0; }
+    #RightBlock.article .segment .articleShowImage img {
       height: 100px !important;
       width: 100%;
       object-fit: cover; }
-    #RightBlock .segment .articleShowImage .after {
-      content: '\A';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      opacity: 1;
-      z-index: 1; }
+  #RightBlock.article .segment .row:nth-child(odd) {
+    background: #d4e4f0; }
+  #RightBlock.article .segment .row:nth-child(even) {
+    background: #FFFFFF; }
+  #RightBlock.article .segment .row a {
+    color: #1B1C1D;
+    border-bottom: 1px solid #1B1C1D; }
 
 .ui.comments {
   padding: 2rem;

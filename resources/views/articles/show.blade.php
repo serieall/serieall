@@ -8,12 +8,33 @@
         <div id="LeftBlock" class="eight wide column article">
             <div class="ui segment">
                 <div class="title">
-                    <h1>{{ $article->name }}</h1>
-                    <i class="time icon"></i> ~ {!! calculateReadingTime($article->content) !!} <br />
-                    {{ $article->intro }}
-                    <br />
-                    {!! Share::currentPage()->facebook()
+                    <div class="ui two column center aligned grid stackable">
+                        <div class="row">
+                            <h1>{{ $article->name }}</h1>
+                        </div>
+                        <div class="row readingTime">
+                            <i class="time icon"></i> ~ {!! calculateReadingTime($article->content) !!} de lecture
+                        </div>
+                        <div class="row intro">
+                            {{ $article->intro }}
+                        </div>
+                        <div class="row bottom">
+                            <div class="column share left aligned">
+                                {!! Share::currentPage()->facebook()
                                             ->twitter() !!}
+                            </div>
+                            <div class="column authors right aligned">
+                                <span>
+                                    Par @foreach($article->users as $redac)
+                                        {{ $redac->username }}
+                                        @if(!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="imageArticle">
@@ -96,35 +117,55 @@
 
         <div id="RightBlock" class="three wide column article">
             <div class="ui segment">
-                @if($article->shows_count == 1)
-                    C'est un article sur une seule série
-                    @if($article->seasons_count == 1)
-                        C'est un article sur une saison
-                        @if($article->episodes_count == 1)
-                            C'est un article sur un épisode
-                        @endif
-                    @endif
-                @else
-                    @foreach($article->shows as $show)
-                        <div>
-                            <div class="articleShowImage">
-                                <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
-                                <div class="after"></div>
-                                <div class="articleShow">
-                                    <div class="ui grid">
-                                        <div class="row">
-                                            <div class="eleven wide column">
-                                                <span class="title">{{ $show->name }}</span>
-                                            </div>
-                                            <div class="four wide column rate right aligned">
-                                                {!! affichageNote($show->moyenne) !!}
-                                            </div>
+                @if($article->shows_count >= 1)
+                    <div>
+                        @foreach($article->shows as $show)
+                            <div class="articleShow">
+                                <div class="ui grid">
+                                    <div class="articleShowImage">
+                                        <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
+                                    </div>
+                                    <div class="row show">
+                                        <div class="eleven wide column">
+                                            <a href="{{ route('show.fiche', $show->show_url) }}"><span class="title">{{ $show->name }}</span></a>
+                                        </div>
+                                        <div class="four wide column rate right aligned">
+                                            {!! affichageNote($show->moyenne) !!}
                                         </div>
                                     </div>
+                                    @if($article->seasons_count == 1)
+                                        @foreach($article->seasons as $season)
+                                            <div class="row season">
+                                                <div class="eleven wide column">
+                                                    <a href="{{ route('season.fiche', [$season->show->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
+                                                </div>
+                                                <div class="four wide column right aligned">
+                                                    {!! affichageNote($season->moyenne) !!}
+                                                </div>
+                                            </div>
+                                            @if($article->episodes_count == 1)
+                                                @foreach($article->episodes as $episode)
+                                                    <div class="row episode">
+                                                        <div class="eleven wide column">
+                                                            @if($episode->numero == 0)
+                                                                <a href="{{ route('episode.fiche', [$episode->show->show_url, $episode->season->name, $episode->numero, $episode->id]) }}">{{ $episode->name }}</a>
+                                                            @else
+                                                                <a href="{{ route('episode.fiche', [$episode->show->show_url, $episode->season->name, $episode->numero]) }}">{{ $episode->name }}</a>
+                                                            @endif
+
+                                                        </div>
+                                                        <div class="four wide column right aligned">
+                                                            {!! affichageNote($episode->moyenne) !!}
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </div>

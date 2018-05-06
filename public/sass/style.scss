@@ -152,6 +152,17 @@ blockquote {
         font-size: 3em;
         text-shadow: 1px 1px 2px $black;
       }
+      .row.readingTime {
+        padding-top: 0;
+      }
+      .row.bottom {
+        margin-left: 1em;
+        margin-right: 1em;
+        .column.authors {
+          display: block;
+          top: 50%;
+        }
+      }
       color: white;
       width: 100%;
       position: absolute;
@@ -201,14 +212,15 @@ blockquote {
     }
   }
   .imageArticle {
-      height: 100%;
+      min-height: 250px;
       width: 100%;
       -webkit-filter: blur(2px) opacity(1);
       filter: blur(2px) opacity(1);
       transform: scale(1);
     img {
-      height: 250px !important;
+      height: 100%;
       width: 100%;
+      position: absolute;
       object-fit: cover;
     }
   }
@@ -216,7 +228,7 @@ blockquote {
     content: '\A';
     position: absolute;
     width: 100%;
-    height: 250px;
+    height: 100%;
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
@@ -240,48 +252,37 @@ blockquote {
   }
 }
 
-#RightBlock {
+#RightBlock.article {
   .segment {
     background: none;
     .articleShow {
+      margin-top: 1rem;
       margin-left: 1em;
-      position: relative;
-      top: -100px;
-      color: white;
-      z-index: 2;
-      text-shadow: 1px 1px 2px $black;
-      .title {
-        font-size: 2em;
-      }
-      .rate {
-        font-size: 2em;
-      }
     }
     .articleShowImage {
       height: 100px;
       width: 100%;
-      position: relative;
-      margin-bottom: 2px;
+      padding: 0;
       img {
         height: 100px !important;
         width: 100%;
         object-fit: cover;
       }
-      .after {
-        content: '\A';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        opacity: 1;
-        z-index: 1;
-      }
     }
     padding: 0;
+    .row:nth-child(odd) {
+      background: $lightBlueSA;
+    }
+    .row:nth-child(even) {
+      background: $white;
+    }
+    .row {
+      a { // Set color to black and a solid bottom border
+        color: $black;
+        border-bottom: 1px solid $black ;
+      }
+    }
   }
-
 }
 
 .ui.comments {
