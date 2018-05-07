@@ -270,13 +270,13 @@ blockquote {
       }
     }
     padding: 0;
-    .row:nth-child(odd) {
+    #linkedObject .row:nth-child(odd) {
       background: $lightBlueSA;
     }
-    .row:nth-child(even) {
+    #linkedObject .row:nth-child(even) {
       background: $white;
     }
-    .row {
+    #linkedObject .row {
       a { // Set color to black and a solid bottom border
         color: $black;
         border-bottom: 1px solid $black ;

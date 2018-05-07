@@ -81,11 +81,27 @@ class ArticleController extends Controller
         $object = compileObjectInfos('Article', $article->id);
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
+        if($article->shows_count = 1) {
+            if($article->seasons_count >= 1) {
+                if ($article->episodes_count >=1) {
+                    // C'est un article sur un épisode
+                } else {
+                    // C'est un article sur une saison
+                }
+            }
+            else {
+                // C'est un article sur une série
+                foreach($article->shows as $show) {
+                    $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
+                }
+            }
+        }
+
         if (Request::ajax()) {
             return Response::json(View::make('comments.comment_article', ['comments' => $comments])->render());
         }
         else {
-            return view('articles.show', compact('article', 'comments', 'object'));
+            return view('articles.show', compact('article', 'comments', 'object', 'articles_linked'));
         }
 
     }

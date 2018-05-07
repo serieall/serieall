@@ -118,10 +118,9 @@
         <div id="RightBlock" class="three wide column article">
             <div class="ui segment">
                 @if($article->shows_count >= 1)
-                    <div>
                         @foreach($article->shows as $show)
                             <div class="articleShow">
-                                <div class="ui grid">
+                                <div class="ui grid" id="linkedObject">
                                     <div class="articleShowImage">
                                         <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
                                     </div>
@@ -165,7 +164,7 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
+                    @include('articles.linked')
                 @endif
             </div>
         </div>

@@ -125,4 +125,18 @@ class ArticleRepository
             ->first();
     }
 
+    /**
+     * Return article for a show
+     *
+     * @param $article_id
+     * @param $show_id
+     * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
+    public function getArticleByShowID($article_id, $show_id) {
+        return $this->article->whereHas('shows', function ($q) use ($show_id) {
+            $q->where('id', '=', $show_id);
+        })
+            ->get();
+    }
+
 }
