@@ -1,4 +1,12 @@
 $(document).ready(function() {
+    $('.ui.sticky')
+        .sticky({
+            context: "#segmentLeft",
+            offset: 60
+        });
+});
+
+$(document).ready(function() {
     var showReactions = $('.showReactions');
     $(showReactions).on('click', function() {
         $(this).parent().next('.divReactions').slideToggle("fast");
@@ -6,8 +14,13 @@ $(document).ready(function() {
             '<div class="visible content">Voir les réponses</div><div class="hidden content"><i class="down arrow icon"></i></div>',
             '<div class="visible content">Cacher les réponses</div><div class="hidden content"><i class="up arrow icon"></i></div>'
         );
-
     });
+});
+
+$(document).one('click', '#goToComments', function (e) {
+    e.preventDefault();
+
+    $('html, body').animate({scrollTop:$('#ListAvis').offset().top}, 'slow');
 });
 
 $(document).one('click', '.pagination a', function (e) {
@@ -36,8 +49,6 @@ function getComments(page) {
         $('html, body').animate({scrollTop:$('#ListAvis').offset().top}, 'slow');
         $.getScript('/js/article.show.js');
         $.getScript('/js/spoiler/spoiler.js');
-
-        console.log('js chargé');
 
         $(lastComments).removeClass('loading');
     }).fail(function () {
@@ -105,7 +116,7 @@ var editorReaction = CKEDITOR.instances.reaction;
 if (editorReaction) {
     editorReaction.destroy(true);
 }
-console.log($('.ui.modal.reaction'));
+
 $('.ui.modal.reaction').modal('attach events', '.writeReaction', 'show');
 CKEDITOR.plugins.addExternal('spoiler', '/js/ckeditor/plugins/spoiler/plugin.js');
 CKEDITOR.plugins.addExternal('wordcount', '/js/ckeditor/plugins/wordcount/plugin.js');

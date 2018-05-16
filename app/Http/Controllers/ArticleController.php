@@ -84,9 +84,13 @@ class ArticleController extends Controller
         if($article->shows_count = 1) {
             if($article->seasons_count >= 1) {
                 if ($article->episodes_count >=1) {
-                    // C'est un article sur un épisode
+                    foreach($article->shows as $show) {
+                        $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
+                    }
                 } else {
-                    // C'est un article sur une saison
+                    foreach($article->shows as $show) {
+                        $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
+                    }
                 }
             }
             else {

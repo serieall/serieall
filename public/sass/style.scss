@@ -142,10 +142,71 @@ blockquote {
 .dataTables_wrapper .dataTables_paginate .paginate_button{
   margin-left: 0 !important;
 }
+.divParentShareIcon {
+  position: fixed;
+  left: auto;
+  z-index: 2;
+  .divChildShareIcon {
+    display: block;
+    position: absolute;
+    ul {
+      padding-left: 2px;
+    }
+    li {
+      list-style: none; /* pour enlever les puces sur IE7 */
+      margin-top: 2px;
+      .comment.icon {
+        background-color: $darkBlueSA !important;
+      }
+    }
+  }
+  #social-links {
+    text-align: right;
+    ul {
+      padding-left: 2px;
+    }
+    li {
+      list-style: none; /* pour enlever les puces sur IE7 */
+      margin-top: 2px;
+      font-size: 3em;
+    }
+  }
+}
 
 #LeftBlock.article {
   .segment {
     padding: 0;
+    .title {
+      padding: 1em;
+    }
+    .imageArticle {
+      img {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        object-fit: cover;
+        -webkit-filter: blur(2px) opacity(1);
+        filter: blur(2px) opacity(1);
+        transform: scale(1);
+        left: 0;
+        top: 0;
+      }
+      &:after {
+        content: '\A';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 1;
+      }
+    }
+    .topInfoArticle {
+      #hiddenInfo {
+        visibility: hidden;
+      }
+    }
     .title, .chapo {
       h1 {
         color: white;
@@ -169,6 +230,16 @@ blockquote {
       z-index: 1;
       text-align: center;
       text-shadow: 1px 1px 2px $black;
+    }
+    img {
+      max-width: 100%;
+    }
+  }
+  .article.content {
+    margin-top: 2em;
+    padding-top: unset;
+    .write.icon {
+      font-size: 1em;
     }
   }
   .article.content, #LastComments  {
@@ -209,42 +280,6 @@ blockquote {
     }
     h2 {
       color: $white;
-    }
-  }
-  .imageArticle {
-      min-height: 250px;
-      width: 100%;
-      -webkit-filter: blur(2px) opacity(1);
-      filter: blur(2px) opacity(1);
-      transform: scale(1);
-    img {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      object-fit: cover;
-    }
-  }
-  .imageArticle:after {
-    content: '\A';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 1;
-  }
-  #social-links {
-    display: inline-block;
-    text-align: right;
-    ul {
-      padding-left: 2px;
-    }
-    li {
-      display: inline;
-      list-style: none; /* pour enlever les puces sur IE7 */
-      margin: 2px;
-      font-size: 3em;
     }
   }
   .description {

@@ -911,8 +911,56 @@ blockquote {
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   margin-left: 0 !important; }
 
+.divParentShareIcon {
+  position: fixed;
+  left: auto;
+  z-index: 2; }
+  .divParentShareIcon .divChildShareIcon {
+    display: block;
+    position: absolute; }
+    .divParentShareIcon .divChildShareIcon ul {
+      padding-left: 2px; }
+    .divParentShareIcon .divChildShareIcon li {
+      list-style: none;
+      /* pour enlever les puces sur IE7 */
+      margin-top: 2px; }
+      .divParentShareIcon .divChildShareIcon li .comment.icon {
+        background-color: #213d64 !important; }
+  .divParentShareIcon #social-links {
+    text-align: right; }
+    .divParentShareIcon #social-links ul {
+      padding-left: 2px; }
+    .divParentShareIcon #social-links li {
+      list-style: none;
+      /* pour enlever les puces sur IE7 */
+      margin-top: 2px;
+      font-size: 3em; }
+
 #LeftBlock.article .segment {
   padding: 0; }
+  #LeftBlock.article .segment .title {
+    padding: 1em; }
+  #LeftBlock.article .segment .imageArticle img {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    object-fit: cover;
+    -webkit-filter: blur(2px) opacity(1);
+    filter: blur(2px) opacity(1);
+    transform: scale(1);
+    left: 0;
+    top: 0; }
+  #LeftBlock.article .segment .imageArticle:after {
+    content: '\A';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 1; }
+  #LeftBlock.article .segment .topInfoArticle #hiddenInfo {
+    visibility: hidden; }
   #LeftBlock.article .segment .title, #LeftBlock.article .segment .chapo {
     color: white;
     width: 100%;
@@ -932,6 +980,13 @@ blockquote {
       #LeftBlock.article .segment .title .row.bottom .column.authors, #LeftBlock.article .segment .chapo .row.bottom .column.authors {
         display: block;
         top: 50%; }
+  #LeftBlock.article .segment img {
+    max-width: 100%; }
+#LeftBlock.article .article.content {
+  margin-top: 2em;
+  padding-top: unset; }
+  #LeftBlock.article .article.content .write.icon {
+    font-size: 1em; }
 #LeftBlock.article .article.content, #LeftBlock.article #LastComments {
   padding: 2em;
   text-align: justify; }
@@ -960,37 +1015,6 @@ blockquote {
     background: none; }
   #LeftBlock.article #ListAvis h2 {
     color: #FFFFFF; }
-#LeftBlock.article .imageArticle {
-  min-height: 250px;
-  width: 100%;
-  -webkit-filter: blur(2px) opacity(1);
-  filter: blur(2px) opacity(1);
-  transform: scale(1); }
-  #LeftBlock.article .imageArticle img {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    object-fit: cover; }
-#LeftBlock.article .imageArticle:after {
-  content: '\A';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 1; }
-#LeftBlock.article #social-links {
-  display: inline-block;
-  text-align: right; }
-  #LeftBlock.article #social-links ul {
-    padding-left: 2px; }
-  #LeftBlock.article #social-links li {
-    display: inline;
-    list-style: none;
-    /* pour enlever les puces sur IE7 */
-    margin: 2px;
-    font-size: 3em; }
 #LeftBlock.article .description {
   font-style: italic; }
 
@@ -1008,11 +1032,11 @@ blockquote {
       height: 100px !important;
       width: 100%;
       object-fit: cover; }
-  #RightBlock.article .segment .row:nth-child(odd) {
+  #RightBlock.article .segment #linkedObject .row:nth-child(odd) {
     background: #d4e4f0; }
-  #RightBlock.article .segment .row:nth-child(even) {
+  #RightBlock.article .segment #linkedObject .row:nth-child(even) {
     background: #FFFFFF; }
-  #RightBlock.article .segment .row a {
+  #RightBlock.article .segment #linkedObject .row a {
     color: #1B1C1D;
     border-bottom: 1px solid #1B1C1D; }
 

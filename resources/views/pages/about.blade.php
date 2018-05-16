@@ -25,7 +25,7 @@
 
             <strong>Réalisation de la première version</strong> : Cad <br />
             <strong>Réalisation de la V2</strong> : Youkoulayley <br />
-            <strong>Logo : Quivers</strong> <br />
+            <strong>Logo</strong> : Quivers <br />
         </div>
     </div>
 @endsection
