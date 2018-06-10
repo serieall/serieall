@@ -4,9 +4,7 @@ $(document).ready(function() {
             context: "#segmentLeft",
             offset: 60
         });
-});
 
-$(document).ready(function() {
     var showReactions = $('.showReactions');
     $(showReactions).on('click', function() {
         $(this).parent().next('.divReactions').slideToggle("fast");
@@ -15,12 +13,12 @@ $(document).ready(function() {
             '<div class="visible content">Cacher les réponses</div><div class="hidden content"><i class="up arrow icon"></i></div>'
         );
     });
-});
 
-$(document).one('click', '#goToComments', function (e) {
-    e.preventDefault();
-
-    $('html, body').animate({scrollTop:$('#ListAvis').offset().top}, 'slow');
+    $("a#goToComments").click(function(){
+        $('html, body').animate({
+            scrollTop: $( $(this).attr('href') ).offset().top
+        }, 1000);
+    });
 });
 
 $(document).one('click', '.pagination a', function (e) {

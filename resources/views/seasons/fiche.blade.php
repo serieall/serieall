@@ -138,44 +138,7 @@
         </div>
 
         <div class="row">
-            <div id="LastArticles" class="ui segment">
-                <h1>Derniers articles sur la saison</h1>
-                <div class="ui stackable grid">
-                    <div class="row">
-                        <div class="center aligned four wide column">
-                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
-                        </div>
-                        <div class="eleven wide column">
-                            <a><h2>Critique 01.03</h2></a>
-                            <p class="ResumeArticle">Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="center aligned four wide column">
-                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
-                        </div>
-                        <div class="eleven wide column">
-                            <a><h2>Critique 01.02</h2></a>
-                            <p class="ResumeArticle">Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="center aligned four wide column">
-                            <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
-                        </div>
-                        <div class="eleven wide column">
-                            <a><h2>Critique 01.01</h2></a>
-                            <p class="ResumeArticle">Ceci est une critique test, et on parle et on parle, tout ça pour faire des vues, nianiania...</p>
-                        </div>
-                    </div>
-                </div>
-                <a href="#">
-                    <button class="ui right floated button">
-                        Tous les articles
-                        <i class="right arrow icon"></i>
-                    </button>
-                </a>
-            </div>
+            @include('articles.linked')
         </div>
     </div>
 @endsection

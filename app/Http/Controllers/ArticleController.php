@@ -83,18 +83,20 @@ class ArticleController extends Controller
 
         if($article->shows_count = 1) {
             if($article->seasons_count >= 1) {
+                $type_article = "Season";
                 if ($article->episodes_count >=1) {
-                    foreach($article->shows as $show) {
-                        $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
+                    foreach($article->seasons as $season) {
+                        $articles_linked = $this->articleRepository->getArticleBySeasonID($article->id, $season->id);
                     }
                 } else {
-                    foreach($article->shows as $show) {
-                        $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
+                    foreach($article->seasons as $season) {
+                        $articles_linked = $this->articleRepository->getArticleBySeasonID($article->id, $season->id);
                     }
                 }
             }
             else {
                 // C'est un article sur une série
+                $type_article = "Show";
                 foreach($article->shows as $show) {
                     $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
                 }
@@ -105,7 +107,7 @@ class ArticleController extends Controller
             return Response::json(View::make('comments.comment_article', ['comments' => $comments])->render());
         }
         else {
-            return view('articles.show', compact('article', 'comments', 'object', 'articles_linked'));
+            return view('articles.show', compact('article', 'comments', 'object', 'type_article', 'articles_linked'));
         }
 
     }

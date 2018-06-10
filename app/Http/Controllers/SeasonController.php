@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
@@ -18,6 +19,7 @@ class SeasonController extends Controller
     protected $showRepository;
     protected $seasonRepository;
     protected $commentRepository;
+    protected $articleRepository;
 
     /**
      * ShowController constructor.
@@ -27,11 +29,13 @@ class SeasonController extends Controller
      */
     public function __construct(ShowRepository $showRepository,
                                 SeasonRepository $seasonRepository,
-                                CommentRepository $commentRepository)
+                                CommentRepository $commentRepository,
+                                ArticleRepository $articleRepository)
     {
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
         $this->commentRepository = $commentRepository;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -64,6 +68,9 @@ class SeasonController extends Controller
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        return view('seasons.fiche', ['chart' => $chart], compact('showInfo', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
+        $type_article = 'Season';
+        $articles_linked = $this->articleRepository->getArticleBySeasonID(0, $seasonInfo->id);
+
+        return view('seasons.fiche', ['chart' => $chart], compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
     }
 }

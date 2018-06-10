@@ -13,7 +13,7 @@ class CreateContactsTable extends Migration {
             $table->string('email');
             $table->string('objet');
             $table->text('message');
-            $table->integer('admin_id')->nullable();
+            $table->integer('admin_id')->unsigned();
             $table->text('admin_message')->nullable();
             $table->timestamps();
         });

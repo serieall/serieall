@@ -13,7 +13,7 @@
                     <div class="ui divider"></div>
                     <ul>
                         <li>
-                            <a id="goToComments" href=""><i class="large circular inverted comment icon"></i></a>
+                            <a id="goToComments" href="#ListAvis"><i class="large circular inverted comment icon"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -150,7 +150,7 @@
     </div>
 
     <div id="RightBlock" class="three wide column article">
-        <div class="ui segment">
+        <div class="ui segment linkedShow">
             @if($article->shows_count >= 1)
                 @foreach($article->shows as $show)
                     <div class="articleShow">
@@ -199,9 +199,9 @@
                         </div>
                     </div>
                 @endforeach
-                @include('articles.linked')
             @endif
         </div>
+        @include('articles.linked')
     </div>
     </div>
     @if(Auth::check())

@@ -1,13 +1,9 @@
 # ARTICLES
 
 * Home page ;
-* Others articles for shows (3 articles);
-    * Article.show
-    * Show.fiche
-    * Season.fiche
-    * Episode.fiche
 * List of articles for shows/seasons/episodes
 * Add articles to redactors profiles.
+* Edit in admin panel
 
 # REACTIONS
 

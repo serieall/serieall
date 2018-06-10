@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="ui ten wide column">
-
         <div class="ui center aligned">
             <div class="ui stackable compact pointing menu">
                 <a class="active item">
@@ -78,5 +77,49 @@
                 @endif
             @endif
         </div>
+
+        @if($user->articles->count() > 0)
+            <div id="LeftBlock" class="ui segment profile">
+                <h1>Articles écrits par {{ $user->username }}</h1>
+
+                <div class="ui items">
+                @foreach($user->articles as $article)
+                    <div class="article item">
+                        <div class="ol-{{ colorCategory($article->category_id) }} image article">
+                            <img src="{{ $article->image }}">
+                            <p>{{ $article->category->name }}</p>
+                        </div>
+                        <div class="content">
+                            <a href="{{  route('article.show', $article->article_url) }}" class="header">{{ $article->name }}</a>
+                            <div class="meta">
+                                <span>Le {!! formatDate('full', $article->published_at) !!}</span>
+                            </div>
+                            <div class="description">
+                                <p>{{ $article->intro }}</p>
+                            </div>
+                            <div class="extra">
+                                Par
+                                @foreach($article->users as $user)
+                                    @if($loop->last)
+                                        <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
+                                        <span>{{ $user->username }}</span>
+                                    @else
+                                        <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
+                                        <span>{{ $user->username }}</span>,
+                                    @endif
+                                @endforeach
+
+                                <div class="right floated">
+                                    <i class="comment icon"></i>
+                                    {{ $article->comments_count }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 @endsection

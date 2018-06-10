@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\RateRepository;
 
@@ -23,6 +24,7 @@ class EpisodeController extends Controller
     protected $showRepository;
     protected $commentRepository;
     protected $rateRepository;
+    protected $articleRepository;
 
     /**
      * EpisodeController constructor.
@@ -31,18 +33,21 @@ class EpisodeController extends Controller
      * @param ShowRepository $showRepository
      * @param CommentRepository $commentRepository
      * @param RateRepository $rateRepository
+     * @param ArticleRepository $articleRepository
      */
     public function __construct(EpisodeRepository $episodeRepository,
                                 SeasonRepository $seasonRepository,
                                 ShowRepository $showRepository,
                                 CommentRepository $commentRepository,
-                                RateRepository $rateRepository)
+                                RateRepository $rateRepository,
+                                ArticleRepository $articleRepository)
     {
         $this->episodeRepository = $episodeRepository;
         $this->seasonRepository = $seasonRepository;
         $this->showRepository = $showRepository;
         $this->commentRepository = $commentRepository;
         $this->rateRepository = $rateRepository;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -98,6 +103,9 @@ class EpisodeController extends Controller
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        return view('episodes.fiche', compact('showInfo', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
+        $type_article = 'Season';
+        $articles_linked = $this->articleRepository->getArticleBySeasonID(0, $seasonInfo->id);
+
+        return view('episodes.fiche', compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
     }
 }

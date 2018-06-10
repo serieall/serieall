@@ -63,6 +63,7 @@
 @include overlay33Color("ol-orange", $orange);
 @include overlay33Color("ol-yellow", $yellow);
 @include overlay33Color("ol-green", $green);
+@include overlay33Color("ol-olive", $olive);
 @include overlay33Color("ol-cyan", $cyan);
 @include overlay33Color("ol-blue", $blue);
 @include overlay33Color("ol-purple", $purple);
@@ -288,7 +289,7 @@ blockquote {
 }
 
 #RightBlock.article {
-  .segment {
+  .segment.linkedShow {
     background: none;
     .articleShow {
       margin-top: 1rem;
@@ -311,6 +312,9 @@ blockquote {
     #linkedObject .row:nth-child(even) {
       background: $white;
     }
+    #linkedObject {
+      margin-right: 0;
+    }
     #linkedObject .row {
       a { // Set color to black and a solid bottom border
         color: $black;
@@ -327,4 +331,22 @@ blockquote {
 
 .ui.right.floated {
   float: right;
+}
+
+#LastArticles {
+  &.segment {
+    margin-top: 2em;
+  }
+  .row {
+    &.button {
+      margin-top: 2em;
+    }
+    &.objectArticle {
+      margin-top: 2em;
+    }
+  }
+}
+
+#LeftBlock.profile {
+  margin-right: 0;
 }

@@ -136,7 +136,22 @@ class ArticleRepository
         return $this->article->whereHas('shows', function ($q) use ($show_id) {
             $q->where('id', '=', $show_id);
         })
+            ->where('id', '!=', $article_id)
             ->get();
     }
 
+    /**
+     * Return article for a season
+     *
+     * @param $article_id
+     * @param $show_id
+     * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
+    public function getArticleBySeasonID($article_id, $season_id) {
+        return $this->article->whereHas('seasons', function ($q) use ($season_id) {
+            $q->where('id', '=', $season_id);
+        })
+            ->where('id', '!=', $article_id)
+            ->get();
+    }
 }
