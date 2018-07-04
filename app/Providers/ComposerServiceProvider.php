@@ -112,6 +112,12 @@ class ComposerServiceProvider extends ServiceProvider
             ['comments/fiche'],
             'App\Http\ViewComposers\FicheActiveCommentsComposer'
         );
+
+        // FicheActive = articles
+        View::composer(
+            ['articles/fiche'],
+            'App\Http\ViewComposers\FicheActiveArticlesComposer'
+        );
     }
 
     /**

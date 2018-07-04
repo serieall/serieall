@@ -71,7 +71,7 @@ Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos
 */
 Route::get('series', 'ShowController@index')->name('show.index');
 Route::get('serie/{show_url}', 'ShowController@getShowFiche')->name('show.fiche');
-Route::get('details/{show_url}', 'ShowController@getShowDetails')->name('show.details');
+Route::get('serie/{show_url}/details', 'ShowController@getShowDetails')->name('show.details');
 
 /*
     Partie Saisons
@@ -90,6 +90,7 @@ Route::post('episode/rate', 'EpisodeController@rateEpisode')->name('episode.rate
 Route::get('articles', 'ArticleController@index')->name('article.index');
 Route::get('articles/{id}', 'ArticleController@indexByCategory')->name('article.indexCategory');
 Route::get('article/{article_url}', 'ArticleController@show')->name('article.show');
+Route::get('serie/{show_url}/articles', 'ShowController@getShowArticles')->name('article.fiche');
 
 /*
     Partie Commentaire

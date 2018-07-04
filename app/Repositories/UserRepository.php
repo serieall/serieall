@@ -45,7 +45,9 @@ class UserRepository
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getUserByURL($user_url){
-        return $this->user::with('articles')->where('user_url', $user_url)->firstOrFail();
+        return $this->user::with(['articles' => function ($q) {
+            $q->orderBy('published_at', 'desc')->paginate(2);
+        }])->where('user_url', $user_url)->firstOrFail();
     }
 
     /**

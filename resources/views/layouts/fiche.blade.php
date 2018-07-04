@@ -153,7 +153,7 @@
                     <i class="big comments icon"></i>
                     Avis
                 </a>
-                <a class="item">
+                <a class="@if($FicheActive == "articles") active @endif item" href="{{ route('article.fiche', $showInfo['show']->show_url) }}">
                     <i class="big write icon"></i>
                     Articles
                 </a>
@@ -170,6 +170,9 @@
     <div class="row ui stackable grid ficheContainer">
         <div id="LeftBlock" class="ten wide column">
             @yield('content_fiche_left')
+        </div>
+        <div id="MiddleBlock" class="twelve wide column">
+            @yield('content_fiche_middle')
         </div>
         <div id="RightBlock" class="five wide column">
             @yield('content_fiche_right')

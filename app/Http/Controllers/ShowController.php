@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Repositories\ArticleRepository;
+use App\Repositories\CategoryRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
@@ -23,6 +24,7 @@ class ShowController extends Controller
     protected $episodeRepository;
     protected $commentRepository;
     protected $articleRepository;
+    protected $categoryRepository;
 
     /**
      * ShowController constructor.
@@ -30,18 +32,22 @@ class ShowController extends Controller
      * @param SeasonRepository $seasonRepository
      * @param EpisodeRepository $episodeRepository
      * @param CommentRepository $commentRepository
+     * @param ArticleRepository $articleRepository
+     * @param CategoryRepository $categoryRepository
      */
     public function __construct(ShowRepository $showRepository,
                                 SeasonRepository $seasonRepository,
                                 EpisodeRepository $episodeRepository,
                                 CommentRepository $commentRepository,
-                                ArticleRepository $articleRepository)
+                                ArticleRepository $articleRepository,
+                                CategoryRepository $categoryRepository)
     {
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
         $this->episodeRepository = $episodeRepository;
         $this->commentRepository = $commentRepository;
         $this->articleRepository = $articleRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -100,5 +106,15 @@ class ShowController extends Controller
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
         return view('shows/details', compact('showInfo'));
+    }
+
+    public function getShowArticles($show_url) {
+        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+
+        $categories = $this->categoryRepository->getAllCategories();
+        $articles = $this->articleRepository->getPublishedArticleByShow($showInfo['show']);
+        $articles_count = count($articles);
+
+        return view('articles/fiche', compact('showInfo', 'articles', 'articles_count', 'categories'));
     }
 }
