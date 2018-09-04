@@ -171,11 +171,11 @@
         <div id="LeftBlock" class="ten wide column">
             @yield('content_fiche_left')
         </div>
-        <div id="MiddleBlock" class="twelve wide column">
-            @yield('content_fiche_middle')
-        </div>
         <div id="RightBlock" class="five wide column">
             @yield('content_fiche_right')
+        </div>
+        <div id="MiddleBlock" class="twelve wide column">
+            @yield('content_fiche_middle')
         </div>
     </div>
 
