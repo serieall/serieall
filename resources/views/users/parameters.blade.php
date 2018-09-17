@@ -11,7 +11,7 @@
                     <i class="user icon"></i>
                     Profil
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('user.profile.rates', $user->username ) }}">
                     <i class="star icon"></i>
                     Notes
                 </a>

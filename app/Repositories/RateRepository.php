@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Models\Episode_user;
 use App\Models\Episode;
 use App\Models\Season;
+use App\Models\Show;
 
 /**
  * Class RateRepository
@@ -119,4 +120,24 @@ class RateRepository
             ->get();
     }
 
+    /**
+     * Get lasts rates of a user
+     *
+     * @param $user_id
+     * @param $episode_id
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public function getRateByUserID($user_id) {
+        return Episode_user::with(['user', 'episode' => function($q) {
+            $q->with('season');
+            $q->with('show');
+        }])
+            ->whereUserId($user_id)
+            ->limit(5)
+            ->get();
+    }
+
+    public function getRatesAggregateByShowForUser($user_id) {
+        return Show::with('users')->get();
+    }
 }
