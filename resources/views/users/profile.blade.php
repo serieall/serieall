@@ -10,7 +10,7 @@
                     <i class="user icon"></i>
                     Profil
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('user.profile.rates', $user->username ) }}">
                     <i class="star icon"></i>
                     Notes
                 </a>
@@ -116,7 +116,7 @@
                                                 {{ $article->comments_count }}
                                             </div>
                                         </div>
-                                    </div>
+                                     </div>
                                 </div>
                                 <div class="ui divider"></div>
                             @endforeach
@@ -127,7 +127,9 @@
             <div class="eight wide column">
                 <div id="RightBlock" class="ui segment profile">
                     <h1>Ses dernières notes</h1>
-
+                    @foreach($rates as $rate)
+                        {{ $rate['user']['username'] }} a mis {{ $rate->rate }} à <a href="{{ route('show.fiche', $rate->episode->show['show_url'] ) }}">{{ $rate->episode->show['name'] }}</a>/{!! afficheEpisodeName($rate->episode, true, true) !!}
+                    @endforeach
                 </div>
             </div>
         </div>

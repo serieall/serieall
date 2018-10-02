@@ -62,7 +62,7 @@
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
+            "php artisan ide-helper:meta"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",

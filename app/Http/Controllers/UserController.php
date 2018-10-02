@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserChangeInfosRequest;
+use App\Repositories\RateRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,14 +20,17 @@ class UserController extends Controller
 {
 
     protected $userRepository;
+    protected $rateRepository;
 
     /**
      * UserController constructor.
      * @param UserRepository $userRepository
+     * @param RateRepository $rateRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, RateRepository $rateRepository)
     {
         $this->userRepository = $userRepository;
+        $this->rateRepository = $rateRepository;
     }
 
     /**
@@ -49,8 +53,25 @@ class UserController extends Controller
      */
     public function getProfile($userURL){
         $user = $this->userRepository->getUserByURL($userURL);
+        $rates = $this->rateRepository->getRateByUserID($user->id);
 
-        return view('users.profile', compact('user'));
+        return view('users.profile', compact('user', 'rates'));
+    }
+
+    /**
+     * Renvoi vers la page users/rates
+     *
+     * @param $userURL
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function getRates($userURL){
+        $user = $this->userRepository->getUserByURL($userURL);
+        $rates = $this->rateRepository->getRatesAggregateByShowForUser(($user->id));
+
+        dd($rates);
+
+        return view('users.rates', compact('user'));
     }
 
     /**
