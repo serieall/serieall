@@ -91,6 +91,7 @@ Route::get('articles', 'ArticleController@index')->name('article.index');
 Route::get('articles/{id}', 'ArticleController@indexByCategory')->name('article.indexCategory');
 Route::get('article/{article_url}', 'ArticleController@show')->name('article.show');
 Route::get('serie/{show_url}/articles', 'ShowController@getShowArticles')->name('article.fiche');
+Route::get('serie/{show_url}/articles/{category_id}', 'ShowController@getShowArticlesByCategory')->name('article.ficheCategory');
 
 /*
     Partie Commentaire
