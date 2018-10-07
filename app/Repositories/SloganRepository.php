@@ -30,4 +30,14 @@ class SloganRepository {
     public function getAllSlogans(){
         return $this->slogan->get();
     }
+
+    /**
+     * Retourne un slogan via son ID
+     *
+     * @param $id
+     * @return Slogan|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|null|object
+     */
+    public function getSloganByID($id){
+        return $this->slogan->whereId($id)->first();
+    }
 }

@@ -40,7 +40,7 @@
             </thead>
             @foreach($slogans as $slogan)
                 <tr>
-                    <td><a href="">{{ $slogan->message }}</a></td>
+                    <td><a href="{{ route('admin.slogans.edit', $slogan->id) }}">{{ $slogan->message }}</a></td>
                     <td>{{ $slogan->source }}</td>
                     <td>{{ $slogan->created_at }}</td>
                     <td class="center aligned">
