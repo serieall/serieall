@@ -17,7 +17,7 @@
 
 @mixin leftBorderColor($nameElement, $color) {
   .#{$nameElement} {
-    border-left: 5px solid $color;
+    border-left: 5px solid $color !important;
   }
 }
 
