@@ -39,15 +39,91 @@
 
         <div class="ui segment">
             <div class="ui items">
-                <div class="item">
-                    <span class="ui tiny image">
-                        <img src="{{ Gravatar::src($user->email) }}">
-                    </span>
-                    <div class="content">
-                        <a class="header">{{ $user->username }}</a><br />
-                        {!! roleUser($user->role) !!}
-                        <div class="description">
-                            <p>"<i>{{ $user->edito }}"</i></p>
+                <div class="ui grid stackable">
+                    <div class="ten wide column">
+                        <div class="ui items">
+                            <div class="item">
+                        <span class="ui tiny image">
+                            <img src="{{ Gravatar::src($user->email) }}">
+                        </span>
+                                <div class="content">
+                                    <a class="header">{{ $user->username }}</a><br />
+                                    {!! roleUser($user->role) !!}
+                                    <div class="description">
+                                        <p>"<i>{{ $user->edito }}"</i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui center aligned six wide column">
+                        <div class="ui three statistics">
+                            <div class="ui statistic">
+                                <div class="label">
+                                    Moyenne
+                                </div>
+                                <div class="value">
+                                    {!! affichageNote($avg_user_rates->avg) !!}
+                                </div>
+                            </div>
+                            <div class="ui statistic">
+                                <div class="label">
+                                    Nombre de notes
+                                </div>
+                                <div class="value">
+                                    {{$avg_user_rates->nb_rates}}
+                                </div>
+                            </div>
+                            <div class="ui statistic">
+                                <div class="label">
+                                    Nombre d'avis
+                                </div>
+                                <div class="value">
+                                    {{$nb_comments}}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="ui mini three statistics">
+                            <div class="statistic">
+                                <div class="value">
+                                    <i class="green smile icon"></i>
+                                    @if($comment_fav)
+                                        {{ $comment_fav->total }}
+                                    @else
+                                        0
+                                    @endif
+                                </div>
+                                <div class="label">
+                                    Favorables
+                                </div>
+                            </div>
+                            <div class="statistic">
+                                <div class="value">
+                                    <i class="grey meh icon"></i>
+                                    @if($comment_neu)
+                                        {{ $comment_neu->total }}
+                                    @else
+                                        0
+                                    @endif
+                                </div>
+                                <div class="label">
+                                    Neutres
+                                </div>
+                            </div>
+                            <div class="statistic">
+                                <div class="value">
+                                    <i class="red frown icon"></i>
+                                    @if($comment_def)
+                                        {{ $comment_def->total }}
+                                    @else
+                                        0
+                                    @endif
+                                </div>
+                                <div class="label">
+                                    Défavorables
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

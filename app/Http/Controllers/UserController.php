@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserChangeInfosRequest;
+use App\Repositories\CommentRepository;
 use App\Repositories\RateRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -26,16 +27,19 @@ class UserController extends Controller
 
     protected $userRepository;
     protected $rateRepository;
+    protected $commentRepository;
 
     /**
      * UserController constructor.
      * @param UserRepository $userRepository
      * @param RateRepository $rateRepository
+     * @param CommentRepository $commentRepository
      */
-    public function __construct(UserRepository $userRepository, RateRepository $rateRepository)
+    public function __construct(UserRepository $userRepository, RateRepository $rateRepository, CommentRepository $commentRepository)
     {
         $this->userRepository = $userRepository;
         $this->rateRepository = $rateRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -58,9 +62,19 @@ class UserController extends Controller
      */
     public function getProfile($userURL){
         $user = $this->userRepository->getUserByURL($userURL);
+
+        $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
+        $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
+
+        $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
+        $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
+        $comment_fav = $comments->where('thumb', '=', 1)->first();
+        $comment_neu = $comments->where('thumb', '=', 2)->first();
+        $comment_def = $comments->where('thumb', '=', 3)->first();
+
         $rates = $this->rateRepository->getRateByUserID($user->id);
 
-        return view('users.profile', compact('user', 'rates'));
+        return view('users.profile', compact('user', 'rates', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments'));
     }
 
     /**
@@ -72,8 +86,17 @@ class UserController extends Controller
      */
     public function getRates($userURL, $action = "") {
         $user = $this->userRepository->getUserByURL($userURL);
+
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
-        $all_rates = $all_rates->select('rate', DB::raw('count(*) as total'))->groupBy('rate')->get();
+        $all_rates_chart = $this->rateRepository->getAllRateByUserID($user->id);
+        $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
+        $chart_rates = $all_rates_chart->select('rate', DB::raw('count(*) as total'))->groupBy('rate')->get();
+
+        $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
+        $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
+        $comment_fav = $comments->where('thumb', '=', 1)->first();
+        $comment_neu = $comments->where('thumb', '=', 2)->first();
+        $comment_def = $comments->where('thumb', '=', 3)->first();
 
         if (Request::ajax()) {
             Log::info($action);
@@ -96,10 +119,10 @@ class UserController extends Controller
                 ->title('Récapitulatif des notes')
                 ->elementLabel('Nombre de notes')
                 ->xAxisTitle('Notes')
-                ->labels($all_rates->pluck("rate"))
-                ->values($all_rates->pluck("total"))
+                ->labels($chart_rates->pluck("rate"))
+                ->values($chart_rates->pluck("total"))
                 ->dimensions(0, 300);
-            return view('users.rates', compact('user', 'rates', 'all_rates', 'chart'));
+            return view('users.rates', compact('user', 'rates', 'chart_rates', 'chart', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments'));
         }
     }
 

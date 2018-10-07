@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 
@@ -116,5 +117,28 @@ class CommentRepository
      */
     public function getCommentByID($id) {
         return $this->comment::firstOrFail($id);
+    }
+
+    /**
+     * @param $user_id
+     * @return Comment[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+     */
+    public function getCommentByUserIDThumbNotNull($user_id){
+        return $this->comment::where('user_id', '=', $user_id)
+            ->where('thumb', '!=', null)
+            ->select('thumb', DB::raw('count(*) as total'))
+            ->groupBy('thumb')
+            ->get();
+    }
+
+    /**
+     * @param $user_id
+     * @return int
+     */
+    public function countCommentByUserIDThumbNotNull($user_id){
+        return $this->comment::where('user_id', '=', $user_id)
+            ->where('thumb', '!=', null)
+            ->count();
+
     }
 }
