@@ -117,4 +117,24 @@ class ShowController extends Controller
 
         return view('articles/fiche', compact('showInfo', 'articles', 'articles_count', 'categories'));
     }
+
+    /**
+     * Print the articles/indexCategory vue
+     *
+     * @param $show_url
+     * @param $idCategory
+     * @return View
+     */
+    public function getShowArticlesByCategory($show_url, $idCategory)
+    {
+        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+
+        $categories = $this->categoryRepository->getAllCategories();
+        $category = $this->categoryRepository->getCategoryByID($idCategory);
+        $articles = $this->articleRepository->getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($showInfo['show']->id, $idCategory);
+
+        $articles_count = count($articles);
+
+        return view('articles.ficheCategory', compact('showInfo', 'categories', 'category', 'articles', 'articles_count'));
+    }
 }

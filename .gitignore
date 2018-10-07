@@ -3,6 +3,7 @@
 .idea
 vendor/
 .env
+.saas-cache
 !resources/views/vendor
 !resources/lang/vendor
 

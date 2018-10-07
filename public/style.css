@@ -1070,4 +1070,12 @@ blockquote {
 #LeftBlock.profile {
   margin-right: 0; }
 
+#cardsRates {
+  margin-top: 5px; }
+  #cardsRates img {
+    height: 100px; }
+
+.divMiddleAligned {
+  margin: auto; }
+
 /*# sourceMappingURL=style.css.map */

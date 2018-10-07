@@ -9,7 +9,7 @@
                 <div class="ui stackable secondary menu">
                     <div id="seasonsLine" class="ui stackable grid">
                         @foreach($categories as $category)
-                            <a href="{{ route('article.indexCategory', $category->id) }}" class="item">{{ $category->name }}</a>
+                            <a href="{{ route('article.ficheCategory', [$showInfo['show']->show_url, $category->id]) }}" class="item">{{ $category->name }}</a>
                         @endforeach
                     </div>
                 </div>

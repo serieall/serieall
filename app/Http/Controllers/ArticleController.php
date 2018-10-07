@@ -45,10 +45,10 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = $this->articleRepository->getPublishedArticlesWithAutorsCommentsAndCategory();
-
+        $articles_count = count($articles);
         $categories = $this->categoryRepository->getAllCategories();
 
-        return view('articles.index', compact('articles', 'categories'));
+        return view('articles.index', compact('articles', 'articles_count', 'categories'));
     }
 
     /**

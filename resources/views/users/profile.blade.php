@@ -128,7 +128,7 @@
                 <div id="RightBlock" class="ui segment profile">
                     <h1>Ses dernières notes</h1>
                     @foreach($rates as $rate)
-                        {{ $rate['user']['username'] }} a mis {{ $rate->rate }} à <a href="{{ route('show.fiche', $rate->episode->show['show_url'] ) }}">{{ $rate->episode->show['name'] }}</a>/{!! afficheEpisodeName($rate->episode, true, true) !!}
+                        {{ $rate['user']['username'] }} a mis {{ $rate->rate }} à <a href="{{ route('show.fiche', $rate->episode->show['show_url'] ) }}">{{ $rate->episode->show['name'] }}</a>/{!! afficheEpisodeName($rate->episode, true, true) !!} <br/>
                     @endforeach
                 </div>
             </div>

@@ -8,6 +8,9 @@ use App\Models\Episode_user;
 use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Show;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class RateRepository
@@ -137,7 +140,37 @@ class RateRepository
             ->get();
     }
 
-    public function getRatesAggregateByShowForUser($user_id) {
-        return Show::with('users')->get();
+    /**
+     * Get all rates of a user
+     *
+     * @param $user_id
+     * @param $episode_id
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public function getAllRateByUserID($user_id) {
+        return Episode_user::whereUserId($user_id);
+    }
+
+    /**
+     * Get rates aggregate by show for a particular user
+     *
+     * @param $user_id
+     * @param $order
+     * @return array
+     */
+    public function getRatesAggregateByShowForUser($user_id, $order) {
+        $sql = "select sh.name, sh.show_url, COUNT(eu.rate) nb_rate, TRIM(ROUND(AVG(eu.rate),2))+0 avg_rate, u.username
+            FROM shows sh, seasons s, episodes e, users u, episode_user eu
+            WHERE sh.id = s.show_id
+            AND s.id = e.season_id
+            AND eu.episode_id = e.id
+            AND eu.user_id = u.id
+            AND u.id = '$user_id'
+            GROUP BY sh.name,sh.show_url, u.username
+            ORDER BY $order";
+
+        Log::info($sql);
+
+        return DB::select(DB::raw($sql));
     }
 }

@@ -53,5 +53,66 @@
                 </div>
             </div>
         </div>
+
+        <div class="chartMean column">
+            {!! $chart->html() !!}
+        </div>
+
+        <div class="ui segment">
+            <h2>Moyennes détaillées des séries</h2>
+            <div class="ui grid">
+                <div class="row">
+                    <div class="sixteen wide column divMiddleAligned">
+                        <div>
+                            <i class="filter icon"></i>Trier par : <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'avg'])}}">Moyenne</a>
+                            - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'showname'])}}">Série</a>
+                            - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'nb_rate'])}}">Nombre de notes</a>
+                        </div>
+                    </div>
+                    {{--TODO: Add search in rates--}}
+                    {{--<div class="eight wide column right aligned">--}}
+                        {{--<div class="ui icon input">--}}
+                            {{--<input type="text" placeholder="Search...">--}}
+                            {{--<i class="inverted circular search link icon"></i>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                </div>
+            </div>
+        </div>
+
+        <div id="cardsRates" class="ui four cards">
+            @include('users.rates_cards')
+        </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        $(document).on('click', '.action', function (e) {
+            e.preventDefault();
+
+            $('#cardsRates').addClass('loading');
+            getCards($(this).attr('href'));
+        });
+
+        function getCards(page) {
+            let cardsRates = '#cardsRates';
+            $.ajax({
+                url: page,
+               dataType: 'json'
+            }).done(function (data) {
+                // On insére le HTML
+                $(cardsRates).html(data);
+
+                $(cardsRates).removeClass('loading');
+            }).fail(function () {
+                alert('Les notes n\'ont pas été chargées.');
+                $(cardsRates).removeClass('loading');
+            });
+        }
+    </script>
+@endsection
+
+{!! Charts::scripts() !!}
+{!! $chart->script() !!}
+

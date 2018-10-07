@@ -33,6 +33,11 @@
             <div id="LeftBlock" class="eleven wide column">
                 <div class="ui segment">
                     <div class="ui items">
+                        @if($articles_count === 0)
+                            <div class="ui message info">
+                                Pas d'articles dans cette catégorie.
+                            </div>
+                        @else
                         @foreach($articles as $article)
                             <div class="article item">
                                 <div class="ol-{{ colorCategory($article->category_id) }} image article">
@@ -68,6 +73,7 @@
                             </div>
                             <div class="ui divider"></div>
                         @endforeach
+                        @endif
                     </div>
                 </div>
                 {{ $articles->links() }}

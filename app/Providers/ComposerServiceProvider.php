@@ -115,7 +115,7 @@ class ComposerServiceProvider extends ServiceProvider
 
         // FicheActive = articles
         View::composer(
-            ['articles/fiche'],
+            ['articles/fiche', 'articles/ficheCategory'],
             'App\Http\ViewComposers\FicheActiveArticlesComposer'
         );
     }

@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\UserRepository;
 use App\Http\Requests\changePasswordRequest;
-
+use Illuminate\Support\Facades\DB;
+use ConsoleTVs\Charts\Facades\Charts;
+use Illuminate\Support\Facades\Request;
+use View;
+use Response;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class UserController
@@ -62,16 +67,40 @@ class UserController extends Controller
      * Renvoi vers la page users/rates
      *
      * @param $userURL
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @param $action
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View|Response
      */
-    public function getRates($userURL){
+    public function getRates($userURL, $action = "") {
         $user = $this->userRepository->getUserByURL($userURL);
-        $rates = $this->rateRepository->getRatesAggregateByShowForUser(($user->id));
+        $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
+        $all_rates = $all_rates->select('rate', DB::raw('count(*) as total'))->groupBy('rate')->get();
 
-        dd($rates);
+        if (Request::ajax()) {
+            Log::info($action);
+            if ($action == "avg") {
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "avg_rate");
+                Log::debug("avg_rate");
+            } else if ($action == "nb_rate") {
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "nb_rate DESC");
+                Log::debug("nb_rate");
+            } else {
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "sh.name");
+                Log::debug("sh.name");
+            }
+            return Response::json(View::make('users.rates_cards', ['rates' => $rates])->render());
+        }
+        else {
+            $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "sh.name");
 
-        return view('users.rates', compact('user'));
+            $chart = Charts::create('area', 'highcharts')
+                ->title('Récapitulatif des notes')
+                ->elementLabel('Nombre de notes')
+                ->xAxisTitle('Notes')
+                ->labels($all_rates->pluck("rate"))
+                ->values($all_rates->pluck("total"))
+                ->dimensions(0, 300);
+            return view('users.rates', compact('user', 'rates', 'all_rates', 'chart'));
+        }
     }
 
     /**

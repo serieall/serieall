@@ -97,7 +97,26 @@ class ArticleRepository
             ->whereState(1)
             ->whereCategoryId($categoryId)
             ->orderBy('published_at', 'desc')
-            ->paginate(10);
+            ->paginate(2);
+    }
+
+    /**
+     * Get all published articles by categories
+     *
+     * @param $categoryId
+     * @return LengthAwarePaginator
+     */
+    public function getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($show_id, $categoryId): LengthAwarePaginator
+    {
+        return $this->article::with('users', 'category')
+            ->withCount('comments')
+            ->whereHas('shows', function ($q) use ($show_id) {
+                $q->where('id', '=', $show_id);
+            })
+            ->whereState(1)
+            ->whereCategoryId($categoryId)
+            ->orderBy('published_at', 'desc')
+            ->paginate(2);
     }
 
     /**
