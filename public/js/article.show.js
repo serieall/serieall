@@ -135,7 +135,6 @@ $('.ui.button.writeReaction').click(function (e) {
     username = $(this).attr('username');
     $('.object_parent_id').val(IDButton);
     $('.answerUsername').text(username);
-
 });
 
 // Submission

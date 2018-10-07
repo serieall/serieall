@@ -128,7 +128,6 @@
             </div>
         </div>
 
-
         <div class="chartMean column">
             {!! $chart->html() !!}
         </div>
@@ -144,13 +143,6 @@
                             - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'nb_rate'])}}">Nombre de notes</a>
                         </div>
                     </div>
-                    {{--TODO: Add search in rates--}}
-                    {{--<div class="eight wide column right aligned">--}}
-                        {{--<div class="ui icon input">--}}
-                            {{--<input type="text" placeholder="Search...">--}}
-                            {{--<i class="inverted circular search link icon"></i>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </div>
