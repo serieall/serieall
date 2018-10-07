@@ -5,7 +5,7 @@
 </head>
 <body>
     <div class="ui sidebar vertical menu">
-        <div class="item ui search dropdown showDropdown">
+        <div class="ui search dropdown showDropdown">
             <div class="ui icon input">
                 <input class="prompt" placeholder="Rechercher une série...">
                 <i class="search icon"></i>
@@ -36,7 +36,7 @@
             <i class="file text outline icon"></i>
             Articles
         </a>
-        <a href="" class="item
+        <a href="{{ route('planning.index') }}" class="item
             @if($navActive === 'planning')
                 active
             @endif">
@@ -111,7 +111,7 @@
                 @endif">
                 Articles
             </a>
-            <a class="item
+            <a href="{{ route('planning.index') }}" class="item
                @if($navActive === 'planning')
                     active
                 @endif">

@@ -65,4 +65,7 @@
 // Change the background color for vertical menu
 .ui.vertical.menu .active.item {
   background-color: $blueSA;
+  .showDropdown {
+    margin: 0 auto;
+  }
 }

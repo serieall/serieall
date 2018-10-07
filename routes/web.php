@@ -103,6 +103,11 @@ Route::post('commentWTN', 'CommentController@storeWithoutThumbAndNote')->name('c
 Route::post('reaction', 'CommentController@storeReaction')->name('comment.storereaction')->middleware('auth');
 
 /*
+    Partie Planning
+ */
+Route::get('planning', 'PlanningController@index')->name('planning.index');
+
+/*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
 */
 Route::group(['middleware' => 'admin'], function () {

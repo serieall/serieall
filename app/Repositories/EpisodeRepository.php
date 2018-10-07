@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Episode;
+use Carbon\Carbon;
 
 
 /**
@@ -106,5 +107,16 @@ class EpisodeRepository
             ->with('season:seasons.id', 'show')
             ->select('episodes.id', 'episodes.season_id')
             ->first();
+    }
+
+    public function getEpisodesDiffusion($diffusion) {
+        return $this->episode
+            ->with(['season' => function($q){
+                $q->with('show');
+            }])
+            ->whereBetween($diffusion,[
+                Carbon::now()->subMonth(1),
+                Carbon::now()->addMonth(1)])
+            ->get();
     }
 }

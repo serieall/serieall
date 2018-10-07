@@ -451,6 +451,8 @@
 
 .ui.vertical.menu .active.item {
   background-color: #1074b2; }
+  .ui.vertical.menu .active.item .showDropdown {
+    margin: 0 auto; }
 
 .header.row {
   color: #FFFFFF;
@@ -587,55 +589,55 @@ div.spoiler {
 
 /* LEFT BORDER COLOR */
 .lb-veryDarkBlueSA {
-  border-left: 5px solid #1b2e47; }
+  border-left: 5px solid #1b2e47 !important; }
 
 .lb-darkBlueSA {
-  border-left: 5px solid #213d64; }
+  border-left: 5px solid #213d64 !important; }
 
 .lb-blueSA {
-  border-left: 5px solid #1074b2; }
+  border-left: 5px solid #1074b2 !important; }
 
 .lb-lightBlueSA {
-  border-left: 5px solid #d4e4f0; }
+  border-left: 5px solid #d4e4f0 !important; }
 
 .lb-red {
-  border-left: 5px solid #DB2828; }
+  border-left: 5px solid #DB2828 !important; }
 
 .lb-orange {
-  border-left: 5px solid #F2711C; }
+  border-left: 5px solid #F2711C !important; }
 
 .lb-yellow {
-  border-left: 5px solid #FBBD08; }
+  border-left: 5px solid #FBBD08 !important; }
 
 .lb-green {
-  border-left: 5px solid #21BA45; }
+  border-left: 5px solid #21BA45 !important; }
 
 .lb-cyan {
-  border-left: 5px solid #00B5AD; }
+  border-left: 5px solid #00B5AD !important; }
 
 .lb-blue {
-  border-left: 5px solid #2185D0; }
+  border-left: 5px solid #2185D0 !important; }
 
 .lb-purple {
-  border-left: 5px solid #6435C9; }
+  border-left: 5px solid #6435C9 !important; }
 
 .lb-violet {
-  border-left: 5px solid #A333C8; }
+  border-left: 5px solid #A333C8 !important; }
 
 .lb-pink {
-  border-left: 5px solid #E03997; }
+  border-left: 5px solid #E03997 !important; }
 
 .lb-brown {
-  border-left: 5px solid #A5673F; }
+  border-left: 5px solid #A5673F !important; }
 
 .lb-white {
-  border-left: 5px solid #FFFFFF; }
+  border-left: 5px solid #FFFFFF !important; }
 
 .lb-grey {
-  border-left: 5px solid #767676; }
+  border-left: 5px solid #767676 !important; }
 
 .lb-black {
-  border-left: 5px solid #1B1C1D; }
+  border-left: 5px solid #1B1C1D !important; }
 
 /* BUTTONS SA COLORS */
 .ui.button.blueSA {
@@ -1076,6 +1078,19 @@ blockquote {
     height: 100px; }
 
 .divMiddleAligned {
-  margin: auto; }
+  margin: auto !important; }
+
+.AvisBox .threaded.comments {
+  padding: 0; }
+
+.left.aligned.actions {
+  text-align: left; }
+
+.divReactions {
+  padding-top: 5px;
+  text-align: left; }
+
+.calendar {
+  max-height: 80%; }
 
 /*# sourceMappingURL=style.css.map */

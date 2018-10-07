@@ -28,7 +28,6 @@
                     </div>
                 @else
                     @foreach($articles as $article)
-
                         <div class="article item">
                             <div class="ol-{{ colorCategory($article->category_id) }} image article">
                                 <img src="{{ $article->image }}">
@@ -64,7 +63,6 @@
                         <div class="ui divider"></div>
                     @endforeach
                 @endif
-                {{ $articles->links() }}
             </div>
         </div>
     </div>
