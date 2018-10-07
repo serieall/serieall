@@ -43,6 +43,14 @@
                         </div>
                     </div>
                 </a>
+                <a class="ui card" href="{{ route('admin.slogans') }}">
+                    <div class="content">
+                        <div class="header"><i class="bullhorn icon"></i>Slogans</div>
+                        <div class="description">
+                            <p>Créer, modifier ou supprimer les slogans</p>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
