@@ -6,11 +6,13 @@ namespace App\Http\Controllers\Admin\System;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SloganCreateRequest;
 use App\Http\Requests\SloganUpdateRequest;
+use App\Jobs\SloganDelete;
 use App\Jobs\SloganStore;
 use App\Jobs\SloganUpdate;
 
 use App\Repositories\SloganRepository;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AdminContactsController
@@ -24,8 +26,7 @@ class AdminSlogansController extends Controller
      * AdminSlogansController constructor.
      * @param SloganRepository $sloganRepository
      */
-    public function __construct(SloganRepository $sloganRepository)
-    {
+    public function __construct(SloganRepository $sloganRepository) {
         $this->sloganRepository = $sloganRepository;
     }
 
@@ -55,8 +56,7 @@ class AdminSlogansController extends Controller
      * @param SloganCreateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(SloganCreateRequest $request)
-    {
+    public function store(SloganCreateRequest $request) {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         $this->dispatch(new SloganStore($inputs));
@@ -93,11 +93,29 @@ class AdminSlogansController extends Controller
     /**
      * Redirection JSON
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function redirect() {
         return redirect()->route('admin.slogans.index')
             ->with('status_header', 'Slogans en cours d\'ajout')
-            ->with('status', 'La demande de créations de slogans a été effectuée. Le serveur la traitera dès que possible.');
+            ->with('status', 'La demande de création de slogans a été effectuée. Le serveur la traitera dès que possible.');
+    }
+
+    /**
+     * Suppression d'un slogan
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @internal param $id
+     */
+    public function destroy($id)
+    {
+        $userID = Auth::user()->id;
+
+        dispatch(new SloganDelete($id, $userID));
+
+        return redirect()->back()
+            ->with('status_header', 'Suppression du slogan')
+            ->with('status', 'La demande de suppression a été envoyée au serveur. Il la traitera dès que possible.');
     }
 }

@@ -176,18 +176,19 @@ Route::group(['middleware' => 'admin'], function () {
 
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');
-        /* LOGS */
-        Route::get('admin/system/logs', 'Admin\System\AdminLogsController@index')->name('admin.logs');
-        Route::get('admin/system/logs/view/{id}', 'Admin\System\AdminLogsController@view')->name('admin.logs.view');
-        /* CONTACTS */
-        Route::get('admin/system/contacts', 'Admin\System\AdminContactsController@index')->name('admin.contacts');
-        Route::get('admin/system/contacts/view/{id}', 'Admin\System\AdminContactsController@view')->name('admin.contacts.view');
-        Route::post('admin/system/contacts/reply', 'Admin\System\AdminContactsController@replyContact')->name('admin.contacts.reply');
-        /* SLOGANS */
-        Route::get('admin/system/slogans', 'Admin\System\AdminSlogansController@index')->name('admin.slogans.index');
-        Route::get('admin/system/slogans/create', 'Admin\System\AdminSlogansController@create')->name('admin.slogans.create');
-        Route::post('admin/system/slogans', 'Admin\System\AdminSlogansController@store')->name('admin.slogans.store');
-        Route::get('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@edit')->name('admin.slogans.edit');
-        Route::put('admin/system/slogans', 'Admin\System\AdminSlogansController@update')->name('admin.slogans.update');
-        Route::get('admin/system/slogans/redirect', 'Admin\System\AdminSlogansController@redirect')->name('admin.slogans.redirect');
+    /* LOGS */
+    Route::get('admin/system/logs', 'Admin\System\AdminLogsController@index')->name('admin.logs');
+    Route::get('admin/system/logs/view/{id}', 'Admin\System\AdminLogsController@view')->name('admin.logs.view');
+    /* CONTACTS */
+    Route::get('admin/system/contacts', 'Admin\System\AdminContactsController@index')->name('admin.contacts');
+    Route::get('admin/system/contacts/view/{id}', 'Admin\System\AdminContactsController@view')->name('admin.contacts.view');
+    Route::post('admin/system/contacts/reply', 'Admin\System\AdminContactsController@replyContact')->name('admin.contacts.reply');
+    /* SLOGANS */
+    Route::get('admin/system/slogans', 'Admin\System\AdminSlogansController@index')->name('admin.slogans.index');
+    Route::get('admin/system/slogans/create', 'Admin\System\AdminSlogansController@create')->name('admin.slogans.create');
+    Route::post('admin/system/slogans', 'Admin\System\AdminSlogansController@store')->name('admin.slogans.store');
+    Route::get('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@edit')->name('admin.slogans.edit');
+    Route::put('admin/system/slogans', 'Admin\System\AdminSlogansController@update')->name('admin.slogans.update');
+    Route::get('admin/system/slogan/redirect', 'Admin\System\AdminSlogansController@redirect')->name('admin.slogans.redirect');
+    Route::delete('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@destroy')->name('admin.slogans.destroy');
 });

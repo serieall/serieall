@@ -53,7 +53,7 @@
                     <td>{{ $slogan->created_at }}</td>
                     <td class="center aligned">
                         <!-- Formulaire de suppression -->
-                        <form action="" method="post" >
+                        <form action="{{ route('admin.slogans.destroy', $slogan->id) }}" method="post" >
                             {{ csrf_field() }}
 
                             <input type="hidden" name="_method" value="DELETE">

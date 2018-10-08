@@ -34,8 +34,7 @@ class SloganStore implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
-    {
+    public function handle() {
         $idLog = initJob($this->inputs['user_id'], 'Ajout Manuel', 'Slogan', mt_rand());
 
         foreach($this->inputs['slogans'] as $slogan) {
@@ -45,15 +44,15 @@ class SloganStore implements ShouldQueue
 
             $message = 'Slogan : ' . $slogan['message'];
             saveLogMessage($idLog, $message);
-            $slogan->message = $slogan['message'];
+            $sloganNew->message = $slogan['message'];
 
             $message = 'Source : ' . $slogan['source'];
             saveLogMessage($idLog, $message);
-            $slogan->source = $slogan['source'];
+            $sloganNew->source = $slogan['source'];
 
             $message = 'URL : ' . $slogan['url'];
             saveLogMessage($idLog, $message);
-            $slogan->url = $slogan['url'];
+            $sloganNew->url = $slogan['url'];
 
             $sloganNew->save();
         }

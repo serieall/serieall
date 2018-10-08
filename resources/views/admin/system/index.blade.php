@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </a>
-                <a class="ui card" href="{{ route('admin.slogans') }}">
+                <a class="ui card" href="{{ route('admin.slogans.index') }}">
                     <div class="content">
                         <div class="header"><i class="bullhorn icon"></i>Slogans</div>
                         <div class="description">

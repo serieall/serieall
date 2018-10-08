@@ -130,6 +130,7 @@
                 dataType: "json"
             })
                 .done(function () {
+                    console.log('toto');
                     window.location.href = '{!! route('admin.slogans.redirect') !!}';
                 })
                 .fail(function (data) {
