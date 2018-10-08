@@ -27,6 +27,14 @@
                     </span>
                 </h1>
             </div>
+            <div class="ui height wide column">
+                <form action="{{ route('admin.slogans.create') }}">
+                    <button class="ui right floated green button">
+                        <i class="ui add icon"></i>
+                        Ajouter de nouveaux slogans
+                    </button>
+                </form>
+            </div>
         </div>
 
         <table id="tableAdmin" class="ui sortable selectable celled table">

@@ -2,14 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Episode;
-use App\Models\Artist;
-
 use App\Models\Slogan;
-use App\Repositories\SeasonRepository;
-
-use App\Repositories\SloganRepository;
-use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

@@ -11,7 +11,7 @@
         Système
     </a>
     <i class="right angle icon divider"></i>
-    <a href="{{ route('admin.slogans') }}" class="section">
+    <a href="{{ route('admin.slogans.index') }}" class="section">
         Slogans
     </a>
     <i class="right angle icon divider"></i>

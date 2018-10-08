@@ -170,7 +170,7 @@ class AdminShowController extends Controller
             $message = 'La demande de création de série a été effectuée. Le serveur la traitera dès que possible.';
         }
         else {
-            $state_header = 'wanring_header';
+            $state_header = 'warning_header';
             $state = 'warning';
 
             $message_header= 'Série déjà ajoutée';

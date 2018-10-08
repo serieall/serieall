@@ -184,10 +184,10 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('admin/system/contacts/view/{id}', 'Admin\System\AdminContactsController@view')->name('admin.contacts.view');
         Route::post('admin/system/contacts/reply', 'Admin\System\AdminContactsController@replyContact')->name('admin.contacts.reply');
         /* SLOGANS */
-        Route::get('admin/system/slogans', 'Admin\System\AdminSlogansController@index')->name('admin.slogans');
+        Route::get('admin/system/slogans', 'Admin\System\AdminSlogansController@index')->name('admin.slogans.index');
         Route::get('admin/system/slogans/create', 'Admin\System\AdminSlogansController@create')->name('admin.slogans.create');
         Route::post('admin/system/slogans', 'Admin\System\AdminSlogansController@store')->name('admin.slogans.store');
         Route::get('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@edit')->name('admin.slogans.edit');
         Route::put('admin/system/slogans', 'Admin\System\AdminSlogansController@update')->name('admin.slogans.update');
-        Route::get('admin/system/slogans/redirect', 'Admin\AdminSlogansController@redirect')->name('admin.slogans.redirect');
+        Route::get('admin/system/slogans/redirect', 'Admin\System\AdminSlogansController@redirect')->name('admin.slogans.redirect');
 });

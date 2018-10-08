@@ -10,6 +10,7 @@ use App\Jobs\SloganStore;
 use App\Jobs\SloganUpdate;
 
 use App\Repositories\SloganRepository;
+use Illuminate\Http\RedirectResponse;
 
 /**
  * Class AdminContactsController
@@ -45,7 +46,7 @@ class AdminSlogansController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create() {
-        return view('admin/system/slogans/create');
+        return view('admin.system.slogans.create');
     }
 
     /**
@@ -84,20 +85,19 @@ class AdminSlogansController extends Controller
 
         dispatch(new SloganUpdate($inputs));
 
-        return redirect()->route('admin.slogans')
+        return redirect()->route('admin.slogans.index')
             ->with('status_header', 'Modification d\'un slogan')
             ->with('status', 'La demande de modification a été envoyée au serveur. Il la traitera dès que possible.');
     }
 
     /**
-     * Redirection
+     * Redirection JSON
      *
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function redirect()
-    {
-        return redirect()->route('admin.slogans')
+    public function redirect() {
+        return redirect()->route('admin.slogans.index')
             ->with('status_header', 'Slogans en cours d\'ajout')
-            ->with('status', 'La demande de création a été effectuée. Le serveur la traitera dès que possible.');
+            ->with('status', 'La demande de créations de slogans a été effectuée. Le serveur la traitera dès que possible.');
     }
 }
