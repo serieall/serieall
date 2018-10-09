@@ -63,6 +63,7 @@
                         <div class="ui divider"></div>
                     @endforeach
                 @endif
+                {{ $articles->links() }}
             </div>
         </div>
     </div>

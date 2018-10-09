@@ -8,6 +8,7 @@ use App\Models\Article;
 use App\Models\Show;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\Paginator;
 
 /**
  * Class ArticleRepository
@@ -123,12 +124,14 @@ class ArticleRepository
      * Get published articles for a show
      *
      * @param Show $show
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return LengthAwarePaginator
      */
-    public function getPublishedArticleByShow(Show $show): Collection
+    public function getPublishedArticleByShow(Show $show): LengthAwarePaginator
     {
         return $show->articles()->whereState(1)
-            ->get();
+            ->withCount('comments')
+            ->orderBy('published_at', 'desc')
+            ->paginate(2);
     }
 
     /**
