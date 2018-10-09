@@ -17,9 +17,24 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="adminTitre">
-        Editer un nouvel article
-    </h1>
+    <div class="ui grid">
+        <div class="ui height wide column">
+            <h1 class="ui header" id="adminTitre">
+                Articles
+                <span class="sub header">
+                        Editer un article
+                    </span>
+            </h1>
+        </div>
+        <div class="ui height wide column">
+            <div class="ui height wide column">
+                <button class="ui right floated blue button" title="Voir l'aperçu" onclick="window.open('{{ route('article.show', $article->article_url) }}')">
+                    <i class="ui eye icon"></i>
+                    Voir l'aperçu de mon article
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div class="ui centered grid">
         <div class="fifteen wide column segment">
