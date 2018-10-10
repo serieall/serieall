@@ -9,7 +9,7 @@
                 <div class="ui stackable secondary menu">
                     <div id="seasonsLine" class="ui stackable grid">
                         @foreach($categories as $category)
-                            <a href="{{ route('article.ficheCategory', [$showInfo['show']->show_url, $category->id]) }}" class="item">{{ $category->name }}</a>
+                            <a href="{{ route('article.ficheCategory', [$showInfo['show']->show_url, $category->id]) }}" class="@if($category->id == $idCategory) active @endif item">{{ $category->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -28,7 +28,6 @@
                     </div>
                 @else
                     @foreach($articles as $article)
-
                         <div class="article item">
                             <div class="ol-{{ colorCategory($article->category_id) }} image article">
                                 <img src="{{ $article->image }}">
