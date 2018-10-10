@@ -63,8 +63,11 @@
                         <div class="ui divider"></div>
                     @endforeach
                 @endif
-                {{ $articles->links() }}
+
             </div>
+        </div>
+        <div class="ui center aligned">
+            {{ $articles->links() }}
         </div>
     </div>
 @endsection

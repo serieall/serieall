@@ -98,26 +98,24 @@ class ArticleRepository
             ->whereState(1)
             ->whereCategoryId($categoryId)
             ->orderBy('published_at', 'desc')
-            ->paginate(2);
+            ->paginate(10);
     }
 
     /**
      * Get all published articles by categories
      *
+     * @param Show $show
      * @param $categoryId
      * @return LengthAwarePaginator
      */
-    public function getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($show_id, $categoryId): LengthAwarePaginator
+    public function getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory(Show $show, $categoryId): LengthAwarePaginator
     {
-        return $this->article::with('users', 'category')
+        return $show->articles()->with(['users', 'category'])
             ->withCount('comments')
-            ->whereHas('shows', function ($q) use ($show_id) {
-                $q->where('id', '=', $show_id);
-            })
             ->whereState(1)
             ->whereCategoryId($categoryId)
             ->orderBy('published_at', 'desc')
-            ->paginate(2);
+            ->paginate(5);
     }
 
     /**
@@ -131,7 +129,7 @@ class ArticleRepository
         return $show->articles()->whereState(1)
             ->withCount('comments')
             ->orderBy('published_at', 'desc')
-            ->paginate(2);
+            ->paginate(5);
     }
 
     /**

@@ -115,7 +115,7 @@ class ShowController extends Controller
         $articles = $this->articleRepository->getPublishedArticleByShow($showInfo['show']);
         $articles_count = count($articles);
 
-        return view('articles/fiche', compact('showInfo', 'articles', 'articles_count', 'categories'));
+        return view('shows/articles', compact('showInfo', 'articles', 'articles_count', 'categories'));
     }
 
     /**
@@ -131,10 +131,10 @@ class ShowController extends Controller
 
         $categories = $this->categoryRepository->getAllCategories();
         $category = $this->categoryRepository->getCategoryByID($idCategory);
-        $articles = $this->articleRepository->getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($showInfo['show']->id, $idCategory);
+        $articles = $this->articleRepository->getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($showInfo['show'], $idCategory);
 
         $articles_count = count($articles);
 
-        return view('articles.ficheCategory', compact('showInfo', 'categories', 'category', 'articles', 'articles_count'));
+        return view('shows.articlesCategory', compact('showInfo', 'categories', 'category', 'articles', 'articles_count', 'idCategory'));
     }
 }
