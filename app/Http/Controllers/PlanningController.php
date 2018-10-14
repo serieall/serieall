@@ -46,22 +46,6 @@ class PlanningController extends Controller
             );
         }
 
-        $diffusion_fr = $this->episodeRepository->getEpisodesDiffusion("diffusion_fr");
-        foreach($diffusion_fr as $event) {
-            $events[] = Calendar::event(
-                $event->season->show->name . ' - ' . afficheEpisodeName($event, 1, 0),
-                true,
-                $event->diffusion_fr,
-                $event->diffusion_fr,
-                $event->id,
-                [
-                    'url' => route("episode.fiche", [$event->season->show->show_url, $event->season->name, $event->numero, $event->id]),
-                    'backgroundColor' => '#b3b3b3',
-                    'borderColor' => '#b3b3b3'
-                ]
-            );
-        }
-
         $calendar = Calendar::addEvents($events)
             ->setOptions([
                 'firstDay' => 1,
