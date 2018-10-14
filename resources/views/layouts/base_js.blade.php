@@ -101,8 +101,18 @@
                 dataType: "json"
             })
                 .done(function(data) {
-                    $('#login').modal('hide');
-                    window.location.reload(false);
+                    console.log(data.activated);
+                    if (data.activated) {
+                        $('#LoginHeaderActivated').removeClass('hidden');
+                        $(buttonSubmit).removeClass("loading");
+                    } else if (data.suspended) {
+                        $('#LoginHeaderSuspended').removeClass('hidden');
+                        $(buttonSubmit).removeClass("loading");
+                    } else {
+                        LoginHeaderSuspended
+                        $('#login').modal('hide');
+                        window.location.reload(false);
+                    }
                 })
                 .fail(function(data) {
                     $(buttonSubmit).removeClass("loading");
@@ -121,7 +131,7 @@
         $(document).on('submit', '#formRegister', function(e) {
             e.preventDefault();
             var buttonSubmit = '#formRegister .submit';
-            var positiveMessage = '#formRegister .positive.message';
+            var positiveMessage = '#registerModal .positive.message';
             var captchaError = '#formRegister .captchaError';
 
             // Reinitialiser tous les messages d'erreur
@@ -136,7 +146,7 @@
                 data: $(this).serialize(),
                 dataType: "json"
             })
-                .done(function(data) {
+                .done(function() {
                     $(buttonSubmit).removeClass("loading");
                     $(positiveMessage).removeClass('hidden');
                 })

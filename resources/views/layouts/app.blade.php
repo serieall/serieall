@@ -133,7 +133,7 @@
                     </div>
                 </div>
 
-                <a class="item
+                <a href="{{ config('app.forum_url') }}" class="item
                     @if($navActive === 'forum')
                         active
                     @endif">
@@ -242,6 +242,19 @@
                 Connexion
             </div>
             <div class="content">
+                <div id="LoginHeaderActivated" class="ui warning hidden message">
+                    <div class="header">
+                        Activation nécessaire
+                    </div>
+                    <p>Vous devez activer votre compte. Nous vous avons envoyé un e-mail de confirmation.</p>
+                </div>
+                <div id="LoginHeaderSuspended" class="ui warning hidden message">
+                    <div class="header">
+                        Compte suspendu
+                    </div>
+                    <p>Votre compte a été suspendu. Un email vous a été envoyé.</p>
+                </div>
+
                 <form id="formLogin" class="ui form" method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}
 
@@ -287,7 +300,7 @@
             </div>
             <div class="content">
 
-                <div class="ui positive hidden message">
+                <div id="RegisterHeader" class="ui positive hidden message">
                     <div class="header">
                         Inscription terminée
                     </div>

@@ -51,6 +51,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'forum_url' => env('FORUM_URL', 'https://forum.journeytotheit.ovh'),
 
     /*
     |--------------------------------------------------------------------------

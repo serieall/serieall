@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class RegisterController
@@ -78,11 +79,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return User::create(array(
             'username' => $data['username'],
             'user_url' => trim($data['username']),
             'email' => $data['email'],
-            'password' => bcrypt($data['password'])]);
+            'password' =>  Hash::make($data['password'])
+        ));
     }
 
     /**

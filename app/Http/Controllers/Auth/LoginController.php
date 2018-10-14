@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Services\ActivationService;
 use App\Packages\Hashing\YourHasher;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 
 
 /**
@@ -105,14 +106,14 @@ class LoginController extends Controller
         if (! $user->activated) {
             $this->activationService->sendActivationMail($user);
             auth()->logout();
-            return back()->with('warning', 'Vous devez valider votre adresse E-mail. Nous vous avons envoyé un code de validation.');
+//            return back()->with('warning', 'Vous devez valider votre adresse E-mail. Nous vous avons envoyé un code de validation.');
         }
 
-        if ($user->suspended) {
-            auth()->logout();
-            return back()->with('warning', 'Votre compte a été bloqué.');
-        }
-        return response()->json();
+//        if ($user->suspended) {
+//            auth()->logout();
+//            return back()->with('warning', 'Votre compte a été bloqué.');
+//        }
+        return response()->json(["suspended" => false, "activated" => true]);
     }
 
     /**

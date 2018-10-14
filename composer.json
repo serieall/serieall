@@ -9,6 +9,7 @@
         "anhskohbo/no-captcha": "^3.0",
         "barryvdh/laravel-debugbar": "~3.1",
         "barryvdh/laravel-ide-helper": "^2.4",
+        "callmenp/lara-auth-bridge": "^2.1",
         "caouecs/laravel-lang": "~3.0",
         "consoletvs/charts": "5.*",
         "dingo/api": "v2.0.0-alpha1",
