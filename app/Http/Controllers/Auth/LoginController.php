@@ -106,13 +106,14 @@ class LoginController extends Controller
         if (! $user->activated) {
             $this->activationService->sendActivationMail($user);
             auth()->logout();
-//            return back()->with('warning', 'Vous devez valider votre adresse E-mail. Nous vous avons envoyé un code de validation.');
+            return response()->json(["suspended" => false, "activated" => false]);
         }
 
-//        if ($user->suspended) {
-//            auth()->logout();
-//            return back()->with('warning', 'Votre compte a été bloqué.');
-//        }
+        if ($user->suspended) {
+            auth()->logout();
+            return response()->json(["suspended" => true, "activated" => true]);
+        }
+
         return response()->json(["suspended" => false, "activated" => true]);
     }
 

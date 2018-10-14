@@ -102,14 +102,13 @@
             })
                 .done(function(data) {
                     console.log(data.activated);
-                    if (data.activated) {
+                    if (!data.activated) {
                         $('#LoginHeaderActivated').removeClass('hidden');
                         $(buttonSubmit).removeClass("loading");
                     } else if (data.suspended) {
                         $('#LoginHeaderSuspended').removeClass('hidden');
                         $(buttonSubmit).removeClass("loading");
                     } else {
-                        LoginHeaderSuspended
                         $('#login').modal('hide');
                         window.location.reload(false);
                     }
