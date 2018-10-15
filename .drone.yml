@@ -1,0 +1,15 @@
+workspace:
+  base: /var
+  path: www/html/
+
+pipeline:
+  backend:
+    image: laradock/workspace:1.8-71
+    group: laravel
+    commands:
+      - php -v
+      - composer -V
+      - composer install --prefer-dist
+      - php artisan key:generate
+      - php artisan migrate
+branch: dev
