@@ -29,13 +29,11 @@
             </div>
             <div class="center aligned three wide column">
                 <div class="row">
-                    <i class="circular facebook f big icon"></i>
-                    <i class="circular twitter big icon"></i>
+                    <a href="https://www.facebook.com/SerieAll"><i class="circular facebook f big icon"></i></a>
                 </div>
                 <div class="row">
-                    <i class="circular mixcloud big icon"></i>
-                    <i class="circular rss big icon"></i>
-                    <i class="circular spotify big icon"></i>
+                    <a href="https://twitter.com/serieall"><i class="circular twitter big icon"></i></a>
+                    <a href="https://open.spotify.com/user/serieall.fr"><i class="circular spotify big icon"></i></a>
                 </div>
             </div>
             <div class="three wide column">
