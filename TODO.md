@@ -1,8 +1,6 @@
 # ARTICLES
 
 * Home page ;
-* List of articles for shows/seasons/episodes
-* Add articles to redactors profiles.
 * Edit in admin panel
 
 # REACTIONS
