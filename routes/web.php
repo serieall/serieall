@@ -173,6 +173,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
     Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
     Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
+    Route::get('admin/users/{user}/comments/shows', 'Admin\AdminUserController@moderateComments')->name('admin.users.moderateComments');
+    Route::get('admin/users/{user}/comments/articles', 'Admin\AdminUserController@moderateCommentsArticles')->name('admin.users.moderateCommentsArticles');
 
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');

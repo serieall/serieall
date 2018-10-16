@@ -31,8 +31,8 @@
     <div class="ui centered grid">
         <div class="fifteen wide column segment">
             <div class="ui huge two buttons">
-                <button class="fluid ui blue button" onclick="window.location.href=''">Modérer ses avis</button>
-                <button class="fluid ui teal button" onclick="window.location.href=''">Modérer ses commentaires d'articles</button>
+                <button class="fluid ui blue button" onclick="window.location.href='{{route('admin.users.moderateComments', $user->id)}}'">Modérer ses avis</button>
+                <button class="fluid ui teal button" onclick="window.location.href='{{route('admin.users.moderateCommentsArticles', $user->id)}}'">Modérer ses commentaires d'articles</button>
             </div>
 
             <div class="ui segment">

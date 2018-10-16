@@ -8,6 +8,7 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Jobs\UserStore;
 use App\Jobs\UserUpdate;
+use App\Repositories\CommentRepository;
 use Illuminate\Support\Facades\Auth;
 
 use App\Repositories\UserRepository;
@@ -20,18 +21,21 @@ use App\Jobs\UserDelete;
 class AdminUserController extends Controller
 {
     protected $userRepository;
+    protected $commentRepository;
 
     /**
      * AdminUserController constructor.
      *
      * @param UserRepository $userRepository
+     * @param CommentRepository $commentRepository
      * @internal param SeasonRepository $seasonRepository
      * @internal param ShowRepository $showRepository
      * @internal param ArtistRepository $artistRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, CommentRepository $commentRepository)
     {
         $this->userRepository = $userRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -138,5 +142,13 @@ class AdminUserController extends Controller
         endJob($logID);
 
         return view('admin.users.edit', compact('user'));
+    }
+
+    public function moderateComments($user_id) {
+
+    }
+
+    public function moderateCommentsArticles($user_id) {
+
     }
 }
