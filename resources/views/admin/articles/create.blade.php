@@ -131,7 +131,8 @@
 
                                         @if ($errors->has('episode'))
                                             <div class="ui red message">
-                                                <strong>{{ $errors->first('episode') }}</strong>                                        </div>
+                                                <strong>{{ $errors->first('episode') }}</strong>
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="three wide column">
@@ -158,7 +159,8 @@
 
                                         @if ($errors->has('shows'))
                                             <div class="ui red message">
-                                                <strong>{{ $errors->first('shows') }}</strong>                                        </div>
+                                                <strong>{{ $errors->first('shows') }}</strong>
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="three wide column">
@@ -444,9 +446,9 @@
                         remoteValues: "data",
                         value: "id"
                     },
-                    saveRemoteData: false
                 })
             ;
+            $(dropdownShow).dropdown('set selected', [{{$shows}}]);
 
             // On change on Show, we init the dropdown Seasons with the new value of show
             $(inputShow).change( function() {

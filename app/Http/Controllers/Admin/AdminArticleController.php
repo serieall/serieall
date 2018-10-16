@@ -81,8 +81,10 @@ class AdminArticleController extends Controller
     public function edit($id)
     {
         $article = $this->articleRepository->getArticleWithAllInformationsByID($id);
+        $shows = formatRequestInVariableID($article->shows);
+        $users = formatRequestInVariableID($article->users);
 
-        return view('admin/articles/edit', compact('article'));
+        return view('admin/articles/edit', compact('article', 'shows', 'users'));
     }
 
     /**

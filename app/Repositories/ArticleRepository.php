@@ -56,7 +56,7 @@ class ArticleRepository
      * @return \Illuminate\Database\Eloquent\Model|null|static
      */
     public function getArticleWithAllInformationsByID($id) {
-        return $this->article::with('users', 'shows', 'seasons', 'episodes')
+        return $this->article::with('users', 'shows', 'seasons', 'episodes', 'category')
             ->whereId($id)
             ->first();
     }

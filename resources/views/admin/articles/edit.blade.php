@@ -46,7 +46,7 @@
                     <div class="ui required field {{ $errors->has('category') ? ' error' : '' }}">
                         <label for="inputCategory">Choisir la catégorie de l'article</label>
                         <div class="ui fluid search selection dropdown dropdownCategory">
-                            <input id="inputCategory" name="category" type="hidden" value="{{ $article->category_id }}">
+                            <input id="inputCategory" name="category" type="hidden" value="{{ $article->category->id }}">
                             <i class="dropdown icon"></i>
                             <div class="default text">Catégorie</div>
                             <div class="menu">
@@ -63,21 +63,9 @@
                     <h4 class="ui dividing header">Séries</h4>
 
                     <div class="d-center m-1">
-                        @if(is_null(old('one')))
-                            <div id="oneShow" class="ui left attached blueSA button">Une série</div>
-                            <div id="multipleShows" class="ui right attached ui button">Plusieurs séries</div>
-                            <input type="hidden" name="one" value=1>
-                        @else
-                            @if(old('one') == 0)
-                                <div id="oneShow" class="ui left attached button">Une série</div>
-                                <div id="multipleShows" class="ui right attached ui blueSA button">Plusieurs séries</div>
-                                <input type="hidden" name="one" value=0>
-                            @else
-                                <div id="oneShow" class="ui left attached blueSA button">Une série</div>
-                                <div id="multipleShows" class="ui right attached ui button">Plusieurs séries</div>
-                                <input type="hidden" name="one" value=1>
-                            @endif
-                        @endif
+                        <div id="oneShow" class="ui left attached @if(count($article->shows) <= 1) blueSA @endif button">Une série</div>
+                        <div id="multipleShows" class="ui right attached @if(count($article->shows) > 1) blueSA @endif ui button">Plusieurs séries</div>
+                        <input type="hidden" name="one" value=@if(count($article->shows) > 1) 0 @else 1 @endif>
                     </div>
 
                     <div class="verticalDivider ui two column very relaxed grid stackable">
@@ -86,10 +74,11 @@
                                 <label for="show">Choisir la série liée</label>
                                 <div class="ui grid">
                                     <div class="thirteen wide column">
-                                        <div class="ui search fluid selection dropdown oneShowField dropdownShow">
-                                            <input id="inputShow" name="show" type="hidden" value="{{ old('show') }}">
+                                        <div class="ui @if(count($article->shows) > 1) disabled  @endif search fluid selection dropdown oneShowField dropdownShow">
+                                            <input id="inputShow" name="show" type="hidden" value="@if(count($article->shows) <= 1) {{ $article->shows->first()->id }}  @else {{ old('show') }} @endif">
                                             <i class="dropdown icon"></i>
-                                            <div class="default text">Série</div>
+
+                                            @if(count($article->shows) <= 1) {{ $article->shows->first()->name }}  @else Série @endif
                                             <div class="menu">
                                             </div>
                                         </div>
@@ -102,7 +91,7 @@
                                     </div>
 
                                     <div class="three wide column">
-                                        <div class="ui inline button clearShow oneShowField">Effacer</div>
+                                        <div class="ui @if(count($article->shows) > 1) disabled  @endif inline button clearShow oneShowField">Effacer</div>
                                     </div>
                                 </div>
                             </div>
@@ -163,9 +152,10 @@
                                 <label for="shows">Choisir la ou les série(s) liée(s)</label>
                                 <div class="ui grid">
                                     <div class="thirteen wide column">
-                                        <div class="ui disabled fluid search multiple selection dropdown multipleShowsField dropdownShow">
-                                            <input id="inputShows" name="shows" type="hidden" value="{{ old('shows') }}">
+                                        <div class="ui @if(count($article->shows) <= 1) disabled @endif fluid search multiple selection dropdown multipleShowsField dropdownShow">
+                                            <input id="inputShows" name="shows" type="hidden" value="{{ $shows }}">
                                             <i class="dropdown icon"></i>
+
                                             <div class="default text">Série(s)</div>
                                             <div class="menu">
                                             </div>
@@ -173,7 +163,8 @@
 
                                         @if ($errors->has('shows'))
                                             <div class="ui red message">
-                                                <strong>{{ $errors->first('shows') }}</strong>                                        </div>
+                                                <strong>{{ $errors->first('shows') }}</strong>
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="three wide column">
@@ -188,7 +179,7 @@
 
                     <div class="ui required field {{ $errors->has('name') ? ' error' : '' }}">
                         <label for="inputName">Titre de l'article</label>
-                        <input id="inputName" name="name" value="{{ old('name') }}">
+                        <input id="inputName" name="name" value="@if(old('name')) {{ old('name') }} @else {{ $article->name }} @endif">
 
                         @if ($errors->has('name'))
                             <div class="ui red message">
@@ -199,7 +190,7 @@
 
                     <div class="ui required field {{ $errors->has('intro') ? ' error' : '' }}">
                         <label for="introInput">Chapô</label>
-                        <textarea id="introInput" name="intro" rows="2">{{ old('intro') }}</textarea>
+                        <textarea id="introInput" name="intro" rows="2">@if(old('intro')) {{old('intro')}} @else {!! $article->intro !!} @endif</textarea>
 
                         @if ($errors->has('intro'))
                             <div class="ui red message">
@@ -209,7 +200,7 @@
                     </div>
 
                     <div class="ui required field {{ $errors->has('article') ? ' error' : '' }}">
-                        <textarea name="article" id="article" class="article" placeholder="Écrivez votre article ici...">{{ old('article') }}</textarea>
+                        <textarea name="article" id="article" class="article" placeholder="Écrivez votre article ici...">{!! $article->content !!}</textarea>
 
                         @if ($errors->has('article'))
                             <div class="ui red message">
@@ -236,7 +227,7 @@
                         <div class="ui grid">
                             <div class="thirteen wide column">
                                 <div class="ui fluid search multiple selection dropdown dropdownUser">
-                                    <input id="inputUsers" name="users" type="hidden">
+                                    <input id="inputUsers" name="users" type="hidden" value="{{ $users }}">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Rédacteur(s)</div>
                                     <div class="menu">
@@ -314,6 +305,21 @@
         var multipleShowsButton = '#multipleShows';
 
         $(document).ready(function() {
+
+            console.log('toto');
+            // Init the dropdown Show
+            $(dropdownShow)
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/shows/list?name-lk=*{query}*'
+                    },
+                    fields: {
+                        remoteValues: 'data',
+                        value: 'id',
+                    },
+                    saveRemoteData: false
+                });
+            console.log('titi');
 
             $(inputShow).add(inputSeason).add(inputEpisode).add(inputCategory).change(function() {
 
@@ -452,20 +458,6 @@
                 $(dropdownUser).dropdown('clear');
             });
 
-            // Init the dropdown Show
-            $(dropdownShow)
-                .dropdown({
-                    apiSettings: {
-                        url: '/api/shows/list?name-lk=*{query}*'
-                    },
-                    fields: {
-                        remoteValues: "data",
-                        value: "id"
-                    },
-                    saveRemoteData: false
-                })
-            ;
-
             // On change on Show, we init the dropdown Seasons with the new value of show
             $(inputShow).change( function() {
                 var show =  $(inputShow).val();
@@ -477,7 +469,7 @@
                         },
                         fields: {
                             remoteValues: "data",
-                            value: "id"
+                            value: "name"
                         }
                     })
                     .dropdown('clear')

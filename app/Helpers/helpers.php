@@ -61,6 +61,27 @@ function formatRequestInVariable($objects) {
 }
 
 /**
+ * Convertion d'une array en string
+ *
+ * @param $objects
+ * @return string
+ * @internal param $objets
+ */
+function formatRequestInVariableID($objects) {
+    $list = '';
+
+    // Pour chaque chaine on incrémente dans une variable
+    foreach ($objects as $object){
+        $list.= $object->id . ',';
+    }
+
+    // On enlève la dernière virgule
+    $list = substr($list, 0, -1);
+
+    return $list;
+}
+
+/**
  * Convertion d'une array en string sans espace
  *
  * @param $objects
