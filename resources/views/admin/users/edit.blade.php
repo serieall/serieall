@@ -30,6 +30,11 @@
 
     <div class="ui centered grid">
         <div class="fifteen wide column segment">
+            <div class="ui huge two buttons">
+                <button class="fluid ui blue button" onclick="window.location.href=''">Modérer ses avis</button>
+                <button class="fluid ui teal button" onclick="window.location.href=''">Modérer ses commentaires d'articles</button>
+            </div>
+
             <div class="ui segment">
                 <form class="ui form" action="{{ route('admin.users.update', $user->id) }}" method="post">
                     {{ csrf_field() }}
