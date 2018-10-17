@@ -152,20 +152,21 @@
                                 <label for="shows">Choisir la ou les série(s) liée(s)</label>
                                 <div class="ui grid">
                                     <div class="thirteen wide column">
-                                        <div class="ui @if(count($article->shows) <= 1) disabled @endif fluid search multiple selection dropdown multipleShowsField dropdownShow">
-                                            <input id="inputShows" name="shows" type="hidden" value="{{ $shows }}">
-                                            <i class="dropdown icon"></i>
-
-                                            <div class="default text">Série(s)</div>
-                                            <div class="menu">
+                                        <div class="thirteen wide column">
+                                            <div class="ui @if(count($article->shows) <= 1) disabled @endif fluid search multiple selection dropdown multipleShowsField dropdownShow">
+                                                <input id="inputUsers" name="users" type="hidden" value="{{ $shows }}">
+                                                <i class="dropdown icon"></i>
+                                                <div class="default text">Série(s)</div>
+                                                <div class="menu">
+                                                </div>
                                             </div>
+
+                                            @if ($errors->has('shows'))
+                                                <div class="ui red message">
+                                                    <strong>{{ $errors->first('shows') }}</strong>
+                                                </div>
+                                            @endif
                                         </div>
-
-                                        @if ($errors->has('shows'))
-                                            <div class="ui red message">
-                                                <strong>{{ $errors->first('shows') }}</strong>
-                                            </div>
-                                        @endif
                                     </div>
                                     <div class="three wide column">
                                         <div class="ui disabled inline button clearShows multipleShowsField">Effacer</div>
@@ -305,8 +306,6 @@
         var multipleShowsButton = '#multipleShows';
 
         $(document).ready(function() {
-
-            console.log('toto');
             // Init the dropdown Show
             $(dropdownShow)
                 .dropdown({
@@ -316,13 +315,12 @@
                     fields: {
                         remoteValues: 'data',
                         value: 'id',
+                        name: 'name',
                     },
                     saveRemoteData: false
                 });
-            console.log('titi');
 
             $(inputShow).add(inputSeason).add(inputEpisode).add(inputCategory).change(function() {
-
                 if(!$(inputShow).val()) {
                     var generatedTitle = $(inputCategory).siblings('.text').html();
                 }
@@ -332,7 +330,7 @@
                         + $(inputShow).siblings('.text').html();
                 }
                 else if(!$(inputEpisode).val()) {
-                    var generatedTitle = $(inputCategory).siblings('.text').html()
+
                         + ' : '
                         + $(inputShow).siblings('.text').html()
                         + ' Saison '

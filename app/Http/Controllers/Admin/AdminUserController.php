@@ -145,7 +145,8 @@ class AdminUserController extends Controller
     }
 
     public function moderateComments($user_id) {
-
+        $user = $this->commentRepository->getCommentsByUserID($user_id);
+        dd($user);
     }
 
     public function moderateCommentsArticles($user_id) {

@@ -141,4 +141,20 @@ class CommentRepository
             ->count();
 
     }
+
+    /**
+     * Get All comments for a user with reactions
+     *
+     * @param $user_id
+     * @return Comment[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
+    public function getCommentsByUserID($user_id) {
+        return $this->comment->with(['children', 'commentable', 'user' => function ($q) use ($user_id) {
+            $q->where('id', '=', $user_id);
+        }])
+            ->whereNull('parent_id')
+            ->whereNotNull('thumb')
+            ->whereNotNull('commentable_id')
+            ->get();
+    }
 }

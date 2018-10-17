@@ -448,7 +448,6 @@
                     },
                 })
             ;
-            $(dropdownShow).dropdown('set selected', [{{$shows}}]);
 
             // On change on Show, we init the dropdown Seasons with the new value of show
             $(inputShow).change( function() {
