@@ -327,7 +327,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                 saveLogMessage($idLog, $logMessage);
 
                 /* Récupération de la photo de l'épisode */
-                if(!empty($getEpisode_en->filenam)) {
+                if(!empty($getEpisode_en->filename)) {
                     $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
                     $file_headers = get_headers($file);
                     if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
