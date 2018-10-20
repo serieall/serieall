@@ -27,9 +27,6 @@
   .columnFooter {
     display: flex;
     justify-content: center;
-    .title:before {
-      content: inherit !important; // Don't set content to title in footer
-    }
     a {
       color: $white;
     }
@@ -43,6 +40,9 @@
   .ui.bulleted.list > .item:before {
     content: '\2022';
     color: $blueSA;
+  }
+  .title:before {
+    content: none !important; // Don't set content to title in footer
   }
 }
 

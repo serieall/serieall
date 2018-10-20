@@ -296,4 +296,12 @@ class ShowRepository
     {
         return $this->show::with('genres')->orderBy('name')->paginate(20);
     }
+
+    /**
+     * @param $show_name
+     * @return Show|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|null|object
+     */
+    public function getByName($show_name) {
+        return $this->show->whereName($show_name)->first();
+    }
 }

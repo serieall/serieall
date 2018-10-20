@@ -67,12 +67,12 @@ function formatRequestInVariable($objects) {
  * @return string
  * @internal param $objets
  */
-function formatRequestInVariableID($objects) {
+function formatRequestInVariableUsernameNoSpace($objects) {
     $list = '';
 
     // Pour chaque chaine on incrémente dans une variable
     foreach ($objects as $object){
-        $list.= $object->id . ',';
+        $list.= $object->username . ',';
     }
 
     // On enlève la dernière virgule

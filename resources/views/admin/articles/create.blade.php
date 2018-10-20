@@ -249,12 +249,6 @@
                             <label for="publishedInput">Publier l'article</label>
                         </div>
                     </div>
-                    <div class="ui field">
-                        <div class="ui toggle checkbox">
-                            <input id="uneInput" name="une" type="checkbox">
-                            <label for="uneInput">Mettre l'article en une</label>
-                        </div>
-                    </div>
                     <button class="ui positive button">Envoyer</button>
                 </form>
             </div>
@@ -355,8 +349,8 @@
 
             function switchToMultipleShows() {
                 // We change the colors of buttons
-                $(multipleShowsButton).addClass('BlueSerieAll');
-                $(multipleShowsButton).prev().removeClass('BlueSerieAll');
+                $(multipleShowsButton).addClass('blueSA');
+                $(multipleShowsButton).prev().removeClass('blueSA');
 
                 // We disabled the field linked to the not selected
                 $('.oneShowField').addClass('disabled');
@@ -373,8 +367,8 @@
             // On click on "One Show"
             $('#oneShow').click(function () {
                 // We change the colors of buttons
-                $(this).addClass('BlueSerieAll');
-                $(this).next().removeClass('BlueSerieAll');
+                $(this).addClass('blueSA');
+                $(this).next().removeClass('blueSA');
 
                 // We disabled the field linked to the not selected
                 $('.oneShowField').removeClass('disabled');

@@ -366,8 +366,6 @@
   #footer .columnFooter {
     display: flex;
     justify-content: center; }
-    #footer .columnFooter .title:before {
-      content: inherit !important; }
     #footer .columnFooter a {
       color: #FFFFFF; }
     #footer .columnFooter a:hover {
@@ -377,6 +375,8 @@
   #footer .ui.bulleted.list > .item:before {
     content: '\2022';
     color: #1074b2; }
+  #footer .title:before {
+    content: inherit !important; }
 
 .ui.menu .active.item,
 .ui.menu .active.item:hover,
@@ -1090,13 +1090,7 @@ blockquote {
   padding-top: 5px;
   text-align: left; }
 
-.calendar {
-  height: 80%; }
-
 .flex-center {
   display: flex; }
-
-#LeftBlock .pagination.menu {
-  text-align: center !important; }
 
 /*# sourceMappingURL=style.css.map */

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleCreateRequest;
+use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
 
 use App\Repositories\ArticleRepository;
+use App\Repositories\CategoryRepository;
 use App\Repositories\EpisodeRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
@@ -15,6 +17,7 @@ use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 /**
@@ -29,6 +32,7 @@ class AdminArticleController extends Controller
     protected $episodeRepository;
     protected $seasonRepository;
     protected $showRepository;
+    protected $categoryRepository;
 
     /**
      * AdminArticleController constructor.
@@ -38,17 +42,20 @@ class AdminArticleController extends Controller
      * @param SeasonRepository $seasonRepository
      * @param ShowRepository $showRepository
      * @param UserRepository $userRepository
+     * @param CategoryRepository $categoryRepository
      */
     public function __construct(ArticleRepository $articleRepository,
                                 EpisodeRepository $episodeRepository,
                                 SeasonRepository $seasonRepository,
                                 ShowRepository $showRepository,
-                                UserRepository $userRepository) {
+                                UserRepository $userRepository,
+                                CategoryRepository $categoryRepository) {
         $this->articleRepository = $articleRepository;
         $this->userRepository = $userRepository;
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
         $this->episodeRepository = $episodeRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -81,8 +88,8 @@ class AdminArticleController extends Controller
     public function edit($id)
     {
         $article = $this->articleRepository->getArticleWithAllInformationsByID($id);
-        $shows = formatRequestInVariableID($article->shows);
-        $users = formatRequestInVariableID($article->users);
+        $shows = formatRequestInVariableNoSpace($article->shows);
+        $users = formatRequestInVariableUsernameNoSpace($article->users);
 
         return view('admin/articles/edit', compact('article', 'shows', 'users'));
     }
@@ -115,14 +122,6 @@ class AdminArticleController extends Controller
         else
         {
             $article->state = 0;
-        }
-
-        // Si une n'est pas présent, on le met à 1 sinon, c'est 0
-        if (isset($inputs['une'])) {
-            $article->frontpage = 1;
-        }
-        else{
-            $article->frontpage = 0;
         }
 
         if($inputs['one'] == 1) {
@@ -219,6 +218,110 @@ class AdminArticleController extends Controller
             ->with('status_header', 'Suppression')
             ->with('status', 'L\'article a été supprimé.');
 
+    }
+
+    /**
+     * @param ArticleUpdateRequest $request
+     * @return RedirectResponse
+     */
+    public function update(ArticleUpdateRequest $request) {
+        // On stocke la requête dans une variable
+        $inputs = $request->all();
+
+        // ON initialise l'article
+        $article = $this->articleRepository->getArticleByID($inputs['id']);
+        $category = $this->categoryRepository->getCategoryByName($inputs['category']);
+
+        // On renseigne les champs
+        $article->name = $inputs['name'];
+        $article->intro = $inputs['intro'];
+        $article->content = $inputs['article'];
+
+        // Si publié n'est pas présent, on le met à 1 sinon, c'est 0
+        if (isset($inputs['published'])) {
+            $article->state = 1;
+            $article->published_at = Carbon::now();
+        }
+        else
+        {
+            $article->state = 0;
+        }
+
+        if($inputs['one'] == 1) {
+            // We fetch the show and initiate image
+            $show = $this->showRepository->getByName($inputs['show']);
+            $article->image = config('directories.shows') . $show->show_url . '.jpg';
+        }
+
+        # Add the image
+        if (Input::hasfile('image') && Input::file('image')->isValid()) {
+            $destinationPath = public_path() . config('directories.articles');
+            $extension = 'jpg';
+            $fileName = $article->article_url . '.' . $extension;
+
+            $article->image = config('directories.articles') . $fileName;
+
+            Input::file('image')->move($destinationPath, $fileName);
+        }
+
+        // On lie les catégories et on sauvegarde l'article
+        $article->category()->associate($category->id);
+        $article->save();
+
+        // On lie les rédacteurs
+        $redacs = $inputs['users'];
+        $redacs = explode(',', $redacs);
+        $listRedacs = [];
+
+        # Pour chaque rédacteur
+        foreach ($redacs as $redac) {
+            # On lie le rédacteur à l'article
+            $user = $this->userRepository->getUserByUsername($redac);
+            $listRedacs[] = $user->id;
+        }
+
+        $article->users()->sync($listRedacs);
+
+        // Si le champ one est à 1 c'est qu'on lie qu'une seule série
+        if($inputs['one'] == 1) {
+            // Si episode est renseigné, on lie à l'épisode
+            if(!empty($inputs['episode'])) {
+                $episode = $this->episodeRepository->getEpisodeByIDWithSeasonIDAndShowID($inputs['episode']);
+
+                $article->episodes()->sync($episode->id);
+                $article->seasons()->sync($episode->season->id);
+                $article->shows()->sync($episode->show->id);
+            }
+            // Si season n'est renseigné, on lie à la série
+            elseif(empty($inputs['season'])) {
+                $article->shows()->sync($inputs['show']);
+            }
+            // Sinon, on lie à la saison
+            else {
+                $season = $this->seasonRepository->getSeasonWithShowByID($inputs['season']);
+                $article->seasons()->sync($season->id);
+                $article->shows()->sync($season->show->id);
+            }
+        }
+        else {
+            // On gère l'ajout de plusieurs séries
+            $shows = $inputs['shows'];
+            $shows = explode(',', $shows);
+            $listShows = [];
+
+            # Pour chaque série
+            foreach ($shows as $show) {
+                $show = $this->showRepository->getByName($show);
+                # On lie la série à l'article
+                $listShows[] = $show->id;
+            }
+            $article->shows()->sync($listShows);
+        }
+
+        // On redirige l'utilisateur
+        return redirect()->route('admin.articles.index')
+            ->with('status_header', 'Modification d\'un article')
+            ->with('status', 'Votre article a été modifié.');
     }
 
 }

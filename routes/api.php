@@ -22,6 +22,7 @@ use Dingo\Api\Routing\Router;
         $api->get('seasons/list', '\App\Http\Controllers\Api\V1\SeasonsListController@index');
         $api->get('episodes/seasons/{id}', '\App\Http\Controllers\Api\V1\EpisodesBySeasonIDController@index');
         $api->get('seasons/show/{id}', '\App\Http\Controllers\Api\V1\SeasonsByShowIDController@index');
+        $api->get('seasons/show_name/{name}', '\App\Http\Controllers\Api\V1\SeasonsByShowNameController@index');
         $api->get('nationalities/list', '\App\Http\Controllers\Api\V1\NationalitiesController@index');
         $api->get('artists/list', '\App\Http\Controllers\Api\V1\ArtistsController@index');
         $api->get('genres/list', '\App\Http\Controllers\Api\V1\GenresController@index');

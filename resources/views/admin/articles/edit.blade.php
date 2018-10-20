@@ -22,8 +22,8 @@
             <h1 class="ui header" id="adminTitre">
                 Articles
                 <span class="sub header">
-                        Editer un article
-                    </span>
+                    Editer un article
+                </span>
             </h1>
         </div>
         <div class="ui height wide column">
@@ -42,11 +42,14 @@
                 <form class="ui form" method="POST" action="{{ route('admin.articles.update') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="id" value="{{$article->id}}">
+
                     <h4 class="ui dividing header">Catégorie</h4>
                     <div class="ui required field {{ $errors->has('category') ? ' error' : '' }}">
                         <label for="inputCategory">Choisir la catégorie de l'article</label>
-                        <div class="ui fluid search selection dropdown dropdownCategory">
-                            <input id="inputCategory" name="category" type="hidden" value="{{ $article->category->id }}">
+                        <div id="dropdownCategory" class="ui fluid search selection dropdown">
+                            <input id="inputCategory" name="category" type="hidden" value="{{$article->category->name}}">
                             <i class="dropdown icon"></i>
                             <div class="default text">Catégorie</div>
                             <div class="menu">
@@ -74,11 +77,10 @@
                                 <label for="show">Choisir la série liée</label>
                                 <div class="ui grid">
                                     <div class="thirteen wide column">
-                                        <div class="ui @if(count($article->shows) > 1) disabled  @endif search fluid selection dropdown oneShowField dropdownShow">
-                                            <input id="inputShow" name="show" type="hidden" value="@if(count($article->shows) <= 1) {{ $article->shows->first()->id }}  @else {{ old('show') }} @endif">
+                                        <div class="ui @if(count($article->shows) > 1) disabled @endif search fluid selection dropdown oneShowField dropdownShow">
+                                            <input id="inputShow" name="show" type="hidden" value="@if(count($article->shows) <= 1){{ $article->shows->first()->name }}@else{{ old('show') }}@endif">
                                             <i class="dropdown icon"></i>
-
-                                            @if(count($article->shows) <= 1) {{ $article->shows->first()->name }}  @else Série @endif
+                                            <div class="default text">Série</div>
                                             <div class="menu">
                                             </div>
                                         </div>
@@ -101,7 +103,7 @@
                                 <div class="ui grid">
                                     <div class="thirteen wide column">
                                         <div class="ui disabled fluid search selection dropdown oneShowField dropdownSeason">
-                                            <input id="inputSeason" name="season" type="hidden" value="{{ old('season') }}">
+                                            <input id="inputSeason" name="season" type="hidden" value="@if(count($article->seasons) > 0){{ $article->seasons->first()->name }}@else{{ old('season') }}@endif">
                                             <i class="dropdown icon"></i>
                                             <div class="default text">Saison</div>
                                             <div class="menu">
@@ -135,7 +137,8 @@
 
                                         @if ($errors->has('episode'))
                                             <div class="ui red message">
-                                                <strong>{{ $errors->first('episode') }}</strong>                                        </div>
+                                                <strong>{{ $errors->first('episode') }}</strong>
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="three wide column">
@@ -154,7 +157,7 @@
                                     <div class="thirteen wide column">
                                         <div class="thirteen wide column">
                                             <div class="ui @if(count($article->shows) <= 1) disabled @endif fluid search multiple selection dropdown multipleShowsField dropdownShow">
-                                                <input id="inputUsers" name="users" type="hidden" value="{{ $shows }}">
+                                                <input id="inputUsers" name="shows" type="hidden" value="{{ $shows }}">
                                                 <i class="dropdown icon"></i>
                                                 <div class="default text">Série(s)</div>
                                                 <div class="menu">
@@ -180,7 +183,7 @@
 
                     <div class="ui required field {{ $errors->has('name') ? ' error' : '' }}">
                         <label for="inputName">Titre de l'article</label>
-                        <input id="inputName" name="name" value="@if(old('name')) {{ old('name') }} @else {{ $article->name }} @endif">
+                        <input id="inputName" name="name" value="@if(old('name')){{ old('name') }}@else{{ $article->name }}@endif">
 
                         @if ($errors->has('name'))
                             <div class="ui red message">
@@ -191,7 +194,7 @@
 
                     <div class="ui required field {{ $errors->has('intro') ? ' error' : '' }}">
                         <label for="introInput">Chapô</label>
-                        <textarea id="introInput" name="intro" rows="2">@if(old('intro')) {{old('intro')}} @else {!! $article->intro !!} @endif</textarea>
+                        <textarea id="introInput" name="intro" rows="2">@if(old('intro')){{old('intro')}}@else{!! $article->intro !!}@endif</textarea>
 
                         @if ($errors->has('intro'))
                             <div class="ui red message">
@@ -213,7 +216,7 @@
                     <br />
 
                     <div class="ui field {{ $errors->has('image') ? ' error' : '' }}">
-                        <label for="image">Image de l'article (par défaut image de la série quand il n'y en a qu'une)</label>
+                        <label for="image">Image de l'article (En ajouter que si vous voulez modifier celle existante)</label>
                         <input id="image" name="image" type="file">
 
                         @if ($errors->has('image'))
@@ -254,12 +257,6 @@
                             <label for="publishedInput">Publier l'article</label>
                         </div>
                     </div>
-                    <div class="ui field">
-                        <div class="ui toggle checkbox">
-                            <input id="uneInput" name="une" type="checkbox">
-                            <label for="uneInput">Mettre l'article en une</label>
-                        </div>
-                    </div>
                     <button class="ui positive button">Envoyer</button>
                 </form>
             </div>
@@ -269,8 +266,6 @@
 
 @section('scripts')
     <script>
-        var categoryValue = $('#inputCategory').val();
-
         CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
         CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
         CKEDITOR.replace( 'article' ,
@@ -284,72 +279,74 @@
             });
 
         $('.ui.toggle.checkbox').checkbox();
+        @if($article->state == 1)
+            $('.ui.toggle.checkbox').checkbox('check');
+        @endif
 
-        var dropdownCategory = '.dropdownCategory';
-        var dropdownShow = '.dropdownShow';
-        var dropdownSeason = '.dropdownSeason';
-        var dropdownEpisode = '.dropdownEpisode';
-        var dropdownUser = '.dropdownUser';
+        const dropdownCategory = '.dropdownCategory';
+        const dropdownShow = '.dropdownShow';
+        const dropdownSeason = '.dropdownSeason';
+        const dropdownEpisode = '.dropdownEpisode';
+        const dropdownUser = '.dropdownUser';
 
-        var inputCategory = '#inputCategory';
-        var inputShow = '#inputShow';
-        var inputSeason = '#inputSeason';
-        var inputEpisode = '#inputEpisode';
-        var inputTitle = '#inputName';
+        const inputShow = '#inputShow';
+        const inputSeason = '#inputSeason';
 
-        var clearShowsButton = '.clearShows';
-        var clearShowButton = '.clearShow';
-        var clearSeasonButton = '.clearSeason';
-        var clearEpisodeButton = '.clearEpisode';
-        var clearUserButton = '.clearUser';
+        const clearShowsButton = '.clearShows';
+        const clearShowButton = '.clearShow';
+        const clearSeasonButton = '.clearSeason';
+        const clearEpisodeButton = '.clearEpisode';
+        const clearUserButton = '.clearUser';
 
-        var multipleShowsButton = '#multipleShows';
+        const multipleShowsButton = '#multipleShows';
 
         $(document).ready(function() {
+            // Init the dropdown Categories
+            $('#dropdownCategory')
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/genres/list?name-lk=*{query}*'
+                    },
+                    fields: {remoteValues: "data", value: "name"},
+                    allowAdditions: true
+                })
+            ;
+
             // Init the dropdown Show
             $(dropdownShow)
                 .dropdown({
                     apiSettings: {
-                        url: '/api/shows/list?name-lk=*{query}*'
+                        url: '/api/shows/list?name-lk=*{query}*',
                     },
                     fields: {
                         remoteValues: 'data',
-                        value: 'id',
-                        name: 'name',
+                        value: 'name',
                     },
-                    saveRemoteData: false
-                });
+                    allowAdditions: true
 
-            $(inputShow).add(inputSeason).add(inputEpisode).add(inputCategory).change(function() {
-                if(!$(inputShow).val()) {
-                    var generatedTitle = $(inputCategory).siblings('.text').html();
-                }
-                else if(!$(inputSeason).val()) {
-                    var generatedTitle = $(inputCategory).siblings('.text').html()
-                        + ' : '
-                        + $(inputShow).siblings('.text').html();
-                }
-                else if(!$(inputEpisode).val()) {
+                })
+            ;
 
-                        + ' : '
-                        + $(inputShow).siblings('.text').html()
-                        + ' Saison '
-                        + $(inputSeason).siblings('.text').html();
-                }
-                else {
-                    var generatedTitle = $(inputCategory).siblings('.text').html()
-                        + ' : '
-                        + $(inputShow).siblings('.text').html()
-                        + ' '
-                        + $(inputSeason).siblings('.text').html()
-                        + '.'
-                        + $(inputEpisode).siblings('.text').html().split('-')[0].trim();
-                }
-                $(inputTitle).val(generatedTitle);
-            });
+            // Init the dropdown Users
+            $(dropdownUser)
+                .dropdown({
+                    apiSettings: {
+                        url: '/api/users/list?username-lk=*{query}*'
+                    },
+                    fields: {
+                        remoteValues: "data",
+                        value: "username",
+                        name: "username"
+                    },
+                    allowAdditions: true
+                })
+            ;
+
+            checkShowState();
+            checkSeasonState();
 
             function checkShowState() {
-                // If Show is not empty, we enabled the dropdown
+                                // If Show is not empty, we enabled the dropdown
                 if(!$(inputShow).val()) {
                     $(dropdownSeason).addClass('disabled');
                     $(clearSeasonButton).addClass('disabled');
@@ -357,6 +354,21 @@
                 else {
                     $(dropdownSeason).removeClass('disabled');
                     $(clearSeasonButton).removeClass('disabled');
+
+                    let show =  $(inputShow).val();
+
+                    $(dropdownSeason)
+                        .dropdown({
+                            apiSettings: {
+                                url: '/api/seasons/show_name/'+ show
+                            },
+                            fields: {
+                                remoteValues: "data",
+                                value: "name"
+                            },
+                            allowAdditions: true
+                        })
+                    ;
                 }
             }
 
@@ -369,13 +381,30 @@
                 else {
                     $(dropdownEpisode).removeClass('disabled');
                     $(clearEpisodeButton).removeClass('disabled');
+
+                    let season =  $(inputSeason).val();
+
+                    $(dropdownEpisode)
+                        .dropdown({
+                            apiSettings: {
+                                url: '/api/episodes/seasons/' + season
+                            },
+                            fields: {
+                                remoteValues: "data",
+                                value: "id",
+                                name: "title"
+                            },
+                            allowAdditions: true
+                        })
+                    ;
+
                 }
             }
 
             function switchToMultipleShows() {
                 // We change the colors of buttons
-                $(multipleShowsButton).addClass('BlueSerieAll');
-                $(multipleShowsButton).prev().removeClass('BlueSerieAll');
+                $(multipleShowsButton).addClass('blueSA');
+                $(multipleShowsButton).prev().removeClass('blueSA');
 
                 // We disabled the field linked to the not selected
                 $('.oneShowField').addClass('disabled');
@@ -385,15 +414,16 @@
                 $('input[name=one]').val(0);
             }
 
-            if($('input[name=one]').val() == 0) {
+            if($('input[name=one]').val() === 0) {
                 switchToMultipleShows();
             }
 
             // On click on "One Show"
             $('#oneShow').click(function () {
+                console.log('coucou');
                 // We change the colors of buttons
-                $(this).addClass('BlueSerieAll');
-                $(this).next().removeClass('BlueSerieAll');
+                $(this).addClass('blueSA');
+                $(this).next().removeClass('blueSA');
 
                 // We disabled the field linked to the not selected
                 $('.oneShowField').removeClass('disabled');
@@ -410,34 +440,6 @@
             $('#multipleShows').click(function () {
                 switchToMultipleShows();
             });
-
-            // Init the dropdown Categories
-            $(dropdownCategory)
-                .dropdown({
-                    apiSettings: {
-                        url: '/api/categories/list?name-lk=*{query}*'
-                    },
-                    fields: {
-                        remoteValues: "data",
-                        value: "id"
-                    }
-                })
-            ;
-            $(dropdownCategory).dropdown('set selected', categoryValue);
-
-            // Init the dropdown Users
-            $(dropdownUser)
-                .dropdown({
-                    apiSettings: {
-                        url: '/api/users/list?username-lk=*{query}*'
-                    },
-                    fields: {
-                        remoteValues: "data",
-                        value: "id",
-                        name: "username"
-                    }
-                })
-            ;
 
             // Clear buttons
             $(clearShowButton).click(function () {
@@ -458,42 +460,11 @@
 
             // On change on Show, we init the dropdown Seasons with the new value of show
             $(inputShow).change( function() {
-                var show =  $(inputShow).val();
-
-                $(dropdownSeason)
-                    .dropdown({
-                        apiSettings: {
-                            url: '/api/seasons/show/'+ show
-                        },
-                        fields: {
-                            remoteValues: "data",
-                            value: "name"
-                        }
-                    })
-                    .dropdown('clear')
-                ;
-
                 checkShowState();
             });
 
             // On change on Season, we init the dropdown Episodes with the new value of season
             $(inputSeason).change( function() {
-                var season =  $(inputSeason).val();
-
-                $(dropdownEpisode)
-                    .dropdown({
-                        apiSettings: {
-                            url: '/api/episodes/seasons/' + season
-                        },
-                        fields: {
-                            remoteValues: "data",
-                            value: "id",
-                            name: "title"
-                        }
-                    })
-                    .dropdown('clear')
-                ;
-
                 checkSeasonState();
             });
         });
