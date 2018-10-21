@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 /**
@@ -88,6 +89,14 @@ class AdminArticleController extends Controller
     public function edit($id)
     {
         $article = $this->articleRepository->getArticleWithAllInformationsByID($id);
+
+        # FIX: Remove key for Season (the dropdown will show shit
+        if(count($article->seasons) > 0){
+            foreach($article->seasons as $season) {
+                Session::forget($season->name);
+            }
+        }
+
         $shows = formatRequestInVariableNoSpace($article->shows);
         $users = formatRequestInVariableUsernameNoSpace($article->users);
 

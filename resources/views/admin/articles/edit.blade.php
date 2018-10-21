@@ -128,7 +128,7 @@
                                 <div class="ui grid">
                                     <div class="thirteen wide column">
                                         <div class="ui disabled fluid search selection dropdown oneShowField dropdownEpisode">
-                                            <input id="inputEpisode" name="episode" type="hidden" value="{{ old('episode') }}">
+                                            <input id="inputEpisode" name="episode" type="hidden" value="@if(count($article->episodes) > 0){{ $article->episodes->first()->name }}@else{{ old('episode') }}@endif">
                                             <i class="dropdown icon"></i>
                                             <div class="default text">Episode</div>
                                             <div class="menu">
