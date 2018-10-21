@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 
@@ -116,7 +117,7 @@ class CommentRepository
      * @return \Illuminate\Database\Eloquent\Model|static
      */
     public function getCommentByID($id) {
-        return $this->comment::firstOrFail($id);
+        return $this->comment::findOrFail($id);
     }
 
     /**

@@ -90,7 +90,7 @@ class AdminArticleController extends Controller
     {
         $article = $this->articleRepository->getArticleWithAllInformationsByID($id);
 
-        # FIX: Remove key for Season (the dropdown will show shit
+        # FIX: Remove key for Season (the dropdown will show shit)
         if(count($article->seasons) > 0){
             foreach($article->seasons as $season) {
                 Session::forget($season->name);

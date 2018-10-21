@@ -1,0 +1,1 @@
+$('#dropdownThumb').dropdown({forceSelection: true});

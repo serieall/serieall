@@ -9,10 +9,13 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Jobs\UserStore;
 use App\Jobs\UserUpdate;
 use App\Repositories\CommentRepository;
+use App\Repositories\ShowRepository;
 use Illuminate\Support\Facades\Auth;
 
 use App\Repositories\UserRepository;
-use App\Jobs\UserDelete;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class AdminUserController
@@ -22,20 +25,23 @@ class AdminUserController extends Controller
 {
     protected $userRepository;
     protected $commentRepository;
+    protected $showRepository;
 
     /**
      * AdminUserController constructor.
      *
      * @param UserRepository $userRepository
      * @param CommentRepository $commentRepository
+     * @param ShowRepository $showRepository
      * @internal param SeasonRepository $seasonRepository
      * @internal param ShowRepository $showRepository
      * @internal param ArtistRepository $artistRepository
      */
-    public function __construct(UserRepository $userRepository, CommentRepository $commentRepository)
+    public function __construct(UserRepository $userRepository, CommentRepository $commentRepository, ShowRepository $showRepository)
     {
         $this->userRepository = $userRepository;
         $this->commentRepository = $commentRepository;
+        $this->showRepository = $showRepository;
     }
 
     /**
@@ -144,12 +150,60 @@ class AdminUserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
+    /**
+     * Liste des commentaires (séries / saisons / épisodes) à modérer pour cet utilisateur
+     *
+     * @param $user_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function moderateComments($user_id) {
-        $user = $this->commentRepository->getCommentsByUserID($user_id);
-        dd($user);
+        $default_message = view::make('admin.users.info_message')->render();
+        $user = $this->userRepository->getUserByID($user_id);
+        $shows = $this->showRepository->getAllShows();
+
+        return view('admin.users.moderate_comments', compact('user', 'shows', 'default_message'));
     }
 
+    /**
+     * Liste des commentaires (articles) à modérer pour cet utilisateur
+     *
+     * @param $user_id
+     */
     public function moderateCommentsArticles($user_id) {
 
     }
+
+    /**
+     * Retourne le commentaire demandé en JSON
+     *
+     * @param $user_id
+     * @param $type
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getComment($user_id, $type, $id) {
+        $comment = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, "App\\Models\\" . $type, $id);
+
+        if(is_null($comment)) {
+            return Response::json(View::make('admin.users.info_message')->render());
+        }
+
+        return Response::json(View::make('admin.users.avis', ['comment' => $comment])->render());
+    }
+
+    /**
+     * @param $comment_id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroyComment($comment_id) {
+        $comment = $this->commentRepository->getCommentByID($comment_id);
+
+        $comment->delete();
+
+        return redirect()->back()
+            ->with('status_header', 'Suppression de l\'avis')
+            ->with('status', 'L\'avis a été supprimé.');
+    }
+
 }

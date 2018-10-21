@@ -175,6 +175,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
     Route::get('admin/users/{user}/comments/shows', 'Admin\AdminUserController@moderateComments')->name('admin.users.moderateComments');
     Route::get('admin/users/{user}/comments/articles', 'Admin\AdminUserController@moderateCommentsArticles')->name('admin.users.moderateCommentsArticles');
+    Route::get('admin/users/{user}/{type}/{type_id}', 'Admin\AdminUserController@getComment')->name('admin.users.getComment');
+    Route::delete('admin/users/comments/{comment}', 'Admin\AdminUserController@destroyComment')->name('admin.users.destroyComment');
 
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');
