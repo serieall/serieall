@@ -60,7 +60,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     $(document).ready(function() {
         $('.ui.styled.fluid.accordion')
@@ -303,4 +303,4 @@
             });
     });
 </script>
-@endsection
+@endpush

@@ -13,6 +13,6 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     {!! $calendar->script() !!}
-@endsection
+@endpush

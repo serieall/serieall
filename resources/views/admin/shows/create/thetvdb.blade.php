@@ -157,7 +157,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $(document).ready(function() {
             $('#dropdown-creators')
@@ -202,4 +202,4 @@
             });
         });
     </script>
-@endsection
+@endpush

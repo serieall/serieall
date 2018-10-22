@@ -153,7 +153,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $(document).on('click', '.action', function (e) {
             e.preventDefault();
@@ -178,7 +178,7 @@
             });
         }
     </script>
-@endsection
+@endpush
 
 {!! Charts::scripts() !!}
 {!! $chart->script() !!}

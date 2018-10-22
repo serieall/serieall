@@ -82,7 +82,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         var categoryHelp = '.description.category.help';
 
@@ -95,4 +95,4 @@
         });
 
     </script>
-@endsection
+@endpush

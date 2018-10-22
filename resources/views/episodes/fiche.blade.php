@@ -308,7 +308,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $('.ui.top.attached.tabular.menu .item')
             .tab()
@@ -416,4 +416,4 @@
             }
         });
     </script>
-@endsection
+@endpush

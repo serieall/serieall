@@ -111,6 +111,7 @@ class CommentRepository
             ->where('commentable_type', '=', $object)
             ->with(['user', 'children' => function($q) {
                 $q->with('user');
+                $q->orderBy('created_at');
             }])
             ->paginate(10);
     }
@@ -120,7 +121,13 @@ class CommentRepository
      * @return \Illuminate\Database\Eloquent\Model|static
      */
     public function getCommentByID($id) {
-        return $this->comment::findOrFail($id);
+        return $this->comment->with(['children' => function($children) {
+            $children->with('user');
+            $children->orderBy('created_at');
+        }, 'parent' => function($parent) {
+            $parent->with('user');
+            $parent->orderBy('created_at');
+        }, 'user'])->findOrFail($id);
     }
 
     /**

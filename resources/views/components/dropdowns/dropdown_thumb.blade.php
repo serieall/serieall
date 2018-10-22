@@ -20,4 +20,6 @@
     </div>
 </div>
 
-{{ Html::script('/js/components/dropdowns/dropdown_thumb.js') }}
+@push('scripts')
+    {{ Html::script('/js/components/dropdowns/dropdown_thumb.js') }}
+@endpush

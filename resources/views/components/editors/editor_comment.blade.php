@@ -2,4 +2,6 @@
     {{ $slot }}
 </textarea>
 
-{{ Html::script('/js/components/editors/editor_comment.js') }}
+@push('scripts')
+    {{ Html::script('/js/components/editors/editor_comment.js') }}
+@endpush

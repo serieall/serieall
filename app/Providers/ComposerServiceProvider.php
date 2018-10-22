@@ -44,6 +44,12 @@ class ComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\NavActiveAdminUsersComposer'
         );
 
+        // NavActive = AdminComments
+        View::composer(
+            ['admin/comments/*'],
+            'App\Http\ViewComposers\NavActiveAdminCommentsComposer'
+        );
+
         // NavActive = AdminSystem
         View::composer(
             ['admin/system/*'],

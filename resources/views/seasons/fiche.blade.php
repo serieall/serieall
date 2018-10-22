@@ -143,7 +143,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $(document).ready(function() {
             var $divView = $('.showMoreOrLess');
@@ -222,7 +222,7 @@
             }
         });
     </script>
-@endsection
+@endpush
 
 {!! Charts::scripts() !!}
 {!! $chart->script() !!}

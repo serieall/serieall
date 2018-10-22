@@ -51,7 +51,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@endpush('scripts')
     <script>
         $(function () {
             var sloganNumber = $('.div-slogans').length; // Nombre d'épisodes
@@ -146,4 +146,4 @@
                 });
         });
     </script>
-@endsection
+@endpush

@@ -60,7 +60,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         // Fonction de création et de suppression des nouveau acteurs
         $(function(){
@@ -166,4 +166,4 @@
                 });
         });
     </script>
-@endsection
+@endpush

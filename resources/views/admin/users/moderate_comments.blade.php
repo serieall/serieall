@@ -72,6 +72,6 @@
 </div>
 @endsection
 
-@section('scripts')
-    {{Html::script('js/views/admin/users/moderate_comments.js')}}
-@endsection
+@push('scripts')
+    {{Html::script('index.js')}}
+@endpush

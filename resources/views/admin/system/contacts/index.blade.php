@@ -56,7 +56,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $('#tableAdmin').DataTable( {
             "order": [[ 4, "desc" ]],
@@ -75,4 +75,4 @@
                 }
             }} );
     </script>
-@endsection
+@endpush

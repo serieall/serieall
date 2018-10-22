@@ -96,7 +96,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $('.ui.styled.fluid.accordion.seasonsBlock')
             .accordion({
@@ -107,4 +107,4 @@
             })
         ;
     </script>
-@endsection
+@endpush

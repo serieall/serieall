@@ -95,7 +95,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $('.special.cards .image').dimmer({
             on: 'hover'
@@ -127,4 +127,4 @@
             ;
         });
     </script>
-@endsection
+@endpush

@@ -9,4 +9,6 @@
     {{ $slot }}
 </table>
 
-{{ Html::script('/js/components/tables/table_admin.js') }}
+@push('scripts')
+    {{ Html::script('/js/components/tables/table_admin.js') }}
+@endpush

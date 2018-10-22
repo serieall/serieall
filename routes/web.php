@@ -173,10 +173,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
     Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
     Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
-    Route::get('admin/users/{user}/comments/shows', 'Admin\AdminUserController@moderateComments')->name('admin.users.moderateComments');
-    Route::get('admin/users/{user}/comments/articles', 'Admin\AdminUserController@moderateCommentsArticles')->name('admin.users.moderateCommentsArticles');
-    Route::get('admin/users/{user}/{type}/{type_id}', 'Admin\AdminUserController@getComment')->name('admin.users.getComment');
-    Route::delete('admin/users/comments/{comment}', 'Admin\AdminUserController@destroyComment')->name('admin.users.destroyComment');
+
+    /* COMMENTS */
+    Route::get('admin/comments', 'Admin\AdminCommentController@index')->name('admin.comments.index');
+    Route::get('admin/comments/{comment}', 'Admin\AdminCommentController@edit')->name('admin.comments.edit');
+    Route::get('admin/comments/{type}/{type_id}', 'Admin\AdminCommentController@getComments')->name('admin.comments.getComments');
+    Route::delete('admin/comments/{comment}', 'Admin\AdminCommentController@destroy')->name('admin.comments.destroy');
 
     /* SYSTEM */
     Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');

@@ -123,7 +123,7 @@
      </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
 
@@ -176,7 +176,7 @@
             }
         });
     </script>
-@endsection
+@endpush
 
 {!! Charts::scripts() !!}
 {!! $chart->script() !!}

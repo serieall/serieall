@@ -256,7 +256,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
         CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
@@ -485,4 +485,4 @@
             });
         });
     </script>
-@endsection
+@endpush

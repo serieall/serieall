@@ -37,6 +37,13 @@
             Utilisateurs
         </a>
         <a class="ui header item
+            @if($navActive === 'AdminComments')
+                blue
+            @endif" href="{{ route('admin.comments.index') }}">
+            <i class="comments icon"></i>
+            Avis
+        </a>
+        <a class="ui header item
             @if($navActive === 'AdminSystem')
                 blue
              @endif" href="{{ route('admin.system') }}">

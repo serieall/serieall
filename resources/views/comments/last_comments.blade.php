@@ -97,6 +97,6 @@
     @endif
 @endif
 
-@section('scripts')
+@push('scripts')
     <script src="/js/article.show.js"></script>
-@endsection
+@endpush

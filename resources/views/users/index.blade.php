@@ -34,7 +34,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $('#member_list').DataTable( {
             "order": [[ 0, "asc" ]],
@@ -53,4 +53,4 @@
                 }
             }} );
     </script>
-@endsection
+@endpush

@@ -376,7 +376,7 @@
     content: '\2022';
     color: #1074b2; }
   #footer .title:before {
-    content: inherit !important; }
+    content: none !important; }
 
 .ui.menu .active.item,
 .ui.menu .active.item:hover,
@@ -1092,5 +1092,13 @@ blockquote {
 
 .flex-center {
   display: flex; }
+
+.ui.pagination.menu .active.item:hover {
+  background-color: #1074b2;
+  border: none;
+  color: white; }
+
+table.dataTable.no-footer {
+  border-bottom: 1px solid rgba(34, 36, 38, 0.15); }
 
 /*# sourceMappingURL=style.css.map */

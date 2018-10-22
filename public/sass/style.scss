@@ -378,3 +378,13 @@ blockquote {
 .flex-center {
   display: flex;
 }
+
+.ui.pagination.menu .active.item:hover {
+  background-color: $blueSA;
+  border: none;
+  color: white;
+}
+
+table.dataTable.no-footer {
+  border-bottom: 1px solid rgba(34,36,38,.15);
+}
