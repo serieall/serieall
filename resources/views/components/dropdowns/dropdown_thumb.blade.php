@@ -20,4 +20,4 @@
     </div>
 </div>
 
-<script src="/js/components/dropdown_thumb.js"></script>
+{{ Html::script('/js/components/dropdowns/dropdown_thumb.js') }}
