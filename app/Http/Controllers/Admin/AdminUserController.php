@@ -157,11 +157,10 @@ class AdminUserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function moderateComments($user_id) {
-        $default_message = view::make('admin.users.info_message')->render();
         $user = $this->userRepository->getUserByID($user_id);
         $shows = $this->showRepository->getAllShows();
 
-        return view('admin.users.moderate_comments', compact('user', 'shows', 'default_message'));
+        return view('admin.users.moderate_comments', compact('user', 'shows'));
     }
 
     /**

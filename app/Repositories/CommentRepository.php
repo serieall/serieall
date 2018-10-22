@@ -42,6 +42,9 @@ class CommentRepository
      */
     public function getCommentByUserIDTypeTypeID($user_id, $type, $type_id) {
         return $this->comment::where('commentable_id', '=', $type_id)
+            ->with(['children' => function($q) {
+                $q->with('user');
+            }])
             ->where('user_id', '=', $user_id)
             ->where('commentable_type', '=', $type)
             ->first();
