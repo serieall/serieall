@@ -1,5 +1,4 @@
 const defaultHtml = $('#comment').html();
-const userID = $('#userId').val();
 const dropdownShow = '#dropdownShow';
 const dropdownSeason = '#dropdownSeason';
 const dropdownEpisode = '#dropdownEpisode';
@@ -14,7 +13,7 @@ function getComment(type, val) {
 
     if(val) {
         $.ajax({
-            url : '/admin/users/' + userID + '/' + type +'/'+ val,
+            url : '/admin/comments/' + type +'/'+ val,
             dataType: 'json'
         }).done(function (data) {
             // On insére le HTML
