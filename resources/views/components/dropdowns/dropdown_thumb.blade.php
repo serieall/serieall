@@ -1,4 +1,4 @@
-<div class="ui field">
+<div class="ui field {{ $errors->has('thumb') ? ' error' : '' }}">
     <div id="dropdownThumb" class="ui fluid selection dropdown">
         <input name="thumb" id="thumb" class="thumb" type="hidden" value="{{ $slot }}">
         <i class="dropdown icon"></i>
@@ -18,6 +18,12 @@
             </div>
         </div>
     </div>
+
+    @if ($errors->has('thumb'))
+        <div class="ui red message">
+            <strong>{{ $errors->first('thumb') }}</strong>
+        </div>
+    @endif
 </div>
 
 @push('scripts')
