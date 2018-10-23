@@ -55,51 +55,56 @@
         @endif
     @endcomponent
 
-    <div class="ui form">
-        <input type="hidden" value="{{ $comment->id }}">
+    @if(!is_null($comment->parent))
+        <a href="{{ route('admin.comments.edit', $comment->parent->id) }}">
+            @component('components.buttons.button', ['type' => 'icon blue'])
+                <i class="icon reply"></i>
+                Retourner au commentaire parent
+            @endcomponent
+        </a>
+        <p></p>
+    @endif
+
+    <form class="ui form" action="{{ route('admin.comments.update') }}" method="POST">
+        {{ csrf_field() }}
+
+        <input type="hidden" name="_method" value="PUT">
+        @if(!is_null($comment->parent))
+            <input type="hidden" name="parent_id" value="{{ $comment->parent->id }}">
+        @endif
+        <input type="hidden" name="id" value="{{ $comment->id }}">
 
         @if(is_null($comment->parent))
             @component('components.dropdowns.dropdown_thumb')
                 {{ $comment->thumb }}
             @endcomponent
-        @else
-            <a href="{{ route('admin.comments.edit', $comment->parent->id) }}">
-                @component('components.buttons.button', ['type' => 'icon blue'])
-                    <i class="icon reply"></i>
-                    Retourner au commentaire parent
-                @endcomponent
-            </a>
-            <p></p>
         @endif
 
         @component('components.editors.editor_comment')
             {{ $comment->message }}
         @endcomponent
 
-        <br />
+        @if(is_null($comment->parent))
+            <p></p>
+            <h3>Déplacer l'avis (Laissez vide pour ne pas le déplacer)</h3>
+            @component('components.dropdowns.dropdown_show_season_episode', ['comment' => $comment])
+            @endcomponent
+            <p></p>
+        @endif
+        <div class="ui divider"></div>
+
         <div class="four wide column">
             <div class="flex-center">
                 @component('components.buttons.button', ['type' => 'positive'])
                     Modifier
                 @endcomponent
 
-                @component('components.buttons.button_delete', ['type' => ''])
-                    @slot('route')
-                        {!! route('admin.comments.destroy', $comment->id) !!}
-                    @endslot
-                    @slot('title')
-                        @if(is_null($comment->parent))
-                            Supprimer cet avis ?
-                        @else
-                            Supprimer cette réaction ?
-                        @endif
-                    @endslot
-                    Supprimer
-                @endcomponent
+
             </div>
         </div>
+    </form>
 
-        @if(count($comment->children) > 0)
+    @if(count($comment->children) > 0)
             <h2>Réactions</h2>
             @component('components.tables.table_admin', ['headers' => ["Utilisateur", "Message", "Actions"]])
                 @foreach($comment->children as $reaction)
@@ -135,11 +140,10 @@
                 @endforeach
             @endcomponent
         @else
-            @if(!is_null($comment->parent))
+            @if(is_null($comment->parent))
                 @component('components.message_simple', ['type' => 'info'])
                     Pas de réactions sous ce commentaire
                 @endcomponent
             @endif
         @endif
-    </div>
 @endsection

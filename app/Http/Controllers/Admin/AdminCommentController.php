@@ -5,30 +5,43 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\CommentUpdateRequest;
 use App\Repositories\CommentRepository;
+use App\Repositories\EpisodeRepository;
+use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 
 /**
  * Class AdminArticleController
  * @property CommentRepository commentRepository
+ * @property EpisodeRepository episodeRepository
+ * @property SeasonRepository seasonRepository
+ * @property ShowRepository showRepository
  * @package App\Http\Controllers\Admin
  */
 class AdminCommentController extends Controller
 {
-    protected $showRepository;
 
     /**
      * AdminCommentController constructor.
      *
      * @param ShowRepository $showRepository
      * @param CommentRepository $commentRepository
+     * @param EpisodeRepository $episodeRepository
+     * @param SeasonRepository $seasonRepository
      */
     public function __construct(ShowRepository $showRepository,
-                                CommentRepository $commentRepository) {
+                                CommentRepository $commentRepository,
+                                EpisodeRepository $episodeRepository,
+                                SeasonRepository $seasonRepository) {
+
         $this->showRepository = $showRepository;
         $this->commentRepository = $commentRepository;
+        $this->episodeRepository = $episodeRepository;
+        $this->seasonRepository = $seasonRepository;
     }
 
     /**
@@ -72,45 +85,45 @@ class AdminCommentController extends Controller
         return view('admin.comments.edit', compact('shows', 'comment'));
     }
 
-
     /**
-     * Liste des commentaires (séries / saisons / épisodes) à modérer pour cet utilisateur
+     * Update a comment
      *
-     * @param $user_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param CommentUpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function moderateComments($user_id) {
-        $user = $this->userRepository->getUserByID($user_id);
-        $shows = $this->showRepository->getAllShows();
+    public function update(CommentUpdateRequest $request) {
+        $inputs = $request->all();
+        $comment = $this->commentRepository->getCommentByID($inputs['id']);
 
-        return view('admin.users.moderate_comments', compact('user', 'shows'));
-    }
-
-    /**
-     * Liste des commentaires (articles) à modérer pour cet utilisateur
-     *
-     * @param $user_id
-     */
-    public function moderateCommentsArticles($user_id) {
-
-    }
-
-    /**
-     * Retourne le commentaire demandé en JSON
-     *
-     * @param $user_id
-     * @param $type
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getComment($user_id, $type, $id) {
-        $comment = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, "App\\Models\\" . $type, $id);
-
-        if(is_null($comment)) {
-            return Response::json(View::make('admin.users.info_message')->render());
+        if(isset($inputs['thumb'])) {
+            $comment->thumb = $inputs['thumb'];
         }
 
-        return Response::json(View::make('admin.users.avis', ['comment' => $comment])->render());
+        $comment->message = $inputs['avis'];
+
+        if(!empty($inputs['show'])) {
+            // Si episode est renseigné, on lie à l'épisode
+            if(!empty($inputs['episode'])) {
+                $episode = $this->episodeRepository->getEpisodeByIDWithSeasonIDAndShowID($inputs['episode']);
+
+                $episode->comments()->save($comment);
+            }
+            // Si season est renseigné, on lie à la saison
+            elseif(empty($inputs['season'])) {
+                $show = $this->showRepository->getByID($inputs['show']);
+                $show->comments()->save($comment);
+            }
+            // Sinon, on lie à la série
+            else {
+                $season = $this->seasonRepository->getSeasonWithShowByID($inputs['season']);
+                $season->comments()->save($comment);
+            }
+        }
+        $comment->save();
+
+        return redirect()->back()
+            ->with('status_header', 'Modération d\'un commentaire')
+            ->with('status', 'Le commentaire a été modéré');
     }
 
     /**

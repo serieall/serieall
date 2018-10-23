@@ -4,7 +4,7 @@ $('#tableAdmin').DataTable( {
         "lengthMenu": "Afficher _MENU_ enregistrements par page",
         "zeroRecords": "Aucun enregistrement trouvé",
         "info": "Page _PAGE_ sur _PAGES_",
-        "infoEmpty": "Aucun enregistrement trouvé",
+        "infoEmpty": "Aucun enregistrdockerement trouvé",
         "infoFiltered": "(filtré sur _MAX_ enregistrements)",
         "sSearch" : "",
         "oPaginate": {
@@ -14,3 +14,4 @@ $('#tableAdmin').DataTable( {
             "sLast":     	"Fin"
         }
     }} );
+$.getScript('/spoiler/spoiler.js');
