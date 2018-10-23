@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\View;
  */
 class AdminCommentController extends Controller
 {
-
     /**
      * AdminCommentController constructor.
      *
@@ -144,6 +143,4 @@ class AdminCommentController extends Controller
             ->with('status_header', 'Suppression de l\'avis')
             ->with('status', 'L\'avis a été supprimé.');
     }
-
-
 }
