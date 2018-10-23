@@ -13,59 +13,31 @@
 @endsection
 
 @section('content')
-    <div class="ui grid">
-        <div class="ui height wide column">
-            <h1 class="ui header" id="adminTitre">
-                Modérer les avis de séries/saisons/épisodes
-            </h1>
-        </div>
-    </div>
-
-    <div class="ui centered grid">
-        <div class="fifteen wide column segment">
-            <div class="ui segment">
-                <div class="ui form">
-                    <div class="ui three fields">
-                        <div class="ui field">
-                            <label for="show">Choisir la série</label>
-                            <div id="dropdownShow" class="ui search selection dropdown">
-                                <input id="inputShow" name="show" type="hidden" value="{{ old('show') }}">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Série</div>
-                                <div class="menu">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui field">
-                            <label for="season">Choisir la saison</label>
-                            <div id="dropdownSeason" class="ui search selection dropdown">
-                                <input id="inputSeason" name="season" type="hidden" value="{{ old('season') }}">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Saison</div>
-                                <div class="menu">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui field">
-                            <label for="episode">Choisir l'épisode</label>
-                            <div id="dropdownEpisode" class="ui fluid search selection dropdown">
-                                <input id="inputEpisode" name="episode" type="hidden" value="{{ old('episode') }}">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Episode</div>
-                                <div class="menu">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="ui basic modal" style="position: relative">
+        <div class="content">
+            <div class="ui two column very relaxed grid">
+                <div class="ui center aligned column">
+                    <a href="{{ route('admin.comments.indexShows') }}">
+                        <button class="ui massive inverted icon blue button"><i class="tv icon"></i> Avis sur les séries</button>
+                    </a>
+                </div>
+                <div class="ui center aligned column">
+                    <button class="ui massive inverted icon green button"><i class="file text outline icon"></i> Avis sur les articles</button>
                 </div>
             </div>
-            <div id="comment" class="ui segment">
-                @include('admin.comments.info_message')
+            <div class="ui vertical divider t-white">
+                ou
             </div>
         </div>
     </div>
 @endsection
 
 @push('scripts')
-    {{Html::script('js/views/admin/comments/index.js')}}
+    <script>
+        $('.ui.modal')
+            .modal('setting', 'transition', 'vertical flip')
+            .modal({inverted: true})
+            .modal('show')
+            .modal('setting', 'closable', false)
+    </script>
 @endpush

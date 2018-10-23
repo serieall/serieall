@@ -49,9 +49,17 @@ class AdminCommentController extends Controller
      */
     public function index()
     {
+        return view('admin.comments.index');
+    }
+
+    /**
+     * Print vue admin/comments/index_shows
+     *
+     */
+    public function indexShows() {
         $shows = $this->showRepository->getAllShows();
 
-        return view('admin.comments.index', compact('shows'));
+        return view('admin.comments.index_shows', compact('shows'));
     }
 
     /**
