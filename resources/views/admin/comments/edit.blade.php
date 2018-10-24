@@ -74,7 +74,7 @@
         @endif
         <input type="hidden" name="id" value="{{ $comment->id }}">
 
-        @if(is_null($comment->parent))
+        @if(is_null($comment->parent) and $comment->commentable_type != 'App\Models\Article')
             @component('components.dropdowns.dropdown_thumb')
                 {{ $comment->thumb }}
             @endcomponent
@@ -84,10 +84,17 @@
             {{ $comment->message }}
         @endcomponent
 
-        @if(is_null($comment->parent))
+        @if(is_null($comment->parent) and $comment->commentable_type != 'App\Models\Article')
             <p></p>
             <h3>Déplacer l'avis (Laissez vide pour ne pas le déplacer)</h3>
             @component('components.dropdowns.dropdown_show_season_episode', ['comment' => $comment])
+            @endcomponent
+            <p></p>
+        @endif
+        @if($comment->commentable_type == 'App\Models\Article')
+            <p></p>
+            <h3>Déplacer l'avis (Laissez vide pour ne pas le déplacer)</h3>
+            @component('components.dropdowns.dropdown_article', ['comment' => $comment])
             @endcomponent
             <p></p>
         @endif

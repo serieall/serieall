@@ -141,6 +141,11 @@ class AdminCommentController extends Controller
                 $season->comments()->save($comment);
             }
         }
+        if(!empty($inputs['article'])) {
+            $article = $this->articleRepository->getArticleByID($inputs['article']);
+
+            $article->comments()->save($comment);
+        }
         $comment->save();
 
         return redirect()->back()

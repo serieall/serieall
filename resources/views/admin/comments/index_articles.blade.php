@@ -29,16 +29,8 @@
         <div class="fifteen wide column segment">
             <div class="ui segment">
                 <div class="ui form">
-                    <div class="ui field">
-                        <label for="show">Choisir l'article</label>
-                        <div id="dropdownArticle" class="ui search selection dropdown">
-                            <input id="inputArticle" name="show" type="hidden" value="{{ old('article') }}">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Article</div>
-                            <div class="menu">
-                            </div>
-                        </div>
-                    </div>
+                   @component('components.dropdowns.dropdown_article')
+                   @endcomponent
                 </div>
             </div>
             <div id="comment" class="ui segment">
@@ -47,7 +39,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    {{Html::script('js/views/admin/comments/index_articles.js')}}
-@endpush

@@ -29,8 +29,12 @@ class CommentUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'thumb' => 'required_without:parent_id|numeric|between:1,3',
-            'avis' => 'required|min:20'
+            'thumb' => 'numeric|between:1,3',
+            'avis' => 'required|min:20',
+            'show' => 'numeric',
+            'season' => 'numeric',
+            'episode' => 'numeric',
+            'article' => 'numeric'
         ];
     }
 }

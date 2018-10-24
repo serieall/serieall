@@ -37,15 +37,14 @@ function initDropdownArticle() {
                 remoteValues: "data",
                 value: "id"
             },
-            clearable: true,
-            onChange: function(valShow) {
-                if (valShow) {
-                    getComment("Show", valShow);
+            onChange: function(valArticle) {
+                if (valArticle) {
+                    getComment("Article", valArticle);
                 } else {
-                    getComment("Show", null)
+                    getComment("Article", null)
                 }
 
-                initDropdownSeason(valShow);
+                initDropdownSeason(valArticle);
             }
         });
 }
