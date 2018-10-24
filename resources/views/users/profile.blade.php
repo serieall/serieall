@@ -10,11 +10,11 @@
                     <i class="user icon"></i>
                     Profil
                 </a>
-                <a class="item" href="{{ route('user.profile.rates', $user->username ) }}">
+                <a class="item" href="{{ route('user.profile.rates', $user->user_url ) }}">
                     <i class="star icon"></i>
                     Notes
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('user.profile.comments', $user->user_url ) }}">
                     <i class="comment icon"></i>
                     Avis
                 </a>
@@ -28,7 +28,7 @@
                 </a>
                 @if(Auth::check())
                     @if($user->username == Auth::user()->username)
-                        <a class="item" href="{{ route('user.profile.parameters', $user->username ) }}">
+                        <a class="item" href="{{ route('user.profile.parameters', $user->user_url ) }}">
                             <i class="settings icon"></i>
                             Paramètres
                         </a>

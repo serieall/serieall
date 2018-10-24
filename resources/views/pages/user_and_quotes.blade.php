@@ -1,6 +1,6 @@
 <div class="row">
     <div class="center aligned three wide column">
-        <a href="{{ route('user.profile', $user['Username']) }}">
+        <a href="{{ route('user.profile', $user['user_url']) }}">
             <img class="ui tiny avatar image" src="{{ Gravatar::src($user['Email']) }}"> <br/>
             {{ $user['Username'] }}
         </a>

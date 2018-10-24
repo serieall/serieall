@@ -60,7 +60,7 @@
                 <i class="wizard icon"></i>
             </a>
         @else
-            <a href="{{ route('user.profile', Auth::user()->username) }}" class="item">
+            <a href="{{ route('user.profile', Auth::user()->user_url) }}" class="item">
                 <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
                 {{ Auth::user()->username }}
             </a>
@@ -75,7 +75,7 @@
                    <i class="alarm icon"></i>
                    Notifications
                 </a>
-                <a class="item" href="{{ route('user.profile', Auth::user()->username) }}">
+                <a class="item" href="{{ route('user.profile', Auth::user()->user_url) }}">
                     <i class="user icon"></i>
                     Profil
                 </a>
@@ -175,7 +175,7 @@
                                     </div>
                                 </a>
                             @endif
-                            <a href="{{ route('user.profile', Auth::user()->username) }}">
+                            <a href="{{ route('user.profile', Auth::user()->user_url) }}">
                                 <div class="item">
                                     <i class="user icon"></i>
                                     Profil

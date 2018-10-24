@@ -289,7 +289,7 @@
                                 </div>
                                 <div class="content">
                                     <div class="summary">
-                                        <a href="{{ route('user.profile', $user->username) }}" class="user">
+                                        <a href="{{ route('user.profile', $user->user_url) }}" class="user">
                                             {{ $user->username }}
                                         </a>
                                         a noté cet épisode - {!! affichageNote($user->pivot->rate) !!}

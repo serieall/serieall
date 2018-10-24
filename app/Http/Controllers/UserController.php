@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Repositories\UserRepository;
 use App\Http\Requests\changePasswordRequest;
 use Illuminate\Support\Facades\DB;
-use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Support\Facades\Request;
 use View;
 use Response;
@@ -63,7 +62,6 @@ class UserController extends Controller
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getProfile($userURL){
-        $nb_minutes = 0;
         $user = $this->userRepository->getUserByURL($userURL);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -74,12 +72,7 @@ class UserController extends Controller
         $comment_fav = $comments->where('thumb', '=', 1)->first();
         $comment_neu = $comments->where('thumb', '=', 2)->first();
         $comment_def = $comments->where('thumb', '=', 3)->first();
-        $rates_by_shows = $this->rateRepository->getRatesAggregateByShowForUser($user->id, 'name');
-        foreach($rates_by_shows as $rate) {
-            $nb_minutes = $nb_minutes + ($rate->nb_rate * $rate->format);
-        }
-        Carbon::setLocale('fr');
-        $time_passed_shows = CarbonInterval::fromString($nb_minutes . 'm')->cascade()->forHumans();
+        $time_passed_shows = getTimePassedOnShow($this->rateRepository, $user->id);
 
         $rates = $this->rateRepository->getRateByUserID($user->id);
 
@@ -138,6 +131,32 @@ class UserController extends Controller
                 ->dimensions(0, 300);
             return view('users.rates', compact('user', 'rates', 'chart_rates', 'chart', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments', 'time_passed_shows'));
         }
+    }
+
+    /**
+     * @param $userURL
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getComments($userURL) {
+        $user = $this->userRepository->getUserByURL($userURL);
+
+        $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
+        $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
+        $time_passed_shows = getTimePassedOnShow($this->rateRepository, $user->id);
+
+        $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
+        $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
+        $comment_fav = $comments->where('thumb', '=', 1)->first();
+        $comment_neu = $comments->where('thumb', '=', 2)->first();
+        $comment_def = $comments->where('thumb', '=', 3)->first();
+
+        $chart = Charts::create('pie', 'highcharts')
+            ->title('Récapitulatif des avis')
+            ->labels(["Favorables", "Neutres", "Défavorables"])
+            ->dataset([$comment_fav, $comment_neu, $comment_def])
+            ->dimensions(0, 300);
+
+        return view('users.comments', compact('user', 'time_passed_shows', 'avg_user_rates', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'chart'));
     }
 
     /**

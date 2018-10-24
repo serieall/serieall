@@ -5,7 +5,7 @@
                 <img src="{{ Gravatar::src($comment['user']['email']) }}">
             </a>
             <div class="content">
-                <a class="author" href="{{ route('user.profile', $comment['user']['username'] )}}">{{ $comment['user']['username'] }}</a>
+                <a class="author" href="{{ route('user.profile', $comment['user']['user_url'] )}}">{{ $comment['user']['username'] }}</a>
                 <div class="metadata">
                     <span class="date">{!! formatDate('full', $comment->created_at) !!}
                         @if($comment->created_at != $comment->updated_at)

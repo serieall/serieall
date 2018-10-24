@@ -19,7 +19,7 @@
                     <tr class="line">
                         <td>
                             <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
-                            <a href="{{route('user.profile', $user->username)}}">{{ $user->username }}</a>
+                            <a href="{{route('user.profile', $user->user_url)}}">{{ $user->username }}</a>
                         </td>
                         <td>
                             {!! roleUser($user->role) !!}

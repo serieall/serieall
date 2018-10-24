@@ -7,15 +7,15 @@
 
         <div class="ui center aligned">
             <div class="ui stackable compact pointing menu">
-                <a class="item" href="{{ route('user.profile', $user->username) }}">
+                <a class="item" href="{{ route('user.profile', $user->user_url) }}">
                     <i class="user icon"></i>
                     Profil
                 </a>
-                <a class="item" href="{{ route('user.profile.rates', $user->username ) }}">
+                <a class="item" href="{{ route('user.profile.rates', $user->user_url ) }}">
                     <i class="star icon"></i>
                     Notes
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('user.profile.comments', $user->user_url ) }}">
                     <i class="comment icon"></i>
                     Avis
                 </a>
@@ -28,7 +28,7 @@
                     Classement
                 </a>
                 @if($user->username == Auth::user()->username)
-                    <a class="active item" href="{{ route('user.profile.parameters', $user->username ) }}">
+                    <a class="item">
                         <i class="settings icon"></i>
                         Paramètres
                     </a>

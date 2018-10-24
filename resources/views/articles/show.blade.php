@@ -90,7 +90,7 @@
                     </h2>
                     <div class="ui five stackable cards">
                         @foreach($article->users as $redac)
-                            <a class="ui card" href="{{ route('user.profile', $redac->username) }}">
+                            <a class="ui card" href="{{ route('user.profile', $redac->user_url) }}">
                                 <div class="content">
                                     <div class="center aligned description">
                                         <p>{{ $redac->edito }}</p>

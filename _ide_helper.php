@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.11 on 2018-10-24 20:31:34.
+ * Generated for Laravel 5.7.11 on 2018-10-24 21:56:05.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -16581,191 +16581,6 @@ namespace Marcelgwerder\ApiHandler\Facades {
  
 }
 
-namespace ConsoleTVs\Charts\Facades { 
-
-    /**
-     * This is the charts facade class.
-     *
-     * @author Erik Campobadal <soc@erik.cat>
-     */ 
-    class Charts {
-        
-        /**
-         * Return a new chart instance.
-         *
-         * @param string $type
-         * @param string $library
-         * @return \ConsoleTVs\Charts\Chart 
-         * @static 
-         */ 
-        public static function create($type = null, $library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::create($type, $library);
-        }
-        
-        /**
-         * Return a new realtime chart instance.
-         *
-         * @param string $url
-         * @param int $interval
-         * @param string $type
-         * @param string $library
-         * @return \ConsoleTVs\Charts\Realtime 
-         * @static 
-         */ 
-        public static function realtime($url, $interval, $type = null, $library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::realtime($url, $interval, $type, $library);
-        }
-        
-        /**
-         * Return a new database chart instance.
-         *
-         * @param \Illuminate\Support\Collection $data
-         * @param string $type
-         * @param string $library
-         * @return \ConsoleTVs\Charts\Database 
-         * @static 
-         */ 
-        public static function database($data, $type = null, $library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::database($data, $type, $library);
-        }
-        
-        /**
-         * Return a new math chart instance.
-         *
-         * @param string $function
-         * @param array $interval
-         * @param int $amplitude
-         * @param string $type
-         * @param string $library
-         * @return \ConsoleTVs\Charts\Math 
-         * @static 
-         */ 
-        public static function math($function, $interval, $amplitude, $type = null, $library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::math($function, $interval, $amplitude, $type, $library);
-        }
-        
-        /**
-         * Return a new multi chart instance.
-         *
-         * @param string $type
-         * @param string $library
-         * @return \ConsoleTVs\Charts\Multi 
-         * @static 
-         */ 
-        public static function multi($type = null, $library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::multi($type, $library);
-        }
-        
-        /**
-         * Return a new multi database chart instance.
-         *
-         * @param string $type
-         * @param string $library
-         * @return \ConsoleTVs\Charts\MultiDatabase 
-         * @static 
-         */ 
-        public static function multiDatabase($type = null, $library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::multiDatabase($type, $library);
-        }
-        
-        /**
-         * Return a new url chart instance.
-         *
-         * @param string $url
-         * @param string $type
-         * @param string $library
-         * @return \Url 
-         * @static 
-         */ 
-        public static function url($url, $type = null, $library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::url($url, $type, $library);
-        }
-        
-        /**
-         * Return a new multi url chart instance.
-         *
-         * @param string $url
-         * @param string $type
-         * @param string $library
-         * @return \ConsoleTVs\Charts\MultiUrl 
-         * @static 
-         */ 
-        public static function multiUrl($url, $type = null, $library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::multiUrl($url, $type, $library);
-        }
-        
-        /**
-         * Return all the libraries available.
-         *
-         * @param string $type
-         * @return array 
-         * @static 
-         */ 
-        public static function libraries($type = null)
-        {
-            return \ConsoleTVs\Charts\Builder::libraries($type);
-        }
-        
-        /**
-         * Return all the types available.
-         *
-         * @param string $library
-         * @return array 
-         * @static 
-         */ 
-        public static function types($library = null)
-        {
-            return \ConsoleTVs\Charts\Builder::types($library);
-        }
-        
-        /**
-         * Return the library styles.
-         *
-         * @param array $libraries
-         * @return string 
-         * @static 
-         */ 
-        public static function styles($libraries = array())
-        {
-            return \ConsoleTVs\Charts\Builder::styles($libraries);
-        }
-        
-        /**
-         * Return the library scripts.
-         *
-         * @param array $libraries
-         * @return string 
-         * @static 
-         */ 
-        public static function scripts($libraries = array())
-        {
-            return \ConsoleTVs\Charts\Builder::scripts($libraries);
-        }
-        
-        /**
-         * Return the library styles.
-         *
-         * @param array $libraries
-         * @return string 
-         * @static 
-         */ 
-        public static function assets($libraries = array())
-        {
-            return \ConsoleTVs\Charts\Builder::assets($libraries);
-        }
-         
-    }
- 
-}
-
 namespace Jorenvh\Share { 
 
     /**
@@ -16951,83 +16766,6 @@ namespace Anhskohbo\NoCaptcha\Facades {
         {
             return \Anhskohbo\NoCaptcha\NoCaptcha::getJsLink($lang, $callback, $onLoadClass);
         }
-         
-    }
- 
-}
-
-namespace Intervention\Image\Facades { 
-
-    /**
-     * 
-     *
-     */ 
-    class Image {
-        
-        /**
-         * Overrides configuration settings
-         *
-         * @param array $config
-         * @return self 
-         * @static 
-         */ 
-        public static function configure($config = array())
-        {
-            return \Intervention\Image\ImageManager::configure($config);
-        }
-        
-        /**
-         * Initiates an Image instance from different input types
-         *
-         * @param mixed $data
-         * @return \Intervention\Image\Image 
-         * @static 
-         */ 
-        public static function make($data)
-        {
-            return \Intervention\Image\ImageManager::make($data);
-        }
-        
-        /**
-         * Creates an empty image canvas
-         *
-         * @param int $width
-         * @param int $height
-         * @param mixed $background
-         * @return \Intervention\Image\Image 
-         * @static 
-         */ 
-        public static function canvas($width, $height, $background = null)
-        {
-            return \Intervention\Image\ImageManager::canvas($width, $height, $background);
-        }
-        
-        /**
-         * Create new cached image and run callback
-         * (requires additional package intervention/imagecache)
-         *
-         * @param \Closure $callback
-         * @param int $lifetime
-         * @param boolean $returnObj
-         * @return \Image 
-         * @static 
-         */ 
-        public static function cache($callback, $lifetime = null, $returnObj = false)
-        {
-            return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
-        }
-         
-    }
- 
-}
-
-namespace Jenssegers\Date { 
-
-    /**
-     * 
-     *
-     */ 
-    class Date {
          
     }
  
@@ -19574,17 +19312,11 @@ namespace  {
 
     class ApiHandler extends \Marcelgwerder\ApiHandler\Facades\ApiHandler {}
 
-    class Charts extends \ConsoleTVs\Charts\Facades\Charts {}
-
     class Share extends \Jorenvh\Share\ShareFacade {}
 
     class NoCaptcha extends \Anhskohbo\NoCaptcha\Facades\NoCaptcha {}
 
     class API extends \Dingo\Api\Facade\API {}
-
-    class Image extends \Intervention\Image\Facades\Image {}
-
-    class Date extends \Jenssegers\Date\Date {}
 
     class Form extends \Collective\Html\FormFacade {}
 

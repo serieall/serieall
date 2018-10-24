@@ -10,11 +10,11 @@
                     <i class="user icon"></i>
                     Profil
                 </a>
-                <a class=" active item">
+                <a class="item" href="{{ route('user.profile.rates', $user->user_url ) }}">
                     <i class="star icon"></i>
                     Notes
                 </a>
-                <a class="item" href="{{ route('user.profile.comments', $user->user_url ) }}">
+                <a class="active item">
                     <i class="comment icon"></i>
                     Avis
                 </a>
@@ -28,7 +28,7 @@
                 </a>
                 @if(Auth::check())
                     @if($user->username == Auth::user()->username)
-                        <a class="item" href="{{ route('user.profile.parameters', $user->user_url ) }}">
+                        <a class="item" href="{{ route('user.profile.parameters', $user->username ) }}">
                             <i class="settings icon"></i>
                             Paramètres
                         </a>
@@ -129,64 +129,19 @@
                                 Défavorables
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="chartMean column">
-            {!! $chart->html() !!}
-        </div>
-
-        <div class="ui segment">
-            <h2>Moyennes détaillées des séries</h2>
-            <div class="ui grid">
-                <div class="row">
-                    <div class="sixteen wide column divMiddleAligned">
-                        <div>
-                            <i class="filter icon"></i>Trier par : <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'avg'])}}">Moyenne</a>
-                            - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'nb_rate'])}}">Nombre de notes</a>
-                            - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'showname'])}}">Série</a>
-                            - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'time'])}}">Temps passé</a>
+                        <div class="chartMean column">
+                            {!! $chart->html() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div id="cardsRates" class="ui four cards">
-            @include('users.rates_cards')
-        </div>
     </div>
+
 @endsection
 
 @push('scripts')
-    <script>
-        $(document).on('click', '.action', function (e) {
-            e.preventDefault();
-
-            $('#cardsRates').addClass('loading');
-            getCards($(this).attr('href'));
-        });
-
-        function getCards(page) {
-            let cardsRates = '#cardsRates';
-            $.ajax({
-                url: page,
-               dataType: 'json'
-            }).done(function (data) {
-                // On insére le HTML
-                $(cardsRates).html(data);
-
-                $(cardsRates).removeClass('loading');
-            }).fail(function () {
-                alert('Les notes n\'ont pas été chargées.');
-                $(cardsRates).removeClass('loading');
-            });
-        }
-    </script>
 @endpush
 
 {!! Charts::scripts() !!}
 {!! $chart->script() !!}
-

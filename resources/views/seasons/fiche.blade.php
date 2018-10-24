@@ -121,7 +121,7 @@
                             </div>
                             <div class="content">
                                 <div class="summary">
-                                    <a href="{{ route('user.profile', $rate['user']['username']) }}" class="user">
+                                    <a href="{{ route('user.profile', $rate['user']['user_url']) }}" class="user">
                                         {{ $rate['user']['username'] }}
                                     </a>
                                     a noté {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $rate['episode']['numero'], $rate['episode']['id'], true, false) !!} - {!! affichageNote($rate['rate']) !!}
