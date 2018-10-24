@@ -37,6 +37,8 @@ function initDropdownArticle() {
                 remoteValues: "data",
                 value: "id"
             },
+            clearable: true,
+            forceSelection: false,
             onChange: function(valArticle) {
                 if (valArticle) {
                     getComment("Article", valArticle);
