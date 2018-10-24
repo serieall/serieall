@@ -85,6 +85,11 @@ class User extends Authenticatable {
 		return $this->belongsToMany('App\Models\Episode')->withPivot('rate', 'updated_at');
 	}
 
+	public function rates()
+    {
+        return $this->belongsToMany('App\Models\Episode');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

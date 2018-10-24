@@ -39,7 +39,7 @@
 
         <div class="ui segment">
             <div class="ui grid stackable">
-                <div class="ten wide column">
+                <div class="eight wide column">
                     <div class="ui items">
                         <div class="item">
                             <span class="ui tiny image">
@@ -53,9 +53,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="ui statistic">
+                            <div class="label">
+                                <i class="tv icon"></i>
+                                {{ $time_passed_shows }} devant l'écran
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="ui center aligned six wide column">
+                <div class="ui center aligned eight wide column">
                     <div class="ui three statistics">
                         <div class="ui statistic">
                             <div class="label">

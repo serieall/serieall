@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserChangeInfosRequest;
 use App\Repositories\CommentRepository;
 use App\Repositories\RateRepository;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -61,6 +63,7 @@ class UserController extends Controller
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getProfile($userURL){
+        $nb_minutes = 0;
         $user = $this->userRepository->getUserByURL($userURL);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -71,10 +74,16 @@ class UserController extends Controller
         $comment_fav = $comments->where('thumb', '=', 1)->first();
         $comment_neu = $comments->where('thumb', '=', 2)->first();
         $comment_def = $comments->where('thumb', '=', 3)->first();
+        $rates_by_shows = $this->rateRepository->getRatesAggregateByShowForUser($user->id, 'name');
+        foreach($rates_by_shows as $rate) {
+            $nb_minutes = $nb_minutes + ($rate->nb_rate * $rate->format);
+        }
+        Carbon::setLocale('fr');
+        $time_passed_shows = CarbonInterval::fromString($nb_minutes . 'm')->cascade()->forHumans();
 
         $rates = $this->rateRepository->getRateByUserID($user->id);
 
-        return view('users.profile', compact('user', 'rates', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments'));
+        return view('users.profile', compact('user', 'rates', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments', 'time_passed_shows'));
     }
 
     /**
@@ -101,19 +110,22 @@ class UserController extends Controller
         if (Request::ajax()) {
             Log::info($action);
             if ($action == "avg") {
-                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "avg_rate");
-                Log::debug("avg_rate");
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "avg_rate DESC");
             } else if ($action == "nb_rate") {
                 $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "nb_rate DESC");
-                Log::debug("nb_rate");
             } else {
                 $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "sh.name");
-                Log::debug("sh.name");
             }
             return Response::json(View::make('users.rates_cards', ['rates' => $rates])->render());
         }
         else {
+            $nb_minutes = 0;
             $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "sh.name");
+            foreach($rates as $rate) {
+                $nb_minutes = $nb_minutes + ($rate->nb_rate * $rate->format);
+            }
+            Carbon::setLocale('fr');
+            $time_passed_shows = CarbonInterval::fromString($nb_minutes . 'm')->cascade()->forHumans();
 
             $chart = Charts::create('area', 'highcharts')
                 ->title('Récapitulatif des notes')
@@ -122,7 +134,7 @@ class UserController extends Controller
                 ->labels($chart_rates->pluck("rate"))
                 ->values($chart_rates->pluck("total"))
                 ->dimensions(0, 300);
-            return view('users.rates', compact('user', 'rates', 'chart_rates', 'chart', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments'));
+            return view('users.rates', compact('user', 'rates', 'chart_rates', 'chart', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments', 'time_passed_shows'));
         }
     }
 

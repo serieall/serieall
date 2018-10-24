@@ -17,7 +17,7 @@
         "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "6.3.2",
         "jorenvanhocht/laravel-share": "^2.0",
-        "laravel/framework": "5.6.*",
+        "laravel/framework": "5.7.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "~5.0",
         "maddhatter/laravel-fullcalendar": "^1.3",
