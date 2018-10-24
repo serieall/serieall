@@ -113,6 +113,8 @@ class UserController extends Controller
                 $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "avg_rate DESC");
             } else if ($action == "nb_rate") {
                 $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "nb_rate DESC");
+            } else if($action == "time") {
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "minutes DESC");
             } else {
                 $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "sh.name");
             }
@@ -122,7 +124,7 @@ class UserController extends Controller
             $nb_minutes = 0;
             $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "sh.name");
             foreach($rates as $rate) {
-                $nb_minutes = $nb_minutes + ($rate->nb_rate * $rate->format);
+                $nb_minutes = $nb_minutes + $rate->minutes;
             }
             Carbon::setLocale('fr');
             $time_passed_shows = CarbonInterval::fromString($nb_minutes . 'm')->cascade()->forHumans();

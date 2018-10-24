@@ -145,8 +145,9 @@
                     <div class="sixteen wide column divMiddleAligned">
                         <div>
                             <i class="filter icon"></i>Trier par : <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'avg'])}}">Moyenne</a>
-                            - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'showname'])}}">Série</a>
                             - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'nb_rate'])}}">Nombre de notes</a>
+                            - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'showname'])}}">Série</a>
+                            - <a class="action" href="{{route('user.profile.rates', [$user->user_url, 'time'])}}">Temps passé</a>
                         </div>
                     </div>
                 </div>
