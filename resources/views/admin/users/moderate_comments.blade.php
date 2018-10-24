@@ -73,5 +73,5 @@
 @endsection
 
 @push('scripts')
-    {{Html::script('index.js')}}
+    {{Html::script('index_shows.jsows.js')}}
 @endpush

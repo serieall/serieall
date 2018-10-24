@@ -1,14 +1,18 @@
 @extends('layouts.admin')
 
-@section('pageTitle', 'Admin - Utilisateurs')
+@section('pageTitle', 'Admin - Avis')
 
 @section('breadcrumbs')
     <a href="{{ route('admin') }}" class="section">
         Administration
     </a>
     <i class="right angle icon divider"></i>
-    <div class="active section">
+    <a href="{{ route('admin.comments.index') }}" class="section">
         Commentaires
+    </a>
+    <i class="right angle icon divider"></i>
+    <div class="active section">
+        Séries
     </div>
 @endsection
 
@@ -22,7 +26,9 @@
                     </a>
                 </div>
                 <div class="ui center aligned column">
-                    <button class="ui massive inverted icon green button"><i class="file text outline icon"></i> Avis sur les articles</button>
+                    <a href="{{ route('admin.comments.indexArticles') }}">
+                        <button class="ui massive inverted icon green button"><i class="file text outline icon"></i> Avis sur les articles</button>
+                    </a>
                 </div>
             </div>
             <div class="ui vertical divider t-white">
@@ -35,9 +41,10 @@
 @push('scripts')
     <script>
         $('.ui.modal')
-            .modal('setting', 'transition', 'vertical flip')
             .modal({inverted: true})
             .modal('show')
             .modal('setting', 'closable', false)
+            .modal('setting', 'transition', 'vertical flip')
+            .modal('setting', 'autofocus', false)
     </script>
 @endpush

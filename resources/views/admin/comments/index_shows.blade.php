@@ -67,5 +67,5 @@
 @endsection
 
 @push('scripts')
-    {{Html::script('js/views/admin/comments/index.js')}}
+    {{Html::script('js/views/admin/comments/index_shows.js')}}
 @endpush

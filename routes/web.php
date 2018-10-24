@@ -177,6 +177,7 @@ Route::group(['middleware' => 'admin'], function () {
     /* COMMENTS */
     Route::get('admin/comments', 'Admin\AdminCommentController@index')->name('admin.comments.index');
     Route::get('admin/comments/shows', 'Admin\AdminCommentController@indexShows')->name('admin.comments.indexShows');
+    Route::get('admin/comments/articles', 'Admin\AdminCommentController@indexArticles')->name('admin.comments.indexArticles');
     Route::get('admin/comments/{comment}', 'Admin\AdminCommentController@edit')->name('admin.comments.edit');
     Route::get('admin/comments/{type}/{type_id}', 'Admin\AdminCommentController@getComments')->name('admin.comments.getComments');
     Route::put('admin/comments/update', 'Admin\AdminCommentController@update')->name('admin.comments.update');

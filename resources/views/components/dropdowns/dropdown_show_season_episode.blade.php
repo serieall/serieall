@@ -52,5 +52,5 @@
 </div>
 
 @push('scripts')
-    {{ Html::script('/js/components/dropdown/dropdown_show_season_episode.js') }}
+    {{ Html::script('/js/components/dropdowns/dropdown_show_season_episode.js') }}
 @endpush

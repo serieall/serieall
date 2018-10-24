@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\CommentUpdateRequest;
+use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
 use App\Repositories\SeasonRepository;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\View;
  * @property EpisodeRepository episodeRepository
  * @property SeasonRepository seasonRepository
  * @property ShowRepository showRepository
+ * @property ArticleRepository articleRepository
  * @package App\Http\Controllers\Admin
  */
 class AdminCommentController extends Controller
@@ -31,16 +33,19 @@ class AdminCommentController extends Controller
      * @param CommentRepository $commentRepository
      * @param EpisodeRepository $episodeRepository
      * @param SeasonRepository $seasonRepository
+     * @param ArticleRepository $articleRepository
      */
     public function __construct(ShowRepository $showRepository,
                                 CommentRepository $commentRepository,
                                 EpisodeRepository $episodeRepository,
-                                SeasonRepository $seasonRepository) {
+                                SeasonRepository $seasonRepository,
+                                ArticleRepository $articleRepository) {
 
         $this->showRepository = $showRepository;
         $this->commentRepository = $commentRepository;
         $this->episodeRepository = $episodeRepository;
         $this->seasonRepository = $seasonRepository;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -60,6 +65,16 @@ class AdminCommentController extends Controller
         $shows = $this->showRepository->getAllShows();
 
         return view('admin.comments.index_shows', compact('shows'));
+    }
+
+    /**
+     * Print vue admin/comments/index_articles
+     *
+     */
+    public function indexArticles() {
+        $articles = $this->articleRepository->getAllArticlesWithAutorsCategory();
+
+        return view('admin.comments.index_articles', compact('articles'));
     }
 
     /**
