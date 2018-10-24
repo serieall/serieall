@@ -1,10 +1,8 @@
 const defaultHtml = $('#comment').html();
-const dropdownShow = '#dropdownShow';
-const dropdownSeason = '#dropdownSeason';
-const dropdownEpisode = '#dropdownEpisode';
+const dropdownArticle = '#dropdownArticle';
 
 $(document).ready(function() {
-    initDropdownShow();
+    initDropdownArticle();
 });
 
 function getComment(type, val) {
@@ -29,11 +27,11 @@ function getComment(type, val) {
     }
 }
 
-function initDropdownShow() {
-    $(dropdownShow)
+function initDropdownArticle() {
+    $(dropdownArticle)
         .dropdown({
             apiSettings: {
-                url: '/api/shows/list?name-lk=*{query}*'
+                url: '/api/articles/list?name-lk=*{query}*'
             },
             fields: {
                 remoteValues: "data",
@@ -50,53 +48,4 @@ function initDropdownShow() {
                 initDropdownSeason(valShow);
             }
         });
-}
-
-function initDropdownSeason(valShow) {
-    $(dropdownSeason)
-        .dropdown({
-            apiSettings: {
-                url: '/api/seasons/show/'+ valShow
-            },
-            fields: {
-                remoteValues: "data",
-                value: "id"
-            },
-            clearable: true,
-            onChange: function(valSeason) {
-                initDropdownEpisode(valSeason, valShow);
-
-                if (valSeason) {
-                    getComment("Season", valSeason);
-                } else if (valShow) {
-                    getComment("Show", valShow);
-                }
-            }
-        })
-        .dropdown('clear');
-}
-
-function initDropdownEpisode(valSeason, valShow) {
-    $(dropdownEpisode)
-        .dropdown({
-            apiSettings: {
-                url: '/api/episodes/seasons/' + valSeason
-            },
-            fields: {
-                remoteValues: "data",
-                value: "id",
-                name: "title"
-            },
-            clearable: true,
-            onChange: function(valEpisode) {
-                if(valEpisode){
-                    getComment("Episode", valEpisode);
-                } else if (valSeason) {
-                    getComment("Season", valSeason);
-                } else if (valShow) {
-                    getComment("Show", valShow);
-                }
-            }
-        })
-        .dropdown('clear');
 }
