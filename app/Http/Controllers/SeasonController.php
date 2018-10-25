@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Charts\RateSummary;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
@@ -26,6 +27,7 @@ class SeasonController extends Controller
      * @param ShowRepository $showRepository
      * @param SeasonRepository $seasonRepository
      * @param CommentRepository $commentRepository
+     * @param ArticleRepository $articleRepository
      */
     public function __construct(ShowRepository $showRepository,
                                 SeasonRepository $seasonRepository,
@@ -57,13 +59,12 @@ class SeasonController extends Controller
 
         $ratesSeason = $this->seasonRepository->getRateBySeasonID($seasonInfo->id);
 
-        $chart = Charts::create('area', 'highcharts')
+        $chart = new RateSummary;
+        $chart
+            ->height(300)
             ->title('Evolution des notes de la saison')
-            ->elementLabel('Notes')
-            ->xAxisTitle('Numéro de l\'épisode')
             ->labels($seasonInfo->episodes->pluck('numero'))
-            ->values($seasonInfo->episodes->pluck('moyenne'))
-            ->dimensions(0, 300);
+            ->dataset('Moyenne', 'line', $seasonInfo->episodes->pluck('moyenne'));
 
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);

@@ -115,7 +115,7 @@ class SeasonRepository
             }, 'users.episode' => function($q){
                 $q->select('id', 'numero');
             }, 'users.user' => function($q){
-                $q->select('id', 'username', 'email');
+                $q->select('id', 'username', 'user_url', 'email');
             }])
             ->where('id', '=', $id)
             ->first()

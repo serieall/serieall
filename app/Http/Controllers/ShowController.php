@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 
+use App\Charts\RateSummary;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CommentRepository;
@@ -75,14 +76,12 @@ class ShowController extends Controller
         # Get Show
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        # Generate Chart
-        $chart = Charts::create('area', 'highcharts')
+        $chart = new RateSummary;
+        $chart
+            ->height(300)
             ->title('Evolution des notes de la série')
-            ->elementLabel('Notes')
-            ->xAxisTitle('Numéro de la saison')
             ->labels($showInfo['seasons']->pluck('name'))
-            ->values($showInfo['seasons']->pluck('moyenne'))
-            ->dimensions(0, 300);
+            ->dataset('Moyenne', 'line', $showInfo['seasons']->pluck('moyenne'));
 
         # Compile Object informations
         $object = compileObjectInfos('Show', $showInfo['show']->id);
