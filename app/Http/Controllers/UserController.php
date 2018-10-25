@@ -154,7 +154,6 @@ class UserController extends Controller
         $chart = new RateSummary;
         $chart
             ->height(300)
-            ->displayAxes(false)
             ->title('Récapitulatif des commentaires')
             ->labels(["Favorables", "Neutres", "Défavorables"])
             ->dataset('Commentaires', 'pie', [$comment_fav,$comment_neu,$comment_def]);
