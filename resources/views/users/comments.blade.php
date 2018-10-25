@@ -129,12 +129,12 @@
                                 Défavorables
                             </div>
                         </div>
-                        <div class="chartMean column">
-                            {!! $chart->html() !!}
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="chartMean column">
+            {!! $chart->container() !!}
         </div>
     </div>
 
@@ -142,6 +142,5 @@
 
 @push('scripts')
 @endpush
-
-{!! Charts::scripts() !!}
+<script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.6/highcharts.js" charset="utf-8"></script>
 {!! $chart->script() !!}

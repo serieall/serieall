@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Request;
 use View;
 use Response;
 use Illuminate\Support\Facades\Log;
+use App\Charts\RateSummary;
 
 /**
  * Class UserController
@@ -122,13 +123,13 @@ class UserController extends Controller
             Carbon::setLocale('fr');
             $time_passed_shows = CarbonInterval::fromString($nb_minutes . 'm')->cascade()->forHumans();
 
-            $chart = Charts::create('area', 'highcharts')
+            $chart = new RateSummary;
+            $chart
+                ->height(300)
                 ->title('Récapitulatif des notes')
-                ->elementLabel('Nombre de notes')
-                ->xAxisTitle('Notes')
                 ->labels($chart_rates->pluck("rate"))
-                ->values($chart_rates->pluck("total"))
-                ->dimensions(0, 300);
+                ->dataset('Nombre de notes', 'line', $chart_rates->pluck("total"));
+
             return view('users.rates', compact('user', 'rates', 'chart_rates', 'chart', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments', 'time_passed_shows'));
         }
     }
@@ -150,11 +151,13 @@ class UserController extends Controller
         $comment_neu = $comments->where('thumb', '=', 2)->first();
         $comment_def = $comments->where('thumb', '=', 3)->first();
 
-        $chart = Charts::create('pie', 'highcharts')
-            ->title('Récapitulatif des avis')
+        $chart = new RateSummary;
+        $chart
+            ->height(300)
+            ->displayAxes(false)
+            ->title('Récapitulatif des commentaires')
             ->labels(["Favorables", "Neutres", "Défavorables"])
-            ->dataset([$comment_fav, $comment_neu, $comment_def])
-            ->dimensions(0, 300);
+            ->dataset('Commentaires', 'pie', [$comment_fav,$comment_neu,$comment_def]);
 
         return view('users.comments', compact('user', 'time_passed_shows', 'avg_user_rates', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'chart'));
     }
