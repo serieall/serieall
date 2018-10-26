@@ -148,15 +148,19 @@ class UserController extends Controller
         $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
         $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
         $comment_fav = $comments->where('thumb', '=', 1)->first();
+        $comments_fav = $comment_fav ? $comment_fav->total : 0;
         $comment_neu = $comments->where('thumb', '=', 2)->first();
+        $comments_neu = $comment_neu ? $comment_neu->total : 0;
         $comment_def = $comments->where('thumb', '=', 3)->first();
+        $comments_def = $comment_def ? $comment_def->total : 0;
 
         $chart = new RateSummary;
         $chart
             ->height(300)
             ->title('Récapitulatif des commentaires')
             ->labels(["Favorables", "Neutres", "Défavorables"])
-            ->dataset('Commentaires', 'pie', [$comment_fav,$comment_neu,$comment_def]);
+            ->dataset('Commentaires', 'pie', [$comments_fav,$comments_neu,$comments_def])
+            ->color(['#21BA45','#767676','#db2828']);
 
         return view('users.comments', compact('user', 'time_passed_shows', 'avg_user_rates', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'chart'));
     }
