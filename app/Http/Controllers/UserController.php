@@ -157,9 +157,9 @@ class UserController extends Controller
         $chart = new RateSummary;
         $chart
             ->height(300)
-            ->title('Récapitulatif des commentaires')
+            ->title('Récapitulatif des avis')
             ->labels(["Favorables", "Neutres", "Défavorables"])
-            ->dataset('Commentaires', 'pie', [$comments_fav,$comments_neu,$comments_def])
+            ->dataset('Avis', 'pie', [$comments_fav,$comments_neu,$comments_def])
             ->color(['#21BA45','#767676','#db2828']);
 
         return view('users.comments', compact('user', 'time_passed_shows', 'avg_user_rates', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'chart'));
