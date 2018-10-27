@@ -136,6 +136,11 @@
         <div class="chartMean column">
             {!! $chart->container() !!}
         </div>
+
+        <div class="ui segment">
+            <h1>Avis sur les séries</h1>
+
+        </div>
     </div>
 
 @endsection

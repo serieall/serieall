@@ -141,7 +141,7 @@ $('.ui.button.writeReaction').click(function (e) {
 $(document).on('submit', '#formReaction', function (e) {
     e.preventDefault();
 
-    var messageLength = CKEDITOR.instances['avis'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
+    var messageLength = CKEDITOR.instances['reaction'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
     var nombreCaracAvis = '20';
 
     if (messageLength < nombreCaracAvis) {

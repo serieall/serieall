@@ -22,7 +22,7 @@
                         </li>
                         <li><a href="#" class="clickRegister">Inscription</a></li>
                         <li><a href="{{ route('users.index') }}">Liste des membres</a></li>
-                        <li>Forum</li>
+                        <li><a href="{{ config('app.forum_url') }}">Forum</a></li>
                         <li>Rejoindre l'équipe</li>
                     </ul>
                 </div>
