@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Comment;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -168,4 +169,78 @@ class CommentRepository
             ->whereNotNull('commentable_id')
             ->get();
     }
+
+    /**
+     * Get All comments for a user with reactions
+     *
+     * @param $user_id
+     * @param $name_page
+     * @param $filter
+     * @param $tri
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getCommentsShowForProfile($user_id, $name_page, $filter, $tri) {
+        return $this->comment->with(['children', 'user' => function ($q) use ($user_id) {
+            $q->where('id', '=', $user_id);
+        }])
+            ->whereNull('parent_id')
+            ->join('shows', 'comments.commentable_id', '=', 'shows.id')
+            ->whereCommentableType('App\Models\Show')
+            ->whereNotNull('thumb')
+            ->whereNotNull('commentable_id')
+            ->whereIn('thumb', $filter )
+            ->orderBy($tri)
+            ->paginate(4, ["*"], $name_page);
+    }
+
+    /**
+     * Get All comments for a user with reactions
+     *
+     * @param $user_id
+     * @param $name_page
+     * @param $filter
+     * @param $tri
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getCommentsSeasonForProfile($user_id, $name_page, $filter, $tri) {
+        return $this->comment->with(['children', 'user' => function ($q) use ($user_id) {
+            $q->where('id', '=', $user_id);
+        }])
+            ->whereNull('parent_id')
+            ->join('seasons', 'comments.commentable_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->whereCommentableType('App\Models\Season')
+            ->whereNotNull('thumb')
+            ->whereNotNull('commentable_id')
+            ->whereIn('thumb', $filter )
+            ->orderBy($tri)
+            ->paginate(4, ["*"], $name_page);
+    }
+
+    /**
+     * Get All comments for a user with reactions
+     *
+     * @param $user_id
+     * @param $name_page
+     * @param $filter
+     * @param $tri
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getCommentsEpisodeForProfile($user_id, $name_page, $filter, $tri) {
+        return $this->comment->with(['children', 'user' => function ($q) use ($user_id) {
+            $q->where('id', '=', $user_id);
+        }])
+            ->whereNull('parent_id')
+            ->join('episodes', 'comments.commentable_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->whereCommentableType('App\Models\Episode')
+            ->whereIn('thumb', $filter )
+            ->whereNotNull('thumb')
+            ->whereNotNull('commentable_id')
+            ->orderBy($tri)
+            ->paginate(4, ["*"], $name_page)
+            ;
+    }
+
 }

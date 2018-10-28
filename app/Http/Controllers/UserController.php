@@ -102,7 +102,6 @@ class UserController extends Controller
         $comment_def = $comments->where('thumb', '=', 3)->first();
 
         if (Request::ajax()) {
-            Log::info($action);
             if ($action == "avg") {
                 $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "avg_rate DESC");
             } else if ($action == "nb_rate") {
@@ -136,33 +135,84 @@ class UserController extends Controller
 
     /**
      * @param $userURL
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param string $action
+     * @param string $filter
+     * @param string $tri
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function getComments($userURL) {
+    public function getComments($userURL, $action = "", $filter = "", $tri ="") {
         $user = $this->userRepository->getUserByURL($userURL);
 
-        $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
-        $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
-        $time_passed_shows = getTimePassedOnShow($this->rateRepository, $user->id);
+        Log::info($filter);
+        Log::info($tri);
 
-        $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
-        $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
-        $comment_fav = $comments->where('thumb', '=', 1)->first();
-        $comments_fav = $comment_fav ? $comment_fav->total : 0;
-        $comment_neu = $comments->where('thumb', '=', 2)->first();
-        $comments_neu = $comment_neu ? $comment_neu->total : 0;
-        $comment_def = $comments->where('thumb', '=', 3)->first();
-        $comments_def = $comment_def ? $comment_def->total : 0;
+        switch ($filter) {
+            case 1:
+                $filter = [1];
+                break;
+            case 2:
+                $filter = [2];
+                break;
+            case 3:
+                $filter = [3];
+                break;
+            default:
+                $filter = [1,2,3];
+                break;
+        }
 
-        $chart = new RateSummary;
-        $chart
-            ->height(300)
-            ->title('Récapitulatif des avis')
-            ->labels(["Favorables", "Neutres", "Défavorables"])
-            ->dataset('Avis', 'pie', [$comments_fav,$comments_neu,$comments_def])
-            ->color(['#21BA45','#767676','#db2828']);
+        switch ($tri) {
+            case 1:
+                $tri = 'shows.name';
+                break;
+            case 2:
+                $tri = 'comments.id';
+                break;
+            default:
+                $tri = 'shows.name';
+                break;
+        }
 
-        return view('users.comments', compact('user', 'time_passed_shows', 'avg_user_rates', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'chart'));
+        Log::info($filter);
+        Log::info($tri);
+
+        if (Request::ajax()) {
+            if ($action == "show") {
+                $comments = $this->commentRepository->getCommentsShowForProfile($user->id, 'show', $filter, $tri);
+            } else if ($action == "season") {
+                $comments = $this->commentRepository->getCommentsSeasonForProfile($user->id, 'season', $filter, $tri);
+            } else if ($action == "episode") {
+                $comments = $this->commentRepository->getCommentsEpisodeForProfile($user->id, 'episode', $filter, $tri);
+            }
+            return Response::json(View::make('users.comments_cards', ['comments' => $comments])->render());
+        } else {
+            $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
+            $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
+            $time_passed_shows = getTimePassedOnShow($this->rateRepository, $user->id);
+
+            $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
+            $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
+            $comment_fav = $comments->where('thumb', '=', 1)->first();
+            $comments_fav = $comment_fav ? $comment_fav->total : 0;
+            $comment_neu = $comments->where('thumb', '=', 2)->first();
+            $comments_neu = $comment_neu ? $comment_neu->total : 0;
+            $comment_def = $comments->where('thumb', '=', 3)->first();
+            $comments_def = $comment_def ? $comment_def->total : 0;
+
+            $comments_shows = $this->commentRepository->getCommentsShowForProfile($user->id, 'show', $filter, $tri);
+            $comments_seasons = $this->commentRepository->getCommentsSeasonForProfile($user->id, 'season', $filter, $tri);
+            $comments_episodes = $this->commentRepository->getCommentsEpisodeForProfile($user->id, 'episode', $filter, $tri);
+
+            $chart = new RateSummary;
+            $chart
+                ->height(300)
+                ->title('Récapitulatif des avis')
+                ->labels(["Favorables", "Neutres", "Défavorables"])
+                ->dataset('Avis', 'pie', [$comments_fav,$comments_neu,$comments_def])
+                ->color(['#21BA45','#767676','#db2828']);
+
+            return view('users.comments', compact('user', 'time_passed_shows', 'avg_user_rates', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'chart', 'comments_shows', 'comments_seasons', 'comments_episodes'));
+        }
     }
 
     /**

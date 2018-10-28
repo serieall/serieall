@@ -137,15 +137,40 @@
             {!! $chart->container() !!}
         </div>
 
-        <div class="ui segment">
+        <div id="segmentShow" class="ui segment">
             <h1>Avis sur les séries</h1>
+            @component('components.dropdowns.dropdown_filter_tri')
+                filterShow
+            @endcomponent
+            <div id="cardsShows">
+                @include('users.comments_cards', ['comments' => $comments_shows])
+            </div>
+        </div>
 
+        <div id="segmentSeason" class="ui segment">
+            <h1>Avis sur les saisons</h1>
+            @component('components.dropdowns.dropdown_filter_tri')
+                filterSeason
+            @endcomponent
+                <div id="cardsSeasons">
+                    @include('users.comments_cards', ['comments' => $comments_seasons])
+                </div>
+        </div>
+
+        <div id="segmentEpisode" class="ui segment">
+            <h1>Avis sur les épisodes</h1>
+            @component('components.dropdowns.dropdown_filter_tri')
+                filterEpisode
+            @endcomponent
+            <div id="cardsEpisodes">
+                @include('users.comments_cards', ['comments' => $comments_episodes])
+            </div>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
+    {{Html::script('/js/views/users/comments.js')}}
 @endpush
 <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.6/highcharts.js" charset="utf-8"></script>
 {!! $chart->script() !!}
