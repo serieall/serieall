@@ -93,10 +93,16 @@ class ComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\NavActiveArticlesComposer'
         );
 
-        // NavActive = articles
+        // NavActive = planning
         View::composer(
             ['planning/*'],
             'App\Http\ViewComposers\NavActivePlanningComposer'
+        );
+
+        // NavActive = classements
+        View::composer(
+            ['classements/*'],
+            'App\Http\ViewComposers\NavActiveClassementComposer'
         );
 
         // FICHES

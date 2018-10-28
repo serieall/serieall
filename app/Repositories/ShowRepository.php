@@ -304,4 +304,17 @@ class ShowRepository
     public function getByName($show_name) {
         return $this->show->whereName($show_name)->first();
     }
+
+    /**
+     * @param $order
+     * @return Show
+     */
+    public function getRankingShows($order) {
+        return $this->show
+            ->orderBy('moyenne', $order)
+            ->orderBy('nbnotes', $order)
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->limit(15)
+            ->get();
+    }
 }

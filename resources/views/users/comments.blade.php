@@ -142,7 +142,7 @@
             @component('components.dropdowns.dropdown_filter_tri')
                 filterShow
             @endcomponent
-            <div id="cardsShows">
+            <div id="cardsShows" class="ui basic segment">
                 @include('users.comments_cards', ['comments' => $comments_shows])
             </div>
         </div>
@@ -152,7 +152,7 @@
             @component('components.dropdowns.dropdown_filter_tri')
                 filterSeason
             @endcomponent
-                <div id="cardsSeasons">
+                <div id="cardsSeasons" class="ui basic segment">
                     @include('users.comments_cards', ['comments' => $comments_seasons])
                 </div>
         </div>
@@ -162,7 +162,7 @@
             @component('components.dropdowns.dropdown_filter_tri')
                 filterEpisode
             @endcomponent
-            <div id="cardsEpisodes">
+            <div id="cardsEpisodes" class="ui basic segment">
                 @include('users.comments_cards', ['comments' => $comments_episodes])
             </div>
         </div>

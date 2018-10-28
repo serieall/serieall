@@ -119,4 +119,17 @@ class EpisodeRepository
                 Carbon::now()->addMonth(1)])
             ->get();
     }
+
+    /**
+     * @param $order
+     * @return Episode
+     */
+    public function getRankingEpisodes($order) {
+        return $this->episode
+            ->orderBy('moyenne', $order)
+            ->orderBy('nbnotes', $order)
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->limit(15)
+            ->get();
+    }
 }

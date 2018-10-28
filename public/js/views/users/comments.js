@@ -58,11 +58,15 @@ $(document).one('click', '.filterEpisode .item', function (e) {
 function getComments(page, action, segment, filter) {
     $(segment).addClass('loading');
 
+    let filterURL;
+    let triURL;
     let valueFilter = $(filter).dropdown('get value');
-    console.log(valueFilter);
+
+    valueFilter[0] === "" ? filterURL = 10 : filterURL = valueFilter[0];
+    valueFilter[1] === "" ? triURL = 10 : triURL = valueFilter[1];
 
     $.ajax({
-        url : '/profil/admin/avis/' + action + '/' + valueFilter[0] + '/' + valueFilter[1] + '?' + action + '=' + page,
+        url : '/profil/admin/avis/' + action + '/' + filterURL + '/' + triURL + '?' + action + '=' + page,
         dataType: 'json'
     }).done(function (data) {
         // On insére le HTML

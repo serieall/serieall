@@ -121,4 +121,17 @@ class SeasonRepository
             ->first()
             ->toArray();
     }
+
+    /**
+     * @param $order
+     * @return Season
+     */
+    public function getRankingSeasons($order) {
+        return $this->season
+            ->orderBy('moyenne', $order)
+            ->orderBy('nbnotes', $order)
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->limit(15)
+            ->get();
+    }
 }

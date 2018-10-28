@@ -43,7 +43,7 @@
             <i class="calendar icon"></i>
             Planning
         </a>
-        <a href="" class="item
+        <a href="{{ route('classements.index') }}" class="item
             @if($navActive === 'classements')
                 active
             @endif">
@@ -117,7 +117,7 @@
                 @endif">
                 Planning
             </a>
-            <a class="item
+            <a href="{{ route('classements.index') }}" class="item
                 @if($navActive === 'classements')
                     active
                 @endif">

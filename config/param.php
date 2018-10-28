@@ -24,4 +24,7 @@ return [
     /* Nombre de caractères minimum pour un avis */
     'nombreCaracAvis' => 100,
 
+    /* Nombre de notes minimum pour que la série apparaisse dans le classement */
+    'nombreNotesMiniClassement' => 0,
+
 ];

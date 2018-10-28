@@ -24,7 +24,6 @@
                         <a class="header" href="{{route('season.fiche', [$comment->commentable->show->show_url, $comment->commentable->name])}}"> {{ $comment->commentable->show->name }} Saison {{$comment->commentable->name}}</a>
                     @else
                         <a class="header" href="{{route('episode.fiche', [$comment->commentable->show->show_url, $comment->commentable->season->name, $comment->commentable->numero, $comment->commentable->id])}}"> {{ $comment->commentable->show->name }} / {{ $comment->commentable->season->name }}.{{ sprintf('%02s', $comment->commentable->numero) }} {{ $comment->commentable->name }} </a>
-
                     @endif
                 </div>
                 <div class="extra">

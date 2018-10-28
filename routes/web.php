@@ -109,6 +109,11 @@ Route::post('reaction', 'CommentController@storeReaction')->name('comment.storer
 Route::get('planning', 'PlanningController@index')->name('planning.index');
 
 /*
+    Partie Classement
+ */
+Route::get('classements', 'ClassementController@index')->name('classements.index');
+
+/*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
 */
 Route::group(['middleware' => 'admin'], function () {
