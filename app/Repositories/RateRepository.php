@@ -171,4 +171,20 @@ class RateRepository
 
         return DB::select(DB::raw($sql));
     }
+
+    /**
+     * @param $order
+     * @return
+     */
+    public function getRankingShowRedac($order) {
+        return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+            ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->groupBy('shows.name')
+            ->select(DB::raw('avg(episode_user.rate), count(episode_user.rate) as nbnotes, shows.name'))
+            ->limit(15)
+            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->get();
+    }
 }

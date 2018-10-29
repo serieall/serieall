@@ -2,11 +2,7 @@
 
 <div class="ui fluid card imageFirstClassement">
     <div class="image">
-        @if($slot == 'Show')
-            <img src="{{ ShowPicture($objects[0]->show_url) }}">
-        @else
-            <img src="{{ ShowPicture($objects[0]->show->show_url) }}">
-        @endif
+        <img src="{{ ShowPicture($picture_show) }}">
     </div>
 </div>
 
@@ -22,8 +18,9 @@
                     @elseif($loop->index == 2)
                         <i class="brown trophy icon"></i>
                     @endif
+                    {{ $loop->index + 1 }}. {{ $name_link }}
                     @if($slot == 'Show')
-                        {{ $loop->index + 1 }}. <a href="{{ route('show.fiche', $object->show_url) }}">{{ $object->name }}</a>
+                         <a href="{{ route('show.fiche', $object->show_url) }}">{{ $object->name }}</a>
                     @elseif($slot == 'Season')
                         {{ $loop->index + 1 }}. <a href="{{ route('season.fiche', [$object->show->show_url, $object->name]) }}">{{$object->show->name}} Saison {{ $object->name }}</a>
                     @elseif($slot == 'Episode')
@@ -32,8 +29,8 @@
                 </div>
                 <div class="description">
                     <p>
-                        Note : {!! affichageNote($object->moyenne) !!} /
-                        Avec <b>{{ $object->nbnotes }}</b> notes <br />
+                        Note : {!! affichageNote($avg_rate) !!} /
+                        Avec <b>{{ $number_rates }}</b> notes <br />
                     </p>
                 </div>
             </div>

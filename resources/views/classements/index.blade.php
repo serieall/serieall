@@ -71,7 +71,7 @@
             <div class="ui tab segment" data-tab="second">
                 <div class="ui four column grid stackable">
                     <div class="column">
-                        @component('components.classements', ['objects' => $top_shows])
+                        @component('components.classements', ['objects' => $redac_top_shows])
                             @slot('title')
                                 Top séries
                             @endslot
