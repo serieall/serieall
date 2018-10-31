@@ -5,7 +5,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2018-10-25 10:48:14.
+    * Generated on 2018-10-31 12:56:18.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -41,6 +41,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Prometheus\Storage\Adapter' => \Prometheus\Storage\APC::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -205,6 +206,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Prometheus\Storage\Adapter' => \Prometheus\Storage\APC::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -369,6 +371,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Prometheus\Storage\Adapter' => \Prometheus\Storage\APC::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -533,6 +536,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Prometheus\Storage\Adapter' => \Prometheus\Storage\APC::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -697,6 +701,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Prometheus\Storage\Adapter' => \Prometheus\Storage\APC::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -861,6 +866,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Prometheus\Storage\Adapter' => \Prometheus\Storage\APC::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -1025,6 +1031,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Prometheus\Storage\Adapter' => \Prometheus\Storage\APC::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
