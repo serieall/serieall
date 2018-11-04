@@ -89,7 +89,7 @@
                         @endforeach
                     </div>
                     <div class="column">
-                        <h2>Top épisodes</h2>
+                        <h2>Flop épisodes</h2>
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
@@ -111,12 +111,234 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($redac_top_shows[0]->show_url) }}">
                             </div>
                         </div>
                         @foreach($redac_top_shows as $show)
                             @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
                                 <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Flop séries</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                <img src="{{ ShowPicture($redac_flop_shows[0]->show_url) }}">
+                            </div>
+                        </div>
+                        @foreach($redac_flop_shows as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Top saisons</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                <img src="{{ ShowPicture($redac_top_seasons[0]->show_url) }}">
+                            </div>
+                        </div>
+                        @foreach($redac_top_seasons as $season)
+                            @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('season.fiche', [$season->show_url, $season->name]) }}">{{ $season->sname }} Saison {{ $season->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Flop saisons</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                <img src="{{ ShowPicture($redac_flop_seasons[0]->show_url) }}">
+                            </div>
+                        </div>
+                        @foreach($redac_flop_seasons as $season)
+                            @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('season.fiche', [$season->show_url, $season->name]) }}">{{ $season->sname }} Saison {{ $season->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Top épisodes</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                <img src="{{ ShowPicture($redac_top_episodes[0]->show_url) }}">
+                            </div>
+                        </div>
+                        @foreach($redac_top_episodes as $episode)
+                            @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Flop épisodes</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                <img src="{{ ShowPicture($redac_flop_episodes[0]->show_url) }}">
+                            </div>
+                        </div>
+                        @foreach($redac_flop_episodes as $episode)
+                            @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="ui tab segment" data-tab="third">
+                <div class="ui four column grid stackable">
+                    <div class="column">
+                        <h2>Top américain</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                @if(count($country_top_us) < 1)
+                                    <img src="/images/shows/default_empty.jpg">
+                                @else
+                                    <img src="{{ ShowPicture($country_top_us[0]->show_url) }}">
+                                @endif
+                            </div>
+                        </div>
+                        @foreach($country_top_us as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Top français</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                @if(count($country_top_fr) < 1)
+                                    <img src="/images/shows/default_empty.jpg">
+                                @else
+                                    <img src="{{ ShowPicture($country_top_fr[0]->show_url) }}">
+                                @endif
+                            </div>
+                        </div>
+                        @foreach($country_top_fr as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Top anglais</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                @if(count($country_top_en) < 1)
+                                    <img src="/images/shows/default_empty.jpg">
+                                @else
+                                    <img src="{{ ShowPicture($country_top_en[0]->show_url) }}">
+                                @endif
+                            </div>
+                        </div>
+                        @foreach($country_top_en as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="ui tab segment" data-tab="four">
+                <div class="ui four column grid stackable">
+                    <div class="column">
+                        <h2>Top Drame</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                @if(count($genre_top_drama) < 1)
+                                    <img src="/images/shows/default_empty.jpg">
+                                @else
+                                    <img src="{{ ShowPicture($genre_top_drama[0]->show_url) }}">
+                                @endif
+                            </div>
+                        </div>
+                        @foreach($genre_top_drama as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Top Comédie</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                @if(count($genre_top_comedy) < 1)
+                                    <img src="/images/shows/default_empty.jpg">
+                                @else
+                                    <img src="{{ ShowPicture($genre_top_comedy[0]->show_url) }}">
+                                @endif
+                            </div>
+                        </div>
+                        @foreach($genre_top_comedy as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Top SF</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                @if(count($genre_top_sf) < 1)
+                                    <img src="/images/shows/default_empty.jpg">
+                                @else
+                                    <img src="{{ ShowPicture($genre_top_sf[0]->show_url) }}">
+                                @endif
+                            </div>
+                        </div>
+                        @foreach($genre_top_sf as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                    <div class="column">
+                        <h2>Top Policier</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                @if(count($genre_top_cop) < 1)
+                                    <img src="/images/shows/default_empty.jpg">
+                                @else
+                                    <img src="{{ ShowPicture($genre_top_cop[0]->show_url) }}">
+                                @endif
+                            </div>
+                        </div>
+                        @foreach($genre_top_cop as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="ui tab segment" data-tab="five">
+                <div class="ui four column grid stackable">
+                    <div class="column">
+                        <h2>Top Chaines</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                <img src="/images/shows/default_empty.jpg">
+                            </div>
+                        </div>
+                        @foreach($channel_top_show as $channel)
+                            @component('components.classements', ['avg_rate' => $channel->moyenne, 'number_rates' => $channel->nbnotes, 'loop' => $loop])
+                                {{ $channel->name }}
                             @endcomponent
                         @endforeach
                     </div>

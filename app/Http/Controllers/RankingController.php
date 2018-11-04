@@ -13,7 +13,7 @@ use App\Repositories\ShowRepository;
  * Class ArticleController
  * @package App\Http\Controllers
  */
-class ClassementController extends Controller
+class RankingController extends Controller
 {
     protected $showRepository;
     protected $seasonRepository;
@@ -55,7 +55,25 @@ class ClassementController extends Controller
         # Redac
         $redac_top_shows = $this->rateRepository->getRankingShowRedac('DESC');
         $redac_flop_shows = $this->rateRepository->getRankingShowRedac('ASC');
+        $redac_top_seasons = $this->rateRepository->getRankingSeasonRedac('DESC');
+        $redac_flop_seasons = $this->rateRepository->getRankingSeasonRedac('ASC');
+        $redac_top_episodes = $this->rateRepository->getRankingEpisodeRedac('DESC');
+        $redac_flop_episodes = $this->rateRepository->getRankingEpisodeRedac('ASC');
 
-        return view('classements.index', compact('top_shows', 'flop_shows', 'top_seasons', 'flop_seasons', 'top_episodes', 'flop_episodes', 'redac_top_shows', 'redac_flop_shows'));
+        # Country
+        $country_top_us = $this->showRepository->getRankingShowsByNationalities('Américaine');
+        $country_top_fr = $this->showRepository->getRankingShowsByNationalities('Française');
+        $country_top_en = $this->showRepository->getRankingShowsByNationalities('Anglaise');
+
+        # Genres
+        $genre_top_drama = $this->showRepository->getRankingShowsByGenres('Drama');
+        $genre_top_comedy = $this->showRepository->getRankingShowsByGenres('Comedy');
+        $genre_top_sf = $this->showRepository->getRankingShowsByGenres('Science-Fiction');
+        $genre_top_cop = $this->showRepository->getRankingShowsByGenres('Crime');
+
+        # Channels
+        $channel_top_show = $this->rateRepository->getRankingShowChannel();
+
+        return view('ranking.index', compact('top_shows', 'flop_shows', 'top_seasons', 'flop_seasons', 'top_episodes', 'flop_episodes', 'redac_top_shows', 'redac_flop_shows', 'redac_top_seasons', 'redac_flop_seasons', 'redac_top_episodes', 'redac_flop_episodes', 'country_top_us', 'country_top_fr', 'country_top_en', 'genre_top_drama', 'genre_top_comedy', 'genre_top_sf', 'genre_top_cop', 'channel_top_show'));
     }
 }
