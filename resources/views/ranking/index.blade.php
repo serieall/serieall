@@ -3,7 +3,7 @@
 @section('pageTitle', 'Classements')
 
 @section('content')
-    <div class="calendar ui fourteen wide column">
+    <div class="ui fourteen wide column">
         <div class="ui segment">
             <h1>Classements des séries</h1>
             <div class="ui pointing secondary menu">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         @foreach($top_shows as $show)
-                            @component('components.classements', ['avg_rate' => $show->moyene, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
                                 <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
                             @endcomponent
                         @endforeach
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         @foreach($flop_shows as $show)
-                            @component('components.classements',  ['avg_rate' => $show->moyene, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                            @component('components.classements',  ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
                                 <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
                             @endcomponent
                         @endforeach
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         @foreach($top_seasons as $season)
-                            @component('components.classements', ['avg_rate' => $season->moyene, 'number_rates' => $season->nbnotes, 'loop' => $loop])
+                            @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
                                 <a href="{{ route('season.fiche', [$season->show->show_url, $season->name]) }}">{{$season->show->name}} Saison {{ $season->name }}</a>
                             @endcomponent
                         @endforeach
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         @foreach($flop_seasons as $season)
-                            @component('components.classements', ['avg_rate' => $season->moyene, 'number_rates' => $season->nbnotes, 'loop' => $loop])
+                            @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
                                 <a href="{{ route('season.fiche', [$season->show->show_url, $season->name]) }}">{{$season->show->name}} Saison {{ $season->name }}</a>
                             @endcomponent
                         @endforeach
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         @foreach($top_episodes as $episode)
-                            @component('components.classements', ['avg_rate' => $episode->moyene, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                            @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
                                 <a href="{{ route('episode.fiche', [$episode->show->show_url, $episode->season->name, $episode->numero, $episode->id]) }}">{{$episode->show->name}} / {{ sprintf('%02s', $episode->season->name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
                             @endcomponent
                         @endforeach
@@ -97,8 +97,26 @@
                             </div>
                         </div>
                         @foreach($flop_episodes as $episode)
-                            @component('components.classements', ['avg_rate' => $episode->moyene, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                            @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
                                 <a href="{{ route('episode.fiche', [$episode->show->show_url, $episode->season->name, $episode->numero, $episode->id]) }}">{{$episode->show->name}} / {{ sprintf('%02s', $episode->season->name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                            @endcomponent
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="ui tab segment" data-tab="second">
+                <div class="ui four column grid stackable">
+                    <div class="column">
+                        <h2>Top séries</h2>
+
+                        <div class="ui fluid card imageFirstClassement">
+                            <div class="image">
+                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}">
+                            </div>
+                        </div>
+                        @foreach($redac_top_shows as $show)
+                            @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                                <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
                             @endcomponent
                         @endforeach
                     </div>
@@ -109,5 +127,5 @@
 @endsection
 
 @push('scripts')
-    {{ Html::script('/js/views/classements/index.js') }}
+    {{ Html::script('/js/views/ranking/index.js') }}
 @endpush

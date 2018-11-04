@@ -317,4 +317,36 @@ class ShowRepository
             ->limit(15)
             ->get();
     }
+
+    /**
+     * @param $nationality
+     * @return Show
+     */
+    public function getRankingShowsByNationalities($nationality) {
+        return $this->show
+            ->orderBy('moyenne')
+            ->orderBy('nbnotes')
+            ->whereHas('nationalities', function ($q) use ($nationality) {
+                $q->where('name', '=', $nationality);
+            })
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->limit(15)
+            ->get();
+    }
+
+    /**
+     * @param $category
+     * @return Show
+     */
+    public function getRankingShowsByGenres($category) {
+        return $this->show
+            ->orderBy('moyenne')
+            ->orderBy('nbnotes')
+            ->whereHas('genres', function ($q) use ($category) {
+                $q->where('name', '=', $category);
+            })
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->limit(15)
+            ->get();
+    }
 }

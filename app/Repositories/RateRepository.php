@@ -173,6 +173,8 @@ class RateRepository
     }
 
     /**
+     * Get Ranking of shows for the redaction team
+     *
      * @param $order
      * @return
      */
@@ -182,9 +184,73 @@ class RateRepository
             ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
             ->groupBy('shows.name')
-            ->select(DB::raw('avg(episode_user.rate), count(episode_user.rate) as nbnotes, shows.name'))
+            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.name, shows.show_url'))
             ->limit(15)
+            ->where('users.role', '<', 4)
             ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->orderBy('moyenne', $order)
+            ->get();
+    }
+
+    /**
+     * Get Ranking of seasons for the redaction team
+     *
+     * @param $order
+     * @return
+     */
+    public function getRankingSeasonRedac($order) {
+        return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+            ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->groupBy('shows.name')
+            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, seasons.name, shows.name as sname, shows.show_url'))
+            ->limit(15)
+            ->where('users.role', '<', 4)
+            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->orderBy('moyenne', $order)
+            ->get();
+    }
+
+    /**
+     * Get Ranking of episodes for the redaction team
+     *
+     * @param $order
+     * @return
+     */
+    public function getRankingEpisodeRedac($order) {
+        return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+            ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->groupBy('shows.name')
+            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, episodes.name, episodes.numero, episodes.id, seasons.name as season_name, shows.name as sname, shows.show_url'))
+            ->limit(15)
+            ->where('users.role', '<', 4)
+            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->orderBy('moyenne', $order)
+            ->get();
+    }
+
+    /**
+     * Get Ranking of channels
+     *
+     * @param $order
+     * @return
+     */
+    public function getRankingShowChannel() {
+        return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+            ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->join('channel_show', 'shows.id', '=', 'channel_show.show_id')
+            ->join('channels', 'channel_show.channel_id', '=', 'channels.id')
+            ->groupBy('shows.name')
+            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, channels.name'))
+            ->limit(15)
+            ->where('users.role', '<', 4)
+            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->orderBy('moyenne')
             ->get();
     }
 }

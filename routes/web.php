@@ -111,7 +111,7 @@ Route::get('planning', 'PlanningController@index')->name('planning.index');
 /*
     Partie Classement
  */
-Route::get('classements', 'ClassementController@index')->name('classements.index');
+Route::get('classements', 'RankingController@index')->name('ranking.index');
 
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)

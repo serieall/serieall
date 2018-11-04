@@ -45,7 +45,7 @@
                         <li><a href="{{ route('show.index') }}">Liste des séries</a></li>
                         <li><a href="{{ route('article.index') }}">Articles</a></li>
                         <li><a href="{{ route('planning.index') }}">Planning</a></li>
-                        <li><a href="{{ route('classements.index') }}">Classement</a></li>
+                        <li><a href="{{ route('ranking.index') }}">Classement</a></li>
                     </ul>
                 </div>
             </div>

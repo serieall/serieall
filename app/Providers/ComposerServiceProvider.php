@@ -101,7 +101,7 @@ class ComposerServiceProvider extends ServiceProvider
 
         // NavActive = classements
         View::composer(
-            ['classements/*'],
+            ['ranking/*'],
             'App\Http\ViewComposers\NavActiveClassementComposer'
         );
 
