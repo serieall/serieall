@@ -184,7 +184,6 @@ return [
         App\Packages\Hashing\YourHashingServiceProvider::class,
         App\Providers\PasswordResetServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
-        traumferienwohnungen\PrometheusExporter\LaravelServiceProvider::class,
     ],
 
     /*

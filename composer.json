@@ -25,7 +25,6 @@
         "pusher/pusher-php-server": "^3.0",
         "spatie/laravel-cookie-consent": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "traum-ferienwohnungen/laravel-prometheus-exporter": "^0.1.2",
         "znck/belongs-to-through": "^2.3"
     },
     "require-dev": {

@@ -21,7 +21,6 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \traumferienwohnungen\PrometheusExporter\Middleware\LaravelResponseTimeMiddleware::class,
     ];
 
     /**
