@@ -308,7 +308,8 @@
                         url: '/api/genres/list?name-lk=*{query}*'
                     },
                     fields: {remoteValues: "data", value: "name"},
-                    allowAdditions: true
+                    allowAdditions: true,
+                    hideAdditions: false
                 })
             ;
 
@@ -322,8 +323,8 @@
                         remoteValues: 'data',
                         value: 'name',
                     },
-                    allowAdditions: true
-
+                    allowAdditions: true,
+                    hideAdditions: false
                 })
             ;
 
@@ -338,7 +339,8 @@
                         value: "username",
                         name: "username"
                     },
-                    allowAdditions: true
+                    allowAdditions: true,
+                    hideAdditions: false
                 })
             ;
 
@@ -366,7 +368,8 @@
                                 remoteValues: "data",
                                 value: "name"
                             },
-                            allowAdditions: true
+                            allowAdditions: true,
+                            hideAdditions: false
                         })
                     ;
                 }
@@ -394,7 +397,8 @@
                                 value: "id",
                                 name: "title"
                             },
-                            allowAdditions: true
+                            allowAdditions: true,
+                            hideAdditions: false
                         })
                     ;
 

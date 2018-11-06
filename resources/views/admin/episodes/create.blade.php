@@ -229,6 +229,7 @@
                         },
                         fields: {remoteValues: "data", value: "name"},
                         allowAdditions: true,
+                        hideAdditions: false,
                         forceSelection: false,
                         minCharacters: 4
                     });
@@ -239,6 +240,7 @@
                         },
                         fields: {remoteValues: "data", value: "name"},
                         allowAdditions: true,
+                        hideAdditions: false,
                         forceSelection: false,
                         minCharacters: 4
                     });
@@ -249,6 +251,7 @@
                         },
                         fields: {remoteValues: "data", value: "name"},
                         allowAdditions: true,
+                        hideAdditions: false,
                         forceSelection: false,
                         minCharacters: 4
                     });

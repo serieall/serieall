@@ -18,7 +18,7 @@ class ShowsSeeder extends Seeder
     public function run()
     {
         $date = $this->randDate();
-        DB::table('categories')->insert([
+        DB::table('shows')->insert([
             'thetvdb_id' => 79126,
             'show_url' => 'the-wire',
             'name' => 'The Wire',

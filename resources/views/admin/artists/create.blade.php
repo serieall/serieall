@@ -70,6 +70,7 @@
                     },
                     fields: {remoteValues: "data", value: "name"},
                     allowAdditions: true,
+                    hideAdditions: false,
                     forceSelection: false,
                     minCharacters: 2
                 })
@@ -151,6 +152,7 @@
                                 },
                                 fields: {remoteValues: "data", value: "name"},
                                 allowAdditions: true,
+                                hideAdditions: false,
                                 forceSelection : true,
                                 minCharacters: 2
                             });
