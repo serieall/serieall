@@ -132,4 +132,20 @@ class EpisodeRepository
             ->limit(15)
             ->get();
     }
+
+    /**
+     * @param $order
+     * @return Episode
+     */
+    public function getRankingEpisodesByShow($show, $order) {
+        return $this->episode->with(['season' => function($q) use ($show) {
+            $q->with(['show' => function ($s) use ($show){
+                $s->where('id', '=', $show);
+            }]);
+        }])
+            ->orderBy('moyenne', $order)
+            ->orderBy('nbnotes', $order)
+            ->limit(15)
+            ->get();
+    }
 }

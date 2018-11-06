@@ -157,7 +157,7 @@
                     <i class="big write icon"></i>
                     Articles
                 </a>
-                <a class="item">
+                <a class="@if($FicheActive == "statistics") active @endif item" href="{{ route('show.statistics', $showInfo['show']->show_url) }}">
                     <i class="big line chart icon"></i>
                     Statistiques
                 </a>

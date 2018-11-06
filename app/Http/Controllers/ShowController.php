@@ -136,4 +136,17 @@ class ShowController extends Controller
 
         return view('shows.articlesCategory', compact('showInfo', 'categories', 'category', 'articles', 'articles_count', 'idCategory'));
     }
+
+    /**
+     * Get Statistics. Return shows.statistics
+     *
+     * @param $show_url
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getStatistics($show_url) {
+        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $topEpisodes = $this->episodeRepository->getRankingEpisodesByShow($showInfo['show']['id'], 'DESC');
+
+        return view('shows.statistics', compact('showInfo', 'topEpisodes'));
+    }
 }

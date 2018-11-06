@@ -74,6 +74,7 @@ Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos
 Route::get('series', 'ShowController@index')->name('show.index');
 Route::get('serie/{show_url}', 'ShowController@getShowFiche')->name('show.fiche');
 Route::get('serie/{show_url}/details', 'ShowController@getShowDetails')->name('show.details');
+Route::get('series/{show_url}/statistiques', 'ShowController@getStatistics')->name('show.statistics');
 
 /*
     Partie Saisons

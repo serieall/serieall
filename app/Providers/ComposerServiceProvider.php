@@ -135,6 +135,12 @@ class ComposerServiceProvider extends ServiceProvider
             ['shows/articles', 'shows/articlesCategory'],
             'App\Http\ViewComposers\FicheActiveArticlesComposer'
         );
+
+        // FicheActive = statistics
+        View::composer(
+            ['shows/statistics'],
+            'App\Http\ViewComposers\FicheActiveStatisticsComposer'
+        );
     }
 
     /**
