@@ -23,7 +23,7 @@
                     <i class="tv icon"></i>
                     Séries
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('user.profile.ranking', $user->user_url ) }}">
                     <i class="ordered list icon"></i>
                     Classement
                 </a>

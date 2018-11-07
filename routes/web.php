@@ -64,6 +64,7 @@ Route::get('utilisateurs', 'UserController@index')->name('users.index');
 Route::get('profil/{user}', 'UserController@getProfile')->name('user.profile');
 Route::get('profil/{user}/notes/{action?}', 'UserController@getRates')->name('user.profile.rates');
 Route::get('profil/{user}/avis/{action?}/{filter?}/{tri?}', 'UserController@getComments')->name('user.profile.comments');
+Route::get('profil/{user}/classements', 'UserController@getRanking')->name('user.profile.ranking');
 Route::get('profil/{user}/parametres', 'UserController@getParameters')->name('user.profile.parameters')->middleware('amithisuser');
 Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword')->middleware('auth');
 Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos')->middleware('auth');

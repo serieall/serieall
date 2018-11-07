@@ -143,9 +143,6 @@ class UserController extends Controller
     public function getComments($userURL, $action = "", $filter = "", $tri ="") {
         $user = $this->userRepository->getUserByURL($userURL);
 
-        Log::info($filter);
-        Log::info($tri);
-
         switch ($filter) {
             case 1:
                 $filter = [1];
@@ -288,5 +285,25 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with($state, $message);
+    }
+
+    /**
+     * @param $user_url
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getRanking($user_url){
+        $user = $this->userRepository->getUserByURL($user_url);
+
+        $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
+        $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
+        $time_passed_shows = getTimePassedOnShow($this->rateRepository, $user->id);
+
+        $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
+        $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
+        $comment_fav = $comments->where('thumb', '=', 1)->first();
+        $comment_neu = $comments->where('thumb', '=', 2)->first();
+        $comment_def = $comments->where('thumb', '=', 3)->first();
+
+        return view('users.ranking', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def'));
     }
 }
