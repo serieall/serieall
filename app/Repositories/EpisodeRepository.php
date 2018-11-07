@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Models\Episode;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -138,11 +139,12 @@ class EpisodeRepository
      * @return Episode
      */
     public function getRankingEpisodesByShow($show, $order) {
-        return $this->episode->with(['season' => function($q) use ($show) {
-            $q->with(['show' => function ($s) use ($show){
-                $s->where('id', '=', $show);
-            }]);
-        }])
+        return $this->episode
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->select(DB::raw('episodes.moyenne, episodes.nbnotes, episodes.name, episodes.numero, seasons.name as season_name, shows.name as sname, shows.show_url, picture'))
+            ->where('episodes.nbnotes', '>', 0)
+            ->where('shows.id', '=', $show)
             ->orderBy('moyenne', $order)
             ->orderBy('nbnotes', $order)
             ->limit(15)
