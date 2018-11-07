@@ -3,7 +3,7 @@
 /* COLORS */
 @mixin color($nameElement, $color) {
   .#{$nameElement} {
-    color: $color;
+    color: $color !important;
   }
 }
 

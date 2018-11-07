@@ -349,4 +349,16 @@ class ShowRepository
             ->limit(15)
             ->get();
     }
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function getShowFollowedByUser($user, $state) {
+        return $this->show
+            ->join('show_user', 'shows.id', '=', 'show_user.show_id')
+            ->join('users', 'users.id', '=', 'show_user.user_id')
+            ->where('users.id', '=', $user)
+            ->get();
+    }
 }

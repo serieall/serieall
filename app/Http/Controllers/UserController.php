@@ -33,18 +33,22 @@ class UserController extends Controller
     protected $userRepository;
     protected $rateRepository;
     protected $commentRepository;
+    protected $showRepository;
 
     /**
      * UserController constructor.
      * @param UserRepository $userRepository
      * @param RateRepository $rateRepository
      * @param CommentRepository $commentRepository
+     * @param ShowRepository $showRepository
      */
-    public function __construct(UserRepository $userRepository, RateRepository $rateRepository, CommentRepository $commentRepository)
+    public function __construct(UserRepository $userRepository, RateRepository $rateRepository, CommentRepository $commentRepository,
+ShowRepository $showRepository)
     {
         $this->userRepository = $userRepository;
         $this->rateRepository = $rateRepository;
         $this->commentRepository = $commentRepository;
+        $this->showRepository = $showRepository;
     }
 
     /**
@@ -318,5 +322,32 @@ class UserController extends Controller
 
 
         return view('users.ranking', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'top_shows', 'flop_shows', 'top_seasons', 'flop_seasons', 'top_episodes', 'flop_episodes', 'top_pilot', 'flop_pilot'));
+    }
+
+    /**
+     * @param $user_url
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getShows($user_url){
+        $user = $this->userRepository->getUserByURL($user_url);
+
+        $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
+        $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
+        $time_passed_shows = getTimePassedOnShow($this->rateRepository, $user->id);
+
+        $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
+        $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
+        $comment_fav = $comments->where('thumb', '=', 1)->first();
+        $comment_neu = $comments->where('thumb', '=', 2)->first();
+        $comment_def = $comments->where('thumb', '=', 3)->first();
+
+        $followed_shows = $this->showRepository->getShowFollowedByUser($user->id,1);
+        $in_progress_shows = $followed_shows->where('state', '=', 1);
+        $on_break_shows = $followed_shows->where('state', '=', 2);
+        $completed_shows = $followed_shows->where('state', '=', 3);
+        $abandoned_shows = $followed_shows->where('state', '=', 4);
+        $to_see_shows = $followed_shows->where('state', '=', 5);
+
+        return view('users.shows', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'in_progress_shows', 'on_break_shows', 'completed_shows', 'abandoned_shows', 'to_see_shows'));
     }
 }
