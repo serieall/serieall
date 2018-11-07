@@ -18,7 +18,7 @@
                     <i class="comment icon"></i>
                     Avis
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('user.profile.shows', $user->user_url ) }}">
                     <i class="tv icon"></i>
                     Séries
                 </a>
@@ -28,6 +28,14 @@
                 </a>
                 @if(Auth::check())
                     @if($user->username == Auth::user()->username)
+                        <a class="item" href="{{ route('user.profile.planning', $user->user_url ) }}">
+                            <i class="calendar icon"></i>
+                            Mon planning
+                        </a>
+                        <a class="item" href="{{ route('user.profile.notifications', $user->user_url ) }}">
+                            <i class="alarm icon"></i>
+                            Notifications
+                        </a>
                         <a class="item" href="{{ route('user.profile.parameters', $user->user_url ) }}">
                             <i class="settings icon"></i>
                             Paramètres
@@ -161,7 +169,124 @@
         </div>
 
         <div class="ui segment">
+            <div class="ui three column grid stackable">
+                <div class="column">
+                    <h2>Top séries</h2>
 
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            <img src="{{ ShowPicture($top_shows[0]->show_url) }}">
+                        </div>
+                    </div>
+                    @foreach($top_shows as $show)
+                        @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+                <div class="column">
+                    <h2>Flop séries</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            <img src="{{ ShowPicture($flop_shows[0]->show_url) }}">
+                        </div>
+                    </div>
+                    @foreach($flop_shows as $show)
+                        @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+                <div class="column">
+                    <h2>Top saisons</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            <img src="{{ ShowPicture($top_seasons[0]->show_url) }}">
+                        </div>
+                    </div>
+                    @foreach($top_seasons as $season)
+                        @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('season.fiche', [$season->show_url, $season->season_name]) }}">{{ $season->sname }} Saison {{ $season->season_name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+            </div>
+            <div class="ui three column grid stackable">
+                <div class="column">
+                    <h2>Flop saisons</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            <img src="{{ ShowPicture($flop_seasons[0]->show_url) }}">
+                        </div>
+                    </div>
+                    @foreach($flop_seasons as $season)
+                        @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('season.fiche', [$season->show_url, $season->season_name]) }}">{{ $season->sname }} Saison {{ $season->season_name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+                <div class="column">
+                    <h2>Top épisodes</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            <img src="{{ ShowPicture($top_episodes[0]->show_url) }}">
+                        </div>
+                    </div>
+                    @foreach($top_episodes as $episode)
+                        @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+                <div class="column">
+                    <h2>Flop épisodes</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            <img src="{{ ShowPicture($flop_episodes[0]->show_url) }}">
+                        </div>
+                    </div>
+                    @foreach($flop_episodes as $episode)
+                        @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+            </div>
+            <div class="ui two column grid stackable">
+                <div class="column">
+                    <h2>Top pilot</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            <img src="{{ ShowPicture($top_pilot[0]->show_url) }}">
+                        </div>
+                    </div>
+                    @foreach($top_pilot as $episode)
+                        @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+                <div class="column">
+                    <h2>Flop pilot</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            <img src="{{ ShowPicture($flop_pilot[0]->show_url) }}">
+                        </div>
+                    </div>
+                    @foreach($flop_pilot as $episode)
+                        @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 @endsection

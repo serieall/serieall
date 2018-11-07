@@ -19,7 +19,7 @@
                     <i class="comment icon"></i>
                     Avis
                 </a>
-                <a class="item">
+                <a class="item" href="{{ route('user.profile.shows', $user->user_url ) }}">
                     <i class="tv icon"></i>
                     Séries
                 </a>
@@ -28,7 +28,15 @@
                     Classement
                 </a>
                 @if($user->username == Auth::user()->username)
-                    <a class="item">
+                    <a class="item" href="{{ route('user.profile.planning', $user->user_url ) }}">
+                        <i class="calendar icon"></i>
+                        Mon planning
+                    </a>
+                    <a class="item" href="{{ route('user.profile.notifications', $user->user_url ) }}">
+                        <i class="alarm icon"></i>
+                        Notifications
+                    </a>
+                    <a class="active item">
                         <i class="settings icon"></i>
                         Paramètres
                     </a>

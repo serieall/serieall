@@ -253,4 +253,82 @@ class RateRepository
             ->orderBy('moyenne')
             ->get();
     }
+
+    /**
+     * @param $user
+     * @param $order
+     * @return Show
+     */
+    public function getRankingShowsByUsers($user, $order) {
+        return Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->orderBy('moyenne', $order)
+            ->orderBy('nbnotes', $order)
+            ->whereHas('user', function ($q) use ($user) {
+                $q->where('id', '=', $user);
+            })
+            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.show_url, shows.name'))
+            ->limit(10)
+            ->get();
+    }
+
+    /**
+     * @param $user
+     * @param $order
+     * @return Show
+     */
+    public function getRankingSeasonsByUsers($user, $order) {
+        return Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->orderBy('moyenne', $order)
+            ->orderBy('nbnotes', $order)
+            ->whereHas('user', function ($q) use ($user) {
+                $q->where('id', '=', $user);
+            })
+            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.show_url, shows.name as sname, seasons.name as season_name'))
+            ->limit(10)
+            ->get();
+    }
+
+    /**
+     * @param $user
+     * @param $order
+     * @return Show
+     */
+    public function getRankingEpisodesByUsers($user, $order) {
+        return Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->orderBy('moyenne', $order)
+            ->orderBy('nbnotes', $order)
+            ->whereHas('user', function ($q) use ($user) {
+                $q->where('id', '=', $user);
+            })
+            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.show_url, shows.name as sname, seasons.name as season_name, episodes.name, episodes.numero'))
+            ->limit(10)
+            ->get();
+    }
+
+    /**
+     * @param $user
+     * @param $order
+     * @return Show
+     */
+    public function getRankingPilotByUsers($user, $order) {
+        return Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+            ->join('shows', 'seasons.show_id', '=', 'shows.id')
+            ->orderBy('moyenne', $order)
+            ->orderBy('nbnotes', $order)
+            ->whereHas('user', function ($q) use ($user) {
+                $q->where('id', '=', $user);
+            })
+            ->where('seasons.name', '=', 1)
+            ->where('episodes.numero', '=', 1)
+            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.show_url, shows.name as sname, seasons.name as season_name, episodes.name, episodes.numero'))
+            ->limit(10)
+            ->get();
+    }
 }

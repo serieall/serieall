@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserChangeInfosRequest;
 use App\Repositories\CommentRepository;
+use App\Repositories\EpisodeRepository;
 use App\Repositories\RateRepository;
+use App\Repositories\SeasonRepository;
+use App\Repositories\ShowRepository;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Http\RedirectResponse;
@@ -304,6 +307,16 @@ class UserController extends Controller
         $comment_neu = $comments->where('thumb', '=', 2)->first();
         $comment_def = $comments->where('thumb', '=', 3)->first();
 
-        return view('users.ranking', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def'));
+        $top_shows = $this->rateRepository->getRankingShowsByUsers($user->id, 'DESC');
+        $flop_shows = $this->rateRepository->getRankingShowsByUsers($user->id, 'ASC');
+        $top_seasons = $this->rateRepository->getRankingSeasonsByUsers($user->id, 'DESC');
+        $flop_seasons = $this->rateRepository->getRankingSeasonsByUsers($user->id, 'ASC');
+        $top_episodes = $this->rateRepository->getRankingEpisodesByUsers($user->id, 'DESC');
+        $flop_episodes = $this->rateRepository->getRankingEpisodesByUsers($user->id, 'ASC');
+        $top_pilot = $this->rateRepository->getRankingPilotByUsers($user->id, 'DESC');
+        $flop_pilot = $this->rateRepository->getRankingPilotByUsers($user->id, 'ASC');
+
+
+        return view('users.ranking', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'top_shows', 'flop_shows', 'top_seasons', 'flop_seasons', 'top_episodes', 'flop_episodes', 'top_pilot', 'flop_pilot'));
     }
 }
