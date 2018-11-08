@@ -190,7 +190,7 @@
 
             <form class="ui form" action="">
                 <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="InProgressShow">
+                    <div class="ui fluid multiple search selection dropdown" id="InProgressShows">
                         <input name="in_progress" type="hidden">
                         <i class="dropdown icon"></i>
                         <div class="default text">Choisir une ou plusieurs séries</div>
@@ -221,6 +221,23 @@
                 @endforeach
             </div>
 
+            <p></p>
+
+            <form class="ui form" action="">
+                <div class="two fields">
+                    <div class="ui fluid multiple search selection dropdown" id="OnBreakShows">
+                        <input name="in_progress" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choisir une ou plusieurs séries</div>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    @component('components.buttons.button', ['type' => 'positive'])
+                        Ajouter
+                    @endcomponent
+                </div>
+            </form>
+
             <h1 class="ui header t-darkBlueSA">
                 Séries terminées
                 <span class="sub header">
@@ -238,6 +255,23 @@
                     @endcomponent
                 @endforeach
             </div>
+
+            <p></p>
+
+            <form class="ui form" action="">
+                <div class="two fields">
+                    <div class="ui fluid multiple search selection dropdown" id="CompletedShows">
+                        <input name="in_progress" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choisir une ou plusieurs séries</div>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    @component('components.buttons.button', ['type' => 'positive'])
+                        Ajouter
+                    @endcomponent
+                </div>
+            </form>
 
             <h1 class="ui header t-darkBlueSA">
                 Séries à voir
@@ -257,6 +291,23 @@
                 @endforeach
             </div>
 
+            <p></p>
+
+            <form class="ui form" action="">
+                <div class="two fields">
+                    <div class="ui fluid multiple search selection dropdown" id="ToSeeShows">
+                        <input name="in_progress" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choisir une ou plusieurs séries</div>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    @component('components.buttons.button', ['type' => 'positive'])
+                        Ajouter
+                    @endcomponent
+                </div>
+            </form>
+
             <h1 class="ui header t-darkBlueSA">
                 Séries abandonnées
                 <span class="sub header">
@@ -274,6 +325,23 @@
                     @endcomponent
                 @endforeach
             </div>
+
+            <p></p>
+
+            <form class="ui form" action="">
+                <div class="two fields">
+                    <div class="ui fluid multiple search selection dropdown" id="AbandonedShows">
+                        <input name="in_progress" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choisir une ou plusieurs séries</div>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    @component('components.buttons.button', ['type' => 'positive'])
+                        Ajouter
+                    @endcomponent
+                </div>
+            </form>
         </div>
     </div>
 @endsection
@@ -282,7 +350,51 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#InProgressShow').dropdown({
+            $('#InProgressShows').dropdown({
+                apiSettings: {
+                    url: '/api/shows/list?name-lk=*{query}*',
+                },
+                fields: {
+                    remoteValues: 'data',
+                    value: 'id',
+                },
+                clearable: true
+            });
+
+            $('#OnBreakShow').dropdown({
+                apiSettings: {
+                    url: '/api/shows/list?name-lk=*{query}*',
+                },
+                fields: {
+                    remoteValues: 'data',
+                    value: 'id',
+                },
+                clearable: true
+            });
+
+            $('#CompletedShows').dropdown({
+                apiSettings: {
+                    url: '/api/shows/abandoned/list?name-lk=*{query}*',
+                },
+                fields: {
+                    remoteValues: 'data',
+                    value: 'id',
+                },
+                clearable: true
+            });
+
+            $('#ToSeeShows').dropdown({
+                apiSettings: {
+                    url: '/api/shows/list?name-lk=*{query}*',
+                },
+                fields: {
+                    remoteValues: 'data',
+                    value: 'id',
+                },
+                clearable: true
+            });
+
+            $('#AbandonedShows').dropdown({
                 apiSettings: {
                     url: '/api/shows/list?name-lk=*{query}*',
                 },

@@ -19,6 +19,7 @@ use Dingo\Api\Routing\Router;
     $api->version('v1', [], function (Router $api){
         $api->get('shows/search', '\App\Http\Controllers\Api\V1\ShowSearchController@index');
         $api->get('shows/list', '\App\Http\Controllers\Api\V1\ShowsListController@index');
+        $api->get('shows/abandoned/list', '\App\Http\Controllers\Api\V1\ShowsAbandonnedController@index');
         $api->get('articles/list', '\App\Http\Controllers\Api\V1\ArticlesListController@index');
         $api->get('seasons/list', '\App\Http\Controllers\Api\V1\SeasonsListController@index');
         $api->get('episodes/seasons/{id}', '\App\Http\Controllers\Api\V1\EpisodesBySeasonIDController@index');
