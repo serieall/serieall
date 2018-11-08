@@ -1,10 +1,16 @@
 <div class="card">
-    <div class="image">
+    <a class="image" href="{{route('show.fiche', $show->show_url)}}">
         <img src="{{ShowPicture($show->show_url)}}">
-    </div>
+    </a>
     <div class="content">
-        <i class="right floated close icon"></i>
-        <a class="header" href="{{route('show.fiche', $show->show_url)}}">{{$show->name}}</a>
-
+        <div class="header">
+            <a class="image" href="{{route('show.fiche', $show->show_url)}}">
+                {{$show->name}}
+            </a>
+        </div>
+        <div class="meta">
+            <p></p>
+            <button class="ui fluid icon basic button"><i class="close icon"></i>Supprimer</button>
+        </div>
     </div>
 </div>

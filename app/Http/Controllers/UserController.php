@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FollowShowRequest;
 use App\Http\Requests\UserChangeInfosRequest;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
@@ -325,6 +326,8 @@ ShowRepository $showRepository)
     }
 
     /**
+     * Get Followed Shows
+     *
      * @param $user_url
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -349,5 +352,41 @@ ShowRepository $showRepository)
         $to_see_shows = $followed_shows->where('state', '=', 5);
 
         return view('users.shows', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'in_progress_shows', 'on_break_shows', 'completed_shows', 'abandoned_shows', 'to_see_shows'));
+    }
+
+    /**
+     * Follow Show
+     *
+     * @param FollowShowRequest $request
+     * @return \Illuminate\Http\JsonResponse|int
+     */
+    public function followShow(FollowShowRequest $request) {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        if (Request::ajax()) {
+            $user = $this->userRepository->getUserByID($inputs['user_id']);
+            $show = explode(',', $inputs['shows']);
+
+            if(!isset($inputs['message'])) {
+                $message = "";
+            } else {
+                $message = $inputs['message'];
+            }
+
+            foreach($show as $s) {
+                if($user->shows->contains($s)) {
+                    $user->shows()->detach($s);
+                }
+            }
+
+            $user->shows()->attach($show, ['state' => $inputs['state'], 'message' => $message]);
+
+            if($inputs['state'] == 1) {
+                $followed_shows = $this->showRepository->getShowFollowedByUser($user->id,1);
+                $in_progress_shows = $followed_shows->where('state', '=', 1);
+                return Response::json(View::make('users.shows_cards', ['in_progress_shows' => $in_progress_shows])->render());
+            }
+        }
+        return 404;
     }
 }

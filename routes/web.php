@@ -32,6 +32,14 @@ Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
 
+Route::get('/404', function () {
+    return view('errors.404');
+})->name('404');
+
+Route::get('/500', function () {
+    return view('errors.500');
+})->name('500');
+
 /*
     Partie Authentification
 */
@@ -71,6 +79,11 @@ Route::get('profil/{user}/notifications', 'UserController@getNotifications')->na
 Route::get('profil/{user}/parametres', 'UserController@getParameters')->name('user.profile.parameters')->middleware('amithisuser');
 Route::post('changepassword', 'UserController@changePassword')->name('user.changepassword')->middleware('auth');
 Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos')->middleware('auth');
+
+/*
+    Partie Suivi de série
+ */
+Route::post('followshow', 'UserController@followShow')->name('user.followshow')->middleware('auth');
 
 /*
     Partie Séries

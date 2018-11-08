@@ -74,7 +74,7 @@ class User extends Authenticatable {
      */
     public function shows()
 	{
-		return $this->belongsToMany('App\Models\Show');
+		return $this->belongsToMany('App\Models\Show')->withPivot('state', 'message');
 	}
 
     /**

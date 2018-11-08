@@ -174,32 +174,31 @@
                     Ce sont les séries en cours de visionnage, qu'elles soient terminées ou non. Elles apparaissent dans votre planning personnalisé.
                 </span>
             </h1>
-            @if(count($in_progress_shows) == 0)
-                @component('components.message_simple', ['type' => 'info'])
-                    Pas de séries en cours
-                @endcomponent
-            @endif
-            <div id="cardsRates" class="ui five cards">
-                @foreach($in_progress_shows as $show)
-                    @component('components.cards.followed_shows_cards', ['show' => $show])
-                    @endcomponent
-                @endforeach
+
+            <div id="InProgressBox">
+                @include('users.shows_cards')
             </div>
 
             <p></p>
 
-            <form class="ui form" action="">
+            <form id="formInProgress" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                {{ csrf_field() }}
+
+                <input name="state" type="hidden" value="1">
+
                 <div class="two fields">
                     <div class="ui fluid multiple search selection dropdown" id="InProgressShows">
-                        <input name="in_progress" type="hidden">
+                        <input name="shows" type="hidden">
                         <i class="dropdown icon"></i>
                         <div class="default text">Choisir une ou plusieurs séries</div>
                         <div class="menu">
                         </div>
                     </div>
-                    @component('components.buttons.button', ['type' => 'positive'])
+                    <div class="ui red message hidden"></div>
+
+                    <button type="submit" class="positive ui button">
                         Ajouter
-                    @endcomponent
+                    </button>
                 </div>
             </form>
 
@@ -214,7 +213,7 @@
                     Pas de séries en pause
                 @endcomponent
             @endif
-            <div id="cardsRates" class="ui five cards">
+            <div id="cardsRates" class="ui five cards stackable">
                 @foreach($on_break_shows as $show)
                     @component('components.cards.followed_shows_cards', ['show' => $show])
                     @endcomponent
@@ -223,20 +222,20 @@
 
             <p></p>
 
-            <form class="ui form" action="">
-                <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="OnBreakShows">
-                        <input name="in_progress" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir une ou plusieurs séries</div>
-                        <div class="menu">
-                        </div>
-                    </div>
-                    @component('components.buttons.button', ['type' => 'positive'])
-                        Ajouter
-                    @endcomponent
-                </div>
-            </form>
+            {{--<form class="ui form" action="">--}}
+                {{--<div class="two fields">--}}
+                    {{--<div class="ui fluid multiple search selection dropdown" id="OnBreakShows">--}}
+                        {{--<input name="in_progress" type="hidden">--}}
+                        {{--<i class="dropdown icon"></i>--}}
+                        {{--<div class="default text">Choisir une ou plusieurs séries</div>--}}
+                        {{--<div class="menu">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--@component('components.buttons.button', ['type' => 'positive'])--}}
+                        {{--Ajouter--}}
+                    {{--@endcomponent--}}
+                {{--</div>--}}
+            {{--</form>--}}
 
             <h1 class="ui header t-darkBlueSA">
                 Séries terminées
@@ -249,7 +248,7 @@
                     Pas de séries terminées
                 @endcomponent
             @endif
-            <div id="cardsRates" class="ui five cards">
+            <div id="cardsRates" class="ui five cards stackable">
                 @foreach($completed_shows as $show)
                     @component('components.cards.followed_shows_cards', ['show' => $show])
                     @endcomponent
@@ -258,20 +257,20 @@
 
             <p></p>
 
-            <form class="ui form" action="">
-                <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="CompletedShows">
-                        <input name="in_progress" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir une ou plusieurs séries</div>
-                        <div class="menu">
-                        </div>
-                    </div>
-                    @component('components.buttons.button', ['type' => 'positive'])
-                        Ajouter
-                    @endcomponent
-                </div>
-            </form>
+            {{--<form class="ui form" action="">--}}
+                {{--<div class="two fields">--}}
+                    {{--<div class="ui fluid multiple search selection dropdown" id="CompletedShows">--}}
+                        {{--<input name="in_progress" type="hidden">--}}
+                        {{--<i class="dropdown icon"></i>--}}
+                        {{--<div class="default text">Choisir une ou plusieurs séries</div>--}}
+                        {{--<div class="menu">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--@component('components.buttons.button', ['type' => 'positive'])--}}
+                        {{--Ajouter--}}
+                    {{--@endcomponent--}}
+                {{--</div>--}}
+            {{--</form>--}}
 
             <h1 class="ui header t-darkBlueSA">
                 Séries à voir
@@ -284,7 +283,7 @@
                     Pas de séries à voir
                 @endcomponent
             @endif
-            <div id="cardsRates" class="ui five cards">
+            <div id="cardsRates" class="ui five cards stackable">
                 @foreach($to_see_shows as $show)
                     @component('components.cards.followed_shows_cards', ['show' => $show])
                     @endcomponent
@@ -293,20 +292,20 @@
 
             <p></p>
 
-            <form class="ui form" action="">
-                <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="ToSeeShows">
-                        <input name="in_progress" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir une ou plusieurs séries</div>
-                        <div class="menu">
-                        </div>
-                    </div>
-                    @component('components.buttons.button', ['type' => 'positive'])
-                        Ajouter
-                    @endcomponent
-                </div>
-            </form>
+            {{--<form class="ui form" action="">--}}
+                {{--<div class="two fields">--}}
+                    {{--<div class="ui fluid multiple search selection dropdown" id="ToSeeShows">--}}
+                        {{--<input name="in_progress" type="hidden">--}}
+                        {{--<i class="dropdown icon"></i>--}}
+                        {{--<div class="default text">Choisir une ou plusieurs séries</div>--}}
+                        {{--<div class="menu">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--@component('components.buttons.button', ['type' => 'positive'])--}}
+                        {{--Ajouter--}}
+                    {{--@endcomponent--}}
+                {{--</div>--}}
+            {{--</form>--}}
 
             <h1 class="ui header t-darkBlueSA">
                 Séries abandonnées
@@ -319,29 +318,29 @@
                     Pas de séries abandonées
                 @endcomponent
             @endif
-            <div id="cardsRates" class="ui five cards">
+            <div id="cardsRates" class="ui items stackable">
                 @foreach($abandoned_shows as $show)
-                    @component('components.cards.followed_shows_cards', ['show' => $show])
+                    @component('components.cards.abandoned_shows_cards', ['show' => $show])
                     @endcomponent
                 @endforeach
             </div>
 
             <p></p>
 
-            <form class="ui form" action="">
-                <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="AbandonedShows">
-                        <input name="in_progress" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir une ou plusieurs séries</div>
-                        <div class="menu">
-                        </div>
-                    </div>
-                    @component('components.buttons.button', ['type' => 'positive'])
-                        Ajouter
-                    @endcomponent
-                </div>
-            </form>
+            {{--<form class="ui form" action="">--}}
+                {{--<div class="two fields">--}}
+                    {{--<div class="ui fluid multiple search selection dropdown" id="AbandonedShows">--}}
+                        {{--<input name="in_progress" type="hidden">--}}
+                        {{--<i class="dropdown icon"></i>--}}
+                        {{--<div class="default text">Choisir une ou plusieurs séries</div>--}}
+                        {{--<div class="menu">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--@component('components.buttons.button', ['type' => 'positive'])--}}
+                        {{--Ajouter--}}
+                    {{--@endcomponent--}}
+                {{--</div>--}}
+            {{--</form>--}}
         </div>
     </div>
 @endsection
@@ -349,6 +348,12 @@
 
 @push('scripts')
     <script>
+        InProgressBox = '.InProgressBox';
+        OnBreakBox = '.OnBreakBox';
+        CompletedBox = '.CompletedBox';
+        AbandonedBox = '.AbandonedBox';
+        ToSeeBox = '.ToSeeBox';
+
         $(document).ready(function() {
             $('#InProgressShows').dropdown({
                 apiSettings: {
@@ -361,7 +366,7 @@
                 clearable: true
             });
 
-            $('#OnBreakShow').dropdown({
+            $('#OnBreakShows').dropdown({
                 apiSettings: {
                     url: '/api/shows/list?name-lk=*{query}*',
                 },
@@ -404,6 +409,40 @@
                 },
                 clearable: true
             });
-        })
+
+            $(document).on('submit', '#formInProgress', function(e) {
+                e.preventDefault();
+
+                $(InProgressBox).addClass('loading');
+                $(OnBreakBox).addClass('loading');
+                $(CompletedBox).addClass('loading');
+                $(AbandonedBox).addClass('loading');
+                $(ToSeeBox).addClass('loading');
+
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json"
+                }).done(function (data) {
+                    // On insére le HTML
+                    $(InProgressBox).html(data);
+                    $(OnBreakBox).html(data);
+                    $(CompletedBox).html(data);
+                    $(AbandonedBox).html(data);
+                    $(ToSeeBox).html(data);
+
+                    $(InProgressBox).removeClass('loading');
+                    $(OnBreakBox).removeClass('loading');
+                    $(CompletedBox).removeClass('loading');
+                    $(AbandonedBox).removeClass('loading');
+                    $(ToSeeBox).removeClass('loading');
+
+                }).fail(function () {
+                    alert('La série n\'a pas pu être ajoutée.');
+                    $(InProgressBox).removeClass('loading');
+                });
+            });
+        });
     </script>
 @endpush
