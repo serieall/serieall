@@ -5,7 +5,7 @@
 @endif
 <div id="cardsRates" class="ui five cards stackable">
     @foreach($shows as $show)
-        @component('components.cards.followed_shows_cards', ['show' => $show])
+        @component('components.cards.followed_shows_cards', ['show' => $show, 'user' => $user])
         @endcomponent
     @endforeach
 </div>

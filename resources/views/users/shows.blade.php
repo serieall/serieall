@@ -181,26 +181,28 @@
 
             <p></p>
 
-            <form id="InProgressForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
-                {{ csrf_field() }}
+            @if(Auth::Check() && Auth::user()->user_url == $user->user_url)
+                <form id="InProgressForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                    {{ csrf_field() }}
 
-                <input name="state" type="hidden" value="1">
+                    <input name="state" type="hidden" value="1">
 
-                <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="InProgressDropdown">
-                        <input name="shows" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir une ou plusieurs séries</div>
-                        <div class="menu">
+                    <div class="two fields">
+                        <div class="ui fluid multiple search selection dropdown" id="InProgressDropdown">
+                            <input name="shows" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choisir une ou plusieurs séries</div>
+                            <div class="menu">
+                            </div>
                         </div>
-                    </div>
-                    <div class="ui red message hidden"></div>
 
-                    <button type="submit" class="positive ui button">
-                        Ajouter
-                    </button>
-                </div>
-            </form>
+                        <button type="submit" class="positive ui button">
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
+                <div id="InProgressMessage" class="ui orange message hidden"></div>
+            @endif
 
             <h1 class="ui header t-darkBlueSA">
                 Séries en pause
@@ -215,26 +217,28 @@
 
             <p></p>
 
-            <form id="OnBreakForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
-                {{ csrf_field() }}
+            @if(Auth::Check() && Auth::user()->user_url == $user->user_url)
+                <form id="OnBreakForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                    {{ csrf_field() }}
 
-                <input name="state" type="hidden" value="2">
+                    <input name="state" type="hidden" value="2">
 
-                <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="OnBreakDropdown">
-                        <input name="shows" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir une ou plusieurs séries</div>
-                        <div class="menu">
+                    <div class="two fields">
+                        <div class="ui fluid multiple search selection dropdown" id="OnBreakDropdown">
+                            <input name="shows" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choisir une ou plusieurs séries</div>
+                            <div class="menu">
+                            </div>
                         </div>
-                    </div>
-                    <div class="ui red message hidden"></div>
 
-                    <button type="submit" class="positive ui button">
-                        Ajouter
-                    </button>
-                </div>
-            </form>
+                        <button type="submit" class="positive ui button">
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
+                <div id="OnBreakMessage" class="ui orange message hidden"></div>
+            @endif
 
             <h1 class="ui header t-darkBlueSA">
                 Séries terminées
@@ -249,26 +253,28 @@
 
             <p></p>
 
-            <form id="CompletedForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
-                {{ csrf_field() }}
+            @if(Auth::Check() && Auth::user()->user_url == $user->user_url)
+                <form id="CompletedForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                    {{ csrf_field() }}
 
-                <input name="state" type="hidden" value="3">
+                    <input name="state" type="hidden" value="3">
 
-                <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="CompletedDropdown">
-                        <input name="shows" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir une ou plusieurs séries</div>
-                        <div class="menu">
+                    <div class="two fields">
+                        <div class="ui fluid multiple search selection dropdown" id="CompletedDropdown">
+                            <input name="shows" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choisir une ou plusieurs séries</div>
+                            <div class="menu">
+                            </div>
                         </div>
-                    </div>
-                    <div class="ui red message hidden"></div>
 
-                    <button type="submit" class="positive ui button">
-                        Ajouter
-                    </button>
-                </div>
-            </form>
+                        <button type="submit" class="positive ui button">
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
+                <div id="CompletedMessage" class="ui orange message hidden"></div>
+            @endif
 
             <h1 class="ui header t-darkBlueSA">
                 Séries à voir
@@ -283,26 +289,28 @@
 
             <p></p>
 
-            <form id="ToSeeForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
-                {{ csrf_field() }}
+            @if(Auth::Check() && Auth::user()->user_url == $user->user_url)
+                <form id="ToSeeForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                    {{ csrf_field() }}
 
-                <input name="state" type="hidden" value="5">
+                    <input name="state" type="hidden" value="5">
 
-                <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="ToSeeDropdown">
-                        <input name="shows" type="hidden">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Choisir une ou plusieurs séries</div>
-                        <div class="menu">
+                    <div class="two fields">
+                        <div class="ui fluid multiple search selection dropdown" id="ToSeeDropdown">
+                            <input name="shows" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choisir une ou plusieurs séries</div>
+                            <div class="menu">
+                            </div>
                         </div>
-                    </div>
-                    <div class="ui red message hidden"></div>
 
-                    <button type="submit" class="positive ui button">
-                        Ajouter
-                    </button>
-                </div>
-            </form>
+                        <button type="submit" class="positive ui button">
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
+                <div id="ToSeeMessage" class="ui orange message hidden"></div>
+            @endif
 
             <h1 class="ui header t-darkBlueSA">
                 Séries abandonnées
@@ -317,214 +325,38 @@
 
             <p></p>
 
-            <form id="AbandonedForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
-                {{ csrf_field() }}
+            @if(Auth::Check() && Auth::user()->user_url == $user->user_url)
+                <form id="AbandonedForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                    {{ csrf_field() }}
 
-                <input name="state" type="hidden" value="4">
+                    <input name="state" type="hidden" value="4">
 
-                <div class="two fields">
-                    <div class="required field">
-                        <div class="ui fluid search selection dropdown" id="AbandonedDropdown">
-                            <input name="shows" type="hidden" required>
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Choisir une ou plusieurs séries</div>
-                            <div class="menu">
+                    <div class="two fields">
+                        <div class="required field">
+                            <div class="ui fluid search selection dropdown" id="AbandonedDropdown">
+                                <input name="shows" type="hidden" required>
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choisir une ou plusieurs séries</div>
+                                <div class="menu">
+                                </div>
                             </div>
                         </div>
-                        <div class="ui red message hidden"></div>
-                    </div>
 
-                    <div class="field">
-                        <textarea name="message" rows="1"></textarea>
-                    </div>
+                        <div class="field">
+                            <textarea name="message" rows="1"></textarea>
+                        </div>
 
-                    <button type="submit" class="positive ui button">
-                        Ajouter
-                    </button>
-                </div>
-            </form>
+                        <button type="submit" class="positive ui button">
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
+                <div id="AbandonedMessage" class="ui orange message hidden"></div>
+            @endif
         </div>
     </div>
 @endsection
 
-
 @push('scripts')
-    <script>
-        InProgressDropdown = '#InProgressDropdown';
-        OnBreakDropdown = '#OnBreakDropdown';
-        CompletedDropdown = '#CompletedDropdown';
-        AbandonedDropdown = '#AbandonedDropdown';
-        ToSeeDropdown = '#ToSeeDropdown';
-        
-        InProgressForm = '#InProgressForm';
-        OnBreakForm = '#OnBreakForm';
-        CompletedForm = '#CompletedForm';
-        AbandonedForm = '#AbandonedForm';
-        ToSeeForm = '#ToSeeForm';
-
-        InProgressBox = '#InProgressBox';
-        OnBreakBox = '#OnBreakBox';
-        CompletedBox = '#CompletedBox';
-        AbandonedBox = '#AbandonedBox';
-        ToSeeBox = '#ToSeeBox';
-
-        $(document).ready(function() {
-            $(InProgressDropdown).dropdown({
-                apiSettings: {
-                    url: '/api/shows/list?name-lk=*{query}*',
-                },
-                fields: {
-                    remoteValues: 'data',
-                    value: 'id',
-                },
-                clearable: true
-            });
-
-            $(OnBreakDropdown).dropdown({
-                apiSettings: {
-                    url: '/api/shows/list?name-lk=*{query}*',
-                },
-                fields: {
-                    remoteValues: 'data',
-                    value: 'id',
-                },
-                clearable: true
-            });
-
-            $(CompletedDropdown).dropdown({
-                apiSettings: {
-                    url: '/api/shows/abandoned/list?name-lk=*{query}*',
-                },
-                fields: {
-                    remoteValues: 'data',
-                    value: 'id',
-                },
-                clearable: true
-            });
-
-            $(ToSeeDropdown).dropdown({
-                apiSettings: {
-                    url: '/api/shows/list?name-lk=*{query}*',
-                },
-                fields: {
-                    remoteValues: 'data',
-                    value: 'id',
-                },
-                clearable: true
-            });
-
-            $(AbandonedDropdown).dropdown({
-                apiSettings: {
-                    url: '/api/shows/list?name-lk=*{query}*',
-                },
-                fields: {
-                    remoteValues: 'data',
-                    value: 'id',
-                },
-                clearable: true
-            });
-
-            function reloadBox(form, box) {
-                console.log(form);
-                $.ajax({
-                    method: $(form).attr('method'),
-                    url: $(form).attr('action'),
-                    data: $(form).serialize(),
-                    dataType: "json"
-                }).done(function (data) {
-                    // On insére le HTML
-                    $(box).html(data);
-
-                    $(box).removeClass('loading');
-                }).fail(function () {
-                    alert('La série n\'a pas pu être ajoutée.');
-                    $(box).removeClass('loading');
-                });
-            }
-
-            $(document).on('submit', '#InProgressForm', function(e) {
-                e.preventDefault();
-                // Clear all other dropdowns
-                $(OnBreakDropdown).dropdown('clear');
-                $(CompletedDropdown).dropdown('clear');
-                $(ToSeeDropdown).dropdown('clear');
-                $(AbandonedDropdown).dropdown('clear');
-
-                // Reload all boxes
-                reloadBox(this, InProgressBox);
-                reloadBox(OnBreakForm, OnBreakBox);
-                reloadBox(CompletedForm, CompletedBox);
-                reloadBox(ToSeeForm, ToSeeBox);
-                reloadBox(AbandonedForm, AbandonedBox);
-            });
-
-            $(document).on('submit', '#OnBreakForm', function(e) {
-                e.preventDefault();
-
-                // Clear all other dropdowns
-                $(InProgressDropdown).dropdown('clear');
-                $(CompletedDropdown).dropdown('clear');
-                $(ToSeeDropdown).dropdown('clear');
-                $(AbandonedDropdown).dropdown('clear');
-
-                // Reload all boxes
-                reloadBox(this, OnBreakBox);
-                reloadBox(InProgressForm, InProgressBox);
-                reloadBox(CompletedForm, CompletedBox);
-                reloadBox(ToSeeForm, ToSeeBox);
-                reloadBox(AbandonedForm, AbandonedBox);
-            });
-
-            $(document).on('submit', '#CompletedForm', function(e) {
-                e.preventDefault();
-
-                // Clear all other dropdowns
-                $(InProgressDropdown).dropdown('clear');
-                $(OnBreakDropdown).dropdown('clear');
-                $(ToSeeDropdown).dropdown('clear');
-                $(AbandonedDropdown).dropdown('clear');
-
-                // Reload all boxes
-                reloadBox(this, CompletedBox);
-                reloadBox(InProgressForm, InProgressBox);
-                reloadBox(OnBreakForm, OnBreakBox);
-                reloadBox(ToSeeForm, ToSeeBox);
-                reloadBox(AbandonedForm, AbandonedBox);
-            });
-
-            $(document).on('submit', '#ToSeeForm', function(e) {
-                e.preventDefault();
-
-                // Clear all other dropdowns
-                $(InProgressDropdown).dropdown('clear');
-                $(OnBreakDropdown).dropdown('clear');
-                $(CompletedDropdown).dropdown('clear');
-                $(AbandonedDropdown).dropdown('clear');
-
-                // Reload all boxes
-                reloadBox(this, ToSeeBox);
-                reloadBox(InProgressForm, InProgressBox);
-                reloadBox(OnBreakForm, OnBreakBox);
-                reloadBox(CompletedForm, CompletedBox);
-                reloadBox(AbandonedForm, AbandonedBox);
-            });
-
-            $(document).on('submit', '#AbandonedForm', function(e) {
-                e.preventDefault();
-
-                // Clear all other dropdowns
-                $(InProgressDropdown).dropdown('clear');
-                $(OnBreakDropdown).dropdown('clear');
-                $(CompletedDropdown).dropdown('clear');
-                $(ToSeeDropdown).dropdown('clear');
-
-                // Reload all boxes
-                reloadBox(this, AbandonedBox);
-                reloadBox(InProgressForm, InProgressBox);
-                reloadBox(OnBreakForm, OnBreakBox);
-                reloadBox(CompletedForm, CompletedBox);
-                reloadBox(ToSeeForm, ToSeeBox);
-            });
-        });
-    </script>
+    {{ Html::script('/js/views/users/shows.js') }}
 @endpush

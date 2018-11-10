@@ -84,6 +84,8 @@ Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos
     Partie Suivi de série
  */
 Route::post('followshow', 'UserController@followShow')->name('user.followshow')->middleware('auth');
+Route::post('followshow/fiche', 'UserController@followShowFiche')->name('user.followshowfiche')->middleware('auth');
+Route::post('unfollowshow/{show}', 'UserController@unfollowShow')->name('user.unfollowshow')->middleware('auth');
 
 /*
     Partie Séries

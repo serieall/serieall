@@ -69,33 +69,18 @@
 
 @section('content_fiche_right')
      <div class="ui stackable grid">
-         <div class="row">
-             <div id="ButtonsActions">
-                 <div class="ui segment">
-                     <div class="ui fluid icon dropdown darkBlueSA button">
-                         <span class="text"><i class="tv icon"></i>Actions sur la série</span>
-                         <div class="menu">
-                             <div class="item">
-                                 <i class="play icon"></i>
-                                 Je regarde la série
-                             </div>
-                             <div class="item">
-                                 <i class="pause icon"></i>
-                                 Je mets en pause la série
-                             </div>
-                             <div class="item">
-                                 <i class="stop icon"></i>
-                                 J'abandonne la série
-                             </div>
+         @if(Auth::check())
+             <div class="row">
+                 <div id="ButtonsActions">
+                     <div class="ui segment">
+                         <div id="actionShows" class="ui vertical fluid labeled icon buttons">
+                             @include('shows.actions_show', ['show_id' => $showInfo['show']->id, 'completed_show' => $showInfo['show']->encours])
                          </div>
+                         <div id="messageAction" class="ui hidden orange message"></div>
                      </div>
-                     <button class="ui fluid button">
-                         <i class="calendar icon"></i>
-                         J'ajoute la série dans mon planning
-                     </button>
                  </div>
              </div>
-         </div>
+         @endif
          <div class="row">
              @include('articles.linked')
          </div>
@@ -175,6 +160,39 @@
                     });
             }
         });
+
+        $(document).on('submit', '.ui.form.noaction', function(e) {
+            e.preventDefault();
+        });
+
+        $(document).on('submit', '.ui.form.followshow', function(e) {
+            e.preventDefault()
+
+            messageAction = '#messageAction'
+
+            $(messageAction).text('');
+            $(messageAction).addClass("hidden");
+
+            actionShows = '#actionShows';
+
+            $.ajax({
+                method: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType: "json"
+            }).done(function (data) {
+                // On insére le HTML
+                $(actionShows).html(data);
+
+                $(actionShows).removeClass('loading');
+            }).fail(function () {
+                $(messageAction).text('Impossible de modifier le statut de la série. Veuillez réessayer.');
+                $(messageAction).removeClass("hidden");
+
+                $(actionShows).removeClass('loading');
+            });
+        });
+
     </script>
 @endpush
 

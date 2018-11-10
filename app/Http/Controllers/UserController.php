@@ -19,6 +19,7 @@ use App\Repositories\UserRepository;
 use App\Http\Requests\changePasswordRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use View;
 use Response;
 use Illuminate\Support\Facades\Log;
@@ -386,33 +387,75 @@ ShowRepository $showRepository)
             if($inputs['state'] == 1) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $in_progress_shows = $followed_shows->where('state', '=', 1);
-                return Response::json(View::make('users.shows_cards', ['shows' => $in_progress_shows])->render());
+                return Response::json(View::make('users.shows_cards', ['shows' => $in_progress_shows, 'user' => $user])->render());
             } elseif ($inputs['state'] == 2) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $on_break_shows = $followed_shows->where('state', '=', 2);
-                return Response::json(View::make('users.shows_cards', ['shows' => $on_break_shows])->render());
+                return Response::json(View::make('users.shows_cards', ['shows' => $on_break_shows, 'user' => $user])->render());
             } elseif ($inputs['state'] == 3) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $completed_shows = $followed_shows->where('state', '=', 3);
-                return Response::json(View::make('users.shows_cards', ['shows' => $completed_shows])->render());
+                return Response::json(View::make('users.shows_cards', ['shows' => $completed_shows, 'user' => $user])->render());
             } elseif ($inputs['state'] == 4) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $abandoned_shows = $followed_shows->where('state', '=', 4);
-                return Response::json(View::make('users.shows_abandoned_cards', ['shows' => $abandoned_shows])->render());
+                return Response::json(View::make('users.shows_abandoned_cards', ['shows' => $abandoned_shows, 'user' => $user])->render());
             } elseif ($inputs['state'] == 5) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $to_see_shows = $followed_shows->where('state', '=', 5);
-                return Response::json(View::make('users.shows_cards', ['shows' => $to_see_shows])->render());
+                return Response::json(View::make('users.shows_cards', ['shows' => $to_see_shows, 'user' => $user])->render());
             }
         }
         return 404;
     }
 
-    public function unfollowShow($show) {
-        $user = Auth::user();
+    /**
+     * Follow Show
+     *
+     * @param FollowShowRequest $request
+     * @return \Illuminate\Http\JsonResponse|int
+     */
+    public function followShowFiche(FollowShowRequest $request) {
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
-        if ($user->shows->contains($show)) {
-            $user->shows()->detach($show);
+        if (Request::ajax()) {
+            $user = $this->userRepository->getUserByID($inputs['user_id']);
+
+            if(!empty($inputs['shows'])) {
+                $show = explode(',', $inputs['shows']);
+                if (!isset($inputs['message'])) {
+                    $message = "";
+                } else {
+                    $message = $inputs['message'];
+                }
+
+                foreach ($show as $s) {
+                    if ($user->shows->contains($s)) {
+                        $user->shows()->detach($s);
+                    }
+                }
+
+                $user->shows()->attach($show, ['state' => $inputs['state'], 'message' => $message]);
+                $show = $this->showRepository->getShowByID($inputs['shows']);
+
+                return Response::json(View::make('shows.actions_show', ['state_show' => $inputs['state'], 'show_id' => $inputs['shows'], 'completed_show' => $show->encours])->render());
+            }
+
         }
+        return 404;
+    }
+
+    public function unfollowShow($show) {
+        if (Request::ajax()) {
+            Log::info($show);
+            $user = Auth::user();
+
+            if ($user->shows->contains($show)) {
+                Log::info('detach');
+                $user->shows()->detach($show);
+            }
+            return Response::json(200);
+        }
+        return 404;
     }
 }

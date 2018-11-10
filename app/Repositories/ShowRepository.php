@@ -13,6 +13,7 @@ use App\Models\Comment;
 use App\Models\Show;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -360,6 +361,7 @@ class ShowRepository
             ->join('users', 'users.id', '=', 'show_user.user_id')
             ->orderBy('shows.name')
             ->where('users.id', '=', $user)
+            ->select(DB::raw('shows.id as sid, users.id as uid, shows.name as name, shows.show_url as show_url, show_user.state as state, show_user.message as message'))
             ->get();
     }
 }
