@@ -28,11 +28,6 @@ class ArticleCreateRequest extends FormRequest
      * @return void
      */
     protected function withValidator($validator){
-        $validator->sometimes('show', 'required', function($input)
-        {
-            return $input->one == 1;
-        });
-
         $validator->sometimes('shows', 'required', function($input)
         {
             return $input->one == 0;
@@ -40,6 +35,10 @@ class ArticleCreateRequest extends FormRequest
         $validator->sometimes('image', 'required|image', function($input)
         {
             return $input->one == 0;
+        });
+        $validator->sometimes('image', 'required|image', function($input)
+        {
+            return $input->show == "";
         });
     }
 

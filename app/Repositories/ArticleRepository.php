@@ -157,6 +157,7 @@ class ArticleRepository
             $q->where('id', '=', $show_id);
         })
             ->where('id', '!=', $article_id)
+            ->limit(3)
             ->get();
     }
 
@@ -172,6 +173,21 @@ class ArticleRepository
             $q->where('id', '=', $season_id);
         })
             ->where('id', '!=', $article_id)
+            ->limit(3)
+            ->get();
+    }
+
+    /**
+     * Return articles similaires
+     *
+     * @param $article_id
+     * @param $category_id
+     * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
+    public function getSimilaryArticles($article_id, $category_id) {
+        return $this->article->where('category_id', '=', $category_id)
+            ->where('id', '!=', $article_id)
+            ->limit(3)
             ->get();
     }
 }

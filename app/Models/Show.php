@@ -152,6 +152,6 @@ class Show extends Model {
      */
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'show_user')->withPivot('state', 'message');
+        return $this->belongsToMany('App\Models\User')->withPivot('state', 'message');
     }
 }

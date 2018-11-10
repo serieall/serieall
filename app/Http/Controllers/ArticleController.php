@@ -81,7 +81,7 @@ class ArticleController extends Controller
         $object = compileObjectInfos('Article', $article->id);
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
-        if($article->shows_count = 1) {
+        if($article->shows_count == 1) {
             if($article->seasons_count >= 1) {
                 $type_article = "Season";
                 if ($article->episodes_count >=1) {
@@ -101,6 +101,9 @@ class ArticleController extends Controller
                     $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
                 }
             }
+        } else {
+            $type_article = "";
+            $articles_linked = $this->articleRepository->getSimilaryArticles($article->id, $article->category_id);
         }
 
         if (Request::ajax()) {

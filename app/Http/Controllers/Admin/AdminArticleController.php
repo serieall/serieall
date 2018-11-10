@@ -76,7 +76,6 @@ class AdminArticleController extends Controller
      */
     public function create()
     {
-
         return view('admin/articles/create');
     }
 
@@ -133,7 +132,7 @@ class AdminArticleController extends Controller
             $article->state = 0;
         }
 
-        if($inputs['one'] == 1) {
+        if($inputs['one'] == 1 && !empty($inputs['show'])) {
             // We fetch the show and initiate image
             $show = $this->showRepository->getShowByID($inputs['show']);
             $article->image = config('directories.shows') . $show->show_url . '.jpg';
@@ -148,6 +147,9 @@ class AdminArticleController extends Controller
             $article->image = config('directories.articles') . $fileName;
 
             Input::file('image')->move($destinationPath, $fileName);
+            Log::info('Image OK');
+        } else {
+            Log::info('Image too big');
         }
 
         // On lie les catégories et on sauvegarde l'article
@@ -180,7 +182,7 @@ class AdminArticleController extends Controller
                 $article->shows()->attach($inputs['show']);
             }
             // Sinon, on lie à la série
-            else {
+            elseif(!empty($inputs['show'])) {
                 $season = $this->seasonRepository->getSeasonWithShowByID($inputs['season']);
                 $article->seasons()->attach($season->id);
                 $article->shows()->attach($season->show->id);
@@ -256,7 +258,7 @@ class AdminArticleController extends Controller
             $article->state = 0;
         }
 
-        if($inputs['one'] == 1) {
+        if($inputs['one'] == 1 && !empty($inputs['show'])) {
             // We fetch the show and initiate image
             $show = $this->showRepository->getByName($inputs['show']);
             $article->image = config('directories.shows') . $show->show_url . '.jpg';
@@ -305,11 +307,11 @@ class AdminArticleController extends Controller
             elseif(empty($inputs['season'])) {
                 $article->shows()->sync($inputs['show']);
             }
-            // Sinon, on lie à la saison
-            else {
+            // Sinon, on lie à la série
+            elseif(!empty($inputs['show'])) {
                 $season = $this->seasonRepository->getSeasonWithShowByID($inputs['season']);
-                $article->seasons()->sync($season->id);
-                $article->shows()->sync($season->show->id);
+                $article->seasons()->attach($season->id);
+                $article->shows()->attach($season->show->id);
             }
         }
         else {

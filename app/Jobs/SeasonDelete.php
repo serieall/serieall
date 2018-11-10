@@ -62,11 +62,26 @@ class SeasonDelete implements ShouldQueue
             saveLogMessage($idLog, $logMessage);
             $episode->artists()->detach();
 
+            // On détache les avis
+            $episode->comments()->delete();
+
+            // On détache les notes
+            $episode->users()->detach();
+
+            // On détache les articles
+            $episode->articles()->detach();
+
             // On le supprime
             $logMessage = '>>> Suppression de l\'épisode';
             saveLogMessage($idLog, $logMessage);
             $episode->delete();
         }
+        // On détache les avis
+        $season->comments()->delete();
+
+        // On détache les articles
+        $season->articles()->detach();
+
         // On supprime la saison
         $logMessage = '>> Suppression de la saison';
         saveLogMessage($idLog, $logMessage);

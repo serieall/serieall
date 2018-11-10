@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 use App\Repositories\ShowRepository;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class ShowDelete
@@ -97,16 +98,35 @@ class ShowDelete implements ShouldQueue
                 // On détache les notes
                 $episode->users()->detach();
 
+                // On détache les articles
+                $episode->articles()->detach();
+
                 // On le supprime
                 $logMessage = '>>> Suppression de l\'épisode';
                 saveLogMessage($idLog, $logMessage);
                 $episode->delete();
             }
+            // On détache les avis
+            $season->comments()->delete();
+
+            // On détache les articles
+            $season->articles()->detach();
+
             // On supprime la saison
             $logMessage = '>> Suppression de la saison';
             saveLogMessage($idLog, $logMessage);
             $season->delete();
         }
+        Log::info('comments');
+        // On détache les avis
+        $show->comments()->delete();
+
+        // On détache les articles
+        $show->articles()->detach();
+
+        // On la détache des séries suivies
+        Log::info('follow');
+        $show->users()->detach();
 
         // On supprime la série
         $logMessage = '> Suppression de la série';

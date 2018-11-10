@@ -78,7 +78,7 @@
                                 <div class="ui grid">
                                     <div class="thirteen wide column">
                                         <div class="ui @if(count($article->shows) > 1) disabled @endif search fluid selection dropdown oneShowField dropdownShow">
-                                            <input id="inputShow" name="show" type="hidden" value="@if(count($article->shows) <= 1){{ $article->shows->first()->name }}@else{{ old('show') }}@endif">
+                                            <input id="inputShow" name="show" type="hidden" value="@if(count($article->shows) == 1){{ $article->shows->first()->name }}@else{{ old('show') }}@endif">
                                             <i class="dropdown icon"></i>
                                             <div class="default text">Série</div>
                                             <div class="menu">
