@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Models\Show_user;
 use App\Models\User;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -73,5 +74,26 @@ class UserRepository
     public function getUserByID($id)
     {
         return $this->user::findOrFail($id);
+    }
+
+    /**
+     * Get planning for user
+     *
+     * @param $user_id
+     * @param $state
+     * @return mixed
+     */
+    public function getEpisodePlanning($user_id, $state) {
+        return $this->user->join('show_user', 'users.id', '=', 'show_user.user_id')
+            ->join('shows', 'show_user.show_id', '=', 'shows.id')
+            ->join('seasons', 'shows.id', '=', 'seasons.show_id')
+            ->join('episodes', 'seasons.id', '=', 'episodes.season_id')
+            ->where('users.id', '=', $user_id)
+            ->where('show_user.state', '=', $state)
+            ->whereBetween('episodes.diffusion_us', [
+                Carbon::now()->subMonth(1),
+                Carbon::now()->addMonth(1)])
+            ->select(DB::raw('shows.name as show_name, seasons.name as season_name, episodes.name as episode_name, episodes.id, episodes.numero, episodes.diffusion_us, shows.show_url'))
+            ->get();
     }
 }

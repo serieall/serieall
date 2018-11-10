@@ -20,6 +20,7 @@ use App\Http\Requests\changePasswordRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 use View;
 use Response;
 use Illuminate\Support\Facades\Log;
@@ -441,6 +442,12 @@ ShowRepository $showRepository)
         return 404;
     }
 
+    /**
+     * Unfollow a show
+     *
+     * @param $show
+     * @return \Illuminate\Http\JsonResponse|int
+     */
     public function unfollowShow($show) {
         if (Request::ajax()) {
             $user = Auth::user();
@@ -451,5 +458,73 @@ ShowRepository $showRepository)
             return Response::json(200);
         }
         return 404;
+    }
+
+    /**
+     * Get planning for a particular user
+     *
+     * @param $user_url
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getPlanning($user_url) {
+        $user = $this->userRepository->getUserByURL($user_url);
+
+        $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
+        $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
+        $time_passed_shows = getTimePassedOnShow($this->rateRepository, $user->id);
+
+        $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
+        $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
+        $comment_fav = $comments->where('thumb', '=', 1)->first();
+        $comment_neu = $comments->where('thumb', '=', 2)->first();
+        $comment_def = $comments->where('thumb', '=', 3)->first();
+
+        $episodes_in_progress = $this->userRepository->getEpisodePlanning($user->id, 1);
+        $episodes_on_break = $this->userRepository->getEpisodePlanning($user->id, 2);
+
+        $events = [];
+
+        foreach($episodes_in_progress as $event) {
+            $events[] = Calendar::event(
+                $event->show_name . ' - ' . 'Episode ' . $event->season_name . '.' . sprintf('%02s', $event->numero),
+                true,
+                $event->diffusion_us,
+                $event->diffusion_us,
+                $event->id,
+                [
+                    'url' => route("episode.fiche", [$event->show_url, $event->season_name, $event->numero, $event->id]),
+                    'backgroundColor' => '#1074b2',
+                    'borderColor' => '#1074b2'
+                ]
+            );
+        }
+
+        foreach($episodes_on_break as $event) {
+            $events[] = Calendar::event(
+                $event->show_name . ' - ' . 'Episode ' . $event->season_name . '.' . sprintf('%02s', $event->numero),
+                true,
+                $event->diffusion_us,
+                $event->diffusion_us,
+                $event->id,
+                [
+                    'url' => route("episode.fiche", [$event->show_url, $event->season_name, $event->numero, $event->id]),
+                    'backgroundColor' => '#213d64',
+                    'borderColor' => '#213d64',
+                    'hover' => $event->show_name . ' - ' . 'Episode ' . $event->season_name . '.' . sprintf('%02s', $event->numero),
+                ]
+            );
+        }
+
+        $calendar = Calendar::addEvents($events)
+            ->setOptions([
+                'firstDay' => 1,
+                'lang' => 'fr',
+                'locale' => 'fr',
+                'aspectRatio' => 2.5,
+                'showNonCurrentDates' => false,
+                'fixedWeekCount' => false,
+            ])->setCallbacks(['eventRender' => 'function(eventObj, $el) {$el.popup({title: eventObj.title,content: eventObj.description,trigger: "hover",placement: "top",container: "body"});}']);
+
+        return view('users.planning', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'calendar'));
     }
 }

@@ -54,7 +54,7 @@ class PlanningController extends Controller
                 'aspectRatio' => 2.5,
                 'showNonCurrentDates' => false,
                 'fixedWeekCount' => false,
-        ]);
+        ])->setCallbacks(['eventRender' => 'function(eventObj, $el) {$el.popup({title: eventObj.title,content: eventObj.description,trigger: "hover",placement: "top",container: "body"});}']);
         return view('planning.index', compact('calendar'));
     }
 }
