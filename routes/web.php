@@ -81,6 +81,12 @@ Route::post('changepassword', 'UserController@changePassword')->name('user.chang
 Route::post('changeinfos', 'UserController@changeInfos')->name('user.changeinfos')->middleware('auth');
 
 /*
+    Partie Notifications
+ */
+Route::post('notification', 'UserController@markNotification')->name('user.markNotification')->middleware('auth');
+Route::post('notifications', 'UserController@markNotifications')->name('user.markNotifications')->middleware('auth');
+
+/*
     Partie Suivi de série
  */
 Route::post('followshow', 'UserController@followShow')->name('user.followshow')->middleware('auth');

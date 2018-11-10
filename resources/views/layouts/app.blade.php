@@ -71,9 +71,10 @@
                         Administration
                     </a>
                 @endif
-                <a class="item" href="">
-                   <i class="alarm icon"></i>
-                   Notifications
+                <a class="item" href="{{ route('user.profile.notifications', Auth::user()->user_url) }}">
+                    <i class="alarm icon"></i>
+                    Notifications
+                    <div class="ui red horizontal label">{{ $unread_notifications->count() }}</div>
                 </a>
                 <a class="item" href="{{ route('user.profile', Auth::user()->user_url) }}">
                     <i class="user icon"></i>
@@ -160,8 +161,36 @@
                     </a>
                 @else
 
-                    <div class="icon item">
+                    <div class="ui icon item scrolling pointing multiple notifications dropdown">
                         <i class="large alarm icon"></i>
+                        @if($unread_notifications->count() != 0 )
+                            <div class="notification floating ui red label">
+                                {{ $unread_notifications->count() }}
+                            </div>
+                        @endif
+                        <div class="notifications menu">
+                            <div class="header">
+                                Notifications
+                                @if($unread_notifications->count() != 0 )
+                                    <a class="markAllasRead" href="#">
+                                        Tout marquer comme lu
+                                    </a>
+                                    |
+                                @endif
+                                <a href="{{ route('user.profile.notifications', Auth::user()->user_url) }}">
+                                    Tout voir >
+                                </a>
+                            </div>
+                            <div class="ui divider"></div>
+                            @if($unread_notifications->count() == 0 )
+                                <div class="message">Aucune notification</div>
+                            @endif
+                            @foreach($unread_notifications as $notif)
+                                <div class="item">
+                                    <i id="{{ $notif->id }}" class="circle icon"></i> <a href="{{ $notif->data['url'] }}">{{ affichageUsername($notif->data['user_id']) }} {{ $notif->data['title'] }}</a>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="ui pointing labeled icon dropdown link item" @if($navActive === 'profil')id="profilActif"@endif>
                         <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">

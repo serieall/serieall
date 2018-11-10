@@ -168,6 +168,56 @@
                 });
         });
 
+        $('.notifications.dropdown').dropdown({
+            useLabels: false
+        });
+
+        $('.notifications.menu .circle.icon').click(function(e){
+            e.preventDefault();
+
+            icon = $(this);
+            nb_notif = +($('.notification.label').text());
+
+            $.ajax({
+                method: 'post',
+                url: '/notification',
+                data: {'_token': "{{csrf_token()}}" , 'notif_id': $(this).attr('id')},
+                dataType: "json"
+            }).done(function() {
+                $(icon).toggleClass('outline');
+                if($(icon).hasClass('outline')) {
+                    if(nb_notif == 1) {
+                        $('.notification.label').hide();
+                        $('.notification.label').text(nb_notif - 1);
+                    } else {
+                        $('.notification.label').text(nb_notif - 1);
+                    }
+                } else {
+                    if(nb_notif == 0) {
+                        $('.notification.label').show();
+                        $('.notification.label').text(nb_notif + 1);
+                    } else {
+                        $('.notification.label').text(nb_notif + 1);
+                    }
+                }
+            });
+        });
+
+        $('.markAllasRead').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                method: 'post',
+                url: '/notifications',
+                data: {'_token': "{{csrf_token()}}"},
+                dataType: "json"
+            }).done(function() {
+                $('.notifications.menu .circle.icon').toggleClass('outline');
+                $('.notification.label').hide();
+                $('.notification.label').text(0);
+                $('.markAllasRead').hide();
+            });
+        });
     })
 </script>
 

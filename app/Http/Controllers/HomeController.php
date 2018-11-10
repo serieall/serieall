@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Notifications\DatabaseNotification;
 use App\Repositories\RateRepository;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * Class HomeController
@@ -32,6 +35,8 @@ class HomeController extends Controller
     public function index()
     {
         $lastRates = $this->rateRepository->getLast20Rates();
+
+//        Auth::user()->notify(new DatabaseNotification(' a réagi à votre commentaire sur Westworld', route('show.fiche', 'westworld') ,2));
 
         return view('pages.home', compact('lastRates'));
     }

@@ -141,6 +141,12 @@ class ComposerServiceProvider extends ServiceProvider
             ['shows/statistics'],
             'App\Http\ViewComposers\FicheActiveStatisticsComposer'
         );
+
+        // UnreadNotifications
+        View::composer(
+            ['*'],
+            'App\Http\ViewComposers\UnreadNotificationsComposer'
+        );
     }
 
     /**

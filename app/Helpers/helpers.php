@@ -146,3 +146,8 @@ function calculateReadingTime($content) {
 
     return $est;
 }
+
+function affichageUsername($id) {
+    $user = \App\Models\User::findOrFail($id);
+    return $user->username;
+}

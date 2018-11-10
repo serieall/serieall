@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FollowShowRequest;
+use App\Http\Requests\NotificationRequest;
 use App\Http\Requests\UserChangeInfosRequest;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
@@ -526,5 +527,40 @@ ShowRepository $showRepository)
             ])->setCallbacks(['eventRender' => 'function(eventObj, $el) {$el.popup({title: eventObj.title,content: eventObj.description,trigger: "hover",placement: "top",container: "body"});}']);
 
         return view('users.planning', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'calendar'));
+    }
+
+    /**
+     * @param NotificationRequest $notificationRequest
+     * @return \Illuminate\Http\JsonResponse|int
+     */
+    public function markNotification(NotificationRequest $notificationRequest) {
+        if(Request::ajax()) {
+            $user = Auth::user();
+            $notification = $user->Notifications->where('id', '=', $notificationRequest->notif_id)->first();
+            Log::info($notification);
+
+                if(is_null($notification->read_at)) {
+                    $notification->markAsRead();
+                } else {
+                    $notification->markAsUnRead();
+                }
+
+            return Response::json('OK');
+        }
+        return 404;
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse|int
+     */
+    public function markNotifications() {
+        if(Request::ajax()) {
+            $user = Auth::user();
+
+            $user->unreadNotifications->markAsRead();
+
+            return Response::json('OK');
+        }
+        return 404;
     }
 }

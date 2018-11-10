@@ -393,3 +393,27 @@ table.dataTable.no-footer {
   width: auto;
   height: 100px !important;
 }
+
+.ui.floating.label {
+  top: -0.15em;
+}
+
+.notifications.menu {
+  .item {
+    width: max-content;
+    width: -moz-max-content;
+    height: inherit !important;
+    border-bottom: none transparent !important;
+    border-radius: 0 !important;
+    &:hover {
+      border-bottom-width: 0 !important;
+    }
+    a {
+      font-weight: bold !important;
+      color: inherit;
+    }
+  }
+  .active.item a {
+    font-weight: normal !important;
+  }
+}
