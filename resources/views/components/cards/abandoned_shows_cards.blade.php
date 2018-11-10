@@ -1,4 +1,4 @@
-<div class="item">
+<div class="item card">
     <div class="image">
         <img src="{{ShowPicture($show->show_url)}}">
     </div>

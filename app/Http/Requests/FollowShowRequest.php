@@ -29,7 +29,6 @@ class FollowShowRequest extends FormRequest
     public function rules()
     {
         return [
-            'shows' => 'required',
             'state' => 'required|int|in:1,2,3,4,5'
         ];
 

@@ -176,18 +176,18 @@
             </h1>
 
             <div id="InProgressBox">
-                @include('users.shows_cards')
+                @include('users.shows_cards', ['shows' => $in_progress_shows])
             </div>
 
             <p></p>
 
-            <form id="formInProgress" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+            <form id="InProgressForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
                 {{ csrf_field() }}
 
                 <input name="state" type="hidden" value="1">
 
                 <div class="two fields">
-                    <div class="ui fluid multiple search selection dropdown" id="InProgressShows">
+                    <div class="ui fluid multiple search selection dropdown" id="InProgressDropdown">
                         <input name="shows" type="hidden">
                         <i class="dropdown icon"></i>
                         <div class="default text">Choisir une ou plusieurs séries</div>
@@ -208,34 +208,33 @@
                     Ce sont les séries que vous suivez et qui vont reprendre prochainement.
                 </span>
             </h1>
-            @if(count($on_break_shows) == 0)
-                @component('components.message_simple', ['type' => 'info'])
-                    Pas de séries en pause
-                @endcomponent
-            @endif
-            <div id="cardsRates" class="ui five cards stackable">
-                @foreach($on_break_shows as $show)
-                    @component('components.cards.followed_shows_cards', ['show' => $show])
-                    @endcomponent
-                @endforeach
+
+            <div id="OnBreakBox">
+                @include('users.shows_cards', ['shows' => $on_break_shows])
             </div>
 
             <p></p>
 
-            {{--<form class="ui form" action="">--}}
-                {{--<div class="two fields">--}}
-                    {{--<div class="ui fluid multiple search selection dropdown" id="OnBreakShows">--}}
-                        {{--<input name="in_progress" type="hidden">--}}
-                        {{--<i class="dropdown icon"></i>--}}
-                        {{--<div class="default text">Choisir une ou plusieurs séries</div>--}}
-                        {{--<div class="menu">--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--@component('components.buttons.button', ['type' => 'positive'])--}}
-                        {{--Ajouter--}}
-                    {{--@endcomponent--}}
-                {{--</div>--}}
-            {{--</form>--}}
+            <form id="OnBreakForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                {{ csrf_field() }}
+
+                <input name="state" type="hidden" value="2">
+
+                <div class="two fields">
+                    <div class="ui fluid multiple search selection dropdown" id="OnBreakDropdown">
+                        <input name="shows" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choisir une ou plusieurs séries</div>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    <div class="ui red message hidden"></div>
+
+                    <button type="submit" class="positive ui button">
+                        Ajouter
+                    </button>
+                </div>
+            </form>
 
             <h1 class="ui header t-darkBlueSA">
                 Séries terminées
@@ -243,34 +242,33 @@
                     Ce sont les séries terminées que vous avez regardées entièrement.
                 </span>
             </h1>
-            @if(count($completed_shows) == 0)
-                @component('components.message_simple', ['type' => 'info'])
-                    Pas de séries terminées
-                @endcomponent
-            @endif
-            <div id="cardsRates" class="ui five cards stackable">
-                @foreach($completed_shows as $show)
-                    @component('components.cards.followed_shows_cards', ['show' => $show])
-                    @endcomponent
-                @endforeach
+
+            <div id="CompletedBox">
+                @include('users.shows_cards', ['shows' => $completed_shows])
             </div>
 
             <p></p>
 
-            {{--<form class="ui form" action="">--}}
-                {{--<div class="two fields">--}}
-                    {{--<div class="ui fluid multiple search selection dropdown" id="CompletedShows">--}}
-                        {{--<input name="in_progress" type="hidden">--}}
-                        {{--<i class="dropdown icon"></i>--}}
-                        {{--<div class="default text">Choisir une ou plusieurs séries</div>--}}
-                        {{--<div class="menu">--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--@component('components.buttons.button', ['type' => 'positive'])--}}
-                        {{--Ajouter--}}
-                    {{--@endcomponent--}}
-                {{--</div>--}}
-            {{--</form>--}}
+            <form id="CompletedForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                {{ csrf_field() }}
+
+                <input name="state" type="hidden" value="3">
+
+                <div class="two fields">
+                    <div class="ui fluid multiple search selection dropdown" id="CompletedDropdown">
+                        <input name="shows" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choisir une ou plusieurs séries</div>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    <div class="ui red message hidden"></div>
+
+                    <button type="submit" class="positive ui button">
+                        Ajouter
+                    </button>
+                </div>
+            </form>
 
             <h1 class="ui header t-darkBlueSA">
                 Séries à voir
@@ -278,34 +276,33 @@
                      Ce sont les séries que vous avez prévu de regarder prochainement.
                 </span>
             </h1>
-            @if(count($to_see_shows) == 0)
-                @component('components.message_simple', ['type' => 'info'])
-                    Pas de séries à voir
-                @endcomponent
-            @endif
-            <div id="cardsRates" class="ui five cards stackable">
-                @foreach($to_see_shows as $show)
-                    @component('components.cards.followed_shows_cards', ['show' => $show])
-                    @endcomponent
-                @endforeach
+
+            <div id="ToSeeBox">
+                @include('users.shows_cards', ['shows' => $to_see_shows])
             </div>
 
             <p></p>
 
-            {{--<form class="ui form" action="">--}}
-                {{--<div class="two fields">--}}
-                    {{--<div class="ui fluid multiple search selection dropdown" id="ToSeeShows">--}}
-                        {{--<input name="in_progress" type="hidden">--}}
-                        {{--<i class="dropdown icon"></i>--}}
-                        {{--<div class="default text">Choisir une ou plusieurs séries</div>--}}
-                        {{--<div class="menu">--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--@component('components.buttons.button', ['type' => 'positive'])--}}
-                        {{--Ajouter--}}
-                    {{--@endcomponent--}}
-                {{--</div>--}}
-            {{--</form>--}}
+            <form id="ToSeeForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                {{ csrf_field() }}
+
+                <input name="state" type="hidden" value="5">
+
+                <div class="two fields">
+                    <div class="ui fluid multiple search selection dropdown" id="ToSeeDropdown">
+                        <input name="shows" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choisir une ou plusieurs séries</div>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    <div class="ui red message hidden"></div>
+
+                    <button type="submit" class="positive ui button">
+                        Ajouter
+                    </button>
+                </div>
+            </form>
 
             <h1 class="ui header t-darkBlueSA">
                 Séries abandonnées
@@ -313,34 +310,39 @@
                       Ce sont les séries que vous avez abandonnées avant la fin. Expliquez-nous la raison.
                 </span>
             </h1>
-            @if(count($abandoned_shows) == 0)
-                @component('components.message_simple', ['type' => 'info'])
-                    Pas de séries abandonées
-                @endcomponent
-            @endif
-            <div id="cardsRates" class="ui items stackable">
-                @foreach($abandoned_shows as $show)
-                    @component('components.cards.abandoned_shows_cards', ['show' => $show])
-                    @endcomponent
-                @endforeach
+
+            <div id="AbandonedBox">
+                @include('users.shows_abandoned_cards', ['shows' => $abandoned_shows])
             </div>
 
             <p></p>
 
-            {{--<form class="ui form" action="">--}}
-                {{--<div class="two fields">--}}
-                    {{--<div class="ui fluid multiple search selection dropdown" id="AbandonedShows">--}}
-                        {{--<input name="in_progress" type="hidden">--}}
-                        {{--<i class="dropdown icon"></i>--}}
-                        {{--<div class="default text">Choisir une ou plusieurs séries</div>--}}
-                        {{--<div class="menu">--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--@component('components.buttons.button', ['type' => 'positive'])--}}
-                        {{--Ajouter--}}
-                    {{--@endcomponent--}}
-                {{--</div>--}}
-            {{--</form>--}}
+            <form id="AbandonedForm" class="ui form" method="POST" action="{{ route('user.followshow') }}">
+                {{ csrf_field() }}
+
+                <input name="state" type="hidden" value="4">
+
+                <div class="two fields">
+                    <div class="required field">
+                        <div class="ui fluid search selection dropdown" id="AbandonedDropdown">
+                            <input name="shows" type="hidden" required>
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choisir une ou plusieurs séries</div>
+                            <div class="menu">
+                            </div>
+                        </div>
+                        <div class="ui red message hidden"></div>
+                    </div>
+
+                    <div class="field">
+                        <textarea name="message" rows="1"></textarea>
+                    </div>
+
+                    <button type="submit" class="positive ui button">
+                        Ajouter
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
@@ -348,14 +350,26 @@
 
 @push('scripts')
     <script>
-        InProgressBox = '.InProgressBox';
-        OnBreakBox = '.OnBreakBox';
-        CompletedBox = '.CompletedBox';
-        AbandonedBox = '.AbandonedBox';
-        ToSeeBox = '.ToSeeBox';
+        InProgressDropdown = '#InProgressDropdown';
+        OnBreakDropdown = '#OnBreakDropdown';
+        CompletedDropdown = '#CompletedDropdown';
+        AbandonedDropdown = '#AbandonedDropdown';
+        ToSeeDropdown = '#ToSeeDropdown';
+        
+        InProgressForm = '#InProgressForm';
+        OnBreakForm = '#OnBreakForm';
+        CompletedForm = '#CompletedForm';
+        AbandonedForm = '#AbandonedForm';
+        ToSeeForm = '#ToSeeForm';
+
+        InProgressBox = '#InProgressBox';
+        OnBreakBox = '#OnBreakBox';
+        CompletedBox = '#CompletedBox';
+        AbandonedBox = '#AbandonedBox';
+        ToSeeBox = '#ToSeeBox';
 
         $(document).ready(function() {
-            $('#InProgressShows').dropdown({
+            $(InProgressDropdown).dropdown({
                 apiSettings: {
                     url: '/api/shows/list?name-lk=*{query}*',
                 },
@@ -366,7 +380,7 @@
                 clearable: true
             });
 
-            $('#OnBreakShows').dropdown({
+            $(OnBreakDropdown).dropdown({
                 apiSettings: {
                     url: '/api/shows/list?name-lk=*{query}*',
                 },
@@ -377,7 +391,7 @@
                 clearable: true
             });
 
-            $('#CompletedShows').dropdown({
+            $(CompletedDropdown).dropdown({
                 apiSettings: {
                     url: '/api/shows/abandoned/list?name-lk=*{query}*',
                 },
@@ -388,7 +402,7 @@
                 clearable: true
             });
 
-            $('#ToSeeShows').dropdown({
+            $(ToSeeDropdown).dropdown({
                 apiSettings: {
                     url: '/api/shows/list?name-lk=*{query}*',
                 },
@@ -399,7 +413,7 @@
                 clearable: true
             });
 
-            $('#AbandonedShows').dropdown({
+            $(AbandonedDropdown).dropdown({
                 apiSettings: {
                     url: '/api/shows/list?name-lk=*{query}*',
                 },
@@ -410,38 +424,106 @@
                 clearable: true
             });
 
-            $(document).on('submit', '#formInProgress', function(e) {
-                e.preventDefault();
-
-                $(InProgressBox).addClass('loading');
-                $(OnBreakBox).addClass('loading');
-                $(CompletedBox).addClass('loading');
-                $(AbandonedBox).addClass('loading');
-                $(ToSeeBox).addClass('loading');
-
+            function reloadBox(form, box) {
+                console.log(form);
                 $.ajax({
-                    method: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
+                    method: $(form).attr('method'),
+                    url: $(form).attr('action'),
+                    data: $(form).serialize(),
                     dataType: "json"
                 }).done(function (data) {
                     // On insére le HTML
-                    $(InProgressBox).html(data);
-                    $(OnBreakBox).html(data);
-                    $(CompletedBox).html(data);
-                    $(AbandonedBox).html(data);
-                    $(ToSeeBox).html(data);
+                    $(box).html(data);
 
-                    $(InProgressBox).removeClass('loading');
-                    $(OnBreakBox).removeClass('loading');
-                    $(CompletedBox).removeClass('loading');
-                    $(AbandonedBox).removeClass('loading');
-                    $(ToSeeBox).removeClass('loading');
-
+                    $(box).removeClass('loading');
                 }).fail(function () {
                     alert('La série n\'a pas pu être ajoutée.');
-                    $(InProgressBox).removeClass('loading');
+                    $(box).removeClass('loading');
                 });
+            }
+
+            $(document).on('submit', '#InProgressForm', function(e) {
+                e.preventDefault();
+                // Clear all other dropdowns
+                $(OnBreakDropdown).dropdown('clear');
+                $(CompletedDropdown).dropdown('clear');
+                $(ToSeeDropdown).dropdown('clear');
+                $(AbandonedDropdown).dropdown('clear');
+
+                // Reload all boxes
+                reloadBox(this, InProgressBox);
+                reloadBox(OnBreakForm, OnBreakBox);
+                reloadBox(CompletedForm, CompletedBox);
+                reloadBox(ToSeeForm, ToSeeBox);
+                reloadBox(AbandonedForm, AbandonedBox);
+            });
+
+            $(document).on('submit', '#OnBreakForm', function(e) {
+                e.preventDefault();
+
+                // Clear all other dropdowns
+                $(InProgressDropdown).dropdown('clear');
+                $(CompletedDropdown).dropdown('clear');
+                $(ToSeeDropdown).dropdown('clear');
+                $(AbandonedDropdown).dropdown('clear');
+
+                // Reload all boxes
+                reloadBox(this, OnBreakBox);
+                reloadBox(InProgressForm, InProgressBox);
+                reloadBox(CompletedForm, CompletedBox);
+                reloadBox(ToSeeForm, ToSeeBox);
+                reloadBox(AbandonedForm, AbandonedBox);
+            });
+
+            $(document).on('submit', '#CompletedForm', function(e) {
+                e.preventDefault();
+
+                // Clear all other dropdowns
+                $(InProgressDropdown).dropdown('clear');
+                $(OnBreakDropdown).dropdown('clear');
+                $(ToSeeDropdown).dropdown('clear');
+                $(AbandonedDropdown).dropdown('clear');
+
+                // Reload all boxes
+                reloadBox(this, CompletedBox);
+                reloadBox(InProgressForm, InProgressBox);
+                reloadBox(OnBreakForm, OnBreakBox);
+                reloadBox(ToSeeForm, ToSeeBox);
+                reloadBox(AbandonedForm, AbandonedBox);
+            });
+
+            $(document).on('submit', '#ToSeeForm', function(e) {
+                e.preventDefault();
+
+                // Clear all other dropdowns
+                $(InProgressDropdown).dropdown('clear');
+                $(OnBreakDropdown).dropdown('clear');
+                $(CompletedDropdown).dropdown('clear');
+                $(AbandonedDropdown).dropdown('clear');
+
+                // Reload all boxes
+                reloadBox(this, ToSeeBox);
+                reloadBox(InProgressForm, InProgressBox);
+                reloadBox(OnBreakForm, OnBreakBox);
+                reloadBox(CompletedForm, CompletedBox);
+                reloadBox(AbandonedForm, AbandonedBox);
+            });
+
+            $(document).on('submit', '#AbandonedForm', function(e) {
+                e.preventDefault();
+
+                // Clear all other dropdowns
+                $(InProgressDropdown).dropdown('clear');
+                $(OnBreakDropdown).dropdown('clear');
+                $(CompletedDropdown).dropdown('clear');
+                $(ToSeeDropdown).dropdown('clear');
+
+                // Reload all boxes
+                reloadBox(this, AbandonedBox);
+                reloadBox(InProgressForm, InProgressBox);
+                reloadBox(OnBreakForm, OnBreakBox);
+                reloadBox(CompletedForm, CompletedBox);
+                reloadBox(ToSeeForm, ToSeeBox);
             });
         });
     </script>
