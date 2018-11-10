@@ -179,9 +179,6 @@ ShowRepository $showRepository)
                 break;
         }
 
-        Log::info($filter);
-        Log::info($tri);
-
         if (Request::ajax()) {
             if ($action == "show") {
                 $comments = $this->commentRepository->getCommentsShowForProfile($user->id, 'show', $filter, $tri);
