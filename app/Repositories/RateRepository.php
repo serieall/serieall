@@ -269,6 +269,7 @@ class RateRepository
                 $q->where('id', '=', $user);
             })
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.show_url, shows.name'))
+            ->groupBy('shows.name', 'shows.show_url')
             ->limit(10)
             ->get();
     }
@@ -288,6 +289,7 @@ class RateRepository
                 $q->where('id', '=', $user);
             })
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.show_url, shows.name as sname, seasons.name as season_name'))
+            ->groupBy('sname', 'shows.show_url', 'season_name')
             ->limit(10)
             ->get();
     }
@@ -307,6 +309,7 @@ class RateRepository
                 $q->where('id', '=', $user);
             })
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.show_url, shows.name as sname, seasons.name as season_name, episodes.name, episodes.numero'))
+            ->groupBy('sname', 'season_name', 'episodes.name', 'episodes.numero')
             ->limit(10)
             ->get();
     }
@@ -328,6 +331,7 @@ class RateRepository
             ->where('seasons.name', '=', 1)
             ->where('episodes.numero', '=', 1)
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.show_url, shows.name as sname, seasons.name as season_name, episodes.name, episodes.numero'))
+            ->groupBy('sname', 'season_name', 'episodes.name', 'episodes.numero')
             ->limit(10)
             ->get();
     }

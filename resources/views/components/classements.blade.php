@@ -14,7 +14,13 @@
             <div class="description">
                 <p>
                     Note : {!! affichageNote($avg_rate) !!} /
-                    Avec <b>{{ $number_rates }}</b> notes <br />
+                    Avec <b>{{ $number_rates }}</b>
+                    @if($number_rates > 1)
+                        notes
+                    @else
+                        note
+                    @endif
+                     <br />
                 </p>
             </div>
         </div>

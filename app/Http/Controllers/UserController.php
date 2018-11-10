@@ -319,7 +319,6 @@ ShowRepository $showRepository)
         $top_pilot = $this->rateRepository->getRankingPilotByUsers($user->id, 'DESC');
         $flop_pilot = $this->rateRepository->getRankingPilotByUsers($user->id, 'ASC');
 
-
         return view('users.ranking', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'top_shows', 'flop_shows', 'top_seasons', 'flop_seasons', 'top_episodes', 'flop_episodes', 'top_pilot', 'flop_pilot'));
     }
 
