@@ -345,7 +345,7 @@ ShowRepository $showRepository)
         $comment_neu = $comments->where('thumb', '=', 2)->first();
         $comment_def = $comments->where('thumb', '=', 3)->first();
 
-        $followed_shows = $this->showRepository->getShowFollowedByUser($user->id,1);
+        $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
         $in_progress_shows = $followed_shows->where('state', '=', 1);
         $on_break_shows = $followed_shows->where('state', '=', 2);
         $completed_shows = $followed_shows->where('state', '=', 3);
@@ -447,11 +447,9 @@ ShowRepository $showRepository)
 
     public function unfollowShow($show) {
         if (Request::ajax()) {
-            Log::info($show);
             $user = Auth::user();
 
             if ($user->shows->contains($show)) {
-                Log::info('detach');
                 $user->shows()->detach($show);
             }
             return Response::json(200);
