@@ -32,10 +32,6 @@ class ArticleUpdateRequest extends FormRequest
         {
             return $input->one == 0;
         });
-        $validator->sometimes('image', 'required|image', function($input)
-        {
-            return $input->show == "";
-        });
     }
 
     /**

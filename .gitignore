@@ -14,6 +14,8 @@ public/.sass-cache
 public/css
 public/images/actors
 !public/images/actors/default_empty.jpg
+public/images/.trash
+!public/images/.trash/.gitkeep
 public/images/articles
 public/images/shows
 !public/images/shows/default_empty.jpg

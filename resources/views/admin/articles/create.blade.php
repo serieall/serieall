@@ -262,6 +262,7 @@
         CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
         CKEDITOR.replace( 'article' ,
             {
+                filebrowserBrowseUrl : '/js/elFinder/elfinder_cke.html',
                 extraPlugins: 'spoiler,wordcount',
                 wordcount: {
                     showCharCount: true,

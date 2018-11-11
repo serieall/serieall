@@ -3,7 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.js"></script>
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
-<script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.11.1/full/ckeditor.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
 <script src="/js/spoiler/spoiler.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
