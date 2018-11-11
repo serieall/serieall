@@ -7,9 +7,7 @@ use App\Http\Requests\FollowShowRequest;
 use App\Http\Requests\NotificationRequest;
 use App\Http\Requests\UserChangeInfosRequest;
 use App\Repositories\CommentRepository;
-use App\Repositories\EpisodeRepository;
 use App\Repositories\RateRepository;
-use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
@@ -20,11 +18,9 @@ use App\Repositories\UserRepository;
 use App\Http\Requests\changePasswordRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 use View;
 use Response;
-use Illuminate\Support\Facades\Log;
 use App\Charts\RateSummary;
 
 /**

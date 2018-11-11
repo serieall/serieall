@@ -74,7 +74,9 @@
                 <a class="item" href="{{ route('user.profile.notifications', Auth::user()->user_url) }}">
                     <i class="alarm icon"></i>
                     Notifications
-                    <div class="ui red horizontal label">{{ $unread_notifications->count() }}</div>
+                    @if($unread_notifications->count() != 0 )
+                        <div class="ui red horizontal label">{{ $unread_notifications->count() }}</div>
+                    @endif
                 </a>
                 <a class="item" href="{{ route('user.profile', Auth::user()->user_url) }}">
                     <i class="user icon"></i>
