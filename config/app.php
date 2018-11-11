@@ -163,11 +163,11 @@ return [
         \App\Providers\BroadcastServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Marcelgwerder\ApiHandler\ApiHandlerServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -238,6 +238,7 @@ return [
         'DingoRoute' => Dingo\Api\Facade\Route::class,
         'ApiHandler' => Marcelgwerder\ApiHandler\Facades\ApiHandler::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];

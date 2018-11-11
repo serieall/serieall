@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.12 on 2018-11-06 20:39:11.
+ * Generated for Laravel 5.7.12 on 2018-11-11 11:00:35.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2988,6 +2988,19 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get a lock instance.
+         *
+         * @param string $name
+         * @param int $seconds
+         * @return \Illuminate\Contracts\Cache\Lock 
+         * @static 
+         */ 
+        public static function lock($name, $seconds = 0)
+        {
+            return \Illuminate\Cache\RedisStore::lock($name, $seconds);
+        }
+        
+        /**
          * Remove all items from the cache.
          *
          * @return bool 
@@ -2995,29 +3008,41 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function flush()
         {
-            return \Illuminate\Cache\FileStore::flush();
+            return \Illuminate\Cache\RedisStore::flush();
         }
         
         /**
-         * Get the Filesystem instance.
+         * Get the Redis connection instance.
          *
-         * @return \Illuminate\Filesystem\Filesystem 
+         * @return \Predis\ClientInterface 
          * @static 
          */ 
-        public static function getFilesystem()
+        public static function connection()
         {
-            return \Illuminate\Cache\FileStore::getFilesystem();
+            return \Illuminate\Cache\RedisStore::connection();
         }
         
         /**
-         * Get the working directory of the cache.
+         * Set the connection name to be used.
          *
-         * @return string 
+         * @param string $connection
+         * @return void 
          * @static 
          */ 
-        public static function getDirectory()
+        public static function setConnection($connection)
         {
-            return \Illuminate\Cache\FileStore::getDirectory();
+            \Illuminate\Cache\RedisStore::setConnection($connection);
+        }
+        
+        /**
+         * Get the Redis database instance.
+         *
+         * @return \Illuminate\Contracts\Redis\Factory 
+         * @static 
+         */ 
+        public static function getRedis()
+        {
+            return \Illuminate\Cache\RedisStore::getRedis();
         }
         
         /**
@@ -3028,7 +3053,19 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function getPrefix()
         {
-            return \Illuminate\Cache\FileStore::getPrefix();
+            return \Illuminate\Cache\RedisStore::getPrefix();
+        }
+        
+        /**
+         * Set the cache key prefix.
+         *
+         * @param string $prefix
+         * @return void 
+         * @static 
+         */ 
+        public static function setPrefix($prefix)
+        {
+            \Illuminate\Cache\RedisStore::setPrefix($prefix);
         }
          
     }
@@ -16764,6 +16801,82 @@ namespace Jorenvh\Share {
  
 }
 
+namespace Mews\Captcha\Facades { 
+
+    /**
+     * 
+     *
+     * @see \Mews\Captcha
+     */ 
+    class Captcha {
+        
+        /**
+         * Create captcha image
+         *
+         * @param string $config
+         * @param boolean $api
+         * @return \Mews\Captcha\ImageManager->response 
+         * @static 
+         */ 
+        public static function create($config = 'default', $api = false)
+        {
+            return \Mews\Captcha\Captcha::create($config, $api);
+        }
+        
+        /**
+         * Captcha check
+         *
+         * @param $value
+         * @return bool 
+         * @static 
+         */ 
+        public static function check($value)
+        {
+            return \Mews\Captcha\Captcha::check($value);
+        }
+        
+        /**
+         * Captcha check
+         *
+         * @param $value
+         * @return bool 
+         * @static 
+         */ 
+        public static function check_api($value, $key)
+        {
+            return \Mews\Captcha\Captcha::check_api($value, $key);
+        }
+        
+        /**
+         * Generate captcha image source
+         *
+         * @param null $config
+         * @return string 
+         * @static 
+         */ 
+        public static function src($config = null)
+        {
+            return \Mews\Captcha\Captcha::src($config);
+        }
+        
+        /**
+         * Generate captcha image html tag
+         *
+         * @param null $config
+         * @param array $attrs HTML attributes supplied to the image tag where key is the attribute
+         * and the value is the attribute value
+         * @return string 
+         * @static 
+         */ 
+        public static function img($config = null, $attrs = array())
+        {
+            return \Mews\Captcha\Captcha::img($config, $attrs);
+        }
+         
+    }
+ 
+}
+
 namespace Anhskohbo\NoCaptcha\Facades { 
 
     /**
@@ -16773,93 +16886,131 @@ namespace Anhskohbo\NoCaptcha\Facades {
     class NoCaptcha {
         
         /**
-         * Render HTML captcha.
+         * Create captcha image
          *
-         * @param array $attributes
-         * @return string 
+         * @param string $config
+         * @param boolean $api
+         * @return \Mews\Captcha\ImageManager->response 
          * @static 
          */ 
-        public static function display($attributes = array())
+        public static function create($config = 'default', $api = false)
         {
-            return \Anhskohbo\NoCaptcha\NoCaptcha::display($attributes);
+            return \Mews\Captcha\Captcha::create($config, $api);
         }
         
         /**
-         * 
+         * Captcha check
          *
-         * @see display()
-         * @static 
-         */ 
-        public static function displayWidget($attributes = array())
-        {
-            return \Anhskohbo\NoCaptcha\NoCaptcha::displayWidget($attributes);
-        }
-        
-        /**
-         * Display a Invisible reCAPTCHA by embedding a callback into a form submit button.
-         *
-         * @param string $formIdentifier the html ID of the form that should be submitted.
-         * @param string $text the text inside the form button
-         * @param array $attributes array of additional html elements
-         * @return string 
-         * @static 
-         */ 
-        public static function displaySubmit($formIdentifier, $text = 'submit', $attributes = array())
-        {
-            return \Anhskohbo\NoCaptcha\NoCaptcha::displaySubmit($formIdentifier, $text, $attributes);
-        }
-        
-        /**
-         * Render js source
-         *
-         * @param null $lang
-         * @param bool $callback
-         * @param string $onLoadClass
-         * @return string 
-         * @static 
-         */ 
-        public static function renderJs($lang = null, $callback = false, $onLoadClass = 'onloadCallBack')
-        {
-            return \Anhskohbo\NoCaptcha\NoCaptcha::renderJs($lang, $callback, $onLoadClass);
-        }
-        
-        /**
-         * Verify no-captcha response.
-         *
-         * @param string $response
-         * @param string $clientIp
+         * @param $value
          * @return bool 
          * @static 
          */ 
-        public static function verifyResponse($response, $clientIp = null)
+        public static function check($value)
         {
-            return \Anhskohbo\NoCaptcha\NoCaptcha::verifyResponse($response, $clientIp);
+            return \Mews\Captcha\Captcha::check($value);
         }
         
         /**
-         * Verify no-captcha response by Symfony Request.
+         * Captcha check
          *
-         * @param \Request $request
+         * @param $value
          * @return bool 
          * @static 
          */ 
-        public static function verifyRequest($request)
+        public static function check_api($value, $key)
         {
-            return \Anhskohbo\NoCaptcha\NoCaptcha::verifyRequest($request);
+            return \Mews\Captcha\Captcha::check_api($value, $key);
         }
         
         /**
-         * Get recaptcha js link.
+         * Generate captcha image source
          *
-         * @param string $lang
-         * @param boolean $callback
-         * @param string $onLoadClass
+         * @param null $config
          * @return string 
          * @static 
          */ 
-        public static function getJsLink($lang = null, $callback = false, $onLoadClass = 'onloadCallBack')
+        public static function src($config = null)
         {
-            return \Anhskohbo\NoCaptcha\NoCaptcha::getJsLink($lang, $callback, $onLoadClass);
+            return \Mews\Captcha\Captcha::src($config);
+        }
+        
+        /**
+         * Generate captcha image html tag
+         *
+         * @param null $config
+         * @param array $attrs HTML attributes supplied to the image tag where key is the attribute
+         * and the value is the attribute value
+         * @return string 
+         * @static 
+         */ 
+        public static function img($config = null, $attrs = array())
+        {
+            return \Mews\Captcha\Captcha::img($config, $attrs);
+        }
+         
+    }
+ 
+}
+
+namespace Intervention\Image\Facades { 
+
+    /**
+     * 
+     *
+     */ 
+    class Image {
+        
+        /**
+         * Overrides configuration settings
+         *
+         * @param array $config
+         * @return self 
+         * @static 
+         */ 
+        public static function configure($config = array())
+        {
+            return \Intervention\Image\ImageManager::configure($config);
+        }
+        
+        /**
+         * Initiates an Image instance from different input types
+         *
+         * @param mixed $data
+         * @return \Intervention\Image\Image 
+         * @static 
+         */ 
+        public static function make($data)
+        {
+            return \Intervention\Image\ImageManager::make($data);
+        }
+        
+        /**
+         * Creates an empty image canvas
+         *
+         * @param int $width
+         * @param int $height
+         * @param mixed $background
+         * @return \Intervention\Image\Image 
+         * @static 
+         */ 
+        public static function canvas($width, $height, $background = null)
+        {
+            return \Intervention\Image\ImageManager::canvas($width, $height, $background);
+        }
+        
+        /**
+         * Create new cached image and run callback
+         * (requires additional package intervention/imagecache)
+         *
+         * @param \Closure $callback
+         * @param int $lifetime
+         * @param boolean $returnObj
+         * @return \Image 
+         * @static 
+         */ 
+        public static function cache($callback, $lifetime = null, $returnObj = false)
+        {
+            return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
         }
          
     }
@@ -19411,9 +19562,13 @@ namespace  {
 
     class Share extends \Jorenvh\Share\ShareFacade {}
 
+    class Captcha extends \Mews\Captcha\Facades\Captcha {}
+
     class NoCaptcha extends \Anhskohbo\NoCaptcha\Facades\NoCaptcha {}
 
     class API extends \Dingo\Api\Facade\API {}
+
+    class Image extends \Intervention\Image\Facades\Image {}
 
     class Form extends \Collective\Html\FormFacade {}
 

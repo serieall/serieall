@@ -369,12 +369,10 @@
 
                     <div class="ui section divider"></div>
 
-                    <div class="ui required field">
-                        {!! NoCaptcha::renderJs('fr') !!}
-                        {!! NoCaptcha::display() !!}
-
-                        <div class="captchaError ui red hidden message"></div>
-                    </div>
+                    {!! captcha_img() !!}
+                    <input type="text" name="captcha">
+                    <div class="ui red hidden message"></div>
+                    <p></p>
 
                     <div class="ui required field">
                         <div class="ui checkbox">

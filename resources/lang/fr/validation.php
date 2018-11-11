@@ -104,6 +104,10 @@ return [
             'required' => 'Veuillez cochez la case pour vérifier que vous n\'êtes pas un robot',
             'captcha' => 'Erreur de captcha ! Essayez plus tard ou veuillez contacter un administrateur.',
         ],
+        'captcha' => [
+            'required' => "Veuillez renseigner le captcha pour pouvoir continuer.",
+            'captcha' => "Erreur de captcha ! Veuillez réessayer. Si le problème persiste, veuillez contacter un administrateur.",
+        ]
     ],
 
     /*

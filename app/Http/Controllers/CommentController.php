@@ -9,6 +9,7 @@ use App\Http\Requests\CommentWTNCreateRequest;
 use App\Http\Requests\ReactionCreateRequest;
 use App\Models\Comment;
 
+use App\Notifications\DatabaseNotification;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
