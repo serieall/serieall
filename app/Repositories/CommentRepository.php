@@ -180,9 +180,9 @@ class CommentRepository
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getCommentsShowForProfile($user_id, $name_page, $filter, $tri) {
-        return $this->comment->with(['children', 'user' => function ($q) use ($user_id) {
+        return $this->comment->with('children')->whereHas('user', function ($q) use ($user_id) {
             $q->where('id', '=', $user_id);
-        }])
+        })
             ->whereNull('parent_id')
             ->join('shows', 'comments.commentable_id', '=', 'shows.id')
             ->whereCommentableType('App\Models\Show')
@@ -203,9 +203,9 @@ class CommentRepository
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getCommentsSeasonForProfile($user_id, $name_page, $filter, $tri) {
-        return $this->comment->with(['children', 'user' => function ($q) use ($user_id) {
+        return $this->comment->with('children')->whereHas('user', function ($q) use ($user_id) {
             $q->where('id', '=', $user_id);
-        }])
+        })
             ->whereNull('parent_id')
             ->join('seasons', 'comments.commentable_id', '=', 'seasons.id')
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
@@ -227,9 +227,9 @@ class CommentRepository
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getCommentsEpisodeForProfile($user_id, $name_page, $filter, $tri) {
-        return $this->comment->with(['children', 'user' => function ($q) use ($user_id) {
+        return $this->comment->with('children')->whereHas('user', function ($q) use ($user_id) {
             $q->where('id', '=', $user_id);
-        }])
+        })
             ->whereNull('parent_id')
             ->join('episodes', 'comments.commentable_id', '=', 'episodes.id')
             ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
