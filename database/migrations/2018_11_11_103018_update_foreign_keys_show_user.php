@@ -14,11 +14,11 @@ class UpdateForeignKeysShowUser extends Migration
     public function up()
     {
         Schema::table('show_user', function ($table) {
-            $table->dropForeign('show_user_shows_id_fk');
+            $table->dropForeign('show_user_show_id_foreign');
         });
 
         Schema::table('show_user', function ($table) {
-            $table->dropForeign('show_user_users_id_fk');
+            $table->dropForeign('show_user_user_id_foreign');
         });
 
         Schema::table('show_user', function(Blueprint $table) {
