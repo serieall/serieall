@@ -399,6 +399,7 @@ table.dataTable.no-footer {
 }
 
 .notifications.menu {
+  z-index: 2 !important;
   .item {
     width: max-content;
     width: -moz-max-content;

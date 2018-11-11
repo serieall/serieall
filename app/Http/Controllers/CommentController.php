@@ -216,7 +216,7 @@ class CommentController extends Controller
         }
 
         # Check id comment exist
-        $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $objectFQ, $object_id );
+        $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $objectFQ, $object_id);
 
         # If not, we create it
         if($comment_ref === null) {
@@ -230,8 +230,15 @@ class CommentController extends Controller
             $comment->user()->associate($user_id);
             $comment->save();
 
-            # Attach to show and save
+            # Attach to comment and save
             $object->comments()->save($comment);
+
+            // Send Notifications for redac of the article
+            foreach($object->users as $user) {
+                if($user_id != $user->id) {
+                    $user->notify(new DatabaseNotification('a commenté votre article "' . $object->name . '"', route('article.show', $object->article_url), $user_id));
+                }
+            }
         }
         else {
             # Redefine fields
@@ -241,8 +248,16 @@ class CommentController extends Controller
             $comment_ref->user()->associate($user_id);
             $comment_ref->save();
 
-            # Attach to show and save
+            # Attach to comment and save
             $object->comments()->save($comment_ref);
+
+            // Send notifications to reactions below this comment
+            foreach($comment_ref->children as $reaction) {
+                $reaction_user = $reaction->user;
+                if($reaction_user != $user_id) {
+                    $reaction_user->notify(new DatabaseNotification('a modifié son commentaire sous l\'article "' . $object->name . '"', route('article.show', $object->article_url), $user_id));
+                }
+            }
         }
 
         return response()->json();
@@ -254,12 +269,96 @@ class CommentController extends Controller
         $inputs = $request->all();
         $user_id = $request->user()->id;
         $object_parent_id = $inputs['object_parent_id'];
+        $notified_users = [];
 
         $comment_ref = new Comment();
         $comment_ref->message = $inputs['reaction'];
         $comment_ref->user()->associate($user_id);
         $comment_ref->parent()->associate($object_parent_id);
         $comment_ref->save();
+
+        // Get Object
+        $comment = $comment_ref->parent;
+        $comment_object = $comment->commentable_type;
+        $comment_object_id = $comment->commentable_id;
+        switch ($comment_object){
+            case 'App\Models\Show':
+                $object = $this->showRepository->getShowByID($comment_object_id);
+                $route_object = route('comment.fiche', [$object->show_url]);
+                break;
+            case 'App\Models\Season':
+                $object = $this->seasonRepository->getSeasonByID($comment_object_id);
+                $route_object = route('comment.fiche', [$object->show->show_url, $object->name]);
+                break;
+            case 'App\Models\Episode':
+                $object = $this->episodeRepository->getEpisodeByID($comment_object_id);
+                $route_object = route('comment.fiche', [$object->show->show_url, $object->season->name, $object->numero, $object->id]);
+                break;
+            case 'App\Models\Article':
+                $object = $this->articleRepository->getArticleByID($comment_object_id);
+                $route_object = route('article.show', [$object->article_url]);
+                break;
+            default:
+                break;
+        }
+
+        // Send notifications to parent
+        $comment_user = ($comment->user);
+        if($comment_user->id != $user_id) {
+            // User that will receive the notification
+            $get_notif = $comment_user;
+
+            switch ($comment_object){
+                case 'App\Models\Show':
+                    $text_notif = 'a répondu à votre commentaire sous la série "' . $object->name . '"';
+                    break;
+                case 'App\Models\Season':
+                    $text_notif = 'a répondu à votre commentaire sous la saison ' . $object->name . ' de la série "' . $object->show->name . '"';
+                    break;
+                case 'App\Models\Episode':
+                    $text_notif = 'a répondu à votre commentaire sous l\'épisode ' . afficheEpisodeName($object, true, false) . ' de la série "' . $object->show->name . '"';
+                    break;
+                case 'App\Models\Article':
+                    $text_notif = 'a répondu à votre commentaire sous l\'article "' . $object->name . '"';
+                    break;
+                default:
+                    break;
+            }
+
+            if (!in_array($get_notif->id, $notified_users)) {
+                $get_notif->notify(new DatabaseNotification($text_notif, $route_object, $user_id));
+                $notified_users[] = $get_notif->id;
+            }
+        }
+
+        // Send notifications to other reactions.
+        foreach($comment->children as $other_reaction) {
+            if($other_reaction->user->id != $user_id) {
+                // User that will receive the notification
+                $get_notif = $other_reaction->user;
+                switch ($comment_object){
+                    case 'App\Models\Show':
+                        $text_notif = 'a répondu au commentaire de ' . $comment->user->username . ' sous la série "' . $object->name . '"';
+                        break;
+                    case 'App\Models\Season':
+                        $text_notif = 'a répondu au commentaire de ' . $comment->user->username . ' sous la saison ' . $object->name . ' de la série "';
+                        break;
+                    case 'App\Models\Episode':
+                        $text_notif = 'a répondu au commentaire de ' . $comment->user->username . ' sous l\'épisode ' . afficheEpisodeName($object, true, false) . ' de la série "';
+                        break;
+                    case 'App\Models\Article':
+                        $text_notif = 'a répondu au commentaire de ' . $comment->user->username . ' sous l\'article "' . $object->name . '"';
+                        break;
+                    default:
+                        break;
+                }
+
+                if (!in_array($get_notif->id, $notified_users)) {
+                    $get_notif->notify(new DatabaseNotification($text_notif, $route_object, $user_id));
+                    $notified_users[] = $get_notif->id;
+                }
+            }
+        }
 
         return response()->json();
     }
