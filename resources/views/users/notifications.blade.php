@@ -219,7 +219,7 @@
                 $.ajax({
                     method: 'post',
                     url: '/notification',
-                    data: {'_token': "{{csrf_token()}}", 'notif_id': link.attr('id')},
+                    data: {'_token': "{{csrf_token()}}", 'notif_id': link.attr('id'), 'markUnread': false},
                     dataType: "json"
                 }).done(function () {
                     window.location.href = $(link).attr('href');

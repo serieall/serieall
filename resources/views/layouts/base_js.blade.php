@@ -181,7 +181,7 @@
             $.ajax({
                 method: 'post',
                 url: '/notification',
-                data: {'_token': "{{csrf_token()}}" , 'notif_id': $(this).attr('id')},
+                data: {'_token': "{{csrf_token()}}" , 'notif_id': $(this).attr('id'), 'markUnread' : true},
                 dataType: "json"
             }).done(function() {
                 $(icon).toggleClass('outline');
@@ -213,7 +213,7 @@
             $.ajax({
                 method: 'post',
                 url: '/notification',
-                data: {'_token': "{{csrf_token()}}" , 'notif_id': icon.attr('id')},
+                data: {'_token': "{{csrf_token()}}" , 'notif_id': icon.attr('id'), 'markUnread' : false},
                 dataType: "json"
             }).done(function() {
                 window.location.href = $(link).attr('href');

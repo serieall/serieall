@@ -537,12 +537,13 @@ ShowRepository $showRepository)
         if(Request::ajax()) {
             $user = Auth::user();
             $notification = $user->Notifications->where('id', '=', $notificationRequest->notif_id)->first();
-            Log::info($notification);
 
                 if(is_null($notification->read_at)) {
                     $notification->markAsRead();
                 } else {
-                    $notification->markAsUnRead();
+                    if ($notificationRequest->markUnread == "true") {
+                        $notification->markAsUnRead();
+                    }
                 }
 
             return Response::json('OK');
