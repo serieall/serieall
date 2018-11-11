@@ -151,3 +151,13 @@ function affichageUsername($id) {
     $user = \App\Models\User::findOrFail($id);
     return $user->username;
 }
+
+function affichageUserUrl($id) {
+    $user = \App\Models\User::findOrFail($id);
+    return $user->user_url;
+}
+
+function affichageAvatar($id) {
+    $user = \App\Models\User::findOrFail($id);
+    return \Thomaswelton\LaravelGravatar\Facades\Gravatar::src($user->email);
+}

@@ -36,8 +36,6 @@ class HomeController extends Controller
     {
         $lastRates = $this->rateRepository->getLast20Rates();
 
-//        Auth::user()->notify(new DatabaseNotification(' a réagi à votre commentaire sur Westworld', route('show.fiche', 'westworld') ,2));
-
         return view('pages.home', compact('lastRates'));
     }
 }

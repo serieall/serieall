@@ -563,4 +563,23 @@ ShowRepository $showRepository)
         }
         return 404;
     }
+
+    public function getNotifications($user_url) {
+        $user = $this->userRepository->getUserByURL($user_url);
+
+        $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
+        $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
+        $time_passed_shows = getTimePassedOnShow($this->rateRepository, $user->id);
+
+        $comments = $this->commentRepository->getCommentByUserIDThumbNotNull($user->id);
+        $nb_comments = $this->commentRepository->countCommentByUserIDThumbNotNull($user->id);
+        $comment_fav = $comments->where('thumb', '=', 1)->first();
+        $comment_neu = $comments->where('thumb', '=', 2)->first();
+        $comment_def = $comments->where('thumb', '=', 3)->first();
+
+        $notifications = $user->notifications()->paginate(30);
+
+        return view('users.notifications', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'notifications'));
+
+    }
 }

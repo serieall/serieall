@@ -203,6 +203,25 @@
             });
         });
 
+        $('.notifications.menu .item a').click(function(e){
+            e.preventDefault();
+
+            icon = $(this).prev();
+            link = $(this);
+            nb_notif = +($('.notification.label').text());
+
+            $.ajax({
+                method: 'post',
+                url: '/notification',
+                data: {'_token': "{{csrf_token()}}" , 'notif_id': icon.attr('id')},
+                dataType: "json"
+            }).done(function() {
+                window.location.href = $(link).attr('href');
+            });
+
+
+        });
+
         $('.markAllasRead').click(function(e) {
             e.preventDefault();
 
