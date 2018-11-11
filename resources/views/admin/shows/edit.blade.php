@@ -33,7 +33,7 @@
             </div>
 
             <div class="ui segment">
-                <form class="ui form" method="POST" action="{{ route('admin.shows.update.manually') }}">
+                <form class="ui form" method="POST" action="{{ route('admin.shows.update.manually') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="id" value="{{ $show->id }}">
@@ -61,6 +61,20 @@
                     </div>
 
                     <div class="two fields">
+                        <div class="ui raised small image {{ $errors->has('poster') ? ' error' : '' }}">
+                            <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
+                            <label for="poster" class="ui blue ribbon label" style="cursor: pointer" tabindex="0">
+                                <i class="ui upload icon"></i>
+                                Modifier l'image
+                            </label>
+                            <input id="poster" name="poster" type="file" style="display: none">
+                            @if ($errors->has('poster'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('poster') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+
                         <div class="field {{ $errors->has('resume_en') ? ' error' : '' }}">
                             <label for="resume_en">Résumé anglais</label>
                             <textarea id="resume_en" name="resume_en">{{ $show->synopsis }}</textarea>

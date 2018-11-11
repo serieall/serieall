@@ -149,7 +149,7 @@ class AdminArtistController extends Controller
 
         # Ajout de l'image
         if(Input::hasfile('image') && Input::file('image')->isValid()) {
-            $destinationPath = public_path() . config('directories.actors') ;
+            $destinationPath = public_path() . config('directories.actors');
             $extension = 'jpg';
             $fileName = $artist->artist_url . '.' . $extension;
             Input::file('image')->move($destinationPath, $fileName);

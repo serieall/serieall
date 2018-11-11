@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShowUpdateManuallyRequest;
 use App\Repositories\LogRepository;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -21,6 +20,8 @@ use App\Repositories\ChannelRepository;
 use App\Repositories\GenreRepository;
 use App\Repositories\NationalityRepository;
 use App\Repositories\SeasonRepository;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class AdminShowController
@@ -109,6 +110,18 @@ class AdminShowController extends Controller
     public function updateManually(ShowUpdateManuallyRequest $request): RedirectResponse
     {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+
+        $show = $this->showRepository->getByID($inputs['id']);
+        # Ajout de l'image
+        if (Input::hasFile('poster') && Input::file('poster')->isValid()) {
+            Log::info('toto');
+            $destinationPath = public_path() . config('directories.shows');
+            $extension = 'jpg';
+            $fileName = $show->show_url . '.' . $extension;
+            Input::file('poster')->move($destinationPath, $fileName);
+        }
+        unset($inputs['poster']);
+
         $dispatchOK = $this->showRepository->updateManuallyShowJob($inputs);
 
         if($dispatchOK) {
