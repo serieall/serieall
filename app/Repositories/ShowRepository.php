@@ -295,7 +295,7 @@ class ShowRepository
      */
     public function getAllShows(): LengthAwarePaginator
     {
-        return $this->show::with('genres')->orderBy('name')->paginate(20);
+        return $this->show::with('genres')->orderBy('name')->paginate(4);
     }
 
     /**

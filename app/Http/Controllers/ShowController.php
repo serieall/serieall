@@ -14,6 +14,9 @@ use App\Repositories\EpisodeRepository;
 
 use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class ShowController
@@ -55,10 +58,15 @@ class ShowController extends Controller
     /**
      * Print vue shows.index
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
     public function index() {
-        $shows = $this->showRepository->getAllShows();
+        if(Request::ajax()) {
+            $shows = $this->showRepository->getAllShows();
+            return Response::json(View::make('shows.index_cards', ['shows' => $shows])->render());
+        } else {
+            $shows = $this->showRepository->getAllShows();
+        }
 
         return view('shows.index', compact('shows'));
     }

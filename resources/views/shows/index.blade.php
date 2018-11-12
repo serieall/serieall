@@ -7,21 +7,7 @@
     <div class="row ui stackable grid ficheContainer">
         <div id="LeftBlock" class="eleven wide column">
             <div class="ui segment">
-                <h1>Liste des séries</h1>
-
-                <div class="row">
-                    <div class="ui four special cards">
-                    @foreach($shows as $show)
-                        @include('shows.index_cards')
-                    @endforeach
-                    </div>
-                </div>
-
-                <div class="PaginateRow row">
-                    <div class="column center aligned">
-                        {{ $shows->links() }}
-                    </div>
-                </div>
+                @include('shows.index_cards')
             </div>
         </div>
         <div id="RightBlock" class="four wide column">
@@ -62,38 +48,5 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $('.special.cards .image').dimmer({
-            on: 'hover'
-        });
-
-        $(document).ready(function() {
-            $('.ui.fluid.search.selection.dropdown.channels')
-                .dropdown({
-                    apiSettings: {
-                        url: '/api/channels/list?name-lk=*{query}*'
-                    },
-                    fields: {
-                        remoteValues: "data",
-                        value: "name"
-                    },
-                    onChange: function($q) {
-
-                    }
-                })
-            ;
-
-            $('.ui.fluid.search.selection.dropdown.nationalities')
-                .dropdown({
-                    apiSettings: {
-                        url: '/api/nationalities/list?name-lk=*{query}*'
-                    },
-                    fields: {
-                        remoteValues: "data",
-                        value: "name"
-                    }
-                })
-            ;
-        });
-    </script>
+    {{ Html::script('/js/views/shows/index.js') }}
 @endpush
