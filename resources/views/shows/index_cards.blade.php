@@ -1,7 +1,5 @@
-<h1>Liste des séries</h1>
-
 <div class="row">
-    <div class="ui four special cards">
+    <div class="ui six special cards stackable">
         @foreach($shows as $show)
             <div class="card">
                 <div class="blurring dimmable image">

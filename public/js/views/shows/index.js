@@ -5,7 +5,7 @@ $('.special.cards .image').dimmer({
 $(document).one('click', '.PaginateRow .pagination a', function (e) {
     e.preventDefault();
 
-    let segment = '#LeftBlock .ui.segment';
+    let segment = '#LeftBlock .ui.basic.segment';
 
     getShows($(this).attr('href').split('page=')[1], segment);
 });
@@ -30,7 +30,7 @@ function getShows(page, segment) {
 }
 
 $(document).ready(function() {
-    $('.ui.fluid.search.selection.dropdown.channels')
+    $('.channels')
         .dropdown({
             apiSettings: {
                 url: '/api/channels/list?name-lk=*{query}*'
@@ -39,13 +39,26 @@ $(document).ready(function() {
                 remoteValues: "data",
                 value: "name"
             },
+            clearable: true
         })
     ;
 
-    $('.ui.fluid.search.selection.dropdown.nationalities')
+    $('.nationalities')
         .dropdown({
             apiSettings: {
                 url: '/api/nationalities/list?name-lk=*{query}*'
+            },
+            fields: {
+                remoteValues: "data",
+                value: "name"
+            }
+        })
+    ;
+
+    $('.genres')
+        .dropdown({
+            apiSettings: {
+                url: '/api/genres/list?name-lk=*{query}*'
             },
             fields: {
                 remoteValues: "data",
