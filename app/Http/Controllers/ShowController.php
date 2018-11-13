@@ -14,8 +14,10 @@ use App\Repositories\EpisodeRepository;
 
 use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -58,14 +60,18 @@ class ShowController extends Controller
     /**
      * Print vue shows.index
      *
+     * @param string $channel
+     * @param string $nationalities
+     * @param string $genres
+     * @param string $tri
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index() {
+    public function index($channel = "", $nationality = "", $genre = "", $tri = "") {
         if(Request::ajax()) {
-            $shows = $this->showRepository->getAllShows();
+            $shows = $this->showRepository->getAllShows($channel, $genre, $nationality, $tri);
             return Response::json(View::make('shows.index_cards', ['shows' => $shows])->render());
         } else {
-            $shows = $this->showRepository->getAllShows();
+            $shows = $this->showRepository->getAllShows($channel, $genre, $nationality, $tri);
         }
 
         return view('shows.index', compact('shows'));

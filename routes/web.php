@@ -96,7 +96,7 @@ Route::post('unfollowshow/{show}', 'UserController@unfollowShow')->name('user.un
 /*
     Partie Séries
 */
-Route::get('series', 'ShowController@index')->name('show.index');
+Route::get('series/{channel?}/{nationality?}/{genre?}/{tri?}', 'ShowController@index')->name('show.index');
 Route::get('serie/{show_url}', 'ShowController@getShowFiche')->name('show.fiche');
 Route::get('serie/{show_url}/details', 'ShowController@getShowDetails')->name('show.details');
 Route::get('series/{show_url}/statistiques', 'ShowController@getStatistics')->name('show.statistics');

@@ -291,11 +291,24 @@ class ShowRepository
 
     /**
      * Récupère toutes les séries
+     * @param string $genre
+     * @param string $channel
+     * @param string $nationality
+     * @param string $tri
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllShows(): LengthAwarePaginator
+    public function getAllShows($genre = "", $channel = "", $nationality = "", $tri = 'name'): LengthAwarePaginator
     {
-        return $this->show::with('genres')->orderBy('name')->paginate(4);
+        return $this->show::whereHas('genres', function ($q) use ($genre) {
+            $q->where('name', 'like', '%' . $genre . '%');
+        })
+        ->whereHas('channels', function ($q) use ($channel) {
+            $q->where('name', 'like', '%' . $channel . '%');
+        })
+        ->whereHas('nationalities', function ($q) use ($nationality) {
+            $q->where('name', 'like', '%' . 'Anglaise' . '%');
+        })
+        ->orderBy('name', 'desc')->paginate(4);
     }
 
     /**

@@ -33,37 +33,63 @@ $(document).ready(function() {
     $('.channels')
         .dropdown({
             apiSettings: {
-                url: '/api/channels/list?name-lk=*{query}*'
+                url: '/api/channels/list?name-lk=*{query}*',
+                beforeSend: function(settings) {
+                    if (typeof(Storage) !== "undefined") {
+                        let sStorage = window.sessionStorage;
+                        sStorage.removeItem("/api/channels/list?name-lk=**");
+
+                        return settings;
+                    }
+                }
             },
             fields: {
                 remoteValues: "data",
                 value: "name"
             },
-            clearable: true
+            saveRemoteData: false,
         })
     ;
 
     $('.nationalities')
         .dropdown({
             apiSettings: {
-                url: '/api/nationalities/list?name-lk=*{query}*'
+                url: '/api/nationalities/list?name-lk=*{query}*',
+                beforeSend: function(settings) {
+                    if (typeof(Storage) !== "undefined") {
+                        let sStorage = window.sessionStorage;
+                        sStorage.removeItem("/api/nationalities/list?name-lk=**");
+
+                        return settings;
+                    }
+                }
             },
             fields: {
                 remoteValues: "data",
                 value: "name"
-            }
+            },
+            saveRemoteData: false,
         })
     ;
 
     $('.genres')
         .dropdown({
             apiSettings: {
-                url: '/api/genres/list?name-lk=*{query}*'
+                url: '/api/genres/list?name-lk=*{query}*',
+                beforeSend: function(settings) {
+                    if (typeof(Storage) !== "undefined") {
+                        let sStorage = window.sessionStorage;
+                        sStorage.removeItem("/api/genres/list?name-lk=**");
+
+                        return settings;
+                    }
+                }
             },
             fields: {
                 remoteValues: "data",
                 value: "name"
-            }
+            },
+            saveRemoteData: false,
         })
     ;
 });

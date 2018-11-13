@@ -39,9 +39,9 @@
                             <i class="clock icon"></i>
                             Par date de sortie
                         </div>
-                        <div class="item" data-value="2">
+                        <div class="item" data-value="3">
                             <i class="clock icon"></i>
-                            Par date de sortie
+                            Par moyenne
                         </div>
                     </div>
                 </div>

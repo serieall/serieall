@@ -127,7 +127,7 @@
                 Classements
             </a>
             <div class="right secondary pointing stackable menu">
-                <div class="item ui search dropdown showDropdown">
+                <div class="item ui scrolling search dropdown showDropdown">
                     <div class="ui icon input">
                         <input class="prompt" placeholder="Rechercher une série...">
                         <i class="search icon"></i>
