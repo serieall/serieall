@@ -120,6 +120,7 @@ class RateRepository
             $q->with('season');
             $q->with('show');
         }])->limit(20)
+            ->orderBy('created_at', 'desc')
             ->get();
     }
 

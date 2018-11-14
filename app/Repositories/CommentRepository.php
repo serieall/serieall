@@ -243,4 +243,11 @@ class CommentRepository
             ;
     }
 
+    /**
+     * @return Comment[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getLast20Comments() {
+        return $this->comment->limit(20)->orderBy('created_at', 'desc')->get();
+    }
+
 }
