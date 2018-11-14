@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.13 on 2018-11-12 17:09:25.
+ * Generated for Laravel 5.7.13 on 2018-11-14 12:47:10.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -10603,6 +10603,16 @@ namespace Illuminate\Support\Facades {
         public static function macroCall($method, $parameters)
         {
             return \Illuminate\Routing\Router::macroCall($method, $parameters);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function feeds($baseUrl = '')
+        {
+            return \Illuminate\Routing\Router::Spatie\Feed\{closure}($baseUrl);
         }
          
     }

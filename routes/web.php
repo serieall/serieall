@@ -18,6 +18,11 @@ declare(strict_types=1);
 Route::get('/', 'HomeController@index')->name('home');
 
 /*
+    RSS
+ */
+Route::feeds();
+
+/*
     Pages
 */
 Route::get('/cgu', function () {

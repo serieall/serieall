@@ -25,6 +25,7 @@
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^3.0",
         "spatie/laravel-cookie-consent": "^2.0",
+        "spatie/laravel-feed": "^2.1",
         "thomaswelton/laravel-gravatar": "~1.0",
         "znck/belongs-to-through": "^2.3"
     },
