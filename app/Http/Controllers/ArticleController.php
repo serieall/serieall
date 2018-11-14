@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CommentRepository;
 use Illuminate\Support\Facades\View;
+use Torann\PodcastFeed\Facades\PodcastFeed;
 
 
 /**
@@ -112,6 +114,25 @@ class ArticleController extends Controller
         else {
             return view('articles.show', compact('article', 'comments', 'object', 'type_article', 'articles_linked'));
         }
+    }
 
+    public function RSSPodcast() {
+        $podcasts = Article::where('podcast', '=', true);
+
+        foreach($podcasts as $podcast) {
+            PodcastFeed::addMedia([
+                'title'       => $podcast->name,
+                'description' => $podcast->intro,
+                'publish_at'  => $podcast->published_at,
+                'guid'        => route('article.show', $podcast->article_url),
+                'url'         => "https://serieall.fr/podcasts/Retro2.mp3",
+                'type'        => $podcast->media_content_type,
+                'duration'    => "30:00",
+                'image'       => "https://journeytotheit.ovh" . $podcast->image,
+            ]);
+        }
+
+        return Response::make(PodcastFeed::toString())
+            ->header('Content-Type', 'text/xml');
     }
 }

@@ -17,10 +17,8 @@ declare(strict_types=1);
 */
 Route::get('/', 'HomeController@index')->name('home');
 
-/*
-    RSS
- */
-Route::feeds();
+Route::get('/rss-podcasts', 'ArticleController@RSSPodcast')->name('rss.podcasts');
+
 
 /*
     Pages

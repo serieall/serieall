@@ -46,7 +46,7 @@ use Spatie\Feed\FeedItem;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereCategoryId($value)
  * @mixin \Eloquent
  */
-class Article extends Model implements Feedable {
+class Article extends Model {
 
 	protected $table = 'articles';
 	public $timestamps = true;

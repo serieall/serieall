@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29b82a6a6d9f0b8087d2466ed481a628",
+    "content-hash": "4ace5ec2aab31c89cb3ca23f89c7045c",
     "packages": [
         {
             "name": "balping/json-raw-encoder",
@@ -2663,16 +2663,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.34.1",
+            "version": "1.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "19201b87f7dba2a7cbf1cccdf0e1da13c04ee9c9"
+                "reference": "3c0342ed6cb7c770d0c33595c51c286716552f65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/19201b87f7dba2a7cbf1cccdf0e1da13c04ee9c9",
-                "reference": "19201b87f7dba2a7cbf1cccdf0e1da13c04ee9c9",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/3c0342ed6cb7c770d0c33595c51c286716552f65",
+                "reference": "3c0342ed6cb7c770d0c33595c51c286716552f65",
                 "shasum": ""
             },
             "require": {
@@ -2680,8 +2680,11 @@
                 "symfony/translation": "~2.6 || ~3.0 || ~4.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2",
                 "phpunit/phpunit": "^4.8.35 || ^5.7"
+            },
+            "suggest": {
+                "friendsofphp/php-cs-fixer": "Needed for the `composer phpcs` command. Allow to automatically fix code style.",
+                "phpstan/phpstan": "Needed for the `composer phpstan` command. Allow to detect potential errors."
             },
             "type": "library",
             "extra": {
@@ -2714,7 +2717,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-11-08T13:33:47+00:00"
+            "time": "2018-11-14T12:39:51+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -3715,77 +3718,6 @@
                 "spatie"
             ],
             "time": "2018-11-12T14:28:44+00:00"
-        },
-        {
-            "name": "spatie/laravel-feed",
-            "version": "2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-feed.git",
-                "reference": "ee9aab3b33553e0f621ccd9c0cbc2016a5be73e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-feed/zipball/ee9aab3b33553e0f621ccd9c0cbc2016a5be73e5",
-                "reference": "ee9aab3b33553e0f621ccd9c0cbc2016a5be73e5",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "~5.5.0|~5.6.0|~5.7.0",
-                "nesbot/carbon": "^1.0",
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0",
-                "phpunit/phpunit": "^6.0|^7.0",
-                "spatie/phpunit-snapshot-assertions": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Spatie\\Feed\\FeedServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\Feed\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian De Deyne",
-                    "email": "sebastian@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Jolita Grazyte",
-                    "email": "jolita@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Generates rss feed",
-            "homepage": "https://github.com/spatie/laravel-feed",
-            "keywords": [
-                "laravel",
-                "laravel-feed",
-                "rss",
-                "spatie"
-            ],
-            "time": "2018-08-27T15:07:12+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4934,6 +4866,56 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
+        },
+        {
+            "name": "torann/podcastfeed",
+            "version": "0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Torann/podcastfeed.git",
+                "reference": "6c4bd157a3eaaaa62aa71f665566ed2050973664"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Torann/podcastfeed/zipball/6c4bd157a3eaaaa62aa71f665566ed2050973664",
+                "reference": "6c4bd157a3eaaaa62aa71f665566ed2050973664",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Torann\\PodcastFeed\\": "src/Torann/PodcastFeed/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Stainback",
+                    "email": "daniel@lyften.com"
+                }
+            ],
+            "description": "Generate RSS feeds for podcasts in Laravel 5.",
+            "keywords": [
+                "feed",
+                "laravel",
+                "podcast",
+                "podcast generator",
+                "rss",
+                "xml"
+            ],
+            "time": "2016-09-01T20:24:17+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

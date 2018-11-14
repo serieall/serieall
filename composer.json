@@ -25,8 +25,8 @@
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^3.0",
         "spatie/laravel-cookie-consent": "^2.0",
-        "spatie/laravel-feed": "^2.1",
         "thomaswelton/laravel-gravatar": "~1.0",
+        "torann/podcastfeed": "^0.2.2",
         "znck/belongs-to-through": "^2.3"
     },
     "require-dev": {
