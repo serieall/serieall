@@ -303,7 +303,7 @@ class ShowRepository
             $q->whereHas('genres', function ($q) use ($genre) {
                 $q->where('name', 'like', '%' . $genre . '%');
             });
-            if ($genre == 0) {
+            if (empty($genre)) {
                 $q->orDoesntHave('genres');
             }
         })
@@ -312,7 +312,7 @@ class ShowRepository
                 $q->where('name', 'like', '%' . $channel . '%');
             });
 
-            if ($channel == 0) {
+            if (empty($channel)) {
                 $q->orDoesntHave('channels');
             }
         })
@@ -321,7 +321,7 @@ class ShowRepository
                 $q->where('name', 'like', '%' . $nationality . '%');
             });
 
-            if ($nationality == 0) {
+            if (empty($nationality)) {
                 $q->orDoesntHave('nationalities');
             }
         })

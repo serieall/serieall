@@ -60,14 +60,14 @@ class ShowController extends Controller
     /**
      * Print vue shows.index
      *
-     * @param string $channel
-     * @param string $nationality
-     * @param string $genre
+     * @param string|int $channel
+     * @param string|int $nationality
+     * @param string|int $genre
      * @param string $tri
      * @param string $order
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-public function index($channel = "", $genre = "", $nationality = "", $tri = 1) {
+public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1) {
         switch ($tri) {
             case 1:
                 $tri = 'name';
@@ -99,23 +99,18 @@ public function index($channel = "", $genre = "", $nationality = "", $tri = 1) {
                 break;
         }
 
-    Log::info($channel . ',' . $genre . ',' . $nationality);
-
-
-    if($channel == 0){
-        Log::info('toto');
+        if($channel === "0"){
             $channel = "";
         }
-        if($nationality == 0){
+        if($nationality === "0"){
             $nationality = "";
         }
-        if($genre == 0){
+        if($genre === "0"){
             $genre = "";
         }
 
         if(Request::ajax()) {
             $shows = $this->showRepository->getAllShows($channel, $genre, $nationality, $tri, $order);
-            Log::info($shows);
             return Response::json(View::make('shows.index_cards', ['shows' => $shows])->render());
         } else {
             $shows = $this->showRepository->getAllShows($channel, $genre, $nationality, $tri, $order);
