@@ -117,7 +117,7 @@ class ArticleController extends Controller
     }
 
     public function RSSPodcast() {
-        $podcasts = Article::where('podcast', '=', true)->get();
+        $podcasts = Article::where('podcast', '=', true)->where('state', '=', 1)->get();
 
         foreach($podcasts as $podcast) {
             PodcastFeed::addMedia([
@@ -125,10 +125,9 @@ class ArticleController extends Controller
                 'description' => $podcast->intro,
                 'publish_at'  => $podcast->published_at,
                 'guid'        => route('article.show', $podcast->article_url),
-                'url'         => "https://serieall.fr/podcasts/Retro2.mp3",
+                'url'         => "https://serieall.fr/podcasts/". $podcast->article_url .".mp3",
                 'type'        => "audio/mp3",
-                'duration'    => "30:00",
-                'image'       => "https://journeytotheit.ovh" . $podcast->image,
+                'image'       => "https://serieall.fr" . $podcast->image,
             ]);
         }
 

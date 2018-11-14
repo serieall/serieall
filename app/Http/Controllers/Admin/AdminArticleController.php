@@ -132,6 +132,12 @@ class AdminArticleController extends Controller
             $article->state = 0;
         }
 
+        if (isset($inputs['podcast'])) {
+            $article->podcast = 1;
+        } else {
+            $article->podcast = 0;
+        }
+
         if($inputs['one'] == 1 && !empty($inputs['show'])) {
             // We fetch the show and initiate image
             $show = $this->showRepository->getShowByID($inputs['show']);
@@ -256,6 +262,12 @@ class AdminArticleController extends Controller
         else
         {
             $article->state = 0;
+        }
+
+        if (isset($inputs['podcast'])) {
+            $article->podcast = 1;
+        } else {
+            $article->podcast = 0;
         }
 
         if($inputs['one'] == 1 && !empty($inputs['show'])) {

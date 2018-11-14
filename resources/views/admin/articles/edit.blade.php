@@ -226,6 +226,13 @@
                         @endif
                     </div>
 
+                    <div class="field">
+                        <div class="ui toggle checkbox podcast">
+                            <input id="podcastInput" name="podcast" type="checkbox">
+                            <label for="podcastInput">Cet article contient un podcast</label>
+                        </div>
+                    </div>
+
                     <div class="ui required field {{ $errors->has('users') ? ' error' : '' }}">
                         <label for="users">Choisir le ou les rédacteur(s)</label>
                         <div class="ui grid">
@@ -252,7 +259,7 @@
                     </div>
 
                     <div class="field">
-                        <div class="ui toggle checkbox">
+                        <div class="ui toggle checkbox published">
                             <input id="publishedInput" name="published" type="checkbox">
                             <label for="publishedInput">Publier l'article</label>
                         </div>
@@ -282,7 +289,10 @@
 
         $('.ui.toggle.checkbox').checkbox();
         @if($article->state == 1)
-            $('.ui.toggle.checkbox').checkbox('check');
+            $('.ui.toggle.checkbox.published').checkbox('check');
+        @endif
+        @if($article->podcast == 1)
+            $('.ui.toggle.checkbox.podcast').checkbox('check');
         @endif
 
         const dropdownCategory = '.dropdownCategory';

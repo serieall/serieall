@@ -115,21 +115,4 @@ class Article extends Model {
 	{
 		return $this->morphMany('App\Models\Comment', 'commentable');
 	}
-
-    public function toFeedItem()
-    {
-        return FeedItem::create()
-            ->id((string)$this->id)
-            ->title($this->name)
-            ->summary($this->intro)
-            ->updated($this->updated_at)
-            ->link(route('article.show', $this->article_url))
-            ->author('toto');
-    }
-
-    public static function getFeedItems()
-    {
-        return Article::where('podcast', '=', true)->get();
-    }
-
 }

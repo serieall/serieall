@@ -13,5 +13,5 @@ return [
     'shows' => '/images/shows/',
     'actors' => '/images/actors/',
     'articles' => '/images/articles/',
-
+    'podcasts' => '/podcasts/',
 ];
