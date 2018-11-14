@@ -61,17 +61,64 @@ class ShowController extends Controller
      * Print vue shows.index
      *
      * @param string $channel
-     * @param string $nationalities
-     * @param string $genres
+     * @param string $nationality
+     * @param string $genre
      * @param string $tri
+     * @param string $order
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index($channel = "", $nationality = "", $genre = "", $tri = "") {
+public function index($channel = "", $genre = "", $nationality = "", $tri = 1) {
+        switch ($tri) {
+            case 1:
+                $tri = 'name';
+                $order = 'asc';
+                break;
+            case 2:
+                $tri = 'name';
+                $order = 'desc';
+                break;
+            case 3:
+                $tri = 'moyenne';
+                $order = 'asc';
+                break;
+            case 4:
+                $tri = 'moyenne';
+                $order = 'desc';
+                break;
+            case 5:
+                $tri = 'diffusion_us';
+                $order = 'asc';
+                break;
+            case 6:
+                $tri = 'diffusion_us';
+                $order = 'desc';
+                break;
+            default:
+                $tri = 'name';
+                $order = 'asc';
+                break;
+        }
+
+    Log::info($channel . ',' . $genre . ',' . $nationality);
+
+
+    if($channel == 0){
+        Log::info('toto');
+            $channel = "";
+        }
+        if($nationality == 0){
+            $nationality = "";
+        }
+        if($genre == 0){
+            $genre = "";
+        }
+
         if(Request::ajax()) {
-            $shows = $this->showRepository->getAllShows($channel, $genre, $nationality, $tri);
+            $shows = $this->showRepository->getAllShows($channel, $genre, $nationality, $tri, $order);
+            Log::info($shows);
             return Response::json(View::make('shows.index_cards', ['shows' => $shows])->render());
         } else {
-            $shows = $this->showRepository->getAllShows($channel, $genre, $nationality, $tri);
+            $shows = $this->showRepository->getAllShows($channel, $genre, $nationality, $tri, $order);
         }
 
         return view('shows.index', compact('shows'));

@@ -11,6 +11,7 @@
                 <div class="ui search labeled icon dropdown button channels">
                     <i class="tv icon"></i>
                     <span class="text">Filtrer sur les chaines</span>
+
                     <div class="menu">
                     </div>
                 </div>
@@ -27,24 +28,39 @@
                     </div>
                 </div>
 
-                <div class="ui floating labeled icon dropdown button">
+                <div class="ui floating labeled icon dropdown button tri">
                     <i class="sort icon"></i>
                     <span class="text">Trier</span>
                     <div class="menu">
                         <div class="item" data-value="1">
                             <i class="sort alphabet down icon"></i>
-                            Par nom de série
+                            Par nom de série croissant
                         </div>
                         <div class="item" data-value="2">
-                            <i class="clock icon"></i>
-                            Par date de sortie
+                            <i class="sort alphabet up icon"></i>
+                            Par nom de série décroissant
                         </div>
+                        <div class="ui divider"></div>
                         <div class="item" data-value="3">
+                            <i class="sort numeric down icon"></i>
+                            Par moyenne croissante
+                        </div>
+                        <div class="item" data-value="4">
+                            <i class="sort numeric up icon"></i>
+                            Par moyenne décroissante
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="item" data-value="2">
                             <i class="clock icon"></i>
-                            Par moyenne
+                            Par date de sortie croissante
+                        </div>
+                        <div class="item" data-value="5">
+                            <i class="rotated clock icon"></i>
+                            Par date de sortie décroissante
                         </div>
                     </div>
                 </div>
+                <div class="ui basic blueSA restore button"><i class="eraser icon"></i>Remettre à zéro les filtres / tri</div>
                 <div class="ui basic segment">
                     @include('shows.index_cards')
                 </div>

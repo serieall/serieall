@@ -10,11 +10,11 @@ $(document).one('click', '.PaginateRow .pagination a', function (e) {
     getShows($(this).attr('href').split('page=')[1], segment);
 });
 
-function getShows(page, segment) {
+function getShows(page, segment, channel, nationality, genre ) {
     $(segment).addClass('loading');
 
     $.ajax({
-        url : '/series?page=' + page,
+        url : '/series/' + channel + '/' + nationality + '/' + genre + '?page=' + page,
         dataType: 'json'
     }).done(function (data) {
         // On insére le HTML
@@ -47,6 +47,24 @@ $(document).ready(function() {
                 remoteValues: "data",
                 value: "name"
             },
+            onChange: function(valChannel) {
+                const segment = '#LeftBlock .ui.basic.segment';
+                let nationality = $('.nationalities').dropdown('get value');
+                let genre = $('.genres').dropdown('get value');
+                if (nationality === "") {
+                    nationality = 0
+                }
+                if (genre === "") {
+                    genre = 0
+                }
+
+                if (valChannel) {
+                    getShows(1, segment, valChannel, nationality, genre);
+                } else {
+                    getShows(1, segment, 0, nationality, genre)
+                }
+            },
+            clearable: true,
             saveRemoteData: false,
         })
     ;
@@ -92,4 +110,13 @@ $(document).ready(function() {
             saveRemoteData: false,
         })
     ;
+
+    $('.restore.button').on('click', function (e) {
+       e.preventDefault();
+
+       $('.genres').dropdown('restore defaults');
+       $('.nationalities').dropdown('restore defaults');
+       $('.channels').dropdown('restore defaults');
+       $('.tri').dropdown('restore defaults')
+    });
 });

@@ -297,18 +297,38 @@ class ShowRepository
      * @param string $tri
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllShows($genre = "", $channel = "", $nationality = "", $tri = 'name'): LengthAwarePaginator
+    public function getAllShows($channel, $genre, $nationality, $tri, $order): LengthAwarePaginator
     {
-        return $this->show::whereHas('genres', function ($q) use ($genre) {
-            $q->where('name', 'like', '%' . $genre . '%');
+        $shows = $this->show::where(function($q) use ($genre){
+            $q->whereHas('genres', function ($q) use ($genre) {
+                $q->where('name', 'like', '%' . $genre . '%');
+            });
+            if ($genre == 0) {
+                $q->orDoesntHave('genres');
+            }
         })
-        ->whereHas('channels', function ($q) use ($channel) {
-            $q->where('name', 'like', '%' . $channel . '%');
+        ->where(function($q) use ($channel) {
+            $q->whereHas('channels', function ($q) use ($channel) {
+                $q->where('name', 'like', '%' . $channel . '%');
+            });
+
+            if ($channel == 0) {
+                $q->orDoesntHave('channels');
+            }
         })
-        ->whereHas('nationalities', function ($q) use ($nationality) {
-            $q->where('name', 'like', '%' . 'Anglaise' . '%');
+        ->where(function($q) use ($nationality) {
+            $q->whereHas('nationalities', function ($q) use ($nationality) {
+                $q->where('name', 'like', '%' . $nationality . '%');
+            });
+
+            if ($nationality == 0) {
+                $q->orDoesntHave('nationalities');
+            }
         })
-        ->orderBy('name', 'desc')->paginate(4);
+        ->orderBy($tri, $order)
+        ->paginate(6);
+
+        return $shows;
     }
 
     /**
