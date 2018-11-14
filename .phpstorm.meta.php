@@ -5,7 +5,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2018-11-14 20:36:34.
+    * Generated on 2018-11-14 21:25:01.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -175,6 +175,7 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
+        'youkoulayley.podcastfeed' => \Youkoulayley\PodcastFeed\Manager::class,
     ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
@@ -341,6 +342,7 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
+        'youkoulayley.podcastfeed' => \Youkoulayley\PodcastFeed\Manager::class,
     ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
@@ -507,6 +509,7 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
+        'youkoulayley.podcastfeed' => \Youkoulayley\PodcastFeed\Manager::class,
     ]));
     override(\App::make(0), map([
         '' => '@',
@@ -673,6 +676,7 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
+        'youkoulayley.podcastfeed' => \Youkoulayley\PodcastFeed\Manager::class,
     ]));
     override(\App::makeWith(0), map([
         '' => '@',
@@ -839,6 +843,7 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
+        'youkoulayley.podcastfeed' => \Youkoulayley\PodcastFeed\Manager::class,
     ]));
     override(\app(0), map([
         '' => '@',
@@ -1005,6 +1010,7 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
+        'youkoulayley.podcastfeed' => \Youkoulayley\PodcastFeed\Manager::class,
     ]));
     override(\resolve(0), map([
         '' => '@',
@@ -1171,6 +1177,7 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
+        'youkoulayley.podcastfeed' => \Youkoulayley\PodcastFeed\Manager::class,
     ]));
 
     override(\Illuminate\Support\Arr::add(0), type(0));

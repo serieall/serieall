@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.13 on 2018-11-14 20:36:34.
+ * Generated for Laravel 5.7.13 on 2018-11-14 21:25:01.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -16918,6 +16918,88 @@ namespace Mews\Captcha\Facades {
  
 }
 
+namespace Youkoulayley\PodcastFeed\Facades { 
+
+    /**
+     * 
+     *
+     */ 
+    class PodcastFeed {
+        
+        /**
+         * Set the header of the podcast feed
+         *
+         * @param mixed $data
+         * @static 
+         */ 
+        public static function setHeader($data)
+        {
+            return \Youkoulayley\PodcastFeed\Manager::setHeader($data);
+        }
+        
+        /**
+         * Get value from data and escape it.
+         *
+         * @param mixed $data
+         * @param string $key
+         * @return string 
+         * @static 
+         */ 
+        public static function getValue($data, $key)
+        {
+            return \Youkoulayley\PodcastFeed\Manager::getValue($data, $key);
+        }
+        
+        /**
+         * Add media to the podcast feed.
+         *
+         * @param array $media
+         * @static 
+         */ 
+        public static function addMedia($media)
+        {
+            return \Youkoulayley\PodcastFeed\Manager::addMedia($media);
+        }
+        
+        /**
+         * Returns the podcast generated as character strings
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function toString()
+        {
+            return \Youkoulayley\PodcastFeed\Manager::toString();
+        }
+        
+        /**
+         * Returns the podcast generated as DOM document
+         *
+         * @return \DOMDocument 
+         * @static 
+         */ 
+        public static function toDom()
+        {
+            return \Youkoulayley\PodcastFeed\Manager::toDom();
+        }
+        
+        /**
+         * Get default value from config
+         *
+         * @param string $key
+         * @param mixed $fallback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function getDefault($key, $fallback = null)
+        {
+            return \Youkoulayley\PodcastFeed\Manager::getDefault($key, $fallback);
+        }
+         
+    }
+ 
+}
+
 namespace Intervention\Image\Facades { 
 
     /**
@@ -19529,6 +19611,8 @@ namespace  {
     class Share extends \Jorenvh\Share\ShareFacade {}
 
     class Captcha extends \Mews\Captcha\Facades\Captcha {}
+
+    class PodcastFeed extends \Youkoulayley\PodcastFeed\Facades\PodcastFeed {}
 
     class API extends \Dingo\Api\Facade\API {}
 

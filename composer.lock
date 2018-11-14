@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ace5ec2aab31c89cb3ca23f89c7045c",
+    "content-hash": "4cca0c82b1b64319c64f5f4f1d485399",
     "packages": [
         {
             "name": "balping/json-raw-encoder",
@@ -4868,56 +4868,6 @@
             "time": "2017-11-27T11:13:29+00:00"
         },
         {
-            "name": "torann/podcastfeed",
-            "version": "0.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Torann/podcastfeed.git",
-                "reference": "6c4bd157a3eaaaa62aa71f665566ed2050973664"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Torann/podcastfeed/zipball/6c4bd157a3eaaaa62aa71f665566ed2050973664",
-                "reference": "6c4bd157a3eaaaa62aa71f665566ed2050973664",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5.1",
-                "php": ">=5.5.9"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Torann\\PodcastFeed\\": "src/Torann/PodcastFeed/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD 2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Daniel Stainback",
-                    "email": "daniel@lyften.com"
-                }
-            ],
-            "description": "Generate RSS feeds for podcasts in Laravel 5.",
-            "keywords": [
-                "feed",
-                "laravel",
-                "podcast",
-                "podcast generator",
-                "rss",
-                "xml"
-            ],
-            "time": "2016-09-01T20:24:17+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v2.5.1",
             "source": {
@@ -5016,6 +4966,56 @@
                 "validate"
             ],
             "time": "2018-01-29T19:49:41+00:00"
+        },
+        {
+            "name": "youkoulayley/podcastfeed",
+            "version": "0.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Youkoulayley/podcastfeed.git",
+                "reference": "0eaee31d433c3d2bf9be81839fcdca7af6799497"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Youkoulayley/podcastfeed/zipball/0eaee31d433c3d2bf9be81839fcdca7af6799497",
+                "reference": "0eaee31d433c3d2bf9be81839fcdca7af6799497",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Youkoulayley\\PodcastFeed\\": "src/Youkoulayley/PodcastFeed/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Stainback",
+                    "email": "daniel@lyften.com"
+                }
+            ],
+            "description": "Generate RSS feeds for podcasts in Laravel 5.",
+            "keywords": [
+                "feed",
+                "laravel",
+                "podcast",
+                "podcast generator",
+                "rss",
+                "xml"
+            ],
+            "time": "2018-11-14T21:21:14+00:00"
         },
         {
             "name": "znck/belongs-to-through",

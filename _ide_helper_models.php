@@ -581,9 +581,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereFrontpage($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereCategoryId($value)
  * @mixin \Eloquent
+ * @property int $podcast
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article wherePodcast($value)
  */
 	class Article extends \Eloquent {}
 }

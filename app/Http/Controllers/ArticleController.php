@@ -10,7 +10,7 @@ use App\Repositories\ArticleRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CommentRepository;
 use Illuminate\Support\Facades\View;
-use Torann\PodcastFeed\Facades\PodcastFeed;
+use Youkoulayley\PodcastFeed\Facades\PodcastFeed;
 
 
 /**
@@ -126,7 +126,7 @@ class ArticleController extends Controller
                 'publish_at'  => $podcast->published_at,
                 'guid'        => route('article.show', $podcast->article_url),
                 'url'         => "https://serieall.fr/podcasts/Retro2.mp3",
-                'type'        => $podcast->media_content_type,
+                'type'        => "audio/mp3",
                 'duration'    => "30:00",
                 'image'       => "https://journeytotheit.ovh" . $podcast->image,
             ]);

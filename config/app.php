@@ -168,7 +168,7 @@ return [
         Marcelgwerder\ApiHandler\ApiHandlerServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
-        Torann\PodcastFeed\PodcastFeedServiceProvider::class,
+        Youkoulayley\PodcastFeed\PodcastFeedServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -240,7 +240,7 @@ return [
         'ApiHandler' => Marcelgwerder\ApiHandler\Facades\ApiHandler::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-        'PodcastFeed' => Torann\PodcastFeed\Facades\PodcastFeed::class,
+        'PodcastFeed' => Youkoulayley\PodcastFeed\Facades\PodcastFeed::class,
     ],
 
 ];
