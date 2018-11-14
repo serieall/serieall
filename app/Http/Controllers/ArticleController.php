@@ -117,7 +117,7 @@ class ArticleController extends Controller
     }
 
     public function RSSPodcast() {
-        $podcasts = Article::where('podcast', '=', true);
+        $podcasts = Article::where('podcast', '=', true)->get();
 
         foreach($podcasts as $podcast) {
             PodcastFeed::addMedia([
