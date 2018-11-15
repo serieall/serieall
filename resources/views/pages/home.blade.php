@@ -9,7 +9,6 @@
         <div class="ui feed">
             @foreach($fil_actu as $actu)
 
-                {{dd($actu)}}
             @endforeach
         </div>
     </div>

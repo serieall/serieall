@@ -37,17 +37,25 @@ class HomeController extends Controller
      */
     public function index()
     {
+        # Get last Rates and comments
         $lastRates = $this->rateRepository->getLast20Rates();
-        foreach ($lastRates as $rate) {
+        $lastRates->map(function ($rate) {
             $rate->type = "rate";
-        }
-        $lastComments = $this->commentRepository->getLast20Comments();
-        foreach ($lastComments as $comment) {
-            $comment->type = "comment";
-        }
 
-        # Fusion des deux collections pour avoir
+        });
+        $lastComments = $this->commentRepository->getLast20Comments();
+        $lastComments->map(function ($comment) {
+            $comment->type = "comment";
+
+        });
+
+        # Merge collections of comments and rates
         $fil_actu = $lastRates->merge($lastComments)->sortByDesc('created_at');
+
+        # Get show of the moment
+        $shows_moment = $this->rateRepository->getShowsMoment();
+
+
         return view('pages.home', compact('fil_actu'));
     }
 }

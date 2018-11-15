@@ -9,6 +9,7 @@ use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Show;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -335,5 +336,20 @@ class RateRepository
             ->groupBy('sname', 'season_name', 'episodes.name', 'episodes.numero')
             ->limit(10)
             ->get();
+    }
+
+    public function getShowsMoment() {
+        dd(
+            Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+                ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+                ->join('shows', 'seasons.show_id', '=', 'shows.id', )
+                ->select(DB::raw('shows.name, shows.nbnotes, COUNT(episode_user.rate) nbnotes_last_week'))
+                ->groupBy('shows.name', 'shows.nbnotes')
+                ->orderBy('nbnotes')
+                ->orderBy('shows.nbnotes')
+                ->where('episode_user.updated_at', '>', Carbon::now()->subWeek(1) )
+                ->limit(5)
+                ->get()
+        );
     }
 }
