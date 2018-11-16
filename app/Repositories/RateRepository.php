@@ -138,7 +138,7 @@ class RateRepository
             $q->with('show');
         }])
             ->whereUserId($user_id)
-            ->limit(5)
+            ->limit(15)
             ->get();
     }
 
@@ -339,17 +339,14 @@ class RateRepository
     }
 
     public function getShowsMoment() {
-        dd(
-            Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
-                ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
-                ->join('shows', 'seasons.show_id', '=', 'shows.id', )
-                ->select(DB::raw('shows.name, shows.nbnotes, COUNT(episode_user.rate) nbnotes_last_week'))
-                ->groupBy('shows.name', 'shows.nbnotes')
+        return Show::leftJoin('seasons', 'shows.id', '=', 'seasons.show_id')
+                ->leftJoin('episodes', 'seasons.id', '=', 'episodes.season_id')
+                ->leftJoin('episode_user', 'episodes.id', '=', 'episode_user.episode_id')
+                ->select(DB::raw('shows.name, shows.show_url, shows.nbnotes,COUNT(episode_user.rate) nbnotes_last_week'))
+                ->orderBy('nbnotes_last_week', 'DESC')
                 ->orderBy('nbnotes')
-                ->orderBy('shows.nbnotes')
-                ->where('episode_user.updated_at', '>', Carbon::now()->subWeek(1) )
+                ->groupBy('shows.name', 'shows.nbnotes')
                 ->limit(5)
-                ->get()
-        );
+                ->get();
     }
 }

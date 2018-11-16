@@ -190,4 +190,8 @@ class ArticleRepository
             ->limit(3)
             ->get();
     }
+
+    public function getLast6Articles() {
+        return $this->article->where('state', '=', 1)->limit(6)->get();
+    }
 }

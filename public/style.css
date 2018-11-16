@@ -1105,4 +1105,26 @@ table.dataTable.no-footer {
   width: auto;
   height: 100px !important; }
 
+.ui.floating.label {
+  top: -0.15em; }
+
+.notifications.menu {
+  z-index: 2 !important; }
+  .notifications.menu .item {
+    width: max-content;
+    width: -moz-max-content;
+    height: inherit !important;
+    border-bottom: none transparent !important;
+    border-radius: 0 !important; }
+    .notifications.menu .item:hover {
+      border-bottom-width: 0 !important; }
+    .notifications.menu .item a {
+      font-weight: bold !important;
+      color: inherit; }
+  .notifications.menu .active.item a {
+    font-weight: normal !important; }
+
+.cardHome img {
+  height: 200px; }
+
 /*# sourceMappingURL=style.css.map */

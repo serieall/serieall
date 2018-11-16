@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Notifications\DatabaseNotification;
+use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\RateRepository;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +19,19 @@ class HomeController extends Controller
 
     protected $rateRepository;
     protected $commentRepository;
+    protected $articleRepository;
 
     /**
      * Create a new controller instance.
      * @param RateRepository $rateRepository
+     * @param CommentRepository $commentRepository
      * @internal param ArticleRepository $articleRepository
      */
-    public function __construct(RateRepository $rateRepository, CommentRepository $commentRepository)
+    public function __construct(RateRepository $rateRepository, CommentRepository $commentRepository, ArticleRepository $articleRepository)
     {
         $this->rateRepository = $rateRepository;
         $this->commentRepository = $commentRepository;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -55,7 +59,9 @@ class HomeController extends Controller
         # Get show of the moment
         $shows_moment = $this->rateRepository->getShowsMoment();
 
+        # Get Articles
+        $articles = $this->articleRepository->getLast6Articles();
 
-        return view('pages.home', compact('fil_actu'));
+        return view('pages.home', compact('fil_actu', 'shows_moment', 'articles'));
     }
 }
