@@ -13272,7 +13272,7 @@ namespace Illuminate\Support\Facades {
          * @param string $default
          * @return string 
          * @static 
-         */ 
+         */
         public static function yieldContent($section, $default = '')
         {
             return \Illuminate\View\Factory::yieldContent($section, $default);

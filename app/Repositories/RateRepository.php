@@ -342,11 +342,11 @@ class RateRepository
         return Show::leftJoin('seasons', 'shows.id', '=', 'seasons.show_id')
                 ->leftJoin('episodes', 'seasons.id', '=', 'episodes.season_id')
                 ->leftJoin('episode_user', 'episodes.id', '=', 'episode_user.episode_id')
-                ->select(DB::raw('shows.name, shows.show_url, shows.nbnotes,COUNT(episode_user.rate) nbnotes_last_week'))
+                ->select(DB::raw('shows.name, shows.show_url, shows.moyenne, shows.nbnotes,COUNT(episode_user.rate) nbnotes_last_week'))
                 ->orderBy('nbnotes_last_week', 'DESC')
                 ->orderBy('nbnotes')
-                ->groupBy('shows.name', 'shows.nbnotes')
-                ->limit(5)
+                ->groupBy('shows.name', 'shows.nbnotes', 'shows.moyenne')
+                ->limit(10)
                 ->get();
     }
 }

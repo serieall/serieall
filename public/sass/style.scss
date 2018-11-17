@@ -30,6 +30,25 @@
 
 .t-bold { @include bold() }
 
+/* BACKGROUND COLORS */
+@include backgroundColor("b-veryDarkBlueSA", $veryDarkBlueSA);
+@include backgroundColor("b-darkBlueSA", $darkBlueSA);
+@include backgroundColor("b-blueSA", $blueSA);
+@include backgroundColor("b-lightBlueSA", $lightBlueSA);
+@include backgroundColor("b-red", $red);
+@include backgroundColor("b-orange", $orange);
+@include backgroundColor("b-yellow", $yellow);
+@include backgroundColor("b-green", $green);
+@include backgroundColor("b-cyan", $cyan);
+@include backgroundColor("b-blue", $blue);
+@include backgroundColor("b-purple", $purple);
+@include backgroundColor("b-violet", $violet);
+@include backgroundColor("b-pink", $pink);
+@include backgroundColor("b-brown", $brown);
+@include backgroundColor("b-white", $white);
+@include backgroundColor("b-grey", $grey);
+@include backgroundColor("b-black", $black);
+
 /* LEFT BORDER COLOR */
 @include leftBorderColor("lb-veryDarkBlueSA", $veryDarkBlueSA);
 @include leftBorderColor("lb-darkBlueSA", $darkBlueSA);
@@ -435,9 +454,11 @@ table.dataTable.no-footer {
     letter-spacing: .2em;
     margin-bottom: 2px;
   }
-
   .slick-prev::before, .slick-next::before {
     color: rgba(0,0,0,.5);
+  }
+  .placeholder.segment {
+    display: block;
   }
 }
 
@@ -455,7 +476,72 @@ table.dataTable.no-footer {
     }
   }
 }
+.div_show_moment {
+  h1 {
+    margin-bottom: 0.8em !important;
+  }
+  .shows_moment {
+    margin-bottom: 2em;
+    img {
+      height: 250px;
+      position: relative;
+    }
+    .overlay_shows_moment {
+      position: absolute;
+      top: 180px;
+      z-index: 5;
+      color: $white;
+      background: rgb(0, 0, 0); /* fallback color */
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+    }
+    a {
+      text-decoration: none;
+    }
+  }
+}
 
+.home.planning {
+  padding-left: 0;
+  padding-right: 0;
+  div.title {
+    padding: 10px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+  .column {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    .list.episodes {
+      padding: 10px;
+      .episode {
+        padding-bottom: 5px;
+      }
+    }
+  }
+}
+
+.div_last_added_shows {
+  h1 {
+    margin-bottom: 0.8em !important;
+  }
+  img {
+    height: 250px;
+    position: relative;
+  }
+  .overlay_shows_moment {
+    position: absolute;
+    top: 180px;
+    z-index: 5;
+    color: $white;
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+  }
+}
+
+/* HOVER CSS */
 .hvr-grow {
   display: inline-block;
   vertical-align: middle;
@@ -472,4 +558,18 @@ table.dataTable.no-footer {
   transform: scale(1.05);
 }
 
-
+.hvr-rotate {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-rotate:hover, .hvr-rotate:focus, .hvr-rotate:active {
+  -webkit-transform: rotate(4deg);
+  transform: rotate(4deg);
+}

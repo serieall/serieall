@@ -326,7 +326,7 @@ class ShowRepository
             }
         })
         ->orderBy($tri, $order)
-        ->paginate(6);
+        ->paginate(12);
 
         return $shows;
     }
@@ -396,5 +396,9 @@ class ShowRepository
             ->where('users.id', '=', $user)
             ->select(DB::raw('shows.id as sid, users.id as uid, shows.name as name, shows.show_url as show_url, show_user.state as state, show_user.message as message'))
             ->get();
+    }
+
+    public function getLastAddedShows() {
+        return $this->show->orderBy('created_at')->limit(10)->get();
     }
 }

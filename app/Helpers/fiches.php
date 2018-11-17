@@ -87,6 +87,58 @@ function affichageNumeroEpisode($show_url, $season_number, $episode_number, $epi
 }
 
 /**
+ * @param $show_name
+ * @param $show_url
+ * @param $season_name
+ * @param $episode_numero
+ * @param $episode_id
+ * @return string
+ */
+function printShowEpisode($show_name, $show_url, $season_name, $episode_numero, $episode_id) {
+    $text = $show_name . ' ' . $season_name . '.' . sprintf('%02s', $episode_numero);
+
+    if ($episode_numero == 0) {
+        return '<a href="' . route('episode.fiche', [$show_url, $season_name, $episode_numero, $episode_id]) . '">' . $text . '</a>';
+    } else {
+        return '<a href="' . route('episode.fiche', [$show_url, $season_name, $episode_numero]) . '">' . $text . '</a>';
+    }
+}
+
+/**
+ * @param $show_name
+ * @param $show_url
+ * @param $season_name
+ * @return string
+ */
+function printShowSeason($show_name, $show_url, $season_name) {
+    $text = $show_name . ' Saison ' . $season_name;
+
+    return '<a href="' . route('season.fiche', [$show_url, $season_name]) . '">' . $text . '</a>';
+}
+
+/**
+ * @param $show_name
+ * @param $show_url
+ * @return string
+ */
+function printShow($show_name, $show_url) {
+    $text = $show_name;
+
+    return '<a href="' . route('show.fiche', $show_url) . '">' . $text . '</a>';
+}
+
+/**
+ * @param $article_name
+ * @param $article_url
+ * @return string
+ */
+function printArticle($article_name, $article_url) {
+    $text = $article_name;
+
+    return '<a href="' . route('article.show', $article_url) . '">' . $text . '</a>';
+}
+
+/**
  * Print rate with color
  *
  * @param $rate
@@ -126,6 +178,23 @@ function affichageThumb($thumb) {
             break;
         case 3:
             return '<td class="ui red text AvisStatus">Avis défavorable</td>';
+            break;
+        default:
+            return false;
+            break;
+    }
+}
+
+function affichageThumbIcon($thumb) {
+    switch ($thumb) {
+        case 1:
+            return '<i class="green smile icon"></i> <span class="t-green">favorable</span>';
+            break;
+        case 2:
+            return '<i class="grey meh icon"></i> <span class="t-grey">neutre</span>';
+            break;
+        case 3:
+            return '<i class="red frown icon"></i> <span class="t-red">défavorable</span>';
             break;
         default:
             return false;

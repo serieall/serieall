@@ -7,6 +7,12 @@
   }
 }
 
+@mixin backgroundColor($nameElement, $color) {
+  .#{$nameElement} {
+    background-color: $color !important;
+  }
+}
+
 @mixin buttonColor($nameElement, $colorBackground, $colorText){
   .#{$nameElement} {
     color: $colorText;

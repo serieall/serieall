@@ -99,7 +99,7 @@ class Episode extends Model {
      */
     public function users()
 	{
-		return $this->belongsToMany('App\Models\User')->withPivot('rate', 'updated_at');
+		return $this->belongsToMany('App\Models\User')->withPivot('rate', 'created_at', 'updated_at');
 	}
 
     /**

@@ -110,6 +110,10 @@ class EpisodeRepository
             ->first();
     }
 
+    /**
+     * @param $diffusion
+     * @return Episode[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function getEpisodesDiffusion($diffusion) {
         return $this->episode
             ->with(['season' => function($q){
@@ -118,6 +122,21 @@ class EpisodeRepository
             ->whereBetween($diffusion,[
                 Carbon::now()->subMonth(1),
                 Carbon::now()->addMonth(1)])
+            ->get();
+    }
+
+    /**
+     * @param $diffusion
+     * @param $date
+     * @return Episode[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getPlanningHome($diffusion, $date) {
+        return $this->episode
+            ->with(['season' => function($q){
+                $q->with('show');
+            }])
+            ->where($diffusion, '=', $date)
+            ->orderBy('diffusion_us')
             ->get();
     }
 
