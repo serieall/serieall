@@ -26,6 +26,9 @@
   .active.item:hover { // Add color to border when selected
     border-color: $blueSA;
   }
+  .slogan:hover {
+      border-color: $white;
+  }
 }
 
 .ui.pointing.dropdown.link {

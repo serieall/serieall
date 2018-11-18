@@ -126,6 +126,16 @@
                 @endif">
                 Classements
             </a>
+            <div class="item right floated slogan">
+                "{{ $slogan->message }}"
+                @if(!empty($slogan->source))
+                    @if(!empty($slogan->url))
+                         - <a href="{{ $slogan->url }}">{{ $slogan->source }}</a>
+                    @else
+                         - {{ $slogan->source }}
+                    @endif
+                @endif
+            </div>
             <div class="right secondary pointing stackable menu">
                 <div class="item ui scrolling search dropdown showDropdown">
                     <div class="ui icon input">
