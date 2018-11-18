@@ -117,13 +117,14 @@ class LoginController extends Controller
         return response()->json(["suspended" => false, "activated" => true]);
     }
 
+
     /**
      * @param $token
-     * @return bool
+     * @return RedirectResponse
      */
-    public function activateUser($token): bool
+    public function activateUser($token): RedirectResponse
     {
         $this->activationService->activateUser($token) ? redirect()->route('login')->with('success', 'Votre adresse E-Mail a été validée. Vous pouvez maintenant vous connecter.') : redirect()->route('login')->with('error', 'Erreur lors de la validation de votre adresse mail. Vous l\'avez peut être déjà validée. En cas de problèmes, n\'hésitez pas à nous contacter à l\'adresse : serieall.fr@gmail.com');
-        return true;
+        return redirect()->intended($this->redirectPath());
     }
 }
