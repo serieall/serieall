@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Notifications\DatabaseNotification;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
 use App\Repositories\RateRepository;
 use App\Repositories\ShowRepository;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;use Symfony\Component\VarDumper\Cloner\Data;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class HomeController
@@ -47,28 +49,67 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function index()
     {
         if(Request::ajax()) {
-            
+            $filter_home = Input::get('filter_home');
+
+            if($filter_home == 'all') {
+                # Get last Rates and comments
+                $lastRates = $this->rateRepository->getLastRates(20);
+                $lastRates->map(function ($rate) {
+                    $rate->type = "rate";
+
+                });
+                $lastComments = $this->commentRepository->getLastComments(20);
+                $lastComments->map(function ($comment) {
+                    $comment->type = "comment";
+                });
+
+                # Merge collections of comments and rates
+                $fil_actu = $lastRates->merge($lastComments)->sortByDesc('created_at');
+                $filter_home = "all";
+            } elseif ($filter_home == 'rates') {
+                # Get last Rates
+                $lastRates = $this->rateRepository->getLastRates(40);
+                $lastRates->map(function ($rate) {
+                    $rate->type = "rate";
+
+                });
+
+                # Merge collections of comments and rates
+                $fil_actu = $lastRates->sortByDesc('created_at');
+                $filter_home = "rates";
+
+            } else {
+                # Get last comments
+                $lastComments = $this->commentRepository->getLastComments(40);
+                $lastComments->map(function ($comment) {
+                    $comment->type = "comment";
+                });
+
+                # Merge collections of comments and rates
+                $fil_actu = $lastComments->sortByDesc('created_at');
+                $filter_home = "comments";
+            }
+            return Response::json(View::make('pages.home_fil_actu', ['fil_actu' => $fil_actu, 'filter_home' => $filter_home])->render());
         } else {
             # Get last Rates and comments
-            $lastRates = $this->rateRepository->getLast20Rates();
+            $lastRates = $this->rateRepository->getLastRates(20);
             $lastRates->map(function ($rate) {
                 $rate->type = "rate";
 
             });
-            $lastComments = $this->commentRepository->getLast20Comments();
+            $lastComments = $this->commentRepository->getLastComments(20);
             $lastComments->map(function ($comment) {
                 $comment->type = "comment";
-
             });
 
             # Merge collections of comments and rates
             $fil_actu = $lastRates->merge($lastComments)->sortByDesc('created_at');
-            $actu_mode = "all";
+            $filter_home = "all";
 
             # Get show of the moment
             $shows_moment = $this->rateRepository->getShowsMoment();
@@ -87,8 +128,7 @@ class HomeController extends Controller
             $planning['today'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['today']);
             $planning['tomorrow'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['tomorrow']);
 
-            return view('pages.home', compact('fil_actu', 'shows_moment', 'articles', 'planning', 'dates', 'last_added_shows', 'actu_mode'));
+            return view('pages.home', compact('fil_actu', 'shows_moment', 'articles', 'planning', 'dates', 'last_added_shows', 'filter_home'));
         }
-
     }
 }

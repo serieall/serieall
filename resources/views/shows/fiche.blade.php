@@ -84,27 +84,6 @@
          <div class="row">
              @include('articles.linked')
          </div>
-         <div class="row">
-             <div id="SimilarShows" class="ui segment">
-                 <h1>Séries similaires</h1>
-                 <div class="ui center aligned stackable grid">
-                     <div class="row">
-                         <div class="center aligned five wide column">
-                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
-                             <span>Série 1</span>
-                         </div>
-                         <div class="center aligned five wide column">
-                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
-                             <span>Série 2</span>
-                         </div>
-                         <div class="center aligned five wide column">
-                             <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
-                             <span>Série 3</span>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
      </div>
 @endsection
 

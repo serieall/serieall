@@ -114,13 +114,14 @@ class RateRepository
     /**
      * Get Last 20 Rates
      *
+     * @param $limit
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getLast20Rates() {
+    public function getLastRates($limit) {
         return Episode_user::with(['user', 'episode' => function($q){
             $q->with('season');
             $q->with('show');
-        }])->limit(20)
+        }])->limit($limit)
             ->orderBy('created_at', 'desc')
             ->get();
     }

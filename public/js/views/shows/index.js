@@ -7,7 +7,7 @@ $(document).one('click', '.PaginateRow .pagination a', function (e) {
 
     let segment = '#LeftBlock .ui.basic.segment';
 
-    getShows($(this).attr('href').split('page=')[1], segment);
+    getShows($(this).attr('href').split('page=')[1], segment, 0, 0, 0, 1);
 });
 
 function getShows(page, segment, channel, nationality, genre, tri ) {

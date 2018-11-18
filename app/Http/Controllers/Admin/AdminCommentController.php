@@ -62,9 +62,8 @@ class AdminCommentController extends Controller
      *
      */
     public function indexShows() {
-        $shows = $this->showRepository->getAllShows();
 
-        return view('admin.comments.index_shows', compact('shows'));
+        return view('admin.comments.index_shows');
     }
 
     /**
@@ -101,10 +100,9 @@ class AdminCommentController extends Controller
      */
     public function edit($comment_id)
     {
-        $shows = $this->showRepository->getAllShows();
         $comment = $this->commentRepository->getCommentByID($comment_id);
 
-        return view('admin.comments.edit', compact('shows', 'comment'));
+        return view('admin.comments.edit', compact('comment'));
     }
 
     /**

@@ -68,6 +68,7 @@ class ShowController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
 public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1) {
+        Log::info($channel);
         switch ($tri) {
             case 1:
                 $tri = 'name';

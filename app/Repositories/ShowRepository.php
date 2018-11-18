@@ -399,6 +399,6 @@ class ShowRepository
     }
 
     public function getLastAddedShows() {
-        return $this->show->orderBy('created_at')->limit(10)->get();
+        return $this->show->orderBy('created_at', 'desc')->limit(10)->get();
     }
 }
