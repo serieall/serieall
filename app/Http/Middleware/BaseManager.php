@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
  * Class Admin
  * @package App\Http\Middleware
  */
-class Admin
+class BaseManager
 {
     use AuthenticatesUsers;
 
@@ -24,7 +24,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->role < 2){
+        if ($request->user()->role < 4){
             if ($request->user()->suspended == 1) {
                 $this->guard()->logout();
 

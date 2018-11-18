@@ -145,7 +145,7 @@ Route::get('classements', 'RankingController@index')->name('ranking.index');
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
 */
-Route::group(['middleware' => 'admin'], function () {
+Route::group(['middleware' => 'basemanager'], function () {
     /* HOME */
     Route::get('admin', 'Admin\AdminController@index')->name('admin');
 
@@ -192,47 +192,52 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/episodes/{season}/redirect', 'Admin\AdminEpisodeController@redirect')->name('admin.episodes.redirect');
     Route::delete('admin/episodes/{episode}', 'Admin\AdminEpisodeController@destroy')->name('admin.episodes.destroy');
 
-    /* ARTICLES */
-    Route::get('admin/articles', 'Admin\AdminArticleController@index')->name('admin.articles.index');
-    Route::get('admin/articles/create', 'Admin\AdminArticleController@create')->name('admin.articles.create');
-    Route::get('admin/articles/{article}', 'Admin\AdminArticleController@edit')->name('admin.articles.edit');
-    Route::put('admin/articles/update', 'Admin\AdminArticleController@update')->name('admin.articles.update');
-    Route::post('admin/articles', 'Admin\AdminArticleController@store')->name('admin.articles.store');
-    Route::delete('admin/articles/{article}', 'Admin\AdminArticleController@destroy')->name('admin.articles.destroy');
+    Route::group(['middleware' => 'editor'], function () {
+        /* ARTICLES */
+        Route::get('admin/articles', 'Admin\AdminArticleController@index')->name('admin.articles.index');
+        Route::get('admin/articles/create', 'Admin\AdminArticleController@create')->name('admin.articles.create');
+        Route::get('admin/articles/{article}', 'Admin\AdminArticleController@edit')->name('admin.articles.edit');
+        Route::put('admin/articles/update', 'Admin\AdminArticleController@update')->name('admin.articles.update');
+        Route::post('admin/articles', 'Admin\AdminArticleController@store')->name('admin.articles.store');
+        Route::delete('admin/articles/{article}', 'Admin\AdminArticleController@destroy')->name('admin.articles.destroy');
+    });
 
-    /* USERS */
-    Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');
-    Route::get('admin/users/create', 'Admin\AdminUserController@create')->name('admin.users.create');
-    Route::post('admin/users', 'Admin\AdminUserController@store')->name('admin.users.store');
-    Route::get('admin/users/{user}', 'Admin\AdminUserController@edit')->name('admin.users.edit');
-    Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
-    Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
-    Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
+    Route::group(['middleware' => 'admin'], function () {
+        /* USERS */
+        Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');
+        Route::get('admin/users/create', 'Admin\AdminUserController@create')->name('admin.users.create');
+        Route::post('admin/users', 'Admin\AdminUserController@store')->name('admin.users.store');
+        Route::get('admin/users/{user}', 'Admin\AdminUserController@edit')->name('admin.users.edit');
+        Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
+        Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
+        Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
 
-    /* COMMENTS */
-    Route::get('admin/comments', 'Admin\AdminCommentController@index')->name('admin.comments.index');
-    Route::get('admin/comments/shows', 'Admin\AdminCommentController@indexShows')->name('admin.comments.indexShows');
-    Route::get('admin/comments/articles', 'Admin\AdminCommentController@indexArticles')->name('admin.comments.indexArticles');
-    Route::get('admin/comments/{comment}', 'Admin\AdminCommentController@edit')->name('admin.comments.edit');
-    Route::get('admin/comments/{type}/{type_id}', 'Admin\AdminCommentController@getComments')->name('admin.comments.getComments');
-    Route::put('admin/comments/update', 'Admin\AdminCommentController@update')->name('admin.comments.update');
-    Route::delete('admin/comments/{comment}', 'Admin\AdminCommentController@destroy')->name('admin.comments.destroy');
+        /* COMMENTS */
+        Route::get('admin/comments', 'Admin\AdminCommentController@index')->name('admin.comments.index');
+        Route::get('admin/comments/shows', 'Admin\AdminCommentController@indexShows')->name('admin.comments.indexShows');
+        Route::get('admin/comments/articles', 'Admin\AdminCommentController@indexArticles')->name('admin.comments.indexArticles');
+        Route::get('admin/comments/{comment}', 'Admin\AdminCommentController@edit')->name('admin.comments.edit');
+        Route::get('admin/comments/{type}/{type_id}', 'Admin\AdminCommentController@getComments')->name('admin.comments.getComments');
+        Route::put('admin/comments/update', 'Admin\AdminCommentController@update')->name('admin.comments.update');
+        Route::delete('admin/comments/{comment}', 'Admin\AdminCommentController@destroy')->name('admin.comments.destroy');
 
-    /* SYSTEM */
-    Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');
-    /* LOGS */
-    Route::get('admin/system/logs', 'Admin\System\AdminLogsController@index')->name('admin.logs');
-    Route::get('admin/system/logs/view/{id}', 'Admin\System\AdminLogsController@view')->name('admin.logs.view');
-    /* CONTACTS */
-    Route::get('admin/system/contacts', 'Admin\System\AdminContactsController@index')->name('admin.contacts');
-    Route::get('admin/system/contacts/view/{id}', 'Admin\System\AdminContactsController@view')->name('admin.contacts.view');
-    Route::post('admin/system/contacts/reply', 'Admin\System\AdminContactsController@replyContact')->name('admin.contacts.reply');
-    /* SLOGANS */
-    Route::get('admin/system/slogans', 'Admin\System\AdminSlogansController@index')->name('admin.slogans.index');
-    Route::get('admin/system/slogans/create', 'Admin\System\AdminSlogansController@create')->name('admin.slogans.create');
-    Route::post('admin/system/slogans', 'Admin\System\AdminSlogansController@store')->name('admin.slogans.store');
-    Route::get('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@edit')->name('admin.slogans.edit');
-    Route::put('admin/system/slogans', 'Admin\System\AdminSlogansController@update')->name('admin.slogans.update');
-    Route::get('admin/system/slogan/redirect', 'Admin\System\AdminSlogansController@redirect')->name('admin.slogans.redirect');
-    Route::delete('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@destroy')->name('admin.slogans.destroy');
+        /* SYSTEM */
+        Route::get('admin/system', 'Admin\System\AdminSystemController@index')->name('admin.system');
+        /* LOGS */
+        Route::get('admin/system/logs', 'Admin\System\AdminLogsController@index')->name('admin.logs');
+        Route::get('admin/system/logs/view/{id}', 'Admin\System\AdminLogsController@view')->name('admin.logs.view');
+        /* CONTACTS */
+        Route::get('admin/system/contacts', 'Admin\System\AdminContactsController@index')->name('admin.contacts');
+        Route::get('admin/system/contacts/view/{id}', 'Admin\System\AdminContactsController@view')->name('admin.contacts.view');
+        Route::post('admin/system/contacts/reply', 'Admin\System\AdminContactsController@replyContact')->name('admin.contacts.reply');
+        /* SLOGANS */
+        Route::get('admin/system/slogans', 'Admin\System\AdminSlogansController@index')->name('admin.slogans.index');
+        Route::get('admin/system/slogans/create', 'Admin\System\AdminSlogansController@create')->name('admin.slogans.create');
+        Route::post('admin/system/slogans', 'Admin\System\AdminSlogansController@store')->name('admin.slogans.store');
+        Route::get('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@edit')->name('admin.slogans.edit');
+        Route::put('admin/system/slogans', 'Admin\System\AdminSlogansController@update')->name('admin.slogans.update');
+        Route::get('admin/system/slogan/redirect', 'Admin\System\AdminSlogansController@redirect')->name('admin.slogans.redirect');
+        Route::delete('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@destroy')->name('admin.slogans.destroy');
+    });
+
 });

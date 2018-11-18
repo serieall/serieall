@@ -22,34 +22,38 @@
             <i class="tv icon"></i>
             Séries
         </a>
-        <a class="ui header item
-             @if($navActive === 'AdminArticles')
-                blue
-             @endif" href="{{ route('admin.articles.index') }}">
-            <i class="file text outline icon"></i>
-            Articles
-        </a>
-        <a class="ui header item
-            @if($navActive === 'AdminUsers')
-                blue
-            @endif" href="{{ route('admin.users.index') }}">
-            <i class="users icon"></i>
-            Utilisateurs
-        </a>
-        <a class="ui header item
-            @if($navActive === 'AdminComments')
-                blue
-            @endif" href="{{ route('admin.comments.index') }}">
-            <i class="comments icon"></i>
-            Avis
-        </a>
-        <a class="ui header item
-            @if($navActive === 'AdminSystem')
-                blue
-             @endif" href="{{ route('admin.system') }}">
-            <i class="settings icon"></i>
-            Système
-        </a>
+        @if(Auth::user()->role < 3)
+            <a class="ui header item
+                 @if($navActive === 'AdminArticles')
+                    blue
+                 @endif" href="{{ route('admin.articles.index') }}">
+                <i class="file text outline icon"></i>
+                Articles
+            </a>
+            @if(Auth::user()->role < 2)
+                <a class="ui header item
+                    @if($navActive === 'AdminUsers')
+                        blue
+                    @endif" href="{{ route('admin.users.index') }}">
+                    <i class="users icon"></i>
+                    Utilisateurs
+                </a>
+                <a class="ui header item
+                    @if($navActive === 'AdminComments')
+                        blue
+                    @endif" href="{{ route('admin.comments.index') }}">
+                    <i class="comments icon"></i>
+                    Avis
+                </a>
+                <a class="ui header item
+                    @if($navActive === 'AdminSystem')
+                        blue
+                     @endif" href="{{ route('admin.system') }}">
+                    <i class="settings icon"></i>
+                    Système
+                </a>
+            @endif
+        @endif
         <div class="ui attached message">
             <div class="header">
                 Version {{ config('app.version') }}
