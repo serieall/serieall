@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.13 on 2018-11-15 17:30:23.
+ * Generated for Laravel 5.7.13 on 2018-11-18 12:57:23.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -13272,7 +13272,7 @@ namespace Illuminate\Support\Facades {
          * @param string $default
          * @return string 
          * @static 
-         */
+         */ 
         public static function yieldContent($section, $default = '')
         {
             return \Illuminate\View\Factory::yieldContent($section, $default);

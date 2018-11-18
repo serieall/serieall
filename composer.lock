@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cca0c82b1b64319c64f5f4f1d485399",
+    "content-hash": "6e6fa507138e546eb21d31920005469f",
     "packages": [
         {
             "name": "balping/json-raw-encoder",
@@ -4866,6 +4866,49 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
+        },
+        {
+            "name": "tohtamysh/laravel-phpbb-bridge",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tohtamysh/laravel-phpbb-bridge.git",
+                "reference": "c7eb36d528d9b124cbd0884039aa45688c7686eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tohtamysh/laravel-phpbb-bridge/zipball/c7eb36d528d9b124cbd0884039aa45688c7686eb",
+                "reference": "c7eb36d528d9b124cbd0884039aa45688c7686eb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tohtamysh\\LaravelPhpbbBridge\\": "src/LaravelPhpbbBridge"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tohtamysh",
+                    "email": "tohtamysh@gmail.com"
+                }
+            ],
+            "description": "Authentication module for Laravel 5.4 and phpBB 3.2",
+            "keywords": [
+                "laravel",
+                "laravel5",
+                "phpbb",
+                "phpbb3"
+            ],
+            "time": "2017-06-08T06:35:59+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

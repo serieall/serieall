@@ -169,6 +169,7 @@ return [
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
         Youkoulayley\PodcastFeed\PodcastFeedServiceProvider::class,
+        Tohtamysh\LaravelPhpbbBridge\LaravelPhpbbBridgeServiceProvider::class,
 
         /*
          * Application Service Providers...

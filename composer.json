@@ -26,6 +26,7 @@
         "pusher/pusher-php-server": "^3.0",
         "spatie/laravel-cookie-consent": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
+        "tohtamysh/laravel-phpbb-bridge": "^1.0",
         "youkoulayley/podcastfeed": "^0.3.7",
         "znck/belongs-to-through": "^2.3"
     },
