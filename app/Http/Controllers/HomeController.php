@@ -69,7 +69,7 @@ class HomeController extends Controller
                 });
 
                 # Merge collections of comments and rates
-                $fil_actu = $lastRates->merge($lastComments)->sortByDesc('created_at');
+                $fil_actu = $lastRates->union($lastComments)->sortByDesc('created_at');
                 $filter_home = "all";
             } elseif ($filter_home == 'rates') {
                 # Get last Rates
@@ -108,7 +108,7 @@ class HomeController extends Controller
             });
 
             # Merge collections of comments and rates
-            $fil_actu = $lastRates->merge($lastComments)->sortByDesc('created_at');
+            $fil_actu = $lastRates->union($lastComments)->sortByDesc('created_at');
             $filter_home = "all";
 
             # Get show of the moment
