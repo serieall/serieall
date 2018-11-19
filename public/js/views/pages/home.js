@@ -1,8 +1,7 @@
 $(document).ready(function() {
     $(".shows_moment").slick({
-        centerMode: true,
-        centerPadding: '60px',
-        slidesToShow: 4,
+        slidesToShow: 5,
+        slidesToScroll: 5,
         infinite: true,
         variableWidth: false,
         responsive: [
@@ -55,9 +54,8 @@ $(document).ready(function() {
     });
 
     $(".last_added_shows").slick({
-        centerMode: true,
-        centerPadding: '60px',
         slidesToShow: 8,
+        slidesToScroll: 4,
         infinite: true,
         variableWidth: false,
         responsive: [
