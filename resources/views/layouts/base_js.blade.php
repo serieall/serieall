@@ -237,6 +237,10 @@
                 $('.markAllasRead').hide();
             });
         });
+
+        $('#reload_captcha').click(function(event){
+            $('#captcha_image').attr('src', $('#captcha_image').attr('src')+'{{ captcha_src() }}');
+        });
     })
 </script>
 

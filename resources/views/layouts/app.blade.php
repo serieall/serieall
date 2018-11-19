@@ -381,10 +381,16 @@
 
                     <div class="ui section divider"></div>
 
-                    {!! captcha_img() !!}
-                    <input type="text" name="captcha">
-                    <div class="ui red hidden message"></div>
-                    <p></p>
+                    <div class="ui required field">
+                        <img src="{{ captcha_src() }}" id="captcha_image">
+                        <span id="reload_captcha" class="ui icon" data-tooltip="Changer l'image">
+                            <i class="sync icon"></i>
+                        </span>
+
+                        <label for="captcha">Entrer le code</label>
+                        <input type="text" name="captcha">
+                        <div class="ui red hidden message"></div>
+                    </div>
 
                     <div class="ui required field">
                         <div class="ui checkbox">
