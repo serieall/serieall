@@ -25,7 +25,7 @@
                             {!! roleUser($user->role) !!}
                         </td>
                         <td>
-                            {{ formatDate('full', $user->created_at) }}
+                            {!! formatDate('full', $user->created_at) !!}
                         </td>
                     </tr>
                 @endforeach
