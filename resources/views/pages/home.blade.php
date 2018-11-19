@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="eight wide column div_show_moment">
-                <h1>Les séries  du moment</h1>
+                <h1>Les séries du moment</h1>
                 <div class="shows_moment">
                     @foreach($shows_moment as $show)
                         <div class="hvr-rotate">
