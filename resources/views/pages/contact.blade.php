@@ -42,7 +42,7 @@
                 </div>
                 <div class="ui required field {{ $errors->has('message') ? ' error' : '' }}">
                     <label for="message">Message</label>
-                    <textarea id="message" name="message"></textarea>
+                    <textarea id="message" name="message">{{ old('message') }}</textarea>
 
                     @if ($errors->has('message'))
                         <div class="ui red message">
