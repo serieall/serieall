@@ -98,9 +98,9 @@ function printShowEpisode($show_name, $show_url, $season_name, $episode_numero, 
     $text = $show_name . ' ' . $season_name . '.' . sprintf('%02s', $episode_numero);
 
     if ($episode_numero == 0) {
-        return '<a href="' . route('episode.fiche', [$show_url, $season_name, $episode_numero, $episode_id]) . '">' . $text . '</a>';
+        return '<a class="underline-from-left" href="' . route('episode.fiche', [$show_url, $season_name, $episode_numero, $episode_id]) . '">' . $text . '</a>';
     } else {
-        return '<a href="' . route('episode.fiche', [$show_url, $season_name, $episode_numero]) . '">' . $text . '</a>';
+        return '<a class="underline-from-left" href="' . route('episode.fiche', [$show_url, $season_name, $episode_numero]) . '">' . $text . '</a>';
     }
 }
 
@@ -113,7 +113,7 @@ function printShowEpisode($show_name, $show_url, $season_name, $episode_numero, 
 function printShowSeason($show_name, $show_url, $season_name) {
     $text = $show_name . ' Saison ' . $season_name;
 
-    return '<a href="' . route('season.fiche', [$show_url, $season_name]) . '">' . $text . '</a>';
+    return '<a class="underline-from-left" href="' . route('season.fiche', [$show_url, $season_name]) . '">' . $text . '</a>';
 }
 
 /**
@@ -124,7 +124,7 @@ function printShowSeason($show_name, $show_url, $season_name) {
 function printShow($show_name, $show_url) {
     $text = $show_name;
 
-    return '<a href="' . route('show.fiche', $show_url) . '">' . $text . '</a>';
+    return '<a class="underline-from-left" href="' . route('show.fiche', $show_url) . '">' . $text . '</a>';
 }
 
 /**
@@ -135,7 +135,7 @@ function printShow($show_name, $show_url) {
 function printArticle($article_name, $article_url) {
     $text = $article_name;
 
-    return '<a href="' . route('article.show', $article_url) . '">' . $text . '</a>';
+    return '<a class="underline-from-left" href="' . route('article.show', $article_url) . '">' . $text . '</a>';
 }
 
 /**

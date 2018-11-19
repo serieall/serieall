@@ -573,3 +573,33 @@ table.dataTable.no-footer {
   -webkit-transform: rotate(4deg);
   transform: rotate(4deg);
 }
+
+a.underline-from-left {
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  overflow: hidden;
+}
+a.underline-from-left:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  padding-bottom: 1px;
+  background: $blueSA;
+  height: 1px;
+  -webkit-transition-property: right;
+  transition-property: right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+a.underline-from-left:hover:before, a.underline-from-left:focus:before, a.underline-from-left:active:before {
+  right: 0;
+}
