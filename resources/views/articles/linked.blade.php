@@ -31,7 +31,7 @@
             @endif
 
             <div class="row button">
-                <a href="#">
+                <a href="{{ route('article.index') }}">
                     <button class="ui right floated button">
                         Tous les articles
                         <i class="right arrow icon"></i>
