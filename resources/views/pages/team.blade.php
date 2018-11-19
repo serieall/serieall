@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'Contact')
+@section('pageTitle', 'L\'équipe de Série-All')
 @section('pageDescription', 'Les membres de l\'équipe de Série-All qui vous chouchoute au quotidien.')
 
 @section('content')
