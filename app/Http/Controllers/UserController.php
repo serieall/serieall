@@ -136,6 +136,13 @@ ShowRepository $showRepository)
                 ->labels($chart_rates->pluck("rate"))
                 ->dataset('Nombre de notes', 'line', $chart_rates->pluck("total"));
 
+            $chart->options([
+                'yAxis' => [
+                    'min' => 0,
+                    'max' => 20,
+                ],
+            ]);
+
             return view('users.rates', compact('user', 'rates', 'chart_rates', 'chart', 'avg_user_rates', 'comment_fav', 'comment_def', 'comment_neu', 'nb_comments', 'time_passed_shows'));
         }
     }

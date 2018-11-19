@@ -65,6 +65,12 @@ class SeasonController extends Controller
             ->title('Evolution des notes de la saison')
             ->labels($seasonInfo->episodes->pluck('numero'))
             ->dataset('Moyenne', 'line', $seasonInfo->episodes->pluck('moyenne'));
+        $chart->options([
+            'yAxis' => [
+                'min' => 0,
+                'max' => 20,
+            ],
+        ]);
 
         # Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);

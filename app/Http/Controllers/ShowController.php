@@ -153,6 +153,13 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
             ->labels($showInfo['seasons']->pluck('name'))
             ->dataset('Moyenne', 'line', $showInfo['seasons']->pluck('moyenne'));
 
+        $chart->options([
+            'yAxis' => [
+                'min' => 0,
+                'max' => 20,
+            ],
+        ]);
+
         # Compile Object informations
         $object = compileObjectInfos('Show', $showInfo['show']->id);
 
