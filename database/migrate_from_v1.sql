@@ -1,9 +1,37 @@
-/* IMPORT USERS */
+/*
+ * DUMP DATABASE WITH THIS COMMAND
+ * mysqldump c1serieall2 -p --skip-set-charset --default-character-set=latin1 > dump_db_v2.sql
+ * Try to use this for slug urls: LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TRIM('My String'), ':', ''), ')', ''), '(', ''), ',', ''), '\\', ''), '\/', ''), '\"', ''), '?', ''), '\'', ''), '&', ''), '!', ''), '.', ''), ' ', '-'), '--', '-'), '--', '-')) AS `post_name`
+ */
+
+/* IMPORT SLOGANS */
+INSERT INTO serieall.slogans(id, message, source, url, created_at, updated_at)
+  SELECT id, name, source, url, NOW(), NOW() FROM serieall_restore.slogans;
+
+/* IMPORT USERS
+ * Rename old username
+ */
 INSERT INTO serieall.users (id, username, user_url, email, password, role, suspended, activated, edito, website, twitter, facebook, created_at, updated_at)
   SELECT
     id,
-    login,
-    trim(login),
+    CASE WHEN id = 760
+    THEN 'chloe1'
+    WHEN id = 8577
+    THEN 'celia1'
+    WHEN id = 1902
+    THEN 'lo1'
+    ELSE
+      login
+    END,
+     CASE WHEN id = 760
+    THEN trim('chloe1')
+    WHEN id = 760
+    THEN trim('celia1')
+    WHEN id = 1902
+    THEN trim('lo1')
+    ELSE
+      trim(login)
+    END,
     email,
     password,
     role,
@@ -15,7 +43,11 @@ INSERT INTO serieall.users (id, username, user_url, email, password, role, suspe
     facebook,
     created,
     created
-  FROM serieall_old.users;
+  FROM serieall_restore.users;
+
+/* IMPORT NATIONALITIES */
+INSERT INTO serieall.nationalities(name, nationality_url, created_at, updated_at)
+SELECT DISTINCT(nationalite), TRIM(nationalite), NOW(), NOW() FROM serieall_restore.shows;
 
 /* IMPORT SHOWS */
 INSERT INTO serieall.shows (id, thetvdb_id, show_url, name, name_fr, synopsis, format, annee, encours, diffusion_us, diffusion_fr, particularite, moyenne, moyenne_redac, nbnotes, taux_erectile, avis_rentree, created_at, updated_at)
@@ -55,7 +87,7 @@ INSERT INTO serieall.shows (id, thetvdb_id, show_url, name, name_fr, synopsis, f
     avis_rentree,
     NOW(),
     NOW()
-  FROM serieall_old.shows;
+  FROM serieall_restore.shows;
 
 /* IMPORT SEASONS */
 INSERT INTO serieall.seasons (id, thetvdb_id, name, ba, moyenne, nbnotes, show_id, created_at, updated_at)
@@ -69,12 +101,12 @@ INSERT INTO serieall.seasons (id, thetvdb_id, name, ba, moyenne, nbnotes, show_i
     show_id,
     NOW(),
     NOW()
-  FROM serieall_old.seasons;
+  FROM serieall_restore.seasons;
 
-DELETE FROM serieall_old.episodes WHERE id = 31282;
-
-/* IMPORT EPISODES */
-INSERT INTO serieall.episodes (id, thetvdb_id, numero, name, name_fr, resume, diffusion_us, diffusion_fr, ba, moyenne, nbnotes, season_id, created_at, updated_at)
+/* IMPORT EPISODES
+ * ignore incorect 0000-00-00 date
+ */
+INSERT IGNORE INTO serieall.episodes (id, thetvdb_id, numero, name, name_fr, resume, diffusion_us, diffusion_fr, ba, moyenne, nbnotes, season_id, created_at, updated_at)
   SELECT
     id,
     tvdb_id,
@@ -90,6 +122,4 @@ INSERT INTO serieall.episodes (id, thetvdb_id, numero, name, name_fr, resume, di
     season_id,
     NOW(),
     NOW()
-  FROM serieall_old.episodes;
-
-SELECT * FROM serieall_old.episodes LIMIT 29990,1;
+  FROM serieall_restore.episodes;
