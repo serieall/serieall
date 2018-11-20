@@ -27,20 +27,9 @@ class UsersSeeder extends Seeder
         DB::table('users')->insert([
             'username' => 'admin',
             'user_url' => 'admin',
-            'email' => 'bmayelle@hotmail.fr',
+            'email' => 'toto@hotmail.fr',
             'password' => '$2y$10$aO/pp1im2mg9sO9TonUFbu85ng4LZMZRCn8eft9wRq/QDYBQRPnYe',
             'role' => 1,
-            'activated' => 1,
-            'created_at' => $date,
-            'updated_at' => $date
-        ]);
-
-        DB::table('users')->insert([
-            'username' => 'testserieall',
-            'user_url' => 'testserieall',
-            'email' => 'testserieall@gmail.com',
-            'password' => '$2y$10$aO/pp1im2mg9sO9TonUFbu85ng4LZMZRCn8eft9wRq/QDYBQRPnYe',
-            'role' => 4,
             'activated' => 1,
             'created_at' => $date,
             'updated_at' => $date

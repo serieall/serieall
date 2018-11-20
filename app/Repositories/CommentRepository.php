@@ -64,6 +64,7 @@ class CommentRepository
             ->where('commentable_type', '=', $type)
             ->whereNotIn('id', [$user_comment_id])
             ->with('user')
+            ->orderByDesc('created_at')
             ->limit(2)
             ->get()
             ->toArray();

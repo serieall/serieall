@@ -64,7 +64,9 @@
                                 @if($planning['yesterday']->count() != 0)
                                     @foreach($planning['yesterday'] as $episode)
                                         <div class="episode">
+                                            @if(count($episode->show->channels) > 0)
                                             <div class="ui red horizontal label">{{ $episode->show->channels[0]->name }}</div>
+                                            @endif
                                             {!! printShowEpisode($episode->show->name, $episode->show->show_url, $episode->season->name, $episode->numero, $episode->id) !!}
                                         </div>
                                     @endforeach

@@ -20,7 +20,7 @@ class CreateShowsTable extends Migration {
 			$table->boolean('encours');
 			$table->date('diffusion_us')->nullable();
 			$table->date('diffusion_fr')->nullable();
-            $table->string('particularite')->nullable();
+            $table->string('particularite', 255)->nullable();
 			$table->float('moyenne');
 			$table->float('moyenne_redac');
 			$table->integer('nbnotes');

@@ -10,12 +10,12 @@ class CreateArticlesTable extends Migration {
 		Schema::create('articles', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('name');
-			$table->string('article_url');
+			$table->string('name', 255);
+			$table->string('article_url', 255);
 			$table->text('intro');
-			$table->text('content');
-			$table->string('image')->nullable();
-			$table->string('source')->nullable();
+			$table->mediumText('content');
+			$table->string('image', 255)->nullable();
+			$table->string('source', 255)->nullable();
 			$table->tinyInteger('state')->default('0');
 			$table->boolean('frontpage')->default(0);
 			$table->integer('category_id')->unsigned();
