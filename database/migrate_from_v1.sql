@@ -280,3 +280,33 @@ INSERT IGNORE INTO serieall.articlables (article_id, articlable_id, articlable_t
       'App\\Models\\Episode'
     END
   FROM serieall_old.articles;
+
+/* IMPORT ARTICLABLES FOR SEASON OF EPISODES */
+INSERT IGNORE INTO serieall.articlables (article_id, articlable_id, articlable_type)
+  SELECT
+    id,
+    CASE WHEN episode_id != 0
+      THEN
+        season_id
+    END
+    ,
+    CASE WHEN episode_id != 0
+      THEN
+        'App\\Models\\Season'
+    END
+  FROM serieall_old.articles;
+
+/* IMPORT ARTICLABLES FOR SHOW OF SEASONS */
+INSERT IGNORE INTO serieall.articlables (article_id, articlable_id, articlable_type)
+  SELECT
+    id,
+    CASE WHEN season_id != 0
+      THEN
+        show_id
+    END
+    ,
+    CASE WHEN season_id != 0
+      THEN
+        'App\\Models\\Show'
+    END
+  FROM serieall_old.articles;
