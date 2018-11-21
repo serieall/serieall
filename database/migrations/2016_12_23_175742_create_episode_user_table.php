@@ -12,6 +12,7 @@ class CreateEpisodeUserTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->smallInteger('rate');
 			$table->timestamps();
+			$table->index('created_at');
 		});
 	}
 

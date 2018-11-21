@@ -241,4 +241,42 @@ INSERT INTO serieall.comments (message, user_id, parent_id, commentable_id, comm
 INSERT INTO serieall.articles (created_at, updated_at, name, article_url, intro, content, image, source, category_id, published_at, podcast, state, id)
     SELECT created, modified, articles.name, CONCAT(url, '.html'), chapo, text, CONCAT('/images/articles/old/', photo), source, categories.id, modified, CASE WHEN podcast IS NOT NULL THEN 1 ELSE 0 END, etat, articles.id FROM serieall_old.articles, serieall.categories WHERE categories.name = articles.category;
 
-DELETE FROM serieall.articles;
+/* IMPORT ARTICLE_USER */
+INSERT IGNORE INTO serieall.article_user (article_id, user_id)
+    SELECT id, user_id FROM serieall_old.articles;
+
+/* IMPORT ARTICLABLES */
+INSERT IGNORE INTO serieall.articlables (article_id, articlable_id, articlable_type)
+  SELECT
+    id,
+    CASE WHEN episode_id = 0
+      THEN
+        CASE WHEN season_id = 0
+          THEN
+            CASE WHEN show_id = 0
+              THEN 0
+            ELSE
+              show_id
+            END
+        ELSE
+          season_id
+        END
+    ELSE
+      episode_id
+    END,
+    CASE WHEN episode_id = 0
+      THEN
+        CASE WHEN season_id = 0
+          THEN
+            CASE WHEN show_id = 0
+              THEN ''
+            ELSE
+              'App\\Models\\Show'
+            END
+        ELSE
+          'App\\Models\\Season'
+        END
+    ELSE
+      'App\\Models\\Episode'
+    END
+  FROM serieall_old.articles;

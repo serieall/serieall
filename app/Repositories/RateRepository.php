@@ -340,10 +340,13 @@ class RateRepository
     }
 
     public function getShowsMoment() {
-        return Show::leftJoin('seasons', 'shows.id', '=', 'seasons.show_id')
-                ->leftJoin('episodes', 'seasons.id', '=', 'episodes.season_id')
-                ->leftJoin('episode_user', 'episodes.id', '=', 'episode_user.episode_id')
-                ->select(DB::raw('shows.name, shows.show_url, shows.moyenne, shows.nbnotes,COUNT(episode_user.rate) nbnotes_last_week'))
+        return Episode_user::leftJoin('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+                ->leftJoin('seasons', 'episodes.season_id', '=', 'seasons.id')
+                ->leftJoin('shows', 'seasons.show_id', '=', 'shows.id')
+                ->select(DB::raw('shows.name, shows.show_url, shows.moyenne, shows.nbnotes ,COUNT(episode_user.rate) nbnotes_last_week'))
+                ->whereBetween('episode_user.created_at', [
+                    Carbon::now()->subWeek(),
+                    Carbon::now()])
                 ->orderBy('nbnotes_last_week', 'DESC')
                 ->orderBy('nbnotes')
                 ->groupBy('shows.name', 'shows.nbnotes', 'shows.moyenne')

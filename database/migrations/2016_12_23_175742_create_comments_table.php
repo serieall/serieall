@@ -17,6 +17,8 @@ class CreateCommentsTable extends Migration {
 			$table->integer('commentable_id');
 			$table->string('commentable_type');
 			$table->timestamps();
+            $table->index('created_at');
+            $table->index('commentable_type');
 		});
 	}
 

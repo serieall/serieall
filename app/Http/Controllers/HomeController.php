@@ -124,10 +124,13 @@ class HomeController extends Controller
             $dates['yesterday'] = Carbon::now()->subDay()->format('Y-m-d');
             $dates['today'] = Carbon::now()->format('Y-m-d');
             $dates['tomorrow'] = Carbon::now()->addDay()->format('Y-m-d');
-            $planning['yesterday'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['yesterday']);
-            $planning['today'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['today']);
-            $planning['tomorrow'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['tomorrow']);
+//            $planning['yesterday'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['yesterday']);
+//            $planning['today'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['today']);
+//            $planning['tomorrow'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['tomorrow']);
 
+            $planning["yesterday"] = collect();
+            $planning["today"] = collect();
+            $planning["tomorrow"] = collect();
             return view('pages.home', compact('fil_actu', 'shows_moment', 'articles', 'planning', 'dates', 'last_added_shows', 'filter_home'));
         }
     }
