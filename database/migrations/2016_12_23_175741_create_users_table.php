@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration {
 			$table->string('website');
 			$table->string('twitter');
 			$table->string('facebook');
-			$table->string('ip');
+			$table->string('ip')->nullable();
 			$table->rememberToken('rememberToken');
 			$table->timestamps();
 		});

@@ -8,19 +8,21 @@ $(document).ready(function() {
             {
                 breakpoint: 1650,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     centerMode: true,
                     centerPadding: '40px',
-                    slidesToShow: 3
+                    slidesToShow: 3,
+                    slidesToScroll: 3
                 }
             },
             {
                 breakpoint: 1210,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     centerMode: true,
                     centerPadding: '40px',
-                    slidesToShow: 2
+                    slidesToShow: 2,
+                    slidesToScroll: 2
                 }
             },
             {
@@ -29,7 +31,8 @@ $(document).ready(function() {
                     arrows: false,
                     centerMode: true,
                     centerPadding: '40px',
-                    slidesToShow: 3
+                    slidesToShow: 3,
+                    slidesToScroll: 3
                 }
             },
             {
@@ -38,7 +41,8 @@ $(document).ready(function() {
                     arrows: false,
                     centerMode: true,
                     centerPadding: '40px',
-                    slidesToShow: 2
+                    slidesToShow: 2,
+                    slidesToScroll: 2
                 }
             },
             {
@@ -62,23 +66,32 @@ $(document).ready(function() {
             {
                 breakpoint: 1650,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     centerMode: true,
                     centerPadding: '40px',
-                    slidesToShow: 3
+                    slidesToShow: 6
                 }
             },
             {
                 breakpoint: 1210,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     centerMode: true,
                     centerPadding: '40px',
-                    slidesToShow: 2
+                    slidesToShow: 5
                 }
             },
             {
-                breakpoint: 768,
+                breakpoint: 1000,
+                settings: {
+                    arrows: true,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 4
+                }
+            },
+            {
+                breakpoint: 870,
                 settings: {
                     arrows: false,
                     centerMode: true,
@@ -87,7 +100,7 @@ $(document).ready(function() {
                 }
             },
             {
-                breakpoint: 628,
+                breakpoint: 650,
                 settings: {
                     arrows: false,
                     centerMode: true,
@@ -96,7 +109,7 @@ $(document).ready(function() {
                 }
             },
             {
-                breakpoint: 450,
+                breakpoint: 465,
                 settings: {
                     arrows: false,
                     centerMode: true,

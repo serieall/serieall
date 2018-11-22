@@ -60,13 +60,15 @@ function getComments(page, action, segment, filter) {
 
     let filterURL;
     let triURL;
+    let userURL = window.location.pathname.split('/')[2];
+    console.log(userURL);
     let valueFilter = $(filter).dropdown('get value');
 
     valueFilter[0] === "" ? filterURL = 10 : filterURL = valueFilter[0];
     valueFilter[1] === "" ? triURL = 10 : triURL = valueFilter[1];
 
     $.ajax({
-        url : '/profil/admin/avis/' + action + '/' + filterURL + '/' + triURL + '?' + action + '=' + page,
+        url : '/profil/' + userURL + '/avis/' + action + '/' + filterURL + '/' + triURL + '?' + action + '=' + page,
         dataType: 'json'
     }).done(function (data) {
         // On insére le HTML

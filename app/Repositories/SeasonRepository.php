@@ -91,8 +91,8 @@ class SeasonRepository
     {
         return $this->season::with(['episodes' => function($q){
                 $q->with(['comments' => function($q){
-                    $q->select('id', 'thumb', 'commentable_id', 'commentable_type', \DB::raw('count(*) as count_thumb'));
-                    $q->groupBy('thumb');
+                    $q->select('thumb', 'commentable_id', 'commentable_type', \DB::raw('count(*) as count_thumb'));
+                    $q->groupBy('thumb', 'commentable_id', 'commentable_type');
                 }]);
             }])
             ->withCount('episodes')

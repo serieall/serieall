@@ -41,7 +41,6 @@
 @push('scripts')
     <script>
         $('.ui.modal')
-            .modal({inverted: true})
             .modal('show')
             .modal('setting', 'closable', false)
             .modal('setting', 'transition', 'vertical flip')

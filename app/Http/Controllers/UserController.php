@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Repositories\UserRepository;
 use App\Http\Requests\changePasswordRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 use View;

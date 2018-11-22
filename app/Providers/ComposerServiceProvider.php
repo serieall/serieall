@@ -148,12 +148,6 @@ class ComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\UnreadNotificationsComposer',
             'App\Http\ViewComposers\SloganComposer'
         );
-
-        // Slogan
-        View::composer(
-            ['*'],
-            'App\Http\ViewComposers\SloganComposer'
-        );
     }
 
     /**

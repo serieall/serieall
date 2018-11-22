@@ -192,6 +192,10 @@ class ArticleRepository
     }
 
     public function getLast6Articles() {
-        return $this->article->where('state', '=', 1)->limit(6)->get();
+        return $this->article
+            ->where('state', '=', 1)
+            ->orderBy('published_at', 'desc')
+            ->limit(6)
+            ->get();
     }
 }
