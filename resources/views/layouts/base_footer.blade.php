@@ -9,7 +9,7 @@
                         </li>
                         <li><a href="{{ route('about') }}">À propos</a></li>
                         <li><a href="{{ route('team') }}">Notre équipe</a></li>
-                        <li><a href="{{ route('cgu') }}">Mentions légales</a></li>
+                        <li><a href="{{ route('cgu') }}">CGU - Mentions légales</a></li>
                         <li><a href="{{ route('contact') }}">Nous contacter</a></li>
                     </ul>
                 </div>
