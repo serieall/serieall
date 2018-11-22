@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Slogan;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
@@ -53,6 +54,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $slogan = Slogan::inRandomOrder()->first();
+
         if(Request::ajax()) {
             $filter_home = Input::get('filter_home');
 
@@ -128,7 +131,7 @@ class HomeController extends Controller
             $planning['today'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['today']);
             $planning['tomorrow'] = $this->episodeRepository->getPlanningHome('diffusion_us', $dates['tomorrow']);
 
-            return view('pages.home', compact('fil_actu', 'shows_moment', 'articles', 'planning', 'dates', 'last_added_shows', 'filter_home'));
+            return view('pages.home', compact('fil_actu', 'shows_moment', 'articles', 'planning', 'dates', 'last_added_shows', 'filter_home', 'slogan'));
         }
     }
 }

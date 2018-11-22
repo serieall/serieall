@@ -126,16 +126,6 @@
                 @endif">
                 Classements
             </a>
-            <div class="item right floated slogan">
-                "{{ $slogan->message }}"
-                @if(!empty($slogan->source))
-                    @if(!empty($slogan->url))
-                         - <a href="{{ $slogan->url }}">{{ $slogan->source }}</a>
-                    @else
-                         - {{ $slogan->source }}
-                    @endif
-                @endif
-            </div>
             <div class="right secondary pointing stackable menu">
                 <div class="item ui scrolling search dropdown showDropdown">
                     <div class="ui icon input">
@@ -235,6 +225,23 @@
             </div>
         </div>
         </div>
+        @if(Route::currentRouteName() == 'home')
+            <div class="ui b-lightBlueSA inverted fluid segment">
+                <p class="d-center t-bold t-darkBlueSA">Bienvenue sur Série-All</p>
+                <p class="d-center description t-darkBlueSA">Webzine communautaire de séries TV - Notez et laissez vos avis sur les derniers épisodes, créez votre planning personnalisé, organisez vos séries dans votre profil...</p>
+
+                <p class="d-center description t-darkBlueSA">
+                    "{{ $slogan->message }}"
+                    @if(!empty($slogan->source))
+                        @if(!empty($slogan->url))
+                            - <a class="underline-from-left" href="{{ $slogan->url }}">{{ $slogan->source }}</a>
+                        @else
+                            - {{ $slogan->source }}
+                        @endif
+                    @endif
+                </p>
+            </div>
+        @endif
 
         @if (session('status') || session('success') || session('error') || session('warning'))
             <div class="ui centered stackable grid" id="messageBox">
