@@ -230,6 +230,7 @@
                 <p class="d-center t-bold t-darkBlueSA">Bienvenue sur Série-All</p>
                 <p class="d-center description t-darkBlueSA">Webzine communautaire de séries TV - Notez et laissez vos avis sur les derniers épisodes, créez votre planning personnalisé, organisez vos séries dans votre profil...</p>
 
+                <hr class="home divider">
                 <p class="d-center description t-darkBlueSA">
                     "{{ $slogan->message }}"
                     @if(!empty($slogan->source))
