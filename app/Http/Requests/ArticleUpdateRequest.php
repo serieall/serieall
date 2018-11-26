@@ -47,7 +47,8 @@ class ArticleUpdateRequest extends FormRequest
             'name' => 'required|string',
             'intro' => 'required',
             'article' => 'required',
-            'users' => 'required'
+            'users' => 'required',
+            'image' => 'max:2000'
         ];
     }
 }

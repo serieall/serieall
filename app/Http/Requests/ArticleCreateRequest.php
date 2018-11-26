@@ -32,11 +32,11 @@ class ArticleCreateRequest extends FormRequest
         {
             return $input->one == 0;
         });
-        $validator->sometimes('image', 'required|image', function($input)
+        $validator->sometimes('image', 'required|image|max:2000', function($input)
         {
             return $input->one == 0;
         });
-        $validator->sometimes('image', 'required|image', function($input)
+        $validator->sometimes('image', 'required|image|max:2000', function($input)
         {
             return $input->show == "";
         });
