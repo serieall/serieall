@@ -54,8 +54,13 @@
                         <li class="title">
                             <h3>Espace membre</h3>
                         </li>
-                        <li><a href="#" class="clickRegister">Inscription</a></li>
-                        <li><a href="#" class="clickLogin">Connexion</a></li>
+                        @if (Auth::guest())
+                            <li><a href="#" class="clickRegister">Inscription</a></li>
+                            <li><a href="#" class="clickLogin">Connexion</a></li>
+                        @else
+                            <li><a href="{{ route('user.profile', Auth::user()->user_url) }}">Profil</a></li>
+                            <li><a href="{{route('logout')}}">Déconnexion</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
