@@ -6,7 +6,7 @@
     <div class="ui fourteen wide column">
         <div class="ui segment">
             <h1>Classements des séries</h1>
-            <div class="ui pointing secondary menu">
+            <div class="ui stackable pointing secondary menu">
                 <a class="active item" data-tab="first">Meilleures séries</a>
                 <a class="item" data-tab="second">Par la rédac</a>
                 <a class="item" data-tab="third">Par pays</a>
