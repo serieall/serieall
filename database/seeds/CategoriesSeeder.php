@@ -27,7 +27,7 @@ class CategoriesSeeder extends Seeder
 
         DB::table('categories')->insert([
             'name' => 'Bilan',
-            'description' => 'Articles consacrés au bilan d\'une saison ou d\'un épisode.',
+            'description' => 'Articles consacrés au bilan d\'une série ou d\'une saison.',
             'created_at' => $date,
             'updated_at' => $date
         ]);
@@ -55,7 +55,7 @@ class CategoriesSeeder extends Seeder
 
         DB::table('categories')->insert([
             'name' => 'Focus',
-            'description' => 'Articles consacrés à aspect particulier d\'une série.',
+            'description' => 'Articles consacrés à l\'aspect particulier d\'une série.',
             'created_at' => $date,
             'updated_at' => $date
         ]);
