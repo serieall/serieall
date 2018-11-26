@@ -125,7 +125,7 @@
                 </p>
                 <div class="ui divider"></div>
 
-                <div class="ui top attached tabular menu">
+                <div class="ui top attached stackable tabular menu">
                     <a class="active item" data-tab="first" >Informations sur l'épisode</a>
                     <a class="item" data-tab="second">Fiche technique</a>
                 </div>

@@ -8,6 +8,10 @@ $(document).one('click', '.PaginateRow .pagination a', function (e) {
     let segment = '#LeftBlock .ui.basic.segment';
 
     getShows($(this).attr('href').split('page=')[1], segment, 0, 0, 0, 1);
+
+    $('html, body').animate({
+        scrollTop: $( $(this).attr('href') ).offset().top
+    }, 1000);
 });
 
 function getShows(page, segment, channel, nationality, genre, tri ) {

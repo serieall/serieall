@@ -20,10 +20,9 @@
                         <li class="title">
                             <h3>Communauté</h3>
                         </li>
-                        <li><a href="#" class="clickRegister">Inscription</a></li>
                         <li><a href="{{ route('users.index') }}">Liste des membres</a></li>
                         <li><a href="{{ config('app.forum_url') }}">Forum</a></li>
-                        <li>Rejoindre l'équipe</li>
+                        <li><a href="{{ route('join') }}">Rejoindre l'équipe</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,7 +44,7 @@
                         <li><a href="{{ route('show.index') }}">Liste des séries</a></li>
                         <li><a href="{{ route('article.index') }}">Articles</a></li>
                         <li><a href="{{ route('planning.index') }}">Planning</a></li>
-                        <li><a href="{{ route('ranking.index') }}">Classement</a></li>
+                        <li><a href="{{ route('ranking.index') }}">Classements</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,9 +52,15 @@
                 <div class="columnFooter">
                     <ul class="ui list">
                         <li class="title">
-                            <h3>Partenaires</h3>
+                            <h3>Espace membre</h3>
                         </li>
-                        <li>VODD</li>
+                        @if (Auth::guest())
+                            <li><a href="#" class="clickRegister">Inscription</a></li>
+                            <li><a href="#" class="clickLogin">Connexion</a></li>
+                        @else
+                            <li><a href="{{ route('user.profile', Auth::user()->user_url) }}">Profil</a></li>
+                            <li><a href="{{route('logout')}}">Déconnexion</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>

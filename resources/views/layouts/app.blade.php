@@ -102,6 +102,12 @@
         <div class="ui computer only grid header">
         <div class="ui  secondary pointing fluid stackable menu" id="header">
             <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
+            <a href="{{ route('home') }}" class="item
+                @if($navActive === 'home')
+                    active
+                @endif">
+                Accueil
+            </a>
             <a href="{{ route('show.index') }}" class="item
                 @if($navActive === 'shows')
                     active
@@ -227,9 +233,13 @@
         </div>
         @if(Route::currentRouteName() == 'home')
             <div class="ui b-lightBlueSA inverted fluid segment">
-                <p class="d-center t-bold t-darkBlueSA">Bienvenue sur Série-All</p>
-                <p class="d-center description t-darkBlueSA">Webzine communautaire de séries TV - Notez et laissez vos avis sur les derniers épisodes, créez votre planning personnalisé, organisez vos séries dans votre profil...</p>
+                <p class="d-center t-bold t-darkBlueSA"> Bienvenue sur Série-All, le webzine communautaire sur les séries Tv !</p>
+                <p class="d-center description t-darkBlueSA">Notez et échangez avec les membres sur vos derniers coups de cœur, découvrez nos recommandations en termes de séries tv et ne manquez plus aucune série grâce à votre planning personnalisé !
+                    <br>
+                    Rejoignez la communauté : on n'attend plus que vous !
+                </p>
 
+                <hr class="home divider">
                 <p class="d-center description t-darkBlueSA">
                     "{{ $slogan->message }}"
                     @if(!empty($slogan->source))

@@ -35,8 +35,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="ui grey text">{{--Réponse--}}</td>
-                                <td class="LireAvis">
+                                <td class="LireAvis" style="border: none !important;">
                                     @if(Route::current()->getName() == 'show.fiche')
                                         <a href="{{ route('comment.fiche', [$showInfo['show']->show_url]) }}">
                                     @elseif(Route::current()->getName() == 'season.fiche')
@@ -86,7 +85,6 @@
 
                         </tr>
                         <tr>
-                            <td class="ui grey text">10 réponses</td>
                             <td class="LireAvis">
 
                             @if(Route::current()->getName() == "show.fiche")

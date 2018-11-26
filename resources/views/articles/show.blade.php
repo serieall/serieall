@@ -111,7 +111,7 @@
     <div class="ui segment">
         <div id="ListAvis">
             <h2 class="ui center aligned header">
-                <div class="ui grid">
+                <div class="ui stackable grid">
                     <div class="eight wide column left aligned">
                         <i class="comments icon"></i>
                         <div class="content">

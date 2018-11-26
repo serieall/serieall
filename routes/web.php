@@ -31,6 +31,10 @@ Route::get('/equipe', function () {
     return view('pages.team');
 })->name('team');
 
+Route::get('/nous-rejoindre', function () {
+    return view('pages.join');
+})->name('join');
+
 Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
