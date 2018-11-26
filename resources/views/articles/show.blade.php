@@ -29,6 +29,7 @@
                         <div class="ui two column center aligned grid stackable">
                             <div class="row">
                                 <h1>{{ $article->name }}</h1>
+                                Le {!! formatDate('full', $article->published_at) !!}
                             </div>
                             <div class="row readingTime">
                                 <i class="time icon"></i> ~ {!! calculateReadingTime($article->content) !!} de lecture
@@ -37,14 +38,14 @@
                                 {{ $article->intro }}
                             </div>
                             <div class="row bottom authors right aligned">
-                                    <span>
-                                    Par @foreach($article->users as $redac)
-                                            {{ $redac->username }}
-                                            @if(!$loop->last)
-                                                ,
-                                            @endif
-                                        @endforeach
-                                    </span>
+                                <span>
+                                Par @foreach($article->users as $redac)
+                                        <a class="underline-from-left" href="{{ route('user.profile', $redac->user_url) }}">{{ $redac->username }}</a>
+                                        @if(!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                </span>
                             </div>
                         </div>
                     </div>
