@@ -39,7 +39,7 @@
                             <div class="row bottom authors right aligned">
                                     <span>
                                     Par @foreach($article->users as $redac)
-                                            {{ $redac->username }}
+                                            <a class="underline-from-left" href="{{ route('user.profile', $redac->user_url) }}">{{ $redac->username }}</a>
                                             @if(!$loop->last)
                                                 ,
                                             @endif
