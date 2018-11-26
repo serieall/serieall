@@ -5,7 +5,7 @@
 </head>
 <body>
     <div class="ui sidebar vertical menu">
-        <div class="ui search dropdown showDropdown">
+        <div class="ui search dropdown mobile showDropdown">
             <div class="ui icon input">
                 <input class="prompt" placeholder="Rechercher une série...">
                 <i class="search icon"></i>
