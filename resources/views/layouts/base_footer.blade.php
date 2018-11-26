@@ -22,7 +22,7 @@
                         </li>
                         <li><a href="{{ route('users.index') }}">Liste des membres</a></li>
                         <li><a href="{{ config('app.forum_url') }}">Forum</a></li>
-                        <li>Rejoindre l'équipe</li>
+                        <li><a href="{{ route('join') }}">Rejoindre l'équipe</a></li>
                     </ul>
                 </div>
             </div>
