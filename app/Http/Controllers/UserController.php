@@ -140,7 +140,6 @@ ShowRepository $showRepository)
             $chart->options([
                 'yAxis' => [
                     'min' => 0,
-                    'max' => 20,
                 ],
             ]);
 
