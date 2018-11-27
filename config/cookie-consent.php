@@ -13,4 +13,9 @@ return [
      * has agreed to accept the conditions.
      */
     'cookie_name' => 'serieall_cookie_consent',
+
+    /*
+     * Set the cookie duration in days.  Default is 365 * 20.
+     */
+    'cookie_lifetime' => 365,
 ];
