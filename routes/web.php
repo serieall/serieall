@@ -19,7 +19,6 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/rss-podcasts', 'ArticleController@RSSPodcast')->name('rss.podcasts');
 
-
 /*
     Pages
 */
@@ -149,6 +148,8 @@ Route::get('classements', 'RankingController@index')->name('ranking.index');
 /*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
 */
+Route::get('migrate/articles', 'ArticleController@migrateArticles')->name('migrate.articles')->middleware('admin');
+Route::get('migrate/images', 'ArticleController@migrateImages')->name('migrate.images')->middleware('admin');
 Route::group(['middleware' => 'basemanager'], function () {
     /* HOME */
     Route::get('admin', 'Admin\AdminController@index')->name('admin');

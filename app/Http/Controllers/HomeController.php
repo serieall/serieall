@@ -61,12 +61,12 @@ class HomeController extends Controller
 
             if($filter_home == 'all') {
                 # Get last Rates and comments
-                $lastRates = $this->rateRepository->getLastRates(20);
+                $lastRates = $this->rateRepository->getLastRates(15);
                 $lastRates->map(function ($rate) {
                     $rate->type = "rate";
 
                 });
-                $lastComments = $this->commentRepository->getLastComments(20);
+                $lastComments = $this->commentRepository->getLastComments(15);
                 $lastComments->map(function ($comment) {
                     $comment->type = "comment";
                 });
@@ -76,7 +76,7 @@ class HomeController extends Controller
                 $filter_home = "all";
             } elseif ($filter_home == 'rates') {
                 # Get last Rates
-                $lastRates = $this->rateRepository->getLastRates(40);
+                $lastRates = $this->rateRepository->getLastRates(30);
                 $lastRates->map(function ($rate) {
                     $rate->type = "rate";
 
@@ -88,7 +88,7 @@ class HomeController extends Controller
 
             } else {
                 # Get last comments
-                $lastComments = $this->commentRepository->getLastComments(40);
+                $lastComments = $this->commentRepository->getLastComments(30);
                 $lastComments->map(function ($comment) {
                     $comment->type = "comment";
                 });
@@ -100,12 +100,12 @@ class HomeController extends Controller
             return Response::json(View::make('pages.home_fil_actu', ['fil_actu' => $fil_actu, 'filter_home' => $filter_home])->render());
         } else {
             # Get last Rates and comments
-            $lastRates = $this->rateRepository->getLastRates(20);
+            $lastRates = $this->rateRepository->getLastRates(15);
             $lastRates->map(function ($rate) {
                 $rate->type = "rate";
 
             });
-            $lastComments = $this->commentRepository->getLastComments(20);
+            $lastComments = $this->commentRepository->getLastComments(15);
             $lastComments->map(function ($comment) {
                 $comment->type = "comment";
             });

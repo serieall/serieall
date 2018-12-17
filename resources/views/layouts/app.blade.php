@@ -5,15 +5,16 @@
 </head>
 <body>
     <div class="ui sidebar vertical menu">
-        <div class="ui search dropdown mobile showDropdown">
-            <div class="ui icon input">
-                <input class="prompt" placeholder="Rechercher une série...">
-                <i class="search icon"></i>
-            </div>
-            <div class="results">
+        <div class="item">
+            <div class="ui search dropdown mobile showDropdown">
+                <div class="ui icon input">
+                    <input class="prompt" placeholder="Rechercher une série...">
+                    <i class="search icon"></i>
+                </div>
+                <div class="results">
+                </div>
             </div>
         </div>
-
         <a href="{{ route('home') }}" class="item
            @if($navActive === 'home')
                 active
@@ -92,7 +93,7 @@
     <div class="pushable">
         @include('cookieConsent::index')
         <div class="ui tablet only mobile only grid header">
-            <div class="ui  secondary pointing fluid menu">
+            <div class="ui secondary pointing fluid menu">
                 <a class="item sidebarIcon"><i class="big sidebar icon"></i>Menu</a>
                 <div class="right secondary pointing stackable menu">
                     <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
