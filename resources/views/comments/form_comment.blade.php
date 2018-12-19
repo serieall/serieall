@@ -1,6 +1,6 @@
 <div class="ui modal avis">
     <div class="header">
-        @if(!isset($comments['user_comment']))
+        @if(!empty($comments['user_comment']))
             Écrire un commentaire
         @else
             Modifier mon commentaire
@@ -20,7 +20,7 @@
             <div class="ui field">
                 <div class="textarea input">
                          <textarea name="avis" id="avis" class="avis" placeholder="Écrivez votre commentaire ici...">
-                             @if(isset($comments['user_comment']))
+                             @if(!empty($comments['user_comment']))
                                  {{ $comments['user_comment']['message'] }}
                              @endif
                          </textarea>
