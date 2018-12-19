@@ -61,7 +61,7 @@
                 </div>
             @endforeach
         @endif
-        @if(isset($comments['user_comment']))
+        @if(!empty($comments['user_comment']))
             <div class="row">
                 <h3>Mon avis</h3>
             </div>

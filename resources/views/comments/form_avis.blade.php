@@ -1,6 +1,6 @@
 <div class="ui modal avis">
     <div class="header">
-        @if(!isset($comments['user_comment']))
+        @if(!empty($comments['user_comment']))
             Écrire un avis
         @else
             Modifier mon avis
@@ -26,7 +26,7 @@
             <div class="ui field">
                 <div class="textarea input">
                          <textarea name="avis" id="avis" class="avis" placeholder="Écrivez votre avis ici...">
-                             @if(isset($comments['user_comment']))
+                             @if(!empty($comments['user_comment']))
                                  {{ $comments['user_comment']['message'] }}
                              @endif
                          </textarea>
@@ -40,7 +40,7 @@
 
             <div class="ui field">
                 <div class="ui fluid selection dropdown">
-                    <input name="thumb" id="thumb" class="thumb" type="hidden" value="@if(isset($comments['user_comment'])){{ $comments['user_comment']['thumb'] }}@endif">
+                    <input name="thumb" id="thumb" class="thumb" type="hidden" value="@if(!empty($comments['user_comment'])){{ $comments['user_comment']['thumb'] }}@endif">
                     <i class="dropdown icon"></i>
                     <div class="ui black text default text">Choisissez un type d'avis</div>
                     <div class="menu">

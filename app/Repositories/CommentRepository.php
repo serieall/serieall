@@ -81,6 +81,7 @@ class CommentRepository
     public function getCommentsForFiche($user_id, $object, $object_id) {
         # Initialize
         $user_comment_id = '';
+        $user_comment = '';
 
         if(!is_null($user_id)) {
             $user_comment = $this->getCommentByUserIDTypeTypeID($user_id, $object, $object_id);
