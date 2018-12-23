@@ -297,6 +297,7 @@
 
     <div class="ui coupled modal">
         <div id="loginModal" class="ui tiny first modal">
+            <i class="close icon"></i>
             <div class="header">
                 Connexion
             </div>
@@ -354,6 +355,7 @@
         </div>
 
         <div id="registerModal" class="ui tiny second modal">
+            <i class="close icon"></i>
             <div class="header">
                 Inscription
             </div>
