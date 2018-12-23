@@ -60,8 +60,8 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('comments', function(Blueprint $table) {
 			$table->foreign('parent_id')->references('id')->on('comments')
-						->onDelete('restrict')
-						->onUpdate('restrict');
+						->onDelete('cascade')
+						->onUpdate('cascade');
 		});
 		Schema::table('show_user', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')

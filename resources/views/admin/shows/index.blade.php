@@ -35,78 +35,37 @@
             </div>
         </div>
 
-        <table id="tableAdmin" class="ui sortable selectable celled table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Chaines</th>
-                    <th>Nationalités</th>
-                    <th>Nombre de saisons</th>
-                    <th>Nombre d'épisodes</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            @foreach($shows as $show)
-                <tr class="line">
-                    <td>
-                        <a href="{{ route('admin.shows.edit', $show->id) }}">{{ $show->name }}</a>
-                    </td>
-                    <td>
-                        @foreach($show->channels as $channel)
-                            {{ $channel->name }}
-                            <br />
-                        @endforeach
-                    </td>
-                    <td>
-                        @foreach($show->nationalities as $nationality)
-                            {{ $nationality->name }}
-                            <br />
-                        @endforeach
-                    </td>
-                    <td class="center aligned">
-                        {{ $show->seasons_count }}
-                    </td>
-                    <td class="center aligned">
-                        {{ $show->episodes_count }}
-                    </td>
-                    <td class="center aligned">
-                        <div class="four wide column">
-                            <!-- Formulaire de suppression -->
-                            <form action="{{ route('admin.shows.destroy', $show->id) }}" method="post" >
-                                {{ csrf_field() }}
-
-                                <input type="hidden" name="_method" value="DELETE">
-
-                                <button class="circular ui red icon button" value="Supprimer cette série ?" onclick="return confirm('Voulez-vous vraiment supprimer cette série ?')">
-                                    <i class="icon remove"></i>
-                                </button>
-                            </form>
+        <div class="ui centered grid">
+            <div class="fifteen wide column segment">
+                <div class="ui segment">
+                    <div class="ui form">
+                        <div class="ui field">
+                            <label for="show">Choisir la série</label>
+                            <div id="dropdownShow" class="ui search selection dropdown">
+                                <input id="inputShow" name="show" type="hidden" value="{{ old('show') }}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Série</div>
+                                <div class="menu">
+                                </div>
+                            </div>
                         </div>
-                    </td>
-                </tr>
-            @endforeach
-        </table>
-    </div>
+                    </div>
+                </div>
+                <div id="show" class="ui segment">
+                    @component('components.message_simple')
+                        @slot('type')
+                            info
+                        @endslot
+
+                        Pas de série à afficher.
+                    @endcomponent
+                </div>
+            </div>
+        </div>
+
 @endsection
 
 @push('scripts')
-    <script>
-        $('#tableAdmin').DataTable( {
-            "order": [[ 0, "asc" ]],
-            "language": {
-                "lengthMenu": "Afficher _MENU_ enregistrements par page",
-                "zeroRecords": "Aucun enregistrement trouvé",
-                "info": "Page _PAGE_ sur _PAGES_",
-                "infoEmpty": "Aucun enregistrement trouvé",
-                "infoFiltered": "(filtré sur _MAX_ enregistrements)",
-                "sSearch" : "",
-                "oPaginate": {
-                    "sFirst":    	"Début",
-                    "sPrevious": 	"Précédent",
-                    "sNext":     	"Suivant",
-                    "sLast":     	"Fin"
-                }
-            }} );
-    </script>
+    {{Html::script('js/views/admin/shows/index.js')}}
 @endpush
 
