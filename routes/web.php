@@ -200,6 +200,7 @@ Route::group(['middleware' => 'basemanager'], function () {
 
     Route::group(['middleware' => 'editor'], function () {
         /* ARTICLES */
+        Route::get('admin/articles/index/{article}', 'Admin\AdminArticleController@getArticle')->name('admin.articles.index.getArticle');
         Route::get('admin/articles', 'Admin\AdminArticleController@index')->name('admin.articles.index');
         Route::get('admin/articles/create', 'Admin\AdminArticleController@create')->name('admin.articles.create');
         Route::get('admin/articles/{article}', 'Admin\AdminArticleController@edit')->name('admin.articles.edit');

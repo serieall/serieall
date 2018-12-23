@@ -18,8 +18,10 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\View as View2;
 
 /**
  * Class AdminArticleController
@@ -68,6 +70,22 @@ class AdminArticleController extends Controller
         $articles = $this->articleRepository->getAllArticlesWithAutorsCategory();
 
         return view('admin/articles/index', compact('articles'));
+    }
+
+    /**
+     * Return the list of articles in JSON
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getArticle($id) {
+        $article = $this->articleRepository->getArticleByID($id);
+
+        if(empty($show)) {
+            return Response::json();
+        }
+
+        return Response::json(View2::make('admin.articles.list_article', ['article' => $article])->render());
     }
 
     /**

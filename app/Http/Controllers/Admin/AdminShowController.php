@@ -91,7 +91,7 @@ class AdminShowController extends Controller
         $show = $this->showRepository->getShowByID($id);
 
         if(empty($show)) {
-            return Response::json(View::make('admin.comments.info_message')->render());
+            return Response::json();
         }
 
         return Response::json(View::make('admin.shows.list_show', ['show' => $show])->render());
