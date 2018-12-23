@@ -211,6 +211,7 @@ Route::group(['middleware' => 'basemanager'], function () {
 
     Route::group(['middleware' => 'admin'], function () {
         /* USERS */
+        Route::get('admin/users/index/{user}', 'Admin\AdminUserController@getUser')->name('admin.users.index.getUser');
         Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');
         Route::get('admin/users/create', 'Admin\AdminUserController@create')->name('admin.users.create');
         Route::post('admin/users', 'Admin\AdminUserController@store')->name('admin.users.store');
