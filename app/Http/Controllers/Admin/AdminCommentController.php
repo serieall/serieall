@@ -87,7 +87,7 @@ class AdminCommentController extends Controller
         $comments = $this->commentRepository->getAllCommentsByTypeTypeID("App\\Models\\" . $type, $id);
 
         if(count($comments) < 1) {
-            return Response::json(View::make('admin.comments.info_message')->render());
+            return Response::json();
         }
 
         return Response::json(View::make('admin.comments.list_avis', ['comments' => $comments])->render());

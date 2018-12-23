@@ -35,83 +35,36 @@
             </div>
         </div>
 
-        <table id="tableAdmin" class="ui sortable selectable celled table">
-            <thead>
-            <tr>
-                <th>Titre de l'article</th>
-                <th>Chapô</th>
-                <th>Catégorie</th>
-                <th>Auteur</th>
-                <th>Date d'écriture</th>
-                <th>Date de publication</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            @foreach($articles as $article)
-                <tr class="line">
-                    <td>
-                        <a href="{{ route('admin.articles.edit', $article->id) }}" title="Modifier l'article">{{ $article->name }}</a>
-                    </td>
-                    <td>
-                        {{ $article->intro }}
-                    </td>
-                    <td>
-                        {{ $article->category->name }}
-                    </td>
-                    <td>
-                        @foreach($article->users as $autor)
-                            {{ $autor->username }}
-                        @endforeach
-                    </td>
-                    <td>
-                        {{ $article->created_at }}
-                    </td>
-                    <td>
-                        {{ $article->published_at }}
-                    </td>
-                    <td class="center aligned">
-                        <div class="four wide column">
-                            <div class="flex-center">
-                                <button class="circular ui blue icon button" title="Voir l'aperçu de l'article" onclick="window.open('{{ route('article.show', $article->article_url) }}')">
-                                    <i class="icon eye"></i>
-                                </button>
-                                <!-- Formulaire de suppression -->
-                                <form action="{{ route('admin.articles.destroy', $article->id) }}" method="post" >
-                                    {{ csrf_field() }}
-
-                                    <input type="hidden" name="_method" value="DELETE">
-
-                                    <button class="circular ui red icon button" title="Supprimer l'article" value="Supprimer cet article ?" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
-                                        <i class="icon remove"></i>
-                                    </button>
-                                </form>
+        <div class="ui centered grid">
+            <div class="fifteen wide column segment">
+                <div class="ui segment">
+                    <div class="ui form">
+                        <div class="ui field">
+                            <label for="article">Choisir l'article</label>
+                            <div id="dropdownArticle" class="ui search selection dropdown">
+                                <input id="inputArticle" name="article" type="hidden" value="{{ old('article') }}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Article</div>
+                                <div class="menu">
+                                </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            @endforeach
-        </table>
+                    </div>
+                </div>
+                <div id="article" class="ui segment">
+                    @component('components.message_simple')
+                        @slot('type')
+                            info
+                        @endslot
+
+                        Pas d'article à afficher.
+                    @endcomponent
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
 @push('scripts')
-    <script>
-        $('#tableAdmin').DataTable( {
-            "order": [[ 0, "asc" ]],
-            "language": {
-                "lengthMenu": "Afficher _MENU_ enregistrements par page",
-                "zeroRecords": "Aucun enregistrement trouvé",
-                "info": "Page _PAGE_ sur _PAGES_",
-                "infoEmpty": "Aucun enregistrement trouvé",
-                "infoFiltered": "(filtré sur _MAX_ enregistrements)",
-                "sSearch" : "",
-                "oPaginate": {
-                    "sFirst":    	"Début",
-                    "sPrevious": 	"Précédent",
-                    "sNext":     	"Suivant",
-                    "sLast":     	"Fin"
-                }
-            }} );
-    </script>
+    {{Html::script('js/views/admin/articles/index.js')}}
 @endpush
-
