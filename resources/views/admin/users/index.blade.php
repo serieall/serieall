@@ -33,71 +33,37 @@
             </div>
         </div>
 
-        <table id="tableAdmin" class="ui sortable selectable celled table">
-            <thead>
-            <tr>
-                <th>Nom d'utilisateur</th>
-                <th>Rôle</th>
-                <th>Créé le</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            @foreach($users as $user)
-                <tr class="line">
-                    <td>
-                        <a href="{{ route('admin.users.edit', $user->id) }}">{{ $user->username }}</a>
-                    </td>
-                    <td>
-                        {!! roleUser($user->role)  !!}
-                    </td>
-                    <td>
-                        {{ $user->created_at }}
-                    </td>
-                    <td class="center aligned">
-                        <div class="four wide column">
-                            @if($user->suspended == 0)
-                                <form action="{{ route('admin.users.ban', $user->id) }}" method="post">
-                                    {{ csrf_field() }}
-
-                                    <button class="circular ui red icon button" value="Bannir cet utilisateur ?" onclick="return confirm('Voulez-vous vraiment bannir cet utilisateur ?')">
-                                        <i class="ui ban icon"></i>
-                                    </button>
-                                </form>
-                            @else
-                                <form action="{{ route('admin.users.ban', $user->id) }}" method="post">
-                                    {{ csrf_field() }}
-
-                                    <button class="circular ui green icon button" value="Autoriser cet utilisateur ?" onclick="return confirm('Voulez-vous vraiment autoriser cet utilisateur ?')">
-                                        <i class="ui checkmark icon"></i>
-                                    </button>
-                                </form>
-                            @endif
+        <div class="ui centered grid">
+            <div class="fifteen wide column segment">
+                <div class="ui segment">
+                    <div class="ui form">
+                        <div class="ui field">
+                            <label for="user">Choisir l'utilisateur</label>
+                            <div id="dropdownUser" class="ui search selection dropdown">
+                                <input id="inputUser" name="show" type="hidden" value="{{ old('user') }}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Utilisateur</div>
+                                <div class="menu">
+                                </div>
+                            </div>
                         </div>
-                    </td>
-                </tr>
-            @endforeach
-        </table>
-    </div>
+                    </div>
+                </div>
+                <div id="user" class="ui segment">
+                    @component('components.message_simple')
+                        @slot('type')
+                            info
+                        @endslot
+
+                        Pas d'utilisateur à afficher.
+                    @endcomponent
+                </div>
+            </div>
+        </div>
+
 @endsection
 
 @push('scripts')
-    <script>
-        $('#tableAdmin').DataTable( {
-            "order": [[ 0, "asc" ]],
-            "language": {
-                "lengthMenu": "Afficher _MENU_ enregistrements par page",
-                "zeroRecords": "Aucun enregistrement trouvé",
-                "info": "Page _PAGE_ sur _PAGES_",
-                "infoEmpty": "Aucun enregistrement trouvé",
-                "infoFiltered": "(filtré sur _MAX_ enregistrements)",
-                "sSearch" : "",
-                "oPaginate": {
-                    "sFirst":    	"Début",
-                    "sPrevious": 	"Précédent",
-                    "sNext":     	"Suivant",
-                    "sLast":     	"Fin"
-                }
-            }} );
-    </script>
+    {{Html::script('js/views/admin/users/index.js')}}
 @endpush
 

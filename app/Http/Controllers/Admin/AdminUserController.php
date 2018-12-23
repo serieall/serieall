@@ -58,6 +58,22 @@ class AdminUserController extends Controller
     }
 
     /**
+     * Return the list of users in JSON
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUser($id) {
+        $user = $this->userRepository->getUserByID($id);
+
+        if(empty($user)) {
+            return Response::json();
+        }
+
+        return Response::json(View::make('admin.users.list_user', ['user' => $user])->render());
+    }
+
+    /**
      * Affiche le formulaire de création d'utilisateur
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
