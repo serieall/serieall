@@ -22,6 +22,8 @@ use App\Repositories\NationalityRepository;
 use App\Repositories\SeasonRepository;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class AdminShowController
@@ -78,6 +80,23 @@ class AdminShowController extends Controller
         // On retourne la vue
         return view('admin/shows/index', compact('shows'));
     }
+
+    /**
+     * Return the list of shows in JSON
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getShow($id) {
+        $show = $this->showRepository->getShowByID($id);
+
+        if(empty($show)) {
+            return Response::json(View::make('admin.comments.info_message')->render());
+        }
+
+        return Response::json(View::make('admin.shows.list_show', ['show' => $show])->render());
+    }
+
 
     /**
      * Affiche le formulaire de création via theTVDB

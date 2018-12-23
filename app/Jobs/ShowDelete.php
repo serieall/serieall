@@ -93,7 +93,10 @@ class ShowDelete implements ShouldQueue
                 $episode->artists()->detach();
 
                 // On détache les avis
-                $episode->comments()->delete();
+                Log::info('delete comments not null');
+                $episode->comments()->whereNotNull('parent_id')->delete();
+                Log::info('delete comments null');
+                $episode->comments()->whereNull('parent_id')->delete();
 
                 // On détache les notes
                 $episode->users()->detach();
@@ -107,7 +110,8 @@ class ShowDelete implements ShouldQueue
                 $episode->delete();
             }
             // On détache les avis
-            $season->comments()->delete();
+            $season->comments()->whereNotNull('parent_id')->delete();
+            $season->comments()->whereNull('parent_id')->delete();
 
             // On détache les articles
             $season->articles()->detach();
@@ -117,9 +121,9 @@ class ShowDelete implements ShouldQueue
             saveLogMessage($idLog, $logMessage);
             $season->delete();
         }
-        Log::info('comments');
         // On détache les avis
-        $show->comments()->delete();
+        $show->comments()->whereNotNull('parent_id')->delete();
+        $show->comments()->whereNull('parent_id')->delete();
 
         // On détache les articles
         $show->articles()->detach();
