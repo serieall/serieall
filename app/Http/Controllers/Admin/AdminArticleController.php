@@ -81,7 +81,7 @@ class AdminArticleController extends Controller
     public function getArticle($id) {
         $article = $this->articleRepository->getArticleByID($id);
 
-        if(empty($show)) {
+        if(empty($article)) {
             return Response::json();
         }
 

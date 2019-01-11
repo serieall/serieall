@@ -277,15 +277,16 @@
         CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
         CKEDITOR.replace( 'article' ,
             {
+                toolbar: 'Basic',
                 filebrowserBrowseUrl : '/js/elFinder/elfinder_cke.html',
                 extraPlugins: 'spoiler,wordcount',
                 wordcount: {
                     showCharCount: true,
                     showWordCount: false,
                     showParagraphs: false
-                }
+                },
+                customConfig: '/js/ckeditor/article.js'
             });
-
 
         $('.ui.toggle.checkbox').checkbox();
         @if($article->state == 1)
