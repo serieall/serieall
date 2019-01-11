@@ -139,10 +139,13 @@ class ShowRepository
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         } elseif (Route::current()->getName() === 'show.details') {
             $show = $this->getShowDetailsByURL($show_url);
+            $articles = [];
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         }
         else {
             $show = $this->getShowByURL($show_url);
+            $articles = [];
+            $seasons = [];
         }
 
         $nbcomments = Comment::groupBy('thumb')
