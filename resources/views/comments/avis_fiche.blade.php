@@ -31,7 +31,11 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="AvisResume">
-                                    {!! cutResume($avis['message']) !!}
+                                    @if($avis['spoiler'])
+                                        <p>Le résumé de cet avis contient des spoilers, cliquez sur "Lire l'avis complet" pour le consulter.</p>
+                                    @else
+                                        {!! cutResume($avis['message']) !!}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>

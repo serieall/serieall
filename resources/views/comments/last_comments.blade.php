@@ -36,7 +36,38 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="AvisResume">
-                                {!! $avis['message'] !!}
+                                @if(Auth::check())
+                                    @if(Auth::user()->antispoiler == 0)
+                                        {!! $avis['message'] !!}
+                                    @else
+                                        <div class="spoiler">
+                                            <div class="spoiler-title">
+                                                <div class="spoiler-toggle hide-icon"></div>
+                                                Spoiler
+                                            </div>
+
+                                            <div class="spoiler-content">
+                                                {!! $avis['message'] !!}
+                                            </div>
+                                        </div>
+
+                                    @endif
+                                @else
+                                    @if($avis['spoiler'])
+                                        <div class="spoiler">
+                                            <div class="spoiler-title">
+                                                <div class="spoiler-toggle hide-icon"></div>
+                                                Spoiler
+                                            </div>
+
+                                            <div class="spoiler-content">
+                                                {!! $avis['message'] !!}
+                                            </div>
+                                        </div>
+                                    @else
+                                        {!! $avis['message'] !!}
+                                    @endif
+                                @endif
                             </td>
                         </tr>
                     </table>

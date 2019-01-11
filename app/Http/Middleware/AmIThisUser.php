@@ -23,7 +23,7 @@ class AmIThisUser
     {
         $userIMustBe = $request->route('user');
 
-        if($userIMustBe != Auth::user()->username) {
+        if($userIMustBe != strtolower(Auth::user()->username)) {
             return redirect()->back();
         }
 

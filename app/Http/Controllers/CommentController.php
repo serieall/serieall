@@ -73,6 +73,8 @@ class CommentController extends Controller
     public function fiche($show_url, $season_name = null, $episode_numero = null, $episode_id = null) {
         # Get ID User if user authenticated
         $user_id = getIDIfAuth();
+        $seasonInfo = [];
+        $episodeInfo = [];
 
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
