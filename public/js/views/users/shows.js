@@ -114,6 +114,7 @@ $(document).ready(function() {
         reloadBox(CompletedForm, CompletedBox, CompletedMessage);
         reloadBox(ToSeeForm, ToSeeBox, ToSeeMessage);
         reloadBox(AbandonedForm, AbandonedBox, AbandonedMessage);
+        $(InProgressDropdown).dropdown('clear');
     });
 
     $(document).on('submit', '#OnBreakForm', function(e) {
@@ -131,6 +132,7 @@ $(document).ready(function() {
         reloadBox(CompletedForm, CompletedBox, CompletedMessage);
         reloadBox(ToSeeForm, ToSeeBox, ToSeeMessage);
         reloadBox(AbandonedForm, AbandonedBox, AbandonedMessage);
+        $(OnBreakDropdown).dropdown('clear');
     });
 
     $(document).on('submit', '#CompletedForm', function(e) {
@@ -148,6 +150,7 @@ $(document).ready(function() {
         reloadBox(OnBreakForm, OnBreakBox, OnBreakMessage);
         reloadBox(ToSeeForm, ToSeeBox, ToSeeMessage);
         reloadBox(AbandonedForm, AbandonedBox, AbandonedMessage);
+        $(CompletedDropdown).dropdown('clear');
     });
 
     $(document).on('submit', '#ToSeeForm', function(e) {
@@ -165,6 +168,7 @@ $(document).ready(function() {
         reloadBox(OnBreakForm, OnBreakBox, OnBreakMessage);
         reloadBox(CompletedForm, CompletedBox, CompletedMessage);
         reloadBox(AbandonedForm, AbandonedBox, AbandonedMessage);
+        $(ToSeeDropdown).dropdown('clear');
     });
 
     $(document).on('submit', '#AbandonedForm', function(e) {
@@ -182,6 +186,7 @@ $(document).ready(function() {
         reloadBox(OnBreakForm, OnBreakBox, OnBreakMessage);
         reloadBox(CompletedForm, CompletedBox, CompletedMessage);
         reloadBox(ToSeeForm, ToSeeBox, ToSeeMessage);
+        $(AbandonedDropdown).dropdown('clear');
     });
 
     $(document).on('submit', '.ui.form.delete', function(e) {
