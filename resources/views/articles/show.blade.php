@@ -29,10 +29,11 @@
                         <div class="ui two column center aligned grid stackable">
                             <div class="row">
                                 <h1>{{ $article->name }}</h1>
-                                Le {!! formatDate('full', $article->published_at) !!}
                             </div>
                             <div class="row readingTime">
-                                <i class="time icon"></i> ~ {!! calculateReadingTime($article->content) !!} de lecture
+                                <span>Le {!! formatDate('full', $article->published_at) !!}</span>
+                                &emsp;|&emsp;
+                                <span><i class="time icon"></i> ~ {!! calculateReadingTime($article->content) !!} de lecture</span>
                             </div>
                             <div class="row intro">
                                 {{ $article->intro }}
