@@ -16,7 +16,7 @@
                         item" href="{{ route('comment.fiche', [$showInfo['show']->show_url]) }}">Série</a>
                             @foreach($showInfo['show']->seasons as $season)
                                 <a class="
-                                    @if(isset($seasonInfo) && $seasonInfo->name == $season->name)
+                                    @if(!empty($seasonInfo) && $seasonInfo->name == $season->name)
                                         active
                                     @endif
                                         item" href="{{ route('comment.fiche', [$showInfo['show']->show_url, $season->name]) }}">Saison {{ $season->name }}</a>
@@ -61,12 +61,12 @@
 
         <div class="row">
             <div class="ui segment left aligned">
-                @if(isset($seasonInfo))
+                @if(!empty($seasonInfo))
                     <h1>Liste des épisodes</h1>
                     <div class="ui list">
                         @foreach($seasonInfo['episodes'] as $episode)
                             <div class="
-                                @if(isset($episodeInfo) && $episode->id == $episodeInfo->id)
+                                @if(!empty($episodeInfo) && $episode->id == $episodeInfo->id)
                                     active
                                 @endif
                             item">

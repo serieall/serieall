@@ -14,7 +14,11 @@
                     </span>
                 </div>
                 <div class="text">
-                    {!! $comment->message !!}
+                    @if($comment->spoiler)
+                        <p>Le résumé de cet avis contient des spoilers, cliquez sur \"Lire l'avis complet\" pour le consulter.</p>
+                    @else
+                        {!! $comment->message !!}
+                    @endif
                 </div>
             </div>
             <div class="actions">
