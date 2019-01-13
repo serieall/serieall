@@ -10,7 +10,7 @@ return [
     |
     */
     'name' => 'Série-All',
-    'version' => '0.3.0',
+    'version' => 'v1.0.0',
     'id_piwik' => env('APP_IDPIWIK', '1'),
 
     /*
