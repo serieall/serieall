@@ -43,6 +43,10 @@
             ;
         });
 
+        @if(Route::current()->getName() == 'inscription')
+            $('.second.modal').modal('show');
+        @endif
+
         $('.second.modal')
             .modal({
                 transition: 'fly left'
