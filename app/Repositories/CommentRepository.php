@@ -116,7 +116,7 @@ class CommentRepository
                 $q->with('user');
                 $q->orderBy('created_at');
             }])
-            ->orderBy('created_at', "DESC")
+            ->orderBy('created_at', "ASC")
             ->paginate(10);
     }
 

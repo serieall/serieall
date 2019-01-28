@@ -1,7 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>@yield('pageTitle') - Série-All Bêta</title>
+<title>@yield('pageTitle') - Série-All</title>
 <meta name="description" content="@yield('pageDescription')" />
 
 <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
