@@ -56,7 +56,7 @@
                                         @endif
                                     @endif
                                 @else
-                                    @if($avis['spoiler'] == 0)
+                                    @if($avis['spoiler'])
                                         <div class="spoiler">
                                             <div class="spoiler-title">
                                                 <div class="spoiler-toggle hide-icon"></div>
