@@ -40,20 +40,23 @@
                                     @if(Auth::user()->antispoiler == 0)
                                         {!! $avis['message'] !!}
                                     @else
-                                        <div class="spoiler">
-                                            <div class="spoiler-title">
-                                                <div class="spoiler-toggle hide-icon"></div>
-                                                Spoiler
-                                            </div>
+                                        @if($avis['spoiler'] == 0)
+                                            <div class="spoiler">
+                                                <div class="spoiler-title">
+                                                    <div class="spoiler-toggle hide-icon"></div>
+                                                    Spoiler
+                                                </div>
 
-                                            <div class="spoiler-content">
-                                                {!! $avis['message'] !!}
+                                                <div class="spoiler-content">
+                                                    {!! $avis['message'] !!}
+                                                </div>
                                             </div>
-                                        </div>
-
+                                        @else
+                                            {!! $avis['message'] !!}
+                                        @endif
                                     @endif
                                 @else
-                                    @if($avis['spoiler'])
+                                    @if($avis['spoiler'] == 0)
                                         <div class="spoiler">
                                             <div class="spoiler-title">
                                                 <div class="spoiler-toggle hide-icon"></div>
