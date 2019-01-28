@@ -84,7 +84,7 @@ class CommentRepository
         $user_comment = '';
 
         if(!is_null($user_id)) {
-            $user_comment = $this->getCommentByUserIDTypeTypeID($user_id, $object, $object_id);
+            $user_comment = $this->getCommentByUserIDTypeTypeID($user_id, $object, $object_id, "DESC");
 
             if(!is_null($user_comment)){
                 $user_comment_id = $user_comment->id;
@@ -92,10 +92,10 @@ class CommentRepository
         }
 
         if(Route::current()->getName() == 'comment.fiche') {
-            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id);
+            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id, "DESC");
         }
         else if(Route::current()->getName() == 'article.show') {
-            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id);
+            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id, "ASC");
         }
         else {
             $last_comment = $this->getLastTwoCommentsByTypeTypeID($object, $object_id, $user_comment_id);
@@ -109,14 +109,14 @@ class CommentRepository
      * @param $object_id
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllCommentsByTypeTypeID($object, $object_id) {
+    public function getAllCommentsByTypeTypeID($object, $object_id, $order) {
         return $this->comment::where('commentable_id', '=', $object_id)
             ->where('commentable_type', '=', $object)
             ->with(['user', 'children' => function($q) {
                 $q->with('user');
                 $q->orderBy('created_at');
             }])
-            ->orderBy('created_at', "ASC")
+            ->orderBy('created_at', $order)
             ->paginate(10);
     }
 
