@@ -111,7 +111,6 @@ function formatRequestInVariableNoSpace($objects) {
  */
 function formatDate($lenght, $date) {
     setlocale(LC_TIME, 'french');
-    date_default_timezone_set('Europe/Paris');
 
     switch ($lenght){
         case 'short':
