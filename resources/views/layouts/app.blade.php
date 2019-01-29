@@ -55,6 +55,7 @@
             @if($navActive === 'forum')
                 active
             @endif">
+            <i class="comment icon"></i>
             Forum
         </a>
         @if (Auth::guest())
