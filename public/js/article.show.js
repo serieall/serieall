@@ -110,25 +110,6 @@ $(document).on('submit', '#formAvis', function(e) {
     }
 });
 
-var editorReaction = CKEDITOR.instances.reaction;
-if (editorReaction) {
-    editorReaction.destroy(true);
-}
-
-$('.ui.modal.reaction').modal('attach events', '.writeReaction', 'show');
-CKEDITOR.plugins.addExternal('spoiler', '/js/ckeditor/plugins/spoiler/plugin.js');
-CKEDITOR.plugins.addExternal('wordcount', '/js/ckeditor/plugins/wordcount/plugin.js');
-CKEDITOR.replace('reaction',
-    {
-        extraPlugins: 'spoiler,wordcount',
-        customConfig: '/js/ckeditor/config.js',
-        wordcount: {
-            showCharCount: true,
-            showWordCount: false,
-            showParagraphs: false
-        }
-    });
-
 $('.ui.button.writeReaction').click(function (e) {
     e.preventDefault();
     IDButton = $(this).attr('id');
