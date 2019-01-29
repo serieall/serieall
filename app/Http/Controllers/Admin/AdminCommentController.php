@@ -84,7 +84,7 @@ class AdminCommentController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function getComments($type, $id) {
-        $comments = $this->commentRepository->getAllCommentsByTypeTypeID("App\\Models\\" . $type, $id);
+        $comments = $this->commentRepository->getAllCommentsByTypeTypeID("App\\Models\\" . $type, $id, "DESC");
 
         if(count($comments) < 1) {
             return Response::json();
