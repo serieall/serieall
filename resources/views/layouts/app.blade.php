@@ -51,6 +51,12 @@
             <i class="trophy icon"></i>
             Classements
         </a>
+        <a href="{{ config('app.forum_url') }}" class="item
+            @if($navActive === 'forum')
+                active
+            @endif">
+            Forum
+        </a>
         @if (Auth::guest())
             <a class="clickLogin item">
                 Connexion
