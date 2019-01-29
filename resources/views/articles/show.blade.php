@@ -214,4 +214,5 @@
 @push('scripts')
     <script src="/js/article.show.js"></script>
     <script src="/js/views/comments/store_reaction.js"></script>
+    <script src="/js/views/comments/store_comment.js"></script>
 @endpush
