@@ -110,6 +110,12 @@ $(document).on('submit', '#formAvis', function(e) {
     }
 });
 
+var editorReaction = CKEDITOR.instances.reaction;
+if (editorReaction) {
+    editorReaction.destroy(true);
+}
+
+
 $('.ui.button.writeReaction').click(function (e) {
     e.preventDefault();
     IDButton = $(this).attr('id');

@@ -1,8 +1,3 @@
-var editorReaction = CKEDITOR.instances.reaction;
-if (editorReaction) {
-    editorReaction.destroy(true);
-}
-
 $('.ui.modal.reaction').modal('attach events', '.writeReaction', 'show');
 CKEDITOR.plugins.addExternal('spoiler', '/js/ckeditor/plugins/spoiler/plugin.js');
 CKEDITOR.plugins.addExternal('wordcount', '/js/ckeditor/plugins/wordcount/plugin.js');
