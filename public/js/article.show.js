@@ -157,7 +157,7 @@ $(document).on('submit', '#formReaction', function (e) {
             dataType: "json"
         })
             .done(function () {
-                window.location.reload(true);
+                window.location.reload(false);
             })
             .fail(function (data) {
                 $('.submit').removeClass("loading");
