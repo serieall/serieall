@@ -903,100 +903,109 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                 |--------------------------------------------------------------------------
                 | On commence par récupérer les chaines du formulaire
                 */
-                $getActors = $client->request('GET', '/series/'. $idSerie . '/actors', [
-                    'headers' => [
-                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                        'Authorization' => 'Bearer ' . $token]
-                ])->getBody();
+                /* Récupération de la photo de l'acteur */
+                $file = 'https://www.thetvdb.com/banners/series/'. $idSerie . '/actors';
+                $file_headers = get_headers($file);
+                if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                    $logMessage = '>>>Pas d\'acteurs pour la série.';
+                    saveLogMessage($idLog, $logMessage);
+                }
+                else {
+                    $getActors = $client->request('GET', '/series/'. $idSerie . '/actors', [
+                        'headers' => [
+                            'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                            'Authorization' => 'Bearer ' . $token]
+                    ])->getBody();
 
-                /*
+                    /*
                 |--------------------------------------------------------------------------
                 | Décodage du JSON
                 |--------------------------------------------------------------------------
                 */
-                $actors = json_decode($getActors);
-                $actors = $actors->data;
+                    $actors = json_decode($getActors);
+                    $actors = $actors->data;
 
-                if(!is_null($actors)) {
-                    $logMessage = '>>ACTEURS';
-                    saveLogMessage($idLog, $logMessage);
+                    if(!is_null($actors)) {
+                        $logMessage = '>>ACTEURS';
+                        saveLogMessage($idLog, $logMessage);
 
-                    foreach ($actors as $actor) {
-                        # Récupération du nom de l'acteur
-                        $actorName = $actor->name;
+                        foreach ($actors as $actor) {
+                            # Récupération du nom de l'acteur
+                            $actorName = $actor->name;
 
-                        # Récupération du rôle
-                        $actorRole = $actor->role;
-                        if (is_null($actorRole)) {
-                            $actorRole = 'TBA';
-                        }
+                            # Récupération du rôle
+                            $actorRole = $actor->role;
+                            if (is_null($actorRole)) {
+                                $actorRole = 'TBA';
+                            }
 
-                        # On supprime les espaces
-                        $actor = trim($actorName);
-                        # On met en forme l'URL
-                        $actor_url = Str::slug($actor);
-                        # Vérification de la présence de l'acteur
-                        $actor_ref = Artist::where('artist_url', $actor_url)->first();
+                            # On supprime les espaces
+                            $actor = trim($actorName);
+                            # On met en forme l'URL
+                            $actor_url = Str::slug($actor);
+                            # Vérification de la présence de l'acteur
+                            $actor_ref = Artist::where('artist_url', $actor_url)->first();
 
-                        if(is_null($actor_ref)) {
-                            # On prépare le nouvel acteur
-                            $actor_ref = new Artist([
-                                'name' => $actor,
-                                'artist_url' => $actor_url
-                            ]);
+                            if(is_null($actor_ref)) {
+                                # On prépare le nouvel acteur
+                                $actor_ref = new Artist([
+                                    'name' => $actor,
+                                    'artist_url' => $actor_url
+                                ]);
 
-                            # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                            $logMessage = '>>>Création de l\'acteur ' . $actorName . '.';
-                            saveLogMessage($idLog, $logMessage);
-
-                            $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
-
-                            /* Récupération de la photo de l'acteur */
-                            $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
-                            $file_headers = get_headers($file);
-                            if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                                $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
+                                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                                $logMessage = '>>>Création de l\'acteur ' . $actorName . '.';
                                 saveLogMessage($idLog, $logMessage);
+
+                                $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+
+                                /* Récupération de la photo de l'acteur */
+                                $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
+                                $file_headers = get_headers($file);
+                                if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                    $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
+                                    saveLogMessage($idLog, $logMessage);
+                                }
+                                else {
+                                    copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
+                                    $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
+                                    saveLogMessage($idLog, $logMessage);
+                                }
                             }
                             else {
-                                copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
-                                $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
-                                saveLogMessage($idLog, $logMessage);
-                            }
-                        }
-                        else {
-                            # On vérifie s'il est déjà lié à la série
+                                # On vérifie s'il est déjà lié à la série
 
-                            $actor_liaison = $actor_ref->shows()
-                                ->where('shows.thetvdb_id', $idSerie)
-                                ->where('artistables.profession', 'actor')
-                                ->get()
-                                ->toArray();
-
-                            if(empty($actor_liaison)){
-                                # On lie l'acteur à la série
-                                $logMessage = '>>>Liaison de l\'acteur ' . $actorName . '.';
-                                saveLogMessage($idLog, $logMessage);
-
-                                $serieInBDD->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
-                            }
-                            else{
-                                # On vérifie que le rôle de l'acteur est à TBA
-                                $actor_role = $actor_ref->shows()
+                                $actor_liaison = $actor_ref->shows()
                                     ->where('shows.thetvdb_id', $idSerie)
                                     ->where('artistables.profession', 'actor')
-                                    ->where('artistables.role', 'TBA')
-                                    ->pluck('shows.id')
+                                    ->get()
                                     ->toArray();
 
-                                if(!empty($actor_role)){
-                                    # On vérifie que le rôle est rempli sur TheTVDB
-                                    if($actorRole != 'TBA'){
-                                        # On met à jour le rôle
-                                        $logMessage = '>>>Mise à jour du rôle de l\'acteur : ' . $actor . '-' . $actorRole;
-                                        saveLogMessage($idLog, $logMessage);
+                                if(empty($actor_liaison)){
+                                    # On lie l'acteur à la série
+                                    $logMessage = '>>>Liaison de l\'acteur ' . $actorName . '.';
+                                    saveLogMessage($idLog, $logMessage);
 
-                                        $actor_ref->shows()->updateExistingPivot($actor_role[0], ['role' => $actorRole]);
+                                    $serieInBDD->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
+                                }
+                                else{
+                                    # On vérifie que le rôle de l'acteur est à TBA
+                                    $actor_role = $actor_ref->shows()
+                                        ->where('shows.thetvdb_id', $idSerie)
+                                        ->where('artistables.profession', 'actor')
+                                        ->where('artistables.role', 'TBA')
+                                        ->pluck('shows.id')
+                                        ->toArray();
+
+                                    if(!empty($actor_role)){
+                                        # On vérifie que le rôle est rempli sur TheTVDB
+                                        if($actorRole != 'TBA'){
+                                            # On met à jour le rôle
+                                            $logMessage = '>>>Mise à jour du rôle de l\'acteur : ' . $actor . '-' . $actorRole;
+                                            saveLogMessage($idLog, $logMessage);
+
+                                            $actor_ref->shows()->updateExistingPivot($actor_role[0], ['role' => $actorRole]);
+                                        }
                                     }
                                 }
                             }
