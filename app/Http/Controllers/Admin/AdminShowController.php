@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ShowUpdateManuallyRequest;
+use App\Jobs\ShowUpdateFromTVDB;
 use App\Repositories\LogRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -273,5 +274,12 @@ class AdminShowController extends Controller
             ->with($state_header, $message_header)
             ->with($state, $message);
 
+    }
+
+    /**
+     * Update shows from TVDB
+     */
+    public function updateFromTVDB(){
+        dispatch(new ShowUpdateFromTVDB());
     }
 }
