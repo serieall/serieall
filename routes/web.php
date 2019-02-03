@@ -160,6 +160,7 @@ Route::group(['middleware' => 'basemanager'], function () {
     Route::get('admin/shows/create/manually', 'Admin\AdminShowController@createManually')->name('admin.shows.create.manually');
     Route::post('admin/shows/store/manually', 'Admin\AdminShowController@storeManually')->name('admin.shows.store.manually');
     Route::post('admin/shows/update/manually', 'Admin\AdminShowController@updateManually')->name('admin.shows.update.manually');
+    Route::get('admin/shows/updatetvdb', 'Admin\AdminShowController@updateFromTVDB')->name('admin.shows.updatetvdb');
     Route::get('admin/shows/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('admin.shows.redirectJSON');
     Route::resource('admin/shows', 'Admin\AdminShowController', [
         'names' => [
