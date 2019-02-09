@@ -62,6 +62,11 @@ class EpisodeUpdate implements ShouldQueue
         $logMessage = '>EPISODE';
         saveLogMessage($idLog, $logMessage);
 
+        $episode->thetvdb_id = $this->inputs['thetvdb_id'];
+        # TVDB ID de l'épisode
+        $logMessage = '>>ThTVDB ID : ' . $episode->thetvdb_id;
+        saveLogMessage($idLog, $logMessage);
+
         $episode->numero = $this->inputs['numero'];
         # Numéro de l'épisode
         $logMessage = '>>Numéro : ' . $episode->numero;
@@ -132,7 +137,7 @@ class EpisodeUpdate implements ShouldQueue
                 # On met en forme l'URL
                 $director_url = Str::slug($director);
                 # On vérifie si le réalisateur existe déjà en base
-                $director_ref = Artist::where('artist_url', $director_url)::first();
+                $director_ref = Artist::where('artist_url', $director_url)->first();
 
                 # Si il n'existe pas
                 if (is_null($director_ref)) {

@@ -29,6 +29,7 @@ class EpisodeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'thetvdb_id' => 'numeric|unique:episodes,thetvdb_id,' . $this->get('id') ,
             'numero' => 'required|numeric',
             'season_id' => 'required|numeric',
             'name' => 'max:255',
