@@ -47,6 +47,10 @@ class SeasonUpdate implements ShouldQueue
         $message = 'Mise à jour de la saison ' . $this->inputs['name'] . '|' . $this->inputs['id'];
         saveLogMessage($idLog, $message);
 
+        $season->thetvdb_id = $this->inputs['thetvdb_id'];
+        $message = 'TheTVDB ID . ' . $this->inputs['thetvdb_id'];
+        saveLogMessage($idLog, $message);
+
         $season->name = $this->inputs['name'];
         $message = 'Numéro . ' . $this->inputs['name'];
         saveLogMessage($idLog, $message);
