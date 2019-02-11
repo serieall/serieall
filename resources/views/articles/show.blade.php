@@ -31,7 +31,9 @@
                                 <h1>{{ $article->name }}</h1>
                             </div>
                             <div class="row readingTime">
-                                <span>Le {!! formatDate('full', $article->published_at) !!}</span>
+                                @if(!is_null($article->published_at))
+                                    <span>Le {!! formatDate('full', $article->published_at) !!}</span>
+                                @endif
                                 &emsp;|&emsp;
                                 <span><i class="time icon"></i> ~ {!! calculateReadingTime($article->content) !!} de lecture</span>
                             </div>
