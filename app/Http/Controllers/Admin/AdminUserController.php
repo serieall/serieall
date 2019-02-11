@@ -178,6 +178,7 @@ class AdminUserController extends Controller
         $user = $this->userRepository->getUserByID($id);
 
         $user->rates()->delete();
+        $user->shows()->detach();
         $user->comments()->delete();
 
         $user->delete();
