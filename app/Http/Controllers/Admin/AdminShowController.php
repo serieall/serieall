@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ShowUpdateManuallyRequest;
+use App\Jobs\OneShowUpdateFromTVDB;
+use App\Jobs\ShowUpdateFromTVDB;
 use App\Repositories\LogRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -267,6 +269,44 @@ class AdminShowController extends Controller
 
             $message_header= 'Erreur';
             $message = 'Problème lors de la suppression de la série !';
+        }
+
+        return redirect()->back()
+            ->with($state_header, $message_header)
+            ->with($state, $message);
+
+    }
+
+    /**
+     * Update shows from TVDB
+     */
+    public function updateFromTVDB(){
+        dispatch(new ShowUpdateFromTVDB());
+    }
+
+    /**
+     * Update one show from TVDB
+     *
+     * @param $show_id
+     * @param ShowRepository $show_repository
+     * @return RedirectResponse
+     */
+    public function updateOneShowFromTVDB($show_id, ShowRepository $show_repository) {
+        $dispatchOK = dispatch(new OneShowUpdateFromTVDB($show_id, $show_repository));
+
+        if($dispatchOK) {
+            $state_header = 'status_header';
+            $state = 'status';
+
+            $message_header= 'Mise à jour';
+            $message = 'La mise à jour de la série est en cours.';
+        }
+        else {
+            $state_header = 'warning_header';
+            $state = 'warning';
+
+            $message_header= 'Erreur';
+            $message = 'Problème lors de la mise à jour de la série !';
         }
 
         return redirect()->back()

@@ -48,6 +48,7 @@ class UserRepository
      */
     public function getUserByURL($user_url){
         return $this->user::with(['articles' => function ($q) {
+            $q->where('state', '=', 1);
             $q->orderBy('published_at', 'desc')->paginate(2);
         }])->where('user_url', $user_url)->firstOrFail();
     }

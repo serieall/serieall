@@ -10,6 +10,7 @@ use App\Jobs\UserStore;
 use App\Jobs\UserUpdate;
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 use App\Repositories\UserRepository;
@@ -163,5 +164,28 @@ class AdminUserController extends Controller
         endJob($logID);
 
         return view('admin.users.edit', compact('user'));
+    }
+
+    /**
+     * Delete an user
+     *
+     * @param $id
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy($id)
+    {
+        $user = $this->userRepository->getUserByID($id);
+
+        $user->rates()->delete();
+        $user->shows()->detach();
+        $user->comments()->delete();
+
+        $user->delete();
+
+        return redirect()->back()
+            ->with('status_header', 'Suppression')
+            ->with('status', 'L\'utilisateur a été supprimé.');
+
     }
 }

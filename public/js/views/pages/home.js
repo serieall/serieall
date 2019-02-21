@@ -121,7 +121,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).one('click', '.label', function(e) {
+$(document).one('click', '.label.filter', function(e) {
     const segment = '.placeholder.segment';
     $(segment).addClass('loading');
 

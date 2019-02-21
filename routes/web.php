@@ -160,6 +160,9 @@ Route::group(['middleware' => 'basemanager'], function () {
     Route::get('admin/shows/create/manually', 'Admin\AdminShowController@createManually')->name('admin.shows.create.manually');
     Route::post('admin/shows/store/manually', 'Admin\AdminShowController@storeManually')->name('admin.shows.store.manually');
     Route::post('admin/shows/update/manually', 'Admin\AdminShowController@updateManually')->name('admin.shows.update.manually');
+    Route::get('admin/shows/updatetvdb', 'Admin\AdminShowController@updateFromTVDB')->name('admin.shows.updatetvdb');
+    Route::post('admin/shows/updatetvdb/{id}', 'Admin\AdminShowController@updateOneShowFromTVDB')->name('admin.shows.updateoneshowfromtvdb');
+
     Route::get('admin/shows/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('admin.shows.redirectJSON');
     Route::resource('admin/shows', 'Admin\AdminShowController', [
         'names' => [
@@ -220,6 +223,7 @@ Route::group(['middleware' => 'basemanager'], function () {
         Route::put('admin/users/update', 'Admin\AdminUserController@update')->name('admin.users.update');
         Route::post('admin/users/ban/{user}', 'Admin\AdminUserController@ban')->name('admin.users.ban');
         Route::post('admin/users/reinit/{user}', 'Admin\AdminUserController@reinit')->name('admin.users.reinit');
+        Route::delete('admin/users/{user}', 'Admin\AdminUserController@destroy')->name('admin.users.destroy');
 
         /* COMMENTS */
         Route::get('admin/comments', 'Admin\AdminCommentController@index')->name('admin.comments.index');

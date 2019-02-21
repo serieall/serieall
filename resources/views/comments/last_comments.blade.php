@@ -40,17 +40,20 @@
                                     @if(Auth::user()->antispoiler == 0)
                                         {!! $avis['message'] !!}
                                     @else
-                                        <div class="spoiler">
-                                            <div class="spoiler-title">
-                                                <div class="spoiler-toggle hide-icon"></div>
-                                                Spoiler
-                                            </div>
+                                        @if($avis['spoiler'])
+                                            <div class="spoiler">
+                                                <div class="spoiler-title">
+                                                    <div class="spoiler-toggle hide-icon"></div>
+                                                    Spoiler
+                                                </div>
 
-                                            <div class="spoiler-content">
-                                                {!! $avis['message'] !!}
+                                                <div class="spoiler-content">
+                                                    {!! $avis['message'] !!}
+                                                </div>
                                             </div>
-                                        </div>
-
+                                        @else
+                                            {!! $avis['message'] !!}
+                                        @endif
                                     @endif
                                 @else
                                     @if($avis['spoiler'])
@@ -130,4 +133,5 @@
 
 @push('scripts')
     <script src="/js/article.show.js"></script>
+    <script src="/js/views/comments/store_reaction.js"></script>
 @endpush

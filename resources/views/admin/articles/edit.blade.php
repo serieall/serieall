@@ -274,12 +274,13 @@
 @push('scripts')
     <script>
         CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
-        CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
+	CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
+	CKEDITOR.plugins.addExternal( 'youtube', '/js/ckeditor/plugins/youtube/plugin.js' );
         CKEDITOR.replace( 'article' ,
             {
                 toolbar: 'Basic',
                 filebrowserBrowseUrl : '/js/elFinder/elfinder_cke.html',
-                extraPlugins: 'spoiler,wordcount',
+                extraPlugins: 'spoiler,wordcount,youtube',
                 wordcount: {
                     showCharCount: true,
                     showWordCount: false,

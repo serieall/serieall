@@ -44,7 +44,17 @@
                     <input type="hidden" name="show_id" value="{{ $episode->show->id }}">
                     <input type="hidden" name="season_id" value="{{ $episode->season->id }}">
 
-                    <div class="ui two fields">
+                    <div class="ui three fields">
+                        <div class="ui field {{ $errors->has('thetvdb_id') ? ' error' : '' }}">
+                            <label for="thetvdb_id">TheTVDB ID de l'épisode</label>
+                            <input id="thetvdb_id" name="thetvdb_id" type="number" value="{{ $episode->thetvdb_id }}" min="0">
+
+                            @if ($errors->has('thetvdb_id'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('thetvdb_id') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                         <div class="ui field {{ $errors->has('numero') ? ' error' : '' }}">
                             <label for="numero">Numéro de l'épisode</label>
                             <input id="numero" name="numero" type="number" value="{{ $episode->numero }}" min="0">

@@ -29,6 +29,7 @@ class SeasonUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'thetvdb_id' => 'numeric|unique:seasons,thetvdb_id,' . $this->get('id') ,
             'name' => 'required|numeric'];
     }
 }

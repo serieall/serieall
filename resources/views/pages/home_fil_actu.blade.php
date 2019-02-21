@@ -1,11 +1,11 @@
-<a id="all" class="ui @if($filter_home == "all") blue @endif label">
+<a id="all" class="ui @if($filter_home == "all") blue @endif label filter">
     Tout
 </a>
-<a id="rates" class="ui @if($filter_home == "rates") blue @endif label">
+<a id="rates" class="ui @if($filter_home == "rates") blue @endif label filter">
     <i class="sort numeric down icon"></i>
     Notes
 </a>
-<a id="comments" class="ui @if($filter_home == "comments") blue @endif  label">
+<a id="comments" class="ui @if($filter_home == "comments") blue @endif label filter">
     <i class="comment icon"></i>
     Avis
 </a>

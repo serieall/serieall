@@ -158,6 +158,7 @@ class ArticleRepository
         })
             ->where('id', '!=', $article_id)
             ->limit(3)
+            ->orderBy('published_at', 'DESC')
             ->get();
     }
 
@@ -174,6 +175,7 @@ class ArticleRepository
         })
             ->where('id', '!=', $article_id)
             ->limit(3)
+            ->orderBy('published_at', 'DESC')
             ->get();
     }
 
@@ -188,6 +190,7 @@ class ArticleRepository
         return $this->article->where('category_id', '=', $category_id)
             ->where('id', '!=', $article_id)
             ->limit(3)
+            ->orderBy('published_at', 'DESC')
             ->get();
     }
 
