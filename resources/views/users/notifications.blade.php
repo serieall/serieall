@@ -185,7 +185,7 @@
                             <img src="{{ affichageAvatar($notif->data['user_id']) }}" alt="Avatar de {{ affichageUsername($notif->data['user_id']) }}">
                         </div>
                         <div class="content">
-                            <div class="date">{{ formatDate('full', $notif->created_at)}}</div>
+                            <div class="date">{!! formatDate('full', $notif->created_at)!!}</div>
                             <div class="summary">
                                 @if(is_null($notif->read_at))
                                     <div class="ui red horizontal label">New</div>
