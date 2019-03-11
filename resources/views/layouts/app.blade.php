@@ -6,9 +6,9 @@
 <body>
     <div class="ui sidebar vertical menu">
         <div class="item">
-            <div class="ui search dropdown mobile showDropdown">
+            <div class="ui search mobile showDropdown">
                 <div class="ui icon input">
-                    <input class="prompt" placeholder="Rechercher une série...">
+                    <input class="prompt" type="text" placeholder="Rechercher une série...">
                     <i class="search icon"></i>
                 </div>
                 <div class="results">
