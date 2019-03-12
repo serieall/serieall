@@ -106,7 +106,7 @@ class ArticleController extends Controller
             }
         } else {
             $type_article = "";
-            $articles_linked = $this->articleRepository->getSimilaryArticles($article->id, $article->category_id);
+            $articles_linked = $this->articleRepository->getPublishedSimilaryArticles($article->id, $article->category_id);
         }
 
         if (Request::ajax()) {

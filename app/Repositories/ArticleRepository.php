@@ -189,9 +189,10 @@ class ArticleRepository
      * @param $category_id
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getSimilaryArticles($article_id, $category_id) {
+    public function getPublishedSimilaryArticles($article_id, $category_id) {
         return $this->article->where('category_id', '=', $category_id)
             ->where('id', '!=', $article_id)
+            ->where('state',"=","1")
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
