@@ -158,14 +158,14 @@ class ArticleRepository
             $q->where('id', '=', $show_id);
         })
             ->where('id', '!=', $article_id)
-            ->where('state',"=","1")
+            ->whereState(1)
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
     }
 
     /**
-     * Return article for a season
+     * Return published articles for a season
      *
      * @param $article_id
      * @param $show_id
@@ -176,14 +176,14 @@ class ArticleRepository
             $q->where('id', '=', $season_id);
         })
             ->where('id', '!=', $article_id)
-            ->where('state',"=","1")
+            ->whereState(1)
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
     }
 
     /**
-     * Return articles similaires
+     * Return published similar articles
      *
      * @param $article_id
      * @param $category_id
@@ -192,12 +192,16 @@ class ArticleRepository
     public function getPublishedSimilaryArticles($article_id, $category_id) {
         return $this->article->where('category_id', '=', $category_id)
             ->where('id', '!=', $article_id)
-            ->where('state',"=","1")
+            ->whereState(1)
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
     }
 
+    /**
+     * Return last 6 published articles.
+     * @return Article[]|Collection
+     */
     public function getLast6Articles() {
         return $this->article
             ->where('state', '=', 1)
