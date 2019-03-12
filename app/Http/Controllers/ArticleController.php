@@ -89,11 +89,11 @@ class ArticleController extends Controller
                 $type_article = "Season";
                 if ($article->episodes_count >=1) {
                     foreach($article->seasons as $season) {
-                        $articles_linked = $this->articleRepository->getArticleBySeasonID($article->id, $season->id);
+                        $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID($article->id, $season->id);
                     }
                 } else {
                     foreach($article->seasons as $season) {
-                        $articles_linked = $this->articleRepository->getArticleBySeasonID($article->id, $season->id);
+                        $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID($article->id, $season->id);
                     }
                 }
             }

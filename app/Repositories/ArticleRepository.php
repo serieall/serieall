@@ -171,11 +171,12 @@ class ArticleRepository
      * @param $show_id
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getArticleBySeasonID($article_id, $season_id) {
+    public function getPublishedArticleBySeasonID($article_id, $season_id) {
         return $this->article->whereHas('seasons', function ($q) use ($season_id) {
             $q->where('id', '=', $season_id);
         })
             ->where('id', '!=', $article_id)
+            ->whereNotNull('published_at')
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();

@@ -76,7 +76,7 @@ class SeasonController extends Controller
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
         $type_article = 'Season';
-        $articles_linked = $this->articleRepository->getArticleBySeasonID(0, $seasonInfo->id);
+        $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID(0, $seasonInfo->id);
 
         return view('seasons.fiche', ['chart' => $chart], compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
     }
