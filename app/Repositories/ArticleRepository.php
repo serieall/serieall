@@ -146,17 +146,19 @@ class ArticleRepository
     }
 
     /**
-     * Return article for a show
+     * Return article for a show.
+     * Return only published articles
      *
      * @param $article_id
      * @param $show_id
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getArticleByShowID($article_id, $show_id) {
+    public function getPublishedArticleByShowID($article_id, $show_id) {
         return $this->article->whereHas('shows', function ($q) use ($show_id) {
             $q->where('id', '=', $show_id);
         })
             ->where('id', '!=', $article_id)
+            ->whereNotNull('published_at')
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();

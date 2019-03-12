@@ -101,7 +101,7 @@ class ArticleController extends Controller
                 // C'est un article sur une série
                 $type_article = "Show";
                 foreach($article->shows as $show) {
-                    $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
+                    $articles_linked = $this->articleRepository->getPublishedArticleByShowID($article->id, $show->id);
                 }
             }
         } else {
