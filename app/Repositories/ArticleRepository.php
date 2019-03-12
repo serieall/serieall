@@ -158,7 +158,7 @@ class ArticleRepository
             $q->where('id', '=', $show_id);
         })
             ->where('id', '!=', $article_id)
-            ->whereNotNull('published_at')
+            ->where('state',"=","1")
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
@@ -176,7 +176,7 @@ class ArticleRepository
             $q->where('id', '=', $season_id);
         })
             ->where('id', '!=', $article_id)
-            ->whereNotNull('published_at')
+            ->where('state',"=","1")
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
