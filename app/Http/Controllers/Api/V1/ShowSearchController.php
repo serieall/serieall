@@ -7,7 +7,7 @@ use App\Http\Transformers\ShowSearchTransformer;
 use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
-use Marcelgwerder\ApiHandler\Facades\ApiHandler;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -23,10 +23,18 @@ class ShowSearchController extends Controller
      */
     public function index() : Response
     {
-        $shows = DB::table('shows')->select('id', 'show_url', 'name', 'name_fr')->orderBy('name');
+        //Get search request
+        $searchQuery = Input::get('_q');
 
-        $shows = ApiHandler::parseMultiple($shows, ['name', 'name_fr'])->getResult();
+        //Perform search on name/name fr
+        $shows = DB::table('shows')
+            ->select('id', 'show_url', 'name', 'name_fr')
+            ->where('name','like', '%'.$searchQuery.'%')
+            ->orWhere('name_fr','like', '%'.$searchQuery.'%')
+            ->orderBy('name');
 
-        return $this->response->collection($shows, new ShowSearchTransformer());
+
+        return $this->response->collection($shows->get(), new ShowSearchTransformer());
+
     }
 }
