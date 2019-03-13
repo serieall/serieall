@@ -18,19 +18,32 @@ class ShowSearchController extends Controller
 {
     use Helpers;
 
+    // List of words contains in request
+    private $searchQueryWordArray;
+
     /**
      * @return Response
      */
     public function index() : Response
     {
-        //Get search request
-        $searchQuery = Input::get('_q');
+        //Retrieve search request and split in array of word
+        $this->searchQueryWordArray = explode(" ", Input::get('_q'));
+
 
         //Perform search on name/name fr
+        //each word typed in tested, only shows whose match all are returned
         $shows = DB::table('shows')
             ->select('id', 'show_url', 'name', 'name_fr')
-            ->where('name','like', '%'.$searchQuery.'%')
-            ->orWhere('name_fr','like', '%'.$searchQuery.'%')
+            ->where(function ($query) {
+                foreach ($this->searchQueryWordArray  as $searchQueryWord){
+                    $query->where('name', 'like', '%'.$searchQueryWord.'%');
+                }
+            })
+            ->orWhere(function ($query) {
+                foreach ($this->searchQueryWordArray  as $searchQueryWord){
+                    $query->where('name_fr', 'like', '%'.$searchQueryWord.'%');
+                }
+            })
             ->orderBy('name');
 
 
