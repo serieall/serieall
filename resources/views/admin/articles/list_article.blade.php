@@ -1,5 +1,5 @@
 @component('components.tables.table_admin_articles', ['headers' => ["Titre de l'article", "Chapô", "Catégorie", "Auteur(s)", "Date d'écriture", "Date de publication", "Actions"]])
-    @for ($i = 0 ; $i < 10;  $i++)
+    @for ($i = 0 ; $i < 10 && $i < count($articles);  $i++)
         <tr class="line">
             <td>
                 <a href="{{ route('admin.articles.edit', $articles[$i]->id) }}" title="Modifier l'article">{{ $articles[$i]->name }}</a>
