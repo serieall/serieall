@@ -8,6 +8,7 @@ use App\Models\Article;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use Marcelgwerder\ApiHandler\Facades\ApiHandler;
+use Illuminate\Support\Facades\Input;
 
 
 /**
@@ -28,12 +29,20 @@ class ArticlesListController extends Controller
     }
 
     /**
+     * _limit : add limitation to request result
      * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
         $articles = $this->articles->select('id', 'name')
-        ->orderBy('published_at', 'desc');
+                ->orderBy('published_at', 'desc');
+
+        if (Input::has('_limit')){
+            $limit = intval(Input::get('_limit'));
+            if($limit > 0){
+                $articles = $articles->limit($limit);
+            }
+        }
 
         $articles = ApiHandler::parseMultiple($articles, ['name'])->getResult();
 
