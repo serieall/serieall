@@ -34,7 +34,9 @@ class ArticleRepository
      */
     public function getAllArticlesWithAutorsCategory()
     {
-        return $this->article::with('users', 'category')->get();
+        return $this->article::with('users', 'category')
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
     /**
