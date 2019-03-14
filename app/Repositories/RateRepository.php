@@ -140,6 +140,7 @@ class RateRepository
         }])
             ->whereUserId($user_id)
             ->limit(15)
+            ->orderByDesc("updated_at")
             ->get();
     }
 
