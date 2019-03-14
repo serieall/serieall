@@ -37,12 +37,13 @@ function initDropdownArticle() {
                 remoteValues: "data",
                 value: "id"
             },
+            forceSelection: false,
             clearable: true,
-            onChange: function(valArticle) {
-            if (valArticle) {
+            onChange: function (valArticle) {
+                if (valArticle) {
                     getArticle(valArticle);
                 } else {
-                    getArticle(null)
+                    getArticle(null);
                 }
             }
         });
