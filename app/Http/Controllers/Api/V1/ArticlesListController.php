@@ -34,9 +34,19 @@ class ArticlesListController extends Controller
      */
     public function index()
     {
+        //Retrieve search request and split in array of word
+        $this->searchQueryWordArray = explode(" ", Input::get('name-lk'));
+
+        //Refactoring search
         $articles = $this->articles->select('id', 'name')
+                ->where(function ($query) {
+                    foreach ($this->searchQueryWordArray  as $searchQueryWord){
+                        $query->where('name', 'like', '%'.$searchQueryWord.'%');
+                    }
+                })
                 ->orderBy('published_at', 'desc');
 
+        //Limit result, if needed
         if (Input::has('_limit')){
             $limit = intval(Input::get('_limit'));
             if($limit > 0){
@@ -44,8 +54,6 @@ class ArticlesListController extends Controller
             }
         }
 
-        $articles = ApiHandler::parseMultiple($articles, ['name'])->getResult();
-
-        return $this->response->collection($articles, new ArticlesListTransformer());
+        return $this->response->collection($articles->get(), new ArticlesListTransformer());
     }
 }
