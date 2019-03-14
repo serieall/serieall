@@ -9,6 +9,7 @@ use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use Marcelgwerder\ApiHandler\Facades\ApiHandler;
 use App\Http\Transformers\UsersListTransformer;
+use Illuminate\Support\Facades\Input;
 
 
 /**
@@ -36,6 +37,14 @@ class UsersListController extends Controller
         $users = $this->users
             ::select('id', 'username')
             ->orderBy('username');
+
+        //Limit result, if needed
+        if (Input::has('_limit')){
+            $limit = intval(Input::get('_limit'));
+            if($limit > 0){
+                $users = $users->limit($limit);
+            }
+        }
 
         $users = ApiHandler::parseMultiple($users, ['username'])->getResult();
 

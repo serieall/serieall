@@ -31,7 +31,7 @@ function initDropdownUser() {
     $(dropdownUser)
         .dropdown({
             apiSettings: {
-                url: '/api/users/list?username-lk=*{query}*'
+                url: '/api/users/list?username-lk=*{query}*&_limit=20'
             },
             fields: {
                 remoteValues: "data",
