@@ -12,6 +12,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+
 
 /**
  * Class RateRepository
@@ -19,6 +22,10 @@ use Illuminate\Support\Facades\Log;
  */
 class RateRepository
 {
+
+    /** Constant for cache*/
+    const SHOW_MOMENT_CACHE_KEY = 'SHOW_MOMENT_CACHE_KEY';
+
     protected $showRepository;
     protected $seasonRepository;
     protected $episodeRepository;
@@ -341,7 +348,9 @@ class RateRepository
     }
 
     public function getShowsMoment() {
-        return Episode_user::leftJoin('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+
+        return Cache::remember(RateRepository::SHOW_MOMENT_CACHE_KEY, Config::get('constants.cacheDuration.long'), function () {
+            return Episode_user::leftJoin('episodes', 'episode_user.episode_id', '=', 'episodes.id')
                 ->leftJoin('seasons', 'episodes.season_id', '=', 'seasons.id')
                 ->leftJoin('shows', 'seasons.show_id', '=', 'shows.id')
                 ->select(DB::raw('shows.name, shows.show_url, shows.moyenne, shows.nbnotes ,COUNT(episode_user.rate) nbnotes_last_week'))
@@ -353,5 +362,6 @@ class RateRepository
                 ->groupBy('shows.name', 'shows.nbnotes', 'shows.moyenne')
                 ->limit(10)
                 ->get();
+        });
     }
 }
