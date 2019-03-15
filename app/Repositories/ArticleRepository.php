@@ -9,6 +9,8 @@ use App\Models\Show;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class ArticleRepository
@@ -16,6 +18,10 @@ use Illuminate\Pagination\Paginator;
  */
 class ArticleRepository
 {
+
+    /** Constant for cache*/
+    const LAST_6_ARTICLES_CACHE_KEY = 'LAST_6_ARTICLES_CACHE_KEY';
+
     protected $article;
 
     /**
@@ -205,10 +211,12 @@ class ArticleRepository
      * @return Article[]|Collection
      */
     public function getLast6Articles() {
-        return $this->article
-            ->where('state', '=', 1)
-            ->orderBy('published_at', 'desc')
-            ->limit(6)
-            ->get();
+        return Cache::remember(ArticleRepository::LAST_6_ARTICLES_CACHE_KEY, Config::get('constants.cacheDuration.medium'), function () {
+            return $this->article
+                ->where('state', '=', 1)
+                ->orderBy('published_at', 'desc')
+                ->limit(6)
+                ->get();
+        });
     }
 }
