@@ -91,14 +91,11 @@ class CommentRepository
             }
         }
 
-        if(Route::current()->getName() == 'comment.fiche') {
+        if(Route::current()->getName() == 'comment.fiche' || Route::current()->getName() == 'episode.fiche' ) {
             $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id, "DESC");
         }
         else if(Route::current()->getName() == 'article.show') {
             $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id, "ASC");
-        }
-        else if(Route::current()->getName() == 'episode.fiche') {
-            $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id, "DESC");
         }
         else {
             $last_comment = $this->getLastTwoCommentsByTypeTypeID($object, $object_id, $user_comment_id);
