@@ -275,6 +275,18 @@
                                 <button class="ui button">Valider</button>
                             </div>
                         </form>
+
+                                <div class="ui center aligned">
+                                    <button class="ui DarkBlueSerieAll button fluid WriteAvis">
+                                        <i class="write icon"></i>
+                                        @if(!isset($comments['user_comment']))
+                                            Écrire un avis
+                                        @else
+                                            Modifier mon avis
+                                        @endif
+                                    </button>
+                                </div>
+
                     @else
                             <a href="#" class="clickLogin">Connectez-vous</a> pour noter cet épisode
                     @endif
