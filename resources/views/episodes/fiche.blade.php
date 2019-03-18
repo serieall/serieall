@@ -206,7 +206,13 @@
             </div>
         </div>
         <div class="row">
-            @include('comments.all_avis_fiche')
+            <div id="ListAvis" class="ui segment">
+                <h1>Tous les avis</h1>
+                <div class="ui stackable grid">
+                    @include('comments.last_comments')
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection
