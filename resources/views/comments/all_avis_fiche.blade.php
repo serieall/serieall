@@ -1,9 +1,7 @@
 <div id="ListAvis" class="ui segment">
     <h1>Tous les avis</h1>
     <div>
-        <div id="LastComments" class="ui stackable grid" >
-            @include('comments.last_comments')
-        </div>
+        @include('comments.last_comments')
         <div class="ui stackable grid">
             @if(!empty($comments['user_comment']))
                 <div class="row">
@@ -87,7 +85,7 @@
                                 <i class="right arrow icon"></i>
                             </button>
                         </a>
-                        @endif
+                    @endif
                 </div>
             </div>
         </div>
@@ -96,5 +94,6 @@
 @include('comments.form_avis')
 
 @push('scripts')
-    <script src="/js/views/comments/paginate_comments.js"></script>
+{{--    <script src="/js/article.show.js"></script>--}}
+{{--    <script src="/js/views/comments/paginate_comments.js"></script>--}}
 @endpush

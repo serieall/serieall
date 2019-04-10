@@ -34,9 +34,7 @@
         <div class="row">
             <div id="ListAvis" class="ui segment left aligned">
                 <h1>Avis</h1>
-                <div id="LastComments" class="ui stackable grid">
-                    @include('comments.last_comments')
-                </div>
+                @include('comments.last_comments')
             </div>
         </div>
     </div>
