@@ -94,5 +94,5 @@
 @include('comments.form_avis')
 
 @push('scripts')
-    <script src="/js/views/comments/paginate_comments.js"></script>
+    <script src="/js/views/comments/paginate_comments.js" type="text/javascript" async></script>
 @endpush
