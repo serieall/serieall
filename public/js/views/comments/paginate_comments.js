@@ -4,7 +4,7 @@ let lastComments = $('#LastComments');
 lastComments.on('click', '.pagination a', function (e) {
     e.preventDefault();
 
-    getComments($(this).attr('href').split('page=')[1]);
+    getComments($(this).attr('href').split('page=')[1], false);
     $('#ListAvis').addClass('loading');
 });
 
@@ -69,7 +69,7 @@ lastComments.on('click', '.writeReaction', function (e) {
 
 
 //Utils functions
-function getComments(page) {
+function getComments(page, noHistory) {
     $.ajax({
         url : '?page=' + page,
         dataType: 'json'
@@ -82,12 +82,30 @@ function getComments(page) {
         $.getScript('/js/spoiler/spoiler.js');
 
         //Rechargement des réactions
+
         $('.ui.modal.reaction').modal('attach events', '.writeReaction', 'show');
 
-        location.hash = page;
+        if (!noHistory) {
+            let currentUrl = location.href;
+            if (currentUrl.includes('?page=')) {
+                currentUrl = currentUrl.split('?page=')[0] + '?page=' + page;
+            } else {
+                currentUrl += '?page=' + page;
+            }
+
+            window.history.pushState(page, '', currentUrl);
+        }
         $('#ListAvis').removeClass('loading');
     }).fail(function () {
         alert('Les commentaires n\'ont pas été chargés.');
         $('#LastComments').removeClass('loading');
     });
 }
+
+window.addEventListener('popstate', function(e) {
+    if(e && e.state && !isNaN(e.state)){
+        getComments(e.state, true);
+    }else{
+        getComments(1,true);
+    }
+});
