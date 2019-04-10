@@ -135,34 +135,4 @@
 
 @push('scripts')
     <script src="/js/views/comments/store_reaction.js"></script>
-
-    <script type="text/javascript">
-        $('#LastComments').on('click', '.pagination a', function (e) {
-            e.preventDefault();
-
-            getComments($(this).attr('href').split('page=')[1]);
-            $('#LastComments').addClass('loading');
-        });
-
-        function getComments(page) {
-            $.ajax({
-                url : '?page=' + page,
-                dataType: 'json'
-            }).done(function (data) {
-                // On insére le HTML
-                let lastComments = $('#LastComments');
-                lastComments.html(data);
-
-                // On recharge les spoilers et on remonte en haut de la page.
-                $.getScript('/js/spoiler/spoiler.js');
-                $('html, body').animate({scrollTop:$('#ListAvis').offset().top}, 'slow');//return false;
-
-                location.hash = page;
-                lastComments.removeClass('loading');
-            }).fail(function () {
-                alert('Les commentaires n\'ont pas été chargés.');
-                $('#LastComments').removeClass('loading');
-            });
-        }
-    </script>
 @endpush
