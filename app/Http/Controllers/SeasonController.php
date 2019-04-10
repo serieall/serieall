@@ -10,6 +10,9 @@ use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
 use ConsoleTVs\Charts\Facades\Charts;
 
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class SeasonController
@@ -47,7 +50,8 @@ class SeasonController extends Controller
      * @param $season
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getSeasonFiche($show_url, $season) {
+    public function getSeasonFiche($show_url, $season)
+    {
         # Get ID User if user authenticated
         $user_id = getIDIfAuth();
 
@@ -78,6 +82,10 @@ class SeasonController extends Controller
         $type_article = 'Season';
         $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID(0, $seasonInfo->id);
 
-        return view('seasons.fiche', ['chart' => $chart], compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
+        if (Request::ajax()) {
+            return Response::json(View::make('comments.last_comments', ['comments' => $comments])->render());
+        } else {
+            return view('seasons.fiche', ['chart' => $chart], compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'ratesSeason', 'comments', 'object'));
+        }
     }
 }

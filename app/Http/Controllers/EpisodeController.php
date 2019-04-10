@@ -111,12 +111,7 @@ class EpisodeController extends Controller
         $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID(0, $seasonInfo->id);
 
         if (Request::ajax()) {
-            return Response::json(View::make('comments.last_comments', ['comments' => $comments,
-                                                                        'episodeInfo' => $episodeInfo,
-                                                                        'showInfo' => $showInfo,
-                                                                        'seasonInfo' => $seasonInfo,
-                                                                        'object' => $object
-                ])->render());
+            return Response::json(View::make('comments.last_comments', ['comments' => $comments])->render());
         }else {
             return view('episodes.fiche', compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
         }
