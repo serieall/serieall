@@ -52,13 +52,21 @@
                     </div>
                 </div>
                 <div id="article" class="ui segment">
-                    @component('components.message_simple')
-                        @slot('type')
-                            info
-                        @endslot
+                    @if (count($articles) > 0)
 
-                        Pas d'article à afficher.
-                    @endcomponent
+                            @component('admin.articles.list_article', ['articles' => $articles])
+                            @endcomponent
+
+                    @else
+                        @component('components.message_simple')
+                            @slot('type')
+                                info
+                            @endslot
+
+                            Pas d'article à afficher.
+                        @endcomponent
+                    @endif
+
                 </div>
             </div>
         </div>

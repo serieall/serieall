@@ -85,7 +85,7 @@ class AdminArticleController extends Controller
             return Response::json();
         }
 
-        return Response::json(View2::make('admin.articles.list_article', ['article' => $article])->render());
+        return Response::json(View2::make('admin.articles.list_article', ['articles' => [$article]])->render());
     }
 
     /**

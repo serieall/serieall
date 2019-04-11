@@ -31,18 +31,19 @@ function initDropdownArticle() {
     $(dropdownArticle)
         .dropdown({
             apiSettings: {
-                url: '/api/articles/list?name-lk=*{query}*'
+                url: '/api/articles/list?name-lk={query}&_limit=10'
             },
             fields: {
                 remoteValues: "data",
                 value: "id"
             },
+            forceSelection: false,
             clearable: true,
-            onChange: function(valArticle) {
-            if (valArticle) {
+            onChange: function (valArticle) {
+                if (valArticle) {
                     getArticle(valArticle);
                 } else {
-                    getArticle(null)
+                    getArticle(null);
                 }
             }
         });

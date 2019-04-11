@@ -89,11 +89,11 @@ class ArticleController extends Controller
                 $type_article = "Season";
                 if ($article->episodes_count >=1) {
                     foreach($article->seasons as $season) {
-                        $articles_linked = $this->articleRepository->getArticleBySeasonID($article->id, $season->id);
+                        $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID($article->id, $season->id);
                     }
                 } else {
                     foreach($article->seasons as $season) {
-                        $articles_linked = $this->articleRepository->getArticleBySeasonID($article->id, $season->id);
+                        $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID($article->id, $season->id);
                     }
                 }
             }
@@ -101,12 +101,12 @@ class ArticleController extends Controller
                 // C'est un article sur une série
                 $type_article = "Show";
                 foreach($article->shows as $show) {
-                    $articles_linked = $this->articleRepository->getArticleByShowID($article->id, $show->id);
+                    $articles_linked = $this->articleRepository->getPublishedArticleByShowID($article->id, $show->id);
                 }
             }
         } else {
             $type_article = "";
-            $articles_linked = $this->articleRepository->getSimilaryArticles($article->id, $article->category_id);
+            $articles_linked = $this->articleRepository->getPublishedSimilaryArticles($article->id, $article->category_id);
         }
 
         if (Request::ajax()) {

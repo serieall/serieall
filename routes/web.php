@@ -22,29 +22,17 @@ Route::get('/rss-podcasts', 'ArticleController@RSSPodcast')->name('rss.podcasts'
 /*
     Pages
 */
-Route::get('/cgu', function () {
-    return view('pages.cgu');
-})->name('cgu');
+Route::view('/cgu', 'pages.cgu')->name('cgu');
 
-Route::get('/equipe', function () {
-    return view('pages.team');
-})->name('team');
+Route::view('/equipe','pages.team')->name('team');
 
-Route::get('/nous-rejoindre', function () {
-    return view('pages.join');
-})->name('join');
+Route::view('/nous-rejoindre','pages.join')->name('join');
 
-Route::get('/about', function () {
-    return view('pages.about');
-})->name('about');
+Route::view('/about', 'pages.about')->name('about');
 
-Route::get('/404', function () {
-    return view('errors.404');
-})->name('404');
+Route::view('/404', 'errors.404')->name('404');
 
-Route::get('/500', function () {
-    return view('errors.500');
-})->name('500');
+Route::view('/500','errors.500')->name('500');
 
 /*
     Partie Authentification
@@ -67,9 +55,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 /*
     Formulaire de contact
 */
-Route::get('/contact', function () {
-    return view('pages.contact');
-})->name('contact');
+Route::view('/contact','pages.contact')->name('contact');
 Route::post('sendContact', 'ContactController@sendContact')->name('contact.send');
 
 /*

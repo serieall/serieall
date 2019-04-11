@@ -91,7 +91,9 @@ class CommentRepository
             }
         }
 
-        if(Route::current()->getName() == 'comment.fiche') {
+        if(Route::current()->getName() == 'comment.fiche'
+            || Route::current()->getName() == 'episode.fiche'
+            || Route::current()->getName() =='season.fiche') {
             $last_comment = $this->getAllCommentsByTypeTypeID($object, $object_id, "DESC");
         }
         else if(Route::current()->getName() == 'article.show') {

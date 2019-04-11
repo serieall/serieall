@@ -34,7 +34,9 @@ class ArticleRepository
      */
     public function getAllArticlesWithAutorsCategory()
     {
-        return $this->article::with('users', 'category')->get();
+        return $this->article::with('users', 'category')
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
     /**
@@ -146,54 +148,62 @@ class ArticleRepository
     }
 
     /**
-     * Return article for a show
+     * Return article for a show.
+     * Return only published articles
      *
      * @param $article_id
      * @param $show_id
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getArticleByShowID($article_id, $show_id) {
+    public function getPublishedArticleByShowID($article_id, $show_id) {
         return $this->article->whereHas('shows', function ($q) use ($show_id) {
             $q->where('id', '=', $show_id);
         })
             ->where('id', '!=', $article_id)
+            ->whereState(1)
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
     }
 
     /**
-     * Return article for a season
+     * Return published articles for a season
      *
      * @param $article_id
      * @param $show_id
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getArticleBySeasonID($article_id, $season_id) {
+    public function getPublishedArticleBySeasonID($article_id, $season_id) {
         return $this->article->whereHas('seasons', function ($q) use ($season_id) {
             $q->where('id', '=', $season_id);
         })
             ->where('id', '!=', $article_id)
+            ->whereState(1)
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
     }
 
     /**
-     * Return articles similaires
+     * Return published similar articles
      *
      * @param $article_id
      * @param $category_id
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getSimilaryArticles($article_id, $category_id) {
+    public function getPublishedSimilaryArticles($article_id, $category_id) {
         return $this->article->where('category_id', '=', $category_id)
             ->where('id', '!=', $article_id)
+            ->whereState(1)
             ->limit(3)
             ->orderBy('published_at', 'DESC')
             ->get();
     }
 
+    /**
+     * Return last 6 published articles.
+     * @return Article[]|Collection
+     */
     public function getLast6Articles() {
         return $this->article
             ->where('state', '=', 1)

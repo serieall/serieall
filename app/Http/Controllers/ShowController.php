@@ -166,7 +166,7 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
         $type_article = 'Show';
-        $articles_linked = $this->articleRepository->getArticleByShowID(0, $showInfo['show']->id);
+        $articles_linked = $this->articleRepository->getPublishedArticleByShowID(0, $showInfo['show']->id);
 
         return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'type_article','articles_linked', 'comments', 'object', 'state_show'));
     }

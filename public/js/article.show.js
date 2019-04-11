@@ -5,8 +5,8 @@ $(document).ready(function() {
             offset: 60
         });
 
-    var showReactions = $('.showReactions');
-    $(showReactions).on('click', function() {
+    //Listener for reaction show/hide button
+    $('#LastComments').on('click', '.showReactions',function() {
         $(this).parent().next('.divReactions').slideToggle("fast");
         $(this).toggleText(
             '<div class="visible content">Voir les réponses</div><div class="hidden content"><i class="down arrow icon"></i></div>',
@@ -21,10 +21,10 @@ $(document).ready(function() {
     });
 });
 
-$(document).one('click', '.pagination a', function (e) {
+$(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
 
-    getComments($(this).attr('href').split('page=')[1]);
+    getCommentsFiche($(this).attr('href').split('page=')[1]);
     $('#LastComments').addClass('loading');
 });
 
@@ -34,7 +34,7 @@ $.fn.extend({
     }
 });
 
-function getComments(page) {
+function getCommentsFiche(page) {
     var lastComments = '#divLastComments';
     $.ajax({
         url : '?page=' + page,
@@ -45,7 +45,8 @@ function getComments(page) {
 
         // On recharge les spoilers et on remonte en haut de la page.
         $('html, body').animate({scrollTop:$('#ListAvis').offset().top}, 'slow');
-        $.getScript('/js/article.show.js');
+
+        // $.getScript('/js/article.show.js');
         $.getScript('/js/spoiler/spoiler.js');
 
         $(lastComments).removeClass('loading');
@@ -101,4 +102,3 @@ $('.ui.button.writeReaction').click(function (e) {
     $('.object_parent_id').val(IDButton);
     $('.answerUsername').text(username);
 });
-
