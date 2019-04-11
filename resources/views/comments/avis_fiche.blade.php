@@ -27,7 +27,7 @@
                         <table class="ui {!! affichageThumbBorder($avis['thumb']) !!} left border table">
                             <tr>
                                 {!! affichageThumb($avis['thumb']) !!}
-                                <td class="right aligned">Déposé le {{ formatDate('full', $avis['created_at']) }}</td>
+                                <td class="right aligned">Déposé le {!! formatDate('full', $avis['created_at']) !!}</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="AvisResume">

@@ -7,7 +7,7 @@ use App\Http\Transformers\ArticlesListTransformer;
 use App\Models\Article;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
-use Marcelgwerder\ApiHandler\Facades\ApiHandler;
+use Illuminate\Support\Facades\Input;
 
 
 /**
@@ -28,15 +28,31 @@ class ArticlesListController extends Controller
     }
 
     /**
+     * _limit : add limitation to request result
      * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
+        //Retrieve search request and split in array of word
+        $this->searchQueryWordArray = explode(" ", Input::get('name-lk'));
+
+        //Refactoring search
         $articles = $this->articles->select('id', 'name')
-        ->orderBy('published_at', 'desc');
+                ->where(function ($query) {
+                    foreach ($this->searchQueryWordArray  as $searchQueryWord){
+                        $query->where('name', 'like', '%'.$searchQueryWord.'%');
+                    }
+                })
+                ->orderBy('published_at', 'desc');
 
-        $articles = ApiHandler::parseMultiple($articles, ['name'])->getResult();
+        //Limit result, if needed
+        if (Input::has('_limit')){
+            $limit = intval(Input::get('_limit'));
+            if($limit > 0){
+                $articles = $articles->limit($limit);
+            }
+        }
 
-        return $this->response->collection($articles, new ArticlesListTransformer());
+        return $this->response->collection($articles->get(), new ArticlesListTransformer());
     }
 }

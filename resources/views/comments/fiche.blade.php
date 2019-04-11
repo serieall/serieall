@@ -34,9 +34,7 @@
         <div class="row">
             <div id="ListAvis" class="ui segment left aligned">
                 <h1>Avis</h1>
-                <div id="LastComments" class="ui stackable grid">
-                    @include('comments.last_comments')
-                </div>
+                @include('comments.last_comments')
             </div>
         </div>
     </div>
@@ -105,45 +103,11 @@
 @endsection
 
 @push('scripts')
+    @push('scripts')
+        <script src="/js/views/comments/paginate_comments.js"></script>
+    @endpush
+
     <script>
-        $(window).on('hashchange', function() {
-            if (window.location.hash) {
-                var page = window.location.hash.replace('#', '');
-                if (page == Number.NaN || page <= 0) {
-                    return false;
-                } else {
-                    getComments(page);
-                }
-            }
-        });
-
-        $(document).ready(function() {
-            $(document).on('click', '.pagination a', function (e) {
-                getComments($(this).attr('href').split('page=')[1]);
-                e.preventDefault();
-                $('#ListAvis').addClass('loading');
-            });
-        });
-
-        function getComments(page) {
-            $.ajax({
-                url : '?page=' + page,
-                dataType: 'json'
-            }).done(function (data) {
-                // On insére le HTML
-                $('#LastComments').html(data);
-
-                // On recharge les spoilers et on remonte en haut de la page.
-                $.getScript('/spoiler/spoiler.js');
-                $('html, body').animate({scrollTop:$('#ListAvis').offset().top}, 'slow');//return false;
-
-                location.hash = page;
-                $('#ListAvis').removeClass('loading');
-            }).fail(function () {
-                alert('Les commentaires n\'ont pas été chargés.');
-                $('#ListAvis').removeClass('loading');
-            });
-        }
 
         $('.ui.modal.avis').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});

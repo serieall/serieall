@@ -13,6 +13,10 @@ use App\Repositories\ShowRepository;
 
 use App\Http\Requests\RateRequest;
 
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
+
 /**
  * Class EpisodeController
  * @package App\Http\Controllers
@@ -104,8 +108,12 @@ class EpisodeController extends Controller
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
         $type_article = 'Season';
-        $articles_linked = $this->articleRepository->getArticleBySeasonID(0, $seasonInfo->id);
+        $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID(0, $seasonInfo->id);
 
-        return view('episodes.fiche', compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
+        if (Request::ajax()) {
+            return Response::json(View::make('comments.last_comments', ['comments' => $comments])->render());
+        }else {
+            return view('episodes.fiche', compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
+        }
     }
 }
