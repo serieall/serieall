@@ -17,12 +17,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+
 /**
  * Class ShowRepository
  * @package App\Repositories\Admin
  */
 class ShowRepository
 {
+    /** Constant for cache*/
+    const LAST_ADDED_SHOW_CACHE_KEY = 'LAST_ADDED_SHOW_CACHE_KEY';
+
     protected $show;
     protected $seasonRepository;
     protected $articleRepository;
@@ -402,6 +408,8 @@ class ShowRepository
     }
 
     public function getLastAddedShows() {
-        return $this->show->orderBy('created_at', 'desc')->limit(12)->get();
+        return Cache::remember(ShowRepository::LAST_ADDED_SHOW_CACHE_KEY, Config::get('constants.cacheDuration.medium'), function () {
+            return $this->show->orderBy('created_at', 'desc')->limit(12)->get();
+        });
     }
 }
