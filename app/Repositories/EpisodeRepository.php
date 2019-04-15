@@ -7,6 +7,8 @@ namespace App\Repositories;
 use App\Models\Episode;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 
 
 /**
@@ -15,7 +17,13 @@ use Illuminate\Support\Facades\DB;
  */
 class EpisodeRepository
 {
+
+    /** Constant for cache*/
+    const PLANNING_CACHE_KEY = 'PLANNING_CACHE_KEY';
+
     protected $episode;
+
+
 
     /**
      * EpisodeRepository constructor.
@@ -131,13 +139,15 @@ class EpisodeRepository
      * @return Episode[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
     public function getPlanningHome($diffusion, $date) {
-        return $this->episode
-            ->with(['season' => function($q){
-                $q->with('show');
-            }])
-            ->where($diffusion, '=', $date)
-            ->orderBy('diffusion_us')
-            ->get();
+        return Cache::remember(EpisodeRepository::PLANNING_CACHE_KEY."_".$diffusion."_".$date, Config::get('constants.cacheDuration.long'), function () use ($diffusion, $date){
+            return $this->episode
+                ->with(['season' => function ($q) {
+                    $q->with('show');
+                }])
+                ->where($diffusion, '=', $date)
+                ->orderBy('diffusion_us')
+                ->get();
+        });
     }
 
     /**
