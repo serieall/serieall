@@ -100,8 +100,10 @@ class EpisodeRepository
      */
     public function getRatesByEpisodeID($id)
     {
-        return $this->episode::where('episodes.id', '=', $id)
-            ->with('users')
+        return $this->episode::with(['users' => function($q){
+            $q->orderBy('episode_user.created_at', 'desc');
+        }])
+            ->where('episodes.id', '=', $id)
             ->first();
     }
 
