@@ -30,6 +30,6 @@ class ReactionCreateRequest extends FormRequest
     {
         return [
             'object_parent_id' => 'required|numeric',
-            'reaction' => 'required|min:20'];
+            'reaction' => 'required|min:3'];
     }
 }
