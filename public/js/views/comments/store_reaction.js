@@ -3,7 +3,7 @@ $(document).on('submit', '#formReaction', function (e) {
     e.preventDefault();
 
     var messageLength = CKEDITOR.instances['reaction'].getData().replace(/<[^>]*>|\n|&nbsp;/g, '').length;
-    var nombreCaracAvis = '20';
+    var nombreCaracAvis = '3';
 
     if (messageLength < nombreCaracAvis) {
         $('.nombreCarac').removeClass("hidden");

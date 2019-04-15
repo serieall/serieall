@@ -17,7 +17,7 @@
                          </textarea>
 
                     <div class="nombreCarac ui red hidden message">
-                        20 caractères minimum requis.
+                        3 caractères minimum requis.
                     </div>
                 </div>
 
