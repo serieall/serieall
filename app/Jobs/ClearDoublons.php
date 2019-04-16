@@ -51,17 +51,17 @@ class ClearDoublons extends Job implements ShouldQueue
         $idLog = initJob(null, 'Clear Doublons', 'Show', 0 );
         $idLogListUpdateManually = initJob(null, 'List of doublons', 'Show', 0 );
 
-//        $allShows = Show::all();
-        $currentShow = Show::where('id', '=', 370)->first();
+        $allShows = Show::all();
+//        $currentShow = Show::where('id', '=', 370)->first();
 
         saveLogMessage($idLog, 'Retrieving All Shows Ok');
 
-//        foreach ($allShows as $currentShow) {
+        foreach ($allShows as $currentShow) {
 
             saveLogMessage($idLog, '> Parse current show  : ' . $currentShow->name);
 
             $this->processSeasonForShow($currentShow, $idLog, $idLogListUpdateManually);
-//        }
+        }
 
 
         /*
