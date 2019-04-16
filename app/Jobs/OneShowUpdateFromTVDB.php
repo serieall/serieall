@@ -456,239 +456,244 @@ class OneShowUpdateFromTVDB extends Job implements ShouldQueue
                     }
                 }
                 else{
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Gestion des épisodes spéciaux
-                    |--------------------------------------------------------------------------
-                    | Si l'épisode est dans la saison 0 sur TheTVDB, c'est un épisode spécial.
-                    | Cependant, on ne va pas ajouter tous les épisodes spéciaux (genre les bonus DVD, on s'en fout
-                    | Du coup on ne va prendre que ceux qui ont le champ airsAfterSeason non nul
-                    */
-
-                    if(!is_null($getEpisode_en->airsAfterSeason)) {
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Récupération des informations de la saison
-                        |--------------------------------------------------------------------------
-                        | On crée la saison si elle n'existe pas
-                        */
-
-                        # Variables de la saison
-                        $seasonName = $getEpisode_en->airsAfterSeason;
-
-                        # On récupère l'ID de la saison en question
-                        $seasonID = Season::where('name', $seasonName)
-                            ->where('show_id', $show->id)
-                            ->first();
-
-                        if(!is_null($seasonID)) {
-                            $seasonID = $seasonID->thetvdb_id;
-
-
-                            # Vérification de la présence de la saison dans la BDD
-                            $season_ref = Season::where('thetvdb_id', $seasonID)->first();
-
-
-                            # Si elle n'existe pas
-                            if (is_null($season_ref)) {
-                                $logMessage = '>>>SAISONS';
-                                saveLogMessage($idLog, $logMessage);
-
-                                $logMessage = '>>>>Création de la saison ' . $seasonName;
-                                saveLogMessage($idLog, $logMessage);
-
-                                # On prépare la nouvelle saison
-                                $season_ref = new Season([
-                                    'name' => $seasonName,
-                                    'thetvdb_id' => $seasonID
-                                ]);
-
-                                # ID TheTVDB
-                                $logMessage = '>>>>ID TheTVDB : ' . $seasonID;
-                                saveLogMessage($idLog, $logMessage);
-
-                                # Numéro de la saison
-                                $logMessage = '>>>>Numéro : ' . $seasonName;
-                                saveLogMessage($idLog, $logMessage);
-
-                                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                                $season_ref->show()->associate($show);
-                                $season_ref->save();
-                            }
-
-                            /*
-                            |--------------------------------------------------------------------------
-                            | Récupération des informations de l'épisode
-                            |--------------------------------------------------------------------------
-                            | On crée l'épisode s'il n'existe pas
-                            */
-
-                            # Vérification de la présence de l'épisode dans la BDD
-                            $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
-
-                            # Si il n'existe pas
-                            if (is_null($episode_ref)) {
-
-                                $episodeNumero = 0; # 0 Désigne un épisode spécial
-                                $logMessage = '>>>>NEW EPISODE ' . $seasonName . '.' . $episodeNumero;
-                                saveLogMessage($idLog, $logMessage);
-
-                                # TheTVDB ID
-                                $logMessage = '>>>>>ID TheTVDB : ' . $episodeID;
-                                saveLogMessage($idLog, $logMessage);
-
-                                # Numéro
-                                $logMessage = '>>>>>Numéro : ' . $episodeNumero;
-                                saveLogMessage($idLog, $logMessage);
-
-                                $episodeName = $getEpisode_en->episodeName;
-                                # Nom original de l'épisode
-                                $logMessage = '>>>>>Nom original de l\'épisode : ' . $episodeName;
-                                saveLogMessage($idLog, $logMessage);
-
-                                $episodeNameFR = $getEpisode_fr->episodeName;
-                                # Nom français de l\'épisode
-                                $logMessage = '>>>>>Nom français de l\'épisode : ' . $episodeNameFR;
-                                saveLogMessage($idLog, $logMessage);
-
-                                $episodeResumeEN = $getEpisode_en->overview;
-                                # Résumé original
-                                $logMessage = '>>>>>Résumé original : ' . $episodeResumeEN;
-                                saveLogMessage($idLog, $logMessage);
-
-                                $episodeResumeFR = $getEpisode_fr->overview;
-                                # Résumé original
-                                $logMessage = '>>>>>Résumé français : ' . $episodeResumeFR;
-                                saveLogMessage($idLog, $logMessage);
-
-                                $episodeDiffusionUS = $getEpisode_en->firstAired;
-                                # Diffusion originale
-                                $logMessage = '>>>>>Diffusion originale : ' . $episodeDiffusionUS;
-                                saveLogMessage($idLog, $logMessage);
-
-                                /* Récupération de la photo de l'épisode */
-                                if (empty($getEpisode_en->filename)) {
-                                    $episodePicture = null;
-
-                                    $logMessage = '>>>Pas d\'image pour l\'épisode.';
-                                    saveLogMessage($idLog, $logMessage);
-                                } else {
-                                    $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
-                                    $file_headers = get_headers($file);
-                                    if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                                        $episodePicture = null;
-
-                                        $logMessage = '>>>Pas d\'image pour l\'épisode.';
-                                        saveLogMessage($idLog, $logMessage);
-                                    } else {
-                                        $episodePicture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
-                                        # Image
-                                        $logMessage = '>>>>>Image : ' . $episodePicture;
-                                        saveLogMessage($idLog, $logMessage);
-                                    }
-                                }
-
-                                # On prépare le nouvel épisode
-                                $episode_ref = new Episode([
-                                    'numero' => $episodeNumero,
-                                    'name' => $episodeName,
-                                    'name_fr' => $episodeNameFR,
-                                    'thetvdb_id' => $episodeID,
-                                    'resume' => $episodeResumeEN,
-                                    'resume_fr' => $episodeResumeFR,
-                                    'diffusion_us' => $episodeDiffusionUS,
-                                    'picture' => $episodePicture]);
-
-                                # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
-                                $episode_ref->season()->associate($season_ref);
-                                $episode_ref->save();
-
-                                # Mise à jour des artistes
-                                $this->UpdateWritersDirectorsGuests($getEpisode_en, $idLog, $episodeID);
-                            } else {
-                                /*
-                                |--------------------------------------------------------------------------
-                                | On va chercher les modifications qui pourraient avoir eu lieu
-                                | et qui nous intéresse.
-                                |--------------------------------------------------------------------------
-                                */
-
-                                $logMessage = '>>>>MAJ EPISODE ' . $seasonName . '.' . $episode_ref->numero;
-                                saveLogMessage($idLog, $logMessage);
-
-                                $nomENEpisode = $episode_ref->name;
-                                # Si le nom FR est à TBA dans notre base
-                                if (is_null($nomENEpisode) && !is_null($getEpisode_en->episodeName)) {
-                                    $episode_ref->name = $getEpisode_en->episodeName;
-                                    # Nom original
-                                    $logMessage = '>>>>>Nom original : ' . $episode_ref->name;
-                                    saveLogMessage($idLog, $logMessage);
-                                }
-
-                                $nomFREpisode = $episode_ref->name_fr;
-                                # Si le nom FR est à TBA dans notre base
-                                if (is_null($nomFREpisode) && !is_null($getEpisode_fr->episodeName)) {
-                                    $episode_ref->name_fr = $getEpisode_fr->episodeName;
-                                    # On sauvegarde le nom en français
-                                    $logMessage = '>>>>>Nom français : ' . $episode_ref->name_fr;
-                                    saveLogMessage($idLog, $logMessage);
-                                }
-
-                                $resumeEpisodeEN = $episode_ref->resume;
-                                # Si le résumé est à TBA dans notre base
-                                if (is_null($resumeEpisodeEN) && !is_null($getEpisode_fr->overview)) {
-                                    # On sauvegarde le résumé en EN
-                                    $episode_ref->resume = $getEpisode_en->overview;
-                                    $logMessage = '>>>>>Résumé original : ' . $episode_ref->resume;
-                                    saveLogMessage($idLog, $logMessage);
-                                }
-
-                                $resumeEpisodeFR = $episode_ref->resume_fr;
-                                # Si le résumé est à TBA dans notre base
-                                if (is_null($resumeEpisodeFR) && !is_null($getEpisode_fr->overview)) {
-                                    $episode_ref->resume_fr = $getEpisode_fr->overview;
-                                    # On sauvegarde le résumé en français
-                                    $logMessage = '>>>>>Résumé Français : ' . $episode_ref->resume_fr;
-                                    saveLogMessage($idLog, $logMessage);
-                                }
-
-                                $diffusionEpisode = $episode_ref->diffusion_us;
-                                # Si la diffusion est renseignée sur theTVDB
-                                if (!empty($getEpisode_en->firstAired)) {
-                                    # Si la diffusion dans notre BDD est différente de celle dans TheTVDB
-                                    if ($diffusionEpisode != $getEpisode_en->firstAired) {
-                                        $episode_ref->diffusion_us = $getEpisode_en->firstAired;
-                                        # On enregistre la nouvelle diffusion
-                                        $logMessage = '>>>>>Diffusion US : ' . $episode_ref->diffusion_us;
-                                        saveLogMessage($idLog, $logMessage);
-                                    }
-                                }
-
-                                /* Récupération de la photo de l'épisode */
-                                if (!empty($getEpisode_en->filename)) {
-                                    $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
-                                    $file_headers = get_headers($file);
-                                    if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                                        $logMessage = '>>>Pas d\'image pour l\'épisode.';
-                                        saveLogMessage($idLog, $logMessage);
-                                    } else {
-                                        $episodePicture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
-                                        $episode_ref->picture = $episodePicture;
-
-                                        # Image
-                                        $logMessage = '>>>>>Image : ' . $episodePicture;
-                                        saveLogMessage($idLog, $logMessage);
-                                    }
-                                }
-
-                                # On sauvegarde les modifs
-                                $episode_ref->save();
-
-                                # Mise à jour des artistes
-                                $this->UpdateWritersDirectorsGuests($getEpisode_en, $idLog, $episodeID);
-                            }
-                        }
-                    }
+                    /* Osef spéciaux pour le moment */
+//                    /*
+//                    |--------------------------------------------------------------------------
+//                    | Gestion des épisodes spéciaux
+//                    |--------------------------------------------------------------------------
+//                    | Si l'épisode est dans la saison 0 sur TheTVDB, c'est un épisode spécial.
+//                    | Cependant, on ne va pas ajouter tous les épisodes spéciaux (genre les bonus DVD, on s'en fout
+//                    | Du coup on ne va prendre que ceux qui ont le champ airsAfterSeason non nul
+//                    | Ou si le champ AirBeforeEpisode est différent de 1
+//                    */
+//                    echo "episode spécial \n" ;
+//                    print_r($getEpisode_en);
+//                    if(!is_null($getEpisode_en->airsAfterSeason)) {
+//                        /*
+//                        |--------------------------------------------------------------------------
+//                        | Récupération des informations de la saison
+//                        |--------------------------------------------------------------------------
+//                        | On crée la saison si elle n'existe pas
+//                        */
+//
+//                        # Variables de la saison
+//                        $seasonName = $getEpisode_en->airsAfterSeason;
+//
+//                        # On récupère l'ID de la saison en question
+//                        $seasonID = Season::where('name', $seasonName)
+//                            ->where('show_id', $show->id)
+//                            ->first();
+//
+//                        echo "episode spécial 2\n" ;
+//                        if(!is_null($seasonID)) {
+//                            $seasonID = $seasonID->thetvdb_id;
+//
+//                            echo "episode spécial 3\n" ;
+//
+//                            # Vérification de la présence de la saison dans la BDD
+//                            $season_ref = Season::where('thetvdb_id', $seasonID)->first();
+//
+//
+//                            # Si elle n'existe pas
+//                            if (is_null($season_ref)) {
+//                                $logMessage = '>>>SAISONS';
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                $logMessage = '>>>>Création de la saison ' . $seasonName;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                # On prépare la nouvelle saison
+//                                $season_ref = new Season([
+//                                    'name' => $seasonName,
+//                                    'thetvdb_id' => $seasonID
+//                                ]);
+//
+//                                # ID TheTVDB
+//                                $logMessage = '>>>>ID TheTVDB : ' . $seasonID;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                # Numéro de la saison
+//                                $logMessage = '>>>>Numéro : ' . $seasonName;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+//                                $season_ref->show()->associate($show);
+//                                $season_ref->save();
+//                            }
+//
+//                            /*
+//                            |--------------------------------------------------------------------------
+//                            | Récupération des informations de l'épisode
+//                            |--------------------------------------------------------------------------
+//                            | On crée l'épisode s'il n'existe pas
+//                            */
+//
+//                            # Vérification de la présence de l'épisode dans la BDD
+//                            $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
+//
+//                            # Si il n'existe pas
+//                            if (is_null($episode_ref)) {
+//
+//                                $episodeNumero = 0; # 0 Désigne un épisode spécial
+//                                $logMessage = '>>>>NEW EPISODE ' . $seasonName . '.' . $episodeNumero;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                # TheTVDB ID
+//                                $logMessage = '>>>>>ID TheTVDB : ' . $episodeID;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                # Numéro
+//                                $logMessage = '>>>>>Numéro : ' . $episodeNumero;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                $episodeName = $getEpisode_en->episodeName;
+//                                # Nom original de l'épisode
+//                                $logMessage = '>>>>>Nom original de l\'épisode : ' . $episodeName;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                $episodeNameFR = $getEpisode_fr->episodeName;
+//                                # Nom français de l\'épisode
+//                                $logMessage = '>>>>>Nom français de l\'épisode : ' . $episodeNameFR;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                $episodeResumeEN = $getEpisode_en->overview;
+//                                # Résumé original
+//                                $logMessage = '>>>>>Résumé original : ' . $episodeResumeEN;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                $episodeResumeFR = $getEpisode_fr->overview;
+//                                # Résumé original
+//                                $logMessage = '>>>>>Résumé français : ' . $episodeResumeFR;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                $episodeDiffusionUS = $getEpisode_en->firstAired;
+//                                # Diffusion originale
+//                                $logMessage = '>>>>>Diffusion originale : ' . $episodeDiffusionUS;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                /* Récupération de la photo de l'épisode */
+//                                if (empty($getEpisode_en->filename)) {
+//                                    $episodePicture = null;
+//
+//                                    $logMessage = '>>>Pas d\'image pour l\'épisode.';
+//                                    saveLogMessage($idLog, $logMessage);
+//                                } else {
+//                                    $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
+//                                    $file_headers = get_headers($file);
+//                                    if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+//                                        $episodePicture = null;
+//
+//                                        $logMessage = '>>>Pas d\'image pour l\'épisode.';
+//                                        saveLogMessage($idLog, $logMessage);
+//                                    } else {
+//                                        $episodePicture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
+//                                        # Image
+//                                        $logMessage = '>>>>>Image : ' . $episodePicture;
+//                                        saveLogMessage($idLog, $logMessage);
+//                                    }
+//                                }
+//
+//                                # On prépare le nouvel épisode
+//                                $episode_ref = new Episode([
+//                                    'numero' => $episodeNumero,
+//                                    'name' => $episodeName,
+//                                    'name_fr' => $episodeNameFR,
+//                                    'thetvdb_id' => $episodeID,
+//                                    'resume' => $episodeResumeEN,
+//                                    'resume_fr' => $episodeResumeFR,
+//                                    'diffusion_us' => $episodeDiffusionUS,
+//                                    'picture' => $episodePicture]);
+//
+//                                # Et on le sauvegarde en passant par l'objet Season pour créer le lien entre les deux
+//                                $episode_ref->season()->associate($season_ref);
+//                                $episode_ref->save();
+//
+//                                # Mise à jour des artistes
+//                                $this->UpdateWritersDirectorsGuests($getEpisode_en, $idLog, $episodeID);
+//                            } else {
+//                                /*
+//                                |--------------------------------------------------------------------------
+//                                | On va chercher les modifications qui pourraient avoir eu lieu
+//                                | et qui nous intéresse.
+//                                |--------------------------------------------------------------------------
+//                                */
+//
+//                                $logMessage = '>>>>MAJ EPISODE ' . $seasonName . '.' . $episode_ref->numero;
+//                                saveLogMessage($idLog, $logMessage);
+//
+//                                $nomENEpisode = $episode_ref->name;
+//                                # Si le nom FR est à TBA dans notre base
+//                                if (is_null($nomENEpisode) && !is_null($getEpisode_en->episodeName)) {
+//                                    $episode_ref->name = $getEpisode_en->episodeName;
+//                                    # Nom original
+//                                    $logMessage = '>>>>>Nom original : ' . $episode_ref->name;
+//                                    saveLogMessage($idLog, $logMessage);
+//                                }
+//
+//                                $nomFREpisode = $episode_ref->name_fr;
+//                                # Si le nom FR est à TBA dans notre base
+//                                if (is_null($nomFREpisode) && !is_null($getEpisode_fr->episodeName)) {
+//                                    $episode_ref->name_fr = $getEpisode_fr->episodeName;
+//                                    # On sauvegarde le nom en français
+//                                    $logMessage = '>>>>>Nom français : ' . $episode_ref->name_fr;
+//                                    saveLogMessage($idLog, $logMessage);
+//                                }
+//
+//                                $resumeEpisodeEN = $episode_ref->resume;
+//                                # Si le résumé est à TBA dans notre base
+//                                if (is_null($resumeEpisodeEN) && !is_null($getEpisode_fr->overview)) {
+//                                    # On sauvegarde le résumé en EN
+//                                    $episode_ref->resume = $getEpisode_en->overview;
+//                                    $logMessage = '>>>>>Résumé original : ' . $episode_ref->resume;
+//                                    saveLogMessage($idLog, $logMessage);
+//                                }
+//
+//                                $resumeEpisodeFR = $episode_ref->resume_fr;
+//                                # Si le résumé est à TBA dans notre base
+//                                if (is_null($resumeEpisodeFR) && !is_null($getEpisode_fr->overview)) {
+//                                    $episode_ref->resume_fr = $getEpisode_fr->overview;
+//                                    # On sauvegarde le résumé en français
+//                                    $logMessage = '>>>>>Résumé Français : ' . $episode_ref->resume_fr;
+//                                    saveLogMessage($idLog, $logMessage);
+//                                }
+//
+//                                $diffusionEpisode = $episode_ref->diffusion_us;
+//                                # Si la diffusion est renseignée sur theTVDB
+//                                if (!empty($getEpisode_en->firstAired)) {
+//                                    # Si la diffusion dans notre BDD est différente de celle dans TheTVDB
+//                                    if ($diffusionEpisode != $getEpisode_en->firstAired) {
+//                                        $episode_ref->diffusion_us = $getEpisode_en->firstAired;
+//                                        # On enregistre la nouvelle diffusion
+//                                        $logMessage = '>>>>>Diffusion US : ' . $episode_ref->diffusion_us;
+//                                        saveLogMessage($idLog, $logMessage);
+//                                    }
+//                                }
+//
+//                                /* Récupération de la photo de l'épisode */
+//                                if (!empty($getEpisode_en->filename)) {
+//                                    $file = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
+//                                    $file_headers = get_headers($file);
+//                                    if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+//                                        $logMessage = '>>>Pas d\'image pour l\'épisode.';
+//                                        saveLogMessage($idLog, $logMessage);
+//                                    } else {
+//                                        $episodePicture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
+//                                        $episode_ref->picture = $episodePicture;
+//
+//                                        # Image
+//                                        $logMessage = '>>>>>Image : ' . $episodePicture;
+//                                        saveLogMessage($idLog, $logMessage);
+//                                    }
+//                                }
+//
+//                                # On sauvegarde les modifs
+//                                $episode_ref->save();
+//
+//                                # Mise à jour des artistes
+//                                $this->UpdateWritersDirectorsGuests($getEpisode_en, $idLog, $episodeID);
+//                            }
+//                        }
+//                    }
                 }
             }
         }
