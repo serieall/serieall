@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ShowUpdateManuallyRequest;
+use App\Jobs\ClearDoublons;
 use App\Jobs\OneShowUpdateFromTVDB;
 use App\Jobs\ShowUpdateFromTVDB;
 use App\Repositories\LogRepository;
@@ -283,6 +284,14 @@ class AdminShowController extends Controller
     public function updateFromTVDB(){
         dispatch(new ShowUpdateFromTVDB());
     }
+
+    /**
+     * clearDoublons
+     */
+    public function clearDoublons(){
+        dispatch(new ClearDoublons());
+    }
+
 
     /**
      * Update one show from TVDB

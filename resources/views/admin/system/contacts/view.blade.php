@@ -60,6 +60,6 @@
     </form>
 
     <p class="ui info message">
-        La suite de la conversation s'effectuera via le compte mail de l'association.
+        La suite de la conversation s'effectuera via le compte mail du site.
     </p>
 @endsection
