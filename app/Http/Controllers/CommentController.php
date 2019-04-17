@@ -143,7 +143,7 @@ class CommentController extends Controller
                 $object = $this->showRepository->getShowByID($object_id);
 
                 //Invalidate cache for thumb
-                Cache::forget(ShowRepository::THUMB_SHOW_CACHE_KEY);
+                Cache::forget(ShowRepository::THUMB_SHOW_CACHE_KEY.$object_id);
 
                 break;
             case 'Season':

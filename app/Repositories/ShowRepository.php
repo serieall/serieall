@@ -155,7 +155,7 @@ class ShowRepository
             $seasons = [];
         }
 
-        $nbcomments = Cache::rememberForever(ShowRepository::THUMB_SHOW_CACHE_KEY, function () use ($show) {
+        $nbcomments = Cache::rememberForever(ShowRepository::THUMB_SHOW_CACHE_KEY.$show->id, function () use ($show) {
             return Comment::groupBy('thumb')
                 ->select('thumb', \DB::raw('count(*) as count_thumb'))
                 ->where('commentable_id', '=', $show->id)
