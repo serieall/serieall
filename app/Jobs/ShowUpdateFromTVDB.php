@@ -257,7 +257,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 
                 $episode_ref = Episode::where('thetvdb_id', $episodeID)->first();
 
-//                if ($lastUpdate <= $getEpisode_en->lastUpdated || is_null($episode_ref)) {
+                if ($lastUpdate <= $getEpisode_en->lastUpdated || is_null($episode_ref)) {
                     if ($seasonNumber != 0) {
                         /*
                         |--------------------------------------------------------------------------
@@ -677,7 +677,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 //                            }
 //                        }
 //                    }
-//                }
+                }
             }
         }
     }
