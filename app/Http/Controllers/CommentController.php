@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class CommentController
@@ -140,6 +141,10 @@ class CommentController extends Controller
         switch ($object){
             case 'Show':
                 $object = $this->showRepository->getShowByID($object_id);
+
+                //Invalidate cache for thumb
+                Cache::forget(ShowRepository::THUMB_SHOW_CACHE_KEY);
+
                 break;
             case 'Season':
                 $object = $this->seasonRepository->getSeasonByID($object_id);

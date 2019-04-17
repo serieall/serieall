@@ -211,7 +211,7 @@ class ArticleRepository
      * @return Article[]|Collection
      */
     public function getLast6Articles() {
-        return Cache::remember(ArticleRepository::LAST_6_ARTICLES_CACHE_KEY, Config::get('constants.cacheDuration.medium'), function () {
+        return Cache::rememberForever(ArticleRepository::LAST_6_ARTICLES_CACHE_KEY, function () {
             return $this->article
                 ->where('state', '=', 1)
                 ->orderBy('published_at', 'desc')

@@ -28,6 +28,7 @@ class ShowRepository
 {
     /** Constant for cache*/
     const LAST_ADDED_SHOW_CACHE_KEY = 'LAST_ADDED_SHOW_CACHE_KEY';
+    const THUMB_SHOW_CACHE_KEY = 'THUMB_SHOW_CACHE_KEY';
 
     protected $show;
     protected $seasonRepository;
@@ -154,11 +155,13 @@ class ShowRepository
             $seasons = [];
         }
 
-        $nbcomments = Comment::groupBy('thumb')
-            ->select('thumb', \DB::raw('count(*) as count_thumb'))
-            ->where('commentable_id', '=', $show->id)
-            ->where('commentable_type', '=', 'App\Models\Show')
-            ->get();
+        $nbcomments = Cache::rememberForever(ShowRepository::THUMB_SHOW_CACHE_KEY, function () use ($show) {
+            return Comment::groupBy('thumb')
+                ->select('thumb', \DB::raw('count(*) as count_thumb'))
+                ->where('commentable_id', '=', $show->id)
+                ->where('commentable_type', '=', 'App\Models\Show')
+                ->get();
+        });
 
         $showPositiveComments = $nbcomments->where('thumb', '=', '1')->first();
         $showNeutralComments = $nbcomments->where('thumb', '=', '2')->first();
