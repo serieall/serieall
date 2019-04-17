@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\View as View2;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class AdminArticleController
@@ -225,6 +226,9 @@ class AdminArticleController extends Controller
             }
         }
 
+        //Clear cache
+        Cache::delete(ArticleRepository::LAST_6_ARTICLES_CACHE_KEY);
+
         // On redirige l'utilisateur
         return redirect()->route('admin.articles.index')
             ->with('status_header', 'Ajout d\'un article')
@@ -358,6 +362,9 @@ class AdminArticleController extends Controller
             }
             $article->shows()->sync($listShows);
         }
+
+        //Clear cache
+        Cache::delete(ArticleRepository::LAST_6_ARTICLES_CACHE_KEY);
 
         // On redirige l'utilisateur
         return redirect()->route('admin.articles.index')
