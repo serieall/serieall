@@ -41,34 +41,43 @@ class ArticleController extends Controller
     }
 
     /**
-     * Print the articles/index vue
+     * Print the articles/index vue.
+     * Liste complète des articles.
      *
      * @return View
      */
     public function index()
     {
         $articles = $this->articleRepository->getPublishedArticlesWithAutorsCommentsAndCategory();
+        $category = 'all';
         $articles_count = count($articles);
         $categories = $this->categoryRepository->getAllCategories();
 
-        return view('articles.index', compact('articles', 'articles_count', 'categories'));
+        return view('articles.index', compact('articles', 'category', 'articles_count', 'categories'));
     }
 
     /**
      * Print the articles/indexCategory vue
      *
-     * @param $idCategory
+     * @param $categoryName name of category to display
      * @return View
      */
-    public function indexByCategory($idCategory)
+    public function indexByCategory($categoryName)
     {
         $categories = $this->categoryRepository->getAllCategories();
-        $category = $this->categoryRepository->getCategoryByID($idCategory);
-        $articles = $this->articleRepository->getPublishedArticlesByCategoriesWithAutorsCommentsAndCategory($idCategory);
+        $categoryInDB = $this->categoryRepository->getCategoryByName($categoryName);
 
-        $articles_count = count($articles);
+        if(!is_null($categoryInDB)){
+            $articles = $this->articleRepository->getPublishedArticlesByCategoriesWithAutorsCommentsAndCategory($categoryInDB->id);
 
-        return view('articles.indexCategory', compact('categories', 'category', 'articles', 'articles_count'));
+            $articles_count = count($articles);
+            $category = $categoryInDB->name;
+
+            return view('articles.index', compact('categories', 'category', 'articles', 'articles_count'));
+        }else{
+            //No category found : 404
+            abort(404);
+        }
     }
 
     /**

@@ -15,12 +15,22 @@
             </p>
 
             <div class="m-2">
-                <button class="ui disabled button">Tous les articles</button>
-                <span class="ui hidden message">Afficher tous les types d'articles.</span>
-                @foreach($categories as $category)
-                    <a href="{{ route('article.indexCategory', $category->id) }}">
-                        <button class="ui button {{ colorCategory($category->id) }}">{{ $category->name }}</button>
-                        <span class="ui hidden message">{{ $category->description }}</span>
+                <a href="{{ route('article.index') }}">
+                    @if($category === 'all')
+                        <button class="ui disabled button">Tous les articles</button>
+                    @else
+                        <button class="ui button">Tous les articles</button>
+                    @endif
+                    <span class="ui hidden message">Afficher tous les types d'articles.</span>
+                </a>
+                @foreach($categories as $currentCategory)
+                    <a href="{{ route('article.indexCategory', strtolower($currentCategory->name)) }}">
+                        @if($currentCategory === $category)
+                            <button class="ui disabled button {{ colorCategory($currentCategory->id) }}">{{ $currentCategory->name }}</button>
+                        @else
+                            <button class="ui button {{ colorCategory($currentCategory->id) }}">{{ $currentCategory->name }}</button>
+                        @endif
+                        <span class="ui hidden message">{{ $currentCategory->description }}</span>
                     </a>
                 @endforeach
             </div>
