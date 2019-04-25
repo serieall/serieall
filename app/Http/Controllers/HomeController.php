@@ -48,7 +48,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Return Homepage.
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
@@ -60,42 +60,11 @@ class HomeController extends Controller
             $filter_home = Input::get('filter_home');
 
             if($filter_home == 'all') {
-                # Get last Rates and comments
-                $lastRates = $this->rateRepository->getLastRates(15);
-                $lastRates->map(function ($rate) {
-                    $rate->type = "rate";
-
-                });
-                $lastComments = $this->commentRepository->getLastComments(15);
-                $lastComments->map(function ($comment) {
-                    $comment->type = "comment";
-                });
-
-                # Merge collections of comments and rates
-                $fil_actu = $lastRates->concat($lastComments)->sortByDesc('created_at');
-                $filter_home = "all";
+                $fil_actu = $this->getFilActuWithAll();
             } elseif ($filter_home == 'rates') {
-                # Get last Rates
-                $lastRates = $this->rateRepository->getLastRates(30);
-                $lastRates->map(function ($rate) {
-                    $rate->type = "rate";
-
-                });
-
-                # Merge collections of comments and rates
-                $fil_actu = $lastRates->sortByDesc('created_at');
-                $filter_home = "rates";
-
+                $fil_actu = $this->getFilActuWithRates();
             } else {
-                # Get last comments
-                $lastComments = $this->commentRepository->getLastComments(30);
-                $lastComments->map(function ($comment) {
-                    $comment->type = "comment";
-                });
-
-                # Merge collections of comments and rates
-                $fil_actu = $lastComments->sortByDesc('created_at');
-                $filter_home = "comments";
+                $fil_actu = $this->getFilActuWithComments();
             }
             return Response::json(View::make('pages.home_fil_actu', ['fil_actu' => $fil_actu, 'filter_home' => $filter_home])->render());
         } else {
@@ -111,8 +80,8 @@ class HomeController extends Controller
             });
 
             # Merge collections of comments and rates
-            $fil_actu = $lastRates->concat($lastComments)->sortByDesc('created_at');
             $filter_home = "all";
+            $fil_actu = $this->getFilActuWithAll();
 
             # Get show of the moment
             $shows_moment = $this->rateRepository->getShowsMoment();
@@ -133,5 +102,63 @@ class HomeController extends Controller
 
             return view('pages.home', compact('fil_actu', 'shows_moment', 'articles', 'planning', 'dates', 'last_added_shows', 'filter_home', 'slogan'));
         }
+    }
+
+    /************** Privates ************/
+
+    /**
+     * Retourne le contenu du fil d'actu comprenant les notes et les commentaires.
+     *
+     * @return RateRepository[]|\Illuminate\Database\Eloquent\Collection
+     */
+    private function getFilActuWithAll()
+    {
+        $lastRates = $this->rateRepository->getLastRates(15);
+        $lastRates->map(function ($rate) {
+            $rate->type = "rate";
+
+        });
+        $lastComments = $this->commentRepository->getLastComments(15);
+        $lastComments->map(function ($comment) {
+            $comment->type = "comment";
+        });
+
+        # Merge collections of comments and rates
+        return $lastRates->concat($lastComments)->sortByDesc('created_at');
+    }
+
+    /**
+     * Retourne le contenu du fil d'actu comprenant les notes
+     *
+     * @return RateRepository[]|\Illuminate\Database\Eloquent\Collection
+     */
+    private function getFilActuWithRates()
+    {
+        # Get last Rates
+        $lastRates = $this->rateRepository->getLastRates(30);
+        $lastRates->map(function ($rate) {
+            $rate->type = "rate";
+
+        });
+
+        # Merge collections of comments and rates
+        return $lastRates->sortByDesc('created_at');
+    }
+
+    /**
+     * Retourne le contenu du fil d'actu comprenant les commentaires
+     *
+     * @return RateRepository[]|\Illuminate\Database\Eloquent\Collection
+     */
+    private function getFilActuWithComments()
+    {
+        # Get last comments
+        $lastComments = $this->commentRepository->getLastComments(30);
+        $lastComments->map(function ($comment) {
+            $comment->type = "comment";
+        });
+
+        # Merge collections of comments and rates
+        return $lastComments->sortByDesc('created_at');
     }
 }
