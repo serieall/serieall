@@ -54,9 +54,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $slogan = Slogan::inRandomOrder()->first();
-
         if(Request::ajax()) {
+            //Filtre depuis la homepage sur le fil d'actu
+            //TODO : créer une méthode spécifique d'API
+
             $filter_home = Input::get('filter_home');
 
             if($filter_home == 'all') {
@@ -67,19 +68,11 @@ class HomeController extends Controller
                 $fil_actu = $this->getFilActuWithComments();
             }
             return Response::json(View::make('pages.home_fil_actu', ['fil_actu' => $fil_actu, 'filter_home' => $filter_home])->render());
+
         } else {
-            # Get last Rates and comments
-            $lastRates = $this->rateRepository->getLastRates(15);
-            $lastRates->map(function ($rate) {
-                $rate->type = "rate";
+            $slogan = Slogan::inRandomOrder()->first();
 
-            });
-            $lastComments = $this->commentRepository->getLastComments(15);
-            $lastComments->map(function ($comment) {
-                $comment->type = "comment";
-            });
-
-            # Merge collections of comments and rates
+            // Fil d'actu
             $filter_home = "all";
             $fil_actu = $this->getFilActuWithAll();
 
@@ -113,6 +106,7 @@ class HomeController extends Controller
      */
     private function getFilActuWithAll()
     {
+        # Get last Rates and comments
         $lastRates = $this->rateRepository->getLastRates(15);
         $lastRates->map(function ($rate) {
             $rate->type = "rate";
