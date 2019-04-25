@@ -16,7 +16,7 @@
             </div>
         </div>
         <a href="{{ route('home') }}" class="item
-           @if($navActive === 'home')
+           @if(isset($navActive) && $navActive === 'home')
                 active
             @endif
         ">
@@ -24,35 +24,35 @@
             Accueil
         </a>
         <a href="{{ route('show.index') }}" class="item
-           @if($navActive === 'shows')
+           @if(isset($navActive) && $navActive === 'shows')
                active
             @endif">
             <i class="tv icon"></i>
             Séries TV
         </a>
         <a href="{{ route('article.index') }}" class="item
-            @if($navActive === 'articles')
+            @if(isset($navActive) && $navActive === 'articles')
                 active
             @endif">
             <i class="file text outline icon"></i>
             Articles
         </a>
         <a href="{{ route('planning.index') }}" class="item
-            @if($navActive === 'planning')
+            @if(isset($navActive) && $navActive === 'planning')
                 active
             @endif">
             <i class="calendar icon"></i>
             Planning
         </a>
         <a href="{{ route('ranking.index') }}" class="item
-            @if($navActive === 'classements')
+            @if(isset($navActive) && $navActive === 'classements')
                 active
             @endif">
             <i class="trophy icon"></i>
             Classements
         </a>
         <a href="{{ config('app.forum_url') }}" class="item
-            @if($navActive === 'forum')
+            @if(isset($navActive) && $navActive === 'forum')
                 active
             @endif">
             <i class="comment icon"></i>
@@ -111,31 +111,31 @@
         <div class="ui  secondary pointing fluid stackable menu" id="header">
             <a href="/"><img src="{{ $folderImages }}logo_v2_ho.png" alt="logo_serieall" height="50px"/></a>
             <a href="{{ route('home') }}" class="item
-                @if($navActive === 'home')
+                @if(isset($navActive) && $navActive === 'home')
                     active
                 @endif">
                 Accueil
             </a>
             <a href="{{ route('show.index') }}" class="item
-                @if($navActive === 'shows')
+                @if(isset($navActive) && $navActive === 'shows')
                     active
                 @endif">
                 Séries TV
             </a>
             <a href="{{ route('article.index') }}" class="item
-               @if($navActive === 'articles')
+               @if(isset($navActive) && $navActive === 'articles')
                     active
                 @endif">
                 Articles
             </a>
             <a href="{{ route('planning.index') }}" class="item
-               @if($navActive === 'planning')
+               @if(isset($navActive) && $navActive === 'planning')
                     active
                 @endif">
                 Planning
             </a>
             <a href="{{ route('ranking.index') }}" class="item
-                @if($navActive === 'classements')
+                @if(isset($navActive) && $navActive === 'classements')
                     active
                 @endif">
                 Classements
@@ -151,14 +151,14 @@
                 </div>
 
                 <a href="{{ config('app.forum_url') }}" class="item
-                    @if($navActive === 'forum')
+                    @if(isset($navActive) && $navActive === 'forum')
                         active
                     @endif">
                     Forum
                 </a>
                 @if (Auth::guest())
                     <a class="clickLogin item
-                        @if($navActive === 'login')
+                        @if(isset($navActive) && $navActive === 'login')
                             active
                         @endif">
                         <div>
@@ -167,7 +167,7 @@
                         </div>
                     </a>
                     <a class="clickRegister item
-                        @if($navActive === 'register')
+                        @if(isset($navActive) && $navActive === 'register')
                             active
                         @endif">
                         <div>
@@ -208,7 +208,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="ui pointing labeled icon dropdown link item" @if($navActive === 'profil')id="profilActif"@endif>
+                    <div class="ui pointing labeled icon dropdown link item" @if(isset($navActive) && $navActive === 'profil')id="profilActif"@endif>
                         <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
                         <span>{{ Auth::user()->username }}</span> <i class="dropdown icon"></i>
                         <div class="menu">
