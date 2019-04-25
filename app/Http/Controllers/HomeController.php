@@ -60,13 +60,19 @@ class HomeController extends Controller
 
             $filter_home = Input::get('filter_home');
 
-            if($filter_home == 'all') {
-                $fil_actu = $this->getFilActuWithAll();
-            } elseif ($filter_home == 'rates') {
-                $fil_actu = $this->getFilActuWithRates();
-            } else {
-                $fil_actu = $this->getFilActuWithComments();
+            switch ($filter_home)
+            {
+                case 'all':
+                    $fil_actu = $this->getFilActuWithAll();
+                    break;
+                case 'rates':
+                    $fil_actu = $this->getFilActuWithRates();
+                    break;
+                default:
+                    $fil_actu = $this->getFilActuWithComments();
+                    break;
             }
+
             return Response::json(View::make('pages.home_fil_actu', ['fil_actu' => $fil_actu, 'filter_home' => $filter_home])->render());
 
         } else {
