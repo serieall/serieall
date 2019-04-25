@@ -13,7 +13,7 @@
     @foreach($fil_actu as $actu)
         <div class="event">
             <div class="label">
-                <img src="{{ Gravatar::src($actu->user->email) }}">
+                <img src="{{ Gravatar::src($actu->user->email) }}" alt="{{$actu->user->username}}">
             </div>
             <div class="content">
                 <div class="date">
