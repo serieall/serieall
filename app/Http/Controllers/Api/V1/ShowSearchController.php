@@ -26,28 +26,32 @@ class ShowSearchController extends Controller
      */
     public function index() : Response
     {
-        //Retrieve search request and split in array of word
-        $this->searchQueryWordArray = explode(" ", Input::get('_q'));
+        if(!is_null(Input::get('_q')) ) {
+            //Retrieve search request and split in array of word
+            $this->searchQueryWordArray = explode(" ", Input::get('_q'));
 
 
-        //Perform search on name/name fr
-        //each word typed in tested, only shows whose match all are returned
-        $shows = DB::table('shows')
-            ->select('id', 'show_url', 'name', 'name_fr')
-            ->where(function ($query) {
-                foreach ($this->searchQueryWordArray  as $searchQueryWord){
-                    $query->where('name', 'like', '%'.$searchQueryWord.'%');
-                }
-            })
-            ->orWhere(function ($query) {
-                foreach ($this->searchQueryWordArray  as $searchQueryWord){
-                    $query->where('name_fr', 'like', '%'.$searchQueryWord.'%');
-                }
-            })
-            ->orderBy('name');
+            //Perform search on name/name fr
+            //each word typed in tested, only shows whose match all are returned
+            $shows = DB::table('shows')
+                ->select('id', 'show_url', 'name', 'name_fr')
+                ->where(function ($query) {
+                    foreach ($this->searchQueryWordArray as $searchQueryWord) {
+                        $query->where('name', 'like', '%' . $searchQueryWord . '%');
+                    }
+                })
+                ->orWhere(function ($query) {
+                    foreach ($this->searchQueryWordArray as $searchQueryWord) {
+                        $query->where('name_fr', 'like', '%' . $searchQueryWord . '%');
+                    }
+                })
+                ->orderBy('name');
 
 
-        return $this->response->collection($shows->get(), new ShowSearchTransformer());
+            return $this->response->collection($shows->get(), new ShowSearchTransformer());
+        }else{
+            $this->response->errorBadRequest("Missing parameter _q");
+        }
 
     }
 }
