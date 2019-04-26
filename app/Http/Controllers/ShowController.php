@@ -186,8 +186,11 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
      */
     public function getShowDetails($show_url) {
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
-
-        return view('shows/details', compact('showInfo'));
+        if(!is_null($showInfo) && count($showInfo) >0) {
+            return view('shows/details', compact('showInfo'));
+        }else{
+            abort(404);
+        }
     }
 
     public function getShowArticles($show_url) {
