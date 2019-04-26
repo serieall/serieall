@@ -121,6 +121,7 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
 
     /**
      * Envoi vers la page shows/index
+     * Page principale d'une série.
      *
      * @param $show_url
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -133,42 +134,48 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
         # Get Show
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        $state_show = "";
-        if(Auth::check()) {
-            if(Auth::user()->shows->contains($showInfo['show']->id)) {
-                $state_show = Auth::user()->join('show_user', 'users.id', '=', 'show_user.user_id')
-                    ->join('shows', 'show_user.show_id', '=', 'shows.id')
-                    ->where('users.id', '=', Auth::user()->id)
-                    ->where('shows.id', '=', $showInfo['show']->id)
-                    ->pluck('state')
-                    ->first();
+        if(!is_null($showInfo) && count($showInfo) >0) {
+
+            $state_show = "";
+            if (Auth::check()) {
+                if (Auth::user()->shows->contains($showInfo['show']->id)) {
+                    $state_show = Auth::user()->join('show_user', 'users.id', '=', 'show_user.user_id')
+                        ->join('shows', 'show_user.show_id', '=', 'shows.id')
+                        ->where('users.id', '=', Auth::user()->id)
+                        ->where('shows.id', '=', $showInfo['show']->id)
+                        ->pluck('state')
+                        ->first();
+                }
             }
+
+            $chart = new RateSummary;
+            $chart
+                ->height(300)
+                ->title('Evolution des notes de la série')
+                ->labels($showInfo['seasons']->pluck('name'))
+                ->dataset('Moyenne', 'line', $showInfo['seasons']->pluck('moyenne'));
+
+            $chart->options([
+                'yAxis' => [
+                    'min' => 0,
+                    'max' => 20,
+                ],
+            ]);
+
+            # Compile Object informations
+            $object = compileObjectInfos('Show', $showInfo['show']->id);
+
+            # Get Comments
+            $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+
+            $type_article = 'Show';
+            $articles_linked = $this->articleRepository->getPublishedArticleByShowID(0, $showInfo['show']->id);
+
+            return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'type_article', 'articles_linked', 'comments', 'object', 'state_show'));
+        }else{
+            //Show not found -> 404
+            abort(404);
         }
-
-        $chart = new RateSummary;
-        $chart
-            ->height(300)
-            ->title('Evolution des notes de la série')
-            ->labels($showInfo['seasons']->pluck('name'))
-            ->dataset('Moyenne', 'line', $showInfo['seasons']->pluck('moyenne'));
-
-        $chart->options([
-            'yAxis' => [
-                'min' => 0,
-                'max' => 20,
-            ],
-        ]);
-
-        # Compile Object informations
-        $object = compileObjectInfos('Show', $showInfo['show']->id);
-
-        # Get Comments
-        $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
-
-        $type_article = 'Show';
-        $articles_linked = $this->articleRepository->getPublishedArticleByShowID(0, $showInfo['show']->id);
-
-        return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'type_article','articles_linked', 'comments', 'object', 'state_show'));
     }
 
     /**

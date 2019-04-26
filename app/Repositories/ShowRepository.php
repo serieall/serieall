@@ -142,18 +142,24 @@ class ShowRepository
         // En fonction de la route, on récupère les informations sur la série différemment
         if (Route::current()->getName() === 'show.fiche') {
             $show = $this->getShowByURL($show_url);
-            $articles = [];//$this->articleRepository->getPublishedArticleByShow($show);
+            if(is_null($show)){
+                //Show not found -> empty array
+                return [];
+            }
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         } elseif (Route::current()->getName() === 'show.details') {
             $show = $this->getShowDetailsByURL($show_url);
-            $articles = [];
+            if(is_null($show)){
+                //Show not found -> empty array
+                return [];
+            }
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         }
         else {
             $show = $this->getShowByURL($show_url);
-            $articles = [];
             $seasons = [];
         }
+        $articles = [];
 
         $nbcomments = Cache::rememberForever(ShowRepository::THUMB_SHOW_CACHE_KEY.$show->id, function () use ($show) {
             return Comment::groupBy('thumb')
