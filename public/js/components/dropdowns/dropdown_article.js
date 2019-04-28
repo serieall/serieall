@@ -31,7 +31,7 @@ function initDropdownArticle() {
     $(dropdownArticle)
         .dropdown({
             apiSettings: {
-                url: '/api/articles/list?name-lk=*{query}*'
+                url: '/api/articles/list?name-lk={query}&_limit=10'
             },
             fields: {
                 remoteValues: "data",
