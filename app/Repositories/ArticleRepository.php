@@ -119,7 +119,6 @@ class ArticleRepository
     public function getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory(Show $show, $categoryId): LengthAwarePaginator
     {
         return $show->articles()->with(['users', 'category'])
-            ->withCount('comments')
             ->whereState(1)
             ->whereCategoryId($categoryId)
             ->orderBy('published_at', 'desc')
@@ -135,7 +134,6 @@ class ArticleRepository
     public function getPublishedArticleByShow(Show $show): LengthAwarePaginator
     {
         return $show->articles()->whereState(1)
-            ->withCount('comments')
             ->orderBy('published_at', 'desc')
             ->paginate(5);
     }

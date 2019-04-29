@@ -9,6 +9,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+
 
 
 /**
@@ -18,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 class CommentRepository
 {
     protected $comment;
+
+    const THUMB_SHOW_CACHE_KEY = 'THUMB_SHOW_CACHE_KEY';
 
     /**
      * SeasonRepository constructor.
@@ -107,6 +112,21 @@ class CommentRepository
     }
 
     /**
+     * Return number of comments of each type for a show
+     * @param $showId
+     * @return mixed
+     */
+    public function getCommentCountByTypeForShow($showId){
+        return Cache::rememberForever(CommentRepository::THUMB_SHOW_CACHE_KEY.$showId, function () use ($showId) {
+            return Comment::groupBy('thumb')
+                ->select('thumb', \DB::raw('count(*) as count_thumb'))
+                ->where('commentable_id', '=', $showId)
+                ->where('commentable_type', '=', 'App\Models\Show')
+                ->get();
+        });
+    }
+
+    /**
      * @param $object
      * @param $object_id
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -157,6 +177,18 @@ class CommentRepository
             ->where('thumb', '!=', null)
             ->count();
 
+    }
+
+    /**
+     * Return number of comments for given article
+     * @param $articleId
+     */
+    public function getCommentCountForArticle($articleId){
+        return $this->comment
+            ->with(['commentable'])
+            ->where('commentable_id','=',$articleId)
+            ->whereCommentableType('App\Models\Article')
+            ->count();
     }
 
     /**

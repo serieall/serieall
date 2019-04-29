@@ -140,20 +140,27 @@ class ShowRepository
     public function getInfoShowFiche($show_url): array
     {
         // En fonction de la route, on récupère les informations sur la série différemment
+        //TODO : ne pas faire ce swicth dans le repository
         if (Route::current()->getName() === 'show.fiche') {
             $show = $this->getShowByURL($show_url);
-            $articles = [];//$this->articleRepository->getPublishedArticleByShow($show);
+            if(is_null($show)){
+                //Show not found -> empty array
+                return [];
+            }
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         } elseif (Route::current()->getName() === 'show.details') {
             $show = $this->getShowDetailsByURL($show_url);
-            $articles = [];
+            if(is_null($show)){
+                //Show not found -> empty array
+                return [];
+            }
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         }
         else {
-            $show = $this->getShowByURL($show_url);
-            $articles = [];
+            $show = $this->getShowByURLWithSeasonsAndEpisodes($show_url);
             $seasons = [];
         }
+        $articles = [];
 
         $nbcomments = Cache::rememberForever(ShowRepository::THUMB_SHOW_CACHE_KEY.$show->id, function () use ($show) {
             return Comment::groupBy('thumb')
@@ -199,6 +206,10 @@ class ShowRepository
     }
 
     /**
+     * SITE
+     */
+
+    /**
      * GET FONCTIONS
      */
 
@@ -221,9 +232,21 @@ class ShowRepository
      * @param $show_url
      * @return mixed
      */
-    public function getShowByURL($show_url){
+    public function getShowByURLWithSeasonsAndEpisodes($show_url){
         return $this->show::where('show_url', $show_url)
             ->with('seasons', 'episodes', 'genres', 'nationalities', 'channels')
+            ->first();
+    }
+
+    /**
+     * Récupère la série avec son paramètre URL. On ajoute les genres, les nationalités et les chaînes.
+     *
+     * @param $show_url
+     * @return mixed
+     */
+    public function getShowByURL($show_url){
+        return $this->show::where('show_url', $show_url)
+            ->with( 'genres', 'nationalities', 'channels')
             ->first();
     }
 

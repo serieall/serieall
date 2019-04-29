@@ -121,6 +121,7 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
 
     /**
      * Envoi vers la page shows/index
+     * Page principale d'une série.
      *
      * @param $show_url
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -131,44 +132,54 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
         $user_id = getIDIfAuth();
 
         # Get Show
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $show = $this->showRepository->getShowByURL($show_url);
 
-        $state_show = "";
-        if(Auth::check()) {
-            if(Auth::user()->shows->contains($showInfo['show']->id)) {
-                $state_show = Auth::user()->join('show_user', 'users.id', '=', 'show_user.user_id')
-                    ->join('shows', 'show_user.show_id', '=', 'shows.id')
-                    ->where('users.id', '=', Auth::user()->id)
-                    ->where('shows.id', '=', $showInfo['show']->id)
-                    ->pluck('state')
-                    ->first();
+        if(!is_null($show)) {
+
+            $showInfo = $this->formatForShowHeader($show);
+            $showInfo['seasons'] = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
+
+            $state_show = "";
+            if (Auth::check()) {
+                if (Auth::user()->shows->contains($showInfo['show']->id)) {
+                    $state_show = Auth::user()->join('show_user', 'users.id', '=', 'show_user.user_id')
+                        ->join('shows', 'show_user.show_id', '=', 'shows.id')
+                        ->where('users.id', '=', Auth::user()->id)
+                        ->where('shows.id', '=', $showInfo['show']->id)
+                        ->pluck('state')
+                        ->first();
+                }
             }
+
+            //Graphe d'évolution des notes de la saison
+            $chart = new RateSummary;
+            $chart
+                ->height(300)
+                ->title('Evolution des notes de la série')
+                ->labels($showInfo['seasons']->pluck('name'))
+                ->dataset('Moyenne', 'line', $showInfo['seasons']->pluck('moyenne'));
+
+            $chart->options([
+                'yAxis' => [
+                    'min' => 0,
+                    'max' => 20,
+                ],
+            ]);
+
+            # Compile Object informations
+            $object = compileObjectInfos('Show', $showInfo['show']->id);
+
+            # Get Comments
+            $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+
+            $type_article = 'Show';
+            $articles_linked = $this->articleRepository->getPublishedArticleByShowID(0, $showInfo['show']->id);
+
+            return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'type_article', 'articles_linked', 'comments', 'object', 'state_show'));
+        }else{
+            //Show not found -> 404
+            abort(404);
         }
-
-        $chart = new RateSummary;
-        $chart
-            ->height(300)
-            ->title('Evolution des notes de la série')
-            ->labels($showInfo['seasons']->pluck('name'))
-            ->dataset('Moyenne', 'line', $showInfo['seasons']->pluck('moyenne'));
-
-        $chart->options([
-            'yAxis' => [
-                'min' => 0,
-                'max' => 20,
-            ],
-        ]);
-
-        # Compile Object informations
-        $object = compileObjectInfos('Show', $showInfo['show']->id);
-
-        # Get Comments
-        $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
-
-        $type_article = 'Show';
-        $articles_linked = $this->articleRepository->getPublishedArticleByShowID(0, $showInfo['show']->id);
-
-        return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'type_article','articles_linked', 'comments', 'object', 'state_show'));
     }
 
     /**
@@ -178,19 +189,34 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getShowDetails($show_url) {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
-
-        return view('shows/details', compact('showInfo'));
+        $show = $this->showRepository->getShowDetailsByURL($show_url);
+        if(!is_null($show)) {
+            $showInfo = $this->formatForShowHeader($show);
+            return view('shows/details', compact('showInfo'));
+        }else{
+            abort(404);
+        }
     }
 
     public function getShowArticles($show_url) {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $show = $this->showRepository->getShowByURL($show_url);
+        if(!is_null($show)) {
+            $showInfo = $this->formatForShowHeader($show);
 
-        $categories = $this->categoryRepository->getAllCategories();
-        $articles = $this->articleRepository->getPublishedArticleByShow($showInfo['show']);
-        $articles_count = count($articles);
+            $categories = $this->categoryRepository->getAllCategories();
+            $articles = $this->articleRepository->getPublishedArticleByShow($showInfo['show']);
 
-        return view('shows/articles', compact('showInfo', 'articles', 'articles_count', 'categories'));
+            //Retrieve comment count for each article
+            foreach($articles as $article){
+                $article['comments_count'] = $this->commentRepository->getCommentCountForArticle($article->id);
+            }
+
+            $articles_count = count($articles);
+
+            return view('shows/articles', compact('showInfo', 'articles', 'articles_count', 'categories'));
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -202,15 +228,25 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
      */
     public function getShowArticlesByCategory($show_url, $idCategory)
     {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $show = $this->showRepository->getShowByURL($show_url);
+        if(!is_null($show)) {
+            $showInfo = $this->formatForShowHeader($show);
 
-        $categories = $this->categoryRepository->getAllCategories();
-        $category = $this->categoryRepository->getCategoryByID($idCategory);
-        $articles = $this->articleRepository->getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($showInfo['show'], $idCategory);
+            $categories = $this->categoryRepository->getAllCategories();
+            $category = $this->categoryRepository->getCategoryByID($idCategory);
+            $articles = $this->articleRepository->getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($showInfo['show'], $idCategory);
 
-        $articles_count = count($articles);
+            //Retrieve comment count for each article
+            foreach($articles as $article){
+                $article['comments_count'] = $this->commentRepository->getCommentCountForArticle($article->id);
+            }
 
-        return view('shows.articlesCategory', compact('showInfo', 'categories', 'category', 'articles', 'articles_count', 'idCategory'));
+            $articles_count = count($articles);
+
+            return view('shows.articlesCategory', compact('showInfo', 'categories', 'category', 'articles', 'articles_count', 'idCategory'));
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -224,5 +260,54 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
         $topEpisodes = $this->episodeRepository->getRankingEpisodesByShow($showInfo['show']['id'], 'DESC');
 
         return view('shows.statistics', compact('showInfo', 'topEpisodes'));
+    }
+
+
+    /************ Private **************/
+
+    /**
+     * Format data for displaying show header.
+     * @param $show
+     * @return array
+     */
+    private function formatForShowHeader($show){
+        $articles = [];
+
+        $nbcomments = $this->commentRepository->getCommentCountByTypeForShow($show->id);
+
+        $showPositiveComments = $nbcomments->where('thumb', '=', '1')->first();
+        $showNeutralComments = $nbcomments->where('thumb', '=', '2')->first();
+        $showNegativeComments = $nbcomments->where('thumb', '=', '3')->first();
+
+        // On récupère les saisons, genres, nationalités et chaines
+
+        $genres = formatRequestInVariable($show->genres);
+        $nationalities = formatRequestInVariable($show->nationalities);
+        $channels = formatRequestInVariable($show->channels);
+
+        // On récupère la note de la série, et on calcule la position sur le cercle
+        $noteCircle = noteToCircle($show->moyenne);
+
+        // Détection du résumé à afficher (fr ou en)
+        if(empty($show->synopsis_fr)) {
+            $synopsis = $show->synopsis;
+        }
+        else {
+            $synopsis = $show->synopsis_fr;
+        }
+
+        // Faut-il couper le résumé ? */
+        $numberCharaMaxResume = config('param.nombreCaracResume');
+        if(strlen($synopsis) <= $numberCharaMaxResume) {
+            $showSynopsis = $synopsis;
+            $fullSynopsis = false;
+        }
+        else {
+            $showSynopsis = cutResume($synopsis);
+            $fullSynopsis = true;
+        }
+
+        return compact('show', 'genres', 'nationalities', 'channels', 'noteCircle', 'synopsis', 'showSynopsis', 'fullSynopsis', 'showPositiveComments', 'showNeutralComments', 'showNegativeComments', 'articles');
+
     }
 }
