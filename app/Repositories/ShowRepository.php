@@ -140,6 +140,7 @@ class ShowRepository
     public function getInfoShowFiche($show_url): array
     {
         // En fonction de la route, on récupère les informations sur la série différemment
+        //TODO : ne pas faire ce swicth dans le repository
         if (Route::current()->getName() === 'show.fiche') {
             $show = $this->getShowByURL($show_url);
             if(is_null($show)){
