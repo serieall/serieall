@@ -156,7 +156,7 @@ class ShowRepository
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
         }
         else {
-            $show = $this->getShowByURL($show_url);
+            $show = $this->getShowByURLWithSeasonsAndEpisodes($show_url);
             $seasons = [];
         }
         $articles = [];
@@ -205,6 +205,10 @@ class ShowRepository
     }
 
     /**
+     * SITE
+     */
+
+    /**
      * GET FONCTIONS
      */
 
@@ -227,9 +231,21 @@ class ShowRepository
      * @param $show_url
      * @return mixed
      */
-    public function getShowByURL($show_url){
+    public function getShowByURLWithSeasonsAndEpisodes($show_url){
         return $this->show::where('show_url', $show_url)
             ->with('seasons', 'episodes', 'genres', 'nationalities', 'channels')
+            ->first();
+    }
+
+    /**
+     * Récupère la série avec son paramètre URL. On ajoute les genres, les nationalités et les chaînes.
+     *
+     * @param $show_url
+     * @return mixed
+     */
+    public function getShowByURL($show_url){
+        return $this->show::where('show_url', $show_url)
+            ->with( 'genres', 'nationalities', 'channels')
             ->first();
     }
 
