@@ -189,8 +189,9 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getShowDetails($show_url) {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
-        if(!is_null($showInfo) && count($showInfo) >0) {
+        $show = $this->showRepository->getShowDetailsByURL($show_url);
+        if(!is_null($show)) {
+            $showInfo = $this->formatForShowHeader($show);
             return view('shows/details', compact('showInfo'));
         }else{
             abort(404);
