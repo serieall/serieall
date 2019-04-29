@@ -228,15 +228,25 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
      */
     public function getShowArticlesByCategory($show_url, $idCategory)
     {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $show = $this->showRepository->getShowByURL($show_url);
+        if(!is_null($show)) {
+            $showInfo = $this->formatForShowHeader($show);
 
-        $categories = $this->categoryRepository->getAllCategories();
-        $category = $this->categoryRepository->getCategoryByID($idCategory);
-        $articles = $this->articleRepository->getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($showInfo['show'], $idCategory);
+            $categories = $this->categoryRepository->getAllCategories();
+            $category = $this->categoryRepository->getCategoryByID($idCategory);
+            $articles = $this->articleRepository->getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory($showInfo['show'], $idCategory);
 
-        $articles_count = count($articles);
+            //Retrieve comment count for each article
+            foreach($articles as $article){
+                $article['comments_count'] = $this->commentRepository->getCommentCountForArticle($article->id);
+            }
 
-        return view('shows.articlesCategory', compact('showInfo', 'categories', 'category', 'articles', 'articles_count', 'idCategory'));
+            $articles_count = count($articles);
+
+            return view('shows.articlesCategory', compact('showInfo', 'categories', 'category', 'articles', 'articles_count', 'idCategory'));
+        }else{
+            abort(404);
+        }
     }
 
     /**

@@ -119,7 +119,6 @@ class ArticleRepository
     public function getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory(Show $show, $categoryId): LengthAwarePaginator
     {
         return $show->articles()->with(['users', 'category'])
-            ->withCount('comments')
             ->whereState(1)
             ->whereCategoryId($categoryId)
             ->orderBy('published_at', 'desc')
