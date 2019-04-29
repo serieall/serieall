@@ -180,6 +180,18 @@ class CommentRepository
     }
 
     /**
+     * Return number of comments for given article
+     * @param $articleId
+     */
+    public function getCommentCountForArticle($articleId){
+        return $this->comment
+            ->with(['commentable'])
+            ->where('commentable_id','=',$articleId)
+            ->whereCommentableType('App\Models\Article')
+            ->count();
+    }
+
+    /**
      * Get All comments for a user with reactions
      *
      * @param $user_id

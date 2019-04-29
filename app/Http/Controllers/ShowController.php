@@ -199,13 +199,24 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
     }
 
     public function getShowArticles($show_url) {
-        $showInfo = $this->showRepository->getInfoShowFiche($show_url);
+        $show = $this->showRepository->getShowByURL($show_url);
+        if(!is_null($show)) {
+            $showInfo = $this->formatForShowHeader($show);
 
-        $categories = $this->categoryRepository->getAllCategories();
-        $articles = $this->articleRepository->getPublishedArticleByShow($showInfo['show']);
-        $articles_count = count($articles);
+            $categories = $this->categoryRepository->getAllCategories();
+            $articles = $this->articleRepository->getPublishedArticleByShow($showInfo['show']);
 
-        return view('shows/articles', compact('showInfo', 'articles', 'articles_count', 'categories'));
+            //Retrieve comment count for each article
+            foreach($articles as $article){
+                $article['comments_count'] = $this->commentRepository->getCommentCountForArticle($article->id);
+            }
+
+            $articles_count = count($articles);
+
+            return view('shows/articles', compact('showInfo', 'articles', 'articles_count', 'categories'));
+        }else{
+            abort(404);
+        }
     }
 
     /**

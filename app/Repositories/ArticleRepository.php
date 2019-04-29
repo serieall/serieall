@@ -135,7 +135,6 @@ class ArticleRepository
     public function getPublishedArticleByShow(Show $show): LengthAwarePaginator
     {
         return $show->articles()->whereState(1)
-            ->withCount('comments')
             ->orderBy('published_at', 'desc')
             ->paginate(5);
     }
