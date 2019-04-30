@@ -66,8 +66,8 @@ class RankingController extends Controller
         $country_top_en = $this->showRepository->getRankingShowsByNationalities('Anglaise');
 
         # Genres
-        $genre_top_drama = $this->showRepository->getRankingShowsByGenres('Drama');
-        $genre_top_comedy = $this->showRepository->getRankingShowsByGenres('Comedy');
+        $genre_top_drama = $this->showRepository->getRankingShowsByGenres('Drame');
+        $genre_top_comedy = $this->showRepository->getRankingShowsByGenres('Comedie');
         $genre_top_sf = $this->showRepository->getRankingShowsByGenres('Science-Fiction');
         $genre_top_cop = $this->showRepository->getRankingShowsByGenres('Crime');
 

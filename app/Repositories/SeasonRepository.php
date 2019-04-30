@@ -6,6 +6,8 @@ namespace App\Repositories;
 
 
 use App\Models\Season;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class SeasonRepository
@@ -13,6 +15,9 @@ use App\Models\Season;
  */
 class SeasonRepository
 {
+
+    const RANKING_SEASONS_CACHE_KEY = 'RANKING_SEASONS_CACHE_KEY';
+
     /**
     * @var Season
     */
@@ -141,11 +146,13 @@ class SeasonRepository
      * @return Season
      */
     public function getRankingSeasons($order) {
-        return $this->season
-            ->orderBy('moyenne', $order)
-            ->orderBy('nbnotes', $order)
-            ->where('nbnotes', '>', config('param.nombreNotesMiniClassementSeasons'))
-            ->limit(15)
-            ->get();
+        return Cache::remember(SeasonRepository::RANKING_SEASONS_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
+            return $this->season
+                ->orderBy('moyenne', $order)
+                ->orderBy('nbnotes', $order)
+                ->where('nbnotes', '>', config('param.nombreNotesMiniClassementSeasons'))
+                ->limit(15)
+                ->get();
+        });
     }
 }
