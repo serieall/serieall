@@ -20,6 +20,7 @@ class EpisodeRepository
 
     /** Constant for cache*/
     const PLANNING_CACHE_KEY = 'PLANNING_CACHE_KEY';
+    const RANKING_EPISODE_CACHE_KEY = 'RANKING_EPISODE_CACHE_KEY';
 
     protected $episode;
 
@@ -157,12 +158,14 @@ class EpisodeRepository
      * @return Episode
      */
     public function getRankingEpisodes($order) {
-        return $this->episode
-            ->orderBy('moyenne', $order)
-            ->orderBy('nbnotes', $order)
-            ->where('nbnotes', '>', config('param.nombreNotesMiniClassementEpisodes'))
-            ->limit(15)
-            ->get();
+        return Cache::remember(EpisodeRepository::RANKING_EPISODE_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
+            return $this->episode
+                ->orderBy('moyenne', $order)
+                ->orderBy('nbnotes', $order)
+                ->where('nbnotes', '>', config('param.nombreNotesMiniClassementEpisodes'))
+                ->limit(15)
+                ->get();
+        });
     }
 
     /**
