@@ -25,6 +25,10 @@ class RateRepository
 
     /** Constant for cache*/
     const SHOW_MOMENT_CACHE_KEY = 'SHOW_MOMENT_CACHE_KEY';
+    const RANKING_SHOWS_REDAC_CACHE_KEY = 'RANKING_SHOWS_REDAC_CACHE_KEY';
+    const RANKING_SEASONS_REDAC_CACHE_KEY = 'RANKING_SEASONS_REDAC_CACHE_KEY';
+    const RANKING_EPISODES_REDAC_CACHE_KEY = 'RANKING_EPISODES_REDAC_CACHE_KEY';
+    const RANKING_SHOW_CHANNEL_CACHE_KEY = 'RANKING_SHOW_CHANNEL_CACHE_KEY';
 
     protected $showRepository;
     protected $seasonRepository;
@@ -190,17 +194,19 @@ class RateRepository
      * @return
      */
     public function getRankingShowRedac($order) {
-        return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
-            ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
-            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
-            ->join('shows', 'seasons.show_id', '=', 'shows.id')
-            ->groupBy('shows.name')
-            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.name, shows.show_url'))
-            ->limit(15)
-            ->where('users.role', '<', 4)
-            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementShows'))
-            ->orderBy('moyenne', $order)
-            ->get();
+       return Cache::remember(RateRepository::RANKING_SHOWS_REDAC_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
+           return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+               ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+               ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+               ->join('shows', 'seasons.show_id', '=', 'shows.id')
+               ->groupBy('shows.name')
+               ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.name, shows.show_url'))
+               ->limit(15)
+               ->where('users.role', '<', 4)
+               ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementShows'))
+               ->orderBy('moyenne', $order)
+               ->get();
+       });
     }
 
     /**
@@ -210,17 +216,19 @@ class RateRepository
      * @return
      */
     public function getRankingSeasonRedac($order) {
-        return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
-            ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
-            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
-            ->join('shows', 'seasons.show_id', '=', 'shows.id')
-            ->groupBy('shows.name')
-            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, seasons.name, shows.name as sname, shows.show_url'))
-            ->limit(15)
-            ->where('users.role', '<', 4)
-            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementSeasons'))
-            ->orderBy('moyenne', $order)
-            ->get();
+        return Cache::remember(RateRepository::RANKING_SEASONS_REDAC_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
+            return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+                ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+                ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+                ->join('shows', 'seasons.show_id', '=', 'shows.id')
+                ->groupBy('shows.name')
+                ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, seasons.name, shows.name as sname, shows.show_url'))
+                ->limit(15)
+                ->where('users.role', '<', 4)
+                ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementSeasons'))
+                ->orderBy('moyenne', $order)
+                ->get();
+        });
     }
 
     /**
@@ -230,17 +238,19 @@ class RateRepository
      * @return
      */
     public function getRankingEpisodeRedac($order) {
-        return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
-            ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
-            ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
-            ->join('shows', 'seasons.show_id', '=', 'shows.id')
-            ->groupBy('shows.name')
-            ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, episodes.name, episodes.numero, episodes.id, seasons.name as season_name, shows.name as sname, shows.show_url'))
-            ->limit(15)
-            ->where('users.role', '<', 4)
-            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementEpisodes'))
-            ->orderBy('moyenne', $order)
-            ->get();
+        return Cache::remember(RateRepository::RANKING_EPISODES_REDAC_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
+            return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+                ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+                ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
+                ->join('shows', 'seasons.show_id', '=', 'shows.id')
+                ->groupBy('shows.name')
+                ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, episodes.name, episodes.numero, episodes.id, seasons.name as season_name, shows.name as sname, shows.show_url'))
+                ->limit(15)
+                ->where('users.role', '<', 4)
+                ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementEpisodes'))
+                ->orderBy('moyenne', $order)
+                ->get();
+        });
     }
 
     /**
@@ -250,6 +260,7 @@ class RateRepository
      * @return
      */
     public function getRankingShowChannel() {
+        return Cache::remember(RateRepository::RANKING_SHOW_CHANNEL_CACHE_KEY, Config::get('constants.cacheDuration.day'), function (){
         return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
             ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
             ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
@@ -263,6 +274,7 @@ class RateRepository
             ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementShows'))
             ->orderBy('moyenne')
             ->get();
+        });
     }
 
     /**

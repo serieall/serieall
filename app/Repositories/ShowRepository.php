@@ -383,7 +383,6 @@ class ShowRepository
         return Cache::remember(ShowRepository::RANKING_SHOWS_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
             return $this->show
                 ->orderBy('moyenne', $order)
-                ->orderBy('nbnotes', $order)
                 ->where('nbnotes', '>', config('param.nombreNotesMiniClassementShows'))
                 ->limit(15)
                 ->get();
@@ -399,7 +398,6 @@ class ShowRepository
         return Cache::remember(ShowRepository::RANKING_SHOWS_CACHE_KEY.'_'.$nationality, Config::get('constants.cacheDuration.day'), function () use ($nationality) {
             return $this->show
                 ->orderBy('moyenne', 'desc')
-                ->orderBy('nbnotes')
                 ->whereHas('nationalities', function ($q) use ($nationality) {
                     $q->where('name', '=', $nationality);
                 })
@@ -418,7 +416,6 @@ class ShowRepository
         return Cache::remember(ShowRepository::RANKING_SHOWS_CACHE_KEY.'_'.$category, Config::get('constants.cacheDuration.day'), function () use ($category) {
             return $this->show
                 ->orderBy('moyenne','desc')
-                ->orderBy('nbnotes')
                 ->whereHas('genres', function ($q) use ($category) {
                     $q->where('name', '=', $category);
                 })
