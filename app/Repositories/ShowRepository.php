@@ -382,7 +382,7 @@ class ShowRepository
         return $this->show
             ->orderBy('moyenne', $order)
             ->orderBy('nbnotes', $order)
-            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassementShows'))
             ->limit(15)
             ->get();
     }
@@ -398,7 +398,7 @@ class ShowRepository
             ->whereHas('nationalities', function ($q) use ($nationality) {
                 $q->where('name', '=', $nationality);
             })
-            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassementShows'))
             ->limit(15)
             ->get();
     }
@@ -414,7 +414,7 @@ class ShowRepository
             ->whereHas('genres', function ($q) use ($category) {
                 $q->where('name', '=', $category);
             })
-            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassementShows'))
             ->limit(15)
             ->get();
     }

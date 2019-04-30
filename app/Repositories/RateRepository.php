@@ -198,7 +198,7 @@ class RateRepository
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.name, shows.show_url'))
             ->limit(15)
             ->where('users.role', '<', 4)
-            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementShows'))
             ->orderBy('moyenne', $order)
             ->get();
     }
@@ -218,7 +218,7 @@ class RateRepository
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, seasons.name, shows.name as sname, shows.show_url'))
             ->limit(15)
             ->where('users.role', '<', 4)
-            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementSeasons'))
             ->orderBy('moyenne', $order)
             ->get();
     }
@@ -238,7 +238,7 @@ class RateRepository
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, episodes.name, episodes.numero, episodes.id, seasons.name as season_name, shows.name as sname, shows.show_url'))
             ->limit(15)
             ->where('users.role', '<', 4)
-            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementEpisodes'))
             ->orderBy('moyenne', $order)
             ->get();
     }
@@ -260,7 +260,7 @@ class RateRepository
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, channels.name'))
             ->limit(15)
             ->where('users.role', '<', 4)
-            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassement'))
+            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementShows'))
             ->orderBy('moyenne')
             ->get();
     }

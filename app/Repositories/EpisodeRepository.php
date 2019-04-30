@@ -160,7 +160,7 @@ class EpisodeRepository
         return $this->episode
             ->orderBy('moyenne', $order)
             ->orderBy('nbnotes', $order)
-            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassementEpisodes'))
             ->limit(15)
             ->get();
     }

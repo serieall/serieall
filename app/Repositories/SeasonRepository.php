@@ -144,7 +144,7 @@ class SeasonRepository
         return $this->season
             ->orderBy('moyenne', $order)
             ->orderBy('nbnotes', $order)
-            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassementSeasons'))
             ->limit(15)
             ->get();
     }

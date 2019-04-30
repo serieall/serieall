@@ -25,6 +25,8 @@ return [
     'nombreCaracAvis' => 100,
 
     /* Nombre de notes minimum pour que la série apparaisse dans le classement */
-    'nombreNotesMiniClassement' => 0,
+    'nombreNotesMiniClassementEpisodes' => 6,
+    'nombreNotesMiniClassementSeasons' => 18,
+    'nombreNotesMiniClassementShows' => 40,
 
 ];
