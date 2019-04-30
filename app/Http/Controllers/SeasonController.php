@@ -56,7 +56,7 @@ class SeasonController extends Controller
         $user_id = getIDIfAuth();
 
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
-        $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season);
+        $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowIDWithCommentCounts($showInfo['show']->id, $season);
 
         # Compile Object informations
         $object = compileObjectInfos('Season', $seasonInfo->id);

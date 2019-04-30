@@ -13,10 +13,10 @@ use App\Repositories\ShowRepository;
 
 use App\Http\Requests\RateRequest;
 
+use App\Traits\FormatShowHeaderTrait;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
-
 /**
  * Class EpisodeController
  * @package App\Http\Controllers
@@ -29,6 +29,8 @@ class EpisodeController extends Controller
     protected $commentRepository;
     protected $rateRepository;
     protected $articleRepository;
+
+    use FormatShowHeaderTrait;
 
     /**
      * EpisodeController constructor.
@@ -86,34 +88,41 @@ class EpisodeController extends Controller
         # Get ID User if user authenticated
         $user_id = getIDIfAuth();
 
-        $showInfo = $this->showRepository->getInfoShowFiche($showURL);
-        $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $seasonName);
+        # Get Show
+        $show = $this->showRepository->getShowByURL($showURL);
 
-        if($episodeNumero == 0) {
-            $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonInfo->id, $episodeNumero, $episodeID);
-        }
-        else {
-            $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroAndSeasonID($seasonInfo->id, $episodeNumero);
-        }
+        if(!is_null($show)) {
+            $showInfo = $this->formatForShowHeader($show);
 
-        # Compile Object informations
-        $object = compileObjectInfos('Episode', $episodeInfo->id);
+            $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $seasonName);
 
-        $totalEpisodes = $seasonInfo->episodes_count - 1;
+            if ($episodeNumero == 0) {
+                $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonInfo->id, $episodeNumero, $episodeID);
+            } else {
+                $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroAndSeasonID($seasonInfo->id, $episodeNumero);
+            }
 
-        $rates = $this->episodeRepository->getRatesByEpisodeID($episodeInfo->id);
-        $rateUser = $this->rateRepository->getRateByUserIDEpisodeID($user_id, $episodeInfo->id);
+            # Compile Object informations
+            $object = compileObjectInfos('Episode', $episodeInfo->id);
 
-        # Get Comments
-        $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+            $totalEpisodes = $seasonInfo->episodes_count - 1;
 
-        $type_article = 'Season';
-        $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID(0, $seasonInfo->id);
+            $rates = $this->episodeRepository->getRatesByEpisodeID($episodeInfo->id);
+            $rateUser = $this->rateRepository->getRateByUserIDEpisodeID($user_id, $episodeInfo->id);
 
-        if (Request::ajax()) {
-            return Response::json(View::make('comments.last_comments', ['comments' => $comments])->render());
-        }else {
-            return view('episodes.fiche', compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
+            # Get Comments
+            $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
+
+            $type_article = 'Season';
+            $articles_linked = $this->articleRepository->getPublishedArticleBySeasonID(0, $seasonInfo->id);
+
+            if (Request::ajax()) {
+                return Response::json(View::make('comments.last_comments', ['comments' => $comments])->render());
+            } else {
+                return view('episodes.fiche', compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
+            }
+        }else{
+            abort(404);
         }
     }
 }

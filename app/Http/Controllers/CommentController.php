@@ -80,7 +80,7 @@ class CommentController extends Controller
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
         if($season_name !== null) {
-            $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $season_name);
+            $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowIDWithCommentCounts($showInfo['show']->id, $season_name);
             if($episode_numero !== null) {
                 if($episode_id !== null) {
                     $episodeInfo = $this->episodeRepository->getEpisodeByID($episode_id);

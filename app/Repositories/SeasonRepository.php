@@ -87,7 +87,7 @@ class SeasonRepository
      * @param $seasonName
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getSeasonEpisodesBySeasonNameAndShowID($showID, $seasonName)
+    public function getSeasonEpisodesBySeasonNameAndShowIDWithCommentCounts($showID, $seasonName)
     {
         return $this->season::with(['episodes' => function($q){
                 $q->with(['comments' => function($q){
@@ -95,6 +95,20 @@ class SeasonRepository
                     $q->groupBy('thumb', 'commentable_id', 'commentable_type');
                 }]);
             }])
+            ->withCount('episodes')
+            ->where('seasons.name', '=', $seasonName)
+            ->where('seasons.show_id', '=', $showID)
+            ->first();
+    }
+
+    /**
+    * @param $showID
+    * @param $seasonName
+    * @return \Illuminate\Database\Eloquent\Collection|static[]
+    */
+    public function getSeasonEpisodesBySeasonNameAndShowID($showID, $seasonName)
+    {
+        return $this->season::with(['episodes' ])
             ->withCount('episodes')
             ->where('seasons.name', '=', $seasonName)
             ->where('seasons.show_id', '=', $showID)
@@ -130,7 +144,7 @@ class SeasonRepository
         return $this->season
             ->orderBy('moyenne', $order)
             ->orderBy('nbnotes', $order)
-            ->where('nbnotes', '>', config('param.nombreNotesMiniClassement'))
+            ->where('nbnotes', '>', config('param.nombreNotesMiniClassementSeasons'))
             ->limit(15)
             ->get();
     }
