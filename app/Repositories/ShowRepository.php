@@ -398,7 +398,7 @@ class ShowRepository
     public function getRankingShowsByNationalities($nationality) {
         return Cache::remember(ShowRepository::RANKING_SHOWS_CACHE_KEY.'_'.$nationality, Config::get('constants.cacheDuration.day'), function () use ($nationality) {
             return $this->show
-                ->orderBy('moyenne')
+                ->orderBy('moyenne', 'desc')
                 ->orderBy('nbnotes')
                 ->whereHas('nationalities', function ($q) use ($nationality) {
                     $q->where('name', '=', $nationality);
@@ -417,7 +417,7 @@ class ShowRepository
     public function getRankingShowsByGenres($category) {
         return Cache::remember(ShowRepository::RANKING_SHOWS_CACHE_KEY.'_'.$category, Config::get('constants.cacheDuration.day'), function () use ($category) {
             return $this->show
-                ->orderBy('moyenne')
+                ->orderBy('moyenne','desc')
                 ->orderBy('nbnotes')
                 ->whereHas('genres', function ($q) use ($category) {
                     $q->where('name', '=', $category);
