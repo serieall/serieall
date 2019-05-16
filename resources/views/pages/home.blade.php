@@ -25,7 +25,7 @@
                     @endforeach
                 </div>
                 <h1>Articles</h1>
-                <div class="ui centered cards article home">
+                <div class="ui centered stackable cards article home">
                     @foreach($articles as $article)
                         <a class="ui raised card hvr-grow" href="{{ route('article.show', $article->article_url) }}">
                             <div class="content">
