@@ -141,7 +141,7 @@ class AdminArticleController extends Controller
         $article->intro = $inputs['intro'];
         $article->content = $inputs['article'];
 
-        // Si publié n'est pas présent, on le met à 1 sinon, c'est 0
+        // publication
         if (isset($inputs['published'])) {
             $article->state = 1;
             $article->published_at = Carbon::now();
@@ -276,10 +276,12 @@ class AdminArticleController extends Controller
         $article->intro = $inputs['intro'];
         $article->content = $inputs['article'];
 
-        // Si publié n'est pas présent, on le met à 1 sinon, c'est 0
+        // Mise à jour de la plublication uniquement si pas déjà publié
         if (isset($inputs['published'])) {
-            $article->state = 1;
-            $article->published_at = Carbon::now();
+            if(isset($inputs['alreadyPublished']) && $inputs['alreadyPublished'] == 0 ){
+                $article->state = 1;
+                $article->published_at = Carbon::now();
+            }
         }
         else
         {
