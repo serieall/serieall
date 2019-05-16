@@ -260,6 +260,7 @@
 
                     <div class="field">
                         <div class="ui toggle checkbox published">
+                            <input id="alreadyPublished" name="alreadyPublished" type="hidden" value="{{$article->state}}">
                             <input id="publishedInput" name="published" type="checkbox">
                             <label for="publishedInput">Publier l'article</label>
                         </div>
