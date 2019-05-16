@@ -92,12 +92,12 @@
 
                         </div>
                     </h2>
-                    <div class="ui five stackable cards">
+                    <div class="ui three stackable cards">
                         @foreach($article->users as $redac)
                             <a class="ui card" href="{{ route('user.profile', $redac->user_url) }}">
                                 <div class="content">
                                     <div class="center aligned description">
-                                        <p>{{ $redac->edito }}</p>
+                                        <p>{{ str_limit($redac->edito, 120) }}</p>
                                     </div>
                                 </div>
                                 <div class="extra content">
