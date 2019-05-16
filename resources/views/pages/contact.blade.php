@@ -51,6 +51,21 @@
                     @endif
                 </div>
 
+                <div class="ui required field {{ $errors->has('captcha') ? ' error' : '' }}">
+                    <img src="{{ captcha_src() }}" id="captcha_image">
+                    <span id="reload_captcha" class="ui icon" data-tooltip="Changer l'image">
+                            <i class="sync icon"></i>
+                        </span>
+
+                    <label for="captcha">Entrer le code</label>
+                    <input type="text" name="captcha">
+                    @if ($errors->has('captcha'))
+                        <div class="ui red message">
+                            <strong>{{ $errors->first('captcha') }}</strong>
+                        </div>
+                    @endif
+                </div>
+
                 <button class="ui positive button">Envoyer</button>
             </form>
         </div>
