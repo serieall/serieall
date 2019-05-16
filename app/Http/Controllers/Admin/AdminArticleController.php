@@ -286,6 +286,7 @@ class AdminArticleController extends Controller
         else
         {
             $article->state = 0;
+            $article->published_at = null;
         }
 
         if (isset($inputs['podcast'])) {
