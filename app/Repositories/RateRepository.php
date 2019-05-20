@@ -361,7 +361,7 @@ class RateRepository
 
     public function getShowsMoment() {
 
-        return Cache::remember(RateRepository::SHOW_MOMENT_CACHE_KEY, Config::get('constants.cacheDuration.long'), function () {
+//        return Cache::remember(RateRepository::SHOW_MOMENT_CACHE_KEY, Config::get('constants.cacheDuration.long'), function () {
             return Episode_user::leftJoin('episodes', 'episode_user.episode_id', '=', 'episodes.id')
                 ->leftJoin('seasons', 'episodes.season_id', '=', 'seasons.id')
                 ->leftJoin('shows', 'seasons.show_id', '=', 'shows.id')
@@ -370,10 +370,10 @@ class RateRepository
                     Carbon::now()->subWeek(),
                     Carbon::now()])
                 ->orderBy('nbnotes_last_week', 'DESC')
-                ->orderBy('nbnotes')
+//                ->orderBy('nbnotes')
                 ->groupBy('shows.name', 'shows.nbnotes', 'shows.moyenne')
                 ->limit(10)
                 ->get();
-        });
+//        });
     }
 }
