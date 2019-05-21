@@ -35,7 +35,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}">
                             </div>
                         </div>
                         @foreach($flop_shows as $show)
