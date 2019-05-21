@@ -10,6 +10,7 @@ use App\Repositories\ContactRepository;
 use Illuminate\Support\Facades\Notification;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class ContactController
@@ -63,6 +64,9 @@ class ContactController extends Controller
 
         // Envoi de la notification
         Notification::route('mail', $contact->email)
+            ->notify(new ContactNotification());
+
+        Notification::route('mail', Config::get('defaults.email'))
             ->notify(new ContactNotification());
 
         // Redirection
