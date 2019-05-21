@@ -51,6 +51,14 @@
                         </div>
                     </div>
                 </a>
+                <a class="ui card" href="{{ route('admin.shows.clearDoublons') }}">
+                    <div class="content">
+                        <div class="header"><i class="clone icon"></i>Doublons</div>
+                        <div class="description">
+                            <p>Relancer la chasse aux doublons (page vide)</p>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
