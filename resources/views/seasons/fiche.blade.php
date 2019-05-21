@@ -53,14 +53,20 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ affichageCountThumb($episode->comments->where('thumb', '=', 1)->first()) }}
-                                    <i class="green smile large icon"></i>
+                                    @if($episode->comments->where('thumb', '=', 1)->first() !== null)
+                                        {{ affichageCountThumb($episode->comments->where('thumb', '=', 1)->first()) }}
+                                        <i class="green smile large icon"></i>
+                                    @endif
 
-                                    {{ affichageCountThumb($episode->comments->where('thumb', '=', 2)->first()) }}
-                                    <i class="grey meh large icon"></i>
+                                    @if($episode->comments->where('thumb', '=', 2)->first() !== null)
+                                        {{ affichageCountThumb($episode->comments->where('thumb', '=', 2)->first()) }}
+                                        <i class="grey meh large icon"></i>
+                                    @endif
 
-                                    {{ affichageCountThumb($episode->comments->where('thumb', '=', 3)->first()) }}
-                                    <i class="red frown large icon"></i>
+                                    @if($episode->comments->where('thumb', '=', 3)->first() !== null)
+                                        {{ affichageCountThumb($episode->comments->where('thumb', '=', 3)->first()) }}
+                                        <i class="red frown large icon"></i>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
