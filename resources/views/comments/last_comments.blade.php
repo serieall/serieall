@@ -37,40 +37,20 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="AvisResume">
-                                    @if(Auth::check())
-                                        @if(Auth::user()->antispoiler == 0)
-                                            {!! $avis['message'] !!}
-                                        @else
-                                            @if($avis['spoiler'])
-                                                <div class="spoiler">
-                                                    <div class="spoiler-title">
-                                                        <div class="spoiler-toggle hide-icon"></div>
-                                                        Spoiler
-                                                    </div>
-
-                                                    <div class="spoiler-content">
-                                                        {!! $avis['message'] !!}
-                                                    </div>
-                                                </div>
-                                            @else
-                                                {!! $avis['message'] !!}
-                                            @endif
-                                        @endif
-                                    @else
-                                        @if($avis['spoiler'])
-                                            <div class="spoiler">
-                                                <div class="spoiler-title">
-                                                    <div class="spoiler-toggle hide-icon"></div>
-                                                    Spoiler
-                                                </div>
-
-                                                <div class="spoiler-content">
-                                                    {!! $avis['message'] !!}
-                                                </div>
+                                    @if(((Auth::check() && Auth::user()->antispoiler == 1) || !Auth::check())
+                                        && $avis['spoiler']))
+                                        <div class="spoiler">
+                                            <div class="spoiler-title">
+                                                <div class="spoiler-toggle hide-icon"></div>
+                                                Spoiler
                                             </div>
-                                        @else
-                                            {!! $avis['message'] !!}
-                                        @endif
+
+                                            <div class="spoiler-content">
+                                                {!! affichageMessageWithLineBreak($avis['message']) !!}
+                                            </div>
+                                        </div>
+                                    @else
+                                        {!! affichageMessageWithLineBreak($avis['message']) !!}
                                     @endif
                                 </td>
                             </tr>
@@ -112,7 +92,14 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <br>
+                                <div class="left aligned actions">
+                                @if(Auth::check())
+                                    <button id="{{ $avis->id }}" username="{{ $avis->user->username }}" class="ui darkBlueSA button writeReaction">Répondre</button>
+                                @endif
+                                </div>
                         </div>
+
                         <br>
                     </div>
                     </div>
