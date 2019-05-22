@@ -35,8 +35,10 @@
             <div id="ListAvis" class="ui segment left aligned">
                 @if(empty($seasonInfo))
                     <h1>Avis sur {{$showInfo['show']->name}}</h1>
+                @elseif(empty($episodeInfo))
+                    <h1>Avis sur la saison {{$seasonInfo->name}}</h1>
                 @else
-                    <h1>Avis</h1>
+                    <h1>Avis sur l'épisode {{affichageNumeroEpisode('', $seasonInfo->name, $episodeInfo->numero, '', false,'')}}</h1>
                 @endif
 
                 @include('comments.last_comments')
