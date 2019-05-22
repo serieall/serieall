@@ -37,40 +37,20 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="AvisResume">
-                                    @if(Auth::check())
-                                        @if(Auth::user()->antispoiler == 0)
-                                            {!! affichageMessageWithLineBreak($avis['message']) !!}
-                                        @else
-                                            @if($avis['spoiler'])
-                                                <div class="spoiler">
-                                                    <div class="spoiler-title">
-                                                        <div class="spoiler-toggle hide-icon"></div>
-                                                        Spoiler
-                                                    </div>
-
-                                                    <div class="spoiler-content">
-                                                        {!! affichageMessageWithLineBreak($avis['message']) !!}
-                                                    </div>
-                                                </div>
-                                            @else
-                                                {!! affichageMessageWithLineBreak($avis['message']) !!}
-                                            @endif
-                                        @endif
-                                    @else
-                                        @if($avis['spoiler'])
-                                            <div class="spoiler">
-                                                <div class="spoiler-title">
-                                                    <div class="spoiler-toggle hide-icon"></div>
-                                                    Spoiler
-                                                </div>
-
-                                                <div class="spoiler-content">
-                                                    {!! affichageMessageWithLineBreak($avis['message']) !!}
-                                                </div>
+                                    @if(((Auth::check() && Auth::user()->antispoiler == 1) || !Auth::check())
+                                        && $avis['spoiler']))
+                                        <div class="spoiler">
+                                            <div class="spoiler-title">
+                                                <div class="spoiler-toggle hide-icon"></div>
+                                                Spoiler
                                             </div>
-                                        @else
-                                            {!! affichageMessageWithLineBreak($avis['message']) !!}
-                                        @endif
+
+                                            <div class="spoiler-content">
+                                                {!! affichageMessageWithLineBreak($avis['message']) !!}
+                                            </div>
+                                        </div>
+                                    @else
+                                        {!! affichageMessageWithLineBreak($avis['message']) !!}
                                     @endif
                                 </td>
                             </tr>
