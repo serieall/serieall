@@ -112,7 +112,14 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <br>
+                                <div class="left aligned actions">
+                                @if(Auth::check())
+                                    <button id="{{ $avis->id }}" username="{{ $avis->user->username }}" class="ui darkBlueSA button writeReaction">Répondre</button>
+                                @endif
+                                </div>
                         </div>
+
                         <br>
                     </div>
                     </div>
