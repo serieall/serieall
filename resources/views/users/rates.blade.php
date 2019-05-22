@@ -162,7 +162,7 @@
             </div>
         </div>
 
-        <div id="cardsRates" class="ui four cards">
+        <div id="cardsRates" class="ui four stackable cards">
             @include('users.rates_cards')
         </div>
     </div>
