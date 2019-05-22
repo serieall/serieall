@@ -39,7 +39,7 @@
                                 <td colspan="2" class="AvisResume">
                                     @if(Auth::check())
                                         @if(Auth::user()->antispoiler == 0)
-                                            {!! $avis['message'] !!}
+                                            {!! affichageMessageWithLineBreak($avis['message']) !!}
                                         @else
                                             @if($avis['spoiler'])
                                                 <div class="spoiler">
@@ -49,11 +49,11 @@
                                                     </div>
 
                                                     <div class="spoiler-content">
-                                                        {!! $avis['message'] !!}
+                                                        {!! affichageMessageWithLineBreak($avis['message']) !!}
                                                     </div>
                                                 </div>
                                             @else
-                                                {!! $avis['message'] !!}
+                                                {!! affichageMessageWithLineBreak($avis['message']) !!}
                                             @endif
                                         @endif
                                     @else
@@ -65,11 +65,11 @@
                                                 </div>
 
                                                 <div class="spoiler-content">
-                                                    {!! $avis['message'] !!}
+                                                    {!! affichageMessageWithLineBreak($avis['message']) !!}
                                                 </div>
                                             </div>
                                         @else
-                                            {!! $avis['message'] !!}
+                                            {!! affichageMessageWithLineBreak($avis['message']) !!}
                                         @endif
                                     @endif
                                 </td>

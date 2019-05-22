@@ -203,6 +203,20 @@ function affichageThumbIcon($thumb) {
 }
 
 /**
+ * Remplace les sauts de ligne dans les message par des balises br.
+ * Uniquement si pas déjà mois en forme avec des <p>
+ * @param $message
+ * @return int
+ */
+function affichageMessageWithLineBreak($message){
+    if(!strstr($message,'<p>')){
+        return str_replace("\n", '<br />', $message);
+    }else {
+        return $message; //Already Formatted text
+    }
+}
+
+/**
  * @param $thumb
  * @return string
  */
