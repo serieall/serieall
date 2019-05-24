@@ -10,7 +10,7 @@
                 <div class="ui stackable secondary menu">
                     <div id="seasonsLine" class="ui stackable grid">
                         <a class="
-                            @if(!isset($seasonInfo))
+                            @if(empty($seasonInfo))
                                 active
                             @endif
                         item" href="{{ route('comment.fiche', [$showInfo['show']->show_url]) }}">Série</a>
@@ -33,7 +33,14 @@
     <div class="ui stackable grid">
         <div class="row">
             <div id="ListAvis" class="ui segment left aligned">
-                <h1>Avis</h1>
+                @if(empty($seasonInfo))
+                    <h1>Avis sur {{$showInfo['show']->name}}</h1>
+                @elseif(empty($episodeInfo))
+                    <h1>Avis sur la saison {{$seasonInfo->name}}</h1>
+                @else
+                    <h1>Avis sur l'épisode {{affichageNumeroEpisode('', $seasonInfo->name, $episodeInfo->numero, '', false,'')}}</h1>
+                @endif
+
                 @include('comments.last_comments')
             </div>
         </div>

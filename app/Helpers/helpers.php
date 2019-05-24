@@ -110,26 +110,30 @@ function formatRequestInVariableNoSpace($objects) {
  * @return false|string
  */
 function formatDate($lenght, $date) {
-    setlocale(LC_TIME, 'french');
+    if(isset($date)) {
+        setlocale(LC_TIME, 'french');
 
-    switch ($lenght){
-        case 'short':
-            $format = '%d %h %Y';
-            break;
-        case 'long':
-            $format = '%d %B %Y';
-            break;
-        case 'full':
-            $format = '%d %B %Y &agrave; %H:%M';
-            break;
-        default:
-            $format = '%d %M %Y';
-            break;
+        switch ($lenght) {
+            case 'short':
+                $format = '%d %h %Y';
+                break;
+            case 'long':
+                $format = '%d %B %Y';
+                break;
+            case 'full':
+                $format = '%d %B %Y &agrave; %H:%M';
+                break;
+            default:
+                $format = '%d %M %Y';
+                break;
+        }
+        $date = (string)$date;
+        $date_format = strftime($format, strtotime($date));
+
+        return utf8_encode($date_format);
+    }else{
+        return '-';
     }
-    $date = (string) $date;
-    $date_format = strftime($format, strtotime($date));
-
-    return utf8_encode($date_format);
 }
 
 /**
