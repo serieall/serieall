@@ -1,14 +1,14 @@
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.js"></script>
-<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="//cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
-<script src="//cdn.ckeditor.com/4.11.1/full/ckeditor.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
+<script src="/js/libs/jquery-3.2.1.min.js"></script>
+<script src="/js/libs/jquery-ui.min.js"></script>
+<script src="/js/libs/semantic.min.js"></script>
+<script src="/js/libs/jquery.dataTables.min.js"></script>
+<script src="/js/libs/dataTables.semanticui.min.js"></script>
+<script src="/js/libs/ckeditor.js"></script>
+<script src='/js/libs/TweenMax.min.js'></script>
 <script src="/js/spoiler/spoiler.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale/fr.js"></script>
+<script src="/js/libs/moment.min.js"></script>
+<script src="/js/libs/fullcalendar.min.js"></script>
+<script src="/js/libs/fr.js"></script>
 <script src="{{ asset('js/share.js') }}"></script>
 
 <script>
