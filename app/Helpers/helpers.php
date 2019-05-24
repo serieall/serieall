@@ -130,7 +130,7 @@ function formatDate($lenght, $date) {
         $date = (string)$date;
         $date_format = strftime($format, strtotime($date));
 
-        return utf8_encode($date_format);
+        return $date_format;
     }else{
         return '-';
     }
