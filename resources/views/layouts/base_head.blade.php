@@ -4,6 +4,9 @@
 <title>@yield('pageTitle') - Série-All</title>
 <meta name="description" content="@yield('pageDescription')" />
 
+@yield('og')
+
+
 <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
 
 <!-- CSS -->

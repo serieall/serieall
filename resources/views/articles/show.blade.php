@@ -3,6 +3,13 @@
 @section('pageTitle', $article->name)
 @section('pageDescription', 'Webzine communautaire des séries TV - Critiques et actualité des séries tv, notez et laissez vos avis sur les derniers épisodes, créez votre planning ...')
 
+@section('og')
+    <meta property="og:title" content="{{$article->name}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{Request::url()}}" />
+    <meta property="og:image" content="http://serieall.fr{{$article->image}}" />
+@endsection
+
 @section('content')
     <div class="row ui stackable grid">
         <div class="one wide column">
