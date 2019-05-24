@@ -111,7 +111,7 @@ function formatRequestInVariableNoSpace($objects) {
  */
 function formatDate($lenght, $date) {
     if(isset($date)) {
-        setlocale(LC_TIME, 'french');
+        setlocale(LC_TIME, 'fr_FR.utf8');
 
         switch ($lenght) {
             case 'short':
