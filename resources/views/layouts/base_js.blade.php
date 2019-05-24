@@ -1,10 +1,10 @@
 <script src="/js/libs/all_js.js"></script>
 <script src="//cdn.ckeditor.com/4.11.1/full/ckeditor.js"></script>
-<script src='/js/libs/TweenMax.min.js'></script>
-<script src="/js/spoiler/spoiler.js"></script>
-<script src="/js/libs/moment.min.js"></script>
+<script src='/js/libs/TweenMax.min.js' async></script>
+<script src="/js/spoiler/spoiler.js" async></script>
+<script src="/js/libs/moment.min.js" async></script>
 
-<script src="/js/libs/fr.js"></script>
+<script src="/js/libs/fr.js" async></script>
 <script src="{{ asset('js/share.js') }}"></script>
 
 <script>
