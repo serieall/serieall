@@ -23,7 +23,7 @@
             @foreach($comments['last_comment'] as $avis)
                 <div id="{{ $avis->id }}" class="row">
                     <div class="center aligned three wide column">
-                        <a href="{{ route('user.profile', $avis['user']['user_url']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($avis['user']['email']) }}">
+                        <a href="{{ route('user.profile', $avis['user']['user_url']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($avis['user']['email']) }}" alt="Avatar {{$avis['user']['username']}}">
                             {{ $avis['user']['username'] }}</a>
                         <br />
                         {!! roleUser($avis['user']['role']) !!}
@@ -76,7 +76,7 @@
                             @foreach($avis['children'] as $reaction)
                                 <div class="comment">
                                     <a class="avatar">
-                                        <img src="{{ Gravatar::src($reaction->user->email) }}">
+                                        <img src="{{ Gravatar::src($reaction->user->email) }}" alt="Avatar {{$reaction->user->username}}">
                                     </a>
                                     <div class="content">
                                         <a class="author" href="{{route('user.profile', $reaction->user->user_url)}}">{{ $reaction->user->username }}</a>

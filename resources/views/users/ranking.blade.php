@@ -52,7 +52,7 @@
                         <div class="ui items">
                             <div class="item">
                         <span class="ui tiny image">
-                            <img src="{{ Gravatar::src($user->email) }}">
+                            <img src="{{ Gravatar::src($user->email) }}" alt="Avatar de {{$user->username}}">
                         </span>
                                 <div class="content">
                                     <a class="header">{{ $user->username }}</a><br />
@@ -176,9 +176,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($top_shows[0]))
-                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($top_shows) }}">
+                                <img src="{{ ShowPicture($top_shows) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -199,9 +199,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($flop_shows[0]))
-                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($flop_shows) }}">
+                                <img src="{{ ShowPicture($flop_shows) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -222,9 +222,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($top_seasons[0]))
-                                <img src="{{ ShowPicture($top_seasons[0]->show_url) }}">
+                                <img src="{{ ShowPicture($top_seasons[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($top_seasons) }}">
+                                <img src="{{ ShowPicture($top_seasons) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -248,9 +248,9 @@
                         <div class="image">
 
                             @if(isset($flop_seasons[0]))
-                                <img src="{{ ShowPicture($flop_seasons[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_seasons[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($flop_seasons) }}">
+                                <img src="{{ ShowPicture($flop_seasons) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -271,9 +271,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($top_episodes[0]))
-                                <img src="{{ ShowPicture($top_episodes[0]->show_url) }}">
+                                <img src="{{ ShowPicture($top_episodes[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($top_episodes) }}">
+                                <img src="{{ ShowPicture($top_episodes) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -294,9 +294,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($flop_episodes[0]))
-                                <img src="{{ ShowPicture($flop_episodes[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_episodes[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($flop_episodes) }}">
+                                <img src="{{ ShowPicture($flop_episodes) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -319,9 +319,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($top_pilot[0]))
-                                <img src="{{ ShowPicture($top_pilot[0]->show_url) }}">
+                                <img src="{{ ShowPicture($top_pilot[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($top_pilot) }}">
+                                <img src="{{ ShowPicture($top_pilot) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -342,9 +342,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($flop_pilot[0]))
-                                <img src="{{ ShowPicture($flop_pilot[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_pilot[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($flop_pilot) }}">
+                                <img src="{{ ShowPicture($flop_pilot) }}" alt="">
                             @endif
                         </div>
                     </div>

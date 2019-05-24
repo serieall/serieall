@@ -69,7 +69,7 @@
             </a>
         @else
             <a href="{{ route('user.profile', Auth::user()->user_url) }}" class="item">
-                <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
+                <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}"  alt="Avatar de {{Auth::user()->username}}">
                 {{ Auth::user()->username }}
             </a>
             <div class="menu">
@@ -209,7 +209,7 @@
                         </div>
                     </div>
                     <div class="ui pointing labeled icon dropdown link item" @if(isset($navActive) && $navActive === 'profil')id="profilActif"@endif>
-                        <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}">
+                        <img class="ui avatar image" src="{{ Gravatar::src(Auth::user()->email) }}"  alt="Avatar de {{Auth::user()->username}}">
                         <span>{{ Auth::user()->username }}</span> <i class="dropdown icon"></i>
                         <div class="menu">
                             @if(Auth::user()->role < 4)
@@ -409,7 +409,7 @@
                     <div class="ui section divider"></div>
 
                     <div class="ui required field">
-                        <img src="{{ captcha_src() }}" id="captcha_image">
+                        <img src="{{ captcha_src() }}" id="captcha_image" alt="captcha">
                         <span id="reload_captcha" class="ui icon" data-tooltip="Changer l'image">
                             <i class="sync icon"></i>
                         </span>

@@ -21,7 +21,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}" alt="Image illustrative de {{$top_shows[0]->name}}">
                             </div>
                         </div>
                         @foreach($top_shows as $show)
@@ -35,7 +35,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}" alt="Image illustrative de {{$flop_shows[0]->name}}">
                             </div>
                         </div>
                         @foreach($flop_shows as $show)
@@ -49,7 +49,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($top_seasons[0]->show->show_url) }}">
+                                <img src="{{ ShowPicture($top_seasons[0]->show->show_url) }}" alt="Image illustrative de {{$top_seasons[0]->name}}">
                             </div>
                         </div>
                         @foreach($top_seasons as $season)
@@ -63,7 +63,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($flop_seasons[0]->show->show_url) }}">
+                                <img src="{{ ShowPicture($flop_seasons[0]->show->show_url) }}" alt="Image illustrative de {{$flop_seasons[0]->name}}">
                             </div>
                         </div>
                         @foreach($flop_seasons as $season)
@@ -79,7 +79,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($top_episodes[0]->show->show_url) }}">
+                                <img src="{{ ShowPicture($top_episodes[0]->show->show_url) }}" alt="Image illustrative de {{$top_episodes[0]->name}}">
                             </div>
                         </div>
                         @foreach($top_episodes as $episode)
@@ -93,7 +93,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($flop_episodes[0]->show->show_url) }}">
+                                <img src="{{ ShowPicture($flop_episodes[0]->show->show_url) }}" alt="Image illustrative de {{$flop_episodes[0]->name}}">
                             </div>
                         </div>
                         @foreach($flop_episodes as $episode)
@@ -111,7 +111,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($redac_top_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($redac_top_shows[0]->show_url) }}" alt="Image illustrative de {{$redac_top_shows[0]->name}}">
                             </div>
                         </div>
                         @foreach($redac_top_shows as $show)
@@ -125,7 +125,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($redac_flop_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($redac_flop_shows[0]->show_url) }}" alt="Image illustrative de {{$redac_flop_shows[0]->name}}">
                             </div>
                         </div>
                         @foreach($redac_flop_shows as $show)
@@ -139,7 +139,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($redac_top_seasons[0]->show_url) }}">
+                                <img src="{{ ShowPicture($redac_top_seasons[0]->show_url) }}" alt="Image illustrative de {{$redac_top_seasons[0]->name}}">
                             </div>
                         </div>
                         @foreach($redac_top_seasons as $season)
@@ -153,7 +153,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($redac_flop_seasons[0]->show_url) }}">
+                                <img src="{{ ShowPicture($redac_flop_seasons[0]->show_url) }}" alt="Image illustrative de {{$redac_flop_seasons[0]->name}}">
                             </div>
                         </div>
                         @foreach($redac_flop_seasons as $season)
@@ -167,7 +167,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($redac_top_episodes[0]->show_url) }}">
+                                <img src="{{ ShowPicture($redac_top_episodes[0]->show_url) }}" alt="Image illustrative de {{$redac_top_episodes[0]->name}}">
                             </div>
                         </div>
                         @foreach($redac_top_episodes as $episode)
@@ -181,7 +181,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="{{ ShowPicture($redac_flop_episodes[0]->show_url) }}">
+                                <img src="{{ ShowPicture($redac_flop_episodes[0]->show_url) }}" alt="Image illustrative de {{$redac_flop_episodes[0]->name}}">
                             </div>
                         </div>
                         @foreach($redac_flop_episodes as $episode)
@@ -200,9 +200,9 @@
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
                                 @if(count($country_top_us) < 1)
-                                    <img src="/images/shows/default_empty.jpg">
+                                    <img src="/images/shows/default_empty.jpg" alt="">
                                 @else
-                                    <img src="{{ ShowPicture($country_top_us[0]->show_url) }}">
+                                    <img src="{{ ShowPicture($country_top_us[0]->show_url) }}"  alt="Image illustrative de {{$country_top_us[0]->name}}">
                                 @endif
                             </div>
                         </div>
@@ -218,9 +218,9 @@
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
                                 @if(count($country_top_fr) < 1)
-                                    <img src="/images/shows/default_empty.jpg">
+                                    <img src="/images/shows/default_empty.jpg" alt="">
                                 @else
-                                    <img src="{{ ShowPicture($country_top_fr[0]->show_url) }}">
+                                    <img src="{{ ShowPicture($country_top_fr[0]->show_url) }}" alt="Image illustrative de {{$country_top_fr[0]->name}}">
                                 @endif
                             </div>
                         </div>
@@ -236,9 +236,9 @@
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
                                 @if(count($country_top_en) < 1)
-                                    <img src="/images/shows/default_empty.jpg">
+                                    <img src="/images/shows/default_empty.jpg" alt="">
                                 @else
-                                    <img src="{{ ShowPicture($country_top_en[0]->show_url) }}">
+                                    <img src="{{ ShowPicture($country_top_en[0]->show_url) }}" alt="Image illustrative de {{$country_top_en[0]->name}}">
                                 @endif
                             </div>
                         </div>
@@ -258,9 +258,9 @@
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
                                 @if(count($genre_top_drama) < 1)
-                                    <img src="/images/shows/default_empty.jpg">
+                                    <img src="/images/shows/default_empty.jpg" alt="">
                                 @else
-                                    <img src="{{ ShowPicture($genre_top_drama[0]->show_url) }}">
+                                    <img src="{{ ShowPicture($genre_top_drama[0]->show_url) }}" alt="Image illustrative de {{$genre_top_drama[0]->name}}">
                                 @endif
                             </div>
                         </div>
@@ -276,9 +276,9 @@
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
                                 @if(count($genre_top_comedy) < 1)
-                                    <img src="/images/shows/default_empty.jpg">
+                                    <img src="/images/shows/default_empty.jpg" alt="">
                                 @else
-                                    <img src="{{ ShowPicture($genre_top_comedy[0]->show_url) }}">
+                                    <img src="{{ ShowPicture($genre_top_comedy[0]->show_url) }}" alt="Image illustrative de {{$genre_top_comedy[0]->name}}">
                                 @endif
                             </div>
                         </div>
@@ -294,9 +294,9 @@
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
                                 @if(count($genre_top_sf) < 1)
-                                    <img src="/images/shows/default_empty.jpg">
+                                    <img src="/images/shows/default_empty.jpg" alt="">
                                 @else
-                                    <img src="{{ ShowPicture($genre_top_sf[0]->show_url) }}">
+                                    <img src="{{ ShowPicture($genre_top_sf[0]->show_url) }}" alt="Image illustrative de {{$genre_top_sf[0]->name}}">
                                 @endif
                             </div>
                         </div>
@@ -312,9 +312,9 @@
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
                                 @if(count($genre_top_cop) < 1)
-                                    <img src="/images/shows/default_empty.jpg">
+                                    <img src="/images/shows/default_empty.jpg" alt="">
                                 @else
-                                    <img src="{{ ShowPicture($genre_top_cop[0]->show_url) }}">
+                                    <img src="{{ ShowPicture($genre_top_cop[0]->show_url) }}" alt="Image illustrative de {{$genre_top_cop[0]->name}}">
                                 @endif
                             </div>
                         </div>
@@ -333,7 +333,7 @@
 
                         <div class="ui fluid card imageFirstClassement">
                             <div class="image">
-                                <img src="/images/shows/default_empty.jpg">
+                                <img src="/images/shows/default_empty.jpg" alt="">
                             </div>
                         </div>
                         @foreach($channel_top_show as $channel)

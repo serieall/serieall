@@ -9,7 +9,7 @@
                 </div>
                 <div class="row">
                     <div class="center aligned three wide column">
-                        <a href="{{ route('user.profile', $comments['user_comment']['user']['username']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($comments['user_comment']['user']['email']) }}">
+                        <a href="{{ route('user.profile', $comments['user_comment']['user']['username']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($comments['user_comment']['user']['email']) }}"  alt="Avatar {{$comments['user_comment']['user']['username']}}">
                             {{ $comments['user_comment']['user']['username'] }}</a>
                         <br />
                         {!! roleUser($comments['user_comment']['user']['role']) !!}

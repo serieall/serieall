@@ -18,7 +18,7 @@
                 @foreach($users as $user)
                     <tr class="line">
                         <td>
-                            <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
+                            <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}" alt="Avatar de {{$user->username}}">
                             <a href="{{route('user.profile', $user->user_url)}}">{{ $user->username }}</a>
                         </td>
                         <td>

@@ -123,7 +123,7 @@
                     @foreach($ratesSeason['users'] as $rate)
                         <div class="event">
                             <div class="label">
-                                <img src="{{ Gravatar::src($rate['user']['email']) }}">
+                                <img src="{{ Gravatar::src($rate['user']['email']) }}" alt="Avatar de {{$rate['user']['username']}}">
                             </div>
                             <div class="content">
                                 <div class="summary">
