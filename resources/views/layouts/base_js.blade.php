@@ -1,9 +1,5 @@
-<script src="/js/libs/jquery-3.2.1.min.js"></script>
-<script src="/js/libs/jquery-ui.min.js"></script>
-<script src="/js/libs/semantic.min.js"></script>
-<script src="/js/libs/jquery.dataTables.min.js"></script>
-<script src="/js/libs/dataTables.semanticui.min.js"></script>
-<script src="/js/libs/ckeditor.js"></script>
+<script src="/js/libs/all_js.js"></script>
+<script src="//cdn.ckeditor.com/4.11.1/full/ckeditor.js"></script>
 <script src='/js/libs/TweenMax.min.js'></script>
 <script src="/js/spoiler/spoiler.js"></script>
 <script src="/js/libs/moment.min.js"></script>
