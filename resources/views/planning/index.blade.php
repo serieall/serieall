@@ -19,5 +19,6 @@
 @endpush
 
 @push('scripts')
+    <script src="/js/libs/fullcalendar.min.js"></script>
     {!! $calendar->script() !!}
 @endpush

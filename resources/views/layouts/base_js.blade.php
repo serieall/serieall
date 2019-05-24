@@ -7,7 +7,7 @@
 <script src='/js/libs/TweenMax.min.js'></script>
 <script src="/js/spoiler/spoiler.js"></script>
 <script src="/js/libs/moment.min.js"></script>
-<script src="/js/libs/fullcalendar.min.js"></script>
+
 <script src="/js/libs/fr.js"></script>
 <script src="{{ asset('js/share.js') }}"></script>
 

@@ -174,6 +174,11 @@
     </div>
 @endsection
 
+@push('style')
+    {{ Html::style('//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css') }}
+@endpush
+
 @push('scripts')
+    <script src="/js/libs/fullcalendar.min.js"></script>
     {!! $calendar->script() !!}
 @endpush
