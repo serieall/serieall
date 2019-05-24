@@ -18,7 +18,7 @@
             @foreach($comments['last_comment'] as $avis)
                 <div class="row">
                     <div class="center aligned three wide column">
-                        <a href="{{ route('user.profile', $avis['user']['user_url']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($avis['user']['email']) }}"  alt="Avatar {{$user->username}}">
+                        <a href="{{ route('user.profile', $avis['user']['user_url']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($avis['user']['email']) }}"  alt="Avatar {{$avis['user']['username']}}">
                             {{ $avis['user']['username'] }}</a>
                         <br />
                         {!! roleUser($avis['user']['role']) !!}
@@ -71,7 +71,7 @@
             </div>
             <div class="row">
                 <div class="center aligned three wide column">
-                    <a href="{{ route('user.profile', $comments['user_comment']['user']['username']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($comments['user_comment']['user']['email']) }}"  alt="Avatar {{$user->username}}">
+                    <a href="{{ route('user.profile', $comments['user_comment']['user']['username']) }}"><img class="ui tiny avatar image" src="{{ Gravatar::src($comments['user_comment']['user']['email']) }}"  alt="Avatar {{$comments['user_comment']['user']['username']}}">
                         {{ $comments['user_comment']['user']['username'] }}</a>
                     <br />
                     {!! roleUser($comments['user_comment']['user']['role']) !!}
