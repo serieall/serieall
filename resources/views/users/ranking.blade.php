@@ -193,29 +193,7 @@
                         @endcomponent
                     @endforeach
                 </div>
-                <div class="column">
-                    <h2>Flop séries</h2>
 
-                    <div class="ui fluid card imageFirstClassement">
-                        <div class="image">
-                            @if(isset($flop_shows[0]))
-                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}" alt="">
-                            @else
-                                <img src="{{ ShowPicture($flop_shows) }}" alt="">
-                            @endif
-                        </div>
-                    </div>
-                    @if(count($flop_shows) == 0)
-                        @component('components.message_simple', ['type' => 'info'])
-                            Aucune série notée.
-                        @endcomponent
-                    @endif
-                    @foreach($flop_shows as $show)
-                        @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
-                            <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
-                        @endcomponent
-                    @endforeach
-                </div>
                 <div class="column">
                     <h2>Top saisons</h2>
 
@@ -234,32 +212,6 @@
                         @endcomponent
                     @endif
                     @foreach($top_seasons as $season)
-                        @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
-                            <a href="{{ route('season.fiche', [$season->show_url, $season->season_name]) }}">{{ $season->sname }} Saison {{ $season->season_name }}</a>
-                        @endcomponent
-                    @endforeach
-                </div>
-            </div>
-            <div class="ui three column grid stackable">
-                <div class="column">
-                    <h2>Flop saisons</h2>
-
-                    <div class="ui fluid card imageFirstClassement">
-                        <div class="image">
-
-                            @if(isset($flop_seasons[0]))
-                                <img src="{{ ShowPicture($flop_seasons[0]->show_url) }}" alt="">
-                            @else
-                                <img src="{{ ShowPicture($flop_seasons) }}" alt="">
-                            @endif
-                        </div>
-                    </div>
-                    @if(count($flop_seasons) == 0)
-                        @component('components.message_simple', ['type' => 'info'])
-                            Aucune saison notée.
-                        @endcomponent
-                    @endif
-                    @foreach($flop_seasons as $season)
                         @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
                             <a href="{{ route('season.fiche', [$season->show_url, $season->season_name]) }}">{{ $season->sname }} Saison {{ $season->season_name }}</a>
                         @endcomponent
@@ -285,6 +237,55 @@
                     @foreach($top_episodes as $episode)
                         @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
                             <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+            </div>
+            <div class="ui three column grid stackable">
+                <div class="column">
+                    <h2>Flop séries</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            @if(isset($flop_shows[0]))
+                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}" alt="">
+                            @else
+                                <img src="{{ ShowPicture($flop_shows) }}" alt="">
+                            @endif
+                        </div>
+                    </div>
+                    @if(count($flop_shows) == 0)
+                        @component('components.message_simple', ['type' => 'info'])
+                            Aucune série notée.
+                        @endcomponent
+                    @endif
+                    @foreach($flop_shows as $show)
+                        @component('components.classements', ['avg_rate' => $show->moyenne, 'number_rates' => $show->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('show.fiche', $show->show_url) }}">{{ $show->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+                <div class="column">
+                    <h2>Flop saisons</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+
+                            @if(isset($flop_seasons[0]))
+                                <img src="{{ ShowPicture($flop_seasons[0]->show_url) }}" alt="">
+                            @else
+                                <img src="{{ ShowPicture($flop_seasons) }}" alt="">
+                            @endif
+                        </div>
+                    </div>
+                    @if(count($flop_seasons) == 0)
+                        @component('components.message_simple', ['type' => 'info'])
+                            Aucune saison notée.
+                        @endcomponent
+                    @endif
+                    @foreach($flop_seasons as $season)
+                        @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('season.fiche', [$season->show_url, $season->season_name]) }}">{{ $season->sname }} Saison {{ $season->season_name }}</a>
                         @endcomponent
                     @endforeach
                 </div>
