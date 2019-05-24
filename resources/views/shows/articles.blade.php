@@ -30,7 +30,7 @@
                     @foreach($articles as $article)
                         <div class="article item">
                             <div class="ol-{{ colorCategory($article->category_id) }} image article">
-                                <img src="{{ $article->image }}">
+                                <img src="{{ $article->image }}" alt="">
                                 <p>{{ $article->category->name }}</p>
                             </div>
                             <div class="content">
@@ -44,11 +44,10 @@
                                 <div class="extra">
                                     Par
                                     @foreach($article->users as $user)
+                                        <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}" alt="Avatar de {{$user->username}}">
                                         @if($loop->last)
-                                            <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
                                             <span>{{ $user->username }}</span>
                                         @else
-                                            <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
                                             <span>{{ $user->username }}</span>,
                                         @endif
                                     @endforeach

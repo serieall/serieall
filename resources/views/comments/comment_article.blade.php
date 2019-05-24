@@ -2,7 +2,7 @@
     @foreach($comments['last_comment'] as $comment)
         <div class="comment">
             <a class="avatar">
-                <img src="{{ Gravatar::src($comment['user']['email']) }}">
+                <img src="{{ Gravatar::src($comment['user']['email']) }}"  alt="Avatar {{$comment['user']['username']}}">
             </a>
             <div class="content">
                 <a class="author" href="{{ route('user.profile', $comment['user']['user_url'] )}}">{{ $comment['user']['username'] }}</a>
@@ -42,7 +42,7 @@
                 @foreach($comment['children'] as $reaction)
                     <div class="comment">
                         <a class="avatar">
-                            <img src="{{ Gravatar::src($reaction->user->email) }}">
+                            <img src="{{ Gravatar::src($reaction->user->email) }}" alt="Avatar {{$reaction->user->username}}">
                         </a>
                         <div class="content">
                             <a class="author">{{ $reaction->user->username }}</a>

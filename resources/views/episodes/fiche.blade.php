@@ -132,7 +132,7 @@
                 <div class="ui bottom attached active tab segment" data-tab="first">
                     @if(!empty($episodeInfo->picture))
                         <div class="ui center aligned">
-                            <img src="{{ $episodeInfo->picture }}">
+                            <img src="{{ $episodeInfo->picture }}"  alt="Image illustrative de l'épisode">
                         </div>
                     @endif
                     <table class="ui center aligned table">
@@ -297,7 +297,7 @@
                         @foreach($rates->users as $user)
                             <div class="event">
                                 <div class="label">
-                                    <img src="{{ Gravatar::src($user->email) }}">
+                                    <img src="{{ Gravatar::src($user->email) }}"  alt="Avatar de {{$user->username}}">
                                 </div>
                                 <div class="content">
                                     <div class="summary">

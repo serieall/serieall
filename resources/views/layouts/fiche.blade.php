@@ -4,14 +4,14 @@
     <div id="topImageShow"  class="row nobox">
         <div class="column">
             <div class="topImageBanniereContainer">
-                <img class="topImageBanniere" src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
+                <img class="topImageBanniere" src="{!! ShowPicture($showInfo['show']->show_url) !!}" alt="Image illustrative de {{$showInfo['show']->name}}"/>
             </div>
             <div id="topInfo" class="ui stackable grid ficheContainer">
                 <div class="center aligned ten wide column">
                     <div class="ui centered stackable grid">
                         <div id="midaligned" class="four wide column">
                             <div class="topImageAffiche">
-                                <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" />
+                                <img src="{!! ShowPicture($showInfo['show']->show_url) !!}" alt="Image illustrative de {{$showInfo['show']->name}}"/>
                             </div>
                         </div>
                         <div class="twelve wide column">

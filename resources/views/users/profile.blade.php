@@ -52,7 +52,7 @@
                         <div class="ui items">
                             <div class="item">
                         <span class="ui tiny image">
-                            <img src="{{ Gravatar::src($user->email) }}">
+                            <img src="{{ Gravatar::src($user->email) }}" alt="Avatar de {{$user->username}}">
                         </span>
                                 <div class="content">
                                     <a class="header">{{ $user->username }}</a><br />
@@ -178,7 +178,7 @@
                             @foreach($user->articles as $article)
                                 <div class="article item">
                                     <div class="ol-{{ colorCategory($article->category_id) }} image article">
-                                        <img src="{{ $article->image }}">
+                                        <img src="{{ $article->image }}" alt="">
                                         <p>{{ $article->category->name }}</p>
                                     </div>
                                     <div class="content">
@@ -193,10 +193,10 @@
                                             Par
                                             @foreach($article->users as $user)
                                                 @if($loop->last)
-                                                    <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
+                                                    <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}" alt="Avatar de {{$user->username}}">
                                                     <span>{{ $user->username }}</span>
                                                 @else
-                                                    <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}">
+                                                    <img class="ui avatar image" src="{{ Gravatar::src($user->email) }}" alt="Avatar de {{$user->username}}">
                                                     <span>{{ $user->username }}</span>,
                                                 @endif
                                             @endforeach

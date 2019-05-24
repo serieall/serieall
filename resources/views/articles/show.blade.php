@@ -24,7 +24,7 @@
                 <div class="topInfoArticle">
                     <div class="title">
                         <div class="imageArticle">
-                            <img src="{{ $article->image }}">
+                            <img src="{{ $article->image }}" alt="">
                         </div>
                         <div class="ui two column center aligned grid stackable">
                             <div class="row">
@@ -103,7 +103,7 @@
                                 <div class="extra content">
                                     <div class="center aligned author">
                                         <img class="ui avatar image"
-                                             src="{{ Gravatar::src($redac->email) }}"> {{ $redac->username }}
+                                             src="{{ Gravatar::src($redac->email) }}"  alt="Avatar {{$redac->username}}"> {{ $redac->username }}
                                     </div>
                                 </div>
                             </a>

@@ -1,6 +1,6 @@
 <div class="card">
     <a class="image" href="{{route('show.fiche', $show->show_url)}}">
-        <img src="{{ShowPicture($show->show_url)}}">
+        <img src="{{ShowPicture($show->show_url)}}" alt="Image illustrative de {{$show->name}}">
     </a>
     <div class="content">
         <div class="header">

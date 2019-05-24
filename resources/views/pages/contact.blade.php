@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="ui required field {{ $errors->has('captcha') ? ' error' : '' }}">
-                    <img src="{{ captcha_src() }}" id="captcha_image">
+                    <img src="{{ captcha_src() }}" id="captcha_image" alt="captcha">
                     <span id="reload_captcha" class="ui icon" data-tooltip="Changer l'image">
                             <i class="sync icon"></i>
                         </span>

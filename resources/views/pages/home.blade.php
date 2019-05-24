@@ -47,7 +47,7 @@
                                 <div class="center aligned  author">
                                     Par
                                     @foreach($article->users as $redac)
-                                        <img class="ui avatar image" src="{{ Gravatar::src($redac->email) }}"> {{ $redac->username }}
+                                        <img class="ui avatar image" src="{{ Gravatar::src($redac->email) }}" alt="Avatar de {{$redac->username}}"> {{ $redac->username }}
                                     @endforeach
                                 </div>
                             </div>

@@ -52,7 +52,7 @@
                         <div class="ui items">
                             <div class="item">
                         <span class="ui tiny image">
-                            <img src="{{ Gravatar::src($user->email) }}">
+                            <img src="{{ Gravatar::src($user->email) }}" alt="Avatar de {{$user->username}}">
                         </span>
                                 <div class="content">
                                     <a class="header">{{ $user->username }}</a><br />
@@ -176,9 +176,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($top_shows[0]))
-                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($top_shows[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($top_shows) }}">
+                                <img src="{{ ShowPicture($top_shows) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -193,15 +193,64 @@
                         @endcomponent
                     @endforeach
                 </div>
+
+                <div class="column">
+                    <h2>Top saisons</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            @if(isset($top_seasons[0]))
+                                <img src="{{ ShowPicture($top_seasons[0]->show_url) }}" alt="">
+                            @else
+                                <img src="{{ ShowPicture($top_seasons) }}" alt="">
+                            @endif
+                        </div>
+                    </div>
+                    @if(count($top_seasons) == 0)
+                        @component('components.message_simple', ['type' => 'info'])
+                            Aucune saison notée.
+                        @endcomponent
+                    @endif
+                    @foreach($top_seasons as $season)
+                        @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('season.fiche', [$season->show_url, $season->season_name]) }}">{{ $season->sname }} Saison {{ $season->season_name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+                <div class="column">
+                    <h2>Top épisodes</h2>
+
+                    <div class="ui fluid card imageFirstClassement">
+                        <div class="image">
+                            @if(isset($top_episodes[0]))
+                                <img src="{{ ShowPicture($top_episodes[0]->show_url) }}" alt="">
+                            @else
+                                <img src="{{ ShowPicture($top_episodes) }}" alt="">
+                            @endif
+                        </div>
+                    </div>
+                    @if(count($top_episodes) == 0)
+                        @component('components.message_simple', ['type' => 'info'])
+                            Aucun épisode noté.
+                        @endcomponent
+                    @endif
+                    @foreach($top_episodes as $episode)
+                        @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
+                            <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
+                        @endcomponent
+                    @endforeach
+                </div>
+            </div>
+            <div class="ui three column grid stackable">
                 <div class="column">
                     <h2>Flop séries</h2>
 
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($flop_shows[0]))
-                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_shows[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($flop_shows) }}">
+                                <img src="{{ ShowPicture($flop_shows) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -217,40 +266,15 @@
                     @endforeach
                 </div>
                 <div class="column">
-                    <h2>Top saisons</h2>
-
-                    <div class="ui fluid card imageFirstClassement">
-                        <div class="image">
-                            @if(isset($top_seasons[0]))
-                                <img src="{{ ShowPicture($top_seasons[0]->show_url) }}">
-                            @else
-                                <img src="{{ ShowPicture($top_seasons) }}">
-                            @endif
-                        </div>
-                    </div>
-                    @if(count($top_seasons) == 0)
-                        @component('components.message_simple', ['type' => 'info'])
-                            Aucune saison notée.
-                        @endcomponent
-                    @endif
-                    @foreach($top_seasons as $season)
-                        @component('components.classements', ['avg_rate' => $season->moyenne, 'number_rates' => $season->nbnotes, 'loop' => $loop])
-                            <a href="{{ route('season.fiche', [$season->show_url, $season->season_name]) }}">{{ $season->sname }} Saison {{ $season->season_name }}</a>
-                        @endcomponent
-                    @endforeach
-                </div>
-            </div>
-            <div class="ui three column grid stackable">
-                <div class="column">
                     <h2>Flop saisons</h2>
 
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
 
                             @if(isset($flop_seasons[0]))
-                                <img src="{{ ShowPicture($flop_seasons[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_seasons[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($flop_seasons) }}">
+                                <img src="{{ ShowPicture($flop_seasons) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -266,37 +290,14 @@
                     @endforeach
                 </div>
                 <div class="column">
-                    <h2>Top épisodes</h2>
-
-                    <div class="ui fluid card imageFirstClassement">
-                        <div class="image">
-                            @if(isset($top_episodes[0]))
-                                <img src="{{ ShowPicture($top_episodes[0]->show_url) }}">
-                            @else
-                                <img src="{{ ShowPicture($top_episodes) }}">
-                            @endif
-                        </div>
-                    </div>
-                    @if(count($top_episodes) == 0)
-                        @component('components.message_simple', ['type' => 'info'])
-                            Aucun épisode noté.
-                        @endcomponent
-                    @endif
-                    @foreach($top_episodes as $episode)
-                        @component('components.classements', ['avg_rate' => $episode->moyenne, 'number_rates' => $episode->nbnotes, 'loop' => $loop])
-                            <a href="{{ route('episode.fiche', [$episode->show_url, $episode->season_name, $episode->numero, $episode->id]) }}">{{$episode->sname}} / {{ sprintf('%02s', $episode->season_name) }}.{{ $episode->numero }} {{ $episode->name }}</a>
-                        @endcomponent
-                    @endforeach
-                </div>
-                <div class="column">
                     <h2>Flop épisodes</h2>
 
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($flop_episodes[0]))
-                                <img src="{{ ShowPicture($flop_episodes[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_episodes[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($flop_episodes) }}">
+                                <img src="{{ ShowPicture($flop_episodes) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -319,9 +320,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($top_pilot[0]))
-                                <img src="{{ ShowPicture($top_pilot[0]->show_url) }}">
+                                <img src="{{ ShowPicture($top_pilot[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($top_pilot) }}">
+                                <img src="{{ ShowPicture($top_pilot) }}" alt="">
                             @endif
                         </div>
                     </div>
@@ -342,9 +343,9 @@
                     <div class="ui fluid card imageFirstClassement">
                         <div class="image">
                             @if(isset($flop_pilot[0]))
-                                <img src="{{ ShowPicture($flop_pilot[0]->show_url) }}">
+                                <img src="{{ ShowPicture($flop_pilot[0]->show_url) }}" alt="">
                             @else
-                                <img src="{{ ShowPicture($flop_pilot) }}">
+                                <img src="{{ ShowPicture($flop_pilot) }}" alt="">
                             @endif
                         </div>
                     </div>
