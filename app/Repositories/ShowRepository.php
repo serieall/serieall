@@ -440,8 +440,8 @@ class ShowRepository
     }
 
     public function getLastAddedShows() {
-        return Cache::remember(ShowRepository::LAST_ADDED_SHOW_CACHE_KEY, Config::get('constants.cacheDuration.medium'), function () {
+//        return Cache::remember(ShowRepository::LAST_ADDED_SHOW_CACHE_KEY, Config::get('constants.cacheDuration.medium'), function () {
             return $this->show->orderBy('created_at', 'desc')->limit(12)->get();
-        });
+//        });
     }
 }
