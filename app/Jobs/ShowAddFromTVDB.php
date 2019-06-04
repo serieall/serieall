@@ -12,6 +12,7 @@ use App\Models\Season;
 use App\Models\Episode;
 
 use Carbon\Carbon;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -19,6 +20,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class ShowAddFromTVDB
@@ -984,64 +986,68 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         | On précise la version de l'API a utiliser, que l'on veut recevoir du JSON.
         | On passe également en paramètre le token.
         */
-        $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page=1', [
-            'headers' => [
-                'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                'Authorization' => 'Bearer ' . $token,
-                'Accept-Language' => 'en']
-        ])->getBody();
+        try {
+            $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID . '/episodes?page=1', [
+                'headers' => [
+                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept-Language' => 'en']
+            ]);
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | Décodage du JSON
         |--------------------------------------------------------------------------
         */
-        $getEpisodes_en = json_decode($getEpisodes_en);
+            $getEpisodes_en = json_decode($getEpisodes_en);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Récupération des variables sur le nombre de pages du JSON de la liste des épisodes
-        |--------------------------------------------------------------------------
-        */
-        $getEpisodeNextPage = $getEpisodes_en->links->next;
-        $getEpisodeLastPage = $getEpisodes_en->links->last;
-        $getEpisodes = $getEpisodes_en->data;
+            /*
+            |--------------------------------------------------------------------------
+            | Récupération des variables sur le nombre de pages du JSON de la liste des épisodes
+            |--------------------------------------------------------------------------
+            */
+            $getEpisodeNextPage = $getEpisodes_en->links->next;
+            $getEpisodeLastPage = $getEpisodes_en->links->last;
+            $getEpisodes = $getEpisodes_en->data;
 
-        /*
-        |--------------------------------------------------------------------------
-        | Exécution de la récupération des informations de l'épisode
-        |--------------------------------------------------------------------------
-        | S'il n'y a pas de Page 'Next', on se cantonne à une seule, et on execute la fonction de récupération des
-        | informations.
-        | S'il y a plusieurs pages, pour chaque page, on lance une nouvelle récupération des informations pour chaque
-        | page et on exécute la fonction de récupération des informations.
-        */
-        if(is_null($getEpisodeNextPage)){
-            $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url);
-        }
-        else{
-            $logMessage = '>>>En cours, page n°1';
-            saveLogMessage($idLog, $logMessage);
-
-            $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url);
-
-            while($getEpisodeNextPage <= $getEpisodeLastPage) {
-                $logMessage = 'En cours, page n°'.$getEpisodeNextPage;
+            /*
+            |--------------------------------------------------------------------------
+            | Exécution de la récupération des informations de l'épisode
+            |--------------------------------------------------------------------------
+            | S'il n'y a pas de Page 'Next', on se cantonne à une seule, et on execute la fonction de récupération des
+            | informations.
+            | S'il y a plusieurs pages, pour chaque page, on lance une nouvelle récupération des informations pour chaque
+            | page et on exécute la fonction de récupération des informations.
+            */
+            if (is_null($getEpisodeNextPage)) {
+                $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url);
+            } else {
+                $logMessage = '>>>En cours, page n°1';
                 saveLogMessage($idLog, $logMessage);
 
-                $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID .'/episodes?page='. $getEpisodeNextPage, [
-                    'headers' => [
-                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                        'Authorization' => 'Bearer ' . $token,
-                        'Accept-Language' => 'en']
-                ])->getBody();
-
-                $getEpisodes_en = json_decode($getEpisodes_en);
-                $getEpisodes = $getEpisodes_en->data;
-
                 $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url);
-                $getEpisodeNextPage++;
+
+                while ($getEpisodeNextPage <= $getEpisodeLastPage) {
+                    $logMessage = 'En cours, page n°' . $getEpisodeNextPage;
+                    saveLogMessage($idLog, $logMessage);
+
+                    $getEpisodes_en = $client->request('GET', '/series/' . $theTVDBID . '/episodes?page=' . $getEpisodeNextPage, [
+                        'headers' => [
+                            'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                            'Authorization' => 'Bearer ' . $token,
+                            'Accept-Language' => 'en']
+                    ])->getBody();
+
+                    $getEpisodes_en = json_decode($getEpisodes_en);
+                    $getEpisodes = $getEpisodes_en->data;
+
+                    $this->AddEpisodeOneByOne($getEpisodes, $api_version, $token, $show_new, $idLog, $api_url);
+                    $getEpisodeNextPage++;
+                }
             }
+        }
+        catch (ClientException $e) {
+            Log::debug("No episodes");
         }
 
         endJob($idLog);
