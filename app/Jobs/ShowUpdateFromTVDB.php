@@ -9,12 +9,14 @@ use App\Models\Season;
 use App\Models\Episode;
 
 use Carbon\Carbon;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use GuzzleHttp\Client;
 
+use Illuminate\Support\Facades\Log;
 use \Illuminate\Support\Str;
 
 /**
@@ -909,14 +911,13 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                 | On commence par récupérer les chaines du formulaire
                 */
                 /* Récupération de la photo de l'acteur */
-                $file = 'https://www.thetvdb.com/banners/series/'. $idSerie . '/actors';
+                $file = 'https://www.thetvdb.com/banners/series/' . $idSerie . '/actors';
                 $file_headers = get_headers($file);
-                if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     $logMessage = '>>>Pas d\'acteurs pour la série.';
                     saveLogMessage($idLog, $logMessage);
-                }
-                else {
-                    $getActors = $client->request('GET', '/series/'. $idSerie . '/actors', [
+                } else {
+                    $getActors = $client->request('GET', '/series/' . $idSerie . '/actors', [
                         'headers' => [
                             'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                             'Authorization' => 'Bearer ' . $token]
@@ -930,7 +931,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                     $actors = json_decode($getActors);
                     $actors = $actors->data;
 
-                    if(!is_null($actors)) {
+                    if (!is_null($actors)) {
                         $logMessage = '>>ACTEURS';
                         saveLogMessage($idLog, $logMessage);
 
@@ -951,7 +952,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             # Vérification de la présence de l'acteur
                             $actor_ref = Artist::where('artist_url', $actor_url)->first();
 
-                            if(is_null($actor_ref)) {
+                            if (is_null($actor_ref)) {
                                 # On prépare le nouvel acteur
                                 $actor_ref = new Artist([
                                     'name' => $actor,
@@ -967,17 +968,15 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                 /* Récupération de la photo de l'acteur */
                                 $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
                                 $file_headers = get_headers($file);
-                                if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                                    $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
+                                if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                    $logMessage = '>>>Pas d\'image pour l\'acteur ' . $actorName . '.';
                                     saveLogMessage($idLog, $logMessage);
-                                }
-                                else {
+                                } else {
                                     copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
-                                    $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
+                                    $logMessage = '>>>Image pour l\'acteur ' . $actorName . ' récupérée.';
                                     saveLogMessage($idLog, $logMessage);
                                 }
-                            }
-                            else {
+                            } else {
                                 # On vérifie s'il est déjà lié à la série
 
                                 $actor_liaison = $actor_ref->shows()
@@ -986,14 +985,13 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                     ->get()
                                     ->toArray();
 
-                                if(empty($actor_liaison)){
+                                if (empty($actor_liaison)) {
                                     # On lie l'acteur à la série
                                     $logMessage = '>>>Liaison de l\'acteur ' . $actorName . '.';
                                     saveLogMessage($idLog, $logMessage);
 
                                     $serieInBDD->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
-                                }
-                                else{
+                                } else {
                                     # On vérifie que le rôle de l'acteur est à TBA
                                     $actor_role = $actor_ref->shows()
                                         ->where('shows.thetvdb_id', $idSerie)
@@ -1002,9 +1000,9 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                         ->pluck('shows.id')
                                         ->toArray();
 
-                                    if(!empty($actor_role)){
+                                    if (!empty($actor_role)) {
                                         # On vérifie que le rôle est rempli sur TheTVDB
-                                        if($actorRole != 'TBA'){
+                                        if ($actorRole != 'TBA') {
                                             # On met à jour le rôle
                                             $logMessage = '>>>Mise à jour du rôle de l\'acteur : ' . $actor . '-' . $actorRole;
                                             saveLogMessage($idLog, $logMessage);
@@ -1025,64 +1023,68 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                 |--------------------------------------------------------------------------
                 */
 
-                $getEpisodes_en = $client->request('GET', '/series/' . $idSerie .'/episodes?page=1', [
-                    'headers' => [
-                        'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                        'Authorization' => 'Bearer ' . $token,
-                        'Accept-Language' => 'en']
-                ])->getBody();
+                try {
+                    $getEpisodes_en = $client->request('GET', '/series/' . $idSerie . '/episodes?page=1', [
+                        'headers' => [
+                            'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                            'Authorization' => 'Bearer ' . $token,
+                            'Accept-Language' => 'en']
+                    ])->getBody();
 
-                /*
-                |--------------------------------------------------------------------------
-                | Décodage du JSON
-                |--------------------------------------------------------------------------
-                */
-                $getEpisodes_en = json_decode($getEpisodes_en);
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Décodage du JSON
+                    |--------------------------------------------------------------------------
+                    */
+                    $getEpisodes_en = json_decode($getEpisodes_en);
 
-                /*
-                |--------------------------------------------------------------------------
-                | Récupération des variables sur le nombre de pages du JSON de la liste des épisodes
-                |--------------------------------------------------------------------------
-                */
-                $getEpisodeNextPage = $getEpisodes_en->links->next;
-                $getEpisodeLastPage = $getEpisodes_en->links->last;
-                $getEpisodes = $getEpisodes_en->data;
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Récupération des variables sur le nombre de pages du JSON de la liste des épisodes
+                    |--------------------------------------------------------------------------
+                    */
+                    $getEpisodeNextPage = $getEpisodes_en->links->next;
+                    $getEpisodeLastPage = $getEpisodes_en->links->last;
+                    $getEpisodes = $getEpisodes_en->data;
 
-                /*
-                |--------------------------------------------------------------------------
-                | Exécution de la récupération des informations de l'épisode
-                |--------------------------------------------------------------------------
-                | S'il n'y a pas de Page 'Next', on se cantonne à une seule, et on execute la fonction de récupération des
-                | informations.
-                | S'il y a plusieurs pages, pour chaque page, on lance une nouvelle récupération des informations pour chaque
-                | page et on exécute la fonction de récupération des informations.
-                */
-                if(is_null($getEpisodeNextPage)){
-                    $this->UpdateEpisodeOneByOne($getEpisodes, $api_version, $token, $serieInBDD, $idLog, $api_url);
-                }
-                else{
-                    $logMessage = 'En cours, page n°1';
-                    saveLogMessage($idLog, $logMessage);
-
-                    $this->UpdateEpisodeOneByOne($getEpisodes, $api_version, $token, $serieInBDD, $idLog, $api_url);
-
-                    while($getEpisodeNextPage <= $getEpisodeLastPage) {
-                        $logMessage = 'En cours, page n°'.$getEpisodeNextPage;
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Exécution de la récupération des informations de l'épisode
+                    |--------------------------------------------------------------------------
+                    | S'il n'y a pas de Page 'Next', on se cantonne à une seule, et on execute la fonction de récupération des
+                    | informations.
+                    | S'il y a plusieurs pages, pour chaque page, on lance une nouvelle récupération des informations pour chaque
+                    | page et on exécute la fonction de récupération des informations.
+                    */
+                    if (is_null($getEpisodeNextPage)) {
+                        $this->UpdateEpisodeOneByOne($getEpisodes, $api_version, $token, $serieInBDD, $idLog, $api_url);
+                    } else {
+                        $logMessage = 'En cours, page n°1';
                         saveLogMessage($idLog, $logMessage);
 
-                        $getEpisodes_en = $client->request('GET', '/series/' . $idSerie .'/episodes?page='. $getEpisodeNextPage, [
-                            'headers' => [
-                                'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                                'Authorization' => 'Bearer ' . $token,
-                                'Accept-Language' => 'en']
-                        ])->getBody();
-
-                        $getEpisodes_en = json_decode($getEpisodes_en);
-                        $getEpisodes = $getEpisodes_en->data;
-
                         $this->UpdateEpisodeOneByOne($getEpisodes, $api_version, $token, $serieInBDD, $idLog, $api_url);
-                        $getEpisodeNextPage++;
+
+                        while ($getEpisodeNextPage <= $getEpisodeLastPage) {
+                            $logMessage = 'En cours, page n°' . $getEpisodeNextPage;
+                            saveLogMessage($idLog, $logMessage);
+
+                            $getEpisodes_en = $client->request('GET', '/series/' . $idSerie . '/episodes?page=' . $getEpisodeNextPage, [
+                                'headers' => [
+                                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                                    'Authorization' => 'Bearer ' . $token,
+                                    'Accept-Language' => 'en']
+                            ])->getBody();
+
+                            $getEpisodes_en = json_decode($getEpisodes_en);
+                            $getEpisodes = $getEpisodes_en->data;
+
+                            $this->UpdateEpisodeOneByOne($getEpisodes, $api_version, $token, $serieInBDD, $idLog, $api_url);
+                            $getEpisodeNextPage++;
+                        }
                     }
+                }
+                catch (ClientException $e) {
+                    Log::debug("No episodes");
                 }
             }
         }
@@ -1091,6 +1093,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         if($deltaLastNext >= $secondsWeek){
             $nextUpdate = $lastUpdate + $secondsWeek;
         }
+
 
         $logMessage = '----- Mise à jour du timestamp -----';
         saveLogMessage($idLog, $logMessage);
