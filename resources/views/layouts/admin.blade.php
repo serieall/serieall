@@ -67,7 +67,7 @@
                 @yield('breadcrumbs')
             </div>
             <div class="right menu">
-                <a  class="item" href="http://wiki.serieall.fr">
+                <a  class="item" href="https://wiki.serieall.fr">
                     <div>
                     Wiki
                         <i id="icon-wiki" class="help circle icon"></i>
