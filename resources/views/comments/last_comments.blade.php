@@ -38,7 +38,7 @@
                             <tr>
                                 <td colspan="2" class="AvisResume">
                                     @if(((Auth::check() && Auth::user()->antispoiler == 1) || !Auth::check())
-                                        && $avis['spoiler']))
+                                        && $avis['spoiler'])
                                         <div class="spoiler">
                                             <div class="spoiler-title">
                                                 <div class="spoiler-toggle hide-icon"></div>
