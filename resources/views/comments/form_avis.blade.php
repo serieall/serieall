@@ -27,7 +27,7 @@
                 <div class="textarea input">
                          <textarea name="avis" id="avis" class="avis" placeholder="Écrivez votre avis ici...">
                              @if(!empty($comments['user_comment']))
-                                 {{ $comments['user_comment']['message'] }}
+                                 {!! affichageMessageWithLineBreak($comments['user_comment']['message']) !!}
                              @endif
                          </textarea>
 
