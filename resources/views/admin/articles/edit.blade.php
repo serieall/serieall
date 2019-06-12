@@ -278,12 +278,11 @@
 	    CKEDITOR.plugins.addExternal( 'wordcount', '/js/ckeditor/plugins/wordcount/plugin.js' );
 	    CKEDITOR.plugins.addExternal( 'youtube', '/js/ckeditor/plugins/youtube/plugin.js' );
         CKEDITOR.plugins.addExternal( 'nbsp', '/js/ckeditor/plugins/nbsp/plugin.js' );
-        CKEDITOR.plugins.addExternal( 'specialchar', '/js/ckeditor/plugins/specialchar/plugin.js' );
         CKEDITOR.replace( 'article' ,
             {
                 toolbar: 'Basic',
                 filebrowserBrowseUrl : '/js/elFinder/elfinder_cke.html',
-                extraPlugins: 'spoiler,wordcount,youtube, nbsp, specialchar',
+                extraPlugins: 'spoiler,wordcount,youtube, nbsp',
                 wordcount: {
                     showCharCount: true,
                     showWordCount: false,
