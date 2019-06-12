@@ -7,7 +7,7 @@
         <?php $type_comment = "Episode"; ?>
     @endif
 
-    <div id="cardsRates" class="ui four cards">
+    <div id="cardsRates" class="ui four stackable cards">
         @foreach($comments as $comment)
             <div class="card">
                 <div class="image">
