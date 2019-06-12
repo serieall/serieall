@@ -22,7 +22,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="AvisResume">
-                                    {!! $comments['user_comment']['message'] !!}
+                                    {!! affichageMessageWithLineBreak($comments['user_comment']['message']) !!}
                                 </td>
 
                             </tr>

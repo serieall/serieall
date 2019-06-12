@@ -210,7 +210,10 @@ function affichageThumbIcon($thumb) {
  */
 function affichageMessageWithLineBreak($message){
     if(!strstr($message,'<p>')){
-        return str_replace("\n", '<br />', $message);
+        $resultMessage = '<p>'.$message.'</p>';
+        $resultMessage = str_replace("\n", '</p><p>', $resultMessage);
+        $resultMessage = str_replace('<p></p>', '', $resultMessage);
+        return $resultMessage;
     }else {
         return $message; //Already Formatted text
     }

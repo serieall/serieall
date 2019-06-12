@@ -11,7 +11,7 @@ return [
 
     /* Notations */
     'noteMax' => 20,
-    'good' => 13,
+    'good' => 12,
     'neutral' => 10,
     'bad' => 0,
 
