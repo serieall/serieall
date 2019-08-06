@@ -48,6 +48,7 @@
         "files": [
             "app/Helpers/fiches.php",
             "app/Helpers/helpers.php",
+            "app/Helpers/images.php",
             "app/Helpers/logs.php",
             "app/Helpers/users.php"
         ]

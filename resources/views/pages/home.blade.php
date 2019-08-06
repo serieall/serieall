@@ -129,7 +129,8 @@
                     @foreach($last_added_shows as $show)
                         <div class="hvr-rotate">
                             <a href="{{ route('show.fiche', $show->show_url) }}">
-                                <img src="{{ ShowPicture($show->show_url) }}" alt="">
+
+                                <img src="{{ getImage($show->thetvdb_id, $show->show_url, "poster", "170_250") }}" alt="">
                                 <span class="overlay_shows_moment">{{ $show->name }} | {!! affichageNote($show->moyenne) !!}</span>
                             </a>
                         </div>

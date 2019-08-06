@@ -52,6 +52,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
     'forum_url' => env('FORUM_URL', 'https://forum.journeytotheit.ovh'),
+    'goapi_url' => env('GOAPI_URL', 'http://localhost:8080'),
+    'goapi_secret' => env('GOAPI_SECRET', 'secret'),
 
     /*
     |--------------------------------------------------------------------------
