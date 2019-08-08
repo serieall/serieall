@@ -9,9 +9,10 @@ class GoApiImage {
     public $size = "";
  }
 
-function getImage($tvdbid, $name, $type, $size) {
+function getImage($tvdbid, $url, $name, $type, $size) {
     $body = new GoApiImage();
     $body->id = $tvdbid;
+    $body->url = $url;
     $body->name = $name;
     $body->type = $type;
     $body->size = $size;
@@ -27,7 +28,6 @@ function getImage($tvdbid, $name, $type, $size) {
     if($response->getStatusCode() != 200) {
         return "/var/www/images/original/default.jpg";
     }
-
 
     return json_decode($response->getBody())->url;
 }

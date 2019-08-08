@@ -9,6 +9,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    # {"apikey": "64931690DCC5FC6B", "userkey": "6EE6A1F4BF0DDA46", "username": "Youkoulayley"}
     'apikey' => '64931690DCC5FC6B',
     'username' => 'Youkoulayley',
     'userkey' => '6EE6A1F4BF0DDA46',
