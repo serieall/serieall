@@ -32,7 +32,7 @@
                                 <div class="header">{{ $article->name }}</div>
                             </div>
                             <div class="image article">
-                                <img src="{{ getImage(0, config('app.url') . $article->image, pathinfo($article->image)['filename'], "banner", "290_100") }}" alt="Image article">
+                                <img src="{{ getImage(0, config('app.url') . $article->image, pathinfo($article->image)['filename'], "banner", "333_100") }}" alt="Image article">
                             </div>
                             <div class="content">
                                 <div class="meta">
