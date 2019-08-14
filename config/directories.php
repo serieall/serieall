@@ -11,6 +11,7 @@ return [
 
     'images' => '/images/',
     'shows' => '/images/shows/',
+    'original' => 'images/original',
     'actors' => '/images/actors/',
     'articles' => '/images/articles/',
     'podcasts' => '/podcasts/',

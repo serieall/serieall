@@ -136,13 +136,22 @@ class AdminShowController extends Controller
         $show = $this->showRepository->getByID($inputs['id']);
         # Ajout de l'image
         if (Input::hasFile('poster') && Input::file('poster')->isValid()) {
-            Log::info('toto');
-            $destinationPath = public_path() . config('directories.shows');
+            $destinationPath = public_path() . config('directories.original');
             $extension = 'jpg';
-            $fileName = $show->show_url . '.' . $extension;
+            $fileName = $show->show_url . '-poster' . '.' . $extension;
             Input::file('poster')->move($destinationPath, $fileName);
+            publishImage(config('app.url') . config('directories.original') . $fileName, $show->name, "poster", "middle", true);
         }
         unset($inputs['poster']);
+
+        if (Input::hasFile('banner') && Input::file('banner')->isValid()) {
+            $destinationPath = public_path() . config('directories.original');
+            $extension = 'jpg';
+            $fileName = $show->show_url . '-banner' . '.' . $extension;
+            Input::file('poster')->move($destinationPath, $fileName);
+            publishImage(config('app.url') . config('directories.original') . $fileName, $show->name, "banner", "middle", true);
+        }
+        unset($inputs['banner']);
 
         $dispatchOK = $this->showRepository->updateManuallyShowJob($inputs);
 
