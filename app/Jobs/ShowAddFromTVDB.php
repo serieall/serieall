@@ -19,6 +19,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 
 use GuzzleHttp\Client;
+use Illuminate\Foundation\Bootstrap\HandleExceptions;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
@@ -490,7 +491,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $idLog = initJob($this->inputs['user_id'], 'Ajout via TVDB', 'Show', $this->inputs['thetvdb_id']);
-        
+
         /*
         |--------------------------------------------------------------------------
         | Définition des variables
@@ -691,21 +692,14 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
         /* Récupération de l'affiche de la série
          */
-        publishImage($show_new->thetvdb_id, $show_new->show_url, $show_new->name, "poster", "200_200");
+        $url = 'https://www.thetvdb.com/banners/posters/'. $show_new->thetvdb_id . '-1.jpg';
+        publishImage($url, $show_new->name, "poster", "middle", true);
 
         /* Récupération de la bannière
          */
-        $file = 'https://www.thetvdb.com/banners/graphical/' . $show_new->thetvdb_id . '-g.jpg';
-        $file_headers = get_headers($file);
-        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found' || $file_headers[8] == 'HTTP/1.1 404 Not Found') {
-            $logMessage = '>>Pas d\'image pour la série.';
-            saveLogMessage($idLog, $logMessage);
-        }
-        else {
-            copy($file, $public . '/images/shows/' . $show_new->show_url . '-banner.jpg');
-            $logMessage = '>>Image pour la série récupérée.';
-            saveLogMessage($idLog, $logMessage);
-        }
+        $url = 'https://www.thetvdb.com/banners/graphical/' . $show_new->thetvdb_id . '-g.jpg';
+        publishImage($url, $show_new->name, "banner", "middle", true);
+
 
         /*
         |--------------------------------------------------------------------------
@@ -982,13 +976,13 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                     'Authorization' => 'Bearer ' . $token,
                     'Accept-Language' => 'en']
-            ]);
+            ])->getBody();
 
             /*
-        |--------------------------------------------------------------------------
-        | Décodage du JSON
-        |--------------------------------------------------------------------------
-        */
+            |--------------------------------------------------------------------------
+            | Décodage du JSON
+            |--------------------------------------------------------------------------
+            */
             $getEpisodes_en = json_decode($getEpisodes_en);
 
             /*
@@ -1038,6 +1032,9 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         }
         catch (ClientException $e) {
             Log::debug("No episodes");
+        }
+        catch (HandleExceptions $e) {
+            Log::debug("Can't decode.");
         }
 
         endJob($idLog);
