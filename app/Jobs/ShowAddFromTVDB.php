@@ -691,17 +691,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
 
         /* Récupération de l'affiche de la série
          */
-        $file = 'https://www.thetvdb.com/banners/posters/'. $show_new->thetvdb_id . '-1.jpg';
-        $file_headers = get_headers($file);
-        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found' || $file_headers[8] == 'HTTP/1.1 404 Not Found') {
-            $logMessage = '>>Pas d\'image pour la série.';
-            saveLogMessage($idLog, $logMessage);
-        }
-        else {
-            copy($file, $public . '/images/shows/' . $show_new->show_url . '.jpg');
-            $logMessage = '>>Image pour la série récupérée.';
-            saveLogMessage($idLog, $logMessage);
-        }
+        publishImage($show_new->thetvdb_id, $show_new->show_url, $show_new->name, "poster", "200_200");
 
         /* Récupération de la bannière
          */
