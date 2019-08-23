@@ -693,12 +693,12 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         /* Récupération de l'affiche de la série
          */
         $url = 'https://www.thetvdb.com/banners/posters/'. $show_new->thetvdb_id . '-1.jpg';
-        publishImage($url, $show_new->name, "poster", "middle", true);
+        publishImage($url, $show_new->show_url, "poster", "middle", true);
 
         /* Récupération de la bannière
          */
         $url = 'https://www.thetvdb.com/banners/graphical/' . $show_new->thetvdb_id . '-g.jpg';
-        publishImage($url, $show_new->name, "banner", "middle", true);
+        publishImage($url, $show_new->show_url, "banner", "middle", true);
 
 
         /*

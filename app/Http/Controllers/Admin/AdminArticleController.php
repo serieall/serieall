@@ -160,16 +160,16 @@ class AdminArticleController extends Controller
         if($inputs['one'] == 1 && !empty($inputs['show'])) {
             // We fetch the show and initiate image
             $show = $this->showRepository->getShowByID($inputs['show']);
-            $article->image = config('directories.shows') . $show->show_url . '.jpg';
+            $article->image = config('directories.original') . $show->show_url . '.jpg';
         }
 
         # Add the image
         if (Input::hasfile('image') && Input::file('image')->isValid()) {
-            $destinationPath = public_path() . config('directories.articles');
+            $destinationPath = public_path() . config('directories.original');
             $extension = 'jpg';
             $fileName = $article->article_url . '.' . $extension;
 
-            $article->image = config('directories.articles') . $fileName;
+            $article->image = config('directories.original') . $fileName;
 
             Input::file('image')->move($destinationPath, $fileName);
             Log::info('Image OK');
