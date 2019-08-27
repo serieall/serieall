@@ -148,7 +148,7 @@ class AdminShowController extends Controller
             $destinationPath = public_path() . config('directories.original');
             $extension = 'jpg';
             $fileName = $show->show_url . '-banner' . '.' . $extension;
-            Input::file('poster')->move($destinationPath, $fileName);
+            Input::file('banner')->move($destinationPath, $fileName);
             publishImage(config('app.url') . config('directories.original') . $fileName, $show->show_url, "banner", "middle", true);
         }
         unset($inputs['banner']);

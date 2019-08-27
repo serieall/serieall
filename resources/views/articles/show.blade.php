@@ -31,7 +31,7 @@
                 <div class="topInfoArticle">
                     <div class="title">
                         <div class="imageArticle">
-                            <img src="{{ getImage(0, config('app.url') . $article->image, pathinfo($article->image)['filename'], "banner", "943_227") }}" alt="">
+                            <img src="{{ getImage(0, config('app.url') . $article->image, pathinfo($article->image)['filename'], "banner", "950_230") }}" alt="">
                         </div>
                         <div class="ui two column center aligned grid stackable">
                             <div class="row">
