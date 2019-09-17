@@ -31,7 +31,7 @@
                 <div class="topInfoArticle">
                     <div class="title">
                         <div class="imageArticle">
-                            <img src="{{ $article->image }}" alt="">
+                            <img src="{{ getImage(0, config('app.url') . $article->image, pathinfo($article->image)['filename'], "banner", "950_230") }}" alt="">
                         </div>
                         <div class="ui two column center aligned grid stackable">
                             <div class="row">
@@ -167,7 +167,7 @@
                     <div class="articleShow">
                         <div class="ui grid" id="linkedObject">
                             <div class="articleShowImage">
-                                <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
+                                <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "banner", "333_100") }}" alt="Image {{ $show->name }}">
                             </div>
                             <div class="row show">
                                 <div class="eleven wide column">

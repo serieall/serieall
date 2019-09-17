@@ -39,7 +39,7 @@
             ;
         });
 
-        @if(Route::current()->getName() == 'inscription')
+        @if(Route::currentRouteName() == 'inscription')
             $('.second.modal').modal('show');
         @endif
 

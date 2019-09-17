@@ -174,7 +174,7 @@ class RateRepository
      * @return array
      */
     public function getRatesAggregateByShowForUser($user_id, $order) {
-        $sql = "select sh.name, sh.show_url, sh.format, sh.format * COUNT(eu.rate) AS minutes, COUNT(eu.rate) nb_rate, TRIM(ROUND(AVG(eu.rate),2))+0 avg_rate, u.username
+        $sql = "select sh.thetvdb_id, sh.name, sh.show_url, sh.format, sh.format * COUNT(eu.rate) AS minutes, COUNT(eu.rate) nb_rate, TRIM(ROUND(AVG(eu.rate),2))+0 avg_rate, u.username
             FROM shows sh, seasons s, episodes e, users u, episode_user eu
             WHERE sh.id = s.show_id
             AND s.id = e.season_id

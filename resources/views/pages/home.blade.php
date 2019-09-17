@@ -18,7 +18,7 @@
                     @foreach($shows_moment as $show)
                         <div class="hvr-rotate">
                             <a href="{{ route('show.fiche', $show->show_url) }}">
-                                <img src="{{ ShowPicture($show->show_url) }}" alt="">
+                                <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "poster", "170_250") }}" alt="poster">
                                 <span class="overlay_shows_moment">{{ $show->name }} | {!! affichageNote($show->moyenne) !!}</span>
                             </a>
                         </div>
@@ -32,7 +32,7 @@
                                 <div class="header">{{ $article->name }}</div>
                             </div>
                             <div class="image article">
-                                <img src="{{ $article->image }}" alt="Image article">
+                                <img src="{{ getImage(0, config('app.url') . $article->image, pathinfo($article->image)['filename'], "banner", "340_100") }}" alt="Image article">
                             </div>
                             <div class="content">
                                 <div class="meta">
@@ -129,7 +129,7 @@
                     @foreach($last_added_shows as $show)
                         <div class="hvr-rotate">
                             <a href="{{ route('show.fiche', $show->show_url) }}">
-                                <img src="{{ ShowPicture($show->show_url) }}" alt="">
+                                <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "poster", "170_250") }}" alt="poster">
                                 <span class="overlay_shows_moment">{{ $show->name }} | {!! affichageNote($show->moyenne) !!}</span>
                             </a>
                         </div>

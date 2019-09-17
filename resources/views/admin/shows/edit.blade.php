@@ -44,6 +44,38 @@
                     <input type="hidden" name="id" value="{{ $show->id }}">
 
                     <div class="two fields">
+                        <div class="ui raised small image {{ $errors->has('poster') ? ' error' : '' }}">
+                                <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "poster", "170_250") }}">
+                                <label for="poster" class="ui blue ribbon label" style="cursor: pointer" tabindex="0">
+                                    <i class="ui upload icon"></i>
+                                    Modifier le poster
+                                </label>
+                                <input id="poster" name="poster" type="file" style="display: none">
+                                @if ($errors->has('poster'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('poster') }}</strong>
+                                    </div>
+                                @endif
+                        </div>
+                        {{-- <div class="field"></div> --}}
+                        <div class="field">
+                            <div class="ui raised image {{ $errors->has('banner') ? ' error' : '' }}">
+                                <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "banner", "950_230") }}">
+                                <label for="banner" class="ui blue right ribbon label" style="cursor: pointer" tabindex="0">
+                                    <i class="ui upload icon"></i>
+                                    Modifier la bannière
+                                </label>
+                                <input id="banner" name="banner" type="file" style="display: none">
+                                @if ($errors->has('banner'))
+                                    <div class="ui red message">
+                                        <strong>{{ $errors->first('banner') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="two fields">
                         <div class="field {{ $errors->has('name') ? ' error' : '' }}">
                             <label>Nom original de la série</label>
                             <input id="name" name="name" placeholder="Nom original de la série" value="{{ $show->name }}">
@@ -66,20 +98,6 @@
                     </div>
 
                     <div class="two fields">
-                        <div class="ui raised small image {{ $errors->has('poster') ? ' error' : '' }}">
-                            <img src="{{ ShowPicture($show->show_url) }}" alt="Image {{ $show->name }}">
-                            <label for="poster" class="ui blue ribbon label" style="cursor: pointer" tabindex="0">
-                                <i class="ui upload icon"></i>
-                                Modifier l'image
-                            </label>
-                            <input id="poster" name="poster" type="file" style="display: none">
-                            @if ($errors->has('poster'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('poster') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-
                         <div class="field {{ $errors->has('resume_en') ? ' error' : '' }}">
                             <label for="resume_en">Résumé anglais</label>
                             <textarea id="resume_en" name="resume_en">{{ $show->synopsis }}</textarea>

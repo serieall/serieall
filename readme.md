@@ -1,8 +1,9 @@
-# Série-All V2
+# Série-All
+-----------
 
-## Installation en mode développement
+## Install
 
-Pour installer la V2 : 
+To install Série-All : 
 
 ```
 apt-get install php php-gd php-curl php-mbstring php-xml php-mysql php-bcmath php-apcu-bc composer
@@ -12,8 +13,13 @@ composer install
 docker run --name mysql-serieall-dev -p 3306:3306 -v /var/lib/mysql/serieall-dev:/var/lib/mysql -e MYSQL_DATABASE="serieall" -e MYSQL_ROOT_PASSWORD="serieall" -d mysql:5.7
 php artisan key:generate
 php artisan migrate --seed
+```
+
+## Development
+
+To launch the application, you can use : 
+```
 php artisan serve
 php artisan queue:work
 ```
 
-## Installation en mode production (soon)
