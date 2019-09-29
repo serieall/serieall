@@ -75,7 +75,7 @@
                         </div>
                     </div>
 
-                    <div class="two fields">
+                    <div class="three fields">
                         <div class="field {{ $errors->has('name') ? ' error' : '' }}">
                             <label>Nom original de la série</label>
                             <input id="name" name="name" placeholder="Nom original de la série" value="{{ $show->name }}">
@@ -92,6 +92,15 @@
                             @if ($errors->has('name_fr'))
                                 <div class="ui red message">
                                     <strong>{{ $errors->first('name_fr') }}</strong>
+                                </div>
+                            @endif
+			</div>
+			<div class="disabled field {{ $errors->has('thetvdb_id') ? ' error': '' }}">
+	                    <label>TVDB ID</label>
+                            <input id="thetvdb_id" name="thetvdb_id" placeholder="The TVDB ID" value="{{ $show->thetvdb_id }}">
+                            @if ($errors->has('thetvdb_id'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('thetvdb_id') }}</strong>
                                 </div>
                             @endif
                         </div>
