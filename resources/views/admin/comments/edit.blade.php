@@ -113,9 +113,12 @@
 
     @if(count($comment->children) > 0)
             <h2>Réactions</h2>
-            @component('components.tables.table_admin', ['headers' => ["Utilisateur", "Message", "Actions"]])
+            @component('components.tables.table_admin', ['headers' => ["Date", "Utilisateur", "Message", "Actions"]])
                 @foreach($comment->children as $reaction)
                     <tr class="line">
+                        <td>
+                            {{ $reaction->created_at }}
+                        </td>
                         <td>
                             {{ $reaction->user->username }}
                         </td>
