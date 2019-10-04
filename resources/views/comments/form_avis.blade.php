@@ -1,4 +1,5 @@
 <div class="ui modal avis">
+    <i class="close icon"></i>
     <div class="header">
         @if(!empty($comments['user_comment']))
             Écrire un avis
@@ -39,26 +40,29 @@
             </div>
 
             <div class="ui field">
-                <div class="ui fluid selection dropdown">
-                    <input name="thumb" id="thumb" class="thumb" type="hidden" value="@if(!empty($comments['user_comment'])){{ $comments['user_comment']['thumb'] }}@endif">
-                    <i class="dropdown icon"></i>
-                    <div class="ui black text default text">Choisissez un type d'avis</div>
-                    <div class="menu">
-                        <div class="item" data-value="1">
-                            <i class="green smile large icon"></i>
-                            Avis favorable
-                        </div>
-                        <div class="item" data-value="2">
-                            <i class="grey meh large icon"></i>
-                            Avis neutre
-                        </div>
-                        <div class="item" data-value="3">
-                            <i class="red frown large icon"></i>
-                            Avis défavorable
+                <div class="inline fields">
+                    <div class="field">
+                        <div class="ui slider checkbox">
+                        <input type="radio" name="thumb" checked="checked" value="1">
+                        <label><i class="green smile large icon"></i> Avis favorable</label>
                         </div>
                     </div>
+                    <div class="ui red hidden message"></div>
+                    <div class="field">
+                        <div class="ui slider checkbox">
+                        <input type="radio" name="thumb" value="2">
+                        <label><i class="grey meh large icon"></i> Avis neutre</label>
+                        </div>
+                    </div>
+                    <div class="ui red hidden message"></div>
+                    <div class="field">
+                        <div class="ui slider checkbox">
+                        <input type="radio" name="thumb" value="3">
+                        <label><i class="red frown large icon"></i> Avis défavorable</label>
+                        </div>
+                    </div>
+                    <div class="ui red hidden message"></div>
                 </div>
-                <div class="ui red hidden message"></div>
             </div>
 
             <p></p>

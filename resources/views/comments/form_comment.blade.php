@@ -1,4 +1,5 @@
 <div class="ui modal avis">
+    <i class="close icon"></i>
     <div class="header">
         @if(!empty($comments['user_comment']))
             Écrire un commentaire
