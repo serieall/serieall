@@ -188,7 +188,8 @@ class AdminArticleController extends Controller
         # Pour chaque rédacteur
         foreach ($redacs as $redac) {
             # On lie le rédacteur à l'article
-            $listRedacs[] = $redac;
+            $user = $this->userRepository->getUserByUsername($redac);
+            $listRedacs[] = $user->id;
             $article->users()->sync($listRedacs);
         }
 
