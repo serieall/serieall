@@ -230,11 +230,10 @@
                         <div class="ui grid">
                             <div class="thirteen wide column">
                                 <div class="ui fluid search multiple selection dropdown dropdownUser">
-                                <input id="inputUsers" name="users" type="hidden" value="{{ Auth::user()->id }}">
+                                <input id="inputUsers" name="users" type="hidden" value="{{ Auth::user()->username }}">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Rédacteur(s)</div>
                                     <div class="menu">
-                                        <div class="item active">{{ Auth::user()->username }}</div>
                                     </div>
                                 </div>
 
@@ -422,9 +421,11 @@
                     },
                     fields: {
                         remoteValues: "data",
-                        value: "id",
+                        value: "username",
                         name: "username"
-                    }
+                    },
+                    allowAdditions: true,
+                    hideAdditions: false
                 })
             ;
 
