@@ -61,6 +61,11 @@ class ShowUpdateManually implements ShouldQueue
         $logMessage = '>SERIE';
         saveLogMessage($idLog, $logMessage);
 
+        $show->thetvdb_id = $this->inputs['thetvdb_id'];
+        # TheTVDB ID
+        $logMessage = '>>TheTVDB_ID : ' . $show->thetvdb_id;
+        saveLogMessage($idLog, $logMessage);
+
         $show->name_fr = $this->inputs['name_fr'];
         # Nom FR de la série
         $logMessage = '>>Nom FR : ' . $show->name_fr;
