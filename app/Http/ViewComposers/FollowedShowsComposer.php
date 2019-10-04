@@ -39,7 +39,8 @@ class FollowedShowsComposer
             $this->followed_shows = Show::join('show_user', 'shows.id', '=', 'show_user.show_id')
             ->join('users', 'users.id', '=', 'show_user.user_id')
             ->orderBy('shows.name')
-            ->where('users.id', '=', Auth::user()->id)
+	    ->where('users.id', '=', Auth::user()->id)
+	    ->where('show_user.state', '=', 1)
             ->select(DB::raw('shows.name as name, shows.show_url as show_url'))
             ->get();
         }
