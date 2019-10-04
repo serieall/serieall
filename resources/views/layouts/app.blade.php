@@ -90,6 +90,8 @@
                     <i class="user icon"></i>
                     Profil
                 </a>
+                <div class="divider"></div>
+                <div class="header">Mes séries en cours</div>
                 <a class="item" href="{{ route('logout') }}">
                     <i class="sign out icon"></i>
                     Se déconnecter
@@ -226,6 +228,18 @@
                                     Profil
                                 </div>
                             </a>
+
+                            <div class="divider"></div>
+                            <div class="header">Accès à mes séries en cours</div>
+                            @foreach($followed_shows as $show)
+                                <a href="{{ route('show.fiche', $show->show_url) }}">
+                                    <div class="item">
+                                        {{ $show->name }}
+                                    </div>
+                                </a>
+                            @endforeach
+
+                            <div class="divider"></div>
 
                             <a href="{{ route('logout') }}">
                                 <div class="item">

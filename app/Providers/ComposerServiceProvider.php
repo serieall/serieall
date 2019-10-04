@@ -146,7 +146,13 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             ['*'],
             'App\Http\ViewComposers\UnreadNotificationsComposer',
-            'App\Http\ViewComposers\SloganComposer'
+            'App\Http\ViewComposers\SloganComposer',
+        );
+
+        // UnreadNotifications
+        View::composer(
+            ['layouts/app'],
+            'App\Http\ViewComposers\FollowedShowsComposer'
         );
     }
 
