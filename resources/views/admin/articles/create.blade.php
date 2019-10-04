@@ -230,10 +230,11 @@
                         <div class="ui grid">
                             <div class="thirteen wide column">
                                 <div class="ui fluid search multiple selection dropdown dropdownUser">
-                                    <input id="inputUsers" name="users" type="hidden">
+                                <input id="inputUsers" name="users" type="hidden" value="{{ Auth::user()->id }}">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Rédacteur(s)</div>
                                     <div class="menu">
+                                        <div class="item active">{{ Auth::user()->username }}</div>
                                     </div>
                                 </div>
 
