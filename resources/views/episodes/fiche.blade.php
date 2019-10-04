@@ -100,6 +100,9 @@
         <div class="row">
             <div id="episodeDetails" class="ui segment">
                 <h1>
+                    @if(!empty($episodeInfo->picture))
+                        <img class="ui right floated medium image" src="{{ $episodeInfo->picture }}"  alt="Image illustrative de l'épisode">
+                    @endif
                     {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero, $episodeInfo->id, false, false) !!} -
                     @if(!empty($episodeInfo->name_fr))
                         {{ $episodeInfo->name_fr }}
@@ -112,6 +115,7 @@
                         {{ $episodeInfo->name }}
                     @endif
                 </h2>
+
                 <p class="episodeResume">
                     @if(empty($episodeInfo->resume_fr))
                         @if(empty($episodeInfo->resume))
@@ -122,86 +126,61 @@
                     @else
                         {{ $episodeInfo->resume_fr }}
                     @endif
-                </p>
-                <div class="ui divider"></div>
 
-                <div class="ui top attached stackable tabular menu">
-                    <a class="active item" data-tab="first" >Informations sur l'épisode</a>
-                    <a class="item" data-tab="second">Fiche technique</a>
-                </div>
-                <div class="ui bottom attached active tab segment" data-tab="first">
-                    @if(!empty($episodeInfo->picture))
-                        <div class="ui center aligned">
-                            <img src="{{ $episodeInfo->picture }}"  alt="Image illustrative de l'épisode">
-                        </div>
+                </p>
+                <p>
+                <i class="calendar icon"></i><b>Diffusion originale</b> :
+                    @if($episodeInfo->diffusion_us != '0000-00-00')
+                        {!! formatDate('long', $episodeInfo->diffusion_us) !!}
                     @endif
-                    <table class="ui center aligned table">
-                        <thead>
-                        <tr>
-                            @if($episodeInfo->diffusion_us != '0000-00-00')
-                                <th>
-                                    <i class="calendar icon"></i>
-                                    Diffusion originale
-                                </th>
-                            @endif
-                            @if($episodeInfo->diffusion_fr != '0000-00-00')
-                                <th>
-                                    <i class="calendar icon"></i>
-                                    Diffusion française
-                                </th>
-                            @endif
-                        </tr>
-                        </thead>
-                        <tr>
-                            @if($episodeInfo->diffusion_us != '0000-00-00')
-                                <td>
-                                    {!! formatDate('long', $episodeInfo->diffusion_us) !!}
-                                </td>
-                            @endif
-                            @if($episodeInfo->diffusion_fr != '0000-00-00')
-                                <td>
+                </p>
+
+                <div class="ui accordion">
+                    <div class="title">
+                    <i class="dropdown icon"></i>
+                    Cliquez pour voir plus d'informations sur l'épisode
+                    </div>
+                    <div class="content">
+                        <p class="transition visible" style="padding-left: 15px;">
+                                <i class="calendar icon"></i><b>Diffusion française</b> :
+                                @if($episodeInfo->diffusion_fr != '0000-00-00')
                                     {!! formatDate('long', $episodeInfo->diffusion_fr) !!}
-                                </td>
-                            @endif
-                        </tr>
-                    </table>
-                </div>
-                <div class="ui bottom attached tab segment" data-tab="second">
-                    <table class="ui table">
-                        <thead>
-                        <tr>
-                            <th>
-                                Réalisateur(s)
-                            </th>
-                            <th>
-                                Scénariste(s)
-                            </th>
-                            <th>
-                                Guest(s)
-                            </th>
-                        </tr>
-                        </thead>
-                        <tr>
-                            <td>
+                                @endif
+
+                                <br />
+
+                                <i class="camera icon"></i><b>Réalisat.eur.rice.s</b> :
                                 @foreach($episodeInfo->directors as $director)
                                     {{ $director->name }}
-                                    <br />
+
+                                    @if(!$loop->last)
+                                    ,
+                                    @endif
                                 @endforeach
-                            </td>
-                            <td>
+
+                                <br />
+
+                                <i class="file icon"></i><b>Scénariste.s</b> :
                                 @foreach($episodeInfo->writers as $writer)
                                     {{ $writer->name }}
-                                    <br />
+
+                                    @if(!$loop->last)
+                                    ,
+                                    @endif
                                 @endforeach
-                            </td>
-                            <td>
+
+                                <br />
+
+                                <i class="users icon"></i><b>Guest.s</b> :
                                 @foreach($episodeInfo->guests as $guest)
                                     {{ $guest->name }}
-                                    <br />
+
+                                    @if(!$loop->last)
+                                    ,
+                                    @endif
                                 @endforeach
-                            </td>
-                        </tr>
-                    </table>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -324,6 +303,9 @@
     <script>
         $('.ui.top.attached.tabular.menu .item')
             .tab()
+        ;
+        $('.ui.accordion')
+            .accordion()
         ;
 
         // Submission
