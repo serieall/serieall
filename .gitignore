@@ -3,7 +3,8 @@
 .idea
 vendor/
 .env
-.saas-cache
+.sass-cache
+.phpstorm.meta.php
 !resources/views/vendor
 !resources/lang/vendor
 
@@ -20,3 +21,6 @@ public/images/shows
 !public/images/shows/default_empty.jpg
 public/images/.tmb
 public/images/
+public/img
+*.mp3
+*.wav
