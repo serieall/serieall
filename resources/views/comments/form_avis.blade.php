@@ -39,32 +39,20 @@
 
             </div>
 
-            <div class="ui field">
-                <div class="inline fields">
-                    <div class="field">
-                        <div class="ui slider checkbox">
-                        <input type="radio" name="thumb" checked="checked" value="1">
-                        <label><i class="green smile large icon"></i> Avis favorable</label>
-                        </div>
-                    </div>
-                    <div class="ui red hidden message"></div>
-                    <div class="field">
-                        <div class="ui slider checkbox">
-                        <input type="radio" name="thumb" value="2">
-                        <label><i class="grey meh large icon"></i> Avis neutre</label>
-                        </div>
-                    </div>
-                    <div class="ui red hidden message"></div>
-                    <div class="field">
-                        <div class="ui slider checkbox">
-                        <input type="radio" name="thumb" value="3">
-                        <label><i class="red frown large icon"></i> Avis défavorable</label>
-                        </div>
-                    </div>
-                    <div class="ui red hidden message"></div>
-                </div>
+            <div class="inline fields">
+            <div class="radio checkbox">
+                <input id="radio-1" type="radio" name="thumb" checked="checked" value="1">
+                <label for="radio-1"><i class="green smile large icon"></i> Avis favorable</label>
             </div>
-
+            <div class="radio checkbox">
+                <input id="radio-2" type="radio" name="thumb" value="2">
+                <label for="radio-2"><i class="grey meh large icon"></i> Avis neutre</label>
+            </div>
+            <div class="radio checkbox">
+                <input id="radio-3" type="radio" name="thumb" value="3">
+                <label for="radio-3"><i class="red frown large icon"></i> Avis défavorable</label>
+            </div>
+        </div>
             <p></p>
 
             <button class="ui submit positive button">Envoyer</button>
