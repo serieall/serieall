@@ -1,4 +1,5 @@
 <div class="ui modal reaction">
+    <i class="close icon"></i>
     <div class="header">
             Répondre au commentaire de <span class="answerUsername"></span>
     </div>

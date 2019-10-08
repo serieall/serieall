@@ -616,3 +616,61 @@ hr.home.divider {
     margin: 5px;
   }
 }
+
+$accentcolor: $lightBlueSA;
+$lightcolor: $lightBlueSA;
+$darkcolor: $darkBlueSA;
+
+.radio.checkbox {
+	position: relative;
+	display: block;
+	label {
+		display: block;
+		color: $darkcolor;
+		border-radius: 5px;
+    padding: 10px 30px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border: 2px solid $lightBlueSA;
+    cursor: pointer;
+		&:after,
+		&:before {
+			content: "";
+			position: absolute;
+			right: 11px;
+			top: 11px;
+			height: 20px;
+      border-radius: 3px;
+		}
+		&:before {
+			background: transparent;
+			transition: 0.1s width cubic-bezier(0.075, 0.82, 0.165, 1) 0s,
+				0.3s height cubic-bezier(0.075, 0.82, 0.165, 2) 0.1s;
+			z-index: 2;
+			overflow: hidden;
+			background-repeat: no-repeat;
+			background-size: 13px;
+			background-position: center;
+			width: 0;
+			height: 0;
+		}
+	}
+	input[type="radio"] {
+    position: absolute;
+    bottom: 40%;
+    left: 5%;
+		&:checked + label {
+			background: $accentcolor;
+			animation-name: blink;
+			animation-duration: 1s;
+			border-color: $accentcolor;
+			&:after {
+				background: $accentcolor;
+			}
+			&:before {
+				width: 20px;
+				height: 20px;
+			}
+		}
+	}
+}
