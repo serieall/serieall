@@ -29,7 +29,7 @@
                     @foreach($articles as $article)
                         <a class="ui raised card hvr-grow" href="{{ route('article.show', $article->article_url) }}">
                             <div class="content">
-                                <div class="header">{{ $article->name }}</div>
+                                <div class="ui left aligned text header">{{ $article->name }}</div>
                             </div>
                             <div class="image article">
                                 <img src="{{ getImage(0, config('app.url') . $article->image, pathinfo($article->image)['filename'], "banner", "340_100") }}" alt="Image article">

@@ -99,6 +99,19 @@
   @include padding($i);
 }
 
+/* TEXT ALIGN */
+.ui.left.aligned.text {
+  text-align: left;
+}
+
+.ui.right.aligned.text {
+  text-align: right;
+}
+
+.ui.center.aligned.text {
+  text-align: center;
+}
+
 /* BLOCKQUOTE */
 blockquote {
   font-style: italic;
@@ -674,3 +687,4 @@ $darkcolor: $darkBlueSA;
 		}
 	}
 }
+
