@@ -688,3 +688,14 @@ $darkcolor: $darkBlueSA;
 	}
 }
 
+.divMobileChildShareIcon {
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  li {
+    margin-left: 2px;
+    float: left;
+  }
+}

@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="row ui stackable grid">
-        <div class="one wide column">
+        <div class="one wide column computer only">
             <div class="divParentShareIcon">
                 <div class="divChildShareIcon">
                     {!! Share::currentPage()->facebook()
@@ -24,6 +24,17 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+        </div>
+        <div class="one wide column tablet mobile only">
+            <div class="divMobileChildShareIcon">
+                {!! Share::currentPage()->facebook()
+                ->twitter() !!}
+                <ul>
+                    <li>
+                        <a id="goToComments" href="#ListAvis"><i class="large circular inverted comment icon"></i></a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div id="LeftBlock" class="eight wide column article">
