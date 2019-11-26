@@ -357,7 +357,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                             $logMessage = '>>>>>Diffusion originale : ' . $episodeDiffusionUS;
                             saveLogMessage($idLog, $logMessage);
 
-                            $episodePicture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
+                            $episodePicture = 'https://artworks.thetvdb.com/banners/' . $getEpisode_en->filename;
                             # Image
                             $logMessage = '>>>>>Image : ' . $episodePicture;
                             saveLogMessage($idLog, $logMessage);
@@ -966,7 +966,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                 $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
 
                                 /* Récupération de la photo de l'acteur */
-                                $file = 'https://www.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
+                                $file = 'https://artworks.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
                                 $file_headers = get_headers($file);
                                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                                     $logMessage = '>>>Pas d\'image pour l\'acteur ' . $actorName . '.';

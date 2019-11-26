@@ -337,7 +337,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                         $logMessage = '>>>Pas d\'image pour l\'épisode.';
                         saveLogMessage($idLog, $logMessage);
                     } else {
-                        $episode_new->picture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
+                        $episode_new->picture = 'https://artworks.thetvdb.com/banners/' . $getEpisode_en->filename;
                         # Image
                         $logMessage = '>>>>>Image : ' . $episode_new->name_fr;
                         saveLogMessage($idLog, $logMessage);
@@ -460,7 +460,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $logMessage = '>>>>>Diffusion originale : ' . $episode_new->diffusion_us;
                     saveLogMessage($idLog, $logMessage);
 
-                    $episode_new->picture = 'https://www.thetvdb.com/banners/' . $getEpisode_en->filename;
+                    $episode_new->picture = 'https://artworks.thetvdb.com/banners/' . $getEpisode_en->filename;
                     # Image
                     $logMessage = '>>>>>Image : ' . $episode_new->name_fr;
                     saveLogMessage($idLog, $logMessage);
@@ -941,7 +941,7 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
                     $show_new->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
 
                     /* Récupération de la photo de l'acteur */
-                    $file = 'https://www.thetvdb.com/banners/actors/' . $actorID . '.jpg';
+                    $file = 'https://artworks.thetvdb.com/banners/actors/' . $actorID . '.jpg';
                     $file_headers = get_headers($file);
                     if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                         $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
