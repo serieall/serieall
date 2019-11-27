@@ -1,6 +1,9 @@
-@component('components.tables.table_admin', ['headers' => ["Utilisateur", "Message", "Nombre de réactions", "Actions"]])
+@component('components.tables.table_admin', ['headers' => ["Date", "Utilisateur", "Message", "Nombre de réactions", "Actions"]])
     @foreach($comments as $comment)
         <tr class="line">
+            <td>
+                {{ $comment->created_at }}
+            </td>
             <td>
                 {{ $comment->user->username }}
             </td>

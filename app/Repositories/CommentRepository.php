@@ -143,6 +143,21 @@ class CommentRepository
     }
 
     /**
+     * @param $object
+     * @param $object_id
+     */
+    public function getAllCommentsByTypeTypeIDAdmin($object, $object_id, $order) {
+        return $this->comment::where('commentable_id', '=', $object_id)
+            ->where('commentable_type', '=', $object)
+            ->with(['user', 'children' => function($q) {
+                $q->with('user');
+                $q->orderBy('created_at');
+            }])
+            ->orderBy('created_at', $order)
+            ->get();
+    }
+
+    /**
      * @param $id
      * @return \Illuminate\Database\Eloquent\Model|static
      */

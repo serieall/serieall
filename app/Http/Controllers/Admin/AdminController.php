@@ -33,8 +33,6 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        Log::info(Auth::user()->username . ' accède à la page administration.');
-
         $logs = $this->logRepository->getTenDistinctLogs();
 
         return view('admin/index', compact('logs'));

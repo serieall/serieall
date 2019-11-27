@@ -120,7 +120,6 @@ class EpisodeUpdate implements ShouldQueue
         |--------------------------------------------------------------------------
         */
         $directors = $this->inputs['directors'];
-        Log::info($directors);
 
         if (empty($directors)) {
             $episode->directors()->sync([]);
