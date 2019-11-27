@@ -110,12 +110,7 @@
 @endsection
 
 @push('scripts')
-    @push('scripts')
-        <script src="/js/views/comments/paginate_comments.js"></script>
-    @endpush
-
     <script>
-
         $('.ui.modal.avis').modal('attach events', '.ui.button.WriteAvis', 'show');
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
         CKEDITOR.plugins.addExternal( 'spoiler', '/js/ckeditor/plugins/spoiler/plugin.js' );
@@ -130,7 +125,7 @@
                     showParagraphs: false
                 }
             });
-        // Submission
+
         $(document).on('submit', '#formAvis', function(e) {
             e.preventDefault();
 
@@ -166,4 +161,8 @@
             }
         });
     </script>
+@endpush
+
+@push('scripts')
+    <script src="/js/views/comments/paginate_comments.js"></script>
 @endpush
