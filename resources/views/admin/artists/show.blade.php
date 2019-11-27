@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <img class="ui tiny image" src="{!! ActorPicture($actor->artist_url) !!}" alt="Photo {{ $artist->name }}"/>
+                            <img class="ui tiny image" src="{!! ActorPicture($actor->artist_url) !!}" alt="Photo {{ $actor->name }}"/>
                         </div>
                         <div class="content">
                             <div class="header">

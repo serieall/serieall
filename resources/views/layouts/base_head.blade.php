@@ -9,7 +9,7 @@
 <link rel="icon" href="{{ $folderImages }}logo_v2.ico">
 
 <!-- CSS -->
-{{ Html::style('https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css') }}
+{{ Html::style('https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css') }}
 {{ Html::style('/css/libs/jquery-ui.css') }}
 {{ Html::style('/css/libs/jquery.dataTables.min.css') }}
 

@@ -48,9 +48,9 @@ class ShowDelete implements ShouldQueue
     {
         // Initilisation du repository
         $this->showRepository = $showRepository;
-        
+
         $idLog = initJob($this->userID, 'Suppression', 'Show', $this->id);
-        
+
         // On cherche la série
         $show = $this->showRepository->getByID($this->id);
 
@@ -93,9 +93,7 @@ class ShowDelete implements ShouldQueue
                 $episode->artists()->detach();
 
                 // On détache les avis
-                Log::info('delete comments not null');
                 $episode->comments()->whereNotNull('parent_id')->delete();
-                Log::info('delete comments null');
                 $episode->comments()->whereNull('parent_id')->delete();
 
                 // On détache les notes
@@ -136,7 +134,7 @@ class ShowDelete implements ShouldQueue
         $logMessage = '> Suppression de la série';
         saveLogMessage($idLog, $logMessage);
         $show->delete();
-        
+
         endJob($idLog);
     }
 }

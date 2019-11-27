@@ -172,9 +172,8 @@ class AdminArticleController extends Controller
             $article->image = config('directories.original') . $fileName;
 
             Input::file('image')->move($destinationPath, $fileName);
-            Log::info('Image OK');
         } else {
-            Log::info('Image too big');
+            Log::error('Image' . $destinationPath . '/' . $fileName .' is too big');
         }
 
         // On lie les catégories et on sauvegarde l'article
