@@ -17,13 +17,26 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="adminTitre">
-        Editer une série manuellement
-        <span class="sub header">
-            Remplir le formulaire ci-dessous pour modifier la série. Attention, une modification manuelle pourrait être écrasée par la mise à jour quotidienne en provenance de TheTVDB.
-        </span>
-    </h1>
-
+    <div class="ui grid">
+        <div class="ui height wide column">
+            <h1 class="ui header" id="adminTitre">
+                Editer une série manuellement
+                <span class="sub header">
+                    Remplir le formulaire ci-dessous pour modifier la série. Attention, une modification manuelle pourrait être écrasée par la mise à jour quotidienne en provenance de TheTVDB.
+                </span>
+            </h1>
+        </div>
+        <div class="ui height wide column">
+            <div class="ui height wide column">
+                <a href="{{ route('show.fiche', $show->show_url) }}">
+                    <button class="ui right floated blue button" title="Voir la fiche">
+                        <i class="ui eye icon"></i>
+                        Voir la fiche de la série
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div class="ui centered grid">
         <div class="fifteen wide column segment">
