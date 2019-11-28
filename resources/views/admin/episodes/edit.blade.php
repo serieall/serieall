@@ -25,12 +25,26 @@
 @endsection
 
 @section('content')
-    <h1 class="ui header" id="adminTitre">
-        Episode {{ $episode->season->name }} x {{ $episode->numero }} : "{{ $episode->name }}"
-        <span class="sub header">
-            Modifier l'épisode {{ $episode->season->name }} x {{ $episode->numero }} de "{{ $episode->show->name }}"
-        </span>
-    </h1>
+    <div class="ui grid">
+        <div class="ui height wide column">
+            <h1 class="ui header" id="adminTitre">
+                Episode {{ $episode->season->name }} x {{ $episode->numero }} : "{{ $episode->name }}"
+                <span class="sub header">
+                    Modifier l'épisode {{ $episode->season->name }} x {{ $episode->numero }} de "{{ $episode->show->name }}"
+                </span>
+            </h1>
+        </div>
+        <div class="ui height wide column">
+            <div class="ui height wide column">
+                <a href="{{ route('episode.fiche', [$episode->show->show_url, $episode->season->name, $episode->numero, $episode->id]) }}">
+                    <button class="ui right floated blue button" title="Voir la fiche">
+                        <i class="ui eye icon"></i>
+                        Voir la fiche de l'épisode
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div class="ui centered grid">
         <div class="fifteen wide column segment">

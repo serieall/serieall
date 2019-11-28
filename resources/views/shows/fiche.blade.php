@@ -60,7 +60,6 @@
                  </a>
              </div>
          </div>
-
          <div class="row">
              <div class="chartMean column">
                  {!! $chart->container() !!}
@@ -74,23 +73,33 @@
 @endsection
 
 @section('content_fiche_right')
-     <div class="ui stackable grid">
-         @if(Auth::check())
-             <div class="row">
-                 <div id="ButtonsActions">
-                     <div class="ui segment">
-                         <div id="actionShows" class="ui vertical fluid labeled icon buttons">
+    <div class="ui stackable grid">
+        @if(Auth::check())
+            @if(Auth::user()->role <= 3)
+                <div class="row">
+                    <a style="width: 100%" href="{{ route('admin.shows.edit', $showInfo['show']->id) }}">
+                        <button class="ui fluid blueSA button">
+                            <i class="pencil alternate icon"></i>
+                            Modifier la série dans l'admin
+                        </button>
+                    </a>
+                </div>
+            @endif
+            <div class="row">
+                <div id="ButtonsActions">
+                    <div class="ui segment">
+                        <div id="actionShows" class="ui vertical fluid labeled icon buttons">
                              @include('shows.actions_show', ['show_id' => $showInfo['show']->id, 'completed_show' => $showInfo['show']->encours])
-                         </div>
-                         <div id="messageAction" class="ui hidden orange message"></div>
-                     </div>
-                 </div>
+                        </div>
+                        <div id="messageAction" class="ui hidden orange message"></div>
+                    </div>
+                </div>
              </div>
-         @endif
-         <div class="row">
-             @include('articles.linked')
-         </div>
-     </div>
+        @endif
+        <div class="row">
+            @include('articles.linked')
+        </div>
+    </div>
 @endsection
 
 @push('scripts')

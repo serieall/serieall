@@ -42,6 +42,14 @@
                     Ajouter de nouveaux épisodes
                 </button>
             </form>
+            <div class="ui height wide column">
+                <a href="{{ route('season.fiche', [$season->show->show_url, $season->name]) }}">
+                    <button class="ui right floated blue button" title="Voir la fiche">
+                        <i class="ui eye icon"></i>
+                        Voir la fiche de la saison
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -55,7 +63,7 @@
 
                     <input type="hidden" name="id" value="{{ $season->id }}">
                     <input type="hidden" name="show_id" value="{{ $season->show->id }}">
-    
+
                     <div class="ui three fields">
                          <div class="ui field {{ $errors->has('thetvdb_id') ? ' error' : '' }}">
                             <label for="thetvdb_id">TheTVDB ID</label>

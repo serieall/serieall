@@ -75,6 +75,16 @@
 @endsection
 
 @section('content_fiche_right')
+    @if(Auth::check() && Auth::user()->role <= 3)
+        <div class="row">
+            <a style="width: 100%" href="{{ route('admin.shows.edit', $showInfo['show']->id) }}">
+                <button class="ui fluid blueSA button">
+                    <i class="pencil alternate icon"></i>
+                    Modifier la série dans l'admin
+                </button>
+            </a>
+        </div>
+    @endif
     <div class="ui segment">
         <h1>Créateur(s)</h1>
             @foreach($showInfo['show']->creators as $creator)

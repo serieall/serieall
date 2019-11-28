@@ -192,6 +192,16 @@
 
 @section('content_fiche_right')
     <div class="ui stackable grid">
+        @if(Auth::check() && Auth::user()->role <= 3)
+            <div class="row">
+                <a style="width: 100%" href="{{ route('admin.episodes.edit', $episodeInfo->id) }}">
+                    <button class="ui fluid blueSA button">
+                        <i class="pencil alternate icon"></i>
+                        Modifier l'épisode dans l'admin
+                    </button>
+                </a>
+            </div>
+        @endif
         <div class="row">
             <div class="ui segment center aligned">
                 @if($episodeInfo->moyenne < 1)

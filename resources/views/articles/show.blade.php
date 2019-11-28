@@ -172,6 +172,16 @@
     </div>
 
     <div id="RightBlock" class="three wide column article">
+        @if(Auth::check() && Auth::user()->role <= 2)
+            <div class="row">
+                <a style="width: 100%" href="{{ route('admin.articles.edit', $article->id) }}">
+                    <button class="ui fluid blueSA button">
+                        <i class="pencil alternate icon"></i>
+                        Modifier l'article dans l'admin
+                    </button>
+                </a>
+            </div>
+        @endif
         <div class="ui segment linkedShow">
             @if($article->shows_count >= 1)
                 @foreach($article->shows as $show)
