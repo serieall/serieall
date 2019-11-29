@@ -28,7 +28,8 @@
         "thomaswelton/laravel-gravatar": "~1.0",
         "tohtamysh/laravel-phpbb-bridge": "^1.0",
         "youkoulayley/podcastfeed": "^0.3.7",
-        "staudenmeir/belongs-to-through": "^2.5"
+        "staudenmeir/belongs-to-through": "^2.5",
+        "staudenmeir/eloquent-has-many-deep": "^1.8"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

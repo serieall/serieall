@@ -62,6 +62,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  */
 class Show extends Model {
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 	protected $table = 'shows';
 	public $timestamps = true;
@@ -153,5 +154,13 @@ class Show extends Model {
     public function users()
     {
         return $this->belongsToMany('App\Models\User')->withPivot('state', 'message');
+    }
+
+    /**
+     * @return \Staudenmeir\EloquentHasManyDeep\HasManyDeep
+     */
+    public function rates()
+    {
+        return $this->hasManyDeep('App\Models\Episode_user', ['App\Models\Season', 'App\Models\Episode']);
     }
 }
