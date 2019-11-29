@@ -97,6 +97,32 @@
              </div>
         @endif
         <div class="row">
+            <div class="ui segment">
+                <h1>Dernières notes</h1>
+                <div class="ui feed showMoreOrLess">
+                    @foreach($ratesShow['rates'] as $rate)
+                        <div class="event">
+                            <div class="label">
+                                <img src="{{ Gravatar::src($rate['user']['email']) }}" alt="Avatar de {{$rate['user']['username']}}">
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+                                    <a href="{{ route('user.profile', $rate['user']['user_url']) }}" class="user">
+                                        {{ $rate['user']['username'] }}
+                                    </a>
+                                    a noté {!! affichageNumeroEpisode($showInfo['show']->show_url, $rate['episode']['season']['name'], $rate['episode']['numero'], $rate['episode']['id'], true, false) !!} - {!! affichageNote($rate['rate']) !!}
+
+                                    <div class="date">{!! formatDate('short', $rate['updated_at']) !!}</div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="fadeDiv fadeShowMoreOrLess"></div>
+                <div><button class="ui button slideShowMoreOrLess">Voir plus</button></div>
+            </div>
+        </div>
+        <div class="row">
             @include('articles.linked')
         </div>
     </div>
@@ -104,6 +130,34 @@
 
 @push('scripts')
     <script>
+        $(document).ready(function() {
+            var $divView = $('.showMoreOrLess');
+            var innerHeight = $divView.removeClass('showMoreOrLess').height();
+            $divView.addClass('showMoreOrLess');
+
+            if(innerHeight < 220) {
+                $('.fadeShowMoreOrLess').remove();
+                $('.slideShowMoreOrLess').remove();
+                $divView.removeClass('showMoreOrLess');
+            }
+
+            $('.slideShowMoreOrLess').click(function() {
+                $('.showMoreOrLess').animate({
+                    height: (($divView.height() == 220)? innerHeight  : "220px")
+                }, 500);
+
+                if($divView.height() == 220) {
+                    $('.slideShowMoreOrLess').text('Voir moins');
+                    $('.fadeDiv').removeClass('fadeShowMoreOrLess');
+                }
+                else {
+                    $('.slideShowMoreOrLess').text('Voir plus');
+                    $('.fadeDiv').addClass('fadeShowMoreOrLess');
+                }
+                return false;
+            });
+        });
+
         $('.ui.fluid.selection.dropdown').dropdown({forceSelection: true});
 
         $('.ui.modal.avis').modal('attach events', '.ui.button.WriteAvis', 'show');

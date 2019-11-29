@@ -143,6 +143,8 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
             $showInfo = $this->formatForShowHeader($show);
             $showInfo['seasons'] = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
 
+            $ratesShow = $this->showRepository->getRateByShowID($showInfo['show']->id);
+
             $state_show = "";
             if (Auth::check()) {
                 if (Auth::user()->shows->contains($showInfo['show']->id)) {
@@ -179,7 +181,7 @@ public function index($channel = "0", $genre = "0", $nationality = "0", $tri = 1
             $type_article = 'Show';
             $articles_linked = $this->articleRepository->getPublishedArticleByShowID(0, $showInfo['show']->id);
 
-            return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'type_article', 'articles_linked', 'comments', 'object', 'state_show'));
+            return view('shows/fiche', ['chart' => $chart], compact('showInfo', 'type_article', 'articles_linked', 'comments', 'object', 'state_show', 'ratesShow'));
         }else{
             //Show not found -> 404
             abort(404);

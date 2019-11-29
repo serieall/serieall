@@ -444,4 +444,28 @@ class ShowRepository
             return $this->show->orderBy('created_at', 'desc')->limit(12)->get();
 //        });
     }
+
+    /**
+     * Récupère la note de la série en cours
+     *
+     * @param $id
+     * @return array
+     */
+    public function getRateByShowID($id)
+    {
+        return $this->show::with(['rates' => function($q){
+                $q->orderBy('updated_at', 'desc');
+                $q->limit(20);
+            }, 'rates.episode' => function($q){
+                $q->select('id', 'numero', 'season_id');
+                $q->with(['season' => function($s){
+                    $s->select('id', 'name');
+                }]);
+            }, 'rates.user' => function($q){
+                $q->select('id', 'username', 'user_url', 'email');
+            }])
+            ->where('id', '=', $id)
+            ->first()
+            ->toArray();
+    }
 }
