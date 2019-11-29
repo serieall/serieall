@@ -76,7 +76,9 @@
                                         @endif
                                     </td>
                                     <td>
-
+                                        @if(!empty($showInfo['show']->annee))
+                                            {{ $showInfo['show']->annee }}
+                                        @endif
                                     </td>
                                 </tr>
                             </table>
