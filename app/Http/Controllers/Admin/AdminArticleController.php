@@ -163,9 +163,9 @@ class AdminArticleController extends Controller
             $article->image = config('directories.original') . $show->show_url . '.jpg';
         }
 
+        $destinationPath = public_path() . config('directories.original');
         # Add the image
         if (Input::hasfile('image') && Input::file('image')->isValid()) {
-            $destinationPath = public_path() . config('directories.original');
             $extension = 'jpg';
             $fileName = $article->article_url . '.' . $extension;
 
