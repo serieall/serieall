@@ -177,7 +177,7 @@
                     height: (($divView.height() == 220)? innerHeight  : "220px")
                 }, 500);
 
-                if($divView.height() == 220) {
+                if($divView.height() > 219 && $divView.height() < 221 ) {
                     $('.slideShowMoreOrLess').text('Voir moins');
                     $('.fadeDiv').removeClass('fadeShowMoreOrLess');
                 }

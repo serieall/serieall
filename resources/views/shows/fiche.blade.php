@@ -97,8 +97,10 @@
              </div>
         @endif
         <div class="row">
-            <div class="ui segment">
-                <h1>Dernières notes</h1>
+            <div class="ui segment center aligned">
+                <div class="ui left aligned text">
+                    <h1>Dernières notes</h1>
+                </div>
                 <div class="ui feed showMoreOrLess">
                     @foreach($ratesShow['rates'] as $rate)
                         <div class="event">
@@ -146,7 +148,7 @@
                     height: (($divView.height() == 220)? innerHeight  : "220px")
                 }, 500);
 
-                if($divView.height() == 220) {
+                if($divView.height() > 219 && $divView.height() < 221 ) {
                     $('.slideShowMoreOrLess').text('Voir moins');
                     $('.fadeDiv').removeClass('fadeShowMoreOrLess');
                 }

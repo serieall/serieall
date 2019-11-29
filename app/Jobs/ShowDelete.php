@@ -127,7 +127,6 @@ class ShowDelete implements ShouldQueue
         $show->articles()->detach();
 
         // On la détache des séries suivies
-        Log::info('follow');
         $show->users()->detach();
 
         // On supprime la série

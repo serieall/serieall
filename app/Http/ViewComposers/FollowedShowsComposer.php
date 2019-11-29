@@ -44,7 +44,6 @@ class FollowedShowsComposer
             ->select(DB::raw('shows.name as name, shows.show_url as show_url'))
             ->get();
         }
-        Log::info($this->followed_shows);
 
         $view->with('followed_shows', $this->followed_shows);
     }
