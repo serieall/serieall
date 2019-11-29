@@ -70,6 +70,14 @@
                             @endif
                             @if(Auth::check())
                                 <button id="{{ $avis->id }}" username="{{ $avis->user->username }}" class="ui darkBlueSA button writeReaction">Répondre</button>
+                                @if(Auth::user()->role < 2)
+                                    <a href="{{ route('admin.comments.edit', $avis->id) }}">
+                                        <button class="ui blueSA button">
+                                            <i class="pencil alternate icon"></i>
+                                            Modérer
+                                        </button>
+                                    </a>
+                                @endif
                             @endif
                         </div>
                         <div class="divReactions comments" style="display: none;">
@@ -90,14 +98,24 @@
                                             {!! $reaction->message !!}
                                         </div>
                                     </div>
+                                    <div class="actions">
+                                        @if(Auth::check() && Auth::user()->role < 2)
+                                            <a href="{{ route('admin.comments.edit', $reaction->id) }}">
+                                                <button class="ui blueSA button">
+                                                    <i class="pencil alternate icon"></i>
+                                                    Modérer
+                                                </button>
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             @endforeach
                             <br>
-                                <div class="left aligned actions">
+                            <div class="left aligned actions">
                                 @if(Auth::check())
                                     <button id="{{ $avis->id }}" username="{{ $avis->user->username }}" class="ui darkBlueSA button writeReaction">Répondre</button>
                                 @endif
-                                </div>
+                            </div>
                         </div>
 
                         <br>
