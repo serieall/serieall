@@ -21,5 +21,5 @@ return [
     */
     'url' => 'https://api.thetvdb.com/',
     'version' => '2.1.1',
-    'hoursduration' => '12'
+    'duration' => '12'
 ];
