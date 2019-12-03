@@ -911,24 +911,19 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                 | On commence par récupérer les chaines du formulaire
                 */
                 /* Récupération de la photo de l'acteur */
-                $file = 'https://www.thetvdb.com/banners/series/' . $idSerie . '/actors';
-                $file_headers = get_headers($file);
-                if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                    $logMessage = '>>>Pas d\'acteurs pour la série.';
-                    saveLogMessage($idLog, $logMessage);
-                } else {
+                try {
                     $getActors = $client->request('GET', '/series/' . $idSerie . '/actors', [
                         'headers' => [
                             'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                             'Authorization' => 'Bearer ' . $token]
-                    ])->getBody();
+                    ]);
 
-                    /*
-                |--------------------------------------------------------------------------
-                | Décodage du JSON
-                |--------------------------------------------------------------------------
-                */
-                    $actors = json_decode($getActors);
+                        /*
+                    |--------------------------------------------------------------------------
+                    | Décodage du JSON
+                    |--------------------------------------------------------------------------
+                    */
+                    $actors = json_decode($getActors->getBody());
                     $actors = $actors->data;
 
                     if (!is_null($actors)) {
@@ -1015,7 +1010,12 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                         }
                     }
                 }
-
+                catch (ClientException $e) {
+                    Log::debug("Pas d'acteurs pour la série.");
+                }
+                catch (HandleExceptions $e) {
+                    Log::debug("Impossible de décoder les acteurs.");
+                }
 
                 /*
                 |--------------------------------------------------------------------------

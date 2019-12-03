@@ -893,13 +893,7 @@ class OneShowUpdateFromTVDB extends Job implements ShouldQueue
         | On commence par récupérer les chaines du formulaire
         */
         /* Récupération de la photo de l'acteur */
-        $file = 'https://www.thetvdb.com/banners/series/'. $show->thetvdb_id . '/actors';
-        $file_headers = get_headers($file);
-        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-            $logMessage = '>>>Pas d\'acteurs pour la série.';
-            saveLogMessage($idLog, $logMessage);
-        }
-        else {
+        try {
             $getActors = $client->request('GET', '/series/' . $show->thetvdb_id . '/actors', [
                 'headers' => [
                     'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
@@ -997,6 +991,12 @@ class OneShowUpdateFromTVDB extends Job implements ShouldQueue
                     }
                 }
             }
+        }
+        catch (ClientException $e) {
+            Log::debug("Pas d'acteurs pour la série.");
+        }
+        catch (HandleExceptions $e) {
+            Log::debug("Impossible de décoder les acteurs.");
         }
 
 
