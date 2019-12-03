@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Jobs\ShowAddManually;
-use App\Jobs\ShowAddFromTVDB;
+use App\Jobs\New_ShowAddFromTVDB;
 use App\Jobs\ShowUpdateManually;
 use App\Jobs\ShowDelete;
 
@@ -64,7 +64,7 @@ class ShowRepository
         $checkIDTheTVDB = $this->show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
 
         if($checkIDTheTVDB === null){
-            dispatch(new ShowAddFromTVDB($inputs));
+            dispatch(new New_ShowAddFromTVDB($inputs));
             $dispatchOK = true;
         }
         else {
