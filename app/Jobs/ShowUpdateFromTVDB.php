@@ -966,6 +966,9 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                                     $logMessage = '>>>Pas d\'image pour l\'acteur ' . $actorName . '.';
                                     saveLogMessage($idLog, $logMessage);
+                                } else if (!$file_headers || $file_headers[0] == 'HTTP/1.1 403 Forbidden') {
+                                    $logMessage = '>>>Pas d\'image pour l\'acteur ' . $actorName . '.';
+                                    saveLogMessage($idLog, $logMessage);
                                 } else {
                                     copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
                                     $logMessage = '>>>Image pour l\'acteur ' . $actorName . ' récupérée.';
