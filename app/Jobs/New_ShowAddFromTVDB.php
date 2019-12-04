@@ -70,7 +70,7 @@ class New_ShowAddFromTVDB extends Job implements ShouldQueue
         }
 
         # Create the show
-        $show = new Show([
+        $showArray = array(
             "thetvdb_id" => $theTvdbId,
             "name" => $showEn->seriesName,
             "name_fr" => $showFr->seriesName,
@@ -84,16 +84,15 @@ class New_ShowAddFromTVDB extends Job implements ShouldQueue
             "encours" => $showStatus,
             "annee" => date_format(date_create($showEn->firstAired), 'Y'),
             "url" => Str::slug($showEn->seriesName),
-        ]);
+            "genres" => $showEn->genre,
+            "creators" => $this->inputs['creators'],
+            "nationalities" => $this->inputs['nationalities'],
+            "channels" => $this->inputs['channels'],
+            "poster" => $showEn->poster,
+            "banner" => $showEn->banner
+        );
 
-        $show->save();
-
-        # Get the images for the show
-        $showPoster = "https://artworks.thetvdb.com/banners/" . $showEn->poster;
-        $showBanner = "https://artworks.thetvdb.com/banners/" . $showEn->banner;
-
-        publishImage($showPoster, Str::slug($showEn->seriesName), "poster", "middle", true);
-        publishImage($showBanner, Str::slug($showEn->seriesName), "banner", "middle", true);
+        createShow($showArray);
 
         return true;
     }

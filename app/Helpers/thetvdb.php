@@ -89,6 +89,6 @@ function apiTvdbGetShow(string $language, int $tvdbId) : string
 
         return $showRequest;
     } catch (ClientException $e) {
-        Log::info('The show ' . $tvdbId . ' does not exists');
+        Log::info('TVDB API : The show ' . $tvdbId . ' does not exists');
     }
 }

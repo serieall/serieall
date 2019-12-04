@@ -48,11 +48,16 @@
             "App\\": "app/"
         },
         "files": [
+            "app/Helpers/artist.php",
+            "app/Helpers/channel.php",
+            "app/Helpers/genre.php",
             "app/Helpers/fiches.php",
             "app/Helpers/helpers.php",
             "app/Helpers/images.php",
             "app/Helpers/logs.php",
+            "app/Helpers/nationality.php",
             "app/Helpers/thetvdb.php",
+            "app/Helpers/show.php",
             "app/Helpers/users.php"
         ]
     },
