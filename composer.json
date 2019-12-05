@@ -50,6 +50,7 @@
         "files": [
             "app/Helpers/artist.php",
             "app/Helpers/channel.php",
+            "app/Helpers/episode.php",
             "app/Helpers/genre.php",
             "app/Helpers/fiches.php",
             "app/Helpers/helpers.php",

@@ -39,18 +39,24 @@ class New_ShowAddFromTVDB extends Job implements ShouldQueue
     {
         Log::debug('ShowAddFromTVDB: Start a job with : ' . json_encode($this->inputs));
         $theTvdbId = (int) $this->inputs['thetvdb_id'];
+        $showNotFound = 0;
 
         # Now, we are getting the informations from the Show, in english and in french
         try {
             $showFr = apiTvdbGetShow('fr', $theTvdbId)->data;
         }  catch (GuzzleException | ErrorException $e) {
             Log::error('ShowAddFromTVDB: Show not found for language fr.');
-            return false;
+            $showNotFound += 1;
         }
         try {
             $showEn = apiTvdbGetShow('en', $theTvdbId)->data;
         }  catch (GuzzleException | ErrorException $e) {
             Log::error('ShowAddFromTVDB: Show not found for language en.');
+            $showNotFound += 1;
+        }
+
+        if($showNotFound == 2) {
+            Log::error('ShowAddFromTVDB: Show not found for language en and fr. Quit.');
             return false;
         }
 

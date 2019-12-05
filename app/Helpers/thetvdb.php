@@ -157,3 +157,36 @@ function apiTvdbGetEpisodesForShow(string $language, int $tvdbId, int $page): ob
         return (object) array();
     }
 }
+
+/**
+ * Get lists of episodes from TVDB for a specific show
+ *
+ * @param string $language
+ * @param integer $tvdbId
+ * @return mixed
+ * @throws GuzzleException
+ */
+function apiTvdbGetEpisodes(string $language, int $tvdbId): object
+{
+    $theTvdbApi = apiTvdbGetConf();
+    $client = new Client(['base_uri' => $theTvdbApi['url']]);
+
+    $token = apiTvdbGetToken();
+
+    try {
+        $episodeRequest = (string) $client->request('GET', '/episodes/' . $tvdbId, [
+            'headers' => [
+                'Accept' => 'application/json,application/vnd.thetvdb.v' . $theTvdbApi['version'],
+                'Authorization' => 'Bearer ' . $token,
+                'Accept-Language' => $language
+            ]
+        ])->getBody();
+
+        Log::debug('TVDB API : Get episode is successful. This the object : ' . $episodeRequest);
+
+        return json_decode($episodeRequest);
+    } catch (ClientException $e) {
+        Log::info('TVDB API : No informations for this episode : ' . $tvdbId . '.');
+        return (object) array();
+    }
+}
