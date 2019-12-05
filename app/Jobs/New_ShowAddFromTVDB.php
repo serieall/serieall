@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Models\Show;
+use ErrorException;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -36,23 +37,19 @@ class New_ShowAddFromTVDB extends Job implements ShouldQueue
 
     public function handle() : bool
     {
-        # Init Job's logs
-        $logID = initJob($this->inputs['user_id'], 'Ajout via TVDB', 'Show', $this->inputs['thetvdb_id']);
-
-        # Init variables
-        $theTvdbId = $this->inputs['thetvdb_id'];
-        $public = public_path();
+        Log::debug('ShowAddFromTVDB: Start a job with : ' . json_encode($this->inputs));
+        $theTvdbId = (int) $this->inputs['thetvdb_id'];
 
         # Now, we are getting the informations from the Show, in english and in french
         try {
             $showFr = apiTvdbGetShow('fr', $theTvdbId)->data;
-        } catch (GuzzleException $e) {
+        }  catch (GuzzleException | ErrorException $e) {
             Log::error('ShowAddFromTVDB: Show not found for language fr.');
             return false;
         }
         try {
             $showEn = apiTvdbGetShow('en', $theTvdbId)->data;
-        } catch (GuzzleException $e) {
+        }  catch (GuzzleException | ErrorException $e) {
             Log::error('ShowAddFromTVDB: Show not found for language en.');
             return false;
         }
@@ -67,6 +64,14 @@ class New_ShowAddFromTVDB extends Job implements ShouldQueue
             $showStatus = 1;
         } else {
             $showStatus = 0;
+        }
+
+        # Concatenate channels fr and channels from thetvdb
+        if(empty($this->inputs['chaine_fr'])){
+            $channels = $showEn->network;
+        }
+        else {
+            $channels = $showEn->network . ',' . $this->inputs['chaine_fr'];
         }
 
         # Create the show
@@ -87,12 +92,12 @@ class New_ShowAddFromTVDB extends Job implements ShouldQueue
             "genres" => $showEn->genre,
             "creators" => $this->inputs['creators'],
             "nationalities" => $this->inputs['nationalities'],
-            "channels" => $this->inputs['channels'],
+            "channels" => $channels,
             "poster" => $showEn->poster,
             "banner" => $showEn->banner
         );
 
-        createShow($showArray);
+        $show = createShow($showArray);
 
         return true;
     }

@@ -20,10 +20,10 @@ function linkAndCreateGenresToShow(Show $show, array $genres) {
             ]);
 
             $show->genres()->save($genreBdd);
-            Log::debug('Genre : ' . $genreBdd->name . 'is created.');
+            Log::debug('Genre : ' . $genreBdd->name . ' is created.');
         } else {
             $show->genres()->attach($genreBdd->id);
-            Log::debug('Genre : ' . $genreBdd->name . 'is linked to ' . $show->name . '.');
+            Log::debug('Genre : ' . $genreBdd->name . ' is linked to ' . $show->name . '.');
         }
     }
 }

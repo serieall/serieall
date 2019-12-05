@@ -18,10 +18,10 @@ function linkAndCreateChannelsToShow(Show $show, array $channels) {
                 'channel_url' => $channelUrl
             ]);
             $show->channels()->save($channelBdd);
-            Log::debug('Channel : ' . $channelBdd->name . 'is created.');
+            Log::debug('Channel : ' . $channelBdd->name . ' is created.');
         } else {
             $show->channels()->attach($channelBdd->id);
-            Log::debug('Channel : ' . $channelBdd->name . 'is linked to ' . $show->name . '.');
+            Log::debug('Channel : ' . $channelBdd->name . ' is linked to ' . $show->name . '.');
         }
     }
 }

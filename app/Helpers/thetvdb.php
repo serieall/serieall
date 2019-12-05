@@ -66,10 +66,10 @@ function apiTvdbGetToken(): string
  *
  * @param string $language
  * @param integer $tvdbId
- * @return void
+ * @return mixed
  * @throws GuzzleException
  */
-function apiTvdbGetShow(string $language, int $tvdbId) : string
+function apiTvdbGetShow(string $language, int $tvdbId): object
 {
     $theTvdbApi = apiTvdbGetConf();
     $client = new Client(['base_uri' => $theTvdbApi['url']]);
@@ -87,8 +87,73 @@ function apiTvdbGetShow(string $language, int $tvdbId) : string
 
         Log::debug('TVDB API : Get show is successful. This the object : ' . $showRequest);
 
-        return $showRequest;
+        return json_decode($showRequest);
     } catch (ClientException $e) {
         Log::info('TVDB API : The show ' . $tvdbId . ' does not exists');
+        return (object) array();
+    }
+}
+
+/**
+ * Get actors from TVDB for a specific show
+ *
+ * @param integer $tvdbId
+ * @return mixed
+ * @throws GuzzleException
+ */
+function apiTvdbGetActorsForShow(int $tvdbId): object
+{
+    $theTvdbApi = apiTvdbGetConf();
+    $client = new Client(['base_uri' => $theTvdbApi['url']]);
+
+    $token = apiTvdbGetToken();
+
+    try {
+        $actorRequest = (string) $client->request('GET', '/series/' . $tvdbId . '/actors', [
+            'headers' => [
+                'Accept' => 'application/json,application/vnd.thetvdb.v' . $theTvdbApi['version'],
+                'Authorization' => 'Bearer ' . $token
+            ]
+        ])->getBody();
+
+        Log::debug('TVDB API : Get actors is successful. This the object : ' . $actorRequest);
+
+        return json_decode($actorRequest);
+    } catch (ClientException $e) {
+        Log::info('TVDB API : No actors for show ' . $tvdbId . '.');
+        return (object) array();
+    }
+}
+
+/**
+ * Get lists of episodes from TVDB for a specific show
+ *
+ * @param string $language
+ * @param integer $tvdbId
+ * @return mixed
+ * @throws GuzzleException
+ */
+function apiTvdbGetEpisodesForShow(string $language, int $tvdbId, int $page): object
+{
+    $theTvdbApi = apiTvdbGetConf();
+    $client = new Client(['base_uri' => $theTvdbApi['url']]);
+
+    $token = apiTvdbGetToken();
+
+    try {
+        $episodeRequest = (string) $client->request('GET', '/series/' . $tvdbId . '/episodes?page=' . $page, [
+            'headers' => [
+                'Accept' => 'application/json,application/vnd.thetvdb.v' . $theTvdbApi['version'],
+                'Authorization' => 'Bearer ' . $token,
+                'Accept-Language' => $language
+            ]
+        ])->getBody();
+
+        Log::debug('TVDB API : Get episodes is successful. This the object : ' . $episodeRequest);
+
+        return json_decode($episodeRequest);
+    } catch (ClientException $e) {
+        Log::info('TVDB API : No episodes for show ' . $tvdbId . '.');
+        return (object) array();
     }
 }
