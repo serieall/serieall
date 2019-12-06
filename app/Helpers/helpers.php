@@ -1,6 +1,14 @@
 <?php
 declare(strict_types=1);
 
+function chooseBetweenTwoVars($variable1, $variable2){
+    if(is_null($variable1)) {
+        return $variable2;
+    } else {
+        return $variable1;
+    }
+}
+
 /**
  * Découpage du résumé
  *

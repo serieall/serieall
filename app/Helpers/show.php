@@ -66,6 +66,12 @@ function createShow($show): Show {
     }
 
     try {
+        linkAndCreateSeasonsToShow($showBdd);
+    } catch (GuzzleException | ErrorException $e) {
+        Log::error('ShowAddFromTVDB: No seasons for the show : ' . $show->name . '.');
+    }
+
+    try {
         linkAndCreateEpisodesToShow($showBdd);
     } catch (GuzzleException | ErrorException $e) {
         Log::error('ShowAddFromTVDB: No episodes for the show : ' . $show->name . '.');
