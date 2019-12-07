@@ -15,17 +15,18 @@ function linkAndCreateSeasonsToShow(Show $show) {
     }
 
     foreach($episodesSummary->airedSeasons as $season) {
-        if($season != "0"){
+        $season = (int) $season;
+        if($season != 0){
             try {
-                $episode = apiTvdbGetFirstEpisodeForSeason($season);
+                $episode = apiTvdbGetFirstEpisodeForSeason($show->thetvdb_id, $season)->data;
             } catch (GuzzleException | ErrorException $e) {
                 Log::error('Season: First episode not found for season ' . $season . '. Continue...');
                 continue;
             }
 
             $seasonInfo = array(
-                'name' => $episode->airedSeason,
-                'thetvdb_id' => $episode->airedSeasonID
+                'name' => $episode[0]->airedSeason,
+                'thetvdb_id' => $episode[0]->airedSeasonID
             );
 
             createOrUpdateSeason($show, $seasonInfo);
@@ -36,11 +37,11 @@ function linkAndCreateSeasonsToShow(Show $show) {
 
 function createOrUpdateSeason(Show $show, array $season) {
     # We check if the season exists, and then create it or update it.
-    $seasonBdd = Season::where('thetvdb_id', $season['id'])->first();
+    $seasonBdd = Season::where('thetvdb_id', $season['thetvdb_id'])->first();
     if (is_null($seasonBdd)) {
         $seasonBdd = new Season([
             'name' => $season['name'],
-            'thetvdb_id' => $season['id']
+            'thetvdb_id' => $season['thetvdb_id']
         ]);
 
         $seasonBdd->show()->associate($show);

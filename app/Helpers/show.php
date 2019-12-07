@@ -6,7 +6,7 @@ use App\Models\Show;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Str;
 
-function createShow($show): Show {
+function createShow($show) {
     # Create the show
     $showBdd = new Show([
         "thetvdb_id" => $show['thetvdb_id'],
@@ -60,23 +60,22 @@ function createShow($show): Show {
     # Now, we are getting the informations from the actors
     try {
         $actors = apiTvdbGetActorsForShow($showBdd->thetvdb_id)->data;
-        linkAndCreateActorsToShow($show, $actors);
+        linkAndCreateActorsToShow($showBdd, $actors);
     } catch (GuzzleException | ErrorException $e) {
-        Log::error('ShowAddFromTVDB: No actors for the show : ' . $show->name . '.');
+        Log::error('Show: No actors for the show : ' . $showBdd->name . '.');
     }
 
     try {
         linkAndCreateSeasonsToShow($showBdd);
     } catch (GuzzleException | ErrorException $e) {
-        Log::error('ShowAddFromTVDB: No seasons for the show : ' . $show->name . '.');
+        Log::error('Show: No seasons for the show : ' . $showBdd->name . '.');
     }
 
     try {
         linkAndCreateEpisodesToShow($showBdd);
     } catch (GuzzleException | ErrorException $e) {
-        Log::error('ShowAddFromTVDB: No episodes for the show : ' . $show->name . '.');
+        Log::error('Show: No episodes for the show : ' . $showBdd->name . '.' . $e);
     }
-
 
     return $showBdd;
 }

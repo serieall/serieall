@@ -66,7 +66,7 @@ function linkAndCreateActorsToShow(Show $show, array $actors) {
 
         # Si il n'existe pas
         if (is_null($actorBdd)) {
-            $artistBdd = new Artist([
+            $actorBdd = new Artist([
                 'name' => $actorName,
                 'artist_url' => $actorUrl
             ]);

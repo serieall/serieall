@@ -21,10 +21,10 @@ function linkAndCreateEpisodesToShow(Show $show) : bool {
     $listEpisodesData = $listEpisodes->data;
 
     if (is_null($listEpisodesNextPage)) {
-        Log::debug('Only one page for episodes. Adding episodes...');
+        Log::debug('Episode : Only one page for episodes. Adding episodes...');
         createOrUpdateEpisode($show, $listEpisodesData);
     } else {
-        Log::debug('Multiple pages for episodes. Adding page 1/' . $listEpisodesLastPage );
+        Log::debug('Episode : Multiple pages for episodes. Adding page 1/' . $listEpisodesLastPage );
         createOrUpdateEpisode($show, $listEpisodesData);
 
         while ($listEpisodesNextPage <= $listEpisodesLastPage) {
@@ -37,7 +37,7 @@ function linkAndCreateEpisodesToShow(Show $show) : bool {
                 createOrUpdateEpisode($show, $listEpisodes->data);
                 $listEpisodesNextPage++;
             } catch (GuzzleException | ErrorException $e) {
-                Log::error('ShowAddFromTVDB: Episodes not found for language en or fr.');
+                Log::error('Episode: Episodes not found for language en or fr.');
                 return false;
             }
         }
@@ -56,10 +56,10 @@ function linkAndCreateEpisodesToShow(Show $show) : bool {
 function getListEpisodes(Show $show, int $page): object {
     try {
         $listEpisodesEn = apiTvdbGetEpisodesForShow("en", $show->thetvdb_id, $page);
-        if($listEpisodesEn->errors->invalidLanguage){
+        if(isset($listEpisodesEn->errors)){
             $listEpisodesFr = apiTvdbGetEpisodesForShow("fr", $show->thetvdb_id, $page);
-            if($listEpisodesFr->errors->invalidLanguage){
-                Log::error('ShowAddFromTVDB: List of episodes not found either in french or english.');
+            if(isset($listEpisodesFr->errors)){
+                Log::error('Episode: List of episodes not found either in french or english.');
                 return (object) array();
             } else {
                 $listEpisodes = $listEpisodesFr;
@@ -67,9 +67,10 @@ function getListEpisodes(Show $show, int $page): object {
         } else {
             $listEpisodes = $listEpisodesEn;
         }
+
         return $listEpisodes;
     } catch (GuzzleException | ErrorException $e) {
-        Log::error('ShowAddFromTVDB: Episodes not found for language en or fr.');
+        Log::error('Episode: Episodes not found for language en or fr.');
         return (object) array();
     }
 }
@@ -105,9 +106,10 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes) {
         } else {
             $episodeNumber = chooseBetweenTwoVars($episodeEn->airedEpisodeNumber, $episodeFr->airedEpisodeNumber);
         }
-        $episodeTvdbId = chooseBetweenTwoVars($episodeEn->thetvdb_id, $episodeFr->thetvdb_id);
+        $episodeTvdbId = chooseBetweenTwoVars($episodeEn->id, $episodeFr->id);
         $episodeImage = chooseBetweenTwoVars($episodeEn->filename, $episodeFr->filename);
         $episodeSeasonId = chooseBetweenTwoVars($episodeEn->airedSeasonID, $episodeFr->airedSeasonID);
+        $episodeAirsAfterSeason = chooseBetweenTwoVars($episodeEn->airsAfterSeason, $episodeFr->airsAfterSeason);
         $episodeGuestStars = chooseBetweenTwoVars($episodeEn->guestStars, $episodeFr->guestStars);
         $episodeDirectors = chooseBetweenTwoVars($episodeEn->directors, $episodeFr->directors);
         $episodeWriters = chooseBetweenTwoVars($episodeEn->writers, $episodeFr->writers);
@@ -129,7 +131,13 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes) {
         );
 
         $episodeBdd = Episode::where('thetvdb_id', $episodeInfo['thetvdb_id'])->first();
-        $seasonBdd = Season::where('thetvdb_id', $episodeInfo['season_id'])->first();
+        if($episodeSeason == 0 && !is_null($episodeAirsAfterSeason)) {
+            $seasonBdd = Season::where('name', $episodeAirsAfterSeason)->where('show_id', $show->id)->first();
+        } elseif($episodeSeason == 0 && is_null($episodeAirsAfterSeason)) {
+            continue;
+        } else {
+            $seasonBdd = Season::where('thetvdb_id', $episodeInfo['season_id'])->first();
+        }
 
         if(is_null($episodeBdd)) {
             $episodeBdd = new Episode([

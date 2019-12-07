@@ -103,7 +103,7 @@ class New_ShowAddFromTVDB extends Job implements ShouldQueue
             "banner" => $showEn->banner
         );
 
-        $show = createShow($showArray);
+        createShow($showArray);
 
         return true;
     }

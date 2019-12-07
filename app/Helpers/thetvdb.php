@@ -192,11 +192,12 @@ function apiTvdbGetEpisodesSummary(int $tvdbId): object
 /**
  * Get episodes summary from TVDB for a specific show
  *
+ * @param int $tvdbId
  * @param int $season
  * @return mixed
  * @throws GuzzleException
  */
-function apiTvdbGetFirstEpisodeForSeason(int $season): object
+function apiTvdbGetFirstEpisodeForSeason(int $tvdbId, int $season): object
 {
     $theTvdbApi = apiTvdbGetConf();
     $client = new Client(['base_uri' => $theTvdbApi['url']]);
@@ -204,24 +205,24 @@ function apiTvdbGetFirstEpisodeForSeason(int $season): object
     $token = apiTvdbGetToken();
 
     try {
-        $episodeSummaryRequest = (string)$client->request('GET', '/series/' . $tvdbId . '/episodes/query?absoluteNumber=1&airedSeason=' . $season, [
+        $episodeSummaryRequest = (string)$client->request('GET', '/series/' . $tvdbId . '/episodes/query?airedEpisode=1&airedSeason=' . $season, [
             'headers' => [
                 'Accept' => 'application/json,application/vnd.thetvdb.v' . $theTvdbApi['version'],
                 'Authorization' => 'Bearer ' . $token
             ]
         ])->getBody();
 
-        Log::debug('TVDB API : Get episode summmary is successful. This the object : ' . $episodeSummaryRequest);
+        Log::debug('TVDB API : Get first episode for season ' . $season . ' is successful. This the object : ' . $episodeSummaryRequest);
 
         return json_decode($episodeSummaryRequest);
     } catch (ClientException $e) {
-        Log::info('TVDB API : No informations for this episode summary : ' . $tvdbId . '.');
+        Log::info('TVDB API : No informations for the first episode of season ' . $season . '.' . $e);
         return (object)array();
     }
 }
 
 /**
- * Get lists of episodes from TVDB for a specific show
+ * Get one episode from TVDB
  *
  * @param string $language
  * @param integer $tvdbId
