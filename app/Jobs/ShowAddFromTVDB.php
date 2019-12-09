@@ -890,77 +890,85 @@ class ShowAddFromTVDB extends Job implements ShouldQueue
         |--------------------------------------------------------------------------
         | On commence par récupérer les chaines du formulaire
         */
-        $getActors = $client->request('GET', '/series/'. $theTVDBID . '/actors', [
-            'headers' => [
-                'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
-                'Authorization' => 'Bearer ' . $token]
-        ])->getBody();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Décodage du JSON
-        |--------------------------------------------------------------------------
-        */
-        $actors = json_decode($getActors);
-        $actors = $actors->data;
+        try {
+            $getActors = $client->request('GET', '/series/'. $theTVDBID . '/actors', [
+                'headers' => [
+                    'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
+                    'Authorization' => 'Bearer ' . $token]
+            ]);
 
-        if(!is_null($actors)) {
-            $logMessage = '>>ACTEURS';
-            foreach ($actors as $actor) {
-                saveLogMessage($idLog, $logMessage);
-                # Récupération du nom de l'acteur
-                $actorName = $actor->name;
 
-                # Récupération de l'ID de l'acteur pour l'image (ID non stocké)
-                $actorID = $actor->id;
+            /*
+            |--------------------------------------------------------------------------
+            | Décodage du JSON
+            |--------------------------------------------------------------------------
+            */
+            $actors = json_decode($getActors->getBody());
+            $actors = $actors->data;
 
-                # Récupération du rôle
-                $actorRole = $actor->role;
-                if (is_null($actorRole)) {
-                    $actorRole = 'TBA';
-                }
-
-                # On supprime les espaces
-                $actor = trim($actorName);
-                # On met en forme l'URL
-                $actor_url = Str::slug($actor);
-                # Vérification de la présence de l'acteur
-                $actor_ref = Artist::where('artist_url', $actor_url)->first();
-
-                # Si elle n'existe pas
-                if (is_null($actor_ref)) {
-                    $logMessage = '>>>Création de l\'acteur ' . $actorName . '.';
+            if(!is_null($actors)) {
+                $logMessage = '>>ACTEURS';
+                foreach ($actors as $actor) {
                     saveLogMessage($idLog, $logMessage);
-                    # On prépare le nouvel acteur
-                    $actor_ref = new Artist([
-                        'name' => $actor,
-                        'artist_url' => $actor_url
-                    ]);
+                    # Récupération du nom de l'acteur
+                    $actorName = $actor->name;
 
-                    # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
-                    $show_new->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+                    # Récupération de l'ID de l'acteur pour l'image (ID non stocké)
+                    $actorID = $actor->id;
 
-                    /* Récupération de la photo de l'acteur */
-                    $file = 'https://artworks.thetvdb.com/banners/actors/' . $actorID . '.jpg';
-                    $file_headers = get_headers($file);
-                    if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                        $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
-                        saveLogMessage($idLog, $logMessage);
-		    } else if (!$file_headers || $file_headers[0] == 'HTTP/1.1 403 Forbidden') {
-		        $logMessage = '>>>Pas d\'image pour l\'acteur ' . $actorName . '.';
-		        saveLogMessage($idLog, $logMessage);
-		    } else {
-                        copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
-                        $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
-                        saveLogMessage($idLog, $logMessage);
+                    # Récupération du rôle
+                    $actorRole = $actor->role;
+                    if (is_null($actorRole)) {
+                        $actorRole = 'TBA';
                     }
-                } else {
-                    $logMessage = '>>>Liaison de l\'acteur ' . $actorName . '.';
-                    saveLogMessage($idLog, $logMessage);
-                    # Si il existe, on crée juste le lien
-                    $show_new->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
+
+                    # On supprime les espaces
+                    $actor = trim($actorName);
+                    # On met en forme l'URL
+                    $actor_url = Str::slug($actor);
+                    # Vérification de la présence de l'acteur
+                    $actor_ref = Artist::where('artist_url', $actor_url)->first();
+
+                    # Si elle n'existe pas
+                    if (is_null($actor_ref)) {
+                        $logMessage = '>>>Création de l\'acteur ' . $actorName . '.';
+                        saveLogMessage($idLog, $logMessage);
+                        # On prépare le nouvel acteur
+                        $actor_ref = new Artist([
+                            'name' => $actor,
+                            'artist_url' => $actor_url
+                        ]);
+
+                        # Et on la sauvegarde en passant par l'objet Show pour créer le lien entre les deux
+                        $show_new->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
+
+                        /* Récupération de la photo de l'acteur */
+                        $file = 'https://artworks.thetvdb.com/banners/actors/' . $actorID . '.jpg';
+                        $file_headers = get_headers($file);
+                        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                            $logMessage = '>>>Pas d\'image pour l\'acteur '. $actorName . '.';
+                            saveLogMessage($idLog, $logMessage);
+                        }
+                        else {
+                            copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
+                            $logMessage = '>>>Image pour l\'acteur '. $actorName . ' récupérée.';
+                            saveLogMessage($idLog, $logMessage);
+                        }
+                    } else {
+                        $logMessage = '>>>Liaison de l\'acteur ' . $actorName . '.';
+                        saveLogMessage($idLog, $logMessage);
+                        # Si il existe, on crée juste le lien
+                        $show_new->artists()->attach($actor_ref->id, ['profession' => 'actor', 'role' => $actorRole]);
+                    }
                 }
             }
+        }
+        catch (ClientException $e) {
+            Log::debug("Pas d'acteurs pour la série.");
+        }
+        catch (HandleExceptions $e) {
+            Log::debug("Impossible de décoder les acteurs.");
         }
 
 

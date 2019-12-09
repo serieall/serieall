@@ -911,6 +911,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                 | On commence par récupérer les chaines du formulaire
                 */
                 /* Récupération de la photo de l'acteur */
+<<<<<<< HEAD
                 $file = 'https://www.thetvdb.com/banners/series/' . $idSerie . '/actors';
                 $file_headers = get_headers($file);
                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
@@ -920,18 +921,21 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 		    $logMessage = '>>>Pas d\'acteurs pour la série.';
 		    saveLogMessage($idLog, $logMessage); 
 		} else {
+=======
+                try {
+>>>>>>> abaac54a4cede538c34c3ec4ed373b073133c502
                     $getActors = $client->request('GET', '/series/' . $idSerie . '/actors', [
                         'headers' => [
                             'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
                             'Authorization' => 'Bearer ' . $token]
-                    ])->getBody();
+                    ]);
 
-                    /*
-                |--------------------------------------------------------------------------
-                | Décodage du JSON
-                |--------------------------------------------------------------------------
-                */
-                    $actors = json_decode($getActors);
+                        /*
+                    |--------------------------------------------------------------------------
+                    | Décodage du JSON
+                    |--------------------------------------------------------------------------
+                    */
+                    $actors = json_decode($getActors->getBody());
                     $actors = $actors->data;
 
                     if (!is_null($actors)) {
@@ -967,17 +971,17 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                                 saveLogMessage($idLog, $logMessage);
 
                                 $serieInBDD->artists()->save($actor_ref, ['profession' => 'actor', 'role' => $actorRole]);
-				Log::info('test');				
+
                                 /* Récupération de la photo de l'acteur */
                                 $file = 'https://artworks.thetvdb.com/banners/actors/' . $actor_ref->id . '.jpg';
                                 $file_headers = get_headers($file);
                                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                                     $logMessage = '>>>Pas d\'image pour l\'acteur ' . $actorName . '.';
                                     saveLogMessage($idLog, $logMessage);
-				} else if (!$file_headers || $file_headers[0] == 'HTTP/1.1 403 Forbidden') {
-				    $logMessage = '>>>Pas d\'image pour l\'acteur ' . $actorName . '.';
-			 	    saveLogMessage($idLog, $logMessage);
-				} else {
+                                } else if (!$file_headers || $file_headers[0] == 'HTTP/1.1 403 Forbidden') {
+                                    $logMessage = '>>>Pas d\'image pour l\'acteur ' . $actorName . '.';
+                                    saveLogMessage($idLog, $logMessage);
+                                } else {
                                     copy($file, $public . '/images/actors/' . $actor_ref->artist_url . '.jpg');
                                     $logMessage = '>>>Image pour l\'acteur ' . $actorName . ' récupérée.';
                                     saveLogMessage($idLog, $logMessage);
@@ -1021,7 +1025,12 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                         }
                     }
                 }
-
+                catch (ClientException $e) {
+                    Log::debug("Pas d'acteurs pour la série.");
+                }
+                catch (HandleExceptions $e) {
+                    Log::debug("Impossible de décoder les acteurs.");
+                }
 
                 /*
                 |--------------------------------------------------------------------------
