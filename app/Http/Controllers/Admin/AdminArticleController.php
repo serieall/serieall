@@ -164,13 +164,12 @@ class AdminArticleController extends Controller
         }
 
         $destinationPath = public_path() . config('directories.original');
+        $extension = 'jpg';
+        $fileName = $article->article_url . '.' . $extension;
+
         # Add the image
         if (Input::hasfile('image') && Input::file('image')->isValid()) {
-            $extension = 'jpg';
-            $fileName = $article->article_url . '.' . $extension;
-
             $article->image = config('directories.original') . $fileName;
-
             Input::file('image')->move($destinationPath, $fileName);
         } else {
             Log::error('Image' . $destinationPath . '/' . $fileName .' is too big');
