@@ -779,7 +779,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         # D'abord on récupère la date de dernière mise à jour
         $lastUpdate = Temp::where('key', 'last_update')->first();
         $lastUpdate = $lastUpdate->value;
-        $nextUpdate = $lastUpdate;
+        $nextUpdate = $lastUpdate + $secondsWeek;
 
         # On fait chercher la liste des dernières modifications sur TheTVDB
         $getUpdate = $client->request('GET', 'updated/query?fromTime=' . $lastUpdate, [
@@ -916,7 +916,10 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
                 if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     $logMessage = '>>>Pas d\'acteurs pour la série.';
                     saveLogMessage($idLog, $logMessage);
-                } else {
+		} else if (!$file_headers || $file_headers[0] == '404 Not Found') {
+		    $logMessage = '>>>Pas d\'acteurs pour la série.';
+		    saveLogMessage($idLog, $logMessage); 
+		} else {
                     $getActors = $client->request('GET', '/series/' . $idSerie . '/actors', [
                         'headers' => [
                             'Accept' => 'application/json,application/vnd.thetvdb.v' . $api_version,
@@ -1101,7 +1104,10 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
         $logMessage = '----- Mise à jour du timestamp -----';
         saveLogMessage($idLog, $logMessage);
 
-        $newUpdate->value = $nextUpdate;
+	Log::info($deltaLastNext);
+	Log::info($lastUpdate);
+	Log::info($nextUpdate);
+	$newUpdate->value = $nextUpdate;
         $newUpdate->save();
 
         endJob($idLog);
