@@ -108,6 +108,7 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes) {
         }
         $episodeTvdbId = chooseBetweenTwoVars($episodeEn->id, $episodeFr->id);
         $episodeImage = chooseBetweenTwoVars($episodeEn->filename, $episodeFr->filename);
+        Log::error($episodeImage);
         $episodeSeasonId = chooseBetweenTwoVars($episodeEn->airedSeasonID, $episodeFr->airedSeasonID);
         $episodeAirsAfterSeason = chooseBetweenTwoVars($episodeEn->airsAfterSeason, $episodeFr->airsAfterSeason);
         $episodeGuestStars = chooseBetweenTwoVars($episodeEn->guestStars, $episodeFr->guestStars);

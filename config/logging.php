@@ -32,7 +32,7 @@ return [
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
-            'level' => 'warning',
+            'level' => 'debug',
         ],
         'daily' => [
             'driver' => 'daily',

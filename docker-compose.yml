@@ -8,8 +8,10 @@ services:
   worker-images:
     image: youkoulayley/worker_images:0.1
     volumes:
-      - "~/git/worker_images/config.ini:/etc/worker_images/config.ini"
-      - "~/serieall/public/images:/var/www/html/serieall/public/images"
+      - /home/youkoulayley/git/worker_images/config.ini:/etc/worker_images/config.ini
+      - /home/youkoulayley/git/serieall/public/images:/var/www/images
+    depends_on:
+      - nats-streaming
   serieall-api:
     image: serieall/api:v0.1
     ports:
@@ -21,7 +23,9 @@ services:
       - IMAGE_PATH=/images
       - NATS_HOST=nats-streaming
     volumes:
-      - "~/serieall/public/images:/var/www/html/serieall/public/images"
+      - /home/youkoulayley/git/serieall/public/images:/var/www/html/serieall/public/images
+    depends_on:
+      - nats-streaming
   mysql:
     image: mysql:5.7
     ports:

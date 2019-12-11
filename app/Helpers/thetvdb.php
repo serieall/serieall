@@ -217,7 +217,7 @@ function apiTvdbGetFirstEpisodeForSeason(int $tvdbId, int $season): object
         return json_decode($episodeSummaryRequest);
     } catch (ClientException $e) {
         Log::info('TVDB API : No informations for the first episode of season ' . $season . '.' . $e);
-        return (object)array();
+        return (object) array();
     }
 }
 
@@ -250,6 +250,37 @@ function apiTvdbGetEpisode(string $language, int $tvdbId): object
         return json_decode($episodeRequest);
     } catch (ClientException $e) {
         Log::info('TVDB API : No informations for this episode : ' . $tvdbId . '.');
+        return (object) array();
+    }
+}
+
+/**
+ * Get list of updates from TVDB
+ *
+ * @param int $lastUpdate
+ * @return mixed
+ * @throws GuzzleException
+ */
+function apiTvdbGetListUpdate(int $lastUpdate): object
+{
+    $theTvdbApi = apiTvdbGetConf();
+    $client = new Client(['base_uri' => $theTvdbApi['url']]);
+
+    $token = apiTvdbGetToken();
+
+    try {
+        $listUpdateRequest = (string) $client->request('GET', 'updated/query?fromTime=' . $lastUpdate, [
+            'headers' => [
+                'Accept' => 'application/json,application/vnd.thetvdb.v' . $theTvdbApi['version'],
+                'Authorization' => 'Bearer ' . $token
+            ]
+        ])->getBody();
+
+        Log::debug('TVDB API : Get list of update is successful. This the object : ' . $listUpdateRequest);
+
+        return json_decode($listUpdateRequest);
+    } catch (ClientException $e) {
+        Log::info('TVDB API : Impossible to get updates.');
         return (object) array();
     }
 }

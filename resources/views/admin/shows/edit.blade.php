@@ -44,7 +44,7 @@
                 <button class="fluid ui blue button" onclick="window.location.href='{{ route('admin.artists.show', $show->id) }}'">Modifier les acteurs de la série</button>
                 <button class="fluid ui teal button" onclick="window.location.href='{{ route('admin.seasons.show', $show->id) }}'">Modifier les saisons et les épisodes</button>
                 <!-- Formulaire de suppression -->
-                <form action="{{ route('admin.shows.updateoneshowfromtvdb', $show->id) }}" method="post" >
+                <form action="{{ route('admin.shows.updateoneshowfromtvdb', $show->thetvdb_id) }}" method="post" >
                     {{ csrf_field() }}
                     <button class="fluid ui orange button" title="Forcer la mise à jour">Forcer la mise à jour depuis TVDB</button>
                 </form>

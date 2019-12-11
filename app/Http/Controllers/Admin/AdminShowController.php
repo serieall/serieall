@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShowUpdateManuallyRequest;
 use App\Jobs\ClearDoublons;
 use App\Jobs\OneShowUpdateFromTVDB;
-use App\Jobs\New_ShowUpdateFromTVDB;
+use App\Jobs\ShowUpdateFromTVDB;
 use App\Repositories\LogRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -309,8 +309,8 @@ class AdminShowController extends Controller
      * @param ShowRepository $show_repository
      * @return RedirectResponse
      */
-    public function updateOneShowFromTVDB($show_id, ShowRepository $show_repository) {
-        $dispatchOK = dispatch(new OneShowUpdateFromTVDB($show_id, $show_repository));
+    public function updateOneShowFromTVDB($show_id) {
+        $dispatchOK = dispatch(new OneShowUpdateFromTVDB($show_id));
 
         if($dispatchOK) {
             $state_header = 'status_header';

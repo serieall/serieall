@@ -6,55 +6,114 @@ use App\Models\Show;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Str;
 
-function createShow($show) {
-    # Create the show
-    $showBdd = new Show([
-        "thetvdb_id" => $show['thetvdb_id'],
-        "name" => $show['name'],
-        "name_fr" => $show['name_fr'],
-        "synopsis" => $show['synopsis'],
-        "synopsis_fr" => $show['synopsis_fr'],
-        "diffusion_us" => $show['diffusion_us'],
-        "diffusion_fr" => $show['diffusion_fr'],
-        "format" => $show['format'],
-        "taux_erectile" => $show['taux_erectile'],
-        "avis_rentree" => $show['avis_rentree'],
-        "encours" => $show['encours'],
-        "annee" => $show['annee'],
-        "show_url" => $show['url'],
-    ]);
+function createorUpdateShow(array $inputs) {
+    $showNotFound = 0;
+    $theTvdbId = (int) $inputs['thetvdb_id'];
 
-    $showBdd->save();
-    Log::debug('Show : ' . $showBdd->name . 'is created.');
+    # Now, we are getting the informations from the Show, in english and in french
+    try {
+        $showFr = apiTvdbGetShow('fr', $theTvdbId)->data;
+    }  catch (GuzzleException | ErrorException $e) {
+        Log::error('ShowAddFromTVDB: Show not found for language fr.');
+        $showNotFound += 1;
+    }
+    try {
+        $showEn = apiTvdbGetShow('en', $theTvdbId)->data;
+    }  catch (GuzzleException | ErrorException $e) {
+        Log::error('ShowAddFromTVDB: Show not found for language en.');
+        $showNotFound += 1;
+    }
+
+    if($showNotFound == 2) {
+        Log::error('ShowAddFromTVDB: Show not found for language en and fr. Quit.');
+        return false;
+    }
+
+    # Define name EN as FR name when EN is not completed on TVDB (french series mostly)
+    if(empty($showEn->seriesName)){
+        $showEn->seriesName = $showFr->seriesName;
+    }
+
+    # Define status of the show
+    if ($showEn->status == 'Continuing'){
+        $showStatus = 1;
+    } else {
+        $showStatus = 0;
+    }
+
+    # Concatenate channels fr and channels from thetvdb
+    if(array_key_exists('chaine_fr', $inputs) || empty($inputs['chaine_fr'])){
+        $channels = $showEn->network;
+    }
+    else {
+        $channels = $showEn->network . ',' . $inputs['chaine_fr'];
+    }
+
+    $showBdd = Show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
+
+    if(is_null($showBdd)) {
+        # Create the show
+        $showBdd = new Show([
+            "thetvdb_id" => $theTvdbId,
+            "name" => $showEn->seriesName,
+            "name_fr" => $showFr->seriesName,
+            "synopsis" => $showEn->overview,
+            "synopsis_fr" => $showFr->overview,
+            "diffusion_us" => $showEn->firstAired,
+            "diffusion_fr" => $inputs['diffusion_fr'],
+            "format" => $showEn->runtime,
+            "taux_erectile" => $inputs['taux_erectile'],
+            "avis_rentree" => $inputs['avis_rentree'],
+            "encours" => $showStatus,
+            "annee" => date_format(date_create($showEn->firstAired), 'Y'),
+            "show_url" => Str::slug($showEn->seriesName),
+        ]);
+
+        $showBdd->save();
+        Log::debug('Show : ' . $showBdd->name . 'is created.');
+    } else {
+        $showBdd->name = $showEn->seriesName;
+        $showBdd->name_fr = $showFr->seriesName;
+        $showBdd->synopsis = $showEn->overview;
+        $showBdd->synopsis_fr = $showFr->overview;
+        $showBdd->diffusion_us = $showEn->firstAired;
+        $showBdd->format = $showEn->runtime;
+        $showBdd->encours = $showStatus;
+        $showBdd->annee = date_format(date_create($showEn->firstAired), 'Y');
+        $showBdd->show_url = Str::slug($showEn->seriesName);
+
+        $showBdd->save();
+        Log::debug('Show : ' . $showBdd->name . 'was updated.');
+    }
 
     # Get the images for the show
-    $showPoster = config('thetvdb.imageUrl') . $show['poster'];
-    $showBanner = config('thetvdb.imageUrl') . $show['banner'];
+    $showPoster = config('thetvdb.imageUrl') . $showEn->poster;
+    $showBanner = config('thetvdb.imageUrl') . $showEn->banner;
 
-    publishImage($showPoster, Str::slug($show['name']), "poster", "middle", true);
-    publishImage($showBanner, Str::slug($show['name']), "banner", "middle", true);
+    publishImage($showPoster, Str::slug($showEn->seriesName), "poster", "middle", true);
+    publishImage($showBanner, Str::slug($showEn->seriesName), "banner", "middle", true);
 
-    if ($show['genres'] && !empty($show['genres'])) {
+    if ($showEn->genre && !empty($showEn->genre)) {
         Log::debug('Show : Link and create all genres for ' . $showBdd->name . '.');
-        linkAndCreateGenresToShow($showBdd, $show['genres']);
+        linkAndCreateGenresToShow($showBdd, $showEn->genre);
     }
 
-    if($show['creators'] && !empty($show['creators'])) {
+    if(array_key_exists('creators', $inputs) || !empty($inputs['creators'])) {
         Log::debug('Show : Link and create all creators for ' . $showBdd->name . '.');
-        $show['creators'] = explode(',', $show['creators']);
-        linkAndCreateArtistsToShow($showBdd, $show['creators'], "creator");
+        $inputs['creators'] = explode(',', $inputs['creators']);
+        linkAndCreateArtistsToShow($showBdd, $inputs['creators'], "creator");
     }
 
-    if($show['nationalities'] && !empty($show['nationalities'])) {
+    if(array_key_exists('nationalities', $inputs) || !empty($inputs['nationalities'])) {
         Log::debug('Show : Link and create all nationalities for ' . $showBdd->name . '.');
-        $show['nationalities'] = explode(',', $show['nationalities']);
-        linkAndCreateNationalitiesToShow($showBdd, $show['nationalities']);
+        $inputs['nationalities'] = explode(',', $inputs['nationalities']);
+        linkAndCreateNationalitiesToShow($showBdd, $inputs['nationalities']);
     }
 
-    if($show['channels'] && !empty($show['channels'])) {
+    if($channels && !empty($channels)) {
         Log::debug('Show : Link and create all channels for ' . $showBdd->name . '.');
-        $show['channels'] = explode(',', $show['channels']);
-        linkAndCreateChannelsToShow($showBdd, $show['channels']);
+        $channels = explode(',', $channels);
+        linkAndCreateChannelsToShow($showBdd, $channels);
     }
 
     # Now, we are getting the informations from the actors
