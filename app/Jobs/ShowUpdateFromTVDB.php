@@ -4,6 +4,8 @@ namespace App\Jobs;
 
 use App\Models\Show;
 use App\Models\Temp;
+use Carbon\Carbon;
+use Carbon\Exceptions\BadUnitException;
 use ErrorException;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Queue\InteractsWithQueue;
@@ -35,46 +37,49 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
     {
         Log::debug('ShowUpdateFromTVDB: Start a job.');
 
+        $secondsWeek = 604800;
+
         $lastUpdate = Temp::where('key', 'last_update')->first();
-        $lastUpdate = $lastUpdate->value;
+        $lastUpdateTimestamp = $lastUpdate->value;
         // Set time of next update to lastupdate as a base
-        $nextUpdate = $lastUpdate;
+        $nextUpdate = Carbon::now()->timestamp;
 
         try {
-            $listUpdate = apiTvdbGetListUpdate($lastUpdate);
+            $listUpdate = apiTvdbGetListUpdate($lastUpdateTimestamp);
         } catch (GuzzleException | ErrorException $e) {
             Log::error('ShowUpdateFromTVDB: Impossible to get list of updates.');
         }
 
-        $listUpdate = $listUpdate->data;
+        if (!empty($listUpdate)) {
+            $listUpdate = $listUpdate->data;
 
-        foreach ($listUpdate as $show) {
-            $inputs = array(
-                'thetvdb_id' => $show->id
-            );
+            foreach ($listUpdate as $show) {
+                $inputs = array(
+                    'thetvdb_id' => $show->id
+                );
 
-            // Update value of next Update if the date of update of this show is greater than $nextupdate
-            $showUpdate = $show->lastUpdated;
-            if($showUpdate >= $nextUpdate) {
-                $nextUpdate = $showUpdate;
-            }
+                // Update value of next Update if the date of update of this show is greater than $nextupdate
+                $showUpdate = $show->lastUpdated;
+                if($showUpdate >= $nextUpdate) {
+                    $nextUpdate = $showUpdate;
+                }
 
-            // Update the show if it exists on our BDD
-            $showBdd = Show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
-            if (!is_null($showBdd)) {
-                createorUpdateShow($inputs);
+                // Update the show if it exists on our BDD
+                $showBdd = Show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
+                if (!is_null($showBdd)) {
+                    createorUpdateShow($inputs);
+                }
             }
         }
 
-        $deltaLastNext = $nextUpdate - $lastUpdate;
+        $deltaLastNext = $nextUpdate - $lastUpdateTimestamp;
 
         if($deltaLastNext >= $secondsWeek){
-            $nextUpdate = $lastUpdate + $secondsWeek;
+            $nextUpdate = $lastUpdateTimestamp + $secondsWeek;
         }
 
-        $newUpdate->value = $nextUpdate;
-        $newUpdate->save();
-        endJob($idLog);
+        $lastUpdate->value = $nextUpdate;
+        $lastUpdate->save();
 
         Log::debug('ShowUpdateFromTVDB: Enf of job.');
     }
