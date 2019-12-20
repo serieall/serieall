@@ -189,7 +189,19 @@
                             @endif
                         </div>
                     </div>
-                    <div class="ui two fields">
+                    <div class="ui three fields">
+                        <div class="ui field {{ $errors->has('picture') ? ' error' : '' }}">
+                            <label for="ba">
+                                Image
+                            </label>
+                            <input id="ba" name="ba" value="{{ $episode->picture }}">
+
+                            @if ($errors->has('picture'))
+                                <div class="ui red message">
+                                    <strong>{{ $errors->first('picture') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                         <div class="ui field {{ $errors->has('ba') ? ' error' : '' }}">
                             <label for="ba">
                                 Bande-Annonce

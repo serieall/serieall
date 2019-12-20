@@ -14,7 +14,7 @@
         "dingo/api": "v2.2.3",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~4.0",
-        "guzzlehttp/guzzle": "6.3.2",
+        "guzzlehttp/guzzle": "6.4.1",
         "jorenvanhocht/laravel-share": "^2.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "~1.0",
@@ -29,7 +29,8 @@
         "tohtamysh/laravel-phpbb-bridge": "^1.0",
         "youkoulayley/podcastfeed": "^0.3.7",
         "staudenmeir/belongs-to-through": "^2.5",
-        "staudenmeir/eloquent-has-many-deep": "^1.8"
+        "staudenmeir/eloquent-has-many-deep": "^1.8",
+        "ext-json": "*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -47,10 +48,18 @@
             "App\\": "app/"
         },
         "files": [
+            "app/Helpers/artist.php",
+            "app/Helpers/channel.php",
+            "app/Helpers/episode.php",
+            "app/Helpers/genre.php",
             "app/Helpers/fiches.php",
             "app/Helpers/helpers.php",
             "app/Helpers/images.php",
             "app/Helpers/logs.php",
+            "app/Helpers/nationality.php",
+            "app/Helpers/thetvdb.php",
+            "app/Helpers/season.php",
+            "app/Helpers/show.php",
             "app/Helpers/users.php"
         ]
     },

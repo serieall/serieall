@@ -49,6 +49,7 @@ function publishImage($url, $name, $crop_type, $crop, $force_crop) {
     $body->force_crop = $force_crop;
 
     $body = json_encode($body);
+    Log::debug($body);
     # Creating client to API
     $client = new Client([
         'base_uri' => config('app.goapi_url'),

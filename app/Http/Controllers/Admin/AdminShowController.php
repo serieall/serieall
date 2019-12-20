@@ -309,8 +309,8 @@ class AdminShowController extends Controller
      * @param ShowRepository $show_repository
      * @return RedirectResponse
      */
-    public function updateOneShowFromTVDB($show_id, ShowRepository $show_repository) {
-        $dispatchOK = dispatch(new OneShowUpdateFromTVDB($show_id, $show_repository));
+    public function updateOneShowFromTVDB($show_id) {
+        $dispatchOK = dispatch(new OneShowUpdateFromTVDB($show_id));
 
         if($dispatchOK) {
             $state_header = 'status_header';

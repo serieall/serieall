@@ -20,6 +20,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'url' => 'https://api.thetvdb.com/',
-    'version' => '2.1.1',
-    'hoursduration' => '12'
+    'imageUrl' => 'https://artworks.thetvdb.com/banners/' ,
+    'version' => '3.0.0',
+    'duration' => '12'
 ];
