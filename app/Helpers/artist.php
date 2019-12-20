@@ -24,8 +24,16 @@ function linkAndCreateArtistsToShow(Show $show, array $artists, string $professi
             $show->artists()->save($artistBdd, ['profession' => $profession]);
             Log::debug('Artist : ' . $artistBdd->name . ' is created.');
         } else {
-            $show->artists()->attach($artistBdd->id, ['profession' => $profession]);
-            Log::debug('Artist : ' . $artistBdd->name . ' is linked to ' . $show->name . '.');
+            $artistLink = $artistBdd->shows()
+                ->where('shows.thetvdb_id', $show->thetvdb_id)
+                ->where('artistables.profession', $profession)
+                ->first();
+            if(empty($artistLink)) {
+                $show->artists()->attach($artistBdd->id, ['profession' => $profession]);
+                Log::debug('Artist : ' . $artistBdd->name . ' is linked to ' . $show->name . '.');
+            } else {
+                Log::debug('Artist : ' . $artistBdd->name . ' is already linked to ' . $show->name . '.');
+            }
         }
     }
 }
@@ -47,8 +55,16 @@ function linkAndCreateArtistsToEpisode(Episode $episode, array $artists, string 
             $episode->artists()->save($artistBdd, ['profession' => $profession]);
             Log::debug('Artist : ' . $artistBdd->name . ' is created.');
         } else {
-            $episode->artists()->attach($artistBdd->id, ['profession' => $profession]);
-            Log::debug('Artist : ' . $artistBdd->name . ' is linked to episode ' . $episode->numero . '.');
+            $artistLink = $artistBdd->episodes()
+                ->where('episodes.thetvdb_id', $episode->thetvdb_id)
+                ->where('artistables.profession', $profession)
+                ->first();
+            if(empty($artistLink)) {
+                $episode->artists()->attach($artistBdd->id, ['profession' => $profession]);
+                Log::debug('Artist : ' . $artistBdd->name . ' is linked to episode ' . $episode->numero . '.');
+            } else {
+                Log::debug('Artist : ' . $artistBdd->name . ' is already linked to episode ' . $episode->numero . '.');
+            }
         }
     }
 }
@@ -73,8 +89,16 @@ function linkAndCreateActorsToShow(Show $show, array $actors) {
             $show->artists()->save($actorBdd, ['profession' => 'actor', 'role' => $actorRole]);
             Log::debug('Artist : ' . $actorBdd->name . ' is created.');
         } else {
-            $show->artists()->attach($actorBdd->id, ['profession' => 'actor', 'role' => $actorRole]);
-            Log::debug('Artist : ' . $actorBdd->name . ' is linked to ' . $show->name . '.');
+            $actorLink = $actorBdd->shows()
+                ->where('shows.thetvdb_id', $show->thetvdb_id)
+                ->where('artistables.profession', 'actor')
+                ->first();
+            if(empty($actorLink)) {
+                $show->artists()->attach($actorBdd->id, ['profession' => 'actor', 'role' => $actorRole]);
+                Log::debug('Artist : ' . $actorBdd->name . ' is linked to ' . $show->name . '.');
+            } else {
+                Log::debug('Artist : ' . $actorBdd->name . ' is already linked to ' . $show->name . '.');
+            }
         }
 
         /* Récupération de la photo de l'acteur */

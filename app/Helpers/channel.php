@@ -20,8 +20,13 @@ function linkAndCreateChannelsToShow(Show $show, array $channels) {
             $show->channels()->save($channelBdd);
             Log::debug('Channel : ' . $channelBdd->name . ' is created.');
         } else {
-            $show->channels()->attach($channelBdd->id);
-            Log::debug('Channel : ' . $channelBdd->name . ' is linked to ' . $show->name . '.');
+            $channelLink = $channelBdd->shows()->where('shows.thetvdb_id', $show->thetvdb_id)->first();
+            if (empty($channelLink)) {
+                $show->channels()->attach($channelBdd->id);
+                Log::debug('Channel : ' . $channelBdd->name . ' is linked to ' . $show->name . '.');
+            } else {
+                Log::debug('Channel : ' . $channelBdd->name . ' is already linked to ' . $show->name . '.');
+            }
         }
     }
 }

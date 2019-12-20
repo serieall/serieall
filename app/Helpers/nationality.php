@@ -20,8 +20,13 @@ function linkAndCreateNationalitiesToShow(Show $show, array $nationalities) {
             $show->nationalities()->save($nationalityBdd);
             Log::debug('Nationality : ' . $nationalityBdd->name . 'is created.');
         } else {
-            $show->nationalities()->attach($nationalityBdd->id);
-            Log::debug('Nationality : ' . $nationalityBdd->name . 'is linked to ' . $show->name . '.');
+            $nationalityLink = $nationalityBdd->shows()->where('shows.thetvdb_id', $show->thetvdb_id)->first();
+            if (empty($nationalityLink)) {
+                $show->nationalities()->attach($nationalityBdd->id);
+                Log::debug('Nationality : ' . $nationalityBdd->name . 'is linked to ' . $show->name . '.');
+            } else {
+                Log::debug('Nationality : ' . $nationalityBdd->name . 'is already linked to ' . $show->name . '.');
+            }
         }
     }
 }

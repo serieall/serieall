@@ -22,8 +22,14 @@ function linkAndCreateGenresToShow(Show $show, array $genres) {
             $show->genres()->save($genreBdd);
             Log::debug('Genre : ' . $genreBdd->name . ' is created.');
         } else {
-            $show->genres()->attach($genreBdd->id);
-            Log::debug('Genre : ' . $genreBdd->name . ' is linked to ' . $show->name . '.');
+            $genreLink = $genreBdd->shows()->where('shows.thetvdb_id', $show->thetvdb_id)->first();
+            if (empty($genreLink)) {
+                $show->genres()->attach($genreBdd->id);
+                Log::debug('Genre : ' . $genreBdd->name . ' is linked to ' . $show->name . '.');
+            } else {
+                Log::debug('Genre : ' . $genreBdd->name . ' is already linked to ' . $show->name . '.');
+            }
+
         }
     }
 }
