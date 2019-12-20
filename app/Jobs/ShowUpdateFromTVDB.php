@@ -50,6 +50,8 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
             Log::error('ShowUpdateFromTVDB: Impossible to get list of updates.');
         }
 
+  
+
         if (!empty($listUpdate)) {
             $listUpdate = $listUpdate->data;
 
