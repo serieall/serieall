@@ -80,7 +80,6 @@ function createorUpdateShow(array $inputs) {
         $showBdd->format = $showEn->runtime;
         $showBdd->encours = $showStatus;
         $showBdd->annee = date_format(date_create($showEn->firstAired), 'Y');
-        $showBdd->show_url = Str::slug($showEn->seriesName);
 
         $showBdd->save();
         Log::debug('Show : ' . $showBdd->name . 'was updated.');
