@@ -43,7 +43,7 @@
                         @foreach($articles as $article)
                             <div class="article item">
                                 <div class="ol-{{ colorCategory($article->category_id) }} image article">
-                                    <img src="{{ chooseImage(pathinfo($article->image)['filename'], "poster", "120_120") }}" alt="">
+                                    <img src="{{ $article->image }}" alt="">
                                     <p>{{ $article->category->name }}</p>
                                 </div>
                                 <div class="content">

@@ -13,7 +13,7 @@
                     <div class="row objectArticle">
                         <div class="ui grid stackable">
                             <div class="center aligned four wide column">
-                                <img src="{{ chooseImage(pathinfo($article->image)['filename'], "poster", "68_100") }}" alt=""/>
+                                <img src="{{ $article->image }}" alt=""/>
                             </div>
                             <div class="eleven wide column">
                                 <a href="{{ route("article.show", $article->article_url) }}"><h2>{{ $article->name }}</h2></a>

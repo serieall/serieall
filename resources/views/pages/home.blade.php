@@ -32,7 +32,7 @@
                                 <div class="ui left aligned text header">{{ $article->name }}</div>
                             </div>
                             <div class="image article">
-                                <img src="{{ chooseImage(pathinfo($article->image)['filename'], "banner", "340_100") }}" alt="Image article">
+                                <img src="{{ $article->image }}" alt="Image article">
                             </div>
                             <div class="content">
                                 <div class="meta">

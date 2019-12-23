@@ -42,7 +42,7 @@
                 <div class="topInfoArticle">
                     <div class="title">
                         <div class="imageArticle">
-                            <img src="{{ chooseImage(pathinfo($article->image)['filename'], "banner", "950_230") }}" alt="">
+                            <img src="{{ $article->image }}" alt="">
                         </div>
                         <div class="ui two column center aligned grid stackable">
                             <div class="row">
