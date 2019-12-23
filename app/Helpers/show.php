@@ -6,6 +6,7 @@ use App\Models\Show;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Str;
 
+
 function createorUpdateShow(array $inputs) {
     $showNotFound = 0;
     $theTvdbId = (int) $inputs['thetvdb_id'];
@@ -88,9 +89,12 @@ function createorUpdateShow(array $inputs) {
     # Get the images for the show
     $showPoster = config('thetvdb.imageUrl') . $showEn->poster;
     $showBanner = config('thetvdb.imageUrl') . $showEn->banner;
+    $showName = Str::slug($showEn->seriesName);
 
-    publishImage($showPoster, Str::slug($showEn->seriesName), "poster", "middle", true);
-    publishImage($showBanner, Str::slug($showEn->seriesName), "banner", "middle", true);
+    downloadImage($showPoster, $showName, 'poster');
+    downloadImage($showBanner, $showName, 'banner');
+    resizeImage($showName, 'poster');
+    resizeImage($showName, 'banner');
 
     if ($showEn->genre && !empty($showEn->genre)) {
         Log::debug('Show : Link and create all genres for ' . $showBdd->name . '.');

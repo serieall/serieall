@@ -58,7 +58,7 @@
 
                     <div class="two fields">
                         <div class="ui raised small image {{ $errors->has('poster') ? ' error' : '' }}">
-                                <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "poster", "170_250") }}">
+                                <img src="{{ chooseImage($show->show_url, "poster", "170_250") }}">
                                 <label for="poster" class="ui blue ribbon label" style="cursor: pointer" tabindex="0">
                                     <i class="ui upload icon"></i>
                                     Modifier le poster
@@ -73,7 +73,7 @@
                         {{-- <div class="field"></div> --}}
                         <div class="field">
                             <div class="ui raised image {{ $errors->has('banner') ? ' error' : '' }}">
-                                <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "banner", "950_230") }}">
+                                <img src="{{ chooseImage($show->show_url, "banner", "950_230") }}">
                                 <label for="banner" class="ui blue right ribbon label" style="cursor: pointer" tabindex="0">
                                     <i class="ui upload icon"></i>
                                     Modifier la bannière

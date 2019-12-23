@@ -1,7 +1,7 @@
 @foreach($rates as $rate)
     <div class="card">
         <div class="image">
-            <img src="{{ getImage($rate->thetvdb_id, "", $rate->show_url, "banner", "333_100") }}" alt="Image illustrative de {{$rate->name}}">
+            <img src="{{ chooseImage($rate->show_url, "banner", "333_100") }}" alt="Image illustrative de {{$rate->name}}">
         </div>
         <div class="content">
             <a class="header" href="{{route('show.fiche', $rate->show_url)}}">{{$rate->name}}</a>

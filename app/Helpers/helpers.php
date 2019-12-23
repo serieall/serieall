@@ -173,3 +173,9 @@ function affichageAvatar($id) {
     $user = \App\Models\User::findOrFail($id);
     return \Thomaswelton\LaravelGravatar\Facades\Gravatar::src($user->email);
 }
+
+function createDirectoryIfNotExists($dir) {
+    if (!file_exists($dir)){
+        mkdir($dir);
+    }
+}

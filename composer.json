@@ -30,7 +30,8 @@
         "youkoulayley/podcastfeed": "^0.3.7",
         "staudenmeir/belongs-to-through": "^2.5",
         "staudenmeir/eloquent-has-many-deep": "^1.8",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-gd": "*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

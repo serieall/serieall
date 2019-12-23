@@ -13,7 +13,7 @@
                                 </div>
                             </div>
                         </div>
-                        <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "poster", "170_250") }}" alt="Image illustrative de {{$show->name}}">
+                        <img src="{{ chooseImage($show->show_url, "poster", "170_250") }}" alt="Image illustrative de {{$show->name}}">
                     </div>
                     <div class="content">
                         <a href="{{ route('show.fiche', $show->show_url) }}" class="header">{{ $show->name }}</a>

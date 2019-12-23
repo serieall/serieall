@@ -12,9 +12,9 @@
             <div class="card">
                 <div class="image">
                     @if($comment->commentable_type == 'App\Models\Show')
-                        <img src="{{ getImage($comment->commentable->show_id, "", $comment->commentable->show_url, "banner", "333_100") }}" alt="Image de la série">
+                        <img src="{{ chooseImage($comment->commentable->show_url, "banner", "333_100") }}" alt="Image de la série">
                     @else
-                    <img src="{{ getImage($comment->commentable->show->show_id, "", $comment->commentable->show->show_url, "banner", "333_100") }}" alt="Image de la série">
+                    <img src="{{ chooseImage($comment->commentable->show->show_url, "banner", "333_100") }}" alt="Image de la série">
                     @endif
                 </div>
                 <div class="content">

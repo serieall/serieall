@@ -140,7 +140,7 @@ class AdminShowController extends Controller
             $extension = 'jpg';
             $fileName = $show->show_url . '-poster' . '.' . $extension;
             Input::file('poster')->move($destinationPath, $fileName);
-            publishImage(config('app.url') . config('directories.original') . $fileName, $show->show_url, "poster", "middle", true);
+            resizeImage($show->show_url, 'poster');
         }
         unset($inputs['poster']);
 
@@ -149,7 +149,7 @@ class AdminShowController extends Controller
             $extension = 'jpg';
             $fileName = $show->show_url . '-banner' . '.' . $extension;
             Input::file('banner')->move($destinationPath, $fileName);
-            publishImage(config('app.url') . config('directories.original') . $fileName, $show->show_url, "banner", "middle", true);
+            resizeImage($show->show_url, 'banner');
         }
         unset($inputs['banner']);
 

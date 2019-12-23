@@ -1,6 +1,6 @@
 <div class="item card">
     <div class="image">
-        <img src="{{ getImage($show->thetvdb_id, "", $show->show_url, "banner", "175_100") }}" alt="Image illustrative de {{$show->name}}">
+        <img src="{{ chooseImage($show->show_url, "banner", "175_100") }}" alt="Image illustrative de {{$show->name}}">
     </div>
     <div class="content">
         <a class="header" href="{{route('show.fiche', $show->show_url)}}">{{$show->name}}</a>
