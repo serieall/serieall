@@ -36,6 +36,7 @@
                 <th>Email</th>
                 <th>Traité par</th>
                 <th>Date</th>
+                <th>Actions</th>
             </tr>
             </thead>
             @foreach($contacts as $contact)
@@ -50,6 +51,17 @@
                         @endif
                         </td>
                     <td>{{ $contact->created_at }}</td>
+                    <td class="center aligned">
+                        <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="post" >
+                            {{ csrf_field() }}
+
+                            <input type="hidden" name="_method" value="DELETE">
+
+                            <button class="circular ui red icon button" value="Supprimer cette demande de contact ?" onclick="return confirm('Voulez-vous vraiment supprimer cette demande de contact ?')">
+                                <i class="icon remove"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </table>

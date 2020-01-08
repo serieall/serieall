@@ -230,6 +230,7 @@ Route::group(['middleware' => 'basemanager'], function () {
         Route::get('admin/system/contacts', 'Admin\System\AdminContactsController@index')->name('admin.contacts');
         Route::get('admin/system/contacts/view/{id}', 'Admin\System\AdminContactsController@view')->name('admin.contacts.view');
         Route::post('admin/system/contacts/reply', 'Admin\System\AdminContactsController@replyContact')->name('admin.contacts.reply');
+        Route::delete('admin/system/contacts/{id}', 'Admin\System\AdminContactsController@destroy')->name('admin.contacts.destroy');
         /* SLOGANS */
         Route::get('admin/system/slogans', 'Admin\System\AdminSlogansController@index')->name('admin.slogans.index');
         Route::get('admin/system/slogans/create', 'Admin\System\AdminSlogansController@create')->name('admin.slogans.create');
