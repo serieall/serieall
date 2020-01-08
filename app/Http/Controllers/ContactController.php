@@ -7,6 +7,7 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Notifications\ContactNotification;
 use App\Repositories\ContactRepository;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 use Illuminate\Support\Facades\Validator;
@@ -51,8 +52,9 @@ class ContactController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function sendContact(ContactRequest $contactRequest) {
-
         $this->validator($contactRequest->all())->validate();
+
+        Log::info("ContactSend : The captcha for " . $contactRequest->name . '/' . $contactRequest->email . " is : " . $contactRequest->captcha);
 
         // Stockage de la demande dans la BDD
         $contact = new Contact();
