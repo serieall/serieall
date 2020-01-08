@@ -127,6 +127,7 @@ class AdminArticleController extends Controller
      * @param ArticleCreateRequest $request
      * @return RedirectResponse
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function store(ArticleCreateRequest $request) {
         // On stocke la requête dans une variable
@@ -261,6 +262,7 @@ class AdminArticleController extends Controller
     /**
      * @param ArticleUpdateRequest $request
      * @return RedirectResponse
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function update(ArticleUpdateRequest $request) {
         // On stocke la requête dans une variable

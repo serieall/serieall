@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ContactDelete;
 use App\Notifications\ReplyContactNotification;
 use App\Repositories\ContactRepository;
 
 use App\Http\Requests\ReplyContactRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 /**
@@ -71,5 +73,29 @@ class AdminContactsController extends Controller
             ->notify(new ReplyContactNotification($contact->user['username'], $contact->admin_message));
 
         return redirect()->back();
+    }
+
+    /**
+     * Deletion of a contact request
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     * @internal param $id
+     */
+    public function destroy($id)
+    {
+        Log::debug('AdminContactDestroy: Start deletion whit id : ' . json_encode($id));
+
+        $contact = $this->contactRepository->getContactByID($id);
+        Log::info('AdminContactDestroy: Deletion of this object : ' . json_encode($contact));
+
+        $contact->delete();
+
+        Log::debug('AdminContactDestroy: End of deletion whit id : ' . json_encode($id));
+
+        return redirect()->back()
+            ->with('status_header', 'Suppression de la demande de contact')
+            ->with('status', 'Demande de contact supprimée.');
     }
 }
