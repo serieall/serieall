@@ -126,6 +126,7 @@ class HomeController extends Controller
         $lastArticles = $this->articleRepository->getLast6Articles();
         $lastArticles->map(function ($article) {
             $article->type = "article";
+            $article->created_at = $article->published_at;
         });
 
         # Merge collections of comments and rates
