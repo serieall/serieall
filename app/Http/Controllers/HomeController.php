@@ -80,7 +80,7 @@ class HomeController extends Controller
 
             // Fil d'actu
             $filter_home = "all";
-            $fil_actu = $this->getFilActuWithAll();
+            $fil_actu = $this->getFilActuWithAll()->take(30);
 
             # Get show of the moment
             $shows_moment = $this->rateRepository->getShowsMoment();
