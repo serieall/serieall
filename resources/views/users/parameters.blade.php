@@ -4,46 +4,6 @@
 
 @section('content')
     <div class="ui eight wide column">
-
-        <div class="ui center aligned">
-            <div class="ui stackable compact pointing menu">
-                <a class="item" href="{{ route('user.profile', $user->user_url) }}">
-                    <i class="user icon"></i>
-                    Profil
-                </a>
-                <a class="item" href="{{ route('user.profile.rates', $user->user_url ) }}">
-                    <i class="star icon"></i>
-                    Notes
-                </a>
-                <a class="item" href="{{ route('user.profile.comments', $user->user_url ) }}">
-                    <i class="comment icon"></i>
-                    Avis
-                </a>
-                <a class="item" href="{{ route('user.profile.shows', $user->user_url ) }}">
-                    <i class="tv icon"></i>
-                    Séries
-                </a>
-                <a class="item" href="{{ route('user.profile.ranking', $user->user_url ) }}">
-                    <i class="ordered list icon"></i>
-                    Classement
-                </a>
-                @if($user->username == Auth::user()->username)
-                    <a class="item" href="{{ route('user.profile.planning', $user->user_url ) }}">
-                        <i class="calendar icon"></i>
-                        Mon planning
-                    </a>
-                    <a class="item" href="{{ route('user.profile.notifications', $user->user_url ) }}">
-                        <i class="alarm icon"></i>
-                        Notifications
-                    </a>
-                    <a class="active item">
-                        <i class="settings icon"></i>
-                        Paramètres
-                    </a>
-                @endif
-            </div>
-        </div>
-
         <div class="ui message">
             <div class="header">
                 Changement d'avatar

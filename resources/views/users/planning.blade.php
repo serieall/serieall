@@ -36,10 +36,6 @@
                             <i class="alarm icon"></i>
                             Notifications
                         </a>
-                        <a class="item" href="{{ route('user.profile.parameters', $user->user_url ) }}">
-                            <i class="settings icon"></i>
-                            Paramètres
-                        </a>
                     @endif
                 @endif
             </div>

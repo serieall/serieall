@@ -101,7 +101,10 @@
                     @endforeach
 		</div>
 		<div class="divider"></div>
-
+                <a class="item" href="{{ route('user.profile.parameters', Auth::user()->user_url) }}">
+                    <i class="settings icon"></i>
+                    Paramètres
+                </a>
                 <a class="item" href="{{ route('logout') }}">
                     <i class="sign out icon"></i>
                     Se déconnecter
@@ -251,6 +254,13 @@
 
                             <div class="divider"></div>
 
+                            <a href="{{ route('user.profile.parameters', Auth::user()->user_url) }}">
+                                <div class="item">
+                                    <i class="settings icon"></i>
+                                    Paramètres
+                                </div>
+
+                            </a>
                             <a href="{{ route('logout') }}">
                                 <div class="item">
                                     <i class="sign out icon"></i>
