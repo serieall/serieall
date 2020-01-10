@@ -123,8 +123,13 @@ class HomeController extends Controller
             $comment->type = "comment";
         });
 
+        $lastArticles = $this->articleRepository->getLast6Articles();
+        $lastArticles->map(function ($article) {
+            $article->type = "article";
+        });
+
         # Merge collections of comments and rates
-        return $lastRates->concat($lastComments)->sortByDesc('created_at');
+        return $lastRates->concat($lastComments)->concat($lastArticles)->sortByDesc('created_at');
     }
 
     /**

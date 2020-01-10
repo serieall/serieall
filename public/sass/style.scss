@@ -699,3 +699,7 @@ $darkcolor: $darkBlueSA;
     float: left;
   }
 }
+
+.ui.feed > .event > .content .extra.images img {
+  width: 35px !important;
+}

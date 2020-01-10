@@ -13,7 +13,12 @@
     @foreach($fil_actu as $actu)
         <div class="event">
             <div class="label">
-                <img src="{{ Gravatar::src($actu->user->email) }}" alt="{{$actu->user->username}}">
+                @if($actu->type != "article")
+                    <img src="{{ Gravatar::src($actu->user->email) }}" alt="{{$actu->user->username}}">
+                @else
+
+                    <img src="{{ Gravatar::src($actu->users[0]->email) }}" alt="{{$actu->users[0]->username}}">
+                @endif
             </div>
             <div class="content">
                 <div class="date">
@@ -44,8 +49,19 @@
                                 {!! printArticle($actu->parent->commentable->name, $actu->parent->commentable->article_url) !!}
                             @endif
                         @endif
+                    @elseif($actu->type == "article")
+                        @foreach($actu->users as $user)<a class="underline-from-left" href="{{ route('user.profile', $user->user_url) }}">{{ $user->username }}</a> @if(!$loop->last),@endif @endforeach @if(count($actu->users) > 1)ont @else a @endif écrit un <i class="ui icon file alternate outline"></i>article : <a class="underline-from-left" href="{{ route('article.show', $actu->article_url) }}">{{$actu->name}}</a>
                     @endif
                 </div>
+                @if($actu->type == "article")
+                <div class="extra images">
+                    @foreach($actu->users as $user)
+                        @if(!$loop->first)
+                            <img class="ui mini circular image" src="{{ Gravatar::src($user->email) }}" alt="{{$user->username}}">
+                        @endif
+                    @endforeach
+                </div>
+                    @endif
             </div>
         </div>
     @endforeach
