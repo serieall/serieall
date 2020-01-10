@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Rules\NotAllowedDomain;
+
 /**
  * Class ContactRequest
  * @package App\Http\Requests
@@ -28,7 +30,7 @@ class ContactRequest extends Request
     {
         return [
             'name' => 'required|max:255',
-            'email' => 'required|email',
+            'email' => ['required', 'email', new NotAllowedDomain],
             'objet' => 'required|between:10,100',
             'message' => 'required|min:20'
         ];
