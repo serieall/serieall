@@ -6,7 +6,6 @@
 @section('content')
     <div class="ten wide column">
         <div class="ui segment">
-            <h1>Formulaire de contact</h1>
             <form class="ui form" action="{{ route('contact.send') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="ui required field {{ $errors->has('name') ? ' error' : '' }}">

@@ -283,6 +283,13 @@
                     @endif
                 </p>
             </div>
+        @elseif(Route::currentRouteName() == 'contact')
+            <div class="ui b-darkBlueSA inverted fluid segment">
+                <h1><p class="d-center t-bold t-white">Formulaire de contact</p></h1>
+                <p class="d-center description t-white">
+                    Une question, une demande ? Ecrivez nous.
+                </p>
+            </div>
         @endif
 
         @if (session('status') || session('success') || session('error') || session('warning'))
