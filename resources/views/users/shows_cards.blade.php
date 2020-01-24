@@ -1,6 +1,6 @@
 @if(count($shows) == 0)
     @component('components.message_simple', ['type' => 'info'])
-        Pas de séries en cours
+        Pas de séries dans cette section.
     @endcomponent
 @endif
 <div id="cardsRates" class="ui five cards stackable">

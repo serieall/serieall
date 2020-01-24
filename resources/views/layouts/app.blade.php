@@ -101,6 +101,10 @@
                     @endforeach
 		</div>
 		<div class="divider"></div>
+                <a class="item" href="{{ route('user.profile.planning', Auth::user()->user_url) }}">
+                    <i class="calendar icon"></i>
+                    Mon planning
+                </a>
                 <a class="item" href="{{ route('user.profile.parameters', Auth::user()->user_url) }}">
                     <i class="settings icon"></i>
                     Paramètres
@@ -254,6 +258,13 @@
 
                             <div class="divider"></div>
 
+                            <a href="{{ route('user.profile.planning', Auth::user()->user_url) }}">
+                                <div class="item">
+                                    <i class="calendar icon"></i>
+                                    Mon planning
+                                </div>
+
+                            </a>
                             <a href="{{ route('user.profile.parameters', Auth::user()->user_url) }}">
                                 <div class="item">
                                     <i class="settings icon"></i>
@@ -292,6 +303,25 @@
                         @endif
                     @endif
                 </p>
+            </div>
+        @elseif(Route::currentRouteName() == 'user.profile.parameters')
+            <div class="ui b-darkBlueSA inverted fluid segment">
+                <h1><p class="d-center t-bold t-white">Paramètres</p></h1>
+                <p class="d-center description t-white">
+                    Modifiez vos paramètres personnels et votre mot de passe.
+                </p>
+            </div>
+        @elseif(Route::currentRouteName() == 'user.profile.planning')
+            <div class="ui b-darkBlueSA inverted fluid segment">
+                <h1><p class="d-center t-bold t-white">Mon planning</p></h1>
+                <p class="d-center description t-white">
+                    Retrouvez ici votre planning personnalisé avec les séries que vous suivez dans votre profil.<br/>
+                    Cliquez <a href="{{ route('user.profile.shows', Auth::user()->user_url) }}">ici</a> pour modifier les séries suivies.
+                </p>
+            </div>
+        @elseif(Route::currentRouteName() == 'user.profile.notifications')
+            <div class="ui b-darkBlueSA inverted fluid segment">
+                <h1><p class="d-center t-bold t-white">Notifications</p></h1>
             </div>
         @endif
 
