@@ -170,7 +170,7 @@ class AdminArticleController extends Controller
 
         # Add the image
         if (Input::hasfile('image') && Input::file('image')->isValid()) {
-            $article->image = config('directories.original') . $fileName;
+            $article->image = config('directories.original') . '/' . $fileName;
             Input::file('image')->move($destinationPath, $fileName);
         } else {
             Log::error('Image' . $destinationPath . '/' . $fileName .' is too big');
