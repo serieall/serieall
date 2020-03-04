@@ -460,6 +460,32 @@
         </div>
     </div>
 
+    <div id="association_participate" class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Participation à l'association
+        </div>
+        <div class="image content">
+          <div class="ui medium image">
+            <img src="/images/avatar/large/chris.jpg">
+          </div>
+          <div class="description">
+            <div class="ui header">We've auto-chosen a profile image for you.</div>
+            <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+            <p>Is it okay to use this photo?</p>
+          </div>
+        </div>
+        <div class="actions">
+          <div id='participate_deny' class="ui black deny button">
+            Ne plus me montrer cette pop-up.
+          </div>
+          <div class="ui positive right labeled icon button">
+            Oui, je veux participer.
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+    </div>
+
         @include('layouts.base_footer')
     </div>
 </body>

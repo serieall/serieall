@@ -241,6 +241,32 @@
         $('#reload_captcha').click(function(event){
             $('#captcha_image').attr('src', $('#captcha_image').attr('src')+'{{ captcha_src() }}');
         });
+
+        if(getCookie('hide_popup_participate') == null) {
+            $('#association_participate').modal('show');
+            $('#participate_deny').click(() => {
+                document.cookie = 'hide_popup_participate = true; max-age=31536000';
+            });
+        }
+
+        function getCookie(name) {
+            var dc = document.cookie;
+            var prefix = name + "=";
+            var begin = dc.indexOf("; " + prefix);
+            if (begin == -1) {
+                begin = dc.indexOf(prefix);
+                if (begin != 0) return null;
+            }
+            else
+            {
+                begin += 2;
+                var end = document.cookie.indexOf(";", begin);
+                if (end == -1) {
+                end = dc.length;
+                }
+            }
+            return decodeURI(dc.substring(begin + prefix.length, end));
+        }
     })
 </script>
 
