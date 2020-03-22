@@ -336,7 +336,11 @@ class AdminArticleController extends Controller
 
             $article->image = config('directories.podcasts') . $fileName;
 
+            Log::info('podcast sauvegardé ' . $fileName);
+
             Input::file('podcast_file')->move($destinationPath, $fileName);
+        } else {
+            Log::error('Podcast' . $destinationPath . '/' . $fileName .' is too big');
         }
 
         // On lie les catégories et on sauvegarde l'article
