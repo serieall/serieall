@@ -176,21 +176,6 @@ class AdminArticleController extends Controller
             Log::error('Image' . $destinationPath . '/' . $fileName .' is too big');
         }
 
-        # Add the podcast
-        if (Input::hasfile('podcast_file') && Input::file('podcast_file')->isValid()) {
-            $destinationPath = public_path() . config('directories.podcasts');
-            $extension = 'mp3';
-            $fileName = $article->article_url . '.' . $extension;
-
-            $article->image = config('directories.podcasts') . $fileName;
-
-            Log::info('podcast sauvegardé ' . $fileName);
-
-            Input::file('podcast_file')->move($destinationPath, $fileName);
-        } else {
-            Log::error('Podcast' . $destinationPath . '/' . $fileName .' is too big');
-        }
-
         // On lie les catégories et on sauvegarde l'article
         $article->category()->associate($inputs['category']);
         $article->save();
@@ -326,21 +311,6 @@ class AdminArticleController extends Controller
             $article->image = config('directories.articles') . $fileName;
 
             Input::file('image')->move($destinationPath, $fileName);
-        }
-
-        # Add the podcast
-        if (Input::hasfile('podcast_file') && Input::file('podcast_file')->isValid()) {
-            $destinationPath = public_path() . config('directories.podcasts');
-            $extension = 'mp3';
-            $fileName = $article->article_url . '.' . $extension;
-
-            $article->image = config('directories.podcasts') . $fileName;
-
-            Log::info('podcast sauvegardé ' . $fileName);
-
-            Input::file('podcast_file')->move($destinationPath, $fileName);
-        } else {
-            Log::error('Podcast' . $destinationPath . '/' . $fileName .' is too big');
         }
 
         // On lie les catégories et on sauvegarde l'article
