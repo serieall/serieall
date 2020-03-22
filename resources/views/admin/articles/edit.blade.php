@@ -233,6 +233,17 @@
                         </div>
                     </div>
 
+                    <div class="ui field {{ $errors->has('podcast_file') ? ' error' : '' }}">
+                        <label for="podcast_file">Fichier du podcast</label>
+                        <input id="podcast_file" name="podcast_file" type="file">
+
+                        @if ($errors->has('podcast_file'))
+                            <div class="ui red message">
+                                <strong>{{ $errors->first('podcast_file') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+
                     <div class="ui required field {{ $errors->has('users') ? ' error' : '' }}">
                         <label for="users">Choisir le ou les rédacteur(s)</label>
                         <div class="ui grid">
