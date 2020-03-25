@@ -16,13 +16,13 @@ return [
         'subtitle' => 'Des podcasts et de l\'amour.',
         'description' => 'Des podcasts et de l\'amour.',
         'link' => 'https://serieall.fr',
-        'image' => 'https://serieall.fr/images/logo_v2.png',
+        'image' => 'https://serieall.fr/images/logo_podcast.png',
         'author' => 'Série-All',
-        'email' => 'serieall.fr@gmail.com',
+        'email' => 'association.serieall@gmail.com',
         'category' => 'TV & Film',
         'explicit' => 'no',
         'language' => 'fr-fr',
-        'copyright' => '2018 Série-All',
+        'copyright' => '2020 Série-All',
     ],
 
 ];
