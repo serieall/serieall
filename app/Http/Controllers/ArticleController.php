@@ -142,7 +142,7 @@ class ArticleController extends Controller
                 'description' => $podcast->intro,
                 'publish_at'  => $podcast->published_at,
                 'guid'        => route('article.show', $podcast->article_url),
-                'url'         => "https://serieall.fr/" . $filename,
+                'url'         => "https://serieall.fr/podcasts/" . $podcast->article_url . ".mp3",
                 'duration'    => $duration,
                 'type'        => "audio/mp3",
                 'image'       => "https://serieall.fr" . $podcast->image,
