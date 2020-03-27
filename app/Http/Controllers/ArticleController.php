@@ -132,11 +132,10 @@ class ArticleController extends Controller
         $podcasts = Article::where('podcast', '=', true)->where('state', '=', 1)->get();
 
         foreach($podcasts as $podcast) {
-            $filename = public_path("podcasts") . $podcast->article_url . ".mp3";
-            Log::info("filename");
+            $filename = public_path("podcasts/") . $podcast->article_url . ".mp3";
 
             $audio = new Mp3Info($filename, true);
-            $duration = gmdate("H:i:s", $audio->duration);
+            $duration = gmdate("H:i:s", round($audio->duration));
 
             PodcastFeed::addMedia([
                 'title'       => $podcast->name,
