@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=7.2.0",
+        "ext-gd": "*",
+        "ext-json": "*",
         "barryvdh/laravel-debugbar": "~3.1",
         "barryvdh/laravel-ide-helper": "^2.4",
         "callmenp/lara-auth-bridge": "^2.1",
@@ -25,13 +27,12 @@
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^3.0",
         "spatie/laravel-cookie-consent": "^2.0",
-        "thomaswelton/laravel-gravatar": "~1.0",
-        "tohtamysh/laravel-phpbb-bridge": "^1.0",
-        "youkoulayley/podcastfeed": "^0.3.7",
         "staudenmeir/belongs-to-through": "^2.5",
         "staudenmeir/eloquent-has-many-deep": "^1.8",
-        "ext-json": "*",
-        "ext-gd": "*"
+        "thomaswelton/laravel-gravatar": "~1.0",
+        "tohtamysh/laravel-phpbb-bridge": "^1.0",
+        "wapmorgan/mp3info": "^0.0.5",
+        "youkoulayley/podcastfeed": "^0.3.7"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
