@@ -135,7 +135,7 @@ class ArticleController extends Controller
             $filename = public_path("podcasts/") . $podcast->article_url . ".mp3";
 
             $audio = new Mp3Info($filename, true);
-            $duration = gmdate("H:i:s", round($audio->duration));
+            $duration = gmdate("H:i:s", intval($audio->duration));
 
             PodcastFeed::addMedia([
                 'title'       => $podcast->name,
