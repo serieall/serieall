@@ -22,7 +22,7 @@ return [
         'category' => 'TV & Film',
         'explicit' => 'no',
         'language' => 'fr-fr',
-        'copyright' => '2020 Série-All',
+        'copyright' => date("Y") . ' Série-All',
     ],
 
 ];
