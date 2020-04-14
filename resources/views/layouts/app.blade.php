@@ -466,22 +466,14 @@
           Participation à l'association
         </div>
         <div class="image content">
-          <div class="ui medium image">
-            <img src="/images/avatar/large/chris.jpg">
-          </div>
           <div class="description">
-            <div class="ui header">We've auto-chosen a profile image for you.</div>
-            <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-            <p>Is it okay to use this photo?</p>
+            <p>Hep par ici ! Bienvenue sur Série-All. :) <br />
+            Vous souhaitez adhérer à l'Association Série-All pour soutenir financièrement le site grâce à votre cotisation (montant libre) ? <a class="underline-from-left" href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">On vous explique tout ici !</a></p>
           </div>
         </div>
         <div class="actions">
           <div id='participate_deny' class="ui black deny button">
             Ne plus me montrer cette pop-up.
-          </div>
-          <div class="ui positive right labeled icon button">
-            Oui, je veux participer.
-            <i class="checkmark icon"></i>
           </div>
         </div>
     </div>
