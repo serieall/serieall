@@ -468,12 +468,16 @@
         <div class="image content">
           <div class="description">
             <p>Hep par ici ! Bienvenue sur Série-All. :) <br />
-            Vous souhaitez adhérer à l'Association Série-All pour soutenir financièrement le site grâce à votre cotisation (montant libre) ? <a class="underline-from-left" href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">On vous explique tout ici !</a></p>
+            Vous souhaitez adhérer à l'Association Série-All pour soutenir financièrement le site grâce à votre cotisation (montant libre) ?</p>
           </div>
         </div>
         <div class="actions">
           <div id='participate_deny' class="ui black deny button">
             Ne plus me montrer cette pop-up.
+          </div>
+          <a href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">
+          <div class="ui positive button">
+            On explique tout ici !
           </div>
         </div>
     </div>
