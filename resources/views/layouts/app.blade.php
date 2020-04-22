@@ -460,6 +460,29 @@
         </div>
     </div>
 
+    <div id="association_participate" class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Participation à l'association
+        </div>
+        <div class="image content">
+          <div class="description">
+            <p>Salut ! Bienvenue sur Série-All. :) <br />
+            Vous souhaitez adhérer à l'Association Série-All pour soutenir financièrement le site grâce à votre cotisation (montant libre) ? <br/>
+          </div>
+        </div>
+        <div class="actions">
+            <div class="ui checkbox" style="float: left;">
+                <input id='participate_deny' type="checkbox" name="participate_deny">
+                <label>Ne plus me montrer cette pop-up.</label>
+            </div>
+            <a href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">
+            <div class="ui positive button">
+                On explique tout ici !
+            </div>
+        </div>
+    </div>
+
         @include('layouts.base_footer')
     </div>
 </body>
