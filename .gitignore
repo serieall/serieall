@@ -26,3 +26,4 @@ public/images/
 public/img
 *.mp3
 *.wav
+.vscode/settings.json
