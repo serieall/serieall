@@ -6,6 +6,7 @@
 Prerequisite: 
 - Linux system
 - Git installed
+- Redis installed 
 - Docker installed (see https://docs.docker.com/engine/install/)
 
 
