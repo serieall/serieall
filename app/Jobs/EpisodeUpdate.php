@@ -62,10 +62,15 @@ class EpisodeUpdate implements ShouldQueue
         $logMessage = '>EPISODE';
         saveLogMessage($idLog, $logMessage);
 
-        $episode->thetvdb_id = $this->inputs['thetvdb_id'];
-        # TVDB ID de l'épisode
-        $logMessage = '>>ThTVDB ID : ' . $episode->thetvdb_id;
-        saveLogMessage($idLog, $logMessage);
+        //Store tvdbid only if not empty
+        //If empty tvdb id, uniq constraint violation on it and nothing resistered
+        if (isset($this->inputs['thetvdb_id']) && !empty($this->inputs['thetvdb_id'])){
+            $episode->thetvdb_id = $this->inputs['thetvdb_id'];
+
+            # TVDB ID de l'épisode
+            $logMessage = '>>ThTVDB ID : ' . $episode->thetvdb_id;
+            saveLogMessage($idLog, $logMessage);
+        }
 
         $episode->numero = $this->inputs['numero'];
         # Numéro de l'épisode
