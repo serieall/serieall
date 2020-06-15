@@ -111,6 +111,18 @@
     </div>
     <div class="pushable">
         @include('cookieConsent::index')
+        <div id="association_participate" class="ui inline cookie nag">
+        <span class="title">
+            <p>Salut ! Bienvenue sur Série-All. :) <br />
+            Vous souhaitez adhérer à l'Association Série-All pour soutenir financièrement le site grâce à votre cotisation (montant libre) ? <br/>
+            </p>
+            <a href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">
+            <div class="ui positive button click_participate">
+                On explique tout ici !
+            </div>
+        </span>
+        <i class="close icon click_participate"></i>
+    </div>
         <div class="ui tablet only mobile only grid header">
             <div class="ui secondary pointing fluid menu">
                 <a class="item sidebarIcon"><i class="big sidebar icon"></i>Menu</a>
@@ -456,29 +468,6 @@
                         <button class="positive ui submit button">S'incrire !</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="association_participate" class="ui modal">
-        <i class="close icon"></i>
-        <div class="header">
-          Participation à l'association
-        </div>
-        <div class="image content">
-          <div class="description">
-            <p>Salut ! Bienvenue sur Série-All. :) <br />
-            Vous souhaitez adhérer à l'Association Série-All pour soutenir financièrement le site grâce à votre cotisation (montant libre) ? <br/>
-          </div>
-        </div>
-        <div class="actions">
-            <div class="ui checkbox" style="float: left;">
-                <input id='participate_deny' type="checkbox" name="participate_deny">
-                <label>Ne plus me montrer cette pop-up.</label>
-            </div>
-            <a href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">
-            <div class="ui positive button">
-                On explique tout ici !
             </div>
         </div>
     </div>

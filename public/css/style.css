@@ -1383,4 +1383,13 @@ hr.home.divider {
   margin-left: 2px;
   float: left; }
 
+.ui.feed > .event > .content .extra.images img {
+  width: 35px !important; }
+
+#association_participate {
+  background-color: #213d64 !important; }
+
+.hide {
+  display: none !important; }
+
 /*# sourceMappingURL=style.css.map */
