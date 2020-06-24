@@ -114,14 +114,18 @@
         <div id="association_participate" class="ui inline cookie nag">
         <span class="title">
             <p>Salut ! Bienvenue sur Série-All. :) <br />
-            Vous souhaitez adhérer à l'Association Série-All pour soutenir financièrement le site grâce à votre cotisation (montant libre) ? <br/>
+                Série-All est un site associatif qui a besoin du soutien de ses membres pour continuer à exister. Les adhésions 2020 à l'association (montant libre) sont ouvertes !" <br/>
             </p>
-            <a href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">
-            <div class="ui positive button click_participate">
-                On explique tout ici !
+            <div class="ui button click_participate">
+                Non, merci
             </div>
+            <a href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">
+                <div class="ui positive button click_participate">
+                    On explique tout ici !
+                </div>
+            </a>
         </span>
-        <i class="close icon click_participate"></i>
+        <i class="close icon click_postpone"></i>
     </div>
         <div class="ui tablet only mobile only grid header">
             <div class="ui secondary pointing fluid menu">
