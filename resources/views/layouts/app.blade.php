@@ -114,7 +114,7 @@
         <div id="association_participate" class="ui inline cookie nag">
         <span class="title">
             <p>Salut ! Bienvenue sur Série-All. :) <br />
-                Série-All est un site associatif qui a besoin du soutien de ses membres pour continuer à exister. Les adhésions 2020 à l'association (montant libre) sont ouvertes !" <br/>
+                Série-All est un site associatif qui a besoin du soutien de ses membres pour continuer à exister. Les adhésions 2020 à l'association (montant libre) sont ouvertes !<br/>
             </p>
             <div class="ui button click_participate">
                 Non, merci
