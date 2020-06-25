@@ -11,7 +11,9 @@ use App\Repositories\ArticleRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CommentRepository;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
 use Youkoulayley\PodcastFeed\Facades\PodcastFeed;
+use \wapmorgan\Mp3Info\Mp3Info;
 
 
 /**
@@ -130,12 +132,18 @@ class ArticleController extends Controller
         $podcasts = Article::where('podcast', '=', true)->where('state', '=', 1)->get();
 
         foreach($podcasts as $podcast) {
+            $filename = public_path("podcasts/") . $podcast->article_url . ".mp3";
+
+            $audio = new Mp3Info($filename, true);
+            $duration = gmdate("H:i:s", intval($audio->duration));
+
             PodcastFeed::addMedia([
                 'title'       => $podcast->name,
                 'description' => $podcast->intro,
                 'publish_at'  => $podcast->published_at,
                 'guid'        => route('article.show', $podcast->article_url),
-                'url'         => "https://serieall.fr/podcasts/". $podcast->article_url .".mp3",
+                'url'         => "https://serieall.fr/podcasts/" . $podcast->article_url . ".mp3",
+                'duration'    => $duration,
                 'type'        => "audio/mp3",
                 'image'       => "https://serieall.fr" . $podcast->image,
             ]);

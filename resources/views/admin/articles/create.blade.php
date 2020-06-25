@@ -224,7 +224,7 @@
                             <label for="podcastInput">Cet article contient un podcast</label>
                         </div>
                     </div>
-
+                    
                     <div class="ui required field {{ $errors->has('users') ? ' error' : '' }}">
                         <label for="users">Choisir le ou les rédacteur(s)</label>
                         <div class="ui grid">

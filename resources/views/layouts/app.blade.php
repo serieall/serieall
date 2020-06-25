@@ -475,7 +475,6 @@
             </div>
         </div>
     </div>
-
         @include('layouts.base_footer')
     </div>
 </body>
