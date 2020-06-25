@@ -242,11 +242,20 @@
             $('#captcha_image').attr('src', $('#captcha_image').attr('src')+'{{ captcha_src() }}');
         });
 
-        if(getCookie('hide_popup_participate') == null) {
-            $('#association_participate').modal('show');
-            $('#participate_deny').click(() => {
-                document.cookie = 'hide_popup_participate = true; max-age=31536000';
+        if(getCookie('hide_popup_participate_v2') == null) {
+            $('.click_participate').click(() => {
+                document.cookie = 'hide_popup_participate_v2 = true; max-age=31536000';
+                $('#association_participate').addClass('hide');
             });
+            $('.click_postpone').click(() => {
+                sessionStorage.setItem("popup_participate_postpone", "true")
+            })
+        } else {
+            $('#association_participate').addClass('hide');
+        }
+
+        if(sessionStorage.getItem("popup_participate_postpone") == "true" ) {
+            $('#association_participate').addClass('hide');
         }
 
         function getCookie(name) {
