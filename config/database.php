@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | PDO Fetch Style
@@ -46,7 +46,6 @@ return [
     */
 
     'connections' => [
-
         'sqlite' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
@@ -78,7 +77,6 @@ return [
             'prefix' => '',
             'schema' => 'public',
         ],
-
     ],
 
     /*
@@ -106,7 +104,6 @@ return [
     */
 
     'redis' => [
-
         'client' => env('REDIS_CLIENT', 'predis'),
 
         'cluster' => false,
@@ -125,5 +122,4 @@ return [
             'database' => 1,
         ],
     ],
-
 ];

@@ -1,14 +1,13 @@
 
 <?php
 
-use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class SlogansSeeder extends Seeder
 {
-
     /**
-     * Génère une date aléatoire
+     * Génère une date aléatoire.
      *
      * @return mixed
      */
@@ -30,7 +29,7 @@ class SlogansSeeder extends Seeder
             'source' => 'plop',
             'url' => 'plop',
             'created_at' => $date,
-            'updated_at' => $date
+            'updated_at' => $date,
         ]);
     }
 }
