@@ -1,19 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Transformers\SeasonsListTransformer;
 use App\Models\Season;
 use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
-use Marcelgwerder\ApiHandler\Facades\ApiHandler;
-use App\Http\Transformers\SeasonsListTransformer;
-
+use Youkoulayley\ApiHandler\Facades\ApiHandler;
 
 /**
- * Class SeasonsListController
- * @package App\Http\Controllers\Api\V1
+ * Class SeasonsListController.
  */
 class SeasonsListController extends Controller
 {
@@ -22,16 +21,13 @@ class SeasonsListController extends Controller
 
     /**
      * SeasonsListController constructor.
-     * @param Season $season
      */
-    public function __construct(Season $season){
+    public function __construct(Season $season)
+    {
         $this->seasons = $season;
     }
 
-    /**
-     * @return \Dingo\Api\Http\Response
-     */
-    public function index() : Response
+    public function index(): Response
     {
         $seasons = $this->seasons::select('id', 'name', 'show_id');
 

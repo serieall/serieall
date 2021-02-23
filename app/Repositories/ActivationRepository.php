@@ -1,26 +1,23 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories;
 
-
 use Carbon\Carbon;
 use Illuminate\Database\Connection;
+use Illuminate\Support\Str;
 
 /**
- * Class ActivationRepository
- * @package App\Repositories
+ * Class ActivationRepository.
  */
 class ActivationRepository
 {
-
     protected $db;
     protected $table = 'user_activations';
 
     /**
      * ActivationRepository constructor.
-     *
-     * @param Connection $db
      */
     public function __construct(Connection $db)
     {
@@ -28,20 +25,17 @@ class ActivationRepository
     }
 
     /**
-     * On génére un token en fonction de la clé de l'application
-     *
-     * @return string
+     * On génére un token en fonction de la clé de l'application.
      */
     protected function getToken(): string
     {
-        return hash_hmac('sha256', str_random(40), config('app.key'));
+        return hash_hmac('sha256', Str::random(40), config('app.key'));
     }
 
     /**
-     * On crée l'activation en fonction de l'utilisateur
+     * On crée l'activation en fonction de l'utilisateur.
      *
      * @param $user
-     * @return string
      */
     public function createActivation($user): string
     {
@@ -49,8 +43,7 @@ class ActivationRepository
 
         if ($activation) {
             $return = $this->regenerateToken($user);
-        }
-        else {
+        } else {
             $return = $this->createToken($user);
         }
 
@@ -58,26 +51,25 @@ class ActivationRepository
     }
 
     /**
-     * On regénère le token pour un utilisateur
+     * On regénère le token pour un utilisateur.
      *
      * @param $user
-     * @return string
      */
     private function regenerateToken($user): string
     {
         $token = $this->getToken();
         $this->db->table($this->table)->where('user_id', $user->id)->update([
             'token' => $token,
-            'created_at' => new Carbon()
+            'created_at' => new Carbon(),
         ]);
+
         return $token;
     }
 
     /**
-     * On crée un token pour un utilisateur
+     * On crée un token pour un utilisateur.
      *
      * @param $user
-     * @return string
      */
     private function createToken($user): string
     {
@@ -85,15 +77,17 @@ class ActivationRepository
         $this->db->table($this->table)->insert([
             'user_id' => $user->id,
             'token' => $token,
-            'created_at' => new Carbon()
+            'created_at' => new Carbon(),
         ]);
+
         return $token;
     }
 
     /**
-     * On récupère l'activation d'un utilisateur
+     * On récupère l'activation d'un utilisateur.
      *
      * @param $user
+     *
      * @return mixed
      */
     public function getActivation($user)
@@ -102,8 +96,10 @@ class ActivationRepository
     }
 
     /**
-     * On récupère une activation en fonction du token
+     * On récupère une activation en fonction du token.
+     *
      * @param $token
+     *
      * @return mixed
      */
     public function getActivationByToken($token)
@@ -112,7 +108,7 @@ class ActivationRepository
     }
 
     /**
-     * On supprime une activation
+     * On supprime une activation.
      *
      * @param $token
      */
@@ -120,5 +116,4 @@ class ActivationRepository
     {
         $this->db->table($this->table)->where('token', $token)->delete();
     }
-
 }

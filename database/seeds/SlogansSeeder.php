@@ -1,9 +1,10 @@
+
 <?php
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
-class UsersSeeder extends Seeder
+class SlogansSeeder extends Seeder
 {
 
     /**
@@ -24,13 +25,10 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $date = $this->randDate();
-        DB::table('users')->insert([
-            'username' => 'admin',
-            'user_url' => 'admin',
-            'email' => 'toto@hotmail.fr',
-            'password' => bcrypt(env("APP_ADMIN_PASSWORD", "serieall")),
-            'role' => 1,
-            'activated' => 1,
+        DB::table('slogans')->insert([
+            'message' => 'plop',
+            'source' => 'plop',
+            'url' => 'plop',
             'created_at' => $date,
             'updated_at' => $date
         ]);

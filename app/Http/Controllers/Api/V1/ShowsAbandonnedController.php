@@ -1,20 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Transformers\ShowsAbandonnedTransformer;
 use App\Models\Show;
-use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
-use Marcelgwerder\ApiHandler\Facades\ApiHandler;
-use App\Http\Transformers\ShowsListTransformer;
-
+use Youkoulayley\ApiHandler\Facades\ApiHandler;
 
 /**
- * Class ShowsListController
- * @package App\Http\Controllers\Api\V1
+ * Class ShowsListController.
  */
 class ShowsAbandonnedController extends Controller
 {
@@ -23,9 +20,9 @@ class ShowsAbandonnedController extends Controller
 
     /**
      * ShowsListController constructor.
-     * @param Show $show
      */
-    public function __construct(Show $show){
+    public function __construct(Show $show)
+    {
         $this->shows = $show;
     }
 
@@ -35,7 +32,7 @@ class ShowsAbandonnedController extends Controller
     public function index()
     {
         $shows = $this->shows->select('id', 'name', 'name_fr')
-            ->where('encours', "=", 0)
+            ->where('encours', '=', 0)
         ->orderBy('name');
 
         $shows = ApiHandler::parseMultiple($shows, ['name', 'name_fr'])->getResult();

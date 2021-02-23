@@ -1,8 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
-return [
+use App\Providers\BroadcastServiceProvider;
 
+return [
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -136,7 +138,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -162,16 +163,16 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        \App\Providers\BroadcastServiceProvider::class,
+        BroadcastServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
-        Marcelgwerder\ApiHandler\ApiHandlerServiceProvider::class,
+        Youkoulayley\ApiHandler\ApiHandlerServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
         Youkoulayley\PodcastFeed\PodcastFeedServiceProvider::class,
-        Tohtamysh\LaravelPhpbbBridge\LaravelPhpbbBridgeServiceProvider::class,
+        Youkoulayley\LaravelPhpbbBridge\LaravelPhpbbBridgeServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -202,7 +203,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
@@ -231,6 +231,7 @@ return [
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
+        'Str' => Illuminate\Support\Str::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
@@ -240,10 +241,9 @@ return [
         'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
         'DingoApi' => Dingo\Api\Facade\API::class,
         'DingoRoute' => Dingo\Api\Facade\Route::class,
-        'ApiHandler' => Marcelgwerder\ApiHandler\Facades\ApiHandler::class,
+        'ApiHandler' => Youkoulayley\ApiHandler\Facades\ApiHandler::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'PodcastFeed' => Youkoulayley\PodcastFeed\Facades\PodcastFeed::class,
     ],
-
 ];

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="center aligned three wide column">
-        <a href="{{ route('user.profile', str_slug($user['Username'])) }}">
+        <a href="{{ route('user.profile', Str::slug($user['Username'])) }}">
             <img class="ui tiny avatar image" src="{{ Gravatar::src($user['Email']) }}" alt="Avatar de {{$user['Username']}}"> <br/>
             {{ $user['Username'] }}
         </a>

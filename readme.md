@@ -18,7 +18,8 @@ git clone https://github.com/serieall/serieall.git
 cd serieall
 composer install
 docker run --name mysql-serieall-dev -p 3306:3306 -v /var/lib/mysql/serieall-dev:/var/lib/mysql -e MYSQL_DATABASE="serieall" -e MYSQL_ROOT_PASSWORD="serieall" -d mysql:5.7
-cp .env_example .env
+docker run --name redis-serieall-dev -p 6379:6379 -d redis
+cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
 ```
