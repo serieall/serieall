@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
@@ -10,19 +11,15 @@ use App\Repositories\EpisodeRepository;
 use App\Repositories\RateRepository;
 use App\Repositories\ShowRepository;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 
 /**
- * Class HomeController
- * @package App\Http\Controllers
+ * Class HomeController.
  */
 class HomeController extends Controller
 {
-
     protected $rateRepository;
     protected $commentRepository;
     protected $articleRepository;
@@ -31,11 +28,7 @@ class HomeController extends Controller
 
     /**
      * Create a new controller instance.
-     * @param RateRepository $rateRepository
-     * @param CommentRepository $commentRepository
-     * @param ArticleRepository $articleRepository
-     * @param EpisodeRepository $episodeRepository
-     * @param ShowRepository $showRepository
+     *
      * @internal param ArticleRepository $articleRepository
      */
     public function __construct(RateRepository $rateRepository, CommentRepository $commentRepository, ArticleRepository $articleRepository, EpisodeRepository $episodeRepository, ShowRepository $showRepository)
@@ -54,14 +47,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Request::ajax()) {
+        if (Request::ajax()) {
             //Filtre depuis la homepage sur le fil d'actu
             //TODO : créer une méthode spécifique d'API
 
-            $filter_home = Input::get('filter_home');
+            $filter_home = Request::input('filter_home');
 
-            switch ($filter_home)
-            {
+            switch ($filter_home) {
                 case 'all':
                     $fil_actu = $this->getFilActuWithAll();
                     break;
@@ -74,24 +66,23 @@ class HomeController extends Controller
             }
 
             return Response::json(View::make('pages.home_fil_actu', ['fil_actu' => $fil_actu, 'filter_home' => $filter_home])->render());
-
         } else {
             $slogan = Slogan::inRandomOrder()->first();
 
             // Fil d'actu
-            $filter_home = "all";
+            $filter_home = 'all';
             $fil_actu = $this->getFilActuWithAll()->take(30);
 
-            # Get show of the moment
+            // Get show of the moment
             $shows_moment = $this->rateRepository->getShowsMoment();
 
-            # Get Articles
+            // Get Articles
             $articles = $this->articleRepository->getLast6Articles();
 
-            # Get last added shows
+            // Get last added shows
             $last_added_shows = $this->showRepository->getLastAddedShows();
 
-            # Get Planning on 14days
+            // Get Planning on 14days
             $dates['yesterday'] = Carbon::now()->subDay()->format('Y-m-d');
             $dates['today'] = Carbon::now()->format('Y-m-d');
             $dates['tomorrow'] = Carbon::now()->addDay()->format('Y-m-d');
@@ -112,59 +103,57 @@ class HomeController extends Controller
      */
     private function getFilActuWithAll()
     {
-        # Get last Rates and comments
+        // Get last Rates and comments
         $lastRates = $this->rateRepository->getLastRates(15);
         $lastRates->map(function ($rate) {
-            $rate->type = "rate";
-
+            $rate->type = 'rate';
         });
         $lastComments = $this->commentRepository->getLastComments(15);
         $lastComments->map(function ($comment) {
-            $comment->type = "comment";
+            $comment->type = 'comment';
         });
 
         $lastArticles = $this->articleRepository->getLast6Articles();
         $lastArticles->map(function ($article) {
-            $article->type = "article";
+            $article->type = 'article';
             $article->created_at = $article->published_at;
         });
 
-        # Merge collections of comments and rates
+        // Merge collections of comments and rates
         return $lastRates->concat($lastComments)->concat($lastArticles)->sortByDesc('created_at');
     }
 
     /**
-     * Retourne le contenu du fil d'actu comprenant les notes
+     * Retourne le contenu du fil d'actu comprenant les notes.
      *
      * @return RateRepository[]|\Illuminate\Database\Eloquent\Collection
      */
     private function getFilActuWithRates()
     {
-        # Get last Rates
+        // Get last Rates
         $lastRates = $this->rateRepository->getLastRates(30);
         $lastRates->map(function ($rate) {
-            $rate->type = "rate";
-
+            $rate->type = 'rate';
         });
 
-        # Merge collections of comments and rates
+        // Merge collections of comments and rates
         return $lastRates->sortByDesc('created_at');
     }
 
     /**
-     * Retourne le contenu du fil d'actu comprenant les commentaires
+     * Retourne le contenu du fil d'actu comprenant les commentaires.
      *
      * @return RateRepository[]|\Illuminate\Database\Eloquent\Collection
      */
     private function getFilActuWithComments()
     {
-        # Get last comments
+        // Get last comments
         $lastComments = $this->commentRepository->getLastComments(30);
         $lastComments->map(function ($comment) {
-            $comment->type = "comment";
+            $comment->type = 'comment';
         });
 
-        # Merge collections of comments and rates
+        // Merge collections of comments and rates
         return $lastComments->sortByDesc('created_at');
     }
 }

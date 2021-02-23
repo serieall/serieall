@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 /**
  * App\Models\Show
@@ -63,6 +64,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Show extends Model {
     use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    use HasEagerLimit;
 
 	protected $table = 'shows';
 	public $timestamps = true;
@@ -161,6 +163,6 @@ class Show extends Model {
      */
     public function rates()
     {
-        return $this->hasManyDeep('App\Models\Episode_user', ['App\Models\Season', 'App\Models\Episode']);
+        return $this->hasManyDeep('App\Models\Episode_user', ['App\Models\Season', 'App\Models\Episode'], [null]);
     }
 }

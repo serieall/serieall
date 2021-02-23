@@ -2,23 +2,12 @@
 declare(strict_types=1);
 
 return [
+    # Params for authentication
+    'apikey' => env('TVDB_APIKEY', ''),
+    'username' => env('TVDB_USERNAME', ''),
+    'userkey' => env('TVDB_USERKEY', ''),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Paramètres par défaut pour l'authentification sur l'API TheTVDB
-    |--------------------------------------------------------------------------
-    */
-
-    # {"apikey": "64931690DCC5FC6B", "userkey": "KO2G0ZUYRCO7HXT2", "username": "Youkoulayley"}
-    'apikey' => '64931690DCC5FC6B',
-    'username' => 'Youkoulayley',
-    'userkey' => 'KO2G0ZUYRCO7HXT2',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Version par défaut de l'API TheTVDB
-    |--------------------------------------------------------------------------
-    */
+    # Defaults
     'url' => 'https://api.thetvdb.com/',
     'imageUrl' => 'https://artworks.thetvdb.com/banners/' ,
     'version' => '3.0.0',

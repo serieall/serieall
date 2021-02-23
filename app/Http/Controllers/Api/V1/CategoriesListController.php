@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
@@ -7,12 +8,11 @@ use App\Http\Transformers\CategoriesListTransformer;
 use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
-use Marcelgwerder\ApiHandler\Facades\ApiHandler;
 use Illuminate\Support\Facades\DB;
+use Youkoulayley\ApiHandler\ApiHandler;
 
 /**
- * Class CategoriesListController
- * @package App\Http\Controllers\Api\V1
+ * Class CategoriesListController.
  */
 class CategoriesListController extends Controller
 {
@@ -25,7 +25,7 @@ class CategoriesListController extends Controller
     {
         $categories = DB::table('categories')->select('id', 'name')->orderBy('name');
 
-        $categories = ApiHandler::parseMultiple($categories, ['id', 'name'])->getResult();
+        $categories = (new ApiHandler())->parseMultiple($categories, ['id', 'name'])->getResult();
 
         return $this->response->collection($categories, new CategoriesListTransformer());
     }

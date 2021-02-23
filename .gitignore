@@ -4,6 +4,7 @@
 vendor/
 .env
 .sass-cache
+.php_cs.cache
 .phpstorm.meta.php
 !resources/views/vendor
 !resources/lang/vendor

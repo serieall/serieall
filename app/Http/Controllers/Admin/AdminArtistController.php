@@ -1,39 +1,31 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\ArtistUpdateRequest;
 use App\Http\Requests\ArtistCreateRequest;
-
+use App\Http\Requests\ArtistUpdateRequest;
 use App\Jobs\ArtistStore;
 use App\Jobs\ArtistUnlink;
 use App\Jobs\ArtistUpdate;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Input;
-
 use App\Repositories\ArtistRepository;
 use App\Repositories\ShowRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Str;
 
 /**
- * Class AdminArtistController
- * @package App\Http\Controllers\Admin
+ * Class AdminArtistController.
  */
 class AdminArtistController extends Controller
 {
-
     protected $artistRepository;
     protected $showRepository;
 
     /**
      * AdminArtistController constructor.
-     *
-     * @param ArtistRepository $artistRepository
-     * @param ShowRepository $showRepository
      */
     public function __construct(ArtistRepository $artistRepository, ShowRepository $showRepository)
     {
@@ -45,7 +37,9 @@ class AdminArtistController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $show_id
+     *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function create($show_id)
@@ -56,12 +50,13 @@ class AdminArtistController extends Controller
     }
 
     /**
-     * Enregistrement d'un nouvel artist, et ajout de son image (l'accès en bas de données est parallélisé)
+     * Enregistrement d'un nouvel artist, et ajout de son image (l'accès en bas de données est parallélisé).
      *
-     * @param ArtistCreateRequest $request
      * @return \Illuminate\Http\Response
+     *
      * @internal param $show_id
      * @internal param ShowCreateRequest|Request $request
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function store(ArtistCreateRequest $request)
@@ -72,36 +67,38 @@ class AdminArtistController extends Controller
         $idLog = initJob($inputs['user_id'], 'Ajout Manuel', 'Artist', mt_rand());
 
         foreach ($inputs['artists'] as $key => $actor) {
-            # Récupération du nom de l'acteur
+            // Récupération du nom de l'acteur
             $actorName = $actor['name'];
-            # Récupération du rôle
+            // Récupération du rôle
             $actorRole = $actor['role'];
-            # On supprime les espaces
+            // On supprime les espaces
             $actor_url = Str::slug(trim($actorName));
 
             $this->dispatch(new ArtistStore($actorName, $actorRole, $show, $idLog));
 
-            $photo = 'artists.' . $key . '.image';
-            # Ajout de l'image
-            if (Input::hasFile($photo) && Input::file($photo)->isValid()) {
-                $destinationPath = public_path() . config('directories.actors');
+            $photo = 'artists.'.$key.'.image';
+            // Ajout de l'image
+            if (Request::hasFile($photo) && Request::file($photo)->isValid()) {
+                $destinationPath = public_path().config('directories.actors');
                 $extension = 'jpg';
-                $fileName = $actor_url . '.' . $extension;
-                Input::file($photo)->move($destinationPath, $fileName);
+                $fileName = $actor_url.'.'.$extension;
+                Request::file($photo)->move($destinationPath, $fileName);
 
-                $logMessage = '> Ajout de l\'image ' . $fileName;
+                $logMessage = '> Ajout de l\'image '.$fileName;
                 saveLogMessage($idLog, $logMessage);
             }
         }
 
         endJob($idLog);
+
         return response()->json();
     }
 
     /**
-     * Affiche la liste des acteurs d'une série en fonction de son ID
+     * Affiche la liste des acteurs d'une série en fonction de son ID.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -112,13 +109,16 @@ class AdminArtistController extends Controller
     }
 
     /**
-     * Editer l'artiste
+     * Editer l'artiste.
      *
      * @param $show_id
      * @param $artist_id
+     *
      * @return \Illuminate\Http\Response
+     *
      * @internal param $actor_id
      * @internal param int $id
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function edit($show_id, $artist_id)
@@ -129,17 +129,18 @@ class AdminArtistController extends Controller
         return view('admin.artists.edit', compact('show', 'artist'));
     }
 
-
     /**
-     * Modification d'un acteur
+     * Modification d'un acteur.
      *
-     * @param ArtistUpdateRequest $request
      * @return mixed
+     *
      * @internal param $show_id
      * @internal param $artist_id
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function update(ArtistUpdateRequest $request) {
+    public function update(ArtistUpdateRequest $request)
+    {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         $show = $this->showRepository->getByID($inputs['show_id']);
@@ -147,18 +148,18 @@ class AdminArtistController extends Controller
 
         $idLog = initJob($inputs['user_id'], 'Edition', 'Artist', $artist->id);
 
-        # Ajout de l'image
-        if(Input::hasfile('image') && Input::file('image')->isValid()) {
-            $destinationPath = public_path() . config('directories.actors');
+        // Ajout de l'image
+        if (Request::hasfile('image') && Request::file('image')->isValid()) {
+            $destinationPath = public_path().config('directories.actors');
             $extension = 'jpg';
-            $fileName = $artist->artist_url . '.' . $extension;
-            Input::file('image')->move($destinationPath, $fileName);
+            $fileName = $artist->artist_url.'.'.$extension;
+            Request::file('image')->move($destinationPath, $fileName);
 
-            $logMessage = '> Ajout de l\'image ' . $fileName;
+            $logMessage = '> Ajout de l\'image '.$fileName;
             saveLogMessage($idLog, $logMessage);
         }
 
-        # Modification du rôle
+        // Modification du rôle
         $this->dispatch(new ArtistUpdate($artist, $show->id, $inputs['role'], $idLog));
 
         return redirect()->route('admin.artists.show', $show->id)
@@ -171,9 +172,12 @@ class AdminArtistController extends Controller
      *
      * @param $show_id
      * @param $artist_id
+     *
      * @return \Illuminate\Http\Response
+     *
      * @internal param $actor_id
      * @internal param int $id
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function unlinkShow($show_id, $artist_id)
@@ -189,9 +193,10 @@ class AdminArtistController extends Controller
     }
 
     /**
-     * Redirection
+     * Redirection.
      *
      * @param $show_id
+     *
      * @return \Illuminate\Http\Response
      */
     public function redirect($show_id)
@@ -200,5 +205,4 @@ class AdminArtistController extends Controller
             ->with('status_header', 'Acteurs en cours d\'ajout')
             ->with('status', 'La demande de création d\'acteurs a été effectuée. Le serveur la traitera dès que possible.');
     }
-
 }

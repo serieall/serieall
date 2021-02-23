@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode_user whereUpdatedAt($value)
  */
 class Episode_user extends Model {
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 	protected $table = 'episode_user';
 	public $timestamps = true;
