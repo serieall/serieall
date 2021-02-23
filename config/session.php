@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Session Driver
@@ -149,7 +149,7 @@ return [
     |
     */
 
-    'secure' => false,
+    'secure' => env('SESSION_SECURE_COOKIE', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -163,5 +163,4 @@ return [
     */
 
     'http_only' => true,
-
 ];

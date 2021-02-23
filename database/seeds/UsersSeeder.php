@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
 {
-
     /**
-     * Génère une date aléatoire
+     * Génère une date aléatoire.
      *
      * @return mixed
      */
@@ -28,11 +27,11 @@ class UsersSeeder extends Seeder
             'username' => 'admin',
             'user_url' => 'admin',
             'email' => 'toto@hotmail.fr',
-            'password' => bcrypt(env("APP_ADMIN_PASSWORD", "serieall")),
+            'password' => bcrypt(env('APP_ADMIN_PASSWORD', 'serieall')),
             'role' => 1,
             'activated' => 1,
             'created_at' => $date,
-            'updated_at' => $date
+            'updated_at' => $date,
         ]);
     }
 }
