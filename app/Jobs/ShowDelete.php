@@ -2,22 +2,22 @@
 
 namespace App\Jobs;
 
+use App\Repositories\ShowRepository;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-
-use App\Repositories\ShowRepository;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 /**
- * Class ShowDelete
- * @package App\Jobs
+ * Class ShowDelete.
  */
 class ShowDelete implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $id;
     protected $userID;
@@ -28,6 +28,7 @@ class ShowDelete implements ShouldQueue
      *
      * @param $id
      * @param $userID
+     *
      * @internal param ShowRepository $showRepository
      */
     public function __construct($id, $userID)
@@ -39,8 +40,8 @@ class ShowDelete implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param ShowRepository $showRepository
      * @return void
+     *
      * @throws \Exception
      * @throws \Exception
      */
@@ -75,16 +76,16 @@ class ShowDelete implements ShouldQueue
         $seasons = $show->seasons()->get();
 
         // Pour chaque saison
-        foreach($seasons as $season){
-            $logMessage = '> SAISON ' . $season->name;
+        foreach ($seasons as $season) {
+            $logMessage = '> SAISON '.$season->name;
             saveLogMessage($idLog, $logMessage);
 
             // On récupère les épisodes
             $episodes = $season->episodes()->get();
 
             // Pour chaque épisode
-            foreach($episodes as $episode){
-                $logMessage = '>> EPISODE ' . $episode->numero;
+            foreach ($episodes as $episode) {
+                $logMessage = '>> EPISODE '.$episode->numero;
                 saveLogMessage($idLog, $logMessage);
 
                 // On détache les artistes

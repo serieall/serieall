@@ -1,18 +1,15 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Show_user;
 use App\Models\User;
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class UserRepository
- * @package App\Repositories
+ * Class UserRepository.
  */
 class UserRepository
 {
@@ -20,8 +17,6 @@ class UserRepository
 
     /**
      * UserRepository constructor.
-     *
-     * @param User $user
      */
     public function __construct(User $user)
     {
@@ -29,24 +24,30 @@ class UserRepository
     }
 
     /**
-     * Récupère l'utilisateur en fonction de son pseudo
+     * Récupère l'utilisateur en fonction de son pseudo.
      *
      * @param $username
+     *
      * @return User
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function getUserByUsername($username){
+    public function getUserByUsername($username)
+    {
         return $this->user::where('username', $username)->firstOrFail();
     }
 
     /**
-     * Récupère l'utilisateur en fonction de son URL
+     * Récupère l'utilisateur en fonction de son URL.
      *
      * @param $user_url
+     *
      * @return User
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function getUserByURL($user_url){
+    public function getUserByURL($user_url)
+    {
         return $this->user::with(['articles' => function ($q) {
             $q->where('state', '=', 1);
             $q->orderBy('published_at', 'desc')->paginate(2);
@@ -54,7 +55,7 @@ class UserRepository
     }
 
     /**
-     * Récupère tous les utilisateurs
+     * Récupère tous les utilisateurs.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -66,10 +67,12 @@ class UserRepository
     }
 
     /**
-     * Récupère un utilisateur via son ID
+     * Récupère un utilisateur via son ID.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getUserByID($id)
@@ -78,13 +81,15 @@ class UserRepository
     }
 
     /**
-     * Get planning for user
+     * Get planning for user.
      *
      * @param $user_id
      * @param $state
+     *
      * @return mixed
      */
-    public function getEpisodePlanning($user_id, $state) {
+    public function getEpisodePlanning($user_id, $state)
+    {
         return $this->user->join('show_user', 'users.id', '=', 'show_user.user_id')
             ->join('shows', 'show_user.show_id', '=', 'shows.id')
             ->join('seasons', 'shows.id', '=', 'seasons.show_id')
@@ -93,7 +98,7 @@ class UserRepository
             ->where('show_user.state', '=', $state)
             ->whereBetween('episodes.diffusion_us', [
                 Carbon::now()->subMonth(1),
-                Carbon::now()->addMonth(1)])
+                Carbon::now()->addMonth(1), ])
             ->select(DB::raw('shows.name as show_name, seasons.name as season_name, episodes.name as episode_name, episodes.id, episodes.numero, episodes.diffusion_us, shows.show_url'))
             ->get();
     }

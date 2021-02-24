@@ -1,23 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\SeasonCreateRequest;
 use App\Http\Requests\SeasonUpdateRequest;
 use App\Jobs\SeasonDelete;
 use App\Jobs\SeasonStore;
 use App\Jobs\SeasonUpdate;
-use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
-
+use App\Repositories\ShowRepository;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class AdminSeasonController
- * @package App\Http\Controllers\Admin
+ * Class AdminSeasonController.
  */
 class AdminSeasonController extends Controller
 {
@@ -27,8 +25,6 @@ class AdminSeasonController extends Controller
     /**
      * AdminArtistController constructor.
      *
-     * @param SeasonRepository $seasonRepository
-     * @param ShowRepository $showRepository
      * @internal param ArtistRepository $artistRepository
      */
     public function __construct(SeasonRepository $seasonRepository, ShowRepository $showRepository)
@@ -38,10 +34,12 @@ class AdminSeasonController extends Controller
     }
 
     /**
-     * Affiche la liste des saisons et des épisodes d'une série en fonction de son ID
+     * Affiche la liste des saisons et des épisodes d'une série en fonction de son ID.
      *
      * @param $show_id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @internal param $id
      */
     public function show($show_id)
@@ -55,7 +53,9 @@ class AdminSeasonController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $show_id
+     *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function create($show_id)
@@ -66,7 +66,6 @@ class AdminSeasonController extends Controller
     }
 
     /**
-     * @param SeasonCreateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(SeasonCreateRequest $request)
@@ -82,7 +81,9 @@ class AdminSeasonController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\Response
+     *
      * @internal param $show_id
      */
     public function edit($id)
@@ -93,9 +94,8 @@ class AdminSeasonController extends Controller
     }
 
     /**
-     * Mise à jour d'une saison
+     * Mise à jour d'une saison.
      *
-     * @param SeasonUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(SeasonUpdateRequest $request)
@@ -109,12 +109,13 @@ class AdminSeasonController extends Controller
         ->with('status', 'La demande de modification a été envoyée au serveur. Il la traitera dès que possible.');
     }
 
-
     /**
-     * Suppression d'une saison
+     * Suppression d'une saison.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @internal param $show_id
      * @internal param $season_id
      * @internal param $id
@@ -131,9 +132,10 @@ class AdminSeasonController extends Controller
     }
 
     /**
-     * Redirection
+     * Redirection.
      *
      * @param $show_id
+     *
      * @return \Illuminate\Http\Response
      */
     public function redirect($show_id)
@@ -142,5 +144,4 @@ class AdminSeasonController extends Controller
             ->with('status_header', 'Saisons en cours d\'ajout')
             ->with('status', 'La demande de création a été effectuée. Le serveur la traitera dès que possible.');
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -6,8 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class EpisodeUpdateRequest
- * @package App\Http\Requests
+ * Class EpisodeUpdateRequest.
  */
 class FollowShowRequest extends FormRequest
 {
@@ -29,8 +29,7 @@ class FollowShowRequest extends FormRequest
     public function rules()
     {
         return [
-            'state' => 'required|int|in:1,2,3,4,5'
+            'state' => 'required|int|in:1,2,3,4,5',
         ];
-
     }
 }

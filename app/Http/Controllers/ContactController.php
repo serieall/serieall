@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
@@ -7,15 +8,13 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Notifications\ContactNotification;
 use App\Repositories\ContactRepository;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
-
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Config;
 
 /**
- * Class ContactController
- * @package App\Http\Controllers
+ * Class ContactController.
  */
 class ContactController extends Controller
 {
@@ -23,16 +22,15 @@ class ContactController extends Controller
 
     /**
      * ContactController constructor.
-     * @param ContactRepository $contactRepository
      */
-    public function __construct(ContactRepository $contactRepository) {
-      $this->contactRepository = $contactRepository;
+    public function __construct(ContactRepository $contactRepository)
+    {
+        $this->contactRepository = $contactRepository;
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -42,19 +40,19 @@ class ContactController extends Controller
             'email' => 'required|email|max:255',
             'objet' => 'required|min:10',
             'captcha' => 'required|captcha',
-            'message' => 'required']);
+            'message' => 'required', ]);
     }
 
     /**
-     * Send a Contact Request
+     * Send a Contact Request.
      *
-     * @param ContactRequest $contactRequest
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function sendContact(ContactRequest $contactRequest) {
+    public function sendContact(ContactRequest $contactRequest)
+    {
         $this->validator($contactRequest->all())->validate();
 
-        Log::info("ContactSend : The captcha for " . $contactRequest->name . '/' . $contactRequest->email . " is : " . $contactRequest->captcha);
+        Log::info('ContactSend : The captcha for '.$contactRequest->name.'/'.$contactRequest->email.' is : '.$contactRequest->captcha);
 
         // Stockage de la demande dans la BDD
         $contact = new Contact();

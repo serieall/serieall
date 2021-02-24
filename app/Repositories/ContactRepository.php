@@ -1,14 +1,13 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
 use App\Models\Contact;
 
 /**
- * Class ContactRepository
- * @package App\Repositories\Admin
+ * Class ContactRepository.
  */
 class ContactRepository
 {
@@ -16,8 +15,6 @@ class ContactRepository
 
     /**
      * LogRepository constructor.
-     *
-     * @param Contact $contact
      */
     public function __construct(Contact $contact)
     {
@@ -25,24 +22,28 @@ class ContactRepository
     }
 
     /**
-     * On récupère tous les contacts
+     * On récupère tous les contacts.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAllContacts(){
+    public function getAllContacts()
+    {
         return $this->contact::with('user')
             ->orderBy('id', 'desc')
             ->get();
     }
 
     /**
-     * On récupère un contact grâce à son ID
+     * On récupère un contact grâce à son ID.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function getContactByID($id){
+    public function getContactByID($id)
+    {
         return $this->contact::findOrFail($id);
     }
 }

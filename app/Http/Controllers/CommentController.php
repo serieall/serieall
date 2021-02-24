@@ -1,14 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentCreateRequest;
-
 use App\Http\Requests\CommentWTNCreateRequest;
 use App\Http\Requests\ReactionCreateRequest;
 use App\Models\Comment;
-
 use App\Notifications\DatabaseNotification;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
@@ -16,21 +15,17 @@ use App\Repositories\EpisodeRepository;
 use App\Repositories\RateRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
-
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Cache;
 
 /**
- * Class CommentController
- * @package App\Http\Controllers
+ * Class CommentController.
  */
 class CommentController extends Controller
 {
-
     protected $commentRepository;
     protected $showRepository;
     protected $seasonRepository;
@@ -40,19 +35,15 @@ class CommentController extends Controller
 
     /**
      * CommentController constructor.
-     * @param CommentRepository $commentRepository
-     * @param ShowRepository $showRepository
-     * @param SeasonRepository $seasonRepository
-     * @param EpisodeRepository $episodeRepository
-     * @param RateRepository $rateRepository
-     * @param ArticleRepository $articleRepository
      */
-    public function __construct(CommentRepository $commentRepository,
-                                ShowRepository $showRepository,
-                                SeasonRepository $seasonRepository,
-                                EpisodeRepository $episodeRepository,
-                                RateRepository $rateRepository,
-                                ArticleRepository $articleRepository){
+    public function __construct(
+        CommentRepository $commentRepository,
+        ShowRepository $showRepository,
+        SeasonRepository $seasonRepository,
+        EpisodeRepository $episodeRepository,
+        RateRepository $rateRepository,
+        ArticleRepository $articleRepository
+    ) {
         $this->commentRepository = $commentRepository;
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
@@ -62,83 +53,80 @@ class CommentController extends Controller
     }
 
     /**
-     * Print vuecomments.fiche
+     * Print vuecomments.fiche.
      *
      * @param $show_url
      * @param null $season_name
      * @param null $episode_numero
      * @param null $episode_id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function fiche($show_url, $season_name = null, $episode_numero = null, $episode_id = null) {
-        # Get ID User if user authenticated
+    public function fiche($show_url, $season_name = null, $episode_numero = null, $episode_id = null)
+    {
+        // Get ID User if user authenticated
         $user_id = getIDIfAuth();
         $seasonInfo = [];
         $episodeInfo = [];
 
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
 
-        if($season_name !== null) {
+        if (null !== $season_name) {
             $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowIDWithCommentCounts($showInfo['show']->id, $season_name);
-            if($episode_numero !== null) {
-                if($episode_id !== null) {
+            if (null !== $episode_numero) {
+                if (null !== $episode_id) {
                     $episodeInfo = $this->episodeRepository->getEpisodeByID($episode_id);
                     $object = compileObjectInfos('Episode', $episodeInfo->id);
                     $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
-                }
-                else{
+                } else {
                     $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroAndSeasonID($seasonInfo->id, $episode_numero);
 
-                    # Compile Object informations
+                    // Compile Object informations
                     $object = compileObjectInfos('Episode', $episodeInfo->id);
 
-                    # Get Comments
+                    // Get Comments
                     $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
                 }
-            }
-            else {
-                # Compile Object informations
+            } else {
+                // Compile Object informations
                 $object = compileObjectInfos('Season', $seasonInfo->id);
 
-                # Get Comments
+                // Get Comments
                 $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
             }
-        }
-        else {
-            # Compile Object informations
+        } else {
+            // Compile Object informations
             $object = compileObjectInfos('Show', $showInfo['show']->id);
 
-            # Get Comments
+            // Get Comments
             $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
         }
 
         if (Request::ajax()) {
             return Response::json(View::make('comments.last_comments', ['comments' => $comments])->render());
-        }
-        else {
+        } else {
             return view('comments.fiche', compact('showInfo', 'seasonInfo', 'episodeInfo', 'object', 'comments'));
         }
     }
 
     /**
-     * Store a new comment
+     * Store a new comment.
      *
-     * @param CommentCreateRequest $request
-     * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function store(CommentCreateRequest $request): JsonResponse
     {
-        # Define variables by request
+        // Define variables by request
         $inputs = $request->all();
         $user_id = $request->user()->id;
         $object_id = $inputs['object_id'];
         $object = $inputs['object'];
-        $objectFQ = 'App\Models\\' . $object;
+        $objectFQ = 'App\Models\\'.$object;
 
-        # Get Object
-        switch ($object){
+        // Get Object
+        switch ($object) {
             case 'Show':
                 $object = $this->showRepository->getShowByID($object_id);
 
@@ -159,62 +147,58 @@ class CommentController extends Controller
                 break;
         }
 
-        # Check id comment exist
-        $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $objectFQ, $object_id );
+        // Check id comment exist
+        $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $objectFQ, $object_id);
 
-        # If not, we create it
-        if($comment_ref === null) {
-            # Initialize
+        // If not, we create it
+        if (null === $comment_ref) {
+            // Initialize
             $comment = new Comment();
 
-            # Define fields
+            // Define fields
             $comment->message = $inputs['avis'];
             $comment->thumb = $inputs['thumb'];
 
-            # Attach to user and save
+            // Attach to user and save
             $comment->user()->associate($user_id);
             $comment->save();
 
-            # Attach to show and save
+            // Attach to show and save
             $object->comments()->save($comment);
-        }
-        else {
-            # Redefine fields
+        } else {
+            // Redefine fields
             $comment_ref->message = $inputs['avis'];
             $comment_ref->thumb = $inputs['thumb'];
 
-            # Attach to user and save
+            // Attach to user and save
             $comment_ref->user()->associate($user_id);
             $comment_ref->save();
 
-            # Attach to show and save
+            // Attach to show and save
             $object->comments()->save($comment_ref);
         }
 
-        if(isset($inputs['episode_id'], $inputs['note']))
-        {
+        if (isset($inputs['episode_id'], $inputs['note'])) {
             $this->rateRepository->RateEpisode($user_id, $inputs['episode_id'], $inputs['note']);
         }
-            return response()->json();
+
+        return response()->json();
     }
 
     /**
-     * Store a new comment
-     *
-     * @param CommentWTNCreateRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * Store a new comment.
      */
     public function storeWithoutThumbAndNote(CommentWTNCreateRequest $request): JsonResponse
     {
-        # Define variables by request
+        // Define variables by request
         $inputs = $request->all();
         $user_id = $request->user()->id;
         $object_id = $inputs['object_id'];
         $object = $inputs['object'];
-        $objectFQ = 'App\Models\\' . $object;
+        $objectFQ = 'App\Models\\'.$object;
 
-        # Get Object
-        switch ($object){
+        // Get Object
+        switch ($object) {
             case 'Article':
                 $object = $this->articleRepository->getArticleByID($object_id);
                 break;
@@ -222,47 +206,46 @@ class CommentController extends Controller
                 break;
         }
 
-        # Check id comment exist
+        // Check id comment exist
         $comment_ref = $this->commentRepository->getCommentByUserIDTypeTypeID($user_id, $objectFQ, $object_id);
 
-        # If not, we create it
-        if($comment_ref === null) {
-            # Initialize
+        // If not, we create it
+        if (null === $comment_ref) {
+            // Initialize
             $comment = new Comment();
 
-            # Define fields
+            // Define fields
             $comment->message = $inputs['avis'];
 
-            # Attach to user and save
+            // Attach to user and save
             $comment->user()->associate($user_id);
             $comment->save();
 
-            # Attach to comment and save
+            // Attach to comment and save
             $object->comments()->save($comment);
 
             // Send Notifications for redac of the article
-            foreach($object->users as $user) {
-                if($user_id != $user->id) {
-                    $user->notify(new DatabaseNotification('a commenté votre article "' . $object->name . '"', route('article.show', $object->article_url), $user_id));
+            foreach ($object->users as $user) {
+                if ($user_id != $user->id) {
+                    $user->notify(new DatabaseNotification('a commenté votre article "'.$object->name.'"', route('article.show', $object->article_url), $user_id));
                 }
             }
-        }
-        else {
-            # Redefine fields
+        } else {
+            // Redefine fields
             $comment_ref->message = $inputs['avis'];
 
-            # Attach to user and save
+            // Attach to user and save
             $comment_ref->user()->associate($user_id);
             $comment_ref->save();
 
-            # Attach to comment and save
+            // Attach to comment and save
             $object->comments()->save($comment_ref);
 
             // Send notifications to reactions below this comment
-            foreach($comment_ref->children as $reaction) {
+            foreach ($comment_ref->children as $reaction) {
                 $reaction_user = $reaction->user;
-                if($reaction_user != $user_id) {
-                    $reaction_user->notify(new DatabaseNotification('a modifié son commentaire sous l\'article "' . $object->name . '"', route('article.show', $object->article_url), $user_id));
+                if ($reaction_user != $user_id) {
+                    $reaction_user->notify(new DatabaseNotification('a modifié son commentaire sous l\'article "'.$object->name.'"', route('article.show', $object->article_url), $user_id));
                 }
             }
         }
@@ -272,7 +255,7 @@ class CommentController extends Controller
 
     public function storeReaction(ReactionCreateRequest $request)
     {
-        # Define variables by request
+        // Define variables by request
         $inputs = $request->all();
         $user_id = $request->user()->id;
         $object_parent_id = $inputs['object_parent_id'];
@@ -288,7 +271,7 @@ class CommentController extends Controller
         $comment = $comment_ref->parent;
         $comment_object = $comment->commentable_type;
         $comment_object_id = $comment->commentable_id;
-        switch ($comment_object){
+        switch ($comment_object) {
             case 'App\Models\Show':
                 $object = $this->showRepository->getShowByID($comment_object_id);
                 $route_object = route('comment.fiche', [$object->show_url]);
@@ -311,22 +294,22 @@ class CommentController extends Controller
 
         // Send notifications to parent
         $comment_user = ($comment->user);
-        if($comment_user->id != $user_id) {
+        if ($comment_user->id != $user_id) {
             // User that will receive the notification
             $get_notif = $comment_user;
 
-            switch ($comment_object){
+            switch ($comment_object) {
                 case 'App\Models\Show':
-                    $text_notif = 'a répondu à votre commentaire sous la série "' . $object->name . '"';
+                    $text_notif = 'a répondu à votre commentaire sous la série "'.$object->name.'"';
                     break;
                 case 'App\Models\Season':
-                    $text_notif = 'a répondu à votre commentaire sous la saison ' . $object->name . ' de la série "' . $object->show->name . '"';
+                    $text_notif = 'a répondu à votre commentaire sous la saison '.$object->name.' de la série "'.$object->show->name.'"';
                     break;
                 case 'App\Models\Episode':
-                    $text_notif = 'a répondu à votre commentaire sous l\'épisode ' . afficheEpisodeName($object, true, false) . ' de la série "' . $object->show->name . '"';
+                    $text_notif = 'a répondu à votre commentaire sous l\'épisode '.afficheEpisodeName($object, true, false).' de la série "'.$object->show->name.'"';
                     break;
                 case 'App\Models\Article':
-                    $text_notif = 'a répondu à votre commentaire sous l\'article "' . $object->name . '"';
+                    $text_notif = 'a répondu à votre commentaire sous l\'article "'.$object->name.'"';
                     break;
                 default:
                     break;
@@ -339,22 +322,22 @@ class CommentController extends Controller
         }
 
         // Send notifications to other reactions.
-        foreach($comment->children as $other_reaction) {
-            if($other_reaction->user->id != $user_id) {
+        foreach ($comment->children as $other_reaction) {
+            if ($other_reaction->user->id != $user_id) {
                 // User that will receive the notification
                 $get_notif = $other_reaction->user;
-                switch ($comment_object){
+                switch ($comment_object) {
                     case 'App\Models\Show':
-                        $text_notif = 'a répondu au commentaire de ' . $comment->user->username . ' sous la série "' . $object->name . '"';
+                        $text_notif = 'a répondu au commentaire de '.$comment->user->username.' sous la série "'.$object->name.'"';
                         break;
                     case 'App\Models\Season':
-                        $text_notif = 'a répondu au commentaire de ' . $comment->user->username . ' sous la saison ' . $object->name . ' de la série "';
+                        $text_notif = 'a répondu au commentaire de '.$comment->user->username.' sous la saison '.$object->name.' de la série "';
                         break;
                     case 'App\Models\Episode':
-                        $text_notif = 'a répondu au commentaire de ' . $comment->user->username . ' sous l\'épisode ' . afficheEpisodeName($object, true, false) . ' de la série "';
+                        $text_notif = 'a répondu au commentaire de '.$comment->user->username.' sous l\'épisode '.afficheEpisodeName($object, true, false).' de la série "';
                         break;
                     case 'App\Models\Article':
-                        $text_notif = 'a répondu au commentaire de ' . $comment->user->username . ' sous l\'article "' . $object->name . '"';
+                        $text_notif = 'a répondu au commentaire de '.$comment->user->username.' sous l\'article "'.$object->name.'"';
                         break;
                     default:
                         break;

@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
@@ -8,8 +8,7 @@ use App\Models\Channel;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class ChannelRepository
- * @package App\Repositories
+ * Class ChannelRepository.
  */
 class ChannelRepository
 {
@@ -17,8 +16,6 @@ class ChannelRepository
 
     /**
      * ChannelRepository constructor.
-     *
-     * @param Channel $channel
      */
     public function __construct(Channel $channel)
     {
@@ -26,11 +23,12 @@ class ChannelRepository
     }
 
     /**
-     * On récupère toutes les chaines
+     * On récupère toutes les chaines.
      *
      * @return mixed
      */
-    public function getChannels(){
+    public function getChannels()
+    {
         return DB::table('channels')
             ->orderBy('name', 'asc')
             ->get();

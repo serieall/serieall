@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
-
 use Dingo\Api\Routing\Router;
-    /*
+
+/*
     |--------------------------------------------------------------------------
     | API Routes
     |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use Dingo\Api\Routing\Router;
 
     $api = app(Router::class);
 
-    $api->version('v1', [], function (Router $api){
+    $api->version('v1', [], function (Router $api) {
         $api->get('shows/search', '\App\Http\Controllers\Api\V1\ShowSearchController@index');
         $api->get('shows/list', '\App\Http\Controllers\Api\V1\ShowsListController@index');
         $api->get('shows/abandoned/list', '\App\Http\Controllers\Api\V1\ShowsAbandonnedController@index');

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Transformers;
@@ -6,20 +7,18 @@ namespace App\Http\Transformers;
 use League\Fractal\TransformerAbstract;
 
 /**
- * Class ShowsListTransformer
- * @package App\Http\Transformers
+ * Class ShowsListTransformer.
  */
 class ArticlesListTransformer extends TransformerAbstract
 {
     /**
      * @param $show
-     * @return array
      */
-    public function transform($article) : array
+    public function transform($article): array
     {
         return [
             'id' => $article->id,
-            'name' => $article->name
+            'name' => $article->name,
         ];
     }
 }

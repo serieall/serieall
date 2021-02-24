@@ -4,18 +4,20 @@ namespace App\Jobs;
 
 use App\Repositories\SloganRepository;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 /**
- * Class UserUpdate
- * @package App\Jobs
+ * Class UserUpdate.
  */
 class SloganUpdate implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $inputs;
 
@@ -23,6 +25,7 @@ class SloganUpdate implements ShouldQueue
      * Create a new job instance.
      *
      * @param $inputs
+     *
      * @internal param $id
      * @internal param $userID
      */
@@ -34,29 +37,28 @@ class SloganUpdate implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param SloganRepository $sloganRepository
      * @return void
      */
     public function handle(SloganRepository $sloganRepository)
     {
-       /*
-       |--------------------------------------------------------------------------
-       | Initialisation du job
-       |--------------------------------------------------------------------------
-       */
+        /*
+        |--------------------------------------------------------------------------
+        | Initialisation du job
+        |--------------------------------------------------------------------------
+        */
         $idLog = initJob($this->inputs['user_id'], 'Edition', 'User', $this->inputs['id']);
 
         $slogan = $sloganRepository->getSloganByID($this->inputs['id']);
 
-        $message = 'Slogan : ' . $this->inputs['message'];
+        $message = 'Slogan : '.$this->inputs['message'];
         saveLogMessage($idLog, $message);
         $slogan->message = $this->inputs['message'];
 
-        $message = 'Source : ' . $this->inputs['source'];
+        $message = 'Source : '.$this->inputs['source'];
         saveLogMessage($idLog, $message);
         $slogan->source = $this->inputs['source'];
 
-        $message = 'URL : ' . $this->inputs['url'];
+        $message = 'URL : '.$this->inputs['url'];
         saveLogMessage($idLog, $message);
         $slogan->url = $this->inputs['url'];
 

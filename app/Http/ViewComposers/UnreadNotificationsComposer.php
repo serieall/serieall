@@ -1,15 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
- * Class NavActiveShowsComposer
- * @package App\Http\ViewComposers
+ * Class NavActiveShowsComposer.
  */
 class UnreadNotificationsComposer
 {
@@ -27,12 +26,11 @@ class UnreadNotificationsComposer
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             $this->unread_notifications = Auth::user()->unreadNotifications;
         }
 

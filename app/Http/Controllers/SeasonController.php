@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
@@ -6,17 +7,14 @@ namespace App\Http\Controllers;
 use App\Charts\RateSummary;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
-use App\Repositories\ShowRepository;
 use App\Repositories\SeasonRepository;
-use ConsoleTVs\Charts\Facades\Charts;
-
+use App\Repositories\ShowRepository;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 
 /**
- * Class SeasonController
- * @package App\Http\Controllers
+ * Class SeasonController.
  */
 class SeasonController extends Controller
 {
@@ -27,16 +25,13 @@ class SeasonController extends Controller
 
     /**
      * ShowController constructor.
-     * @param ShowRepository $showRepository
-     * @param SeasonRepository $seasonRepository
-     * @param CommentRepository $commentRepository
-     * @param ArticleRepository $articleRepository
      */
-    public function __construct(ShowRepository $showRepository,
-                                SeasonRepository $seasonRepository,
-                                CommentRepository $commentRepository,
-                                ArticleRepository $articleRepository)
-    {
+    public function __construct(
+        ShowRepository $showRepository,
+        SeasonRepository $seasonRepository,
+        CommentRepository $commentRepository,
+        ArticleRepository $articleRepository
+    ) {
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
         $this->commentRepository = $commentRepository;
@@ -44,26 +39,27 @@ class SeasonController extends Controller
     }
 
     /**
-     * Envoi vers la page shows/seasons
+     * Envoi vers la page shows/seasons.
      *
      * @param $show_url
      * @param $season
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getSeasonFiche($show_url, $season)
     {
-        # Get ID User if user authenticated
+        // Get ID User if user authenticated
         $user_id = getIDIfAuth();
 
         $showInfo = $this->showRepository->getInfoShowFiche($show_url);
         $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowIDWithCommentCounts($showInfo['show']->id, $season);
 
-        # Compile Object informations
+        // Compile Object informations
         $object = compileObjectInfos('Season', $seasonInfo->id);
 
         $ratesSeason = $this->seasonRepository->getRateBySeasonID($seasonInfo->id);
 
-        $chart = new RateSummary;
+        $chart = new RateSummary();
         $chart
             ->height(300)
             ->title('Evolution des notes de la saison')
@@ -76,7 +72,7 @@ class SeasonController extends Controller
             ],
         ]);
 
-        # Get Comments
+        // Get Comments
         $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
         $type_article = 'Season';

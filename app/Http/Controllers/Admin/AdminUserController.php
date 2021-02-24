@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
@@ -10,16 +11,14 @@ use App\Jobs\UserStore;
 use App\Jobs\UserUpdate;
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-
-use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 
 /**
- * Class AdminUserController
- * @package App\Http\Controllers\Admin
+ * Class AdminUserController.
  */
 class AdminUserController extends Controller
 {
@@ -30,9 +29,6 @@ class AdminUserController extends Controller
     /**
      * AdminUserController constructor.
      *
-     * @param UserRepository $userRepository
-     * @param CommentRepository $commentRepository
-     * @param ShowRepository $showRepository
      * @internal param SeasonRepository $seasonRepository
      * @internal param ShowRepository $showRepository
      * @internal param ArtistRepository $artistRepository
@@ -45,7 +41,7 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Affiche l'index de l'administation des utilisateurs
+     * Affiche l'index de l'administation des utilisateurs.
      *
      * @return \Illuminate\Http\Response
      */
@@ -59,15 +55,17 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Return the list of users in JSON
+     * Return the list of users in JSON.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getUser($id) {
+    public function getUser($id)
+    {
         $user = $this->userRepository->getUserByID($id);
 
-        if(empty($user)) {
+        if (empty($user)) {
             return Response::json();
         }
 
@@ -75,7 +73,7 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Affiche le formulaire de création d'utilisateur
+     * Affiche le formulaire de création d'utilisateur.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -85,9 +83,8 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Ajoute un nouvel utilisateur
+     * Ajoute un nouvel utilisateur.
      *
-     * @param UserStoreRequest $request
      * @return string
      */
     public function store(UserStoreRequest $request)
@@ -102,10 +99,12 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Affiche le formulaire d'édition de l'utilisateur
+     * Affiche le formulaire d'édition de l'utilisateur.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function edit($id)
@@ -116,10 +115,10 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Met à jour un utilisateur
+     * Met à jour un utilisateur.
      *
-     * @param UserUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @internal param $id
      */
     public function update(UserUpdateRequest $request)
@@ -134,10 +133,12 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Bannir ou débannir un utilisateur
+     * Bannir ou débannir un utilisateur.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function ban($id)
@@ -147,15 +148,12 @@ class AdminUserController extends Controller
 
         $logID = initJob($userID, 'Ban', 'User', $user->id);
 
-        if($user->suspended == 1)
-        {
-            $logMessage = 'Déban de l\'utilisateur ' . $user->username;
+        if (1 == $user->suspended) {
+            $logMessage = 'Déban de l\'utilisateur '.$user->username;
             saveLogMessage($logID, $logMessage);
             $user->suspended = 0;
-        }
-        else
-        {
-            $logMessage = 'Ban de l\'utilisateur ' . $user->username;
+        } else {
+            $logMessage = 'Ban de l\'utilisateur '.$user->username;
             saveLogMessage($logID, $logMessage);
             $user->suspended = 1;
         }
@@ -167,10 +165,12 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Delete an user
+     * Delete an user.
      *
      * @param $id
+     *
      * @return RedirectResponse
+     *
      * @throws \Exception
      */
     public function destroy($id)
@@ -186,6 +186,5 @@ class AdminUserController extends Controller
         return redirect()->back()
             ->with('status_header', 'Suppression')
             ->with('status', 'L\'utilisateur a été supprimé.');
-
     }
 }

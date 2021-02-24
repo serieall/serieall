@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -15,6 +16,9 @@ declare(strict_types=1);
 /*
     Home
 */
+
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/rss-podcasts', 'ArticleController@RSSPodcast')->name('rss.podcasts');
@@ -24,15 +28,15 @@ Route::get('/rss-podcasts', 'ArticleController@RSSPodcast')->name('rss.podcasts'
 */
 Route::view('/cgu', 'pages.cgu')->name('cgu');
 
-Route::view('/equipe','pages.team')->name('team');
+Route::view('/equipe', 'pages.team')->name('team');
 
-Route::view('/nous-rejoindre','pages.join')->name('join');
+Route::view('/nous-rejoindre', 'pages.join')->name('join');
 
 Route::view('/about', 'pages.about')->name('about');
 
 Route::view('/404', 'errors.404')->name('404');
 
-Route::view('/500','errors.500')->name('500');
+Route::view('/500', 'errors.500')->name('500');
 
 /*
     Partie Authentification
@@ -55,7 +59,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 /*
     Formulaire de contact
 */
-Route::view('/contact','pages.contact')->name('contact');
+Route::view('/contact', 'pages.contact')->name('contact');
 Route::post('sendContact', 'ContactController@sendContact')->name('contact.send');
 
 /*
@@ -240,5 +244,4 @@ Route::group(['middleware' => 'basemanager'], function () {
         Route::get('admin/system/slogan/redirect', 'Admin\System\AdminSlogansController@redirect')->name('admin.slogans.redirect');
         Route::delete('admin/system/slogans/{slogan}', 'Admin\System\AdminSlogansController@destroy')->name('admin.slogans.destroy');
     });
-
 });

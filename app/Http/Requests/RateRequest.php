@@ -1,13 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-
-
 /**
- * Class RateRequest
- * @package App\Http\Requests
+ * Class RateRequest.
  */
 class RateRequest extends Request
 {
@@ -30,6 +28,6 @@ class RateRequest extends Request
     {
         return [
             'episode_id' => 'required|exists:episodes,id',
-            'note' => 'required|numeric|between:1,20'];
+            'note' => 'required|numeric|between:1,20', ];
     }
 }

@@ -1,18 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use App\Models\Show;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
 /**
- * Class FollowedShowsComposer
- * @package App\Http\ViewComposers
+ * Class FollowedShowsComposer.
  */
 class FollowedShowsComposer
 {
@@ -30,17 +28,16 @@ class FollowedShowsComposer
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             $this->followed_shows = Show::join('show_user', 'shows.id', '=', 'show_user.show_id')
             ->join('users', 'users.id', '=', 'show_user.user_id')
             ->orderBy('shows.name')
-	    ->where('users.id', '=', Auth::user()->id)
-	    ->where('show_user.state', '=', 1)
+        ->where('users.id', '=', Auth::user()->id)
+        ->where('show_user.state', '=', 1)
             ->select(DB::raw('shows.name as name, shows.show_url as show_url'))
             ->get();
         }

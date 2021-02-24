@@ -1,16 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
-
+use Illuminate\Notifications\Notification;
 
 /**
- * Class ContactNotification
- * @package App\Notifications
+ * Class ContactNotification.
  */
 class ContactNotification extends Notification
 {
@@ -18,11 +17,9 @@ class ContactNotification extends Notification
 
     /**
      * Create a new notification instance.
-     *
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -42,7 +39,7 @@ class ContactNotification extends Notification
      */
     public function toMail()
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->success()
             ->subject('Votre demande de contact')
             ->line('Votre demande de contact a bien été prise en compte.')
@@ -57,7 +54,6 @@ class ContactNotification extends Notification
     public function toArray()
     {
         return [
-            //
         ];
     }
 }

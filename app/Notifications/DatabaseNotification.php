@@ -1,16 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\MailMessage;
-
 
 /**
- * Class ContactNotification
- * @package App\Notifications
+ * Class ContactNotification.
  */
 class DatabaseNotification extends Notification
 {
@@ -22,6 +20,7 @@ class DatabaseNotification extends Notification
 
     /**
      * Create a new notification instance.
+     *
      * @param $title
      * @param $url_see_notification
      * @param $user
@@ -53,7 +52,7 @@ class DatabaseNotification extends Notification
         return [
             'title' => $this->title,
             'url' => $this->url_see_notification,
-            'user_id' => $this->user
+            'user_id' => $this->user,
         ];
     }
 }

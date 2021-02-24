@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\ViewComposers;
@@ -6,8 +7,7 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 
 /**
- * Class NavActiveAdminArticlesComposer
- * @package App\Http\ViewComposers
+ * Class NavActiveAdminArticlesComposer.
  */
 class NavActiveAdminArticlesComposer
 {
@@ -25,7 +25,6 @@ class NavActiveAdminArticlesComposer
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
      * @return void
      */
     public function compose(View $view)

@@ -1,28 +1,24 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Episode_user;
 use App\Models\Episode;
+use App\Models\Episode_user;
 use App\Models\Season;
 use App\Models\Show;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-
+use Illuminate\Support\Facades\DB;
 
 /**
- * Class RateRepository
- * @package App\Repositories
+ * Class RateRepository.
  */
 class RateRepository
 {
-
     /** Constant for cache*/
     const SHOW_MOMENT_CACHE_KEY = 'SHOW_MOMENT_CACHE_KEY';
     const RANKING_SHOWS_REDAC_CACHE_KEY = 'RANKING_SHOWS_REDAC_CACHE_KEY';
@@ -36,28 +32,30 @@ class RateRepository
 
     /**
      * RateRepository constructor.
-     * @param ShowRepository $showRepository
-     * @param SeasonRepository $seasonRepository
-     * @param EpisodeRepository $episodeRepository
      */
-    public function __construct(ShowRepository $showRepository,
-                                SeasonRepository $seasonRepository,
-                                EpisodeRepository $episodeRepository) {
+    public function __construct(
+        ShowRepository $showRepository,
+        SeasonRepository $seasonRepository,
+        EpisodeRepository $episodeRepository
+    ) {
         $this->showRepository = $showRepository;
         $this->seasonRepository = $seasonRepository;
         $this->episodeRepository = $episodeRepository;
     }
 
     /**
-     * Rate an episode
+     * Rate an episode.
      *
      * @param $user_id
      * @param $episode_id
      * @param $rate
+     *
      * @return bool
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function RateEpisode($user_id, $episode_id, $rate) {
+    public function RateEpisode($user_id, $episode_id, $rate)
+    {
         // La note existe-elle ?
         $rate_ref = Episode_user::where('episode_id', '=', $episode_id)
             ->where('user_id', '=', $user_id)
@@ -69,16 +67,15 @@ class RateRepository
         $show_ref = $this->showRepository->getShowByID($season_ref->show_id);
 
         // Si la note n'exite pas
-        if(is_null($rate_ref)) {
+        if (is_null($rate_ref)) {
             // On l'ajoute
             $episode_ref->users()->attach($user_id, ['rate' => $rate]);
 
-            # On incrémente tous les nombres d'épisodes
+            // On incrémente tous les nombres d'épisodes
             ++$episode_ref->nbnotes;
             ++$season_ref->nbnotes;
             ++$show_ref->nbnotes;
-        }
-        else {
+        } else {
             // On la met simplement à jour
             $episode_ref->users()->updateExistingPivot($user_id, ['rate' => $rate]);
         }
@@ -109,13 +106,15 @@ class RateRepository
     }
 
     /**
-     * Get Rate of an episode by a user
+     * Get Rate of an episode by a user.
      *
      * @param $user_id
      * @param $episode_id
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     *
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
-    public function getRateByUserIDEpisodeID($user_id, $episode_id) {
+    public function getRateByUserIDEpisodeID($user_id, $episode_id)
+    {
         return Episode_user::whereEpisodeId($episode_id)
             ->whereUserId($user_id)
             ->pluck('rate')
@@ -123,13 +122,15 @@ class RateRepository
     }
 
     /**
-     * Get Last 20 Rates
+     * Get Last 20 Rates.
      *
      * @param $limit
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getLastRates($limit) {
-        return Episode_user::with(['user', 'episode' => function($q){
+    public function getLastRates($limit)
+    {
+        return Episode_user::with(['user', 'episode' => function ($q) {
             $q->with('season');
             $q->with('show');
         }])->limit($limit)
@@ -138,42 +139,48 @@ class RateRepository
     }
 
     /**
-     * Get lasts rates of a user
+     * Get lasts rates of a user.
      *
      * @param $user_id
      * @param $episode_id
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     *
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
-    public function getRateByUserID($user_id) {
-        return Episode_user::with(['user', 'episode' => function($q) {
+    public function getRateByUserID($user_id)
+    {
+        return Episode_user::with(['user', 'episode' => function ($q) {
             $q->with('season');
             $q->with('show');
         }])
             ->whereUserId($user_id)
             ->limit(15)
-            ->orderByDesc("updated_at")
+            ->orderByDesc('updated_at')
             ->get();
     }
 
     /**
-     * Get all rates of a user
+     * Get all rates of a user.
      *
      * @param $user_id
      * @param $episode_id
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     *
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
-    public function getAllRateByUserID($user_id) {
+    public function getAllRateByUserID($user_id)
+    {
         return Episode_user::whereUserId($user_id);
     }
 
     /**
-     * Get rates aggregate by show for a particular user
+     * Get rates aggregate by show for a particular user.
      *
      * @param $user_id
      * @param $order
+     *
      * @return array
      */
-    public function getRatesAggregateByShowForUser($user_id, $order) {
+    public function getRatesAggregateByShowForUser($user_id, $order)
+    {
         $sql = "select sh.thetvdb_id, sh.name, sh.show_url, sh.format, sh.format * COUNT(eu.rate) AS minutes, COUNT(eu.rate) nb_rate, TRIM(ROUND(AVG(eu.rate),2))+0 avg_rate, u.username
             FROM shows sh, seasons s, episodes e, users u, episode_user eu
             WHERE sh.id = s.show_id
@@ -188,14 +195,16 @@ class RateRepository
     }
 
     /**
-     * Get Ranking of shows for the redaction team
+     * Get Ranking of shows for the redaction team.
      *
      * @param $order
+     *
      * @return
      */
-    public function getRankingShowRedac($order) {
-       return Cache::remember(RateRepository::RANKING_SHOWS_REDAC_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
-           return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+    public function getRankingShowRedac($order)
+    {
+        return Cache::remember(RateRepository::RANKING_SHOWS_REDAC_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
+            return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
                ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
                ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
                ->join('shows', 'seasons.show_id', '=', 'shows.id')
@@ -203,19 +212,21 @@ class RateRepository
                ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, shows.name, shows.show_url'))
                ->limit(15)
                ->where('users.role', '<', 4)
-               ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementShows'))
+               ->havingRaw('nbnotes > '.config('param.nombreNotesMiniClassementShows'))
                ->orderBy('moyenne', $order)
                ->get();
-       });
+        });
     }
 
     /**
-     * Get Ranking of seasons for the redaction team
+     * Get Ranking of seasons for the redaction team.
      *
      * @param $order
+     *
      * @return
      */
-    public function getRankingSeasonRedac($order) {
+    public function getRankingSeasonRedac($order)
+    {
         return Cache::remember(RateRepository::RANKING_SEASONS_REDAC_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
             return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
                 ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
@@ -225,19 +236,21 @@ class RateRepository
                 ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, seasons.name, shows.name as sname, shows.show_url'))
                 ->limit(15)
                 ->where('users.role', '<', 4)
-                ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementSeasons'))
+                ->havingRaw('nbnotes > '.config('param.nombreNotesMiniClassementSeasons'))
                 ->orderBy('moyenne', $order)
                 ->get();
         });
     }
 
     /**
-     * Get Ranking of episodes for the redaction team
+     * Get Ranking of episodes for the redaction team.
      *
      * @param $order
+     *
      * @return
      */
-    public function getRankingEpisodeRedac($order) {
+    public function getRankingEpisodeRedac($order)
+    {
         return Cache::remember(RateRepository::RANKING_EPISODES_REDAC_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
             return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
                 ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
@@ -247,21 +260,23 @@ class RateRepository
                 ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, episodes.name, episodes.numero, episodes.id, seasons.name as season_name, shows.name as sname, shows.show_url'))
                 ->limit(15)
                 ->where('users.role', '<', 4)
-                ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementEpisodes'))
+                ->havingRaw('nbnotes > '.config('param.nombreNotesMiniClassementEpisodes'))
                 ->orderBy('moyenne', $order)
                 ->get();
         });
     }
 
     /**
-     * Get Ranking of channels
+     * Get Ranking of channels.
      *
      * @param $order
+     *
      * @return
      */
-    public function getRankingShowChannel() {
-        return Cache::remember(RateRepository::RANKING_SHOW_CHANNEL_CACHE_KEY, Config::get('constants.cacheDuration.day'), function (){
-        return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
+    public function getRankingShowChannel()
+    {
+        return Cache::remember(RateRepository::RANKING_SHOW_CHANNEL_CACHE_KEY, Config::get('constants.cacheDuration.day'), function () {
+            return Episode_user::join('users', 'episode_user.user_id', '=', 'users.id')
             ->join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
             ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
@@ -271,7 +286,7 @@ class RateRepository
             ->select(DB::raw('TRIM(ROUND(avg(episode_user.rate),2))+0 as moyenne, count(episode_user.rate) as nbnotes, channels.name'))
             ->limit(15)
             ->where('users.role', '<', 4)
-            ->havingRaw('nbnotes > ' . config('param.nombreNotesMiniClassementShows'))
+            ->havingRaw('nbnotes > '.config('param.nombreNotesMiniClassementShows'))
             ->orderBy('moyenne')
             ->get();
         });
@@ -280,9 +295,11 @@ class RateRepository
     /**
      * @param $user
      * @param $order
+     *
      * @return Show
      */
-    public function getRankingShowsByUsers($user, $order) {
+    public function getRankingShowsByUsers($user, $order)
+    {
         return Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
             ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
@@ -300,9 +317,11 @@ class RateRepository
     /**
      * @param $user
      * @param $order
+     *
      * @return Show
      */
-    public function getRankingSeasonsByUsers($user, $order) {
+    public function getRankingSeasonsByUsers($user, $order)
+    {
         return Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
             ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
@@ -320,9 +339,11 @@ class RateRepository
     /**
      * @param $user
      * @param $order
+     *
      * @return Show
      */
-    public function getRankingEpisodesByUsers($user, $order) {
+    public function getRankingEpisodesByUsers($user, $order)
+    {
         return Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
             ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
@@ -340,9 +361,11 @@ class RateRepository
     /**
      * @param $user
      * @param $order
+     *
      * @return Show
      */
-    public function getRankingPilotByUsers($user, $order) {
+    public function getRankingPilotByUsers($user, $order)
+    {
         return Episode_user::join('episodes', 'episode_user.episode_id', '=', 'episodes.id')
             ->join('seasons', 'episodes.season_id', '=', 'seasons.id')
             ->join('shows', 'seasons.show_id', '=', 'shows.id')
@@ -359,16 +382,16 @@ class RateRepository
             ->get();
     }
 
-    public function getShowsMoment() {
-
+    public function getShowsMoment()
+    {
 //        return Cache::remember(RateRepository::SHOW_MOMENT_CACHE_KEY, Config::get('constants.cacheDuration.long'), function () {
-            return Episode_user::leftJoin('episodes', 'episode_user.episode_id', '=', 'episodes.id')
+        return Episode_user::leftJoin('episodes', 'episode_user.episode_id', '=', 'episodes.id')
                 ->leftJoin('seasons', 'episodes.season_id', '=', 'seasons.id')
                 ->leftJoin('shows', 'seasons.show_id', '=', 'shows.id')
                 ->select(DB::raw('shows.name, shows.show_url, shows.moyenne, shows.nbnotes ,COUNT(episode_user.rate) nbnotes_last_week'))
                 ->whereBetween('episode_user.created_at', [
                     Carbon::now()->subWeek(),
-                    Carbon::now()])
+                    Carbon::now(), ])
                 ->orderBy('nbnotes_last_week', 'DESC')
 //                ->orderBy('nbnotes')
                 ->groupBy('shows.name', 'shows.nbnotes', 'shows.moyenne')

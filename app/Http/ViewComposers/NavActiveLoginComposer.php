@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\ViewComposers;
@@ -6,8 +7,7 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 
 /**
- * Class NavActiveLoginComposer
- * @package App\Http\ViewComposers
+ * Class NavActiveLoginComposer.
  */
 class NavActiveLoginComposer
 {
@@ -25,7 +25,6 @@ class NavActiveLoginComposer
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
      * @return void
      */
     public function compose(View $view)

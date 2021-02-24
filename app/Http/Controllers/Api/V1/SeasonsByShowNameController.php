@@ -28,8 +28,7 @@ class SeasonsByShowNameController extends Controller
     public function __construct(
         Season $season,
         ShowRepository $showRepository
-    )
-    {
+    ) {
         $this->season = $season;
         $this->showRepository = $showRepository;
     }

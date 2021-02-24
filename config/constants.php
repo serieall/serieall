@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Paramètres de durée pour le cache
@@ -10,8 +9,8 @@ return [
 
     'cacheDuration' => [
         'day' => 86400, //1 day
-        'long' => 18000,//5 hours
+        'long' => 18000, //5 hours
         'medium' => 3600, //1 hour
-        'short' => 600 //10 minutes
-    ]
+        'short' => 600, //10 minutes
+    ],
 ];

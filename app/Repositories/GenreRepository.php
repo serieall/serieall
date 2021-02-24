@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
@@ -8,8 +8,7 @@ use App\Models\Genre;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class GenreRepository
- * @package App\Repositories
+ * Class GenreRepository.
  */
 class GenreRepository
 {
@@ -17,8 +16,6 @@ class GenreRepository
 
     /**
      * GenreRepository constructor.
-     *
-     * @param Genre $genre
      */
     public function __construct(Genre $genre)
     {
@@ -26,14 +23,14 @@ class GenreRepository
     }
 
     /**
-     * On récupère tous les genres
+     * On récupère tous les genres.
      *
      * @return mixed
      */
-    public function getGenres(){
+    public function getGenres()
+    {
         return DB::table('genres')
             ->orderBy('name', 'asc')
             ->get();
     }
-
 }

@@ -1,46 +1,40 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\CommentUpdateRequest;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\EpisodeRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 
 /**
- * Class AdminArticleController
+ * Class AdminArticleController.
+ *
  * @property CommentRepository commentRepository
  * @property EpisodeRepository episodeRepository
  * @property SeasonRepository seasonRepository
  * @property ShowRepository showRepository
  * @property ArticleRepository articleRepository
- * @package App\Http\Controllers\Admin
  */
 class AdminCommentController extends Controller
 {
     /**
      * AdminCommentController constructor.
-     *
-     * @param ShowRepository $showRepository
-     * @param CommentRepository $commentRepository
-     * @param EpisodeRepository $episodeRepository
-     * @param SeasonRepository $seasonRepository
-     * @param ArticleRepository $articleRepository
      */
-    public function __construct(ShowRepository $showRepository,
-                                CommentRepository $commentRepository,
-                                EpisodeRepository $episodeRepository,
-                                SeasonRepository $seasonRepository,
-                                ArticleRepository $articleRepository) {
-
+    public function __construct(
+        ShowRepository $showRepository,
+        CommentRepository $commentRepository,
+        EpisodeRepository $episodeRepository,
+        SeasonRepository $seasonRepository,
+        ArticleRepository $articleRepository
+    ) {
         $this->showRepository = $showRepository;
         $this->commentRepository = $commentRepository;
         $this->episodeRepository = $episodeRepository;
@@ -49,8 +43,7 @@ class AdminCommentController extends Controller
     }
 
     /**
-     * Print vue admin/comments/index
-     *
+     * Print vue admin/comments/index.
      */
     public function index()
     {
@@ -58,35 +51,36 @@ class AdminCommentController extends Controller
     }
 
     /**
-     * Print vue admin/comments/index_shows
-     *
+     * Print vue admin/comments/index_shows.
      */
-    public function indexShows() {
-
+    public function indexShows()
+    {
         return view('admin.comments.index_shows');
     }
 
     /**
-     * Print vue admin/comments/index_articles
-     *
+     * Print vue admin/comments/index_articles.
      */
-    public function indexArticles() {
+    public function indexArticles()
+    {
         $articles = $this->articleRepository->getAllArticlesWithAutorsCategory();
 
         return view('admin.comments.index_articles', compact('articles'));
     }
 
     /**
-     * Retourne la liste des commentaires demandés en JSON
+     * Retourne la liste des commentaires demandés en JSON.
      *
      * @param $type
      * @param $id
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getComments($type, $id) {
-        $comments = $this->commentRepository->getAllCommentsByTypeTypeIDAdmin("App\\Models\\" . $type, $id, "DESC");
+    public function getComments($type, $id)
+    {
+        $comments = $this->commentRepository->getAllCommentsByTypeTypeIDAdmin('App\\Models\\'.$type, $id, 'DESC');
 
-        if(count($comments) < 1) {
+        if (count($comments) < 1) {
             return Response::json();
         }
 
@@ -94,8 +88,10 @@ class AdminCommentController extends Controller
     }
 
     /**
-     * Print vue admin/comments/edit
+     * Print vue admin/comments/edit.
+     *
      * @param $comment_id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($comment_id)
@@ -106,30 +102,30 @@ class AdminCommentController extends Controller
     }
 
     /**
-     * Update a comment
+     * Update a comment.
      *
-     * @param CommentUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CommentUpdateRequest $request) {
+    public function update(CommentUpdateRequest $request)
+    {
         $inputs = $request->all();
         $comment = $this->commentRepository->getCommentByID($inputs['id']);
 
-        if(isset($inputs['thumb'])) {
+        if (isset($inputs['thumb'])) {
             $comment->thumb = $inputs['thumb'];
         }
 
         $comment->message = $inputs['avis'];
 
-        if(!empty($inputs['show'])) {
+        if (!empty($inputs['show'])) {
             // Si episode est renseigné, on lie à l'épisode
-            if(!empty($inputs['episode'])) {
+            if (!empty($inputs['episode'])) {
                 $episode = $this->episodeRepository->getEpisodeByIDWithSeasonIDAndShowID($inputs['episode']);
 
                 $episode->comments()->save($comment);
             }
             // Si season est renseigné, on lie à la saison
-            elseif(empty($inputs['season'])) {
+            elseif (empty($inputs['season'])) {
                 $show = $this->showRepository->getByID($inputs['show']);
                 $show->comments()->save($comment);
             }
@@ -139,7 +135,7 @@ class AdminCommentController extends Controller
                 $season->comments()->save($comment);
             }
         }
-        if(!empty($inputs['article'])) {
+        if (!empty($inputs['article'])) {
             $article = $this->articleRepository->getArticleByID($inputs['article']);
 
             $article->comments()->save($comment);
@@ -153,13 +149,16 @@ class AdminCommentController extends Controller
 
     /**
      * @param $comment_id
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Exception
      */
-    public function destroy($comment_id) {
+    public function destroy($comment_id)
+    {
         $comment = $this->commentRepository->getCommentByID($comment_id);
 
-        foreach($comment->children as $child) {
+        foreach ($comment->children as $child) {
             $child->delete();
         }
 

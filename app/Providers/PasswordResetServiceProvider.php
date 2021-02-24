@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Providers;
@@ -7,8 +8,7 @@ use App\Repositories\Auth\PasswordRepositoryManager;
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider as IlluminatePasswordResetServiceProvider;
 
 /**
- * Class PasswordResetServiceProvider
- * @package App\Providers
+ * Class PasswordResetServiceProvider.
  */
 class PasswordResetServiceProvider extends IlluminatePasswordResetServiceProvider
 {

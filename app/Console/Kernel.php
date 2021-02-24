@@ -1,16 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Console;
 
 use App\Jobs\FlushLogs1Week;
+use App\Jobs\ShowUpdateFromTVDB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Jobs\ShowUpdateFromTVDB;
 
 /**
- * Class Kernel
- * @package App\Console
+ * Class Kernel.
  */
 class Kernel extends ConsoleKernel
 {
@@ -26,7 +26,6 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -35,7 +34,7 @@ class Kernel extends ConsoleKernel
             dispatch(new ShowUpdateFromTVDB());
         })->daily();
 
-        $schedule->call(function() {
+        $schedule->call(function () {
             dispatch(new FlushLogs1Week());
         })->daily();
     }

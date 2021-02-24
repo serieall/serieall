@@ -3,35 +3,34 @@
 namespace App\Jobs;
 
 use App\Repositories\LogRepository;
-
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 /**
- * Class FlushLogs1Week
- * @package App\Jobs
+ * Class FlushLogs1Week.
  */
 class FlushLogs1Week implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new job instance.
-     *
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Execute the job.
      *
-     * @param LogRepository $logRepository
      * @return void
+     *
      * @throws \Exception
      * @throws \Exception
      */
@@ -42,7 +41,7 @@ class FlushLogs1Week implements ShouldQueue
         | Initialisation du job
         |--------------------------------------------------------------------------
         */
-        $idLog = initJob(null, 'Suppression des logs', 'Logs', 0 );
+        $idLog = initJob(null, 'Suppression des logs', 'Logs', 0);
 
         /*
         | Récupération des logs
@@ -52,17 +51,15 @@ class FlushLogs1Week implements ShouldQueue
         /*
         | Suppression des logs
         */
-        foreach($logs as $log)
-        {
-            $logMessage = '> ' . $log->job;
+        foreach ($logs as $log) {
+            $logMessage = '> '.$log->job;
             saveLogMessage($idLog, $logMessage);
 
             $messages = $logRepository->getLogByID($log->id);
             $logMessage = 'Suppression des messages';
             saveLogMessage($idLog, $logMessage);
 
-            foreach($messages->logs as $message)
-            {
+            foreach ($messages->logs as $message) {
                 $message->delete();
             }
 

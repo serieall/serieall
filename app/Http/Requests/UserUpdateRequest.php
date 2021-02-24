@@ -1,14 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 /**
- * Class UserUpdateRequest
- * @package App\Http\Requests
+ * Class UserUpdateRequest.
  */
 class UserUpdateRequest extends FormRequest
 {
@@ -24,19 +23,21 @@ class UserUpdateRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
      * @return array
+     *
      * @internal param \App\Http\Requests\Request $request
      */
     public function rules()
     {
         return [
-            'username' => 'required|max:255|unique:users,username,'. $this->get('id'),
-            'email' => 'required|email|max:255|unique:users,email,'. $this->get('id'),
+            'username' => 'required|max:255|unique:users,username,'.$this->get('id'),
+            'email' => 'required|email|max:255|unique:users,email,'.$this->get('id'),
             'role' => 'required|numeric',
             'password' => 'min:6|confirmed',
             'antispoiler' => 'boolean',
             'website' => 'max:255',
             'twitter' => 'max:255',
-            'facebook' => 'max:255'];
+            'facebook' => 'max:255', ];
     }
 }

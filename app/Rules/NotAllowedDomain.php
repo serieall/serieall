@@ -6,7 +6,6 @@ use Illuminate\Contracts\Validation\Rule;
 
 class NotAllowedDomain implements Rule
 {
-
     protected $allowedDomains = [
         'gmx.de',
         'epost.de',
@@ -19,19 +18,19 @@ class NotAllowedDomain implements Rule
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed  $value
+     *
      * @return bool
      */
     public function passes($attribute, $value)
     {
-        $domain = substr(strrchr($value, "@"), 1);
+        $domain = substr(strrchr($value, '@'), 1);
 
         if (in_array($domain, $this->allowedDomains)) {
             return false;

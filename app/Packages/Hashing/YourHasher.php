@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Packages\Hashing;
@@ -6,14 +7,11 @@ namespace App\Packages\Hashing;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Hashing\BcryptHasher;
 
-
 /**
- * Class YourHasher
- * @package App\Packages\Hashing
+ * Class YourHasher.
  */
 class YourHasher implements HasherContract
 {
-
     protected $hasher;
 
     /**
@@ -21,16 +19,16 @@ class YourHasher implements HasherContract
      */
     public function __construct()
     {
-        $this->hasher = new BcryptHasher;
+        $this->hasher = new BcryptHasher();
     }
 
     /**
-     * Add Info method to implement HasherContract
+     * Add Info method to implement HasherContract.
      *
      * @param string $hashedValue
-     * @return string
      */
-    public function info($hashedValue) : string {
+    public function info($hashedValue): string
+    {
         return $hashedValue;
     }
 
@@ -38,9 +36,7 @@ class YourHasher implements HasherContract
      * Hash the given value.
      *
      * @param string $value
-     * @param array $options
      *
-     * @return string
      * @throws \RuntimeException
      */
     public function make($value, array $options = []): string
@@ -51,11 +47,8 @@ class YourHasher implements HasherContract
     /**
      * Check the given plain value against a hash.
      *
-     * @param  string $value
-     * @param  string $hashedValue
-     * @param  array  $options
-     *
-     * @return bool
+     * @param string $value
+     * @param string $hashedValue
      */
     public function check($value, $hashedValue, array $options = []): bool
     {
@@ -65,13 +58,10 @@ class YourHasher implements HasherContract
     /**
      * Check if the given hash has been hashed using the given options.
      *
-     * @param  string $hashedValue
-     * @param  array  $options
-     *
-     * @return bool
+     * @param string $hashedValue
      */
     public function needsRehash($hashedValue, array $options = []): bool
     {
-        return strncmp($hashedValue, '$2y$', 4) !== 0;
+        return 0 !== strncmp($hashedValue, '$2y$', 4);
     }
 }

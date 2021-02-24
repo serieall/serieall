@@ -1,23 +1,22 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Auth;
 
-use \Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Auth\Passwords\PasswordBroker as IlluminatePasswordBroker;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
 /**
- * Class PasswordRepository
- * @package App\Repositories\Auth
+ * Class PasswordRepository.
  */
 class PasswordRepository extends IlluminatePasswordBroker
 {
     /**
-     * Envoi un email pour le reset du mot de passe
+     * Envoi un email pour le reset du mot de passe.
      *
-     * @param CanResetPassword $user
      * @param $token
-     * @param \Closure|null $callback
+     *
      * @return mixed
      */
     public function emailResetLink(CanResetPassword $user, $token, \Closure $callback = null)
@@ -29,7 +28,7 @@ class PasswordRepository extends IlluminatePasswordBroker
 
         return $this->mailer->queue($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
             $m->to($user->getEmailForPasswordReset());
-            if (! is_null($callback)) {
+            if (!is_null($callback)) {
                 call_user_func($callback, $m, $user, $token);
             }
         });
