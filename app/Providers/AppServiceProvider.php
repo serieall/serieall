@@ -1,17 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Providers;
 
-
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 /**
- * Class AppServiceProvider
- * @package App\Providers
+ * Class AppServiceProvider.
  */
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +19,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
+        Paginator::useBootstrap();
+
         Schema::defaultStringLength(191); //Solved by increasing StringLength
 
         $folderImages = config('directories.images');
@@ -46,6 +48,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 }
