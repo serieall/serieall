@@ -1,22 +1,20 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Packages\Hashing\YourHasher;
+use App\Services\ActivationService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Services\ActivationService;
-use App\Packages\Hashing\YourHasher;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Console\Logger\ConsoleLogger;
-
 
 /**
- * Class LoginController
- * @package App\Http\Controllers\Auth
+ * Class LoginController.
  */
 class LoginController extends Controller
 {
@@ -41,11 +39,8 @@ class LoginController extends Controller
     protected $activationService;
     protected $hashingProvider;
 
-
     /**
      * LoginController constructor.
-     * @param ActivationService $activationService
-     * @param YourHasher $hashingProvider
      */
     public function __construct(ActivationService $activationService, YourHasher $hashingProvider)
     {
@@ -65,17 +60,17 @@ class LoginController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return RedirectResponse|JsonResponse
+     *
      * @throws \RuntimeException
      */
     protected function sendLoginResponse(Request $request)
     {
-        # Si le mot de passe n'est pas hashé avec Bcrypt
-        if($this->hashingProvider->needsRehash(Auth::user()->password)){
-            # On regénre un mot de passe avec Bcrypt
+        // Si le mot de passe n'est pas hashé avec Bcrypt
+        if ($this->hashingProvider->needsRehash(Auth::user()->password)) {
+            // On regénre un mot de passe avec Bcrypt
             Auth::user()->password = $this->hashingProvider->make($request->password);
-            # On sauvegarde l'utilisateur
+            // On sauvegarde l'utilisateur
             Auth::user()->save();
         }
 
@@ -89,8 +84,6 @@ class LoginController extends Controller
 
     /**
      * Get the login username to be used by the controller.
-     *
-     * @return string
      */
     public function username(): string
     {
@@ -99,32 +92,34 @@ class LoginController extends Controller
 
     /**
      * @param $user
+     *
      * @return \Illuminate\Http\JsonResponse|RedirectResponse
      */
     public function authenticated($user)
     {
-        if (! $user->activated) {
+        if (!$user->activated) {
             $this->activationService->sendActivationMail($user);
             auth()->logout();
-            return response()->json(["suspended" => false, "activated" => false]);
+
+            return response()->json(['suspended' => false, 'activated' => false]);
         }
 
         if ($user->suspended) {
             auth()->logout();
-            return response()->json(["suspended" => true, "activated" => true]);
+
+            return response()->json(['suspended' => true, 'activated' => true]);
         }
 
-        return response()->json(["suspended" => false, "activated" => true]);
+        return response()->json(['suspended' => false, 'activated' => true]);
     }
-
 
     /**
      * @param $token
-     * @return RedirectResponse
      */
     public function activateUser($token): RedirectResponse
     {
         $this->activationService->activateUser($token) ? redirect()->route('login')->with('success', 'Votre adresse E-Mail a été validée. Vous pouvez maintenant vous connecter.') : redirect()->route('login')->with('error', 'Erreur lors de la validation de votre adresse mail. Vous l\'avez peut être déjà validée. En cas de problèmes, n\'hésitez pas à nous contacter à l\'adresse : serieall.fr@gmail.com');
+
         return redirect()->intended($this->redirectPath());
     }
 }

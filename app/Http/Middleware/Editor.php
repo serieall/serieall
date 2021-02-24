@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Middleware;
@@ -7,8 +8,7 @@ use Closure;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 /**
- * Class Admin
- * @package App\Http\Middleware
+ * Class Admin.
  */
 class Editor
 {
@@ -17,15 +17,16 @@ class Editor
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     *
      * @return mixed
+     *
      * @throws \RuntimeException
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->role < 3){
-            if ($request->user()->suspended == 1) {
+        if ($request->user()->role < 3) {
+            if (1 == $request->user()->suspended) {
                 $this->guard()->logout();
 
                 $request->session()->flush();
@@ -36,6 +37,7 @@ class Editor
                     ->route('login')
                     ->with('warning', 'Votre compte a été bloqué.');
             }
+
             return $next($request);
         }
 

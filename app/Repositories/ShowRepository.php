@@ -1,28 +1,24 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Jobs\ShowAddManually;
 use App\Jobs\ShowAddFromTVDB;
-use App\Jobs\ShowUpdateManually;
+use App\Jobs\ShowAddManually;
 use App\Jobs\ShowDelete;
-
+use App\Jobs\ShowUpdateManually;
 use App\Models\Comment;
 use App\Models\Show;
-
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
-
 /**
- * Class ShowRepository
- * @package App\Repositories\Admin
+ * Class ShowRepository.
  */
 class ShowRepository
 {
@@ -38,14 +34,13 @@ class ShowRepository
     /**
      * ShowRepository constructor.
      *
-     * @param Show $show
      * @param \App\Repositories\SeasonRepository $seasonRepository
-     * @param ArticleRepository $articleRepository
      */
-    public function __construct(Show $show,
-                                SeasonRepository $seasonRepository,
-                                ArticleRepository $articleRepository)
-    {
+    public function __construct(
+        Show $show,
+        SeasonRepository $seasonRepository,
+        ArticleRepository $articleRepository
+    ) {
         $this->show = $show;
         $this->seasonRepository = $seasonRepository;
         $this->articleRepository = $articleRepository;
@@ -57,17 +52,15 @@ class ShowRepository
      * Sinon, on lance le job d'ajout via TheTVDB et on renvoi un status OK.
      *
      * @param $inputs
-     * @return bool
      */
     public function createShowJob($inputs): bool
     {
         $checkIDTheTVDB = $this->show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
 
-        if($checkIDTheTVDB === null){
+        if (null === $checkIDTheTVDB) {
             dispatch(new ShowAddFromTVDB($inputs));
             $dispatchOK = true;
-        }
-        else {
+        } else {
             $dispatchOK = false;
         }
 
@@ -80,18 +73,16 @@ class ShowRepository
      * Sinon, on lance le job de création manuelle et on renvoi un status OK.
      *
      * @param $inputs
-     * @return bool
      */
     public function createManuallyShowJob($inputs): bool
     {
         $URLShow = Str::slug($inputs['name']);
         $verifURLShow = $this->show::where('show_url', $URLShow)->first();
 
-        if($verifURLShow === null){
+        if (null === $verifURLShow) {
             dispatch(new ShowAddManually($inputs));
             $createOK = true;
-        }
-        else {
+        } else {
             $createOK = false;
         }
 
@@ -102,7 +93,6 @@ class ShowRepository
      * On crée un job de mise à jour manuel et on renvoi OK.
      *
      * @param $inputs
-     * @return bool
      */
     public function updateManuallyShowJob($inputs): bool
     {
@@ -116,7 +106,7 @@ class ShowRepository
      *
      * @param $id
      * @param $userID
-     * @return bool
+     *
      * @internal param $inputs
      */
     public function deleteJob($id, $userID): bool
@@ -127,37 +117,34 @@ class ShowRepository
     }
 
     /**
-     * SITE
+     * SITE.
      */
 
     /**
      * Récupération des informations de la fiche:
-     * Série, saisons, épisodes, genres, nationalités, chaines, note, résumé
+     * Série, saisons, épisodes, genres, nationalités, chaines, note, résumé.
      *
      * @param $show_url
-     * @return array
      */
-
     public function getInfoShowFiche($show_url): array
     {
         // En fonction de la route, on récupère les informations sur la série différemment
         //TODO : ne pas faire ce swicth dans le repository
-        if (Route::current()->getName() === 'show.fiche') {
+        if ('show.fiche' === Route::current()->getName()) {
             $show = $this->getShowByURL($show_url);
-            if(is_null($show)){
+            if (is_null($show)) {
                 //Show not found -> empty array
                 return [];
             }
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
-        } elseif (Route::current()->getName() === 'show.details') {
+        } elseif ('show.details' === Route::current()->getName()) {
             $show = $this->getShowDetailsByURL($show_url);
-            if(is_null($show)){
+            if (is_null($show)) {
                 //Show not found -> empty array
                 return [];
             }
             $seasons = $this->seasonRepository->getSeasonsCountEpisodesForShowByID($show->id);
-        }
-        else {
+        } else {
             $show = $this->getShowByURLWithSeasonsAndEpisodes($show_url);
             $seasons = [];
         }
@@ -185,20 +172,18 @@ class ShowRepository
         $noteCircle = noteToCircle($show->moyenne);
 
         // Détection du résumé à afficher (fr ou en)
-        if(empty($show->synopsis_fr)) {
+        if (empty($show->synopsis_fr)) {
             $synopsis = $show->synopsis;
-        }
-        else {
+        } else {
             $synopsis = $show->synopsis_fr;
         }
 
         // Faut-il couper le résumé ? */
         $numberCharaMaxResume = config('param.nombreCaracResume');
-        if(strlen($synopsis) <= $numberCharaMaxResume) {
+        if (strlen($synopsis) <= $numberCharaMaxResume) {
             $showSynopsis = $synopsis;
             $fullSynopsis = false;
-        }
-        else {
+        } else {
             $showSynopsis = cutResume($synopsis);
             $fullSynopsis = true;
         }
@@ -207,20 +192,20 @@ class ShowRepository
     }
 
     /**
-     * SITE
+     * SITE.
      */
 
     /**
-     * GET FONCTIONS
+     * GET FONCTIONS.
      */
 
     /**
      * Récupère la liste des séries avec le compte des saisons et des épisodes, la ou les nationalités, et la ou les chaînes.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]|Show
-     *
      */
-    public function getAllShowsWithCountSeasonsAndEpisodes(){
+    public function getAllShowsWithCountSeasonsAndEpisodes()
+    {
         return $this->show::with('nationalities', 'channels')
             ->withCount('episodes')
             ->withCount('seasons')
@@ -231,9 +216,11 @@ class ShowRepository
      * Récupère la série avec son paramètre URL. On ajoute les saisons, les épisodes, les genres, les nationalités et les chaînes.
      *
      * @param $show_url
+     *
      * @return mixed
      */
-    public function getShowByURLWithSeasonsAndEpisodes($show_url){
+    public function getShowByURLWithSeasonsAndEpisodes($show_url)
+    {
         return $this->show::where('show_url', $show_url)
             ->with('seasons', 'episodes', 'genres', 'nationalities', 'channels')
             ->first();
@@ -243,11 +230,13 @@ class ShowRepository
      * Récupère la série avec son paramètre URL. On ajoute les genres, les nationalités et les chaînes.
      *
      * @param $show_url
+     *
      * @return mixed
      */
-    public function getShowByURL($show_url){
+    public function getShowByURL($show_url)
+    {
         return $this->show::where('show_url', $show_url)
-            ->with( 'genres', 'nationalities', 'channels')
+            ->with('genres', 'nationalities', 'channels')
             ->first();
     }
 
@@ -256,11 +245,12 @@ class ShowRepository
      * La différence avec la requête du dessus est surtout le fait que l'on récupère tout le casting.
      *
      * @param $show_url
+     *
      * @return mixed
      */
-    public function getShowDetailsByURL($show_url){
-        return $this->show::where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function($q)
-        {
+    public function getShowDetailsByURL($show_url)
+    {
+        return $this->show::where('shows.show_url', '=', $show_url)->with(['channels', 'nationalities', 'creators', 'genres', 'actors' => function ($q) {
             $q->select('artists.id', 'artists.name', 'artists.artist_url', 'artistables.role')
                 ->orderBy('artists.name', 'asc');
         }])->first();
@@ -270,42 +260,50 @@ class ShowRepository
      * On récupère une série grâce à son ID.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Show
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function getByID($id){
+    public function getByID($id)
+    {
         return $this->show::findOrFail($id);
     }
 
     /**
      * On récupère les détails de la série avec son ID.
+     *
      * @param $id
+     *
      * @return Show|\Illuminate\Database\Eloquent\Builder|Show
      */
-    public function getInfoShowByID($id){
+    public function getInfoShowByID($id)
+    {
         return $this->show::where('shows.id', '=', $id)
             ->with(['channels', 'nationalities', 'creators', 'genres'])
             ->first();
     }
 
     /**
-     * Récupère la série grâce à son ID, les saisons et les épisodes associés
+     * Récupère la série grâce à son ID, les saisons et les épisodes associés.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Show
      */
     public function getShowSeasonsEpisodesByShowID($id)
     {
-        return $this->show::with(['seasons' => function($q){
-                $q->with('episodes');
-            }])
+        return $this->show::with(['seasons' => function ($q) {
+            $q->with('episodes');
+        }])
             ->findOrFail($id);
     }
 
     /**
-     * Récupère la série grâce à son ID, et les acteurs associés
+     * Récupère la série grâce à son ID, et les acteurs associés.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|Show
      */
     public function getShowActorsByID($id)
@@ -315,46 +313,49 @@ class ShowRepository
     }
 
     /**
-     * Get show by ID
+     * Get show by ID.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function getShowByID($id) {
+    public function getShowByID($id)
+    {
         return $this->show::findOrFail($id);
     }
 
     /**
-     * Récupère toutes les séries
+     * Récupère toutes les séries.
+     *
      * @param string $genre
      * @param string $channel
      * @param string $nationality
      * @param string $tri
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getAllShows($channel, $genre, $nationality, $tri, $order): LengthAwarePaginator
     {
-        $shows = $this->show::where(function($q) use ($genre){
+        $shows = $this->show::where(function ($q) use ($genre) {
             $q->whereHas('genres', function ($q) use ($genre) {
-                $q->where('name', 'like', '%' . $genre . '%');
+                $q->where('name', 'like', '%'.$genre.'%');
             });
             if (empty($genre)) {
                 $q->orDoesntHave('genres');
             }
         })
-        ->where(function($q) use ($channel) {
+        ->where(function ($q) use ($channel) {
             $q->whereHas('channels', function ($q) use ($channel) {
-                $q->where('name', 'like', '%' . $channel . '%');
+                $q->where('name', 'like', '%'.$channel.'%');
             });
 
             if (empty($channel)) {
                 $q->orDoesntHave('channels');
             }
         })
-        ->where(function($q) use ($nationality) {
+        ->where(function ($q) use ($nationality) {
             $q->whereHas('nationalities', function ($q) use ($nationality) {
-                $q->where('name', 'like', '%' . $nationality . '%');
+                $q->where('name', 'like', '%'.$nationality.'%');
             });
 
             if (empty($nationality)) {
@@ -369,17 +370,21 @@ class ShowRepository
 
     /**
      * @param $show_name
-     * @return Show|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|null|object
+     *
+     * @return Show|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
      */
-    public function getByName($show_name) {
+    public function getByName($show_name)
+    {
         return $this->show->whereName($show_name)->first();
     }
 
     /**
      * @param $order
+     *
      * @return Show
      */
-    public function getRankingShows($order) {
+    public function getRankingShows($order)
+    {
         return Cache::remember(ShowRepository::RANKING_SHOWS_CACHE_KEY.'_'.$order, Config::get('constants.cacheDuration.day'), function () use ($order) {
             return $this->show
                 ->orderBy('moyenne', $order)
@@ -387,14 +392,15 @@ class ShowRepository
                 ->limit(15)
                 ->get();
         });
-
     }
 
     /**
      * @param $nationality
+     *
      * @return Show
      */
-    public function getRankingShowsByNationalities($nationality) {
+    public function getRankingShowsByNationalities($nationality)
+    {
         return Cache::remember(ShowRepository::RANKING_SHOWS_CACHE_KEY.'_'.$nationality, Config::get('constants.cacheDuration.day'), function () use ($nationality) {
             return $this->show
                 ->orderBy('moyenne', 'desc')
@@ -405,17 +411,18 @@ class ShowRepository
                 ->limit(15)
                 ->get();
         });
-
     }
 
     /**
      * @param $category
+     *
      * @return Show
      */
-    public function getRankingShowsByGenres($category) {
+    public function getRankingShowsByGenres($category)
+    {
         return Cache::remember(ShowRepository::RANKING_SHOWS_CACHE_KEY.'_'.$category, Config::get('constants.cacheDuration.day'), function () use ($category) {
             return $this->show
-                ->orderBy('moyenne','desc')
+                ->orderBy('moyenne', 'desc')
                 ->whereHas('genres', function ($q) use ($category) {
                     $q->where('name', '=', $category);
                 })
@@ -427,9 +434,11 @@ class ShowRepository
 
     /**
      * @param $user
+     *
      * @return mixed
      */
-    public function getShowFollowedByUser($user) {
+    public function getShowFollowedByUser($user)
+    {
         return $this->show
             ->join('show_user', 'shows.id', '=', 'show_user.show_id')
             ->join('users', 'users.id', '=', 'show_user.user_id')
@@ -439,31 +448,33 @@ class ShowRepository
             ->get();
     }
 
-    public function getLastAddedShows() {
+    public function getLastAddedShows()
+    {
 //        return Cache::remember(ShowRepository::LAST_ADDED_SHOW_CACHE_KEY, Config::get('constants.cacheDuration.medium'), function () {
-            return $this->show->orderBy('created_at', 'desc')->limit(12)->get();
+        return $this->show->orderBy('created_at', 'desc')->limit(12)->get();
 //        });
     }
 
     /**
-     * Récupère la note de la série en cours
+     * Récupère la note de la série en cours.
      *
      * @param $id
+     *
      * @return array
      */
     public function getRateByShowID($id)
     {
-        return $this->show::with(['rates' => function($q){
-                $q->orderBy('updated_at', 'desc');
-                $q->limit(20);
-            }, 'rates.episode' => function($q){
-                $q->select('id', 'numero', 'season_id');
-                $q->with(['season' => function($s){
-                    $s->select('id', 'name');
-                }]);
-            }, 'rates.user' => function($q){
-                $q->select('id', 'username', 'user_url', 'email');
-            }])
+        return $this->show::with(['rates' => function ($q) {
+            $q->orderBy('updated_at', 'desc');
+            $q->limit(20);
+        }, 'rates.episode' => function ($q) {
+            $q->select('id', 'numero', 'season_id');
+            $q->with(['season' => function ($s) {
+                $s->select('id', 'name');
+            }]);
+        }, 'rates.user' => function ($q) {
+            $q->select('id', 'username', 'user_url', 'email');
+        }])
             ->where('id', '=', $id)
             ->first()
             ->toArray();

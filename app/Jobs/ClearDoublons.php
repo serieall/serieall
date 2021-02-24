@@ -2,28 +2,20 @@
 
 namespace App\Jobs;
 
-use App\Models\Show;
-use App\Models\Artist;
-use App\Models\Temp;
-use App\Models\Season;
 use App\Models\Episode;
-
-use Carbon\Carbon;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Models\Season;
+use App\Models\Show;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
-use GuzzleHttp\Client;
-
-use \Illuminate\Support\Str;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 /**
- * Class ShowUpdateFromTVDB
- * @package App\Jobs
+ * Class ShowUpdateFromTVDB.
  */
 class ClearDoublons extends Job implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue;
+    use SerializesModels;
 
     /**
      * ShowUpdateFromTVDB constructor.
@@ -32,10 +24,6 @@ class ClearDoublons extends Job implements ShouldQueue
     {
     }
 
-
-
-
-
     /**
      * Execute the job.
      *
@@ -43,27 +31,24 @@ class ClearDoublons extends Job implements ShouldQueue
      */
     public function handle()
     {
-
 //        return true;
         /*
         |--------------------------------------------------------------------------
         | Initialisation du job
         |--------------------------------------------------------------------------
         */
-        $idLog = initJob(null, 'Clear Doublons', 'Show', 0 );
-        $idLogListUpdateManually = initJob(null, 'List of doublons', 'Show', 0 );
+        $idLog = initJob(null, 'Clear Doublons', 'Show', 0);
+        $idLogListUpdateManually = initJob(null, 'List of doublons', 'Show', 0);
 
         $allShows = Show::all();
 
         saveLogMessage($idLog, 'Retrieving All Shows Ok');
 
         foreach ($allShows as $currentShow) {
-
-            saveLogMessage($idLog, '> Parse current show  : ' . $currentShow->name);
+            saveLogMessage($idLog, '> Parse current show  : '.$currentShow->name);
 
             $this->processSeasonForShow($currentShow, $idLog, $idLogListUpdateManually);
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -75,24 +60,25 @@ class ClearDoublons extends Job implements ShouldQueue
     }
 
     /**
-     * Remove season doublons for given show
+     * Remove season doublons for given show.
+     *
      * @param $currentShow
      */
-    private function processSeasonForShow($currentShow, $idLog, $idLogListUpdateManually){
-//Retrieve all seasons from the serie with no tvdb id
+    private function processSeasonForShow($currentShow, $idLog, $idLogListUpdateManually)
+    {
+        //Retrieve all seasons from the serie with no tvdb id
         $allSeasonsForShow = Season::where('show_id', '=', $currentShow->id)
             ->get();
 
         if (is_null($allSeasonsForShow)) {
-            saveLogMessage($idLog, '> Retrieving All Seasons for show KO - ' . $currentShow->name);
+            saveLogMessage($idLog, '> Retrieving All Seasons for show KO - '.$currentShow->name);
         } else {
-            saveLogMessage($idLog, '> Retrieving All Seasons for show Ok - ' . $currentShow->name );
+            saveLogMessage($idLog, '> Retrieving All Seasons for show Ok - '.$currentShow->name);
 
             foreach ($allSeasonsForShow as $currentSeason) {
-                saveLogMessage($idLog, '>> Parse current season  : ' . $currentSeason->name);
+                saveLogMessage($idLog, '>> Parse current season  : '.$currentSeason->name);
 
-                if(is_null($currentSeason->thetvdb_id)) {
-
+                if (is_null($currentSeason->thetvdb_id)) {
                     //Is there a season with tvdb id in database ?
                     $tvdbSeason = Season::where('show_id', '=', $currentShow->id)
                         ->whereNotNull('thetvdb_id')
@@ -109,15 +95,15 @@ class ClearDoublons extends Job implements ShouldQueue
                         $countEpisodesInTvdbSeason = Episode::where('season_id', '=', $tvdbSeason->id)
                             ->count();
 
-                        if($countEpisodesInCurrentSeason == $countEpisodesInTvdbSeason) {
+                        if ($countEpisodesInCurrentSeason == $countEpisodesInTvdbSeason) {
                             $this->processEpisodesForSeason($currentShow, $currentSeason, $tvdbSeason, $idLog, $idLogListUpdateManually);
 
-                            saveLogMessage($idLog, '>> Season with tvdb id in database  : ' . $tvdbSeason);
+                            saveLogMessage($idLog, '>> Season with tvdb id in database  : '.$tvdbSeason);
 
                             if ($tvdbSeason->nbnotes > 0) {
                                 //Episodes dans la saison noté => ne pas toucher automatiquement, préféré une modification manuelle.
                                 saveLogMessage($idLog, '>> Season with rates - process manual update');
-                                saveLogMessage($idLogListUpdateManually, '' . $currentShow->name . ' - ' . $currentSeason->name);
+                                saveLogMessage($idLogListUpdateManually, ''.$currentShow->name.' - '.$currentSeason->name);
                             } else {
                                 saveLogMessage($idLog, '>> No rates - automatic correction');
 
@@ -130,57 +116,51 @@ class ClearDoublons extends Job implements ShouldQueue
 
                                     saveLogMessage($idLog, '>> Delete tvdb season / save current OK');
                                 } catch (\Exception $e) {
-                                    saveLogMessage($idLog, '>> Delete tvdb season / save current KO : ' . $e);
+                                    saveLogMessage($idLog, '>> Delete tvdb season / save current KO : '.$e);
                                 }
-
                             }
-                        }else{
+                        } else {
                             saveLogMessage($idLog, '>> Not the same number of episodes in season - process manually');
-                            saveLogMessage($idLogListUpdateManually, '' . $currentShow->name . ' - ' . $currentSeason->name);
+                            saveLogMessage($idLogListUpdateManually, ''.$currentShow->name.' - '.$currentSeason->name);
                         }
-
                     } else {
                         //No tvdb season -> update episode, id needed
                         $this->processEpisodesForSeason($currentShow, $currentSeason, null, $idLog, $idLogListUpdateManually);
 
                         saveLogMessage($idLog, '>> No Season with tvdb id found in database');
                     }
-                }else{
+                } else {
                     saveLogMessage($idLog, '>> Already tvdb Season');
 
                     $this->processEpisodesForSeason($currentShow, $currentSeason, null, $idLog, $idLogListUpdateManually);
                 }
-
-
             }
-
         }
     }
 
-    private function processEpisodesForSeason($currentShow, $currentSeason, $tvdbSeason, $idLog, $idLogListUpdateManually){
+    private function processEpisodesForSeason($currentShow, $currentSeason, $tvdbSeason, $idLog, $idLogListUpdateManually)
+    {
         //Retrieve all episodes from the season
         $allEpisodesForSeason = Episode::where('season_id', '=', $currentSeason->id)
             ->get();
 
-
         if (is_null($allEpisodesForSeason)) {
             saveLogMessage($idLog, '>> Retrieving All Episodes for season KO - '.$currentSeason->name);
         } else {
-            saveLogMessage($idLog, '>> Retrieving All Episodes for season Ok - ' . $currentSeason->name);
+            saveLogMessage($idLog, '>> Retrieving All Episodes for season Ok - '.$currentSeason->name);
 
             foreach ($allEpisodesForSeason as $currentEpisode) {
-                saveLogMessage($idLog, '>>> Parse current episode  : ' . $currentEpisode->numero);
+                saveLogMessage($idLog, '>>> Parse current episode  : '.$currentEpisode->numero);
 
-                if(is_null($currentEpisode->thetvdb_id)) {
-
+                if (is_null($currentEpisode->thetvdb_id)) {
                     //Is there a episode with tvdb id in database ?
                     $tvdbEpisode = null;
-                    if(is_null($tvdbSeason)) {
+                    if (is_null($tvdbSeason)) {
                         $tvdbEpisode = Episode::where('season_id', '=', $currentSeason->id)
                             ->where('numero', '=', $currentEpisode->numero)
                             ->whereNotNull('thetvdb_id')
                             ->first();
-                    }else{
+                    } else {
                         $tvdbEpisode = Episode::where('season_id', '=', $tvdbSeason->id)
                             ->where('numero', '=', $currentEpisode->numero)
                             ->whereNotNull('thetvdb_id')
@@ -188,12 +168,12 @@ class ClearDoublons extends Job implements ShouldQueue
                     }
 
                     if (!is_null($tvdbEpisode)) {
-                        saveLogMessage($idLog, '>>> Episode with tvdb id in database  : ' . $tvdbEpisode);
+                        saveLogMessage($idLog, '>>> Episode with tvdb id in database  : '.$tvdbEpisode);
 
                         if ($tvdbEpisode->nbnotes > 0) {
                             //Episodes dans la saison noté => ne pas toucher automatiquement, préféré une modification manuelle.
                             saveLogMessage($idLog, '>>> Episode with rates - process manual update');
-                            saveLogMessage($idLogListUpdateManually, '' . $currentShow->name . ' - ' . $currentSeason->name.' - '.$currentEpisode->numero);
+                            saveLogMessage($idLogListUpdateManually, ''.$currentShow->name.' - '.$currentSeason->name.' - '.$currentEpisode->numero);
                         } else {
                             saveLogMessage($idLog, '>> No rates - automatic correction');
 
@@ -206,47 +186,47 @@ class ClearDoublons extends Job implements ShouldQueue
 
                                 saveLogMessage($idLog, '>> Delete tvdb episode / save current OK');
                             } catch (\Exception $e) {
-                                saveLogMessage($idLog, '>> Delete tvdb episode / save current KO : ' . $e);
+                                saveLogMessage($idLog, '>> Delete tvdb episode / save current KO : '.$e);
                             }
-
                         }
-
                     } else {
                         saveLogMessage($idLog, '>>> No Episode with tvdb id found in database');
                     }
-                }else{
+                } else {
                     saveLogMessage($idLog, '>>> Already tvdb Episode');
                 }
             }
         }
-
     }
 
     /**
-     * Copy data from $episodeToPickDataFrom to $episodeToUpdate
+     * Copy data from $episodeToPickDataFrom to $episodeToUpdate.
      */
-    private function updateEpisodeData($episodeToUpdate, $episodeToPickDataFrom){
+    private function updateEpisodeData($episodeToUpdate, $episodeToPickDataFrom)
+    {
         $episodeToUpdate->thetvdb_id = $episodeToPickDataFrom->thetvdb_id;
-        if(!is_null($episodeToPickDataFrom->resume_fr) && is_null($episodeToUpdate->resume_fr )) {
+        if (!is_null($episodeToPickDataFrom->resume_fr) && is_null($episodeToUpdate->resume_fr)) {
             $episodeToUpdate->resume_fr = $episodeToPickDataFrom->resume_fr;
         }
-        if(!is_null($episodeToPickDataFrom->resume_en) && is_null($episodeToUpdate->resume_en )) {
+        if (!is_null($episodeToPickDataFrom->resume_en) && is_null($episodeToUpdate->resume_en)) {
             $episodeToUpdate->resume_en = $episodeToPickDataFrom->resume_en;
         }
-        if(!is_null($episodeToPickDataFrom->diffusion_us) && is_null($episodeToUpdate->diffusion_us )) {
+        if (!is_null($episodeToPickDataFrom->diffusion_us) && is_null($episodeToUpdate->diffusion_us)) {
             $episodeToUpdate->diffusion_us = $episodeToPickDataFrom->diffusion_us;
         }
-        if(!is_null($episodeToPickDataFrom->diffusion_fr) && is_null($episodeToUpdate->diffusion_fr )) {
+        if (!is_null($episodeToPickDataFrom->diffusion_fr) && is_null($episodeToUpdate->diffusion_fr)) {
             $episodeToUpdate->diffusion_fr = $episodeToPickDataFrom->diffusion_fr;
         }
     }
 
     /**
-     * Copy data from $seasonToKeepDataFrom to $seasonToUpdate
+     * Copy data from $seasonToKeepDataFrom to $seasonToUpdate.
+     *
      * @param $seasonToUpdate
      * @param $seasonToKeepDataFrom
      */
-    private function updateSeasonData($seasonToUpdate, $seasonToKeepDataFrom){
+    private function updateSeasonData($seasonToUpdate, $seasonToKeepDataFrom)
+    {
         $seasonToUpdate->thetvdb_id = $seasonToKeepDataFrom->thetvdb_id;
     }
 }

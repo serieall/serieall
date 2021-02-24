@@ -1,14 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 /**
- * Class UserStoreRequest
- * @package App\Http\Requests
+ * Class UserStoreRequest.
  */
 class UserStoreRequest extends FormRequest
 {
@@ -37,6 +36,6 @@ class UserStoreRequest extends FormRequest
             'antispoiler' => 'boolean',
             'website' => 'max:255',
             'twitter' => 'max:255',
-            'facebook' => 'max:255'];
+            'facebook' => 'max:255', ];
     }
 }

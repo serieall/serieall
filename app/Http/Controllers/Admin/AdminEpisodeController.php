@@ -1,25 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\EpisodeUpdateRequest;
 use App\Http\Requests\EpisodeCreateRequest;
-
+use App\Http\Requests\EpisodeUpdateRequest;
 use App\Jobs\EpisodeDelete;
 use App\Jobs\EpisodeStore;
 use App\Jobs\EpisodeUpdate;
-
 use App\Repositories\EpisodeRepository;
 use App\Repositories\SeasonRepository;
-
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class AdminEpisodeController
- * @package App\Http\Controllers\Admin
+ * Class AdminEpisodeController.
  */
 class AdminEpisodeController extends Controller
 {
@@ -29,24 +25,24 @@ class AdminEpisodeController extends Controller
     /**
      * AdminArtistController constructor.
      *
-     * @param EpisodeRepository $episodeRepository
-     * @param SeasonRepository $seasonRepository
      * @internal param SeasonRepository $seasonRepostiory
      * @internal param SeasonRepository $seasonRepository
      * @internal param ShowRepository $showRepository
      * @internal param ArtistRepository $artistRepository
      */
-    public function __construct(EpisodeRepository $episodeRepository,
-                                SeasonRepository $seasonRepository)
-    {
+    public function __construct(
+        EpisodeRepository $episodeRepository,
+        SeasonRepository $seasonRepository
+    ) {
         $this->episodeRepository = $episodeRepository;
         $this->seasonRepository = $seasonRepository;
     }
 
     /**
-     * Affiche le formulaire de création de nouveaux épisodes
+     * Affiche le formulaire de création de nouveaux épisodes.
      *
      * @param $season_id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create($season_id)
@@ -56,11 +52,9 @@ class AdminEpisodeController extends Controller
         return view('admin.episodes.create', compact('season'));
     }
 
-
     /**
      * Stocke la nouvelle série.
      *
-     * @param EpisodeCreateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(EpisodeCreateRequest $request)
@@ -73,9 +67,10 @@ class AdminEpisodeController extends Controller
     }
 
     /**
-     * Montre le formulaire d'édition d'un épisode
+     * Montre le formulaire d'édition d'un épisode.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
@@ -89,9 +84,8 @@ class AdminEpisodeController extends Controller
     }
 
     /**
-     * Met à jour une série
+     * Met à jour une série.
      *
-     * @param EpisodeUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(EpisodeUpdateRequest $request)
@@ -106,10 +100,12 @@ class AdminEpisodeController extends Controller
     }
 
     /**
-     * Suppression d'un épisode
+     * Suppression d'un épisode.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @internal param $show_id
      * @internal param $season_id
      * @internal param $id
@@ -126,10 +122,12 @@ class AdminEpisodeController extends Controller
     }
 
     /**
-     * Redirection
+     * Redirection.
      *
      * @param $season_id
+     *
      * @return \Illuminate\Http\Response
+     *
      * @internal param $show_id
      */
     public function redirect($season_id)
@@ -138,5 +136,4 @@ class AdminEpisodeController extends Controller
             ->with('status_header', 'Episodes en cours d\'ajout')
             ->with('status', 'La demande de création a été effectuée. Le serveur la traitera dès que possible.');
     }
-
 }

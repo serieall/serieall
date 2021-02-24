@@ -1,36 +1,34 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Charts\RateSummary;
+use App\Http\Requests\changePasswordRequest;
 use App\Http\Requests\FollowShowRequest;
 use App\Http\Requests\NotificationRequest;
 use App\Http\Requests\UserChangeInfosRequest;
 use App\Repositories\CommentRepository;
 use App\Repositories\RateRepository;
 use App\Repositories\ShowRepository;
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Repositories\UserRepository;
-use App\Http\Requests\changePasswordRequest;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
-use View;
 use Response;
-use App\Charts\RateSummary;
+use View;
 
 /**
- * Class UserController
- * @package App\Http\Controllers
+ * Class UserController.
  */
 class UserController extends Controller
 {
-
     protected $userRepository;
     protected $rateRepository;
     protected $commentRepository;
@@ -38,14 +36,13 @@ class UserController extends Controller
 
     /**
      * UserController constructor.
-     * @param UserRepository $userRepository
-     * @param RateRepository $rateRepository
-     * @param CommentRepository $commentRepository
-     * @param ShowRepository $showRepository
      */
-    public function __construct(UserRepository $userRepository, RateRepository $rateRepository, CommentRepository $commentRepository,
-ShowRepository $showRepository)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        RateRepository $rateRepository,
+        CommentRepository $commentRepository,
+        ShowRepository $showRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->rateRepository = $rateRepository;
         $this->commentRepository = $commentRepository;
@@ -53,24 +50,28 @@ ShowRepository $showRepository)
     }
 
     /**
-     * Renvoi vers la page users/index
+     * Renvoi vers la page users/index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index() {
-       $users = $this->userRepository->getAllUsers();
+    public function index()
+    {
+        $users = $this->userRepository->getAllUsers();
 
-       return view('users.index', compact('users'));
+        return view('users.index', compact('users'));
     }
 
     /**
-     * Renvoi vers la page users/profile
+     * Renvoi vers la page users/profile.
      *
      * @param $userURL
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function getProfile($userURL){
+    public function getProfile($userURL)
+    {
         $user = $this->userRepository->getUserByURL($userURL);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -89,13 +90,15 @@ ShowRepository $showRepository)
     }
 
     /**
-     * Renvoi vers la page users/rates
+     * Renvoi vers la page users/rates.
      *
      * @param $userURL
      * @param $action
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View|Response
      */
-    public function getRates($userURL, $action = "") {
+    public function getRates($userURL, $action = '')
+    {
         $user = $this->userRepository->getUserByURL($userURL);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -110,32 +113,32 @@ ShowRepository $showRepository)
         $comment_def = $comments->where('thumb', '=', 3)->first();
 
         if (Request::ajax()) {
-            if ($action == "avg") {
-                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "avg_rate DESC");
-            } else if ($action == "nb_rate") {
-                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "nb_rate DESC");
-            } else if($action == "time") {
-                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "minutes DESC");
+            if ('avg' == $action) {
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, 'avg_rate DESC');
+            } elseif ('nb_rate' == $action) {
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, 'nb_rate DESC');
+            } elseif ('time' == $action) {
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, 'minutes DESC');
             } else {
-                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "sh.name");
+                $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, 'sh.name');
             }
+
             return Response::json(View::make('users.rates_cards', ['rates' => $rates])->render());
-        }
-        else {
+        } else {
             $nb_minutes = 0;
-            $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, "sh.name");
-            foreach($rates as $rate) {
+            $rates = $this->rateRepository->getRatesAggregateByShowForUser($user->id, 'sh.name');
+            foreach ($rates as $rate) {
                 $nb_minutes = $nb_minutes + $rate->minutes;
             }
             Carbon::setLocale('fr');
-            $time_passed_shows = CarbonInterval::fromString($nb_minutes . 'm')->cascade()->forHumans();
+            $time_passed_shows = CarbonInterval::fromString($nb_minutes.'m')->cascade()->forHumans();
 
-            $chart = new RateSummary;
+            $chart = new RateSummary();
             $chart
                 ->height(300)
                 ->title('Récapitulatif des notes')
-                ->labels($chart_rates->pluck("rate"))
-                ->dataset('Nombre de notes', 'line', $chart_rates->pluck("total"));
+                ->labels($chart_rates->pluck('rate'))
+                ->dataset('Nombre de notes', 'line', $chart_rates->pluck('total'));
 
             $chart->options([
                 'yAxis' => [
@@ -152,9 +155,11 @@ ShowRepository $showRepository)
      * @param string $action
      * @param string $filter
      * @param string $tri
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function getComments($userURL, $action = "", $filter = "", $tri ="") {
+    public function getComments($userURL, $action = '', $filter = '', $tri = '')
+    {
         $user = $this->userRepository->getUserByURL($userURL);
 
         switch ($filter) {
@@ -168,7 +173,7 @@ ShowRepository $showRepository)
                 $filter = [3];
                 break;
             default:
-                $filter = [1,2,3];
+                $filter = [1, 2, 3];
                 break;
         }
 
@@ -185,13 +190,14 @@ ShowRepository $showRepository)
         }
 
         if (Request::ajax()) {
-            if ($action == "show") {
+            if ('show' == $action) {
                 $comments = $this->commentRepository->getCommentsShowForProfile($user->id, 'show', $filter, $tri);
-            } else if ($action == "season") {
+            } elseif ('season' == $action) {
                 $comments = $this->commentRepository->getCommentsSeasonForProfile($user->id, 'season', $filter, $tri);
-            } else if ($action == "episode") {
+            } elseif ('episode' == $action) {
                 $comments = $this->commentRepository->getCommentsEpisodeForProfile($user->id, 'episode', $filter, $tri);
             }
+
             return Response::json(View::make('users.comments_cards', ['comments' => $comments])->render());
         } else {
             $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -211,41 +217,41 @@ ShowRepository $showRepository)
             $comments_seasons = $this->commentRepository->getCommentsSeasonForProfile($user->id, 'season', $filter, $tri);
             $comments_episodes = $this->commentRepository->getCommentsEpisodeForProfile($user->id, 'episode', $filter, $tri);
 
-            $chart = new RateSummary;
+            $chart = new RateSummary();
             $chart
                 ->height(300)
                 ->title('Récapitulatif des avis')
-                ->labels(["Favorables", "Neutres", "Défavorables"])
-                ->dataset('Avis', 'pie', [$comments_fav,$comments_neu,$comments_def])
-                ->color(['#21BA45','#767676','#db2828']);
+                ->labels(['Favorables', 'Neutres', 'Défavorables'])
+                ->dataset('Avis', 'pie', [$comments_fav, $comments_neu, $comments_def])
+                ->color(['#21BA45', '#767676', '#db2828']);
 
             return view('users.comments', compact('user', 'time_passed_shows', 'avg_user_rates', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'chart', 'comments_shows', 'comments_seasons', 'comments_episodes'));
         }
     }
 
     /**
-     * Affiche le formulaire de modification des paramètres
+     * Affiche le formulaire de modification des paramètres.
      *
      * @param $userURL
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function getParameters($userURL){
+    public function getParameters($userURL)
+    {
         $user = $this->userRepository->getUserByURL($userURL);
 
         return view('users.parameters', compact('user'));
     }
 
     /**
-     * L'utilisateur change lui-même ses informations personnelles
-     *
-     * @param UserChangeInfosRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * L'utilisateur change lui-même ses informations personnelles.
      */
     public function changeInfos(UserChangeInfosRequest $request): RedirectResponse
     {
         $user = Auth::user();
-        if ($user !== null) {
+        if (null !== $user) {
             $user->email = $request->email;
             $user->antispoiler = $request->antispoiler;
             $user->twitter = $request->twitter;
@@ -257,8 +263,7 @@ ShowRepository $showRepository)
 
             $state = 'success';
             $message = 'Vos informations personnelles ont été modifiées !';
-        }
-        else {
+        } else {
             $state = 'error';
             $message = 'Vous devez vous connecter pour pouvoir modifier vos informations personnelles.';
         }
@@ -267,30 +272,25 @@ ShowRepository $showRepository)
     }
 
     /**
-     * Changement du mot de passe de l'utilisateur
-     *
-     * @param changePasswordRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * Changement du mot de passe de l'utilisateur.
      */
     public function changePassword(changePasswordRequest $request): RedirectResponse
     {
         $user = Auth::user();
         $password = $request->password;
 
-        if ($user !== null) {
+        if (null !== $user) {
             if (Hash::check($password, $user->password)) {
                 $user->password = Hash::make($request->new_password);
                 $user->save();
 
                 $state = 'success';
                 $message = 'Votre mot de passe a bien été modifié !';
-            }
-            else {
+            } else {
                 $state = 'warning';
                 $message = 'Votre mot de passe actuel ne correspond pas à celui saisi.';
             }
-        }
-        else {
+        } else {
             $state = 'error';
             $message = 'Vous devez être connecté pour pouvoir changer votre mot de passe.';
         }
@@ -300,9 +300,11 @@ ShowRepository $showRepository)
 
     /**
      * @param $user_url
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getRanking($user_url){
+    public function getRanking($user_url)
+    {
         $user = $this->userRepository->getUserByURL($user_url);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -328,12 +330,14 @@ ShowRepository $showRepository)
     }
 
     /**
-     * Get Followed Shows
+     * Get Followed Shows.
      *
      * @param $user_url
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getShows($user_url){
+    public function getShows($user_url)
+    {
         $user = $this->userRepository->getUserByURL($user_url);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -357,21 +361,21 @@ ShowRepository $showRepository)
     }
 
     /**
-     * Follow Show
+     * Follow Show.
      *
-     * @param FollowShowRequest $request
      * @return \Illuminate\Http\JsonResponse|int
      */
-    public function followShow(FollowShowRequest $request) {
+    public function followShow(FollowShowRequest $request)
+    {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         if (Request::ajax()) {
             $user = $this->userRepository->getUserByID($inputs['user_id']);
 
-            if(!empty($inputs['shows'])) {
+            if (!empty($inputs['shows'])) {
                 $show = explode(',', $inputs['shows']);
                 if (!isset($inputs['message'])) {
-                    $message = "";
+                    $message = '';
                 } else {
                     $message = $inputs['message'];
                 }
@@ -385,47 +389,53 @@ ShowRepository $showRepository)
                 $user->shows()->attach($show, ['state' => $inputs['state'], 'message' => $message]);
             }
 
-            if($inputs['state'] == 1) {
+            if (1 == $inputs['state']) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $in_progress_shows = $followed_shows->where('state', '=', 1);
+
                 return Response::json(View::make('users.shows_cards', ['shows' => $in_progress_shows, 'user' => $user])->render());
-            } elseif ($inputs['state'] == 2) {
+            } elseif (2 == $inputs['state']) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $on_break_shows = $followed_shows->where('state', '=', 2);
+
                 return Response::json(View::make('users.shows_cards', ['shows' => $on_break_shows, 'user' => $user])->render());
-            } elseif ($inputs['state'] == 3) {
+            } elseif (3 == $inputs['state']) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $completed_shows = $followed_shows->where('state', '=', 3);
+
                 return Response::json(View::make('users.shows_cards', ['shows' => $completed_shows, 'user' => $user])->render());
-            } elseif ($inputs['state'] == 4) {
+            } elseif (4 == $inputs['state']) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $abandoned_shows = $followed_shows->where('state', '=', 4);
+
                 return Response::json(View::make('users.shows_abandoned_cards', ['shows' => $abandoned_shows, 'user' => $user])->render());
-            } elseif ($inputs['state'] == 5) {
+            } elseif (5 == $inputs['state']) {
                 $followed_shows = $this->showRepository->getShowFollowedByUser($user->id);
                 $to_see_shows = $followed_shows->where('state', '=', 5);
+
                 return Response::json(View::make('users.shows_cards', ['shows' => $to_see_shows, 'user' => $user])->render());
             }
         }
+
         return 404;
     }
 
     /**
-     * Follow Show
+     * Follow Show.
      *
-     * @param FollowShowRequest $request
      * @return \Illuminate\Http\JsonResponse|int
      */
-    public function followShowFiche(FollowShowRequest $request) {
+    public function followShowFiche(FollowShowRequest $request)
+    {
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         if (Request::ajax()) {
             $user = $this->userRepository->getUserByID($inputs['user_id']);
 
-            if(!empty($inputs['shows'])) {
+            if (!empty($inputs['shows'])) {
                 $show = explode(',', $inputs['shows']);
                 if (!isset($inputs['message'])) {
-                    $message = "";
+                    $message = '';
                 } else {
                     $message = $inputs['message'];
                 }
@@ -441,36 +451,42 @@ ShowRepository $showRepository)
 
                 return Response::json(View::make('shows.actions_show', ['state_show' => $inputs['state'], 'show_id' => $inputs['shows'], 'completed_show' => $show->encours])->render());
             }
-
         }
+
         return 404;
     }
 
     /**
-     * Unfollow a show
+     * Unfollow a show.
      *
      * @param $show
+     *
      * @return \Illuminate\Http\JsonResponse|int
      */
-    public function unfollowShow($show) {
+    public function unfollowShow($show)
+    {
         if (Request::ajax()) {
             $user = Auth::user();
 
             if ($user->shows->contains($show)) {
                 $user->shows()->detach($show);
             }
+
             return Response::json(200);
         }
+
         return 404;
     }
 
     /**
-     * Get planning for a particular user
+     * Get planning for a particular user.
      *
      * @param $user_url
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPlanning($user_url) {
+    public function getPlanning($user_url)
+    {
         $user = $this->userRepository->getUserByURL($user_url);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -488,33 +504,33 @@ ShowRepository $showRepository)
 
         $events = [];
 
-        foreach($episodes_in_progress as $event) {
+        foreach ($episodes_in_progress as $event) {
             $events[] = Calendar::event(
-                $event->show_name . ' - ' . 'Episode ' . $event->season_name . '.' . sprintf('%02s', $event->numero),
+                $event->show_name.' - '.'Episode '.$event->season_name.'.'.sprintf('%02s', $event->numero),
                 true,
                 $event->diffusion_us,
                 $event->diffusion_us,
                 $event->id,
                 [
-                    'url' => route("episode.fiche", [$event->show_url, $event->season_name, $event->numero, $event->id]),
+                    'url' => route('episode.fiche', [$event->show_url, $event->season_name, $event->numero, $event->id]),
                     'backgroundColor' => '#1074b2',
-                    'borderColor' => '#1074b2'
+                    'borderColor' => '#1074b2',
                 ]
             );
         }
 
-        foreach($episodes_on_break as $event) {
+        foreach ($episodes_on_break as $event) {
             $events[] = Calendar::event(
-                $event->show_name . ' - ' . 'Episode ' . $event->season_name . '.' . sprintf('%02s', $event->numero),
+                $event->show_name.' - '.'Episode '.$event->season_name.'.'.sprintf('%02s', $event->numero),
                 true,
                 $event->diffusion_us,
                 $event->diffusion_us,
                 $event->id,
                 [
-                    'url' => route("episode.fiche", [$event->show_url, $event->season_name, $event->numero, $event->id]),
+                    'url' => route('episode.fiche', [$event->show_url, $event->season_name, $event->numero, $event->id]),
                     'backgroundColor' => '#213d64',
                     'borderColor' => '#213d64',
-                    'hover' => $event->show_name . ' - ' . 'Episode ' . $event->season_name . '.' . sprintf('%02s', $event->numero),
+                    'hover' => $event->show_name.' - '.'Episode '.$event->season_name.'.'.sprintf('%02s', $event->numero),
                 ]
             );
         }
@@ -533,42 +549,46 @@ ShowRepository $showRepository)
     }
 
     /**
-     * @param NotificationRequest $notificationRequest
      * @return \Illuminate\Http\JsonResponse|int
      */
-    public function markNotification(NotificationRequest $notificationRequest) {
-        if(Request::ajax()) {
+    public function markNotification(NotificationRequest $notificationRequest)
+    {
+        if (Request::ajax()) {
             $user = Auth::user();
             $notification = $user->Notifications->where('id', '=', $notificationRequest->notif_id)->first();
 
-                if(is_null($notification->read_at)) {
-                    $notification->markAsRead();
-                } else {
-                    if ($notificationRequest->markUnread == "true") {
-                        $notification->markAsUnRead();
-                    }
+            if (is_null($notification->read_at)) {
+                $notification->markAsRead();
+            } else {
+                if ('true' == $notificationRequest->markUnread) {
+                    $notification->markAsUnRead();
                 }
+            }
 
             return Response::json('OK');
         }
+
         return 404;
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse|int
      */
-    public function markNotifications() {
-        if(Request::ajax()) {
+    public function markNotifications()
+    {
+        if (Request::ajax()) {
             $user = Auth::user();
 
             $user->unreadNotifications->markAsRead();
 
             return Response::json('OK');
         }
+
         return 404;
     }
 
-    public function getNotifications($user_url) {
+    public function getNotifications($user_url)
+    {
         $user = $this->userRepository->getUserByURL($user_url);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
@@ -584,6 +604,5 @@ ShowRepository $showRepository)
         $notifications = $user->notifications()->paginate(30);
 
         return view('users.notifications', compact('user', 'avg_user_rates', 'time_passed_shows', 'nb_comments', 'comment_fav', 'comment_neu', 'comment_def', 'notifications'));
-
     }
 }

@@ -1,14 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 /**
- * Class SloganUpdateRequest
- * @package App\Http\Requests
+ * Class SloganUpdateRequest.
  */
 class SloganUpdateRequest extends FormRequest
 {
@@ -24,7 +23,9 @@ class SloganUpdateRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
      * @return array
+     *
      * @internal param \App\Http\Requests\Request $request
      */
     public function rules()

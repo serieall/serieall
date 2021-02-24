@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -6,16 +7,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Artist
+ * App\Models\Artist.
  *
- * @property int $id
- * @property string $name
- * @property string $artist_url
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property mixed $episodes
- * @property mixed $shows
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
+ * @property int                                                            $id
+ * @property string                                                         $name
+ * @property string                                                         $artist_url
+ * @property \Carbon\Carbon                                                 $created_at
+ * @property \Carbon\Carbon                                                 $updated_at
+ * @property mixed                                                          $episodes
+ * @property mixed                                                          $shows
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereArtistUrl($value)
@@ -23,34 +25,33 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Artist whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Artist extends Model {
-
-	protected $table = 'artists';
-	public $timestamps = true;
-	protected $fillable = ['name', 'artist_url'];
+class Artist extends Model
+{
+    protected $table = 'artists';
+    public $timestamps = true;
+    protected $fillable = ['name', 'artist_url'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function episodes()
-	{
-		return $this->morphedByMany('App\Models\Episode', 'artistable');
-	}
+    {
+        return $this->morphedByMany('App\Models\Episode', 'artistable');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function shows()
-	{
-		return $this->morphedByMany('App\Models\Show', 'artistable');
-	}
+    {
+        return $this->morphedByMany('App\Models\Show', 'artistable');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function articles()
-	{
-		return $this->morphToMany('App\Models\Article', 'articlable');
-	}
-
+    {
+        return $this->morphToMany('App\Models\Article', 'articlable');
+    }
 }

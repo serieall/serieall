@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class UpdateForeignKeysShowUser extends Migration
 {
@@ -21,13 +21,13 @@ class UpdateForeignKeysShowUser extends Migration
             $table->dropForeign('show_user_user_id_foreign');
         });
 
-        Schema::table('show_user', function(Blueprint $table) {
+        Schema::table('show_user', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
         });
 
-        Schema::table('show_user', function(Blueprint $table) {
+        Schema::table('show_user', function (Blueprint $table) {
             $table->foreign('show_id')->references('id')->on('shows')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
@@ -41,6 +41,5 @@ class UpdateForeignKeysShowUser extends Migration
      */
     public function down()
     {
-        //
     }
 }

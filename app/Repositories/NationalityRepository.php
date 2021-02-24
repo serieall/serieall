@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
@@ -8,8 +8,7 @@ use App\Models\Nationality;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class NationalityRepository
- * @package App\Repositories
+ * Class NationalityRepository.
  */
 class NationalityRepository
 {
@@ -17,8 +16,6 @@ class NationalityRepository
 
     /**
      * NationalityRepository constructor.
-     *
-     * @param Nationality $nationality
      */
     public function __construct(Nationality $nationality)
     {
@@ -26,11 +23,12 @@ class NationalityRepository
     }
 
     /**
-     * On récupère la liste des nationalités
+     * On récupère la liste des nationalités.
      *
      * @return mixed
      */
-    public function getNationalities(){
+    public function getNationalities()
+    {
         return DB::table('nationalities')
             ->orderBy('name', 'asc')
             ->get();

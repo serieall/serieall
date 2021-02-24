@@ -1,21 +1,20 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
-use App\Models\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\ActivationService;
-
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 /**
- * Class RegisterController
- * @package App\Http\Controllers\Auth
+ * Class RegisterController.
  */
 class RegisterController extends Controller
 {
@@ -40,7 +39,6 @@ class RegisterController extends Controller
 
     /**
      * RegisterController constructor.
-     * @param ActivationService $activationService
      */
     public function __construct(ActivationService $activationService)
     {
@@ -59,7 +57,6 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -69,28 +66,27 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'captcha' => 'required|captcha',
-            'cgu' => 'required']);
+            'cgu' => 'required', ]);
     }
+
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
      * @return \Illuminate\Database\Eloquent\Model
      */
     protected function create(array $data)
     {
-        return User::create(array(
+        return User::create([
             'username' => $data['username'],
             'user_url' => trim($data['username']),
             'email' => $data['email'],
-            'password' =>  Hash::make($data['password'])
-        ));
+            'password' => Hash::make($data['password']),
+        ]);
     }
 
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)

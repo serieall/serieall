@@ -1,17 +1,15 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Log;
 use App\Models\List_log;
-
+use App\Models\Log;
 use Carbon\Carbon;
 
 /**
- * Class ShowRepository
- * @package App\Repositories\Admin
+ * Class ShowRepository.
  */
 class LogRepository
 {
@@ -20,9 +18,6 @@ class LogRepository
 
     /**
      * LogRepository constructor.
-     *
-     * @param Log $log
-     * @param List_log $list_log
      */
     public function __construct(Log $log, List_log $list_log)
     {
@@ -31,11 +26,12 @@ class LogRepository
     }
 
     /**
-     * On récupère les 10 derniers logs
+     * On récupère les 10 derniers logs.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getTenDistinctLogs(){
+    public function getTenDistinctLogs()
+    {
         return $this->list_log::with('user')
             ->select('id', 'job', 'object', 'object_id', 'user_id', 'created_at')
             ->limit(10)
@@ -45,11 +41,12 @@ class LogRepository
     }
 
     /**
-     * On récupère tous les logs
+     * On récupère tous les logs.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAllDistinctLogs(){
+    public function getAllDistinctLogs()
+    {
         return $this->list_log::with('user')
             ->select('id', 'job', 'object', 'object_id', 'user_id', 'created_at')
             ->orderBy('id', 'desc')
@@ -58,17 +55,19 @@ class LogRepository
     }
 
     /**
-     * On récupère un log grâce à son ID
+     * On récupère un log grâce à son ID.
      *
      * @param $id
+     *
      * @return List_log|\Illuminate\Database\Eloquent\Builder
      */
-    public function getLogByID($id){
-        return $this->list_log::with('logs','user')->find($id);
+    public function getLogByID($id)
+    {
+        return $this->list_log::with('logs', 'user')->find($id);
     }
 
     /**
-     * Récupère les logs de plus d'une semaine
+     * Récupère les logs de plus d'une semaine.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */

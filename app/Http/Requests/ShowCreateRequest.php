@@ -1,13 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-
-
 /**
- * Class ShowCreateRequest
- * @package App\Http\Requests
+ * Class ShowCreateRequest.
  */
 class ShowCreateRequest extends Request
 {
@@ -34,7 +32,7 @@ class ShowCreateRequest extends Request
             'nationalities' => ['regex:/^[A-Za-z0-9-éèàùç%+. ]{1,255}?(,[A-Za-z0-9-éèàùç%+. ]{1,255})*$/'],
             'chaine_fr' => ['regex:/^[A-Za-z0-9-éèàùç%+. ]{1,255}?(,[A-Za-z0-9-éèàùç%+. ]{1,255})*$/'],
             'diffusion_fr' => 'date',
-            'taux_erectile' => 'numeric|between:0,100'
+            'taux_erectile' => 'numeric|between:0,100',
         ];
     }
 }

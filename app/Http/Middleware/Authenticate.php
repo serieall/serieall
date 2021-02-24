@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Middleware;
@@ -8,21 +9,20 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class Authenticate
- * @package App\Http\Middleware
+ * Class Authenticate.
  */
 class Authenticate
 {
-
     use AuthenticatesUsers;
 
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     * @param  string|null $guard
+     * @param \Illuminate\Http\Request $request
+     * @param string|null              $guard
+     *
      * @return mixed
+     *
      * @throws \RuntimeException
      */
     public function handle($request, Closure $next, $guard = null)
@@ -33,10 +33,8 @@ class Authenticate
             } else {
                 return redirect()->guest('login');
             }
-        }
-        else
-        {
-            if ($request->user()->suspended == 1) {
+        } else {
+            if (1 == $request->user()->suspended) {
                 $this->guard()->logout();
 
                 $request->session()->flush();
@@ -49,7 +47,6 @@ class Authenticate
             }
 
             return $next($request);
-
         }
     }
 }

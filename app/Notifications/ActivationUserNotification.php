@@ -1,16 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
-
+use Illuminate\Notifications\Notification;
 
 /**
- * Class ActivationUserNotification
- * @package App\Notifications
+ * Class ActivationUserNotification.
  */
 class ActivationUserNotification extends Notification
 {
@@ -45,7 +44,7 @@ class ActivationUserNotification extends Notification
      */
     public function toMail()
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->success()
             ->subject('Activation de votre compte')
             ->line('Pour activer votre compte, veuillez cliquer sur le lien ci-dessous :')
@@ -60,7 +59,6 @@ class ActivationUserNotification extends Notification
     public function toArray()
     {
         return [
-            //
         ];
     }
 }

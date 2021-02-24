@@ -1,20 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\ContactDelete;
+use App\Http\Requests\ReplyContactRequest;
 use App\Notifications\ReplyContactNotification;
 use App\Repositories\ContactRepository;
-
-use App\Http\Requests\ReplyContactRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 /**
- * Class AdminContactsController
- * @package App\Http\Controllers\Admin\System
+ * Class AdminContactsController.
  */
 class AdminContactsController extends Controller
 {
@@ -23,8 +21,6 @@ class AdminContactsController extends Controller
 
     /**
      * AdminContactsController constructor.
-     *
-     * @param ContactRepository $contactRepository
      */
     public function __construct(ContactRepository $contactRepository)
     {
@@ -32,11 +28,12 @@ class AdminContactsController extends Controller
     }
 
     /**
-     * Renvoi vers la page admin/system/contacts/index
+     * Renvoi vers la page admin/system/contacts/index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index() {
+    public function index()
+    {
         $contacts = $this->contactRepository->getAllContacts();
 
         return view('admin/system/contacts/index', compact('contacts'));
@@ -44,24 +41,26 @@ class AdminContactsController extends Controller
 
     /**
      * Affiche le contenu d'un contact
-     * Renvoi vers la page admin/system/contacts/view
+     * Renvoi vers la page admin/system/contacts/view.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function view($id){
+    public function view($id)
+    {
         $contact = $this->contactRepository->getContactByID($id);
 
         return view('admin/system/contacts/view', compact('contact'));
     }
 
     /**
-     * Reply to a contact request
+     * Reply to a contact request.
      *
-     * @param ReplyContactRequest $replyContactRequest
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function replyContact(ReplyContactRequest $replyContactRequest) {
+    public function replyContact(ReplyContactRequest $replyContactRequest)
+    {
         $contact = $this->contactRepository->getContactByID($replyContactRequest->id);
 
         $contact->admin_id = $replyContactRequest->admin_id;
@@ -76,23 +75,26 @@ class AdminContactsController extends Controller
     }
 
     /**
-     * Deletion of a contact request
+     * Deletion of a contact request.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Exception
+     *
      * @internal param $id
      */
     public function destroy($id)
     {
-        Log::debug('AdminContactDestroy: Start deletion whit id : ' . json_encode($id));
+        Log::debug('AdminContactDestroy: Start deletion whit id : '.json_encode($id));
 
         $contact = $this->contactRepository->getContactByID($id);
-        Log::info('AdminContactDestroy: Deletion of this object : ' . json_encode($contact));
+        Log::info('AdminContactDestroy: Deletion of this object : '.json_encode($contact));
 
         $contact->delete();
 
-        Log::debug('AdminContactDestroy: End of deletion whit id : ' . json_encode($id));
+        Log::debug('AdminContactDestroy: End of deletion whit id : '.json_encode($id));
 
         return redirect()->back()
             ->with('status_header', 'Suppression de la demande de contact')

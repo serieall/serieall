@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Paramètres par défaut pour les dossiers
@@ -28,5 +28,4 @@ return [
     'nombreNotesMiniClassementEpisodes' => 6,
     'nombreNotesMiniClassementSeasons' => 18,
     'nombreNotesMiniClassementShows' => 40,
-
 ];

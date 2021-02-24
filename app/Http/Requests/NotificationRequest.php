@@ -1,13 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-
-
 /**
- * Class RateRequest
- * @package App\Http\Requests
+ * Class RateRequest.
  */
 class NotificationRequest extends Request
 {

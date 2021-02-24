@@ -1,17 +1,15 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
 use App\Models\Artist;
 use App\Models\Show;
-
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class ArtistRepository
- * @package App\Repositories
+ * Class ArtistRepository.
  */
 class ArtistRepository
 {
@@ -25,35 +23,35 @@ class ArtistRepository
     /**
      * ArtistRepository constructor.
      *
-     * @param Artist $artist
-     * @param Show $show
      * @param \App\Repositories\ShowRepository $showRepository
      */
-    public function __construct(Artist $artist,
-                                Show $show,
-                                ShowRepository $showRepository)
-    {
+    public function __construct(
+        Artist $artist,
+        Show $show,
+        ShowRepository $showRepository
+    ) {
         $this->artist = $artist;
         $this->show = $show;
         $this->showRepository = $showRepository;
     }
 
     /**
-     * On récupère tous les artistes
+     * On récupère tous les artistes.
      *
      * @return mixed
      */
-    public function getArtists(){
+    public function getArtists()
+    {
         return DB::table('artists')
             ->orderBy('name', 'asc')
             ->get();
     }
 
     /**
-     * On récupère les artistes d'une série en fonction de son ID
+     * On récupère les artistes d'une série en fonction de son ID.
      *
-     * @param Show $show
      * @return \Illuminate\Database\Eloquent\Collection
+     *
      * @internal param $id
      */
     public function getActorsByShowID(Show $show)
@@ -62,11 +60,12 @@ class ArtistRepository
     }
 
     /**
-     * On récupère un artiste d'une série en fonction de son ID
+     * On récupère un artiste d'une série en fonction de son ID.
      *
-     * @param Show $show
      * @param $actor
+     *
      * @return \Illuminate\Database\Eloquent\Collection
+     *
      * @internal param $id
      */
     public function getActorByShowID(Show $show, $actor)

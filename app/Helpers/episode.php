@@ -7,14 +7,15 @@ use App\Models\Season;
 use App\Models\Show;
 use GuzzleHttp\Exception\GuzzleException;
 
-function linkAndCreateEpisodesToShow(Show $show) : bool {
-    # First, we check the availability of all episodes
+function linkAndCreateEpisodesToShow(Show $show): bool
+{
+    // First, we check the availability of all episodes
     $listEpisodes = getListEpisodes($show, 1);
-    if(empty($listEpisodes)) {
+    if (empty($listEpisodes)) {
         return false;
     }
 
-    # Add episodes and loop over page is necessary
+    // Add episodes and loop over page is necessary
     $listEpisodesNextPage = $listEpisodes->links->next;
     $listEpisodesLastPage = $listEpisodes->links->last;
 
@@ -24,43 +25,42 @@ function linkAndCreateEpisodesToShow(Show $show) : bool {
         Log::debug('Episode : Only one page for episodes. Adding episodes...');
         createOrUpdateEpisode($show, $listEpisodesData);
     } else {
-        Log::debug('Episode : Multiple pages for episodes. Adding page 1/' . $listEpisodesLastPage );
+        Log::debug('Episode : Multiple pages for episodes. Adding page 1/'.$listEpisodesLastPage);
         createOrUpdateEpisode($show, $listEpisodesData);
 
         while ($listEpisodesNextPage <= $listEpisodesLastPage) {
             try {
-                $listEpisodes = apiTvdbGetEpisodesForShow("fr", $show->thetvdb_id, $listEpisodesNextPage);
-                if(empty($listEpisodes)) {
+                $listEpisodes = apiTvdbGetEpisodesForShow('fr', $show->thetvdb_id, $listEpisodesNextPage);
+                if (empty($listEpisodes)) {
                     return false;
                 }
 
                 createOrUpdateEpisode($show, $listEpisodes->data);
-                $listEpisodesNextPage++;
+                ++$listEpisodesNextPage;
             } catch (GuzzleException | ErrorException $e) {
                 Log::error('Episode: Episodes not found for language en or fr.');
+
                 return false;
             }
         }
-
     }
+
     return true;
 }
 
 /**
- * Get the list of episodes
- *
- * @param Show $show
- * @param int $page
- * @return object
+ * Get the list of episodes.
  */
-function getListEpisodes(Show $show, int $page): object {
+function getListEpisodes(Show $show, int $page): object
+{
     try {
-        $listEpisodesEn = apiTvdbGetEpisodesForShow("en", $show->thetvdb_id, $page);
-        if(isset($listEpisodesEn->errors)){
-            $listEpisodesFr = apiTvdbGetEpisodesForShow("fr", $show->thetvdb_id, $page);
-            if(isset($listEpisodesFr->errors)){
+        $listEpisodesEn = apiTvdbGetEpisodesForShow('en', $show->thetvdb_id, $page);
+        if (isset($listEpisodesEn->errors)) {
+            $listEpisodesFr = apiTvdbGetEpisodesForShow('fr', $show->thetvdb_id, $page);
+            if (isset($listEpisodesFr->errors)) {
                 Log::error('Episode: List of episodes not found either in french or english.');
-                return (object) array();
+
+                return (object) [];
             } else {
                 $listEpisodes = $listEpisodesFr;
             }
@@ -71,37 +71,39 @@ function getListEpisodes(Show $show, int $page): object {
         return $listEpisodes;
     } catch (GuzzleException | ErrorException $e) {
         Log::error('Episode: Episodes not found for language en or fr.');
-        return (object) array();
+
+        return (object) [];
     }
 }
 
-function createOrUpdateEpisode(Show $show, array $listEpisodes) {
+function createOrUpdateEpisode(Show $show, array $listEpisodes)
+{
     $episodeNotFound = 0;
 
-    foreach($listEpisodes as $episode){
-        # Now, we are getting the informations from the Episode, in english and in french
+    foreach ($listEpisodes as $episode) {
+        // Now, we are getting the informations from the Episode, in english and in french
         try {
             $episodeFr = apiTvdbGetEpisode('fr', $episode->id)->data;
         } catch (GuzzleException | ErrorException $e) {
             Log::error('Episode: Episode not found for language fr.');
-            $episodeNotFound += 1;
+            ++$episodeNotFound;
         }
         try {
             $episodeEn = apiTvdbGetEpisode('en', $episode->id)->data;
         } catch (GuzzleException | ErrorException $e) {
             Log::error('Episode: Episode not found for language en.');
-            $episodeNotFound += 1;
+            ++$episodeNotFound;
         }
 
-        if($episodeNotFound == 2) {
-            # Skipping this episode
+        if (2 == $episodeNotFound) {
+            // Skipping this episode
             Log::error('Episode: Episode not found for language en and fr. Continue.');
             continue;
         }
 
-        # Init Episode properties
+        // Init Episode properties
         $episodeSeason = chooseBetweenTwoVars($episodeEn->airedSeason, $episodeFr->airedSeason);
-        if($episodeSeason == 0){
+        if (0 == $episodeSeason) {
             $episodeNumber = 0;
         } else {
             $episodeNumber = chooseBetweenTwoVars($episodeEn->airedEpisodeNumber, $episodeFr->airedEpisodeNumber);
@@ -114,7 +116,7 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes) {
         $episodeDirectors = chooseBetweenTwoVars($episodeEn->directors, $episodeFr->directors);
         $episodeWriters = chooseBetweenTwoVars($episodeEn->writers, $episodeFr->writers);
 
-        $episodeInfo = array(
+        $episodeInfo = [
             'thetvdb_id' => $episodeTvdbId,
             'numero' => $episodeNumber,
             'name' => $episodeEn->episodeName,
@@ -127,19 +129,19 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes) {
             'season_id' => $episodeSeasonId,
             'guest_stars' => $episodeGuestStars,
             'directors' => $episodeDirectors,
-            'writers' => $episodeWriters
-        );
+            'writers' => $episodeWriters,
+        ];
 
         $episodeBdd = Episode::where('thetvdb_id', $episodeInfo['thetvdb_id'])->first();
-        if($episodeSeason == 0 && !is_null($episodeAirsAfterSeason)) {
+        if (0 == $episodeSeason && !is_null($episodeAirsAfterSeason)) {
             $seasonBdd = Season::where('name', $episodeAirsAfterSeason)->where('show_id', $show->id)->first();
-        } elseif($episodeSeason == 0 && is_null($episodeAirsAfterSeason)) {
+        } elseif (0 == $episodeSeason && is_null($episodeAirsAfterSeason)) {
             continue;
         } else {
             $seasonBdd = Season::where('thetvdb_id', $episodeInfo['season_id'])->first();
         }
 
-        if(is_null($episodeBdd)) {
+        if (is_null($episodeBdd)) {
             $episodeBdd = new Episode([
                 'thetvdb_id' => $episodeTvdbId,
                 'numero' => $episodeNumber,
@@ -155,12 +157,11 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes) {
             $episodeBdd->season()->associate($seasonBdd);
             $episodeBdd->save();
 
-            linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['guest_stars'], "guest");
-            linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['directors'], "director");
-            linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['writers'], "writer");
+            linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['guest_stars'], 'guest');
+            linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['directors'], 'director');
+            linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['writers'], 'writer');
 
-            Log::debug('Episode : ' . $episodeBdd->numero . ' is created and linked to season ' . $seasonBdd->name . '. This is the object : ' . $episodeBdd);
-
+            Log::debug('Episode : '.$episodeBdd->numero.' is created and linked to season '.$seasonBdd->name.'. This is the object : '.$episodeBdd);
         } else {
             $episodeBdd->numero = $episodeNumber;
             $episodeBdd->name = $episodeEn->episodeName;
@@ -175,10 +176,10 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes) {
             $episodeBdd->save();
         }
 
-        linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['guest_stars'], "guest");
-        linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['directors'], "director");
-        linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['writers'], "writer");
+        linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['guest_stars'], 'guest');
+        linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['directors'], 'director');
+        linkAndCreateArtistsToEpisode($episodeBdd, $episodeInfo['writers'], 'writer');
 
-        Log::debug('Episode : ' . $episodeBdd->numero . ' is updated and linked to season ' . $seasonBdd->name . '. This is the new object : ' . $episodeBdd);
+        Log::debug('Episode : '.$episodeBdd->numero.' is updated and linked to season '.$seasonBdd->name.'. This is the new object : '.$episodeBdd);
     }
 }

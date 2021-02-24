@@ -5,21 +5,20 @@ namespace App\Jobs;
 use App\Models\Show;
 use App\Models\Temp;
 use Carbon\Carbon;
-use Carbon\Exceptions\BadUnitException;
 use ErrorException;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 
 /**
- * Class ShowUpdateFromTVDB
- * @package App\Jobs
+ * Class ShowUpdateFromTVDB.
  */
 class ShowUpdateFromTVDB extends Job implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue;
+    use SerializesModels;
 
     /**
      * ShowUpdateFromTVDB constructor.
@@ -50,19 +49,17 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
             Log::error('ShowUpdateFromTVDB: Impossible to get list of updates.');
         }
 
-  
-
         if (!empty($listUpdate)) {
             $listUpdate = $listUpdate->data;
 
             foreach ($listUpdate as $show) {
-                $inputs = array(
-                    'thetvdb_id' => $show->id
-                );
+                $inputs = [
+                    'thetvdb_id' => $show->id,
+                ];
 
                 // Update value of next Update if the date of update of this show is greater than $nextupdate
                 $showUpdate = $show->lastUpdated;
-                if($showUpdate >= $nextUpdate) {
+                if ($showUpdate >= $nextUpdate) {
                     $nextUpdate = $showUpdate;
                 }
 
@@ -76,7 +73,7 @@ class ShowUpdateFromTVDB extends Job implements ShouldQueue
 
         $deltaLastNext = $nextUpdate - $lastUpdateTimestamp;
 
-        if($deltaLastNext >= $secondsWeek){
+        if ($deltaLastNext >= $secondsWeek) {
             $nextUpdate = $lastUpdateTimestamp + $secondsWeek;
         }
 

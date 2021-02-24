@@ -4,18 +4,20 @@ namespace App\Jobs;
 
 use App\Repositories\SeasonRepository;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 /**
- * Class SeasonDelete
- * @package App\Jobs
+ * Class SeasonDelete.
  */
 class SeasonDelete implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $seasonID;
     protected $userID;
@@ -35,8 +37,8 @@ class SeasonDelete implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param SeasonRepository $seasonRepository
      * @return void
+     *
      * @throws \Exception
      * @throws \Exception
      */
@@ -46,15 +48,15 @@ class SeasonDelete implements ShouldQueue
 
         $idLog = initJob($this->userID, 'Suppression', 'Season', $this->seasonID);
 
-        $logMessage = '> SAISON ' . $season->name;
+        $logMessage = '> SAISON '.$season->name;
         saveLogMessage($idLog, $logMessage);
 
         // On récupère les épisodes
         $episodes = $season->episodes()->get();
 
         // Pour chaque épisode
-        foreach($episodes as $episode){
-            $logMessage = '>> EPISODE ' . $episode->numero;
+        foreach ($episodes as $episode) {
+            $logMessage = '>> EPISODE '.$episode->numero;
             saveLogMessage($idLog, $logMessage);
 
             // On détache les artistes

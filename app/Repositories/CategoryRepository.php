@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories;
@@ -6,8 +7,7 @@ namespace App\Repositories;
 use App\Models\Category;
 
 /**
- * Class CategoryRepository
- * @package App\Repositories
+ * Class CategoryRepository.
  */
 class CategoryRepository
 {
@@ -15,7 +15,6 @@ class CategoryRepository
 
     /**
      * CategoryRepository constructor.
-     * @param Category $category
      */
     public function __construct(Category $category)
     {
@@ -23,7 +22,7 @@ class CategoryRepository
     }
 
     /**
-     * Get all categories
+     * Get all categories.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -33,22 +32,26 @@ class CategoryRepository
     }
 
     /**
-     * Get category by ID
+     * Get category by ID.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Model|static
      */
-    public function getCategoryByID($id) {
+    public function getCategoryByID($id)
+    {
         return $this->category::where('id', '=', $id)->first();
     }
 
     /**
-     * Get category by Name
+     * Get category by Name.
      *
      * @param $name
+     *
      * @return \Illuminate\Database\Eloquent\Model|static
      */
-    public function getCategoryByName($name) {
+    public function getCategoryByName($name)
+    {
         return $this->category::where('name', '=', $name)->first();
     }
 }

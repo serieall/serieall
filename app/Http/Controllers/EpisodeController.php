@@ -1,28 +1,27 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RateRequest;
 use App\Repositories\ArticleRepository;
 use App\Repositories\CommentRepository;
-use App\Repositories\RateRepository;
-
 use App\Repositories\EpisodeRepository;
+use App\Repositories\RateRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\ShowRepository;
-
-use App\Http\Requests\RateRequest;
-
 use App\Traits\FormatShowHeaderTrait;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
+
 /**
- * Class EpisodeController
- * @package App\Http\Controllers
+ * Class EpisodeController.
  */
 class EpisodeController extends Controller
 {
+    use FormatShowHeaderTrait;
     protected $episodeRepository;
     protected $seasonRepository;
     protected $showRepository;
@@ -30,24 +29,17 @@ class EpisodeController extends Controller
     protected $rateRepository;
     protected $articleRepository;
 
-    use FormatShowHeaderTrait;
-
     /**
      * EpisodeController constructor.
-     * @param EpisodeRepository $episodeRepository
-     * @param SeasonRepository $seasonRepository
-     * @param ShowRepository $showRepository
-     * @param CommentRepository $commentRepository
-     * @param RateRepository $rateRepository
-     * @param ArticleRepository $articleRepository
      */
-    public function __construct(EpisodeRepository $episodeRepository,
-                                SeasonRepository $seasonRepository,
-                                ShowRepository $showRepository,
-                                CommentRepository $commentRepository,
-                                RateRepository $rateRepository,
-                                ArticleRepository $articleRepository)
-    {
+    public function __construct(
+        EpisodeRepository $episodeRepository,
+        SeasonRepository $seasonRepository,
+        ShowRepository $showRepository,
+        CommentRepository $commentRepository,
+        RateRepository $rateRepository,
+        ArticleRepository $articleRepository
+    ) {
         $this->episodeRepository = $episodeRepository;
         $this->seasonRepository = $seasonRepository;
         $this->showRepository = $showRepository;
@@ -59,9 +51,8 @@ class EpisodeController extends Controller
     /**
      * Notation d'un épisode
      * Mise à jour de le moyenne des épisodes/saisons/séries
-     * Mise à jour du nombre de notes épisodes/saisons/séries
+     * Mise à jour du nombre de notes épisodes/saisons/séries.
      *
-     * @param RateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function rateEpisode(RateRequest $request)
@@ -75,34 +66,35 @@ class EpisodeController extends Controller
     }
 
     /**
-     * Envoi vers la page shows/episodes
+     * Envoi vers la page shows/episodes.
      *
      * @param $showURL
      * @param $seasonName
      * @param $episodeNumero
      * @param null $episodeID
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getEpisodeFiche($showURL, $seasonName, $episodeNumero, $episodeID = null)
     {
-        # Get ID User if user authenticated
+        // Get ID User if user authenticated
         $user_id = getIDIfAuth();
 
-        # Get Show
+        // Get Show
         $show = $this->showRepository->getShowByURL($showURL);
 
-        if(!is_null($show)) {
+        if (!is_null($show)) {
             $showInfo = $this->formatForShowHeader($show);
 
             $seasonInfo = $this->seasonRepository->getSeasonEpisodesBySeasonNameAndShowID($showInfo['show']->id, $seasonName);
 
-            if ($episodeNumero == 0) {
+            if (0 == $episodeNumero) {
                 $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroSeasonIDAndEpisodeID($seasonInfo->id, $episodeNumero, $episodeID);
             } else {
                 $episodeInfo = $this->episodeRepository->getEpisodeByEpisodeNumeroAndSeasonID($seasonInfo->id, $episodeNumero);
             }
 
-            # Compile Object informations
+            // Compile Object informations
             $object = compileObjectInfos('Episode', $episodeInfo->id);
 
             $totalEpisodes = $seasonInfo->episodes_count - 1;
@@ -110,7 +102,7 @@ class EpisodeController extends Controller
             $rates = $this->episodeRepository->getRatesByEpisodeID($episodeInfo->id);
             $rateUser = $this->rateRepository->getRateByUserIDEpisodeID($user_id, $episodeInfo->id);
 
-            # Get Comments
+            // Get Comments
             $comments = $this->commentRepository->getCommentsForFiche($user_id, $object['fq_model'], $object['id']);
 
             $type_article = 'Season';
@@ -121,7 +113,7 @@ class EpisodeController extends Controller
             } else {
                 return view('episodes.fiche', compact('showInfo', 'type_article', 'articles_linked', 'seasonInfo', 'episodeInfo', 'totalEpisodes', 'rates', 'comments', 'object', 'rateUser'));
             }
-        }else{
+        } else {
             abort(404);
         }
     }

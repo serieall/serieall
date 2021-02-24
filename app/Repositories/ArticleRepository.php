@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Repositories;
 
@@ -8,17 +8,13 @@ use App\Models\Article;
 use App\Models\Show;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 
 /**
- * Class ArticleRepository
- * @package App\Repositories
+ * Class ArticleRepository.
  */
 class ArticleRepository
 {
-
     /** Constant for cache*/
     const LAST_6_ARTICLES_CACHE_KEY = 'LAST_6_ARTICLES_CACHE_KEY';
 
@@ -26,7 +22,6 @@ class ArticleRepository
 
     /**
      * ArticleRepository constructor.
-     * @param Article $article
      */
     public function __construct(Article $article)
     {
@@ -34,7 +29,7 @@ class ArticleRepository
     }
 
     /**
-     * Get all articles with autors and category
+     * Get all articles with autors and category.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -46,31 +41,35 @@ class ArticleRepository
     }
 
     /**
-     * Get article by its ID
+     * Get article by its ID.
      *
      * @param $id
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function getArticleByID($id)
     {
-         return $this->article::findOrFail($id);
+        return $this->article::findOrFail($id);
     }
 
     /**
-     * Get the article with author and linked objects by its ID
+     * Get the article with author and linked objects by its ID.
      *
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     *
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
-    public function getArticleWithAllInformationsByID($id) {
+    public function getArticleWithAllInformationsByID($id)
+    {
         return $this->article::with('users', 'shows', 'seasons', 'episodes', 'category')
             ->whereId($id)
             ->first();
     }
 
     /**
-     * Get all published articles in une
+     * Get all published articles in une.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -80,9 +79,7 @@ class ArticleRepository
     }
 
     /**
-     * Get all published articles
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * Get all published articles.
      */
     public function getPublishedArticlesWithAutorsCommentsAndCategory(): LengthAwarePaginator
     {
@@ -94,10 +91,9 @@ class ArticleRepository
     }
 
     /**
-     * Get all published articles by categories
+     * Get all published articles by categories.
      *
      * @param $categoryId
-     * @return LengthAwarePaginator
      */
     public function getPublishedArticlesByCategoriesWithAutorsCommentsAndCategory($categoryId): LengthAwarePaginator
     {
@@ -110,11 +106,9 @@ class ArticleRepository
     }
 
     /**
-     * Get all published articles by categories
+     * Get all published articles by categories.
      *
-     * @param Show $show
      * @param $categoryId
-     * @return LengthAwarePaginator
      */
     public function getPublishedArticlesByCategoriesAndShowWithAutorsCommentsAndCategory(Show $show, $categoryId): LengthAwarePaginator
     {
@@ -126,10 +120,7 @@ class ArticleRepository
     }
 
     /**
-     * Get published articles for a show
-     *
-     * @param Show $show
-     * @return LengthAwarePaginator
+     * Get published articles for a show.
      */
     public function getPublishedArticleByShow(Show $show): LengthAwarePaginator
     {
@@ -139,12 +130,14 @@ class ArticleRepository
     }
 
     /**
-     * Get the article with author and linked objects
+     * Get the article with author and linked objects.
      *
      * @param $articleURL
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     *
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
-    public function getArticleByURL($articleURL) {
+    public function getArticleByURL($articleURL)
+    {
         return $this->article::with('users', 'shows', 'seasons', 'episodes')
             ->withCount('users', 'shows', 'seasons', 'episodes')
             ->where('article_url', '=', $articleURL)
@@ -153,13 +146,15 @@ class ArticleRepository
 
     /**
      * Return article for a show.
-     * Return only published articles
+     * Return only published articles.
      *
      * @param $article_id
      * @param $show_id
+     *
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getPublishedArticleByShowID($article_id, $show_id) {
+    public function getPublishedArticleByShowID($article_id, $show_id)
+    {
         return $this->article->whereHas('shows', function ($q) use ($show_id) {
             $q->where('id', '=', $show_id);
         })
@@ -171,13 +166,15 @@ class ArticleRepository
     }
 
     /**
-     * Return published articles for a season
+     * Return published articles for a season.
      *
      * @param $article_id
      * @param $show_id
+     *
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getPublishedArticleBySeasonID($article_id, $season_id) {
+    public function getPublishedArticleBySeasonID($article_id, $season_id)
+    {
         return $this->article->whereHas('seasons', function ($q) use ($season_id) {
             $q->where('id', '=', $season_id);
         })
@@ -189,13 +186,15 @@ class ArticleRepository
     }
 
     /**
-     * Return published similar articles
+     * Return published similar articles.
      *
      * @param $article_id
      * @param $category_id
+     *
      * @return Article[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
      */
-    public function getPublishedSimilaryArticles($article_id, $category_id) {
+    public function getPublishedSimilaryArticles($article_id, $category_id)
+    {
         return $this->article->where('category_id', '=', $category_id)
             ->where('id', '!=', $article_id)
             ->whereState(1)
@@ -206,9 +205,11 @@ class ArticleRepository
 
     /**
      * Return last 6 published articles.
+     *
      * @return Article[]|Collection
      */
-    public function getLast6Articles() {
+    public function getLast6Articles()
+    {
         return Cache::rememberForever(ArticleRepository::LAST_6_ARTICLES_CACHE_KEY, function () {
             return $this->article
                 ->where('state', '=', 1)

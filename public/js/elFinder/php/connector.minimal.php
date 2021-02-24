@@ -3,7 +3,7 @@
 error_reporting(0); // Set E_ALL for debuging
 
 // // To Enable(true) handling of PostScript files by ImageMagick
-// // It is disabled by default as a countermeasure 
+// // It is disabled by default as a countermeasure
 // // of Ghostscript multiple -dSAFER sandbox bypass vulnerabilities
 // // see https://www.kb.cert.org/vuls/id/332928
 // define('ELFINDER_IMAGEMAGICK_PS', true);
@@ -76,7 +76,6 @@ elFinder::$netDrivers['ftp'] = 'FTP';
 // define('ELFINDER_BOX_CLIENTSECRET', '');
 // ===============================================
 
-
 // // Zoho Office Editor APIKey
 // // https://www.zoho.com/docs/help/office-apis.html
 // define('ELFINDER_ZOHO_OFFICE_APIKEY', '');
@@ -95,58 +94,59 @@ elFinder::$netDrivers['ftp'] = 'FTP';
 
 /**
  * Simple function to demonstrate how to control file access using "accessControl" callback.
- * This method will disable accessing files/folders starting from '.' (dot)
+ * This method will disable accessing files/folders starting from '.' (dot).
  *
- * @param  string    $attr    attribute name (read|write|locked|hidden)
- * @param  string    $path    absolute file path
- * @param  string    $data    value of volume option `accessControlData`
- * @param  object    $volume  elFinder volume driver object
- * @param  bool|null $isDir   path is directory (true: directory, false: file, null: unknown)
- * @param  string    $relpath file path relative to volume root directory started with directory separator
+ * @param string    $attr    attribute name (read|write|locked|hidden)
+ * @param string    $path    absolute file path
+ * @param string    $data    value of volume option `accessControlData`
+ * @param object    $volume  elFinder volume driver object
+ * @param bool|null $isDir   path is directory (true: directory, false: file, null: unknown)
+ * @param string    $relpath file path relative to volume root directory started with directory separator
+ *
  * @return bool|null
  **/
-function access($attr, $path, $data, $volume, $isDir, $relpath) {
-	$basename = basename($path);
-	return $basename[0] === '.'                  // if file/folder begins with '.' (dot)
-			 && strlen($relpath) !== 1           // but with out volume root
-		? !($attr == 'read' || $attr == 'write') // set read+write to false, other (locked+hidden) set to true
-		:  null;                                 // else elFinder decide it itself
-}
+function access($attr, $path, $data, $volume, $isDir, $relpath)
+{
+    $basename = basename($path);
 
+    return '.' === $basename[0]                  // if file/folder begins with '.' (dot)
+             && 1 !== strlen($relpath)           // but with out volume root
+        ? !('read' == $attr || 'write' == $attr) // set read+write to false, other (locked+hidden) set to true
+        : null;                                 // else elFinder decide it itself
+}
 
 // Documentation for connector options:
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
-$opts = array(
+$opts = [
 //	 'debug' => true,
-	'roots' => array(
-		// Items volume
-		array(
-			'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
-			'path'          => '../../../images/',                 // path to files (REQUIRED)
-			'URL'           => dirname($_SERVER['PHP_SELF']) . '../../../../images/', // URL to files (REQUIRED)
-			'trashHash'     => 't1_Lw',                     // elFinder's hash of trash folder
-			'winHashFix'    => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
-			'uploadDeny'    => array('all'),                // All Mimetypes not allowed to upload
-			'uploadAllow'   => array('image', 'text/plain', 'audio'),// Mimetype `image` and `text/plain` allowed to upload
-			'uploadOrder'   => array('deny', 'allow'),      // allowed Mimetype `image` and `text/plain` only
-			'accessControl' => 'access'                     // disable and hide dot starting files (OPTIONAL)
-		),
-		// Trash volume
-		array(
-			'id'            => '1',
-			'driver'        => 'Trash',
-			'path'          => '../../../images/.trash/',
-			'tmbURL'        => dirname($_SERVER['PHP_SELF']) . '/../files/.trash/.tmb/',
-			'winHashFix'    => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
-			'uploadDeny'    => array('all'),                // Recomend the same settings as the original volume that uses the trash
-			'uploadAllow'   => array('image', 'text/plain'),// Same as above
-			'uploadOrder'   => array('deny', 'allow'),      // Same as above
-			'accessControl' => 'access',                    // Same as above
-		)
-	)
-);
+    'roots' => [
+        // Items volume
+        [
+            'driver' => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
+            'path' => '../../../images/',                 // path to files (REQUIRED)
+            'URL' => dirname($_SERVER['PHP_SELF']).'../../../../images/', // URL to files (REQUIRED)
+            'trashHash' => 't1_Lw',                     // elFinder's hash of trash folder
+            'winHashFix' => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
+            'uploadDeny' => ['all'],                // All Mimetypes not allowed to upload
+            'uploadAllow' => ['image', 'text/plain', 'audio'], // Mimetype `image` and `text/plain` allowed to upload
+            'uploadOrder' => ['deny', 'allow'],      // allowed Mimetype `image` and `text/plain` only
+            'accessControl' => 'access',                     // disable and hide dot starting files (OPTIONAL)
+        ],
+        // Trash volume
+        [
+            'id' => '1',
+            'driver' => 'Trash',
+            'path' => '../../../images/.trash/',
+            'tmbURL' => dirname($_SERVER['PHP_SELF']).'/../files/.trash/.tmb/',
+            'winHashFix' => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
+            'uploadDeny' => ['all'],                // Recomend the same settings as the original volume that uses the trash
+            'uploadAllow' => ['image', 'text/plain'], // Same as above
+            'uploadOrder' => ['deny', 'allow'],      // Same as above
+            'accessControl' => 'access',                    // Same as above
+        ],
+    ],
+];
 
 // run elFinder
 $connector = new elFinderConnector(new elFinder($opts));
 $connector->run();
-

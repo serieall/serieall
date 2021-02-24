@@ -1,16 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services;
 
-use Illuminate\Mail\Mailer;
-use App\Repositories\ActivationRepository;
 use App\Models\User;
 use App\Notifications\ActivationUserNotification;
+use App\Repositories\ActivationRepository;
+use Illuminate\Mail\Mailer;
 
 /**
- * Class ActivationService
- * @package App\Services
+ * Class ActivationService.
  */
 class ActivationService
 {
@@ -20,9 +20,6 @@ class ActivationService
 
     /**
      * ActivationService constructor.
-     *
-     * @param Mailer $mailer
-     * @param ActivationRepository $activationRepo
      */
     public function __construct(Mailer $mailer, ActivationRepository $activationRepo)
     {
@@ -31,9 +28,7 @@ class ActivationService
     }
 
     /**
-     * Envoi du mail d'activation
-     *
-     * @param User $user
+     * Envoi du mail d'activation.
      */
     public function sendActivationMail(User $user)
     {
@@ -47,19 +42,17 @@ class ActivationService
     }
 
     /**
-     * Activation d'un utilisateur
+     * Activation d'un utilisateur.
      *
      * @param $token
-     * @return User
      */
     public function activateUser($token): User
     {
         $activation = $this->activationRepo->getActivationByToken($token);
 
-        if ($activation === null) {
+        if (null === $activation) {
             $return = null;
-        }
-        else {
+        } else {
             $user = User::find($activation->user_id);
 
             $user->activated = true;
@@ -74,15 +67,14 @@ class ActivationService
     }
 
     /**
-     * Vérification d'un renvoi du mail d'activation
+     * Vérification d'un renvoi du mail d'activation.
      *
      * @param $user
-     * @return bool
      */
     private function shouldSend($user): bool
     {
         $activation = $this->activationRepo->getActivation($user);
-        return $activation === null || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
-    }
 
+        return null === $activation || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
+    }
 }

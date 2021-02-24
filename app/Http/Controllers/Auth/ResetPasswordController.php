@@ -1,14 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 
 /**
- * Class ResetPasswordController
- * @package App\Http\Controllers\Auth
+ * Class ResetPasswordController.
  */
 class ResetPasswordController extends Controller
 {
@@ -32,7 +33,6 @@ class ResetPasswordController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      */
     public function __construct()
     {
@@ -40,8 +40,8 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param null $token
+     *
      * @return ResetPasswordController|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showResetForm(Request $request, $token = null)

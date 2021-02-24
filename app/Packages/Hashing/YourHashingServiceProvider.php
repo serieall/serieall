@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Packages\Hashing;
@@ -6,11 +7,10 @@ namespace App\Packages\Hashing;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class YourHashingServiceProvider
- * @package App\Packages\Hashing
+ * Class YourHashingServiceProvider.
  */
-class YourHashingServiceProvider extends ServiceProvider {
-
+class YourHashingServiceProvider extends ServiceProvider
+{
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -25,7 +25,9 @@ class YourHashingServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->singleton('hash', function() { return new YourHasher; });
+        $this->app->singleton('hash', function () {
+            return new YourHasher();
+        });
     }
 
     /**
@@ -37,5 +39,4 @@ class YourHashingServiceProvider extends ServiceProvider {
     {
         return ['hash'];
     }
-
 }

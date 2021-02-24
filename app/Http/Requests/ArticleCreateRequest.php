@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -6,8 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class ArticleCreateRequest
- * @package App\Http\Requests
+ * Class ArticleCreateRequest.
  */
 class ArticleCreateRequest extends FormRequest
 {
@@ -24,21 +24,20 @@ class ArticleCreateRequest extends FormRequest
     /**
      * Configure the validator instance.
      *
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param \Illuminate\Validation\Validator $validator
+     *
      * @return void
      */
-    protected function withValidator($validator){
-        $validator->sometimes('shows', 'required', function($input)
-        {
-            return $input->one == 0;
+    protected function withValidator($validator)
+    {
+        $validator->sometimes('shows', 'required', function ($input) {
+            return 0 == $input->one;
         });
-        $validator->sometimes('image', 'required|image|max:2000', function($input)
-        {
-            return $input->one == 0;
+        $validator->sometimes('image', 'required|image|max:2000', function ($input) {
+            return 0 == $input->one;
         });
-        $validator->sometimes('image', 'required|image|max:2000', function($input)
-        {
-            return $input->show == "";
+        $validator->sometimes('image', 'required|image|max:2000', function ($input) {
+            return '' == $input->show;
         });
     }
 
@@ -55,7 +54,7 @@ class ArticleCreateRequest extends FormRequest
             'name' => 'required|string',
             'intro' => 'required',
             'article' => 'required',
-            'users' => 'required'
+            'users' => 'required',
         ];
     }
 }

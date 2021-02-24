@@ -1,21 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\Repositories\EpisodeRepository;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
-use App\Repositories\ArticleRepository;
-use App\Repositories\CategoryRepository;
-use App\Repositories\CommentRepository;
-use Illuminate\Support\Facades\View;
 use Calendar;
-
+use Illuminate\Support\Facades\View;
 
 /**
- * Class ArticleController
- * @package App\Http\Controllers
+ * Class ArticleController.
  */
 class PlanningController extends Controller
 {
@@ -26,22 +20,22 @@ class PlanningController extends Controller
         $this->episodeRepository = $episodeRepository;
     }
 
-
-    public function index() {
+    public function index()
+    {
         $events = [];
 
-        $diffusion_us = $this->episodeRepository->getEpisodesDiffusion("diffusion_us");
-        foreach($diffusion_us as $event) {
+        $diffusion_us = $this->episodeRepository->getEpisodesDiffusion('diffusion_us');
+        foreach ($diffusion_us as $event) {
             $events[] = Calendar::event(
-                $event->season->show->name . ' - ' . afficheEpisodeName($event, 1, 0),
+                $event->season->show->name.' - '.afficheEpisodeName($event, 1, 0),
                 true,
                 $event->diffusion_us,
                 $event->diffusion_us,
                 $event->id,
                 [
-                    'url' => route("episode.fiche", [$event->season->show->show_url, $event->season->name, $event->numero, $event->id]),
+                    'url' => route('episode.fiche', [$event->season->show->show_url, $event->season->name, $event->numero, $event->id]),
                     'backgroundColor' => '#1074b2',
-                    'borderColor' => '#1074b2'
+                    'borderColor' => '#1074b2',
                 ]
             );
         }
@@ -55,6 +49,7 @@ class PlanningController extends Controller
                 'showNonCurrentDates' => false,
                 'fixedWeekCount' => false,
         ])->setCallbacks(['eventRender' => 'function(eventObj, $el) {$el.popup({title: eventObj.title,content: eventObj.description,trigger: "hover",placement: "top",container: "body"});}']);
+
         return view('planning.index', compact('calendar'));
     }
 }

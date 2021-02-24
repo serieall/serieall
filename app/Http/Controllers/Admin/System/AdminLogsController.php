@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin\System;
@@ -8,8 +9,7 @@ use App\Jobs\FlushLogs1Week;
 use App\Repositories\LogRepository;
 
 /**
- * Class AdminLogsController
- * @package App\Http\Controllers\Admin\System
+ * Class AdminLogsController.
  */
 class AdminLogsController extends Controller
 {
@@ -18,8 +18,6 @@ class AdminLogsController extends Controller
 
     /**
      * AdminLogsController constructor.
-     *
-     * @param LogRepository $logRepository
      */
     public function __construct(LogRepository $logRepository)
     {
@@ -27,11 +25,12 @@ class AdminLogsController extends Controller
     }
 
     /**
-     * Renvoi vers la page admin/system/logs/index
+     * Renvoi vers la page admin/system/logs/index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index() {
+    public function index()
+    {
         $logs = $this->logRepository->getAllDistinctLogs();
 
         return view('admin/system/logs/index', compact('logs'));
@@ -39,18 +38,21 @@ class AdminLogsController extends Controller
 
     /**
      * Affiche le contenu d'un log
-     * Renvoi vers la page admin/system/logs/view
+     * Renvoi vers la page admin/system/logs/view.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function view($id){
+    public function view($id)
+    {
         $log = $this->logRepository->getLogByID($id);
 
         return view('admin/system/logs/view', compact('log'));
     }
 
-    public function testJob() {
+    public function testJob()
+    {
         $this->dispatch(new FlushLogs1Week());
     }
 }

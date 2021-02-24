@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -6,18 +7,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Contact
+ * App\Models\Contact.
  *
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string $objet
- * @property string $message
- * @property int $admin_id
- * @property string $admin_message
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\Models\User $user
+ * @property int              $id
+ * @property string           $name
+ * @property string           $email
+ * @property string           $objet
+ * @property string           $message
+ * @property int              $admin_id
+ * @property string           $admin_message
+ * @property \Carbon\Carbon   $created_at
+ * @property \Carbon\Carbon   $updated_at
+ * @property \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Contact whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Contact whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Contact whereEmail($value)
@@ -29,8 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Contact whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Contact extends Model {
-
+class Contact extends Model
+{
     protected $table = 'contacts';
     public $timestamps = true;
     protected $fillable = ['name', 'email', 'objet', 'message', 'admin_id', 'admin_message'];
@@ -42,5 +44,4 @@ class Contact extends Model {
     {
         return $this->belongsTo('App\Models\User', 'admin_id');
     }
-
 }

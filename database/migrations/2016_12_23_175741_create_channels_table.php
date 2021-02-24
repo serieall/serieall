@@ -3,20 +3,20 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChannelsTable extends Migration {
+class CreateChannelsTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('channels', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('channel_url')->unique();
+            $table->timestamps();
+        });
+    }
 
-	public function up()
-	{
-		Schema::create('channels', function(Blueprint $table) {
-			$table->increments('id');
-			$table->string('name');
-			$table->string('channel_url')->unique();
-			$table->timestamps();
-		});
-	}
-
-	public function down()
-	{
-		Schema::drop('channels');
-	}
+    public function down()
+    {
+        Schema::drop('channels');
+    }
 }

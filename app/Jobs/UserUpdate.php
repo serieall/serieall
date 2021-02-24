@@ -4,18 +4,20 @@ namespace App\Jobs;
 
 use App\Repositories\UserRepository;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 /**
- * Class UserUpdate
- * @package App\Jobs
+ * Class UserUpdate.
  */
 class UserUpdate implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $inputs;
 
@@ -23,6 +25,7 @@ class UserUpdate implements ShouldQueue
      * Create a new job instance.
      *
      * @param $inputs
+     *
      * @internal param $id
      * @internal param $userID
      */
@@ -34,31 +37,30 @@ class UserUpdate implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param UserRepository $userRepository
      * @return void
+     *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function handle(UserRepository $userRepository)
     {
-       /*
-       |--------------------------------------------------------------------------
-       | Initialisation du job
-       |--------------------------------------------------------------------------
-       */
+        /*
+        |--------------------------------------------------------------------------
+        | Initialisation du job
+        |--------------------------------------------------------------------------
+        */
         $idLog = initJob($this->inputs['user_id'], 'Edition', 'User', $this->inputs['id']);
 
         $user = $userRepository->getUserByID($this->inputs['id']);
 
-        $message = 'Username : ' . $this->inputs['username'];
+        $message = 'Username : '.$this->inputs['username'];
         saveLogMessage($idLog, $message);
         $user->username = $this->inputs['username'];
 
-        $message = 'Rôle : ' . $this->inputs['role'];
+        $message = 'Rôle : '.$this->inputs['role'];
         saveLogMessage($idLog, $message);
         $user->role = $this->inputs['role'];
 
-        if(!empty($this->inputs['password']))
-        {
+        if (!empty($this->inputs['password'])) {
             $user->password = bcrypt($this->inputs['password']);
         }
 
@@ -66,23 +68,23 @@ class UserUpdate implements ShouldQueue
 //        saveLogMessage($idLog, $message);
 //        $user->email = $this->inputs['email'];
 
-        $message = 'Edito : ' . $this->inputs['edito'];
+        $message = 'Edito : '.$this->inputs['edito'];
         saveLogMessage($idLog, $message);
         $user->edito = $this->inputs['edito'];
 
-        $message = 'Antispoiler : ' . $this->inputs['antispoiler'];
+        $message = 'Antispoiler : '.$this->inputs['antispoiler'];
         saveLogMessage($idLog, $message);
         $user->antispoiler = $this->inputs['antispoiler'];
 
-        $message = 'Site Internet : ' . $this->inputs['website'];
+        $message = 'Site Internet : '.$this->inputs['website'];
         saveLogMessage($idLog, $message);
         $user->website = $this->inputs['website'];
 
-        $message = 'Twitter : ' . $this->inputs['twitter'];
+        $message = 'Twitter : '.$this->inputs['twitter'];
         saveLogMessage($idLog, $message);
         $user->twitter = $this->inputs['twitter'];
 
-        $message = 'Facebook : ' . $this->inputs['facebook'];
+        $message = 'Facebook : '.$this->inputs['facebook'];
         saveLogMessage($idLog, $message);
         $user->facebook = $this->inputs['facebook'];
 

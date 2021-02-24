@@ -1,14 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-
 /**
- * Class changePasswordRequest
+ * Class changePasswordRequest.
+ *
  * @property mixed new_password
  * @property mixed password
- * @package App\Http\Requests
  */
 class changePasswordRequest extends Request
 {
@@ -31,7 +31,7 @@ class changePasswordRequest extends Request
     {
         return [
             'password' => 'required',
-            'new_password' => 'required|min:8|confirmed|different:password'
+            'new_password' => 'required|min:8|confirmed|different:password',
         ];
     }
 }
