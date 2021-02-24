@@ -1,22 +1,23 @@
 <?php
 
+namespace Database\Seeders;
+
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UsersSeeder extends Seeder
 {
     /**
-     * Génère une date aléatoire.
-     *
-     * @return mixed
+     * Generate a random date.
      */
-    private function randDate()
+    private function randDate(): Carbon
     {
         return Carbon::createFromDate(null, rand(1, 12), rand(1, 28));
     }
 
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */
