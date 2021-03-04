@@ -30,13 +30,13 @@
 
                 <div class="ui teal segment">
                     <h4 class="ui dividing header">Informations sur la série</h4>
-                    <div class="field {{ $errors->has('thetvdb_id') ? ' error' : '' }}">
-                        <label>ID de la série sur TheTVDB</label>
-                        <input name="thetvdb_id" placeholder="TheTVDB ID" type="text" value="{{ old('thetvdb_id') }}">
+                    <div class="field {{ $errors->has('tmdb_id') ? ' error' : '' }}">
+                        <label>ID de la série sur TMDB</label>
+                        <input name="tmdb_id" placeholder="TMDB ID" type="text" value="{{ old('tmdb_id') }}">
 
-                        @if ($errors->has('thetvdb_id'))
+                        @if ($errors->has('tmdb_id'))
                             <div class="ui red message">
-                                <strong>{{ $errors->first('thetvdb_id') }}</strong>
+                                <strong>{{ $errors->first('tmdb_id') }}</strong>
                             </div>
                         @endif
                     </div>

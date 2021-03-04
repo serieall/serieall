@@ -152,7 +152,7 @@ Route::group(['middleware' => 'basemanager'], function () {
     Route::post('admin/shows/update/manually', 'Admin\AdminShowController@updateManually')->name('admin.shows.update.manually');
     Route::get('admin/shows/updatetvdb', 'Admin\AdminShowController@updateFromTVDB')->name('admin.shows.updatetvdb');
     Route::get('admin/shows/clearDoublons', 'Admin\AdminShowController@clearDoublons')->name('admin.shows.clearDoublons');
-    Route::post('admin/shows/updatetvdb/{id}', 'Admin\AdminShowController@updateOneShowFromTVDB')->name('admin.shows.updateoneshowfromtvdb');
+    Route::post('admin/shows/updatetmdb/{id}', 'Admin\AdminShowController@updateOneShowFromTMDB')->name('admin.shows.updateoneshowfromtmdb');
 
     Route::get('admin/shows/redirectJSON', 'Admin\AdminShowController@redirectJSON')->name('admin.shows.redirectJSON');
     Route::resource('admin/shows', 'Admin\AdminShowController', [
@@ -205,6 +205,9 @@ Route::group(['middleware' => 'basemanager'], function () {
     });
 
     Route::group(['middleware' => 'admin'], function () {
+        Route::get('admin/tmdb', 'Admin\AdminShowTMDB@pouet');
+        Route::get('admin/tmdb/add/{id}', 'Admin\AdminShowTMDB@add');
+
         /* USERS */
         Route::get('admin/users/index/{user}', 'Admin\AdminUserController@getUser')->name('admin.users.index.getUser');
         Route::get('admin/users', 'Admin\AdminUserController@index')->name('admin.users.index');

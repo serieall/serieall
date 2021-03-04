@@ -6,6 +6,7 @@ use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Show;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 
 function linkAndCreateEpisodesToShow(Show $show): bool
 {
@@ -30,7 +31,7 @@ function linkAndCreateEpisodesToShow(Show $show): bool
 
         while ($listEpisodesNextPage <= $listEpisodesLastPage) {
             try {
-                $listEpisodes = apiTvdbGetEpisodesForShow('fr', $show->thetvdb_id, $listEpisodesNextPage);
+                $listEpisodes = apiTvdbGetEpisodesForShow('fr', $show->tmdb_id, $listEpisodesNextPage);
                 if (empty($listEpisodes)) {
                     return false;
                 }
@@ -54,9 +55,9 @@ function linkAndCreateEpisodesToShow(Show $show): bool
 function getListEpisodes(Show $show, int $page): object
 {
     try {
-        $listEpisodesEn = apiTvdbGetEpisodesForShow('en', $show->thetvdb_id, $page);
+        $listEpisodesEn = apiTvdbGetEpisodesForShow('en', $show->tmdb_id, $page);
         if (isset($listEpisodesEn->errors)) {
-            $listEpisodesFr = apiTvdbGetEpisodesForShow('fr', $show->thetvdb_id, $page);
+            $listEpisodesFr = apiTvdbGetEpisodesForShow('fr', $show->tmdb_id, $page);
             if (isset($listEpisodesFr->errors)) {
                 Log::error('Episode: List of episodes not found either in french or english.');
 
@@ -117,7 +118,7 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes)
         $episodeWriters = chooseBetweenTwoVars($episodeEn->writers, $episodeFr->writers);
 
         $episodeInfo = [
-            'thetvdb_id' => $episodeTvdbId,
+            'tmdb_id' => $episodeTvdbId,
             'numero' => $episodeNumber,
             'name' => $episodeEn->episodeName,
             'name_fr' => $episodeFr->episodeName,
@@ -132,18 +133,18 @@ function createOrUpdateEpisode(Show $show, array $listEpisodes)
             'writers' => $episodeWriters,
         ];
 
-        $episodeBdd = Episode::where('thetvdb_id', $episodeInfo['thetvdb_id'])->first();
+        $episodeBdd = Episode::where('tmdb_id', $episodeInfo['tmdb_id'])->first();
         if (0 == $episodeSeason && !is_null($episodeAirsAfterSeason)) {
             $seasonBdd = Season::where('name', $episodeAirsAfterSeason)->where('show_id', $show->id)->first();
         } elseif (0 == $episodeSeason && is_null($episodeAirsAfterSeason)) {
             continue;
         } else {
-            $seasonBdd = Season::where('thetvdb_id', $episodeInfo['season_id'])->first();
+            $seasonBdd = Season::where('tmdb_id', $episodeInfo['season_id'])->first();
         }
 
         if (is_null($episodeBdd)) {
             $episodeBdd = new Episode([
-                'thetvdb_id' => $episodeTvdbId,
+                'tmdb_id' => $episodeTvdbId,
                 'numero' => $episodeNumber,
                 'name' => $episodeEn->episodeName,
                 'name_fr' => $episodeFr->episodeName,

@@ -1304,7 +1304,7 @@ class elFinder
      * @param string $name Plugin name (dirctory name)
      * @param array  $opts Plugin options (optional)
      *
-     * @return object | bool Plugin object instance Or false
+     * @return object|bool Plugin object instance Or false
      *
      * @author Naoki Sawada
      */

@@ -44,9 +44,9 @@
                 <button class="fluid ui blue button" onclick="window.location.href='{{ route('admin.artists.show', $show->id) }}'">Modifier les acteurs de la série</button>
                 <button class="fluid ui teal button" onclick="window.location.href='{{ route('admin.seasons.show', $show->id) }}'">Modifier les saisons et les épisodes</button>
                 <!-- Formulaire de suppression -->
-                <form action="{{ route('admin.shows.updateoneshowfromtvdb', $show->thetvdb_id) }}" method="post" >
+                <form action="{{ route('admin.shows.updateoneshowfromtmdb', $show->tmdb_id) }}" method="post" >
                     {{ csrf_field() }}
-                    <button class="fluid ui orange button" title="Forcer la mise à jour">Forcer la mise à jour depuis TVDB</button>
+                    <button class="fluid ui orange button" title="Forcer la mise à jour">Forcer la mise à jour depuis TMDB</button>
                 </form>
             </div>
 
@@ -109,12 +109,12 @@
                             @endif
                         </div>
 
-                        <div class="@if(Auth::user()->role >= 2) disabled @endif field {{ $errors->has('thetvdb_id') ? ' error': '' }}">
+                        <div class="@if(Auth::user()->role >= 2) disabled @endif field {{ $errors->has('tmdb_id') ? ' error': '' }}">
 	                    <label>TVDB ID</label>
-                            <input id="thetvdb_id" name="thetvdb_id" placeholder="The TVDB ID" value="{{ $show->thetvdb_id }}">
-                            @if ($errors->has('thetvdb_id'))
+                            <input id="tmdb_id" name="tmdb_id" placeholder="TMDB ID" value="{{ $show->tmdb_id }}">
+                            @if ($errors->has('tmdb_id'))
                                 <div class="ui red message">
-                                    <strong>{{ $errors->first('thetvdb_id') }}</strong>
+                                    <strong>{{ $errors->first('tmdb_id') }}</strong>
                                 </div>
                             @endif
                         </div>
