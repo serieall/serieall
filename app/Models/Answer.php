@@ -5,34 +5,24 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Answer.
  *
- * @property int                  $id
- * @property \Carbon\Carbon       $created_at
- * @property \Carbon\Carbon       $updated_at
- * @property string               $name
- * @property int                  $question_id
- * @property \App\Models\Question $question
- *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Answer whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Answer whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Answer whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Answer whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Answer whereQuestionId($value)
- * @mixin \Eloquent
+ * @property string $name
+ * @property int    $question_id
  */
 class Answer extends Model
 {
     protected $table = 'answers';
     public $timestamps = true;
-    protected $fillable = ['name', 'question_id'];
+    protected $fillable = [
+        'name',
+        'question_id',
+    ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function question()
+    public function question(): BelongsTo
     {
         return $this->belongsTo('App\Models\Question');
     }

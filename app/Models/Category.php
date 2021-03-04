@@ -5,29 +5,24 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Category.
  *
- * @property int                                                            $id
- * @property \Carbon\Carbon                                                 $created_at
- * @property \Carbon\Carbon                                                 $updated_at
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
- *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Category whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Category whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Category whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property string $name
+ * @property string $description
  */
 class Category extends Model
 {
     protected $table = 'categories';
     public $timestamps = true;
+    protected $fillable = [
+        'name',
+        'description',
+    ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function articles()
+    public function articles(): HasMany
     {
         return $this->hasMany('App\Models\Article');
     }

@@ -5,43 +5,30 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Poll.
  *
- * @property int                                                             $id
- * @property \Carbon\Carbon                                                  $created_at
- * @property \Carbon\Carbon                                                  $updated_at
- * @property string                                                          $name
- * @property string                                                          $poll_url
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $questions
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\User[]     $users
- *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Poll whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Poll whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Poll whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Poll whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Poll wherePollUrl($value)
- * @mixin \Eloquent
+ * @property string $name
+ * @property string $poll_url
  */
 class Poll extends Model
 {
     protected $table = 'polls';
     public $timestamps = true;
-    protected $fillable = ['name', 'poll_url'];
+    protected $fillable = [
+        'name',
+        'poll_url',
+    ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function questions()
+    public function questions(): HasMany
     {
         return $this->hasMany('App\Models\Question');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User');
     }

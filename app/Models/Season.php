@@ -5,81 +5,58 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * App\Models\Season.
  *
- * @property int                                                            $id
- * @property int                                                            $thetvdb_id
- * @property int                                                            $name
- * @property string                                                         $ba
- * @property float                                                          $moyenne
- * @property int                                                            $nbnotes
- * @property int                                                            $show_id
- * @property \Carbon\Carbon                                                 $created_at
- * @property \Carbon\Carbon                                                 $updated_at
- * @property \App\Models\Show                                               $show
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Episode[] $episodes
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
- *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereThetvdbId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereBa($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereMoyenne($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereNbnotes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereShowId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Season whereUpdatedAt($value)
- * @mixin \Eloquent
- *
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Episode_user[] $users
+ * @property int thetvdb_id
+ * @property int tmdb_id
+ * @property int name
+ * @property string ba
+ * @property float moyenne
+ * @property int nbnotes
  */
 class Season extends Model
 {
     protected $table = 'seasons';
     public $timestamps = true;
-    protected $fillable = ['thetvdb_id', 'name', 'ba', 'moyenne', 'nbnotes'];
+    protected $fillable = [
+        'thetvdb_id',
+        'tmdb_id',
+        'name',
+        'ba',
+        'moyenne',
+        'nbnotes',
+    ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function show()
+    public function show(): BelongsTo
     {
         return $this->belongsTo('App\Models\Show');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany|Episode
-     */
-    public function episodes()
+    public function episodes(): HasMany
     {
         return $this->hasMany('App\Models\Episode')
             ->orderBy('diffusion_us')
             ->orderBy('numero');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function comments()
+    public function comments(): MorphMany
     {
         return $this->morphMany('App\Models\Comment', 'commentable');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-     */
-    public function articles()
+    public function articles(): MorphToMany
     {
         return $this->morphToMany('App\Models\Article', 'articlable');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function users()
+    public function users(): HasManyThrough
     {
         return $this->hasManyThrough('App\Models\Episode_user', 'App\Models\Episode');
     }

@@ -5,169 +5,158 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
- * App\Models\Show.
+ * Model for a TV Show.
  *
- * @property int                                                                $id
- * @property int                                                                $thetvdb_id
- * @property string                                                             $show_url
- * @property string                                                             $name
- * @property string                                                             $name_fr
- * @property string                                                             $synopsis
- * @property string                                                             $synopsis_fr
- * @property int                                                                $format
- * @property int                                                                $annee
- * @property bool                                                               $encours
- * @property string                                                             $diffusion_us
- * @property string                                                             $diffusion_fr
- * @property float                                                              $moyenne
- * @property float                                                              $moyenne_redac
- * @property int                                                                $nbnotes
- * @property int                                                                $taux_erectile
- * @property string                                                             $avis_rentree
- * @property \Carbon\Carbon                                                     $created_at
- * @property \Carbon\Carbon                                                     $updated_at
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Season[]      $seasons
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Episode[]     $episodes
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[]      $artists
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Channel[]     $channels
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Nationality[] $nationalities
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Genre[]       $genres
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[]     $comments
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Article[]     $articles
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[]      $creators
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[]      $actors
- *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereThetvdbId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereShowUrl($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereNameFr($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereSynopsis($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereSynopsisFr($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereFormat($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereAnnee($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereEncours($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereDiffusionUs($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereDiffusionFr($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereMoyenne($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereMoyenneRedac($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereNbnotes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereTauxErectile($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereAvisRentree($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Show whereUpdatedAt($value)
- * @mixin \Eloquent
- *
- * @property string $particularite
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Show whereParticularite($value)
- *
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property int tmdb_id
+ * @property string show_url
+ * @property string name
+ * @property string name_fr
+ * @property string synopsis
+ * @property string synopsis_fr
+ * @property int format
+ * @property int annee
+ * @property int encours
+ * @property string diffusion_us
+ * @property string diffusion_fr
+ * @property string particularite
+ * @property float moyenne
+ * @property float moyenne_redac
+ * @property int nbnotes
+ * @property int taux_erectile
+ * @property string avis_rentree
+ * @property int created_at
+ * @property int updated_at
  */
 class Show extends Model
 {
-    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    use HasRelationships;
     use HasEagerLimit;
 
     protected $table = 'shows';
     public $timestamps = true;
-    protected $fillable = ['thetvdb_id', 'show_url', 'name', 'name_fr', 'synopsis', 'synopsis_fr', 'format', 'annee', 'encours', 'diffusion_us', 'diffusion_fr', 'particularite', 'moyenne', 'moyenne_redac', 'nbnotes', 'taux_erectile', 'avis_rentree'];
+    protected $fillable = [
+        'thetvdb_id',
+        'tmdb_id',
+        'show_url',
+        'name',
+        'name_fr',
+        'synopsis',
+        'synopsis_fr',
+        'format',
+        'annee',
+        'encours',
+        'diffusion_us',
+        'diffusion_fr',
+        'particularite',
+        'moyenne',
+        'moyenne_redac',
+        'nbnotes',
+        'taux_erectile',
+        'avis_rentree',
+    ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany|Season
+     * Return linked seasons.
      */
-    public function seasons()
+    public function seasons(): HasMany
     {
         return $this->hasMany('App\Models\Season')->orderBy('name');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough|Episode
+     * Return linked episodes.
      */
-    public function episodes()
+    public function episodes(): HasManyThrough
     {
         return $this->hasManyThrough('App\Models\Episode', '\App\Models\Season');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * Return linked artists.
      */
-    public function artists()
+    public function artists(): MorphToMany
     {
         return $this->morphToMany('App\Models\Artist', 'artistable');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * Return linked channels.
      */
-    public function channels()
+    public function channels(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Channel');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * Return linked nationalities.
      */
-    public function nationalities()
+    public function nationalities(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Nationality');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * Return linked genres.
      */
-    public function genres()
+    public function genres(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Genre');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * Return linked comments.
      */
-    public function comments()
+    public function comments(): MorphMany
     {
         return $this->morphMany('App\Models\Comment', 'commentable');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * Return linked articles.
      */
-    public function articles()
+    public function articles(): MorphToMany
     {
         return $this->morphToMany('App\Models\Article', 'articlable');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * Return linked creators.
      */
-    public function creators()
+    public function creators(): BelongsToMany
     {
         return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'creator');
     }
 
     /**
-     * @return mixed
+     * Return linked actors.
      */
-    public function actors()
+    public function actors(): MorphToMany
     {
         return $this->morphToMany('App\Models\Artist', 'artistable')->orderBy('name')->wherePivot('profession', 'actor')->withPivot('role');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * Return users following the show.
      */
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User')->withPivot('state', 'message');
     }
 
     /**
-     * @return \Staudenmeir\EloquentHasManyDeep\HasManyDeep
+     * Return linked episodes rates.
      */
-    public function rates()
+    public function rates(): HasManyDeep
     {
         return $this->hasManyDeep('App\Models\Episode_user', ['App\Models\Season', 'App\Models\Episode'], [null]);
     }
