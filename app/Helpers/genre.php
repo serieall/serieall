@@ -23,7 +23,7 @@ function linkAndCreateGenresToShow(Show $show, array $genres)
             $show->genres()->save($genreBdd);
             Log::debug('Genre : '.$genreBdd->name.' is created.');
         } else {
-            $genreLink = $genreBdd->shows()->where('shows.thetvdb_id', $show->thetvdb_id)->first();
+            $genreLink = $genreBdd->shows()->where('shows.tmdb_id', $show->tmdb_id)->first();
             if (empty($genreLink)) {
                 $show->genres()->attach($genreBdd->id);
                 Log::debug('Genre : '.$genreBdd->name.' is linked to '.$show->name.'.');

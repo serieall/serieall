@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Additional Compiled Classes
@@ -16,7 +15,6 @@ return [
     */
 
     'files' => [
-        //
     ],
 
     /*
@@ -31,7 +29,5 @@ return [
     */
 
     'providers' => [
-        //
     ],
-
 ];

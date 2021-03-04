@@ -7,8 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class ArtistCreateRequest
- * @package App\Http\Requests
+ * Class ArtistCreateRequest.
  */
 class ArtistCreateRequest extends FormRequest
 {
@@ -32,6 +31,7 @@ class ArtistCreateRequest extends FormRequest
         return [
             'artists.*.image' => 'image',
             'artists.*.name' => 'required|max:255',
-            'artists.*.role' => 'required|max:255'];
+            'artists.*.role' => 'required|max:255',
+        ];
     }
 }
