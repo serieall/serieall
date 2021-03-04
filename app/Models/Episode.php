@@ -5,137 +5,93 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Znck\Eloquent\Traits\BelongsToThrough;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Znck\Eloquent\Relations\BelongsToThrough;
+use Znck\Eloquent\Traits\BelongsToThrough as BelongsToThroughTrait;
 
 /**
  * App\Models\Episode.
  *
- * @property int                                                            $id
- * @property int                                                            $thetvdb_id
- * @property int                                                            $numero
- * @property string                                                         $name
- * @property string                                                         $name_fr
- * @property string                                                         $resume
- * @property string                                                         $resume_fr
- * @property string                                                         $particularite
- * @property string                                                         $diffusion_us
- * @property string                                                         $diffusion_fr
- * @property string                                                         $ba
- * @property float                                                          $moyenne
- * @property int                                                            $nbnotes
- * @property int                                                            $season_id
- * @property \Carbon\Carbon                                                 $created_at
- * @property \Carbon\Carbon                                                 $updated_at
- * @property \App\Models\Season                                             $season
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[]  $artists
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\User[]    $users
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[]  $directors
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[]  $writers
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[]  $guests
- *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereThetvdbId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereNumero($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereNameFr($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereResume($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereResumeFr($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereParticularite($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereDiffusionUs($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereDiffusionFr($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereBa($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereMoyenne($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereNbnotes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereSeasonId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Episode whereUpdatedAt($value)
- * @mixin \Eloquent
- *
- * @property string|null $picture
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode wherePicture($value)
+ * @property int    $thetvdb_id
+ * @property int    $tmdb_id
+ * @property int    $numero
+ * @property string $name
+ * @property string $name_fr
+ * @property string $resume
+ * @property string $resume_fr
+ * @property string $particularite
+ * @property string $diffusion_us
+ * @property string $diffusion_fr
+ * @property string $ba
+ * @property float  $moyenne
+ * @property int    $nbnotes
+ * @property int    $season_id
  */
 class Episode extends Model
 {
-    use BelongsToThrough;
+    use BelongsToThroughTrait;
 
     protected $table = 'episodes';
     public $timestamps = true;
-    protected $fillable = ['thetvdb_id', 'numero', 'name', 'name_fr', 'resume', 'resume_fr', 'diffusion_us', 'diffusion_fr', 'ba', 'moyenne', 'nbnotes'];
+    protected $fillable = [
+        'thetvdb_id',
+        'tmdb_id',
+        'numero',
+        'name',
+        'name_fr',
+        'resume',
+        'resume_fr',
+        'diffusion_us',
+        'diffusion_fr',
+        'ba',
+        'moyenne',
+        'nbnotes',
+        ];
 
-    /**
-     * @return \Znck\Eloquent\Relations\BelongsToThrough
-     *
-     * @throws \Exception
-     * @throws \Exception
-     */
-    public function show()
+    public function show(): BelongsToThrough
     {
         return $this->belongsToThrough(Show::class, Season::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function season()
+    public function season(): BelongsTo
     {
         return $this->belongsTo('App\Models\Season');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-     */
-    public function artists()
+    public function artists(): MorphToMany
     {
         return $this->morphToMany('App\Models\Artist', 'artistable');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function comments()
+    public function comments(): MorphMany
     {
         return $this->morphMany('App\Models\Comment', 'commentable');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User')->withPivot('rate', 'created_at', 'updated_at');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-     */
-    public function articles()
+    public function articles(): MorphToMany
     {
         return $this->morphToMany('App\Models\Article', 'articlable');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function directors()
+    public function directors(): MorphToMany
     {
         return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'director');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function writers()
+    public function writers(): MorphToMany
     {
         return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'writer');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function guests()
+    public function guests(): MorphToMany
     {
         return $this->morphToMany('App\Models\Artist', 'artistable')->wherePivot('profession', 'guest');
     }

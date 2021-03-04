@@ -5,43 +5,30 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Question.
  *
- * @property int                                                           $id
- * @property \Carbon\Carbon                                                $created_at
- * @property \Carbon\Carbon                                                $updated_at
- * @property string                                                        $name
- * @property int                                                           $poll_id
- * @property \App\Models\Poll                                              $poll
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Answer[] $answers
- *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Question whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Question whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Question whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Question whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Question wherePollId($value)
- * @mixin \Eloquent
+ * @property string $name
+ * @property int    $poll_id
  */
 class Question extends Model
 {
     protected $table = 'questions';
     public $timestamps = true;
-    protected $fillable = ['name', 'poll_id'];
+    protected $fillable = [
+        'name',
+        'poll_id',
+    ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function poll()
+    public function poll(): BelongsTo
     {
         return $this->belongsTo('App\Models\Poll');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function answers()
+    public function answers(): HasMany
     {
         return $this->hasMany('App\Models\Answer');
     }
