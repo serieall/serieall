@@ -9,7 +9,7 @@ use GuzzleHttp\Exception\GuzzleException;
 function linkAndCreateSeasonsToShow(Show $show)
 {
     try {
-        $episodesSummary = apiTvdbGetEpisodesSummary($show->thetvdb_id)->data;
+        $episodesSummary = apiTvdbGetEpisodesSummary($show->tmdb_id)->data;
     } catch (GuzzleException | ErrorException $e) {
         Log::error('Season: Seasons not found.');
 
@@ -20,7 +20,7 @@ function linkAndCreateSeasonsToShow(Show $show)
         $season = (int) $season;
         if (0 != $season) {
             try {
-                $episode = apiTvdbGetFirstEpisodeForSeason($show->thetvdb_id, $season)->data;
+                $episode = apiTvdbGetFirstEpisodeForSeason($show->tmdb_id, $season)->data;
             } catch (GuzzleException | ErrorException $e) {
                 Log::error('Season: First episode not found for season '.$season.'. Continue...');
                 continue;
@@ -28,7 +28,7 @@ function linkAndCreateSeasonsToShow(Show $show)
 
             $seasonInfo = [
                 'name' => $episode[0]->airedSeason,
-                'thetvdb_id' => $episode[0]->airedSeasonID,
+                'tmdb_id' => $episode[0]->airedSeasonID,
             ];
 
             createOrUpdateSeason($show, $seasonInfo);
@@ -41,11 +41,11 @@ function linkAndCreateSeasonsToShow(Show $show)
 function createOrUpdateSeason(Show $show, array $season)
 {
     // We check if the season exists, and then create it or update it.
-    $seasonBdd = Season::where('thetvdb_id', $season['thetvdb_id'])->first();
+    $seasonBdd = Season::where('tmdb_id', $season['tmdb_id'])->first();
     if (is_null($seasonBdd)) {
         $seasonBdd = new Season([
             'name' => $season['name'],
-            'thetvdb_id' => $season['thetvdb_id'],
+            'tmdb_id' => $season['tmdb_id'],
         ]);
 
         $seasonBdd->show()->associate($show);

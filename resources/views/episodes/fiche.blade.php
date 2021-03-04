@@ -101,7 +101,7 @@
             <div id="episodeDetails" class="ui segment">
                 <h1>
                     @if(!empty($episodeInfo->picture))
-                        <img class="ui right floated medium image" src="{{ config('thetvdb.imageUrl') }}{{ $episodeInfo->picture }}"  alt="Image illustrative de l'épisode">
+                        <img class="ui right floated medium image" src="{{ $episodeInfo->picture }}"  alt="Image illustrative de l'épisode">
                     @endif
                     {!! affichageNumeroEpisode($showInfo['show']->show_url, $seasonInfo->name, $episodeInfo->numero, $episodeInfo->id, false, false) !!} -
                     @if(!empty($episodeInfo->name_fr))
