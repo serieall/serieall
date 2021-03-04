@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Models\Artist;
 use App\Models\Episode;
 use App\Models\Show;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 function linkAndCreateArtistsToShow(Show $show, array $artists, string $profession)
@@ -26,9 +27,10 @@ function linkAndCreateArtistsToShow(Show $show, array $artists, string $professi
             Log::debug('Artist : '.$artistBdd->name.' is created.');
         } else {
             $artistLink = $artistBdd->shows()
-                ->where('shows.thetvdb_id', $show->thetvdb_id)
+                ->where('shows.tmdb_id', $show->tmdb_id)
                 ->where('artistables.profession', $profession)
                 ->first();
+
             if (empty($artistLink)) {
                 $show->artists()->attach($artistBdd->id, ['profession' => $profession]);
                 Log::debug('Artist : '.$artistBdd->name.' is linked to '.$show->name.'.');
@@ -58,7 +60,7 @@ function linkAndCreateArtistsToEpisode(Episode $episode, array $artists, string 
             Log::debug('Artist : '.$artistBdd->name.' is created.');
         } else {
             $artistLink = $artistBdd->episodes()
-                ->where('episodes.thetvdb_id', $episode->thetvdb_id)
+                ->where('episodes.tmdb_id', $episode->tmdb_id)
                 ->where('artistables.profession', $profession)
                 ->first();
             if (empty($artistLink)) {
@@ -93,7 +95,7 @@ function linkAndCreateActorsToShow(Show $show, array $actors)
             Log::debug('Artist : '.$actorBdd->name.' is created.');
         } else {
             $actorLink = $actorBdd->shows()
-                ->where('shows.thetvdb_id', $show->thetvdb_id)
+                ->where('shows.tmdb_id', $show->tmdb_id)
                 ->where('artistables.profession', 'actor')
                 ->first();
             if (empty($actorLink)) {
@@ -105,7 +107,7 @@ function linkAndCreateActorsToShow(Show $show, array $actors)
         }
 
         /* Récupération de la photo de l'acteur */
-        $actorImage = config('thetvdb.imageUrl').$actor->image;
+        $actorImage = $actor->image;
 
         $actorImageHeaders = get_headers($actorImage);
         if (!$actorImageHeaders || 'HTTP/1.1 404 Not Found' == $actorImageHeaders[0]) {

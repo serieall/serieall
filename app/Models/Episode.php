@@ -51,7 +51,8 @@ class Episode extends Model
         'ba',
         'moyenne',
         'nbnotes',
-        ];
+        'picture',
+    ];
 
     public function show(): BelongsToThrough
     {
