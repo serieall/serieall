@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Events;
 
 /**
- * Class Event
- * @package App\Events
+ * Class Event.
  */
 abstract class Event
 {
-    //
 }

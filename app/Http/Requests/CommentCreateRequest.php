@@ -7,8 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class CommentCreateRequest
- * @package App\Http\Requests
+ * Class CommentCreateRequest.
  */
 class CommentCreateRequest extends FormRequest
 {
@@ -33,6 +32,7 @@ class CommentCreateRequest extends FormRequest
             'object_id' => 'required|numeric',
             'object' => 'required|in:Show,Season,Episode,Article',
             'thumb' => 'required|numeric|between:1,3',
-            'avis' => 'required|min:100'];
+            'avis' => 'required|min:100',
+        ];
     }
 }

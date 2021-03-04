@@ -1,4 +1,4 @@
-.PHONY: lint lint-fix tests \
+.PHONY: lint tests \
 		install-dependencies update-dependencies \
 		start-db stop-db \
 		start-db-tests stop-db-tests \
@@ -13,6 +13,10 @@ lint-fix:
 	vendor/bin/php-cs-fixer fix
 
 tests:
+	vendor/bin/phpunit --configuration phpunit.xml
+
+tests:
+	php -f /usr/bin/composer dump-autoload
 	vendor/bin/phpunit --configuration phpunit.xml
 
 install-dependencies:
