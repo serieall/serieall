@@ -7,8 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class EpisodeUpdateRequest
- * @package App\Http\Requests
+ * Class EpisodeUpdateRequest.
  */
 class EpisodeUpdateRequest extends FormRequest
 {
@@ -30,7 +29,7 @@ class EpisodeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'thetvdb_id' => 'numeric|unique:episodes,thetvdb_id,' . $this->get('id') ,
+            'tmdb_id' => 'numeric|unique:episodes,tmdb_id,'.$this->get('id'),
             'numero' => 'required|numeric',
             'season_id' => 'required|numeric',
             'name' => 'max:255',
@@ -40,6 +39,7 @@ class EpisodeUpdateRequest extends FormRequest
             'picture' => 'max:255',
             'directors' => ['regex:/^[A-Za-z0-9-.éèàùç%+ ]{1,255}?(,[A-Za-z0-9-.éèàùç%+ ]{1,255})*$/'],
             'writers' => ['regex:/^[A-Za-z0-9-.éèàùç%+ ]{1,255}?(,[A-Za-z0-9-.éèàùç%+ ]{1,255})*$/'],
-            'guests' => ['regex:/^[A-Za-z0-9-.éèàùç%+ ]{1,255}?(,[A-Za-z0-9-.éèàùç%+ ]{1,255})*$/']];
+            'guests' => ['regex:/^[A-Za-z0-9-.éèàùç%+ ]{1,255}?(,[A-Za-z0-9-.éèàùç%+ ]{1,255})*$/'],
+        ];
     }
 }

@@ -59,13 +59,13 @@
                     <input type="hidden" name="season_id" value="{{ $episode->season->id }}">
 
                     <div class="ui three fields">
-                        <div class="ui field {{ $errors->has('thetvdb_id') ? ' error' : '' }}">
-                            <label for="thetvdb_id">TheTVDB ID de l'épisode</label>
-                            <input id="thetvdb_id" name="thetvdb_id" type="number" value="{{ $episode->thetvdb_id }}" min="0">
+                        <div class="ui field {{ $errors->has('tmdb_id') ? ' error' : '' }}">
+                            <label for="tmdb_id">TMDB ID de l'épisode</label>
+                            <input id="tmdb_id" name="tmdb_id" type="number" value="{{ $episode->tmdb_id }}" min="0">
 
-                            @if ($errors->has('thetvdb_id'))
+                            @if ($errors->has('tmdb_id'))
                                 <div class="ui red message">
-                                    <strong>{{ $errors->first('thetvdb_id') }}</strong>
+                                    <strong>{{ $errors->first('tmdb_id') }}</strong>
                                 </div>
                             @endif
                         </div>

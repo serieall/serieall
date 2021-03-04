@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Standards Tree
@@ -157,7 +155,6 @@ return [
     */
 
     'middleware' => [
-
     ],
 
     /*
@@ -171,7 +168,6 @@ return [
     */
 
     'auth' => [
-
     ],
 
     /*
@@ -186,7 +182,6 @@ return [
     */
 
     'throttling' => [
-
     ],
 
     /*
@@ -217,9 +212,6 @@ return [
     'defaultFormat' => env('API_DEFAULT_FORMAT', 'json'),
 
     'formats' => [
-
         'json' => Dingo\Api\Http\Response\Format\Json::class,
-
     ],
-
 ];

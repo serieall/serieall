@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 return [
-
     /*
      * Use this setting to enable the cookie consent dialog.
      */
