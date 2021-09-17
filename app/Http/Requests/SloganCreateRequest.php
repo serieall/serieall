@@ -7,8 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class SloganCreateRequest
- * @package App\Http\Requests
+ * Class SloganCreateRequest.
  */
 class SloganCreateRequest extends FormRequest
 {

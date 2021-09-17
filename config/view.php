@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | View Storage Paths
@@ -31,5 +30,4 @@ return [
     */
 
     'compiled' => realpath(storage_path('framework/views')),
-
 ];

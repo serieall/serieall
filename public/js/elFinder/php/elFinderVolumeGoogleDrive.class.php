@@ -501,7 +501,7 @@ class elFinderVolumeGoogleDrive extends elFinderVolumeDriver
      * @param string $path
      * @param string $size
      *
-     * @return string | boolean
+     * @return string|bool
      */
     protected function _gd_getThumbnail($path)
     {
