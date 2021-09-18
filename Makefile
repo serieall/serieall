@@ -12,7 +12,6 @@ lint-fix:
 	vendor/bin/php-cs-fixer fix
 
 tests:
-	composer dump-autoload
 	vendor/bin/phpunit --configuration phpunit.xml
 
 install-dependencies:
