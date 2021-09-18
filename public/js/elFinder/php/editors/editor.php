@@ -59,6 +59,6 @@ class elFinderEditor
      */
     public function argValue($key, $empty = '')
     {
-        return isset($this->args[$key])? $this->args[$key] : $empty;
+        return isset($this->args[$key]) ? $this->args[$key] : $empty;
     }
 }
