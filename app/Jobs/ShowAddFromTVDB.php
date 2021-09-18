@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Log;
  */
 class ShowAddFromTVDB extends Job implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue;
+    use SerializesModels;
 
     protected $inputs;
 
