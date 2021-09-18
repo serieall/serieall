@@ -1,0 +1,32 @@
+version: v1.0
+name: CI Sérieall
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: Lint
+    task:
+      jobs:
+        - name: Lint
+          commands:
+            - checkout
+            - cache restore
+            - composer install
+            - cache store
+            - cp .env.example .env
+            - php artisan key:generate
+            - make lint
+  - name: Test
+    task:
+      jobs:
+        - name: Test
+          commands:
+            - checkout
+            - cache restore
+            - composer install
+            - cache store
+            - cp .env.example .env
+            - php artisan key:generate
+            - make tests
