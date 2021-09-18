@@ -1,6 +1,8 @@
 # Série-All
 -----------
 
+[![Build Status](https://serieall.semaphoreci.com/badges/serieall/branches/master.svg)](https://serieall.semaphoreci.com/projects/serieall)
+
 ## Prerequisites
 
 - Linux system
