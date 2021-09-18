@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Notifications;
@@ -44,7 +45,7 @@ class ResetPasswordNotification extends Notification
      */
     public function toMail()
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('Lien de réinitialisation de mot de passe')
             ->line('Vous recevez ce mail car vous avez demandé une réinitialisation de votre mot de passe.')
             ->action('Le lien est ici.', url('password/reset', $this->token))

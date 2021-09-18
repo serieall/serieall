@@ -15,7 +15,10 @@ use App\Repositories\SeasonRepository;
  */
 class SeasonUpdate implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $inputs;
     protected $seasonRepository;
