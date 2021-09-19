@@ -1,6 +1,7 @@
 .PHONY: lint lint-fix tests \
 		install-dependencies update-dependencies \
 		start-db stop-db \
+		start-db-tests stop-db-tests \
 		start-redis stop-redis
 
 default: start-db start-redis
@@ -32,6 +33,18 @@ start-db:
 stop-db:
 	docker stop serieall-mysql
 	docker rm serieall-mysql
+
+start-db-tests:
+	docker run \
+		--name serieall-tests-mysql \
+		-p 3307:3306 \
+		-e MYSQL_DATABASE="serieall-tests" \
+		-e MYSQL_ROOT_PASSWORD="serieall" \
+		-d mysql:5.7
+
+stop-db-tests:
+	docker stop serieall-tests-mysql
+	docker rm serieall-tests-mysql
 
 start-redis:
 	docker run \
