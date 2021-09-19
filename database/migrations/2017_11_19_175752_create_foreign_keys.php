@@ -216,8 +216,5 @@ class CreateForeignKeys extends Migration
         Schema::table('list_logs', function (Blueprint $table) {
             $table->dropForeign('list_logs_user_id_foreign');
         });
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->dropForeign('contacts_user_id_foreign');
-        });
     }
 }
