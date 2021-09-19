@@ -56,7 +56,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->userRepository->getAllUsers();
+        $users = $this->userRepository->list();
 
         return view('users.index', compact('users'));
     }
@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function getProfile($userURL)
     {
-        $user = $this->userRepository->getUserByURL($userURL);
+        $user = $this->userRepository->getByURL($userURL);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
         $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
@@ -99,7 +99,7 @@ class UserController extends Controller
      */
     public function getRates($userURL, $action = '')
     {
-        $user = $this->userRepository->getUserByURL($userURL);
+        $user = $this->userRepository->getByURL($userURL);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
         $all_rates_chart = $this->rateRepository->getAllRateByUserID($user->id);
@@ -160,7 +160,7 @@ class UserController extends Controller
      */
     public function getComments($userURL, $action = '', $filter = '', $tri = '')
     {
-        $user = $this->userRepository->getUserByURL($userURL);
+        $user = $this->userRepository->getByURL($userURL);
 
         switch ($filter) {
             case 1:
@@ -240,7 +240,7 @@ class UserController extends Controller
      */
     public function getParameters($userURL)
     {
-        $user = $this->userRepository->getUserByURL($userURL);
+        $user = $this->userRepository->getByURL($userURL);
 
         return view('users.parameters', compact('user'));
     }
@@ -305,7 +305,7 @@ class UserController extends Controller
      */
     public function getRanking($user_url)
     {
-        $user = $this->userRepository->getUserByURL($user_url);
+        $user = $this->userRepository->getByURL($user_url);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
         $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
@@ -338,7 +338,7 @@ class UserController extends Controller
      */
     public function getShows($user_url)
     {
-        $user = $this->userRepository->getUserByURL($user_url);
+        $user = $this->userRepository->getByURL($user_url);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
         $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
@@ -370,7 +370,7 @@ class UserController extends Controller
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         if (Request::ajax()) {
-            $user = $this->userRepository->getUserByID($inputs['user_id']);
+            $user = $this->userRepository->getByID($inputs['user_id']);
 
             if (!empty($inputs['shows'])) {
                 $show = explode(',', $inputs['shows']);
@@ -430,7 +430,7 @@ class UserController extends Controller
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
 
         if (Request::ajax()) {
-            $user = $this->userRepository->getUserByID($inputs['user_id']);
+            $user = $this->userRepository->getByID($inputs['user_id']);
 
             if (!empty($inputs['shows'])) {
                 $show = explode(',', $inputs['shows']);
@@ -487,7 +487,7 @@ class UserController extends Controller
      */
     public function getPlanning($user_url)
     {
-        $user = $this->userRepository->getUserByURL($user_url);
+        $user = $this->userRepository->getByURL($user_url);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
         $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();
@@ -589,7 +589,7 @@ class UserController extends Controller
 
     public function getNotifications($user_url)
     {
-        $user = $this->userRepository->getUserByURL($user_url);
+        $user = $this->userRepository->getByURL($user_url);
 
         $all_rates = $this->rateRepository->getAllRateByUserID($user->id);
         $avg_user_rates = $all_rates->select(DB::raw('trim(round(avg(rate),2))+0 avg, count(*) nb_rates'))->first();

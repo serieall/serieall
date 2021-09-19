@@ -50,7 +50,7 @@ class UserUpdate implements ShouldQueue
         */
         $idLog = initJob($this->inputs['user_id'], 'Edition', 'User', $this->inputs['id']);
 
-        $user = $userRepository->getUserByID($this->inputs['id']);
+        $user = $userRepository->getByID($this->inputs['id']);
 
         $message = 'Username : '.$this->inputs['username'];
         saveLogMessage($idLog, $message);
