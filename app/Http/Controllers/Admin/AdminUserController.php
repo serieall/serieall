@@ -12,6 +12,9 @@ use App\Jobs\UserUpdate;
 use App\Repositories\CommentRepository;
 use App\Repositories\ShowRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -22,9 +25,9 @@ use Illuminate\Support\Facades\View;
  */
 class AdminUserController extends Controller
 {
-    protected $userRepository;
-    protected $commentRepository;
-    protected $showRepository;
+    protected UserRepository $userRepository;
+    protected CommentRepository $commentRepository;
+    protected ShowRepository $showRepository;
 
     /**
      * AdminUserController constructor.
@@ -43,12 +46,12 @@ class AdminUserController extends Controller
     /**
      * Affiche l'index de l'administation des utilisateurs.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
         // On récupère la liste des utilisateurs
-        $users = $this->userRepository->getAllUsers();
+        $users = $this->userRepository->list();
 
         // On retourne la vue
         return view('admin.users.index', compact('users'));
@@ -58,12 +61,10 @@ class AdminUserController extends Controller
      * Return the list of users in JSON.
      *
      * @param $id
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function getUser($id)
+    public function getUser($id): JsonResponse
     {
-        $user = $this->userRepository->getUserByID($id);
+        $user = $this->userRepository->getByID($id);
 
         if (empty($user)) {
             return Response::json();
@@ -75,7 +76,7 @@ class AdminUserController extends Controller
     /**
      * Affiche le formulaire de création d'utilisateur.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -103,13 +104,13 @@ class AdminUserController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function edit($id)
     {
-        $user = $this->userRepository->getUserByID($id);
+        $user = $this->userRepository->getByID($id);
 
         return view('admin.users.edit', compact('user'));
     }
@@ -137,13 +138,13 @@ class AdminUserController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function ban($id)
     {
-        $user = $this->userRepository->getUserByID($id);
+        $user = $this->userRepository->getByID($id);
         $userID = Auth::user()->id;
 
         $logID = initJob($userID, 'Ban', 'User', $user->id);
@@ -165,17 +166,15 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Delete an user.
+     * Deletes a user.
      *
      * @param $id
      *
-     * @return RedirectResponse
-     *
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        $user = $this->userRepository->getUserByID($id);
+        $user = $this->userRepository->getByID($id);
 
         $user->rates()->delete();
         $user->shows()->detach();

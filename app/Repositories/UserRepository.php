@@ -6,6 +6,9 @@ namespace App\Repositories;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -13,7 +16,7 @@ use Illuminate\Support\Facades\DB;
  */
 class UserRepository
 {
-    protected $user;
+    protected User $user;
 
     /**
      * UserRepository constructor.
@@ -24,29 +27,27 @@ class UserRepository
     }
 
     /**
-     * Récupère l'utilisateur en fonction de son pseudo.
+     * Get by Username.
      *
      * @param $username
      *
-     * @return User
-     *
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ModelNotFoundException
      */
-    public function getUserByUsername($username)
+    public function getByUsername($username): User
     {
         return $this->user::where('username', $username)->firstOrFail();
     }
 
     /**
-     * Récupère l'utilisateur en fonction de son URL.
+     * Get By URL.
      *
      * @param $user_url
      *
-     * @return User
+     * @return Builder|Model
      *
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ModelNotFoundException
      */
-    public function getUserByURL($user_url)
+    public function getByURL($user_url)
     {
         return $this->user::with(['articles' => function ($q) {
             $q->where('state', '=', 1);
@@ -55,29 +56,25 @@ class UserRepository
     }
 
     /**
-     * Récupère tous les utilisateurs.
-     *
-     * @return \Illuminate\Support\Collection
+     * List.
      */
-    public function getAllUsers()
+    public function list(): \Illuminate\Support\Collection
     {
-        return DB::table('users')
-            ->orderBy('username', 'asc')
-            ->get();
+        return $this->user::orderBy('username')->get();
     }
 
     /**
-     * Récupère un utilisateur via son ID.
+     * Get User By ID.
      *
      * @param $id
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Collection|Model
      *
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ModelNotFoundException
      */
-    public function getUserByID($id)
+    public function getByID($id): User
     {
-        return $this->user::findOrFail($id);
+        return $this->user->findOrFail($id);
     }
 
     /**

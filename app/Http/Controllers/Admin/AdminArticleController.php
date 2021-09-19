@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View as View2;
 use Illuminate\Support\Str;
-use Illuminate\View\View;
 
 /**
  * Class AdminArticleController.
@@ -181,7 +180,7 @@ class AdminArticleController extends Controller
         // Pour chaque rédacteur
         foreach ($redacs as $redac) {
             // On lie le rédacteur à l'article
-            $user = $this->userRepository->getUserByUsername($redac);
+            $user = $this->userRepository->getByUsername($redac);
             $listRedacs[] = $user->id;
             $article->users()->sync($listRedacs);
         }
@@ -318,7 +317,7 @@ class AdminArticleController extends Controller
         // Pour chaque rédacteur
         foreach ($redacs as $redac) {
             // On lie le rédacteur à l'article
-            $user = $this->userRepository->getUserByUsername($redac);
+            $user = $this->userRepository->getByUsername($redac);
             $listRedacs[] = $user->id;
         }
 
