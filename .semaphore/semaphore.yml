@@ -27,6 +27,7 @@ blocks:
             - cache restore
             - composer install
             - cache store
+            - sem-service start mysql 5.7 --username=root --password=serieall --db=serieall-tests
             - cp .env.example .env
             - php artisan key:generate
             - make tests
