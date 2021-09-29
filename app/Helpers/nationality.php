@@ -21,7 +21,7 @@ function linkAndCreateNationalitiesToShow(Show $show, array $nationalities)
             $show->nationalities()->save($nationalityBdd);
             Log::debug('Nationality : '.$nationalityBdd->name.'is created.');
         } else {
-            $nationalityLink = $nationalityBdd->shows()->where('shows.thetvdb_id', $show->thetvdb_id)->first();
+            $nationalityLink = $nationalityBdd->shows()->where('shows.tmdb_id', $show->tmdb_id)->first();
             if (empty($nationalityLink)) {
                 $show->nationalities()->attach($nationalityBdd->id);
                 Log::debug('Nationality : '.$nationalityBdd->name.'is linked to '.$show->name.'.');
