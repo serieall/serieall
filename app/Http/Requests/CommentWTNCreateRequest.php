@@ -7,8 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class CommentWTNCreateRequest
- * @package App\Http\Requests
+ * Class CommentWTNCreateRequest.
  */
 class CommentWTNCreateRequest extends FormRequest
 {
@@ -32,6 +31,7 @@ class CommentWTNCreateRequest extends FormRequest
         return [
             'object_id' => 'required|numeric',
             'object' => 'required|in:Show,Season,Episode,Article',
-            'avis' => 'required|min:20'];
+            'avis' => 'required|min:20',
+        ];
     }
 }

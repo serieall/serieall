@@ -27,9 +27,7 @@ class ShowCreateRequest extends Request
     public function rules()
     {
         return [
-            'thetvdb_id' => 'required|numeric|unique:shows',
-            'creators' => ['regex:/^[A-Za-z0-9-éèàùç%+. ]{1,255}?(,[A-Za-z0-9-éèàùç%+. ]{1,255})*$/'],
-            'nationalities' => ['regex:/^[A-Za-z0-9-éèàùç%+. ]{1,255}?(,[A-Za-z0-9-éèàùç%+. ]{1,255})*$/'],
+            'tmdb_id' => 'required|numeric|unique:shows',
             'chaine_fr' => ['regex:/^[A-Za-z0-9-éèàùç%+. ]{1,255}?(,[A-Za-z0-9-éèàùç%+. ]{1,255})*$/'],
             'diffusion_fr' => 'date',
             'taux_erectile' => 'numeric|between:0,100',
