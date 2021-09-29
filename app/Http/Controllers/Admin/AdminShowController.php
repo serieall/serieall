@@ -9,6 +9,7 @@ use App\Http\Requests\ShowCreateManuallyRequest;
 use App\Http\Requests\ShowCreateRequest;
 use App\Http\Requests\ShowUpdateManuallyRequest;
 use App\Jobs\ClearDoublons;
+use App\Jobs\OneShowUpdateFromTMDB;
 use App\Jobs\OneShowUpdateFromTVDB;
 use App\Jobs\ShowUpdateFromTVDB;
 use App\Repositories\ArtistRepository;
@@ -98,8 +99,7 @@ class AdminShowController extends Controller
      */
     public function create()
     {
-        // On retourne la vue
-        return view('admin/shows/create/thetvdb');
+        return view('admin/shows/create/tmdb');
     }
 
     /**
@@ -289,16 +289,15 @@ class AdminShowController extends Controller
     }
 
     /**
-     * Update one show from TVDB.
+     * Update one show from TMDB.
      *
      * @param $show_id
-     * @param ShowRepository $show_repository
      *
      * @return RedirectResponse
      */
-    public function updateOneShowFromTVDB($show_id)
+    public function updateOneShowFromTMDB($show_id): RedirectResponse
     {
-        $dispatchOK = dispatch(new OneShowUpdateFromTVDB($show_id));
+        $dispatchOK = dispatch(new OneShowUpdateFromTMDB($show_id));
 
         if ($dispatchOK) {
             $state_header = 'status_header';

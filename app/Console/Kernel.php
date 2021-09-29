@@ -30,9 +30,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            dispatch(new ShowUpdateFromTVDB());
-        })->daily();
+        // TODO: reactivate update tmdb
+//        $schedule->call(function () {
+//            dispatch(new ShowUpdateFromTVDB());
+//        })->daily();
 
         $schedule->call(function () {
             dispatch(new FlushLogs1Week());

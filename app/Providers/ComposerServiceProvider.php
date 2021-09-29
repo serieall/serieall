@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class ComposerServiceProvider
- * @package App\Providers
+ * Class ComposerServiceProvider.
  */
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -23,7 +22,7 @@ class ComposerServiceProvider extends ServiceProvider
         // ADMINISTRATION
         // NavActive = AdminHome
         View::composer(
-            ['admin/index','admin/log'],
+            ['admin/index', 'admin/log'],
             'App\Http\ViewComposers\NavActiveAdminHomeComposer'
         );
 
@@ -164,6 +163,5 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 }
