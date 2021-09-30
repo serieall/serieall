@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Jobs\ShowAddFromTVDB;
+use App\Jobs\ShowAddFromTMDB;
+use App\Jobs\AddTMDBID;
 use App\Jobs\ShowAddManually;
 use App\Jobs\ShowDelete;
 use App\Jobs\ShowUpdateManually;
@@ -55,16 +56,14 @@ class ShowRepository
      */
     public function createShowJob($inputs): bool
     {
-        $checkIDTheTVDB = $this->show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
+        $checkIDTMDB = $this->show::where('tmdb_id', $inputs['tmdb_id'])->first();
 
-        if (null === $checkIDTheTVDB) {
-            dispatch(new ShowAddFromTVDB($inputs));
-            $dispatchOK = true;
-        } else {
-            $dispatchOK = false;
+        if ($checkIDTMDB === null) {
+            dispatch(new ShowAddFromTMDB($inputs));
+            return true;
         }
 
-        return $dispatchOK;
+        return false;
     }
 
     /**

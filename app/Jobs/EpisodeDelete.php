@@ -4,14 +4,13 @@ namespace App\Jobs;
 
 use App\Repositories\EpisodeRepository;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 /**
- * Class EpisodeDelete
- * @package App\Jobs
+ * Class EpisodeDelete.
  */
 class EpisodeDelete implements ShouldQueue
 {
@@ -38,8 +37,8 @@ class EpisodeDelete implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param EpisodeRepository $episodeRepository
      * @return void
+     *
      * @throws \Exception
      * @throws \Exception
      */
@@ -49,7 +48,7 @@ class EpisodeDelete implements ShouldQueue
 
         $idLog = initJob($this->userID, 'Suppression', 'Episode', $this->episodeID);
 
-        $logMessage = '>> EPISODE ' . $episode->numero;
+        $logMessage = '>> EPISODE '.$episode->numero;
         saveLogMessage($idLog, $logMessage);
 
         // On détache les artistes

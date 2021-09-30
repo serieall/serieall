@@ -72,7 +72,7 @@ class ArtistStore implements ShouldQueue
         } else {
             // Si il existe, on vérifie qu'il n'a pas déjà un lien avec la série
             $actor_liaison = $actor_ref->shows()
-                ->where('shows.thetvdb_id', $this->show['thetvdb_id'])
+                ->where('shows.tmdb_id', $this->show['tmdb_id'])
                 ->where('artistables.profession', 'actor')
                 ->get()
                 ->toArray();
