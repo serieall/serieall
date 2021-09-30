@@ -28,7 +28,7 @@
                     <span class="text">Ajouter une nouvelle série</span>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href={{ route('admin.shows.create') }}><i class="cloud download icon"></i> Création via The TVDB</a>
+                        <a class="item" href={{ route('admin.shows.create') }}><i class="cloud download icon"></i> Création via TMDB</a>
                         <a class="item" href={{ route('admin.shows.create.manually') }}><i class="signup icon"></i> Création manuelle</a>
                     </div>
                 </div>

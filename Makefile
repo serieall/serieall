@@ -1,4 +1,4 @@
-.PHONY: lint lint-fix tests \
+.PHONY: lint tests \
 		install-dependencies update-dependencies \
 		start-db stop-db \
 		start-db-tests stop-db-tests \

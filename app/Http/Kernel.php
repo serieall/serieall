@@ -8,8 +8,7 @@ use App\Http\Middleware\AmIThisUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 /**
- * Class Kernel
- * @package App\Http
+ * Class Kernel.
  */
 class Kernel extends HttpKernel
 {
@@ -35,10 +34,12 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class],
+            \App\Http\Middleware\VerifyCsrfToken::class, ],
 
         'api' => [
-            'throttle:60,1']];
+            'throttle:60,1',
+        ],
+    ];
 
     /**
      * The application's route middleware.
@@ -56,5 +57,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'editor' => \App\Http\Middleware\Editor::class,
         'basemanager' => \App\Http\Middleware\BaseManager::class,
-        'amithisuser' => AmIThisUser::class];
+        'amithisuser' => AmIThisUser::class,
+    ];
 }

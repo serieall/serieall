@@ -492,7 +492,7 @@ class elFinderVolumeBox extends elFinderVolumeDriver
      * @param string $path
      * @param string $size
      *
-     * @return string | boolean
+     * @return string|bool
      */
     protected function _bd_getThumbnail($path)
     {

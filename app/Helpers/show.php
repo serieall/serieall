@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 function createorUpdateShow(array $inputs)
 {
     $showNotFound = 0;
-    $theTvdbId = (int) $inputs['thetvdb_id'];
+    $theTvdbId = (int) $inputs['tmdb_id'];
 
     // Now, we are getting the informations from the Show, in english and in french
     try {
@@ -50,7 +50,7 @@ function createorUpdateShow(array $inputs)
         $channels = $showEn->network.','.$inputs['chaine_fr'];
     }
 
-    $showBdd = Show::where('thetvdb_id', $inputs['thetvdb_id'])->first();
+    $showBdd = Show::where('tmdb_id', $inputs['tmdb_id'])->first();
 
     if (is_null($showBdd)) {
         // Create the show
@@ -121,7 +121,7 @@ function createorUpdateShow(array $inputs)
 
     // Now, we are getting the informations from the actors
     try {
-        $actors = apiTvdbGetActorsForShow($showBdd->thetvdb_id)->data;
+        $actors = apiTvdbGetActorsForShow($showBdd->tmdb_id)->data;
         linkAndCreateActorsToShow($showBdd, $actors);
     } catch (GuzzleException | ErrorException $e) {
         Log::error('Show: No actors for the show : '.$showBdd->name.'.');
