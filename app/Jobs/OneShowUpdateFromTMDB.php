@@ -87,8 +87,8 @@ class OneShowUpdateFromTMDB extends Job implements ShouldQueue
             if (is_null($seasonGot)) {
                 // Check if the season exist in the database without a tmdb_id but with a tvdb_id.
                 $seasonGot = Season::where('name', $season->season->name)
-                    ->where('thetvdb_id', "!=", "")
-                    ->where('tmdb_id', '=', '')
+                    ->whereNotNull('thetvdb_id')
+                    ->whereNull('tmdb_id')
                     ->where('show_id', $show->id)
                     ->first();
 
@@ -124,8 +124,8 @@ class OneShowUpdateFromTMDB extends Job implements ShouldQueue
             if (is_null($episodeGot)) {
                 // Check if the season exist in the database without a tmdb_id but with a tvdb_id.
                 $episodeGot = Episode::where('numero', $episode->episode->numero)
-                    ->where('thetvdb_id', "!=", "")
-                    ->where('tmdb_id', '=', '')
+                    ->whereNotNull('thetvdb_id')
+                    ->whereNull('tmdb_id')
                     ->where('season_id', $season->id)
                     ->first();
 

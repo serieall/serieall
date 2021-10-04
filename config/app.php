@@ -172,7 +172,6 @@ return [
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
         Youkoulayley\PodcastFeed\PodcastFeedServiceProvider::class,
-        Youkoulayley\LaravelPhpbbBridge\LaravelPhpbbBridgeServiceProvider::class,
 
         /*
          * Application Service Providers...
