@@ -704,9 +704,19 @@ $darkcolor: $darkBlueSA;
   width: 35px !important;
 }
 
-#association_participate {
-  background-color: $darkBlueSA !important;
-}
 .hide {
   display: none !important;
+}
+
+iframe.association {
+  margin-top: 30px;
+}
+
+.association-who {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .wrap {
+    max-width: 800px;
+  }
 }

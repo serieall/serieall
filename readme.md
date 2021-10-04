@@ -11,7 +11,7 @@
 
 ```bash
 # Install PHP and PHP modules
-apt-get install php php-gd php-curl php-mbstring php-xml php-mysql php-bcmath php-apcu-bc composer
+apt-get install php7.4 php7.4-gd php7.4-curl php7.4-mbstring php7.4-xml php7.4-mysql php7.4-bcmath php7.4-apcu-bc composer
 
 # Start database and redis
 make start-db

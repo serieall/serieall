@@ -6,7 +6,7 @@
 #topImageShow { // Set padding top, bottom and z-index to 0
   padding-top: 0;
   padding-bottom: 0;
-  z-index: 0;
+  z-index: -1;
   .column { // Set min-height to 300px
     min-height: 300px;
   }

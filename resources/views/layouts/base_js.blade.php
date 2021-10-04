@@ -241,41 +241,6 @@
         $('#reload_captcha').click(function(event){
             $('#captcha_image').attr('src', $('#captcha_image').attr('src')+'{{ captcha_src() }}');
         });
-
-        if(getCookie('hide_popup_participate_v2') == null) {
-            $('.click_participate').click(() => {
-                document.cookie = 'hide_popup_participate_v2 = true; max-age=31536000';
-                $('#association_participate').addClass('hide');
-            });
-            $('.click_postpone').click(() => {
-                sessionStorage.setItem("popup_participate_postpone", "true")
-            })
-        } else {
-            $('#association_participate').addClass('hide');
-        }
-
-        if(sessionStorage.getItem("popup_participate_postpone") == "true" ) {
-            $('#association_participate').addClass('hide');
-        }
-
-        function getCookie(name) {
-            var dc = document.cookie;
-            var prefix = name + "=";
-            var begin = dc.indexOf("; " + prefix);
-            if (begin == -1) {
-                begin = dc.indexOf(prefix);
-                if (begin != 0) return null;
-            }
-            else
-            {
-                begin += 2;
-                var end = document.cookie.indexOf(";", begin);
-                if (end == -1) {
-                end = dc.length;
-                }
-            }
-            return decodeURI(dc.substring(begin + prefix.length, end));
-        }
     })
 </script>
 
