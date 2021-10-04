@@ -16,7 +16,5 @@ class VerifyCsrfToken extends BaseVerifier
      *
      * @var array
      */
-    protected $except = [
-        'auth-bridge/*',
-    ];
+    protected $except = [];
 }
