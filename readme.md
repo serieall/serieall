@@ -57,3 +57,6 @@ You can run unit tests with this command:
 ```bash
 make tests
 ```
+
+
+mariabackup --backup --user=root --password=sp1derC0ch0n57 --target-dir=/data/backup/preupgrade_backup
