@@ -137,6 +137,11 @@ Route::get('planning', 'PlanningController@index')->name('planning.index');
 Route::get('classements', 'RankingController@index')->name('ranking.index');
 
 /*
+    Association part
+ */
+Route::get('association', 'AssociationController@index')->name('association.index');
+
+/*
     Partie administration protégée par le middleware Admin (obligation d'être admin pour accéder aux routes)
 */
 Route::group(['middleware' => 'basemanager'], function () {

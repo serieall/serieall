@@ -105,6 +105,12 @@ class ComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\NavActiveClassementComposer'
         );
 
+        // NavActive = association
+        View::composer(
+            ['association/*'],
+            'App\Http\ViewComposers\NavActiveAssociationComposer'
+        );
+
         // FICHES
         // FicheActive = home
         View::composer(
