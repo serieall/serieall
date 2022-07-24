@@ -352,6 +352,7 @@
  FOOTER
  */
 #footer {
+  margin-top:81px;
   background: #213d64;
   padding: 4em 0 4em 0;
   width: 100%;
@@ -416,7 +417,7 @@
   .ui.secondary.pointing.menu .item {
     color: #1B1C1D;
     margin: 2px 0 0;
-    height: 50px;
+    height: 100%;
     text-align: center; }
   .ui.secondary.pointing.menu img {
     margin: 2px 10px 2px; }
@@ -1386,10 +1387,10 @@ hr.home.divider {
 .ui.feed > .event > .content .extra.images img {
   width: 35px !important; }
 
-#association_participate {
-  background-color: #213d64 !important; }
-
 .hide {
   display: none !important; }
 
+iframe.association {
+  margin-top: 30px;
+}
 /*# sourceMappingURL=style.css.map */

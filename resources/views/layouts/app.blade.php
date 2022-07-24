@@ -51,6 +51,13 @@
             <i class="trophy icon"></i>
             Classements
         </a>
+        <a href="{{ route('association.index') }}" class="item
+            @if(isset($navActive) && $navActive === 'association')
+                active
+            @endif">
+            <i class="trophy icon"></i>
+            Association
+        </a>
         <a href="{{ config('app.forum_url') }}" class="item
             @if(isset($navActive) && $navActive === 'forum')
                 active
@@ -109,24 +116,6 @@
             </div>
         @endif
     </div>
-    <div class="pushable">
-        @include('cookieConsent::index')
-        <div id="association_participate" class="ui inline cookie nag">
-        <span class="title">
-            <p>Salut ! Bienvenue sur Série-All. :) <br />
-                Série-All est un site associatif qui a besoin du soutien de ses membres pour continuer à exister. Les adhésions 2020 à l'association (montant libre) sont ouvertes !<br/>
-            </p>
-            <div class="ui button click_participate">
-                Non, merci
-            </div>
-            <a href="https://serieall.fr/article/association-serie-all-ouverture-des-adhesions-2020-3q2bx5e89ac6ace8941.08080961">
-                <div class="ui positive button click_participate">
-                    On explique tout ici !
-                </div>
-            </a>
-        </span>
-        <i class="close icon click_postpone"></i>
-    </div>
         <div class="ui tablet only mobile only grid header">
             <div class="ui secondary pointing fluid menu">
                 <a class="item sidebarIcon"><i class="big sidebar icon"></i>Menu</a>
@@ -167,6 +156,12 @@
                     active
                 @endif">
                 Classements
+            </a>
+            <a href="{{ route('association.index') }}" class="b-darkBlueSA t-white item
+                @if(isset($navActive) && $navActive === 'association')
+                    active
+                @endif">
+                Association
             </a>
             <div class="right secondary pointing stackable menu">
                 <div class="item ui scrolling search dropdown showDropdown">
