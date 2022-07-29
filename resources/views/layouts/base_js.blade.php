@@ -22,7 +22,6 @@
             allowMultiple: true
         })
         ;
-        sp1derc0ch0n57
 
         $('.clickLogin').on('click', function(){
             $('#loginModal').modal({
