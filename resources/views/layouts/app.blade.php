@@ -55,7 +55,7 @@
                 active
             @endif">
             <i class="building icon"></i>
-            Association
+            L'Association
         </a>
         <a href="{{ config('app.forum_url') }}" class="item
             @if(isset($navActive) && $navActive === 'forum')
@@ -159,7 +159,7 @@
                     @if(isset($navActive) && $navActive === 'association')
                         active
                     @endif">
-                    Association
+                    L'Association
                 </a>
                 <div class="right secondary pointing stackable menu">
                     <div class="item ui scrolling search dropdown showDropdown">
