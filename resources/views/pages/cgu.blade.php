@@ -13,11 +13,11 @@
             <p>
                 Le site web Série-All, accessible au domaine serieall.fr ainsi qu'aux sous-domaines affiliés, est édité
                 par l’Association Série-All, soumise à la loi du 1er juillet 1901 et au décret du 16 août 1901,
-                déclaration au Journal Officiel du 18 mars 2017 n°2371.
+                déclaration au Journal Officiel du 18 mars 2017 n°2371.<br />
 
-                <span class="t-bold">Directeur de la publication</span>: M. Quentin FUSEAU, Président de l’association
-                <span class="t-bold">Siège social</span> : Mairie de Bièvre, Place de la Mairie, 91570 Bièvres
-                <span class="t-bold">Email</span> : association.serieall@gmail.com
+                <span class="t-bold">Directrice de la publication</span>: Mme Ophélie JOST, Présidente de l’association. <br/>
+                <span class="t-bold">Siège social</span> : 28 rue des Maraîchers, 54140 JARVILLE LA MALGRANGE.<br />
+                <span class="t-bold">Email</span> : association.serieall@gmail.com<br />
             </p>
 
             <h3>Hébergeur</h3>
@@ -60,7 +60,8 @@
                 aussitôt sur simple demande par mail (voir page contact).
 
                 Les données textuelles présentes sur les fiches séries (noms des épisodes, résumés, etc.) peuvent être
-                issues de la base de données <a href="http://thetvdb.com/">TheTVDB.com</a> sous licence
+                issues de la base de données <a href="http://thetvdb.com/">TheTVDB.com</a> ou
+                <a href="https://www.themoviedb.org/">TMDB</a> sous licence
                 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>, ou de l'un des membres du
                 site. Le cas échéant, et sauf mention contraire, le contenu concerné fait l'objet d'une protection par
                 le Code de la propriété intellectuelle et plus particulièrement par le droit d'auteur. L'Utilisateur
