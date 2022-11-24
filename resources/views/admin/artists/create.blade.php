@@ -88,10 +88,8 @@
                 $(this).parents('.div-artist').remove();
                 $(this).find(".artist_name-input").attr( "name", 'artists[' + index + '][name]');
                 $(this).find(".artist_role-input").attr( "name", 'artists[' + index + '[role]');
-                $(this).find(".artist_role-input").attr( "name", 'artists[' + index + '[image]');
                 $(this).find(".artist_name-input").attr( "id", 'artists.' + index + '.name');
                 $(this).find(".artist_role-input").attr( "id", 'artists.' + index + '.role');
-                $(this).find(".artist_role-input").attr( "id", 'artists.' + index + '.image');
             });
 
             // Ajouter un acteur
@@ -121,12 +119,6 @@
                         + '<i class="remove icon"></i>'
                         + '</button>'
                         + '<div class="three fields">'
-
-                        + '<div class="field">'
-                        + '<label for="image">Photo de l\'acteur</label>'
-                        + '<input id="artists.'+ artist_number +'.image" name="artists[' + artist_number + '][image]" type="file">'
-                        + '<div class="ui red hidden message"></div>'
-                        + '</div>'
 
                         + '<div class="field">'
                         + '<label>Nom de l\'acteur</label>'
