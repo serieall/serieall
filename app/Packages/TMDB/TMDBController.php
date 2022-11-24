@@ -140,7 +140,7 @@ class TMDBController
                 'name_fr' => $TMDBShowFR['name'],
                 'synopsis' => $TMDBShowEN['overview'],
                 'synopsis_fr' => $TMDBShowFR['overview'],
-                'format' => $TMDBShowEN['episode_run_time'][0],
+                'format' => $TMDBShowEN['episode_run_time'][0] ?? 0,
                 'annee' => date_format(date_create($TMDBShowEN['first_air_date']), 'Y'),
                 'encours' => $TMDBShowEN['in_production'] ? 1 : 0,
                 'diffusion_us' => $TMDBShowEN['first_air_date'],

@@ -92,18 +92,4 @@
                 <br />
             @endforeach
     </div>
-    <div class="ui segment" id="ListActors">
-        <h1>Acteur(s)</h1>
-        <div class="ui stackable grid">
-            @foreach($showInfo['show']->actors as $actor)
-                <div class="ui center aligned four wide column">
-                    <img class=" ui tiny image" src="{!! ActorPicture($actor->artist_url) !!}" alt="Photo de l'acteur/actrice"/>
-
-                    <span class="t-bold">{{ $actor->name }}</span>
-                    <br />
-                    {{ $actor->role }}
-                </div>
-            @endforeach
-        </div>
-    </div>
 @endsection
