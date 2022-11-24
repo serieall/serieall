@@ -45,16 +45,6 @@
 
                     <div class="ui two fields">
                         <img class="ui small left floated image" src="{{ ActorPicture($artist->artist_url) }}" alt="Photo {{ $artist->name }}">
-                        <div class="ui field {{ $errors->has('image') ? ' error' : '' }}">
-                            <label for="image">Photo de l'acteur</label>
-                            <input id="image" name="image" type="file">
-
-                            @if ($errors->has('image'))
-                                <div class="ui red message">
-                                    <strong>{{ $errors->first('image') }}</strong>
-                                </div>
-                            @endif
-                        </div>
                         <div class="ui field {{ $errors->has('role') ? ' error' : '' }}">
                             <label for="role">Rôle</label>
                             <input id="role" name="role" value="{{ $artist->pivot['role'] }}">
