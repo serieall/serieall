@@ -25,7 +25,6 @@ start-db:
 	docker run \
 		--name serieall-mysql \
 		-p 3307:3306 \
-		-v /var/lib/mysql/serieall-dev:/var/lib/mysql \
 		-e MYSQL_DATABASE="serieall" \
 		-e MYSQL_ROOT_PASSWORD="serieall" \
 		-d mysql:5.7
