@@ -135,7 +135,7 @@ class TMDBController
         return new TMDBShow(
             new Show([
                 'tmdb_id' => $TMDBShowEN['id'],
-                'show_url' => Str::slug($TMDBShowEN['name']),
+                'show_url' => Str::slug($TMDBShowEN['name'] . "-" . $TMDBShowEN['id']),
                 'name' => $TMDBShowEN['name'],
                 'name_fr' => $TMDBShowFR['name'],
                 'synopsis' => $TMDBShowEN['overview'],
