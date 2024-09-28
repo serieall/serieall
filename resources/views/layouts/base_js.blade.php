@@ -1,5 +1,5 @@
 <script src="/js/libs/all_js.js"></script>
-<script src="//cdn.ckeditor.com/4.11.1/full/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.25.0/full/ckeditor.js"></script>
 <script src='/js/libs/TweenMax.min.js' ></script>
 <script src="/js/spoiler/spoiler.js" ></script>
 <script src="/js/libs/moment.min.js" ></script>
