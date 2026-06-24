@@ -16,7 +16,7 @@ class ActivationService
 {
     protected $mailer;
     protected $activationRepo;
-    private $resendAfter = 24;
+    private $resendAfter = 5;
 
     /**
      * ActivationService constructor.
@@ -75,6 +75,6 @@ class ActivationService
     {
         $activation = $this->activationRepo->getActivation($user);
 
-        return null === $activation || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
+        return null === $activation || strtotime($activation->created_at) + 60 * $this->resendAfter < time();
     }
 }
